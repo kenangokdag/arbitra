@@ -1,0 +1,40 @@
+{
+  "service": "anchor_finder_pipeline",
+  "captured_at": "2026-05-05T19:32:03.582180+00:00",
+  "input": {
+    "focuses": [
+      "ÇKKV ile yükseköğretim akreditasyon kriterlerinin ağırlıklandırılması",
+      "Akreditasyon süreçlerinde TOPSIS ve AHP karşılaştırması",
+      "MCDM yöntemleriyle kalite göstergesi sıralaması"
+    ],
+    "field": "Mühendislik"
+  },
+  "hyde_packet": {
+    "pseudo_paragraph": "Bu çalışma, yükseköğretim kurumlarında akreditasyon kriterlerinin ağırlıklandırılması ve kalite göstergelerinin sıralanması amacıyla Çok Kriterli Karar Verme (ÇKKV) yöntemlerinin uygulanmasını derinlemesine incelemektedir. Araştırma, özellikle TOPSIS ve Analitik Hiyerarşi Prosesi (AHP) gibi popüler ÇKKV tekniklerinin akreditasyon süreçlerindeki etkinliklerini ve karşılaştırmalı performanslarını değerlendirmeyi amaçlamaktadır. Elde edilecek bulgular, yükseköğretim kalitesinin sürekli iyileştirilmesi ve akreditasyon standartlarının belirlenmesinde bu yöntemlerin potansiyel katkılarını ortaya koymayı hedeflemektedir.",
+    "keywords": [
+      "ÇKKV",
+      "MCDM",
+      "TOPSIS",
+      "AHP",
+      "Akreditasyon",
+      "Yükseköğretim Kalitesi",
+      "Kalite Göstergeleri",
+      "Ağırlıklandırma"
+    ]
+  },
+  "pool_sizes": {
+    "vec": 80,
+    "lex": 0
+  },
+  "rrf_top": 50,
+  "enriched_after_suspicious_filter": 0,
+  "candidates": [],
+  "timings_ms": {
+    "hyde_ms": 11439.59070800338,
+    "fanout_ms": 9096.979999972973,
+    "enrich_ms": 605.7468330254778,
+    "total_ms": 21142.31754100183
+  },
+  "p95_target_ms": 8000,
+  "p95_pass": false
+}

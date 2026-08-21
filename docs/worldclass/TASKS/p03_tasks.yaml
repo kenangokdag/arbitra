@@ -1,0 +1,205 @@
+{
+  "phase": "P03",
+  "tasks": [
+    {
+      "id": "P03-T01_MANUSCRIPT_TYPE_CLASSIFIER",
+      "phase": "P03",
+      "priority": "P0",
+      "title": "Belge türü sınıflandırıcı: makale/bildiri/tez/proje",
+      "deps": [
+        "P02-T05_DEGRADED_MODE_AND_PROVENANCE_PIPELINE"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "api/services/review_orchestration.py",
+        "engine/ingestion/builder.py",
+        "tests/unit/test_review_orchestration.py"
+      ],
+      "steps": [
+        "DocumentType enum ekle: journal_article, conference_paper, thesis, grant_proposal, preprint, technical_report, unknown.",
+        "Classifier input: sections, title, abstract, headings, metadata, file hints.",
+        "Confidence ve rationale üret.",
+        "User override alanı ekle; model tahminini kullanıcı seçimiyle reconcile et."
+      ],
+      "tests": [
+        "fixtures: thesis detected",
+        "fixtures: grant detected",
+        "low confidence => ask/unknown behavior"
+      ],
+      "done_when": [
+        "Review job belge türünü confidence ile saklıyor ve rubrik seçimi buna bağlanıyor."
+      ],
+      "advance_when": "Unknown durumunda generic değil, safe minimal review akışı seçiliyorsa.",
+      "stop_if": [
+        "Belge türü yanlış olsa bile kullanıcı override edemiyorsa."
+      ]
+    },
+    {
+      "id": "P03-T02_STUDY_DESIGN_CLASSIFIER",
+      "phase": "P03",
+      "priority": "P0",
+      "title": "Çalışma türü sınıflandırıcı",
+      "deps": [
+        "P03-T01_MANUSCRIPT_TYPE_CLASSIFIER"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "api/services/review_orchestration.py",
+        "engine/checklist/*",
+        "tests/unit/test_review_orchestration.py"
+      ],
+      "steps": [
+        "StudyDesign enum ekle: qualitative, quantitative, mixed_methods, systematic_review, meta_analysis, scoping_review, theoretical, design_science, computational, dataset, software, replication, protocol, unknown.",
+        "Section cues ve method terms ile classifier yaz.",
+        "Confidence/rationale ve multi-label destekle.",
+        "Study design rubrik ve guideline selector’a input olsun."
+      ],
+      "tests": [
+        "qualitative fixture",
+        "systematic review fixture",
+        "mixed methods fixture",
+        "unknown/low confidence fixture"
+      ],
+      "done_when": [
+        "Aynı belge türü altında farklı çalışma türleri farklı review path’e gidiyor."
+      ],
+      "advance_when": "Qualitative ve quantitative en az iki fixture ile ayrışıyorsa.",
+      "stop_if": [
+        "Her dosya article+generic review’e düşüyorsa."
+      ]
+    },
+    {
+      "id": "P03-T03_RUBRIC_REGISTRY_AND_DIMENSION_SCHEMA",
+      "phase": "P03",
+      "priority": "P0",
+      "title": "RubricRegistry ve genişletilmiş akademik dimension schema",
+      "deps": [
+        "P03-T02_STUDY_DESIGN_CLASSIFIER"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "engine/checklist/makale_tr.json",
+        "engine/checklist/tez_tr.json",
+        "api/services/review_orchestration.py"
+      ],
+      "steps": [
+        "AcademicDimension enum/model tasarla: contribution, theory, literature, methods, data, analysis, claims, citation, guideline, ethics, reproducibility, writing, venue_fit.",
+        "RubricRegistry belge+study_type kombinasyonuna göre dimension weights döndürsün.",
+        "Her dimension severity/confidence/action_items/evidence_anchors taşısın.",
+        "Mevcut DimensionKey geriye uyumluluk adapter’ı yaz."
+      ],
+      "tests": [
+        "unit: article qualitative rubric selected",
+        "unit: thesis rubric selected",
+        "schema backwards compatibility test"
+      ],
+      "done_when": [
+        "ReviewReport generic DimensionScore yerine zengin academic dimension taşıyabiliyor."
+      ],
+      "advance_when": "Mevcut ReviewReportView yeni schema’yı en az degrade olmadan render ediyorsa.",
+      "stop_if": [
+        "Frontend/backend schema drift oluşuyorsa."
+      ]
+    },
+    {
+      "id": "P03-T04_QUALITATIVE_RIGOR_ENGINE",
+      "phase": "P03",
+      "priority": "P0",
+      "title": "Nitel araştırma hakemlik motoru",
+      "deps": [
+        "P03-T03_RUBRIC_REGISTRY_AND_DIMENSION_SCHEMA"
+      ],
+      "touchpoints": [
+        "api/services/review_orchestration.py",
+        "api/services/role_modules/reviewer_yontemci.py",
+        "engine/checklist/*",
+        "tests/unit/test_review_orchestration.py"
+      ],
+      "steps": [
+        "QualitativeRigorEngine oluştur.",
+        "Kontrol boyutları: paradigm, design fit, sampling, context, data collection, coding, theme development, quotes, reflexivity, trustworthiness, ethics, transferability, limitations.",
+        "Her boyut için evidence anchor ve action item üret.",
+        "Nitel çalışma tespitinde bu engine zorunlu çalışsın."
+      ],
+      "tests": [
+        "unit: missing reflexivity detected",
+        "unit: unsupported theme claim flagged",
+        "eval fixture qualitative report"
+      ],
+      "done_when": [
+        "Nitel çalışma raporu generic yöntem eleştirisi değil, nitel rigor boyutları içeriyor."
+      ],
+      "advance_when": "En az 3 nitel kırılma exact anchor ile raporlanıyorsa.",
+      "stop_if": [
+        "Nitel engine LLM text’ini schema’sız serbest bırakıyorsa."
+      ]
+    },
+    {
+      "id": "P03-T05_QUANTITATIVE_VALIDITY_ENGINE",
+      "phase": "P03",
+      "priority": "P0",
+      "title": "Nicel/istatistiksel geçerlilik motoru MVP",
+      "deps": [
+        "P03-T03_RUBRIC_REGISTRY_AND_DIMENSION_SCHEMA"
+      ],
+      "touchpoints": [
+        "engine/statcheck/multilingual.json",
+        "api/services/review_orchestration.py",
+        "api/models/review.py",
+        "tests/unit/test_review_eval.py"
+      ],
+      "steps": [
+        "QuantitativeValidityEngine oluştur veya mevcut statcheck’i genişlet.",
+        "p-value, CI, effect size, sample size, power, missing data, model assumptions, multiple comparisons, causal language kontrollerini schema’ya bağla.",
+        "Tablo/metin çelişkisi için MVP numeric extractor ekle.",
+        "Bulguları severity/confidence ile dön."
+      ],
+      "tests": [
+        "unit: causal wording in observational study flagged",
+        "unit: missing effect size warning",
+        "unit: p-value text pattern consistency"
+      ],
+      "done_when": [
+        "Nicel review yöntem/istatistik alanında uygulanabilir, anchor’lı riskler üretiyor."
+      ],
+      "advance_when": "High severity quantitative claims exact manuscript anchor taşıdığında.",
+      "stop_if": [
+        "Statistical finding confidence alanı yoksa."
+      ]
+    },
+    {
+      "id": "P03-T06_REPORTING_GUIDELINE_SELECTOR",
+      "phase": "P03",
+      "priority": "P1",
+      "title": "Reporting guideline selector ve checklist engine",
+      "deps": [
+        "P03-T04_QUALITATIVE_RIGOR_ENGINE",
+        "P03-T05_QUANTITATIVE_VALIDITY_ENGINE"
+      ],
+      "touchpoints": [
+        "engine/checklist/*",
+        "api/services/review_orchestration.py",
+        "api/models/review.py",
+        "web/src/components/review/ReviewReportView.tsx"
+      ],
+      "steps": [
+        "GuidelineProfile modeli oluştur: id, name, applies_to, checklist_items, severity, evidence_required.",
+        "StudyDesign’e göre PRISMA/STROBE/CONSORT/COREQ/SRQR-like/TRIPOD/STARD/SPIRIT/ARRIVE vb. registry yapısı kur.",
+        "MVP’de public checklist text kopyalamadan kendi compliance item schema’nı kullan.",
+        "Rapor içinde guideline compliance bölümü göster."
+      ],
+      "tests": [
+        "unit: systematic_review => PRISMA-like profile",
+        "unit: qualitative_interview => qualitative reporting profile",
+        "frontend guideline checklist render"
+      ],
+      "done_when": [
+        "Çalışma türüne göre guideline uyumu ayrı bölüm olarak raporlanıyor."
+      ],
+      "advance_when": "Guideline not applicable/unknown durumları doğru gösterildiğinde.",
+      "stop_if": [
+        "Guideline isimleri iddia edilip checklist maddeleri boş kalıyorsa."
+      ]
+    }
+  ]
+}

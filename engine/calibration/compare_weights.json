@@ -1,0 +1,21 @@
+{
+  "version": "v0_placeholder_2026-05-11",
+  "note": "F13-S11 4.4 Çalışma Karşılaştırma compound metrik default ağırlık ve formül parametreleri. RTF 4.4 §Plan-Detayı (1) Compound Formül Kalibrasyonu V1 zorunlu — 4.1 eşik notebook'una eklenir. Şu an RTF'deki ham formüller ve eşit ağırlık varsayılan.",
+  "axes": {
+    "risk":           {"formula": "(1 - depth_norm) * neighbor"},
+    "disruption":     {"formula": "avg(cd_5) cell papers"},
+    "virgin":         {"formula": "(1 - depth_norm) * (1 - avg(q_weak))"},
+    "sleeping_beauty":{"formula": "count(b > beauty_threshold) / count(*)"},
+    "publishability": {"formula": "fact_gap_matrix.publishability"}
+  },
+  "default_weights": {
+    "risk": 0.20,
+    "disruption": 0.20,
+    "virgin": 0.20,
+    "sleeping_beauty": 0.20,
+    "publishability": 0.20
+  },
+  "normalization": "min_max_clip_0_1",
+  "calibration_status": "pending_notebook",
+  "last_calibrated": null
+}

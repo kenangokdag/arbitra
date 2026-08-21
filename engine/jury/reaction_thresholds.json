@@ -1,0 +1,18 @@
+{
+  "version": "v0_placeholder_2026-05-11",
+  "note": "V1 placeholder eşikler. Pilot validated dataset (50-100 Q&A, Cohen κ ≥0.7) Omer tarafından sabaha sonra toplandığında ROC curve ile kalibre edilecek. Şu an heuristic + literature reasonable defaults.",
+  "weights": {
+    "evidence_coverage": 0.5,
+    "depth_score": 0.3,
+    "clarity_score": 0.2
+  },
+  "weighted_sum_thresholds": {
+    "satisfied_min": 0.65,
+    "probing_min": 0.35,
+    "dissatisfied_max": 0.35
+  },
+  "answer_timeout_default_seconds": 60,
+  "calibration_methodology": "pilot_50_100_qa_roc_curve",
+  "last_calibrated": null,
+  "calibration_status": "pending_pilot"
+}

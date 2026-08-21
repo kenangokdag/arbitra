@@ -1,0 +1,191 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 6.4 SAVUNMA \'97 DERG\uc0\u304  S\u304 M\'dcLASYONU\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Dergi hakemlik s\'fcreci sim\'fclasyonu \'97 3 persona (\uc0\u350 \'fcpheci / Sempatik / Y\'f6ntemci) paralel + hedef dergiye kalibre. Felsefemiz: hakem tek-tip de\u287 ildir; ger\'e7ek peer review'de farkl\u305  tonlu 3 hakem birden gelir. \u350 \'fcpheci her metodolojiye sald\u305 r\u305 r, Sempatik kabul eder ama k\'fc\'e7\'fck \u351 eyler ka\u351 \u305 r, Y\'f6ntemci sadece y\'f6ntem b\'f6l\'fcm\'fcn\'fc didikler. Stanford-style 3-persona; zincir derinlik hard-cap 2 (rakipler 5+ derinli\u287 e gidip kullan\u305 c\u305 y\u305  t\'fcketiyor \'97 biz iki zincir alt-soru ile durur). statcheck (Nuijten 2016) p-de\u287 er tutarl\u305 l\u305 k kontrol\'fc + dergi son 50 makale kabul/major/minor/red da\u287 \u305 l\u305 m\u305  bizim imzam\u305 z.\
+\
+AR\uc0\u350 \u304 V REFERANSI (2026-05-10): Bu sayfan\u305 n tasar\u305 m\u305  \'f6nceki \'e7al\u305 \u351 madan (Page_Design/Sayfa_Plani_v1/S_atolye_defense/p-12_hakem_simulasyonu.md) gelir; orada Stanford-tarz\u305  3-persona + statcheck + dergi-spesifik kalibrasyon detaylar\u305  yer al\u305 yor. Bu V2 sayfas\u305  o plan\u305 n felsefesini kanon kabul eder. KARAR (Omer 2026-05-10): \'d6nceki tasar\u305 mda \'f6nerilen yeni DB tablolar\u305  (mart_reviewer_persona_template / fact_journal_review_distribution / fact_paper_pvalue_extraction / revision_list) GEREK YOK \'97 yeni migration eklenmez. Persona \u351 ablonlar\u305  dosya-bazl\u305  (engine/personas/journal/), p-de\u287 er regex setleri TR + EN birle\u351 ik tek dosyada (engine/statcheck/multilingual.json), dergi review distribution top-50 manuel JSON + kmkarakaya HF runtime, persona/statcheck/revision \'e7\u305 kt\u305 lar\u305  mevcut defense_session.scan_results JSONB kolonu i\'e7inde saklan\u305 r.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: 6.1'deki manuscript_section (veya y\'fcklenen Word) inputtur; 3 LLM \'e7a\u287 r\u305 s\u305  paralel (\u350 \'fcpheci/Sempatik/Y\'f6ntemci persona prompt seed ile, asyncio.gather), her biri yap\u305 l\u305  ele\u351 tiri JSON d\'f6ner (questions[] her biri \{text, depth \u8712  \{1,2\}, follow_up?\}). E\u351 zamanl\u305 : regex p-de\u287 er \'e7\u305 kar\u305 m\u305  + scipy hesaplama (statcheck). E\u351 zamanl\u305 : hedef dergi (6.3'ten target_journal_id varsa) son 50 makale review distribution \'e7ekilir + kullan\u305 c\u305 n\u305 n metnine "muhtemel verdict" tahmini. Output: t\'fcm sinyaller defense_session.scan_results JSONB'ye yaz\u305 l\u305 r; kullan\u305 c\u305  her soruya kabul/red/erteleme cevap.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7larda (SciSpace/Consensus) ele\u351 tiri yok; ChatGPT generic ele\u351 tiri; Edanz/Enago insan-bazl\u305  + \'fccretli \'97 bu sayfa PaperMind imzas\u305  "3-persona paralel + statcheck + dergi kalibrasyonu" \'fc\'e7l\'fcs\'fc. T\'fcm dokunu\u351 lar V1 \'97 V2 yok. (1) Input kayna\u287 \u305  se\'e7ici (V1 \u10003 ): 2 mod \'97 manuscript_section (6.1'den dolu, default) veya Word y\'fckle (.docx parse). Felsefe: s\'fcre\'e7 b\'fct\'fcnl\'fc\u287 \'fc; \'f6\u287 renci persona. (2) 3 persona paralel hakem AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , ar\u351 iv kanon): \u350 \'fcpheci (border-top k\u305 rm\u305 z\u305  #dc2626) / Sempatik (ye\u351 il #10b981) / Y\'f6ntemci (mor #7c3aed). 3 s\'fctun yan yana, her s\'fctunda 4-7 madde. asyncio.gather paralel 3 Gemini Flash \'e7a\u287 r\u305 . Persona prompt_seed + question_focus + chain_max_depth=2 dosya-bazl\u305 : engine/personas/journal/\{skeptik,sempatik,yontemci\}.json (DB yok). Felsefe: hakem tek-tip de\u287 il; j\'fcri/hakem persona \'97 rakipte yok. (3) Zincir derinlik hard-cap 2 AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , ar\u351 iv kanon): her madde max 1 alt-soru ("\u8627  alt: ...") \'97 derinlik 2/2 etiketi italik gri. LLM prompt'ta explicit kural + post-process validation (depth > 2 \u8594  trim). Felsefe: rakipler t\'fcketici 5+ derinli\u287 e gidiyor \'97 biz durur; \'f6\u287 renci/dan\u305 \u351 man persona \'97 rakipte yok. (4) statcheck \'97 p-de\u287 er tutarl\u305 l\u305 k AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , ar\u351 iv kanon, Nuijten 2016): regex ile t(df)=val, p=val / F(df1,df2)=val, p / \u967 \'b2(df)=val, p / r=val, n=N \'e7\u305 kar; scipy.stats ile yeniden hesapla; |reported - computed| \u8804  0.005 \u8594  \u55357 \u57314  / \u8804  0.01 \u8594  \u55357 \u57313  yuvarlama / > 0.01 \u8594  \u55357 \u56628  decision-altering. Saya\'e7 \u351 eridi alt sol (sar\u305  bg). \'c7ok-dilli regex tek dosyada: engine/statcheck/multilingual.json \'97 TR ("p de\u287 eri", "ortalama") ve EN ("p value", "mean") varyantlar\u305  birle\u351 ik pattern listesi (DB tablo yok). Sonu\'e7lar defense_session.scan_results.statcheck JSONB i\'e7inde saklan\u305 r. Felsefe: objektif istatistik kalite kontrol; j\'fcri/hakem persona \'97 rakipte yok. (5) Dergi-spesifik kalibrasyon AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , ar\u351 iv kanon): 6.3'te se\'e7ilen target_journal_id (yoksa 6.2'deki field generic) \u8594  top-50 hedef dergi manuel k\'fcrasyon JSON dosyas\u305  (engine/journals/review_distribution.json) + kmkarakaya HF dergitarama runtime API \'fczerinden son 50 makale kabul/major/minor/red y\'fczdeleri + kullan\u305 c\u305  metnine "muhtemel verdict" tahmini. DB tablo yok \'97 JSON + runtime API. "Sleep Medicine: kabul %14 / major %62 / minor %18 / red %6 \u8594  tahmin: major revision (g\'fcven 0.71)". Mavi bg panel alt sa\u287 . Felsefe: dergi-spesifik ger\'e7ek\'e7ilik; j\'fcri/hakem persona \'97 rakipte yok. (6) Hal\'fcsinasyon korumas\u305  (V1 \u10003 , kan\u305 t-ba\u287 l\u305 ): hakem c\'fcmlede iddia ediyorsa ("Bu \'e7al\u305 \u351 mada power analysis eksik") \u8594  manuscript_section regex/cosine kontrol; ger\'e7ekten eksik mi (sentence-transformers cosine < 0.55 = eksik onay\u305 )? Yanl\u305 \u351  iddia varsa hakem yorumu gri/silik + "Do\u287 rulanamad\u305 " rozet. Felsefe: LLM ele\u351 tirisi de hal\'fcsinasyona a\'e7\u305 k \'97 koruyucu kap\u305 ; dan\u305 \u351 man/j\'fcri persona. (7) C\'fcmle-bazl\u305  ele\u351 tiri ankraj (V1 \u10003 , ek dokunu\u351 ): hakemlerin maddelerinde "sat\u305 r N'deki c\'fcmle" veya "Tablo 3'teki t-test" referans\u305  \u8594  metinde o c\'fcmle/tablo vurgulan\u305 r + t\u305 klan\u305 rsa scroll. Felsefe: yer-spesifik kalite kontrol; j\'fcri/hakem persona. (8) Ele\u351 tirilere kabul/red kayd\u305  (V1 \u10003 , ham vizyon): her madde i\'e7in \u10003  kabul / \u10007  red / \u9711  erteleme radyo. Kararlar defense_session.scan_results.revisions JSONB array i\'e7inde saklan\u305 r (yeni tablo yok). Felsefe: iteratif revize; \'f6\u287 renci/dan\u305 \u351 man persona. (9) "Tekrar sim\'fcle et" iteratif d\'f6ng\'fc (V1 \u10003 , ek dokunu\u351 ): kullan\u305 c\u305  5.3 veya 6.1'de d\'fczeltme yapt\u305 ktan sonra "de\u287 i\u351 en b\'f6l\'fcmler" rozet + buton (yeniden 3 persona paralel + statcheck). Manuscript hash de\u287 i\u351 tiyse cache invalidate. Felsefe: iteratif kalite; \'f6\u287 renci/dan\u305 \u351 man persona. (10) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): hakemler "\u350 u paper'\u305  kaynak olarak al\u305 n" derse \u8594  o paper havuzdan SQL ile \'e7ekilir (papers + fact_paper_id_card JOIN) + Standart Yay\u305 n Kart\u305  + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon: "+at\u305 f olarak ekle" \'97 5.4'te se\'e7ili stilde metne enjekte edilir + revision_list'e "\'f6neri kabul edildi" i\u351 aret. Felsefe: ke\u351 if \u8594  metne enjekte; \'f6\u287 renci persona. A\'c7IK SORULAR (ar\u351 ivden devam): (a) Dergi review distribution verisi public de\u287 il \'97 top-50 hedef dergi manuel k\'fcrasyon JSON + kmkarakaya HF runtime ile kar\u351 \u305 lan\u305 r (Omer karar\u305 : yeni DB tablo yok). (b) statcheck regex non-standard format ("p < .05", "p ns", "p = ns") + TR/EN locale (Omer karar\u305  2026-05-10): tek \'e7ok-dilli regex dosyas\u305  engine/statcheck/multilingual.json \'97 TR ve EN varyantlar\u305  birle\u351 ik pattern. (c) Persona prompt seed sabit metin \'97 A/B test V2'de de\u287 erlendirilir; V1'de sabit seed (engine/personas/journal/\{persona\}.json). (d) Zincir derinlik 2 hard-cap kan\u305 t \'97 ar\u351 ivde "rakipler 5+ derinli\u287 e gidip t\'fcketiyor" iddias\u305  kanon kabul. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase + ar\u351 iv (p-12_hakem_simulasyonu.md) do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 ; YEN\u304  DB MIGRATION YOK \'97 t\'fcm yap\u305 land\u305 rma dosya-bazl\u305  (engine/personas + engine/statcheck + engine/journals) ve mevcut defense_session.scan_results JSONB i\'e7inde saklan\u305 r.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Roller:\
+- Edit\'f6r\
+- Alan edit\'f6r\'fc\
+- Alan hakemi (2 ki\uc0\u351 i)\
+\
+\'c7al\uc0\u305 \u351 may\u305  ele\u351 tirecekler.\
+Burada metnin i\'e7inde olmas\uc0\u305  gerekenleri sorgulayacaklar.\
+\
+Veri kayna\uc0\u287 \u305 :\
+- Kullan\uc0\u305 c\u305  Word vermi\u351  ise \u8594  ona g\'f6re bir ak\u305 \u351  olacak\
+- De\uc0\u287 ilse \u8594  "Yay\u305 n \u304 \'e7eri\u287 i Doldurma" (6.1) k\u305 sm\u305 ndaki bilgilere g\'f6re yapacak\
+\
+Burada rakip analizleri yap\uc0\u305 lacak.\
+\
+NOT: Bu konuda daha \'f6nce eski \'e7al\uc0\u305 \u351 mada planlamam\u305 z vard\u305 .\
+Stanford gibi yapmak i\'e7in haz\uc0\u305 rlam\u305 \u351 t\u305 k. Onu kullanal\u305 m.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10, ar\u351 iv p-12 kanon kabul edildi; Omer karar\u305 : yeni DB yok, dosya-bazl\u305 ):\
+\
+(1) DOSYA-BAZLI YAPILANDIRMA (V1 zorunlu, DB yok):\
+    - engine/personas/journal/skeptik.json:\
+      \{ persona_key, display_name, prompt_seed, question_focus[], chain_max_depth: 2 \}\
+    - engine/personas/journal/sempatik.json (ayn\uc0\u305  schema)\
+    - engine/personas/journal/yontemci.json (ayn\uc0\u305  schema)\
+    - engine/statcheck/multilingual.json:\
+      \{ patterns: [\{ test_type, regex (TR+EN birle\uc0\u351 ik), groups \}], locale_synonyms \}\
+    - engine/journals/review_distribution.json:\
+      [\{ journal_id, issn, name, window_size: 50, accept_pct, major_pct, minor_pct, reject_pct,\
+         scope_keywords, source: 'manual'|'kmkarakaya_hf', refreshed_at \}]\
+      \uc0\u304 lk faz: top-50 hedef dergi manuel k\'fcrasyon\
+    - \'c7\uc0\u305 kt\u305 lar: defense_session.scan_results JSONB i\'e7inde:\
+      \{ reviewer_3persona: \{skeptik, sempatik, yontemci\},\
+        statcheck: \{ results[], summary \},\
+        journal_calibration: \{ distribution, prediction, confidence \},\
+        revisions: [\{ persona, question_index, decision, decided_at \}] \}\
+    - YEN\uc0\u304  DB MIGRATION YOK \'97 defense_session tablosu (Migration 0028) yeterli\
+\
+(2) PERSONA PROMPT SEED \uc0\u304 \'c7ER\u304 \u286 \u304  (V1 zorunlu, ~0.5 g\'fcn):\
+    - skeptik: "Sen titiz ve \uc0\u351 \'fcpheci bir hakemsin. Her metodolojiye sald\u305 r,\
+       \'f6rneklem b\'fcy\'fckl\'fc\uc0\u287 \'fc/g\'fc\'e7 analizi/validasyon eksikliklerini yakala.\
+       Limitations b\'f6l\'fcm\'fcn\'fc didikle. Max 2 derinlikte zincir soru."\
+    - sempatik: "Sen makaleyi kabul etmek isteyen ama kalite kontrol\'fc yapan\
+       bir hakemsin. \'d6nce g\'fc\'e7l\'fc yanlar\uc0\u305  say, sonra k\'fc\'e7\'fck (minor) d\'fczeltmeler \'f6ner.\
+       Yap\uc0\u305 c\u305  ton. Max 2 derinlik."\
+    - yontemci: "Sen istatistik ve metodoloji uzman\uc0\u305  bir hakemsin. SADECE\
+       y\'f6ntem b\'f6l\'fcm\'fcne odaklan: tasar\uc0\u305 m uygunlu\u287 u, eksik veri y\'f6ntemi,\
+       istatistik test se\'e7imi, model uygunlu\uc0\u287 u (CFI/RMSEA/\u967 \'b2). Max 2 derinlik."\
+    - Hard-cap 2: prompt'ta explicit kural + post-validation depth check\
+\
+(3) BACKEND \'97 3 persona hakem endpoint:\
+    - POST /api/defense/reviewer-3persona\
+    - Body: \{ project_id, defense_session_id, manuscript_text, target_journal_id? \}\
+    - Ad\uc0\u305 mlar:\
+      a) engine/personas/journal/\{skeptik,sempatik,yontemci\}.json y\'fckle\
+      b) 3 paralel Gemini Flash \'e7a\uc0\u287 r\u305  (asyncio.gather):\
+         * Her persona i\'e7in system_prompt = prompt_seed + question_focus\
+         * User prompt = manuscript_text + (varsa) target_journal scope\
+      c) Pydantic structured output: \{ questions: [\{text, depth, follow_up?\}] \}\
+      d) Post-validation: depth > 2 olan follow_up'lar\uc0\u305  trim\
+      e) defense_session.scan_results.reviewer_3persona UPDATE (JSONB merge)\
+    - Output: \{ skeptik, sempatik, yontemci, session_id \}\
+\
+(4) BACKEND \'97 statcheck endpoint:\
+    - POST /api/defense/statcheck\
+    - Body: \{ defense_session_id, manuscript_text \}\
+    - Ad\uc0\u305 mlar:\
+      a) engine/statcheck/multilingual.json \'97 TEK regex set load (TR + EN birle\uc0\u351 ik)\
+      b) Regex extract (\'e7ok-dilli pattern):\
+         * t-test: r"t\\s*\\((\\d+)\\)\\s*=\\s*([\\d.]+).*?p\\s*[=<]\\s*([\\d.]+)"\
+           (TR/EN ortak \'97 anahtar kelime "p" Latin, say\uc0\u305 lar n\'fcmerik)\
+         * F: r"F\\s*\\((\\d+),\\s*(\\d+)\\)\\s*=\\s*([\\d.]+).*?p\\s*[=<]\\s*([\\d.]+)"\
+         * \uc0\u967 \'b2: r"(?:\u967 \'b2|\u967 2|chi-?square|ki-?kare)\\s*\\((\\d+)\\)\\s*=\\s*([\\d.]+).*?p\\s*[=<]\\s*([\\d.]+)"\
+         * r: r"r\\s*=\\s*([\\d.]+),?\\s*n\\s*=\\s*(\\d+)"\
+         * Locale synonyms tek dosyada: ["p value", "p de\uc0\u287 eri", "p-de\u287 eri", "p < ", "p ns"]\
+      c) scipy.stats ile yeniden hesap:\
+         * t: 2 * (1 - t_dist.cdf(abs(t_stat), df))  # iki y\'f6nl\'fc\
+         * F: 1 - f_dist.cdf(F_stat, df1, df2)\
+         * \uc0\u967 \'b2: 1 - chi2_dist.cdf(chi2_stat, df)\
+         * r \uc0\u8594  t: t = r * sqrt((n-2)/(1-r\'b2)); df = n-2\
+      d) |reported - computed| \uc0\u8804  0.005 \u8594  \u55357 \u57314  / \u8804  0.01 \u8594  \u55357 \u57313  / > 0.01 \u8594  \u55357 \u56628 \
+      e) defense_session.scan_results.statcheck UPDATE (JSONB merge)\
+    - Output: \{ results[], summary: \{green, yellow, red\} \}\
+\
+(5) BACKEND \'97 dergi kalibrasyon endpoint:\
+    - GET /api/defense/journal-calibration?journal_id=\{id\}&manuscript_features=\{json\}\
+    - Ad\uc0\u305 mlar:\
+      a) engine/journals/review_distribution.json y\'fckle (top-50 manuel)\
+      b) target_journal_id orada yoksa \uc0\u8594  kmkarakaya HF dergitarama runtime API \'e7a\u287 r\u305 \
+         (Redis cache 24h)\
+      c) Manuscript features (sample_n, limitations_count, statcheck_red, fig_count) extraction\
+      d) prediction = features \'d7 accept/major/minor/reject distribution \uc0\u8594  en yak\u305 n band\
+      e) confidence = inverse of distance to band centroid\
+    - Cache: Redis defense:journal_cal:\{journal_id\} TTL=24h\
+    - Fallback: hi\'e7bir kaynakta yok \uc0\u8594  field_average dist (havuzdan field bazl\u305  ortalama)\
+    - YEN\uc0\u304  DB YOK \'97 JSON dosyas\u305  + runtime API kombinasyonu\
+\
+(6) DERG\uc0\u304  REVIEW DISTRIBUTION VER\u304  KAYNA\u286 I (V1 zorunlu, ~1 g\'fcn):\
+    - engine/journals/review_distribution.json:\
+      * Birinci faz manuel k\'fcrasyon top-50 hedef dergi (SJR Q1-Q2 + TR Dizin)\
+      * Refresh: 6 ayda bir manuel g\'fcncelleme\
+    - kmkarakaya HF dergitarama runtime API:\
+      * Manuel listede olmayan dergiler i\'e7in fallback\
+      * Cache 24h\
+    - Tahmini i\uc0\u351 : 1 g\'fcn (manuel top-50 JSON \'fcretimi)\
+\
+(7) FRONTEND:\
+    - \'dcstte dergi se\'e7ici (6.3 target_journal_id varsay\uc0\u305 lan + Q-band rozet)\
+    - 3 s\'fctun grid (\uc0\u350 \'fcpheci k\u305 rm\u305 z\u305  / Sempatik ye\u351 il / Y\'f6ntemci mor):\
+      * Her s\'fctun: 4-7 madde + zincir alt-soru italik gri "\uc0\u8627  alt: ... (derinlik 2/2)"\
+      * Her madde altta: \uc0\u10003  kabul / \u10007  red / \u9711  erteleme radyo\
+      * Hal\'fcsinasyon do\uc0\u287 rulanamad\u305  rozet (gri/silik)\
+    - Alt sol: statcheck \uc0\u351 eridi (sar\u305  bg)\
+      * "12 p \'b7 10 \uc0\u55357 \u57314  \'b7 2 \u55357 \u57313  \'b7 0 \u55357 \u56628 " saya\'e7\
+      * Detay t\uc0\u305 kla \u8594  tablo (location, test, reported, computed, status)\
+    - Alt sa\uc0\u287 : dergi kalibrasyon paneli (mavi bg)\
+      * "Sleep Medicine son 50: kabul %14 \'b7 major %62 \'b7 minor %18 \'b7 red %6"\
+      * "Tahmin: major revision (g\'fcven 0.71)"\
+    - \'dcst sa\uc0\u287 : "Tekrar sim\'fcle et" butonu (manuscript hash de\u287 i\u351 tiyse vurgulu)\
+    - Yan panel: hakem \'f6nerdi\uc0\u287 i paper'lar Standart Yay\u305 n Kart\u305  + "+at\u305 f ekle"\
+\
+(8) HAL\'dcSINASYON KONTROL\'dc (V1 zorunlu):\
+    - Her hakem maddesi i\'e7in: iddia regex \'e7\uc0\u305 kar ("X eksik", "Y yap\u305 lmam\u305 \u351 ")\
+    - manuscript_section'da o iddia ger\'e7ekten eksik mi?\
+      sentence-transformers cosine < 0.55 vs ilgili b\'f6l\'fcm = eksik onay\uc0\u305 \
+    - Yanl\uc0\u305 \u351  iddia \u8594  "Do\u287 rulanamad\u305 " gri rozet + opacity 0.5\
+\
+(9) LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - 3 persona Flash paralel: 3 \'d7 (~3K input + ~500 output) = ~$0.0015 per sim\'fclasyon\
+    - statcheck: scipy lokal, \'fccretsiz\
+    - Dergi kalibrasyon: SQL + cache, \'fccretsiz\
+    - Hal\'fcsinasyon kontrol\'fc: sentence-transformers lokal, \'fccretsiz\
+    - Sayfa ba\uc0\u351 \u305 na ortalama: ~$0.002 (Flash 3 \'e7a\u287 r\u305 )\
+    - "Tekrar sim\'fcle et" yeniden hesap\
+\
+(10) PERFORMANS HEDEF\uc0\u304 :\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351 : < 800ms (manuscript fetch + persona templates)\
+    - 3 persona paralel: ~3-4s (asyncio.gather, en yava\uc0\u351  \'e7a\u287 r\u305  = total)\
+    - statcheck: ~500ms (regex + scipy compute)\
+    - Dergi kalibrasyon: < 100ms (cache hit)\
+    - T\'fcm sinyaller: ~3-4s toplam\
+\
+KULLANIM:\
+    - Sayfa varsay\uc0\u305 lan: 6.2'den defense_session + 6.3'ten target_journal_id\
+    - 6.1 manuscript_section gate a\'e7\uc0\u305 k de\u287 ilse uyar\u305  + 6.1'e d\'f6n\
+    - Hal\'fcsinasyon do\uc0\u287 rulanamayan maddeler dimmed; kullan\u305 c\u305  yine kabul/red yapabilir\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351 ta otomatik 3 persona + statcheck + kalibrasyon paralel\
+    - project_progress.step_id='6.4' completed olunca olgunluk y\'fczdesi y\'fckselir\
+}

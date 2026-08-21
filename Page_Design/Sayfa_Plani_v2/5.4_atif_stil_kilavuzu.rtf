@@ -1,0 +1,146 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 5.4 YAZIM VE HAZIRLIK \'97 ATIF VE ST\uc0\u304 L KILAVUZU\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: At\uc0\u305 f \'f6neri + stil uyumu + hal\'fcsinasyon kontrol\'fc. Felsefemiz: hi\'e7bir at\u305 f icat edilemez; SQL ile bizim havuz sorgulan\u305 r, LLM sadece var olan paper'\u305  \'f6nerir. Eski/yeni at\u305 f dengesi dan\u305 \u351 man g\'f6z\'fcyle: literat\'fcr sadece son 5 y\u305 l ise eski temellere d\'f6n, sadece eski ise g\'fcncel referanslar ekle. Faithfulness skoru her c\'fcmle i\'e7in. Bu, rakiplerden (\'f6zellikle ChatGPT-bazl\u305 ) net ayr\u305 m\u305 m\u305 z.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: Kullan\u305 c\u305  kelime/iddia girer; SQL ile dim_term + papers ile e\u351 le\u351 en paper listesi gelir. Stil e\u351 le\u351 mesi (APA/Vancouver/IEEE/Chicago) se\'e7ilir; \'e7\u305 kt\u305  format d\'fczenlenir. 3 ek kontrol: (a) konu-uyum (TF-IDF e\u351 ik alt\u305  = "kontrol"), (b) literat\'fcr yokluk ("bu yok" uyar\u305 s\u305 ), (c) eski-yeni denge (y\u305 l histogram\u305 ). Hal\'fcsinasyon kontrol\'fc: LLM \'e7\u305 kt\u305 s\u305  paper_ids \u8838  corpus_paper_ids \'97 ihlal = retry.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7larda (Zotero/Mendeley/EndNote) at\u305 f y\'f6netimi var ama hal\'fcsinasyon kontrol\'fc yok; ChatGPT-bazl\u305  yazarl\u305 k asistanlar\u305  DOI uydurur \'97 bu sayfa PaperMind imzas\u305  "at\u305 f g\'fcvenlik kap\u305 s\u305 ". (1) Kelime/iddia giri\u351 i \u8594  havuz arama (V1 \u10003 , ham vizyon): kullan\u305 c\u305  kelime/iddia yazar; PostgreSQL full-text search (papers.title + abstract) + dim_term JOIN. Top 20 paper. Bedava SQL. Felsefe: kan\u305 t-ba\u287 l\u305  kaynak; dan\u305 \u351 man/\'f6\u287 renci persona. (2) Stil d\'f6n\'fc\u351 t\'fcr\'fcc\'fc (V1 \u10003 , ham vizyon): APA/Vancouver/IEEE/Chicago/MLA \'97 paper meta's\u305 ndan (author/year/journal/doi) per-stil format. Statik template + Python format string. Bedava (LLM gerekmez). Felsefe: dergi-\'f6zel uyum; j\'fcri/hakem persona. (3) Hal\'fcsinasyon kap\u305 s\u305  AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , kan\u305 t-ba\u287 l\u305 ): kullan\u305 c\u305  metninde at\u305 f varsa (regex: 'Author, Year' veya 'Author et al., Year') \u8594  SQL kontrol \'97 havuzda yoksa k\u305 rm\u305 z\u305  bayrak "hal\'fcsine at\u305 f \'97 bu paper havuzumuzda yok". Per-c\'fcmle scan. Felsefe: PaperMind imzas\u305  \'97 rakipte yok; dan\u305 \u351 man/j\'fcri persona. (4) Konu-uyum kontrol\'fc (V1 \u10003 , ham vizyon): kullan\u305 c\u305 n\u305 n yazd\u305 \u287 \u305  c\'fcmle + \'f6nerilen paper title/abstract \u8594  cosine similarity (sentence-transformers paraphrase-multilingual-MiniLM, lokal, \'fccretsiz). E\u351 ik 0.55 alt\u305 nda "kontrol \'97 bu paper konuyla zay\u305 f e\u351 le\u351 me" sar\u305  bayrak. Felsefe: alakas\u305 zl\u305 k kap\u305 s\u305 ; j\'fcri persona. (5) Literat\'fcr yokluk uyar\u305 s\u305  (V1 \u10003 , ham vizyon): SQL sonucu 0 paper \u8594  "Bu konuda havuzumuzda kaynak yok \'97 konu \'e7ok ni\u351  veya farkl\u305  kelimeyle aray\u305 n" + synonym list (engine/dictionary \'fczerinden). Felsefe: d\'fcr\'fcst yokluk bildirimi; dan\u305 \u351 man persona. (6) Eski-yeni at\u305 f dengesi (V1 \u10003 , ham vizyon): kullan\u305 c\u305 n\u305 n at\u305 f listesinin y\u305 l histogram\u305  + "%80'i 2018 \'f6ncesi \'97 son 5 y\u305 lda 12 paper var, eklemek ister misiniz?" \'f6neri butonu. fact_paper_id_card.year bedava SQL aggregation. Felsefe: literat\'fcr g\'fcncelli\u287 i; j\'fcri/hakem persona. (7) C\'fcmle baz\u305 nda at\u305 f do\u287 rulama tablosu (V1 \u10003 , kan\u305 t-ba\u287 l\u305 ): metin y\'fcklenince her c\'fcmlenin at\u305 f durumu 4 s\u305 n\u305 f \'97 \u10003  var ve do\u287 ru / \u9888  var ama konu-uyum zay\u305 f / \u10007  hal\'fcsine / \u9711  at\u305 f yok ama gerek var (c\'fcmle iddia i\'e7eriyor + at\u305 f yok = LLM 1 c\'fcmle de\u287 erlendirme). 4 renk i\u351 aretli liste. Felsefe: c\'fcmle gran\'fclarite kalite kontrol; dan\u305 \u351 man/j\'fcri persona. (8) Stil tutarl\u305 l\u305 k denetimi AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , bedava): kullan\u305 c\u305  APA se\'e7tiyse + metinde Vancouver stilinde (k\'f6\u351 eli parantez say\u305 ) at\u305 f bulursa \u8594  "Stil kar\u305 \u351 \u305 kl\u305 \u287 \u305 : 5 at\u305 f APA de\u287 il" uyar\u305  + tek t\u305 kla normalize. Regex per-stil pattern. Felsefe: tutarl\u305 l\u305 k; j\'fcri/hakem persona \'97 Manuscripts/Word'de yok. (9) Bibliyografya \'e7\u305 kt\u305  (V1 \u10003 , bedava): kullan\u305 c\u305  kabul etti\u287 i at\u305 flar\u305 n full bibliyografya listesi se\'e7ili stilde \'97 copy-to-clipboard veya .bib export (BibTeX standard\u305 ). Felsefe: yay\u305 n haz\u305 r \'e7\u305 kt\u305 ; \'f6\u287 renci/dan\u305 \u351 man persona. (10) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): havuzdan d\'f6nen her paper D6 Lite + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon: "+at\u305 f ekle" butonu \'97 kart \'fcst\'fcnde, t\u305 klan\u305 nca se\'e7ili stilde at\u305 f metne enjekte edilir + bibliyografya listesine eklenir. Felsefe: ke\u351 if \u8594  metne enjekte tek-t\u305 k; \'f6\u287 renci persona. V2'ye ertelenenler: Otomatik at\u305 f \'f6nerisi c\'fcmle baz\u305 nda inline (kullan\u305 c\u305  yazarken an\u305 nda \'f6neri pop-up) \'97 UX karma\u351 a, V1'de manuel arama yeter. DOI cross-check via CrossRef API (havuz d\u305 \u351 \u305  paper'lar\u305  do\u287 rula) \'97 V1'de bizim havuz yeter. Citation graph g\'f6rselle\u351 tirme (at\u305 f zincirleri) \'97 5.1 panelinde mini referans listesi yeterli, dedicated visualization V2. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase'de do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 ; LLM kullan\u305 m\u305  yaln\u305 z "at\u305 f yok ama gerek var" de\u287 erlendirmesi (1 Flash \'e7a\u287 r\u305  per metin) \'97 at\u305 f \'fcretimi LLM'e b\u305 rak\u305 lmaz, SQL deterministic.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+At\uc0\u305 f \'f6nerisi:\
+- Kullan\uc0\u305 c\u305  bir kelime girer\
+- SQL i\'e7inde o ifadelerin ge\'e7ti\uc0\u287 i yerleri sorgular\u305 z\
+- "Bunlara bakabilirsiniz" diyece\uc0\u287 iz\
+\
+Stil uyumu:\
+- Kullan\uc0\u305 c\u305 n\u305 n verdi\u287 i at\u305 flar\u305  belirledi\u287 i stile uyumlu halde verece\u287 iz\
+\
+Eski/yeni at\uc0\u305 f dengesi:\
+- At\uc0\u305 flar eski ise yeni-eski at\u305 f dengesini \'f6nerece\u287 iz\
+\
+Alakas\uc0\u305 zl\u305 k kontrol\'fc:\
+- Konu ile alakas\uc0\u305 z ise "kontrol" diyece\u287 iz\
+\
+Yokluk kontrol\'fc:\
+- Literat\'fcrde hi\'e7 yoksa "bu yok" deyip uyaraca\uc0\u287 \u305 z\
+\
+Hal\'fcsinasyon kontrol\'fc yapaca\uc0\u287 \u305 z.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10):\
+\
+(1) BACKEND \'97 at\uc0\u305 f arama endpoint:\
+    - GET /api/workshop/citation-search?project_id=\{id\}&query=\{text\}&lang=\{tr|en|id\}\
+    - Ad\uc0\u305 mlar:\
+      a) PostgreSQL full-text search:\
+         tsvector(papers.title || ' ' || papers.abstract) @@ plainto_tsquery(query)\
+      b) project_pool \uc0\u8745  (proje havuzu \'f6ncelikli)\
+      c) ORDER BY ts_rank DESC, total_cites DESC LIMIT 20\
+      d) Her paper i\'e7in fact_paper_id_card meta (author + year + venue + doi) JOIN\
+      e) Sonu\'e7 bo\uc0\u351  ise synonym list: engine/dictionary/\{lang\}.json'dan synonym \u8594  tekrar dene\
+    - Output: \{ papers[], synonyms_tried[], total_results \}\
+\
+(2) BACKEND \'97 at\uc0\u305 f do\u287 rulama endpoint (hal\'fcsinasyon kap\u305 s\u305 ):\
+    - POST /api/workshop/citation-verify\
+    - Body: \{ project_id, document_text, citation_style \}\
+    - Ad\uc0\u305 mlar:\
+      a) Regex ile at\uc0\u305 flar\u305  \'e7\u305 kar: '(Author(?:\\s+et al\\.?)?,?\\s+\\d\{4\})'\
+      b) Her at\uc0\u305 f i\'e7in papers tablosunda fuzzy match (author + year):\
+         WHERE LOWER(authors) LIKE '%author%' AND year = matched_year\
+      c) Bulunamayanlar \uc0\u8594  'hallucinated' flag\
+      d) Her c\'fcmle i\'e7in sentence-transformers cosine vs paper.title+abstract:\
+         < 0.55 \uc0\u8594  'topic_mismatch' flag\
+      e) C\'fcmlede iddia var + at\uc0\u305 f yok kontrol\'fc:\
+         Gemini Flash 1 \'e7a\uc0\u287 r\u305  (t\'fcm metin batch): c\'fcmle ba\u351 \u305 na 'needs_citation' bool\
+    - Output: \{ sentences: [\{ text, citations[], status: ok|hallucinated|topic_mismatch|needs_citation \}] \}\
+\
+(3) BACKEND \'97 stil d\'f6n\'fc\uc0\u351 t\'fcr\'fcc\'fc:\
+    - GET /api/workshop/format-citation?paper_id=\{id\}&style=\{apa|vancouver|ieee|chicago|mla\}\
+    - Ad\uc0\u305 mlar:\
+      a) papers + dim_author + dim_venue JOIN\
+      b) Per-stil template uygulama (engine/citation/\{style\}.py):\
+         * APA: "Author, A. A., & Author, B. B. (Year). Title. Journal, Volume(Issue), Pages."\
+         * Vancouver: "1. Author AA, Author BB. Title. Journal. Year;Volume(Issue):Pages."\
+         * IEEE: "[1] A. A. Author and B. B. Author, 'Title,' Journal, vol. X, no. Y, pp. Z, Year."\
+         * Chicago: "Author, First. Year. 'Title.' Journal Volume(Issue): Pages."\
+         * MLA: "Author, First. 'Title.' Journal, vol. X, no. Y, Year, pp. Z-Z."\
+      c) DOI link otomatik eklenir\
+    - Output: \{ formatted_citation, bibtex_entry \}\
+\
+(4) BACKEND \'97 eski-yeni denge analizi:\
+    - POST /api/workshop/citation-balance\
+    - Body: \{ project_id, citation_paper_ids[] \}\
+    - Ad\uc0\u305 mlar:\
+      a) papers.year histogram\uc0\u305  (5-y\u305 l bin'leri)\
+      b) Eski (>5y\uc0\u305 l) / yeni (<5y\u305 l) oran\
+      c) E\uc0\u287 er eski oran > %70 \u8594  project_pool'dan son 5 y\u305 l\u305 n top-10 \'f6nerisi\
+      d) E\uc0\u287 er yeni oran > %90 \u8594  "klasik temeller" listesi (en y\'fcksek total_cites + en eski 10 paper)\
+    - Output: \{ distribution: \{old_pct, recent_pct\}, suggested_papers[], balance_advice \}\
+\
+(5) FRONTEND:\
+    - Sol panel: arama kutusu + dil dropdown\
+      * Arama sonucu Standart Yay\uc0\u305 n Kart\u305  (Daralt\u305 lm\u305 \u351 ) listesi + "+at\u305 f ekle" buton\
+    - Orta panel: metin edit\'f6r\'fc (kullan\uc0\u305 c\u305  metni paste eder)\
+      * C\'fcmle baz\uc0\u305 nda do\u287 rulama tablosu altta a\'e7\u305 l\u305 r (4 renk: ye\u351 il/sar\u305 /k\u305 rm\u305 z\u305 /gri)\
+      * Hal\'fcsine at\uc0\u305 f \'fczerine hover \u8594  "Bu paper havuzumuzda yok" tooltip + "kald\u305 r" buton\
+    - Sa\uc0\u287  panel:\
+      * Stil dropdown (APA/Vancouver/IEEE/Chicago/MLA)\
+      * Bibliyografya listesi (kabul edilen at\uc0\u305 flar, se\'e7ili stilde)\
+      * "Copy to clipboard" + ".bib export" butonlar\uc0\u305 \
+    - \'dcstte: stil tutarl\uc0\u305 l\u305 k g\'f6stergesi (ye\u351 il \u10003  tutarl\u305  / sar\u305  uyar\u305  X at\u305 f farkl\u305  stilde)\
+    - Altta: y\uc0\u305 l histogram\u305  + eski-yeni denge \'f6nerisi paneli\
+\
+(6) ENGINE/DICTIONARY \'97 synonym destekleri (V1 zorunlu, k\'fc\'e7\'fck ek):\
+    - engine/dictionary/tr.json + en.json + id.json\
+    - Her dilde 200-500 akademik synonym pair\
+    - Tahmini i\uc0\u351 : 0.5 g\'fcn\
+\
+(7) LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - At\uc0\u305 f arama: SQL only, \'fccretsiz\
+    - Hal\'fcsinasyon kontrol\'fc: SQL + sentence-transformers lokal, \'fccretsiz\
+    - "needs_citation" de\uc0\u287 erlendirme: 1 Flash \'e7a\u287 r\u305  per metin (~3K input + ~200 output) = ~$0.0003\
+    - Sayfa ba\uc0\u351 \u305 na ortalama: ~$0.001\
+\
+(8) PERFORMANS HEDEF\uc0\u304 :\
+    - At\uc0\u305 f arama: < 300ms (FTS index'li)\
+    - C\'fcmle baz\uc0\u305 nda do\u287 rulama (1000 kelime metin): ~1.5s\
+    - Stil d\'f6n\'fc\uc0\u351 t\'fcr\'fcc\'fc: < 50ms (lokal template)\
+    - Bibliyografya export: < 100ms\
+\
+KULLANIM:\
+    - 5.3'ten gelen metin otomatik dolu (varsa)\
+    - Stil dropdown varsay\uc0\u305 lan: user_profiles.preferred_citation_style\
+    - "+at\uc0\u305 f ekle" t\u305 klan\u305 nca metne cursor pozisyonuna enjekte edilir + sa\u287  bibliyografyaya eklenir\
+    - project_progress.step_id='5.4' completed olunca olgunluk y\'fczdesi y\'fckselir; "Dan\uc0\u305 \u351 mana Gitmeden Evvel" butonu uygunsa aktifle\u351 ir\
+}

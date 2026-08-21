@@ -1,0 +1,19 @@
+# Ortak build context (repo kökü). api kök Dockerfile; web RAILWAY_DOCKERFILE_PATH=web/Dockerfile.
+# web/ DIŞLANMAZ — web imajı ona ihtiyaç duyar. Sadece artefakt/ağırlıklar dışlanır.
+.git
+.venv
+.env
+.env.*
+**/node_modules
+**/.next
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.ruff_cache
+.mypy_cache
+.DS_Store
+docs
+Page_Design
+reference
+eval
+tests

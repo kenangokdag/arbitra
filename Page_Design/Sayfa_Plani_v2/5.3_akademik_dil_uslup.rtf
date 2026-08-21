@@ -1,0 +1,159 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 5.3 YAZIM VE HAZIRLIK \'97 AKADEM\uc0\u304 K D\u304 L VE \'dcSLUP\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Kullan\uc0\u305 c\u305 n\u305 n kaba metnini do\u287 al akademik dile d\'f6n\'fc\u351 t\'fcrmek \'97 TR/EN/ID dilbilgisi ve \'fcslup kurallar\u305  farkl\u305 d\u305 r, her birinde yerli gibi yaz. Felsefemiz: "akademik dil" bilgisayar \'e7evirisi de\u287 il, dil-i\'e7i parafrasing; "-mektedir / -maktad\u305 r" gibi pasif yap\u305 , kesin ifadelerden ka\'e7\u305 nma, devrik d\'fczeltme \'97 T\'fcrk\'e7e i\'e7in bunlar; \u304 ngilizce i\'e7in passive voice + hedge terms; Bahasa i\'e7in kendi normlar\u305 . r-ESTRA \'fcst\'fcnden kullan\u305 c\u305  stilini \'f6\u287 renir, sessiz adapte olur.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: Kullan\u305 c\u305  Word veya plain text y\'fckler; sistem dil tespit eder; per-dil rule set (engine/style/) + LLM (Gemini Pro) parafrasing yapar. 30-g\'fcnl\'fck user_silent_learning_log kullan\u305 c\u305 n\u305 n kabul/red kararlar\u305 ndan user_style_profile'\u305  g\'fcnceller (sessiz \'f6\u287 renme); zamanla LLM kullan\u305 c\u305 n\u305 n \'fcslup tercihine yakla\u351 \u305 r. Output: yan yana orijinal vs akademik metin; c\'fcmle baz\u305 nda kabul/red.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7larda (Grammarly/QuillBot/DeepL Write) genel dilbilgisi d\'fczeltme var ama akademik \'fcslup + dil-bazl\u305  kural seti + sessiz kullan\u305 c\u305  stili \'f6\u287 renmesi yok \'97 bu sayfa PaperMind imzas\u305  "akademik dil cilas\u305 ". (1) Dosya y\'fckleme + dil tespit (V1 \u10003 , ham vizyon): Word (.docx) ve plain text upload; otomatik TR/EN/ID tespit (langdetect k\'fct\'fcphane, \'fccretsiz). Felsefe: 3 dil yerli deste\u287 i; \'f6\u287 renci persona \'97 rakipte TR/ID akademik \'f6zel kural yok. (2) Yan yana kar\u351 \u305 la\u351 t\u305 rma edit\'f6r\'fc (V1 \u10003 , ana plan): sol kolon orijinal, sa\u287  kolon akademik versiyon; c\'fcmle baz\u305 nda diff vurgu (renkli underline). Monaco Editor veya CodeMirror. Felsefe: \u351 effafl\u305 k; dan\u305 \u351 man/\'f6\u287 renci persona. (3) C\'fcmle baz\u305 nda kabul/red (V1 \u10003 , ham vizyon): her c\'fcmle i\'e7in \u10003 /\u10007  butonu \'97 \u10007  orijinal kal\u305 r, \u10003  akademik versiyon yaz\u305 l\u305 r. Her karar user_silent_learning_log'a kaydedilir. Felsefe: kullan\u305 c\u305  kontrol\'fc + sessiz \'f6\u287 renme veri toplama; \'f6\u287 renci/dan\u305 \u351 man persona. (4) Per-dil kural seti AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , bedava i\'e7erik): engine/style/tr.json, en.json, id.json \'97 her dilde dilbilgisi kurallar\u305  + \'fcslup normlar\u305  + LLM prompt template. T\'fcrk\'e7e i\'e7in kesin ifade listesi ("kesinlikle", "asla", "her zaman" \u8594  hedge); \u304 ngilizce i\'e7in passive voice tetikleyici + hedge terms; Bahasa kendi normlar\u305 . Felsefe: dil-spesifik akademik norm; \'f6\u287 renci/j\'fcri persona \'97 rakipte yok. (5) r-ESTRA sessiz \'f6\u287 renme \u304 MZA DOKUNU\u350  (V1 \u10003 , ham vizyon): 30-g\'fcnl\'fck user_silent_learning_log her kabul/red karar\u305 n\u305  saklar; offline batch job (gece cron) user_style_profile JSON'unu g\'fcnceller. Kullan\u305 c\u305  bilin\'e7li ayar yapmaz \'97 sistem sessizce uyum sa\u287 lar. Migration 0026 \'97 yeni tablolar (user_silent_learning_log + user_style_profile). Felsefe: PaperMind imzas\u305  \'97 ki\u351 iselle\u351 en dil; dan\u305 \u351 man persona \'97 rakipte yok. (6) Stil profili g\'f6r\'fcn\'fcm\'fc (V1 \u10003 , bedava UI): "Sizin stiliniz" k\'fc\'e7\'fck panel \'97 sistemin \'f6\u287 rendi\u287 i tercihler ("k\u305 sa c\'fcmleler tercih ediyor", "passive voice %80 kullan\u305 yor", "hedge terms s\u305 kl\u305 \u287 \u305  orta"). Reset butonu. Felsefe: \u351 effafl\u305 k + kontrol; \'f6\u287 renci/dan\u305 \u351 man persona. (7) B\'f6l\'fcm-ba\u287 lam\u305  uyumu (V1 \u10003 , bedava): IMRaD b\'f6l\'fcm bilgisi (5.2'den) \u8594  o b\'f6l\'fcme uygun stil \'97 giri\u351  anlat\u305 mc\u305  + hedge, metod pasif + kesin, bulgular tarafs\u305 z, tart\u305 \u351 ma yorumlay\u305 c\u305  + dengeli iddia. Felsefe: b\'f6l\'fcm-spesifik akademik norm; j\'fcri/hakem persona. (8) LLM parafrasing motor (V1 \u10003 , ham vizyon): Gemini Pro (Flash de\u287 il, kalite kritik). Per-dil prompt template + user_style_profile inject. ~$0.03-0.05 per 5K kelime. Felsefe: kalite kap\u305 s\u305 . (9) Hal\'fcsinasyon korumas\u305  \'97 anlam koruma kontrol\'fc (V1 \u10003 , kan\u305 t-ba\u287 l\u305 ): LLM yaln\u305 z \'fcslup de\u287 i\u351 tirir \'97 anlam kaymas\u305  yasak. Sentence-transformers cosine similarity (lokal, \'fccretsiz, paraphrase-multilingual-MiniLM-L12-v2) \u8594  her c\'fcmle \'e7ifti i\'e7in cosine; e\u351 ik 0.85 alt\u305 nda k\u305 rm\u305 z\u305  bayrak + "manuel kontrol gerek". Felsefe: hal\'fcsinasyon kap\u305 s\u305 ; dan\u305 \u351 man/j\'fcri persona. (10) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): bu sayfada paper listesi yok \'97 yaln\u305 z metin edit\'f6r\'fc; ancak kullan\u305 c\u305  bir c\'fcmlede "at\u305 f eklemek istiyorum" derse 4. butondan tetiklenir \u8594  3.4 sentez paper havuzundan \'f6neri Standart Yay\u305 n Kart\u305  yan panel a\'e7\u305 l\u305 r. Felsefe: yaz\u305 m s\u305 ras\u305 nda kaynak ak\u305 \u351 \u305 ; \'f6\u287 renci persona. V2'ye ertelenenler: Ses-bazl\u305  stil \'f6nerisi (kullan\u305 c\u305  sesli okudu\u287 unda ak\u305 c\u305 l\u305 k de\u287 erlendirme) \'97 multimodal V2. Kelime d\'fczeyinde alternatif kelime \'f6nerisi (synonym tooltip) \'97 UX karma\u351 a. Formality slider (resmi/yar\u305 -resmi/g\'fcndelik) \'97 V1'de stil profili yeterli kontrol. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase'de do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 ; Migration 0026 (user_silent_learning_log + user_style_profile) toplu plan oturumuna eklendi.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Kullan\uc0\u305 c\u305  ister Word d\'f6k\'fcman\u305  olarak isterse haz\u305 r metin olarak\
+getirdi\uc0\u287 i makale yaz\u305 s\u305 n\u305  akademik bir dil bilgisi haline getirece\u287 iz.\
+\
+Do\uc0\u287 al akademik T\'fcrk\'e7esi kullan\u305 lacak:\
+- Mesela "-mektedir / -maktad\uc0\u305 r" gibi 3. \u351 ah\u305 s dilleri\
+- Kesin ifadelerden ka\'e7\uc0\u305 n\u305 lacak\
+- Do\uc0\u287 al bir makale yaz\u305 m d\'fczeni olacak\
+\
+Bu T\'fcrk\'e7e i\'e7in b\'f6yle.\
+\uc0\u304 ngilizce ve Bahasa i\'e7in de kendi dillerinde ayn\u305  \u351 ekilde \'e7al\u305 \u351 acak.\
+\
+Her dil LLM ile parafrasing.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10):\
+\
+(1) MIGRATION 0026 \'97 sessiz \'f6\uc0\u287 renme tablolar\u305  (V1 zorunlu, toplu plan oturumu):\
+    - user_silent_learning_log:\
+      * id (uuid)\
+      * user_id (FK)\
+      * session_id (parafrasing oturumu)\
+      * sentence_original (TEXT)\
+      * sentence_proposed (TEXT)\
+      * decision (ENUM: 'accept' / 'reject' / 'edit')\
+      * decision_at (TIMESTAMP)\
+      * lang (CHAR(2): tr/en/id)\
+      * section_context (ENUM: intro/methods/findings/discussion/null)\
+      * meta (JSONB \'97 diff \'f6zellikleri: passive\uc0\u8594 active, hedge eklendi, k\u305 salt\u305 ld\u305  vb.)\
+      * RLS: user_id own only\
+      * 30-g\'fcnl\'fck TTL (eski kay\uc0\u305 tlar otomatik silinir)\
+    - user_style_profile:\
+      * user_id (PK)\
+      * lang (PK ile beraber composite)\
+      * profile (JSONB):\
+        - avg_sentence_length\
+        - passive_voice_pref (0-1)\
+        - hedge_term_freq ('low' / 'medium' / 'high')\
+        - rejected_patterns (array)\
+        - accepted_patterns (array)\
+      * updated_at\
+      * sample_size (ka\'e7 karara dayan\uc0\u305 yor \'97 g\'fcven g\'f6stergesi)\
+    - Tahmini i\uc0\u351 : 0.5 g\'fcn (toplu migration oturumunda 0021-0026 ile birlikte)\
+\
+(2) ENGINE/STYLE \'97 per-dil kural setleri (V1 zorunlu):\
+    - engine/style/tr.json:\
+      * forbidden_definitive: ['kesinlikle', 'asla', 'her zaman', 'mutlaka', '\uc0\u351 \'fcphesiz']\
+      * preferred_passive_endings: ['-mektedir', '-maktad\uc0\u305 r', '-\u305 lmaktad\u305 r', '-ilmektedir']\
+      * hedge_alternatives: \{ 'g\'f6steriyor': 'g\'f6stermektedir', 'olur': 'olabilmektedir' \}\
+      * llm_prompt_template: "..."\
+    - engine/style/en.json:\
+      * hedge_terms: ['may', 'might', 'could', 'suggests', 'indicates']\
+      * forbidden_definitive: ['always', 'never', 'definitely', 'certainly']\
+      * passive_voice_triggers: ['it has been shown', 'is observed', 'was conducted']\
+      * llm_prompt_template: "..."\
+    - engine/style/id.json (Bahasa Indonesia):\
+      * akademik form normlar\uc0\u305 \
+      * llm_prompt_template\
+    - Tahmini i\uc0\u351 : 1 g\'fcn (linguist + yaz\u305 l\u305 mc\u305 ; her dil i\'e7in 50-100 kural)\
+\
+(3) BACKEND \'97 parafrasing endpoint:\
+    - POST /api/workshop/paraphrase\
+    - Body: \{ project_id, document_text, lang (auto|tr|en|id), section_context \}\
+    - Ad\uc0\u305 mlar:\
+      a) Dil tespit (langdetect, fallback to user pref)\
+      b) C\'fcmle ayr\uc0\u305 \u351 t\u305 rma (sentence-tokenizer per dil)\
+      c) user_style_profile \'e7ek (lang spesifik)\
+      d) engine/style/\{lang\}.json kurallar\uc0\u305  y\'fckle\
+      e) Gemini Pro batch \'e7a\uc0\u287 r\u305  (t\'fcm c\'fcmleler tek prompt i\'e7inde, structured output):\
+         * Input: original sentences[] + style rules + user profile + section context\
+         * Output: \{ sentences: [\{ original, proposed, change_type, confidence \}] \}\
+      f) Anlam koruma kontrol\'fc (sentence-transformers paraphrase-multilingual-MiniLM-L12-v2):\
+         * cosine_similarity(original, proposed) per c\'fcmle\
+         * < 0.85 \uc0\u8594  flag 'meaning_drift_risk' = true\
+      g) Diff render data: word-level diff (diff-match-patch)\
+    - Output: \{ sentences[], meaning_drift_count, total_sentences, profile_applied \}\
+\
+(4) BACKEND \'97 kabul/red endpoint:\
+    - POST /api/workshop/paraphrase-decision\
+    - Body: \{ session_id, sentence_index, decision (accept|reject|edit), edited_text? \}\
+    - Ad\uc0\u305 mlar:\
+      a) user_silent_learning_log INSERT\
+      b) Pattern extraction (offline batch'e b\uc0\u305 rak\u305 l\u305 r, runtime \'fccretsiz)\
+    - Output: \{ logged: true \}\
+\
+(5) OFFLINE BATCH \'97 stil profili g\'fcncelleme (V1 zorunlu, gece cron):\
+    - Cron: g\'fcnl\'fck 03:00\
+    - Ad\uc0\u305 mlar:\
+      a) Son 30 g\'fcnde de\uc0\u287 i\u351 en user_silent_learning_log'lar\
+      b) Her user \'d7 lang i\'e7in pattern aggregation\
+      c) user_style_profile UPDATE\
+    - Tahmini i\uc0\u351 : 0.5 g\'fcn (cron + pattern analyzer)\
+\
+(6) FRONTEND:\
+    - \'dcst: dosya y\'fckleme (.docx + .txt) + dil dropdown (auto|tr|en|id)\
+    - Yan yana edit\'f6r (sol orijinal / sa\uc0\u287  akademik):\
+      * C\'fcmle baz\uc0\u305 nda kart, \'fcstte \u10003 /\u10007 /edit butonlar\u305 \
+      * Anlam kaymas\uc0\u305  bayrakl\u305  c\'fcmleler k\u305 rm\u305 z\u305  kenar\
+      * Hover \uc0\u8594  diff detay tooltip (hangi kelime de\u287 i\u351 ti)\
+    - Sa\uc0\u287  panel: "Sizin stiliniz" stil profili (sample_size + 5 ana metrik + reset)\
+    - Alt: "T\'fcm de\uc0\u287 i\u351 iklikleri kabul et" + "De\u287 i\u351 tirilmi\u351  metni indir" (.docx + .txt)\
+    - At\uc0\u305 f eklemek istenen c\'fcmlede "At\u305 f \'f6ner" butonu \u8594  3.4 paper havuzundan Standart Yay\u305 n Kart\u305  paneli\
+\
+(7) LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - 5K kelime metin: Pro \'e7a\uc0\u287 r\u305  ~10K input + ~10K output = ~$0.04-0.05 per parafrasing\
+    - Sentence-transformers cosine: lokal, \'fccretsiz\
+    - Kullan\uc0\u305 c\u305  ba\u351 \u305 na ortalama: 1-2 parafrasing/oturum = ~$0.05-0.10\
+\
+(8) PERFORMANS HEDEF\uc0\u304 :\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351 : < 400ms (bo\u351  edit\'f6r; dosya y\'fckleme manuel)\
+    - Parafrasing Pro \'e7a\uc0\u287 r\u305  (5K kelime): ~5-8s (modal'da progress bar)\
+    - Anlam koruma cosine batch: ~1s/100 c\'fcmle (lokal sentence-transformers)\
+    - C\'fcmle kabul/red kay\uc0\u305 t: < 100ms (asenkron INSERT)\
+\
+KULLANIM:\
+    - 5.2'den se\'e7ilen IMRaD b\'f6l\'fcm\'fc context olarak gelir\
+    - \uc0\u304 lk kullan\u305 mda user_style_profile bo\u351 ; default kurallar\u305  kullan\u305 r\
+    - 5-10 oturum sonras\uc0\u305  kullan\u305 c\u305  stilini \'f6\u287 renmeye ba\u351 lar (sample_size > 50)\
+    - project_progress.step_id='5.3' completed olunca olgunluk y\'fczdesi y\'fckselir\
+}

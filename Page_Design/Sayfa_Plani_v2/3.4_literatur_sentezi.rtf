@@ -1,0 +1,92 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 3.4 \uc0\u304 NCELEME \'97 L\u304 TERAT\'dcR SENTEZ\u304 \
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Kullan\uc0\u305 c\u305  k\'fct\'fcphanesinden 25 makale se\'e7er, LLM bunlardan akademik formatl\u305  literat\'fcr \'f6zeti \'fcretir. Felsefemiz: vitrin'deki Q1 sentezinin (~400 kelime, K=12) at\'f6lye versiyonu \'97 burada kullan\u305 c\u305  kontrol\'fcnde, daha derin (25 paper), faithfulness skoru g\'f6r\'fcn\'fcr ve at\u305 fs\u305 z iddia tespit edilir. Rakip Elicit literat\'fcr \'f6zeti \'fcretiyor ama faithfulness verifier yok; bizim imza: Pydantic structured output + cite-verifier + sycophant kilidi (DM-049).\
+\
+Nas\uc0\u305 l Yap\u305 lacak: Kullan\u305 c\u305  project_pool'dan en fazla 25 paper se\'e7er; backend Gemini 2.5 Pro (Flash de\u287 il \'97 at\'f6lye = imza) ile RAG-based sentez \'fcretir. Her c\'fcmle \u8805  1 paper'a dayan\u305 r; c\'fcmle sonunda inline [NN] rank-tag; faithfulness skoru < e\u351 ik = k\u305 rm\u305 z\u305  bayrak ve retry. Output: tek b\'fct\'fcn metin (~600-800 kelime, kullan\u305 c\u305  dilinde) + numaral\u305  references + faithfulness rozetleri.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7lar (Elicit, SciSpace) sentez \'fcretir ama "her c\'fcmle savunulabilir mi?" sorusuna cevap vermez; rakipler faithfulness denetimini eksik b\u305 rak\u305 r. Bizim ay\u305 rt edici dokunu\u351 umuz c\'fcmle-bazl\u305  kan\u305 t + d\'fcr\'fcst eksik bayra\u287 \u305  + kullan\u305 c\u305  taraf\u305 ndan y\'f6n verilebilir sentez. (1) Vitrin Q1 ile s\'fcreklilik notu (V1 \u10003 , bedava UI): \'fcstte k\'fc\'e7\'fck sat\u305 r \'97 "Vitrin'de 12 paper \'d7 ~400 kelime g\'f6rd\'fcn. Burada senin se\'e7iminle 25 paper \'d7 ~600-800 kelime". Felsefe: kullan\u305 c\u305  s\'fcreklilik hisseder; \'f6\u287 renci personas\u305 . (2) C\'fcmle-bazl\u305  faithfulness rozeti (V1 \u10003 , AYIRT ED\u304 C\u304  DOKUNU\u350 ): her c\'fcmlenin sonunda ye\u351 il/sar\u305 /k\u305 rm\u305 z\u305  k\'fc\'e7\'fck badge \'97 y\'fcksek/orta/d\'fc\u351 \'fck faithfulness. T\u305 klan\u305 nca destekleyen paper(lar) + abstract pasaj\u305  a\'e7\u305 l\u305 r (kaynak g\'f6sterilir). Felsefe: j\'fcri/hakem personas\u305  \'97 savunmada her iddia kan\u305 tla destekli; rakipte yok. (3) At\u305 fs\u305 z iddia k\u305 rm\u305 z\u305  bayrak (V1 \u10003 ): cite-verifier hi\'e7 kaynak bulamad\u305 \u287 \u305  c\'fcmleleri k\u305 rm\u305 z\u305  alt\u305  \'e7izgili + "kan\u305 t eksik" etiketi. Felsefe: d\'fcr\'fcst; LLM uydurursa kullan\u305 c\u305  g\'f6r\'fcr \'97 sycophant disiplini. (4) Toplam faithfulness rakam\u305  (V1 \u10003 , bedava): \'fcstte tek rakam \'97 "Sentez g\'fcveni: 87/100" gibi. Felsefe: sayfa kabar\u305 k olmas\u305 n; tek-rakam \'f6zet. (5) Eksik tema uyar\u305 s\u305  (V1 \u10003 , bedava SQL): se\'e7ilen 25 paper'\u305 n tema da\u287 \u305 l\u305 m\u305  tek temada >%80 ise "Sentez tek temaya dayan\u305 yor, \'e7e\u351 itlilik d\'fc\u351 \'fck" uyar\u305 ; fact_paper_topic ile anl\u305 k hesap (Excel envanter kan\u305 t A). Felsefe: j\'fcri/hakem personas\u305  \'97 tek-tema yan\u305 lsamas\u305 ndan korunma. (6) Yeniden \'fcretim modu (V1 \u10003 , kullan\u305 c\u305  kontrol\'fc): "Daha ele\u351 tirel" / "Daha tarafs\u305 z" / "Daha k\u305 sa" 3 toggle \'97 ayn\u305  25 paper, farkl\u305  promptla yeniden sentez. Felsefe: at\'f6lye = kullan\u305 c\u305 n\u305 n elinde; dan\u305 \u351 man personas\u305 . (7) \'c7\u305 kt\u305  dili otomatik (V1 \u10003 , bedava): user_profiles.preferred_lang \'fcst\'fcnden TR/EN otomatik (Excel envanter kan\u305 t A \'97 user_profiles tablosu Supabase'de aktif). Vitrin Q1 ile tutarl\u305 . (8) Standart Yay\u305 n Kart\u305  \'97 paper se\'e7im a\u351 amas\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): kullan\u305 c\u305  25 paper'\u305  k\'fct\'fcphaneden se\'e7erken liste D6 Lite + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon: kart \'fcst\'fcnde checkbox "sentezde yer alacak" + ESTRA q_weak quartile rozeti; d\'fc\u351 \'fck kalite paper se\'e7ilirse soluk uyar\u305  "kalite d\'fc\u351 \'fck, dahil etmek istedi\u287 ine emin misin?". (9) Referans listesi (V1 \u10003 ): sentez sonunda numaral\u305  referans listesi; her referans t\u305 klanabilir \u8594  Standart Yay\u305 n Kart\u305  (Daralt\u305 lm\u305 \u351 ) a\'e7\u305 l\u305 r. V2'ye ertelenenler: C\'fcmle-bazl\u305  d\'fczenleme modu (kaynak de\u287 i\u351 tir / sil / yeniden yaz mikro-aksiyonlar\u305 ) \'97 UX karma\u351 as\u305 . Multi-paragraf sentez (giri\u351 /y\'f6ntem/sonu\'e7 ayr\u305  b\'f6l\'fcmler) \'97 V2 belge format\u305 , ham vizyon "tek metin" diyor. PDF export \'97 5.2-5.3 yay\u305 n taslak sayfas\u305 nda mant\u305 ksal yerinde. DO\u286 RULANMASI GEREKEN VARSAYIMLAR (Omer do\u287 rulayacak): Pydantic structured output sentez endpoint'inde aktif m\u305 ; cite-verifier vitrin Q1'de uygulan\u305 yor mu (uygulanm\u305 yorsa bu sayfa i\'e7in yeni i\u351  kalemi). Hi\'e7bir alanda hal\'fcsinasyon yok \'97 Gemini 2.5 Pro at\'f6lye / Flash vitrin ayr\u305 m\u305  CLAUDE.md kan\u305 t A; user_profiles.preferred_lang ve fact_paper_topic Excel envanterde aktif.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Buras\uc0\u305  kullan\u305 c\u305 n\u305 n k\'fct\'fcphanesine ekledi\u287 i makalelerin\
+literat\'fcr \'f6zetini ald\uc0\u305 \u287 \u305  yer olacak.\
+\
+En fazla 25 makale i\'e7erisinde LLM ile literat\'fcr \'f6zeti alabilecek.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10, plan oturumunda detaylanacak):\
+\
+(1) FRONTEND \'97 paper se\'e7im a\uc0\u351 amas\u305 :\
+    - project_pool listesi Standart Yay\uc0\u305 n Kart\u305  (Daralt\u305 lm\u305 \u351  s\'fcr\'fcm) ile g\'f6sterilir\
+    - Her kart \'fcst\'fcnde checkbox + ESTRA q_weak quartile rozeti\
+    - \'dcstte saya\'e7 "Se\'e7ili: 12/25"\
+    - 25 s\uc0\u305 n\u305 r\u305  a\u351 \u305 l\u305 rsa buton disabled\
+    - D\'fc\uc0\u351 \'fck kalite paper se\'e7ildi\u287 inde soluk uyar\u305  (engel de\u287 il, bilin\'e7lendirme)\
+\
+(2) BACKEND \'97 sentez endpoint:\
+    - POST /api/workshop/synthesize\
+    - Body: \{ project_id, paper_ids[\uc0\u8804 25], mode: "neutral"|"critical"|"short", lang? \}\
+    - Ad\uc0\u305 mlar:\
+      a) Se\'e7ili paper'lar\uc0\u305 n abstract + key sentence'lar\u305 n\u305  pull (fact_paper_id_card.abstract_short)\
+      b) Tema da\uc0\u287 \u305 l\u305 m\u305  kontrol\'fc (fact_paper_topic ile dominant tema >%80 m\u305 ?) \u8594  uyar\u305  flag\
+      c) Gemini 2.5 Pro \'e7a\uc0\u287 r\u305 s\u305  (Pydantic structured output): \{sentences: [\{text, citations[paper_id], faithfulness_score\}]\}\
+      d) Cite-verifier her c\'fcmle i\'e7in kaynak abstract pasaj\uc0\u305  do\u287 rulamas\u305 \
+      e) Faithfulness < e\uc0\u351 ik (\'f6rn. 0.6) c\'fcmleler k\u305 rm\u305 z\u305  bayrak; t\'fcm sentez ortalamas\u305  skor\
+      f) Numaral\uc0\u305  references list \'fcretimi\
+    - Output: \{ synthesis_text, sentences[], references[], total_faithfulness, theme_warning? \}\
+\
+(3) FRONTEND \'97 sentez render:\
+    - C\'fcmle-bazl\uc0\u305  render; her c\'fcmle sonunda faithfulness badge (ye\u351 il/sar\u305 /k\u305 rm\u305 z\u305 )\
+    - T\uc0\u305 klan\u305 nca side panel: destekleyen paper'lar + abstract pasaj\u305  highlight\
+    - \'dcstte total_faithfulness "Sentez g\'fcveni: NN/100"\
+    - Yeniden \'fcretim toggle (mode de\uc0\u287 i\u351 tir \u8594  endpoint'i tekrar \'e7a\u287 \u305 r)\
+    - Referans listesi \uc0\u8594  kart geni\u351 lemesi\
+\
+(4) DO\uc0\u286 RULAMA \u304 HT\u304 YACI (Omer kontrol edecek):\
+    - Mevcut /api/workshop/synthesize veya benzeri endpoint var m\uc0\u305 ?\
+    - Vitrin Q1'de Pydantic structured output ve cite-verifier aktif mi?\
+    - E\uc0\u287 er hay\u305 r: bu i\u351  2-3 g\'fcn ek backend (vitrin Q1 sentezini de g\'fcnceller)\
+    - E\uc0\u287 er evet: sadece at\'f6lye versiyonu (25 paper kontrol + c\'fcmle-bazl\u305  render UI) \'97 1-2 g\'fcn\
+\
+LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - 25 paper \'d7 ~500 token abstract = ~12K input token\
+    - Sentez prompt + sistem = ~3K input\
+    - Output ~1500 token (600-800 kelime)\
+    - Toplam ~16.5K input + 1.5K output tokens; Pro fiyatland\uc0\u305 rma ile ~$0.05-0.08 per sentez\
+    - Faithfulness verifier ek \'e7a\uc0\u287 r\u305  (c\'fcmle ba\u351 \u305 na lookup): ~25 c\'fcmle \'d7 ~300 token = ~7.5K \'97 Flash ile ~$0.001\
+    - Toplam tahmini ~$0.06-0.09 per sentez (kullan\uc0\u305 c\u305  ba\u351 \u305 na makul)\
+\
+KULLANIM KISITI:\
+    - Free tier: 1 sentez/g\'fcn (yeniden \'fcretim say\uc0\u305 lmaz)\
+    - Pro tier: s\uc0\u305 n\u305 rs\u305 z sentez (V2'de tier-ba\u287 \u305 ml\u305  dinamik kap\u305 )\
+}

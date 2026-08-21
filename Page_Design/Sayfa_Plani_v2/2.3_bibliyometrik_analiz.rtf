@@ -1,0 +1,222 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 2.3 KE\uc0\u350 \u304 F \'97 B\u304 BL\u304 YOMETR\u304 K ANAL\u304 Z\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: 500 makalelik kal\uc0\u305 c\u305  k\'fct\'fcphane elimizde; \u351 imdi say\u305 sal kan\u305 tla "alan nerede, kim bask\u305 n, nereye gidiyor?" diye sordu\u287 umuz yer. Felsefemiz: bibliyometri PaperMind'\u305 n as\u305 l yetkin oldu\u287 u alan \'97 top yazar/dergi/kurum/y\u305 l da\u287 \u305 l\u305 mlar\u305 , at\u305 f h\u305 z\u305 , Funk-Owen CD index \u9733  (y\u305 k\u305 c\u305 l\u305 k), Sleeping Beauty \u9670  (gecikmi\u351  ke\u351 if) gibi sinyaller hep \'f6nceden hesaplanm\u305 \u351  olarak gelir. Rakipler (SciSpace/Consensus) bibliyometriyi yok sayar; Scite at\u305 f ba\u287 lam veriyor ama da\u287 \u305 l\u305 m g\'f6stermiyor. Bizim havuz signals_13 ve fact_paper_velocity tablolar\u305  ile imzay\u305  burada g\'f6r\'fcn\'fcr k\u305 lar\u305 z.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: Sayfa sadece B\u304 Z\u304 M HAVUZ kullan\u305 r \'97 500 paper'\u305 n id'lerini fact_paper_id_card + dim_author + dim_journal + fact_paper_velocity tablolar\u305 na JOIN ederek top yazar (h-index), top dergi (SJR Q1-Q4), at\u305 f h\u305 z\u305  e\u287 risi, \u9733  y\u305 k\u305 c\u305 l\u305 k ve \u9670  Sleeping Beauty rozetlerini render ederiz. Hi\'e7 LLM \'e7a\u287 r\u305 s\u305  yok \'97 saf SQL aggregation; sayfa anl\u305 k (200ms hedef) a\'e7\u305 l\u305 r. G\'f6rselle\u351 tirme: bar chart (yazar/dergi/y\u305 l), histogram (at\u305 f ya\u351 \u305 ), badge listesi (\u9733 /\u9670  paper'lar t\u305 klanabilir).\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Bu sayfan\u305 n imzas\u305  "rakam\u305  yorumlamak". Klasik bibliyometri ara\'e7lar\u305  y\u305 \u287 \u305 n halinde grafik d\'f6ker; yorumlamay\u305  kullan\u305 c\u305 ya b\u305 rak\u305 r. Bizim ay\u305 rt edici dokunu\u351 umuz HER GRAF\u304 \u286 \u304 N ALTINDA 1-2 c\'fcmle Flash mikro-yorumu. \'d6rnek: "Yazar da\u287 \u305 l\u305 m\u305  dengeli, tek grup tekel kurmam\u305 \u351 " / "At\u305 f h\u305 z\u305  son 3 y\u305 l yava\u351 l\u305 yor, alan olgunla\u351 m\u305 \u351 ". Ana 6 grafi\u287 e (top yazar, top dergi, y\u305 l da\u287 \u305 l\u305 m\u305 , at\u305 f h\u305 z\u305 , at\u305 f ya\u351 \u305  histogram\u305 , citation burst) tek paralel batch ~6 Flash \'e7a\u287 r\u305 , toplam ~600ms; sayfa h\'e2l\'e2 h\u305 zl\u305 . Felsefe gerek\'e7esi: dan\u305 \u351 man personas\u305  \'97 dan\u305 \u351 man zaten yorum yapar, sessiz grafik g\'f6stermez. \u9733  Funk-Owen CD ve \u9670  Sleeping Beauty rozetleri bu sayfadan KALDIRILDI; 4.5 Akademik Etki E\u287 risi sayfas\u305 na ta\u351 \u305 nd\u305  (etki/at\u305 l\u305 m odakl\u305  sayfa daha yerinde, bibliyometri sayfas\u305  kabar\u305 k olmas\u305 n). \'dc\'e7 yeni i\'e7erik dokunu\u351 u, klasik bibliyometride standart olup envanterde olmayan bo\u351 luklar\u305  kapat\u305 r: (1) \u304 \u351 birli\u287 i zirvesi (runtime, ek tablo yok): 500 paper \'d7 papers.authors jsonb (db/migrations/0001_init_schema_v1.sql:43) Python pair count \u8594  en s\u305 k birlikte yazan top-5 yazar \'e7ifti k\'fc\'e7\'fck liste. Klasik bibliyometride co-authorship graf\u305  standart; tam graf g\'f6rselle\u351 tirme V2'ye, V1'de en \'fcstteki 5 tak\u305 m yeterli sinyal. Felsefe: "kim kiminle \'e7al\u305 \u351 \u305 yor?" sorusuna cevap \'97 \'f6\u287 renci/j\'fcri personas\u305 . (2) Citation burst (alan-bazl\u305 ): havuzun y\u305 ll\u305 k toplam at\u305 f hacmi histogram\u305  \'fcst\'fcnde slope spike tespiti (>2\u963  ani y\'fckseli\u351  y\u305 llar\u305  i\u351 aretlenir) \'97 "Alan 2019'da patlad\u305 , 2022 zirve". fact_paper_velocity zaten yeterli; tek SQL aggregation. Felsefe: \u9733  paper-bazl\u305  y\u305 k\u305 c\u305 l\u305 ktan farkl\u305  sinyal (alan-bazl\u305  patlama); j\'fcri/hakem personas\u305  \'97 savunmada "alan canl\u305  m\u305 ?" sorusuna direkt cevap. (3) At\u305 f yar\u305  \'f6mr\'fc (havuz ortalamas\u305 ): tek-rakam \'97 "Bu alanda at\u305 flar\u305 n yar\u305 s\u305  7.2 y\u305 lda al\u305 n\u305 yor" gibi. fact_paper_velocity \'fcst\'fcnden tek aggregation. H\u305 zl\u305  t\'fcketim (<5 y\u305 l) = trend alan; uzun (>15 y\u305 l) = klasik/teorik alan. Felsefe: tek-rakam g\'f6rseli kabar\u305 kl\u305 \u287 a yol a\'e7maz; alan profili dokunu\u351 u \'97 dan\u305 \u351 man personas\u305 . Standart Yay\u305 n Kart\u305  (Daralt\u305 lm\u305 \u351  s\'fcr\'fcm, D6 Lite): "Burst y\u305 llar\u305 nda en \'e7ok at\u305 f alan paper'lar" gibi t\u305 klanabilir paper listeleri i\'e7in kullan\u305 l\u305 r; ba\u351 l\u305 k + meta + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle), t\u305 klan\u305 nca A\'e7\u305 k s\'fcr\'fcm a\'e7\u305 l\u305 r. ESTRA bar A\'e7\u305 k s\'fcr\'fcmde, say\u305 sal mini-rozet Daralt\u305 lm\u305 \u351 'ta. Eski sayfa-spesifik aksiyon olarak "+\'e7apa" 2.2'ye \'f6zeldi; bu sayfada \'f6zel k\'f6\u351 e ikonu yok (kart d\'fcz). DE\u286 ERLEND\u304 RME \'97 V2'ye ertelenenler: kurum top-5 (papers.authors[].affiliation opsiyonel jsonb alan\u305 , doluluk do\u287 rulanmad\u305  \'97 V1'de %50+ doluluk \'f6l\'e7\'fclmeden a\'e7\u305 lmaz, riskli yar\u305 -bo\u351  liste UX'i bozar); \'fclke bask\u305 nl\u305 \u287 \u305  (schema YOK, OpenAlex country ta\u351 \u305 ma migration gerekir \'97 V1 scope d\u305 \u351 \u305 ); self-citation oran\u305  (kabar\u305 kl\u305 k, d\'fc\u351 \'fck fayda); Bradford-core dergi tabakas\u305  (5.4 at\u305 f-stil sayfas\u305 nda daha yerinde, SJR Q1-Q4 zaten var). Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z envanterde kan\u305 t\u305  olan sinyaller V1'e al\u305 nd\u305 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+500 adet kesinle\uc0\u351 en k\'fct\'fcphane i\'e7erisinden klasik bibliyometrik analiz\
+yap\uc0\u305 lm\u305 \u351  ve sonu\'e7lar\u305  g\'f6steriyor olacak.\
+\
+Burada klasik bibliyometrik teknikler kullan\uc0\u305 l\u305 r.\
+Sadece havuz kullan\uc0\u305 l\u305 r.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+Kan\uc0\u305 t seviyesi: A (bu oturumda Read/Grep ile do\u287 ruland\u305 ; file:line referansl\u305 ).\
+Tarih: 2026-05-10.\
+\
+\
+[ (i) VER\uc0\u304  AMBARI ]\
+\
+Veri kayna\uc0\u287 \u305 : project_seed_papers \'97 frontend bo\u351  paper_ids g\'f6nderince\
+backend bu tablodan pull eder (project_bibliometrics.py:43-60).\
+\
+Kullan\uc0\u305 lan tablolar (file:line, kan\u305 t-A):\
+  - project_seed_papers (db/migrations/0019_project_seed_papers.sql:38-45)\
+      PK (project_id, paper_id), source_query, source_lang, selected_at\
+      RLS owner-only (line 50-54). Q'dan se\'e7ilen 1-25 paper k\'f6pr\'fcs\'fc.\
+  - fact_paper_id_card (db/migrations/0003_paper_anchor_facts.sql:31-48)\
+      year, language, pmid \'97 medyan y\uc0\u305 l + dil da\u287 \u305 l\u305 m\u305 \
+  - fact_paper_beauty (db/migrations/0005_paper_estra_temporal.sql:140-152)\
+      total_cites \'97 ortalama at\uc0\u305 f + en \'e7ok at\u305 flanan\
+      \'97 b (Sleeping Beauty B-katsay\uc0\u305 s\u305 ) AMBAR'da var ama UI'da KULLANILMIYOR\
+        (vizyona g\'f6re 4.5 Akademik Etki sayfas\uc0\u305 na ta\u351 \u305 nd\u305 )\
+  - fact_paper_field (db/migrations/0006_paper_metadata.sql:21-27)\
+      primary_field \'97 top alan\
+  - dim_field (db/migrations/0011_create_dim_field.sql)\
+      field_id \uc0\u8594  name_en JOIN\
+  - fact_paper_sentence_role (db/migrations/0004_paper_satellite_facts.sql:21-37)\
+      dominant_role \'97 y\'f6ntem (METHOD/RESULT/...) da\uc0\u287 \u305 l\u305 m\u305 \
+\
+Tablolar AMBAR'da ama UI'da KULLANILMIYOR:\
+  - fact_paper_velocity (0005:82-91) \'97 velocity, age_adjusted_impact\
+      Vizyondaki "at\uc0\u305 f h\u305 z\u305  e\u287 risi" buradan beslenecek (\u351 u an dahil de\u287 il).\
+  - fact_paper_disruption (0005:109-120) \'97 cd_5 (Funk-Owen CD\uc0\u8325 )\
+      Vizyon: 4.5'e ta\uc0\u351 \u305 nd\u305  (bibliyometri sayfas\u305  kabar\u305 k olmas\u305 n).\
+  - papers.authors jsonb (db/migrations/0001_init_schema_v1.sql:43)\
+      [\{name, orcid?, affiliation?\}] \'97 doluluk DO\uc0\u286 RULANMADI\
+      Vizyon: 500 paper \'d7 authors pair-count \uc0\u8594  top-5 yazar \'e7ifti (V1'e al\u305 nd\u305 \
+      yorumu, kod yok). Affiliation kurum top-5 i\'e7in V2'ye ertelendi.\
+\
+AMBAR'da YOK (vizyon talep ediyor ama tablo \'fcretilmemi\uc0\u351 ):\
+  - dim_author (top yazar h-index i\'e7in) \'97 Glob/Grep \uc0\u8594  yok\
+  - dim_journal (top dergi SJR Q1-Q4 i\'e7in) \'97 Glob/Grep \uc0\u8594  yok\
+      papers.venue text alan\uc0\u305  var (0001:46) ama SJR quartile YOK.\
+\
+Veri \'f6l\uc0\u351 e\u287 i: warehouse 24,867,210 paper. project_seed_papers tipik 1-25 paper\
+(F11 Phase A); 500-paper havuzu cluster_expander (2.2 BACKEND'de YOK) \'fcretmedi\uc0\u287 i\
+i\'e7in bu sayfa \u351 u an seed-25 \'fcst\'fcnden \'e7al\uc0\u305 \u351 \u305 yor (vizyon: 500-pool \'fcst\'fcnde).\
+\
+\
+[ (ii) BACKEND ]\
+\
+Endpoint:\
+  POST /api/project/\{project_id\}/bibliometrics\
+    api/routes/project_bibliometrics.py:67-87 (88 sat\uc0\u305 r toplam)\
+    Input: BibliometricRequest \'97 paper_ids list[str] (default empty, max 500)\
+    Output: BibliometricSummary (7 alan)\
+    Auth: read-only aggregate, RLS warehouse 'authenticated' read_all\
+    Graceful: SUPABASE config yoksa empty summary d\'f6ner (line 73-75)\
+\
+Servis:\
+  api/services/bibliometric_service.py:186-227 \'97 compute_bibliometric_summary\
+    Batch 100 (PostgREST IN limit, line 40)\
+    Python-side aggregation (LLM yok, saf SQL + Counter)\
+    Tablo yoksa graceful boş döner (line 56-61)\
+\
+Hesaplanan 7 alan:\
+  1. total_papers       = len(paper_ids)\
+  2. median_year        = statistics.median(card_rows.year)        (line 73-77)\
+  3. mean_citations     = AVG(beauty_rows.total_cites)              (line 91-97)\
+  4. most_cited         = MAX(beauty_rows.total_cites) + pmid_map  (line 100-115)\
+  5. publications_by_year = COUNT GROUP BY year                    (line 64-70)\
+  6. language_dist      = COUNT GROUP BY language                  (line 80-88)\
+  7. top_areas          = fact_paper_field.primary_field +\
+                          dim_field.name_en JOIN, top-10           (line 118-156)\
+  8. top_methods        = fact_paper_sentence_role.dominant_role,\
+                          ROLE_LABEL TR mapping, top-10            (line 159-183)\
+\
+Pydantic modeller (api/models/bibliometric.py:20-65):\
+  - BibliometricRequest (paper_ids list, default empty, max 500)\
+  - BibliometricSummary (8 alan; total/median/mean/most_cited + 4 list)\
+  - MostCited \uc0\u8594  paper_id, pmid (title YOK, papers.title bo\u351  V2 lazy-fill yorumu)\
+  - YearCount, LangCount, NamedCount\
+\
+Router register: api/main.py:22, 79; api/routes/__init__.py:14, 35\
+\
+Plan referans\uc0\u305 : V1-S14 P005 (REV\u304 ZE 2026-05-10, B-029)\
+  TOP_VENUES \uc0\u8594  TOP_AREAS (dim_journal yok)\
+  TOP_AUTHORS+LOTKA_BINS \uc0\u8594  TOP_METHODS (dim_author yok)\
+  Bu kayd\uc0\u305 rmalar bilin\'e7li \'97 schema bo\u351 luklar\u305  kapatma stratejisi.\
+\
+\
+[ (iii) FRONTEND ]\
+\
+Sayfa dosyas\uc0\u305 :\
+  web/src/components/project/BibliometricSummaryPage.tsx (583 sat\uc0\u305 r)\
+  + BibliometricSummaryPageSkeleton.tsx (skeleton state)\
+  + BibliometricSummaryPage.test.tsx, ...Skeleton.test.tsx (testler MEVCUT)\
+\
+Route: /project/\{id\}/discovery-3\
+  Lazy: web/src/app/(app)/project/[id]/[[...slug]]/page.tsx:11\
+  Dispatch: page.tsx:92 case "discovery-3"\
+  Badge: "Kesif \uc0\u183  1.3" (line 138, hardcoded)\
+\
+Veri ak\uc0\u305 \u351 \u305 :\
+  - useQuery (line 80-90) \uc0\u8594  POST /api/project/\{id\}/bibliometrics\
+  - body: \{ paper_ids: [] \} (line 85, BO\uc0\u350  \u8594  backend seed_papers'tan \'e7eker)\
+  - retry: false, staleTime: 60_000 (1 dk cache)\
+\
+Render (5 blok):\
+  Header (line 129-167):\
+    - Ba\uc0\u351 l\u305 k: "Bibliyometrik panorama" (italic display, line 146)\
+    - Alt: "Konunla ilgili \{N\} makalenin niceliksel \'f6zeti..."\
+    - Sa\uc0\u287  \'fcst rozet: "Havuz \'b7 N=\{total\}" (line 164)\
+  AdvisorBanner (line 169-174): "Iste konunun nicel haritasi: kim, ne zaman, hangi alanda, hangi y\'f6ntemle."\
+  Block 1 \'97 4 metric card (line 177-239):\
+    - Toplam makale, Medyan y\uc0\u305 l, Ortalama at\u305 f, En \'e7ok at\u305 flanan\
+    - Her kart \'fczerinde DataProvenance pop-up (source/method/confidence)\
+  Block 2 \'97 Y\uc0\u305 l da\u287 \u305 l\u305 m\u305  bar chart (line 241-292)\
+    - h-32 vertical bars + y\uc0\u305 l label son 2 hane\
+  Block 3+4 \'97 Dil da\uc0\u287 \u305 l\u305 m\u305  + Y\'f6ntem da\u287 \u305 l\u305 m\u305  (grid 2-col, line 295-365)\
+    - Dil: ISO kod + LANG_LABEL (TR/EN/ID/Bilinmiyor) + LANG_TONE renk\
+    - Y\'f6ntem: TopBarList (line 500-582) ranking-list\
+  Block 5 \'97 Top alan TopBarList (line 367-382)\
+\
+Yard\uc0\u305 mc\u305  bile\u351 enler (ayn\u305  dosyada):\
+  - MetricCard (line 403-458)\
+  - ChartCard (line 460-498)\
+  - TopBarList (line 500-582)\
+  - DataProvenance (./DataProvenance import edildi, line 16)\
+\
+DURUM: Sayfa CANLI \uc0\u8594  warehouse'a hizal\u305 . V1-S14 P006 commit'inde (B-029)\
+6 fixture sabit canl\uc0\u305  backend ile de\u287 i\u351 tirildi (line 3-7 yorum).\
+\
+\
+[ VER\uc0\u304  AKI\u350 I \'97 U\'c7TAN UCA (mevcut, kan\u305 t-A) ]\
+\
+1. Kullan\uc0\u305 c\u305  /project/\{id\}/discovery-3 sayfas\u305 na geldi\
+2. BibliometricSummaryPage mount \uc0\u8594  POST /api/project/\{id\}/bibliometrics body=\{paper_ids:[]\}\
+3. project_bibliometrics.py:81 \uc0\u8594  paper_ids bo\u351  \u8594  _fetch_seed_paper_ids \u8594  project_seed_papers tablosundan paper_id pull\
+4. compute_bibliometric_summary \uc0\u8594  4 paralel batch (id_card, beauty, field+dim_field, sentence_role)\
+5. Python aggregation \uc0\u8594  BibliometricSummary 8 alan\
+6. Frontend 5 blok render (header + 4 metric + 4 chart)\
+\
+\
+[ \uc0\u304 LG\u304 L\u304  TESTLER (kan\u305 t-A, varl\u305 k do\u287 ruland\u305 ) ]\
+\
+  web/src/components/project/BibliometricSummaryPage.test.tsx \'97 sayfa render\
+  web/src/components/project/BibliometricSummaryPageSkeleton.test.tsx \'97 skeleton\
+  api/tests/routes/test_project_bibliometrics.py (Glob \uc0\u8594  do\u287 rulanmad\u305 )\
+\
+\
+[ \'c7EL\uc0\u304 \u350 K\u304  \'97 KR\u304 T\u304 K (Geli\u351 tirici Notu vs Mevcut Kod) ]\
+\
+Notu (2026-05-10): "500 paper \'d7 top yazar (h-index) + top dergi (SJR Q1-Q4)\
++ at\uc0\u305 f h\u305 z\u305  e\u287 risi + at\u305 f ya\u351 \u305  histogram\u305  + collaboration peak +\
+citation burst + citation half-life + her grafik alt\uc0\u305 nda 1-2 c\'fcmle Flash mikro-yorum"\
+Mevcut: "seed-25 paper \'d7 4 metric + y\uc0\u305 l + dil + alan + y\'f6ntem (8 alan), Flash yorum yok"\
+\
+Bo\uc0\u351 luklar (kan\u305 t-A, file:line referansl\u305 ):\
+  (1) Top yazar (h-index) YOK \uc0\u8594  dim_author tablosu yok (Glob/Grep);\
+      backend top_methods ile doldurmu\uc0\u351  ("yöntem da\u287 \u305 l\u305 m\u305 "). Vizyondaki "kim yaz\u305 yor" cevaps\u305 z.\
+  (2) Top dergi (SJR Q1-Q4) YOK \uc0\u8594  dim_journal yok; backend top_areas ile doldurmu\uc0\u351 .\
+      papers.venue text var (0001:46) ama SJR quartile metadata YOK.\
+  (3) At\uc0\u305 f h\u305 z\u305  e\u287 risi YOK \'97 fact_paper_velocity (0005:82) AMBAR'da ama servis OKUMUYOR.\
+  (4) Citation burst (>2\uc0\u963  spike) YOK \'97 backend year_dist d\'fcz COUNT, slope detection yok.\
+  (5) Citation half-life YOK \'97 fact_paper_velocity'den t\uc0\u'fcrev hesap, kod yok.\
+  (6) Collaboration peak (top-5 yazar \'e7ifti) YOK \'97 papers.authors jsonb (0001:43) doluluk\
+      do\uc0\u287 rulanmad\u305 ; pair-count Python kod\u305  yok.\
+  (7) Flash mikro-yorum YOK \'97 vizyonda 6 grafik \uc0\u8594  6 paralel Flash \'e7a\u287 r\u305  ~600ms;\
+      mevcut sayfada LLM \'e7a\u287 r\uc0\u305 s\u305  YOK (saf statik render).\
+  (8) 500-paper havuzu YOK \'97 cluster_expander (2.2 BACKEND'de YOK) \'fcretmiyor;\
+      sayfa \u351 u an seed-25 \'fcst\'fcnde \'e7al\uc0\u305 \u351 \u305 yor (vizyon: 500-pool).\
+  (9) ★ Funk-Owen CD ve ◆ Sleeping Beauty rozetleri 4.5'e ta\uc0\u351 \u305 nd\u305  (vizyon karar\u305 );\
+      backend fact_paper_disruption/beauty.b OKUMUYOR (DOĞRU \'97 vizyon ile uyumlu).\
+  (10) Mevcut "y\'f6ntem da\uc0\u287 \u305 l\u305 m\u305 " (sentence_role) ve "dil da\u287 \u305 l\u305 m\u305 " vizyon notunda YOK\
+       ama de\uc0\u287 erli \'97 V1-S14 B-029 ile bilin\'e7li koruma (yararl\u305 ); kald\u305 r\u305 lmamal\u305 .\
+  (11) Provenance UI (DataProvenance pop-up) MEVCUT \'97 vizyonun "kara-kutu hissi"ni\
+       \'e7\uc0\u'f6zen taslak; Flash yorum eklenince provenance ile birlikte g\'fc\'e7lenir.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+}

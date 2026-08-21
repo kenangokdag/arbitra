@@ -1,0 +1,964 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* P056 — profesyonel cool-academic palet (Radix 12-step + Tailwind v4 OKLCH temelli).
+     WCAG kontrastları doğrulanmış: ink-on-white AAA, accent-on-pale AA, status hierarchy net.
+     Slate scale = cool-gray (Nature/JAMA ekol). Amber-700 accent = warm imza Stripe Press kontrast. */
+
+  /* Background hierarchy — slate scale 50→300 (paper-cool) */
+  --color-bg: #f8fafc;               /* slate-50, page bg */
+  --color-bg-soft: #f1f5f9;          /* slate-100, sidebar */
+  --color-bg-card: #ffffff;          /* saf beyaz kart */
+  --color-bg-input: #ffffff;
+  --color-bg-hover: #e2e8f0;         /* slate-200 */
+  --color-bg-active: #cbd5e1;        /* slate-300 */
+
+  /* Ink hierarchy — slate scale 500→900, hepsi WCAG AA+ */
+  --color-ink: #0f172a;              /* slate-900, gövde — AAA on white (16:1) */
+  --color-ink-soft: #334155;         /* slate-700, alt başlık — AAA on white (10:1) */
+  --color-ink-mute: #475569;         /* slate-600, meta — AAA on white (8:1) */
+  --color-ink-faint: #64748b;        /* slate-500, placeholder/disabled — AA on white (5.2:1) */
+
+  /* Border — slate 200/300 */
+  --color-rule: #cbd5e1;             /* slate-300, net border */
+  --color-rule-soft: #e2e8f0;        /* slate-200, subtle separator */
+
+  /* Accent — indigo-600 (kullanıcı tercihi 2026-05-01: amber → indigo) */
+  --color-accent: #4F46E5;           /* indigo-600, AA on white (4.5:1) */
+  --color-accent-soft: #818CF8;      /* indigo-400, hover */
+  --color-accent-pale: #EEF2FF;      /* indigo-50, chip bg → text-accent on this AA */
+  --color-accent-fg: #ffffff;        /* AAA on indigo-600 */
+
+  /* Status — pale chip bg + solid text/border, semantic ayrım */
+  --color-ok: #047857;               /* emerald-700, AA on white (6:1) */
+  --color-ok-pale: #d1fae5;          /* emerald-100 */
+  --color-info: #1d4ed8;             /* blue-700, AAA on white (7:1) */
+  --color-info-pale: #dbeafe;        /* blue-100 */
+  --color-warn: #c2410c;             /* orange-700 (accent ile çakışmasın diye orange) */
+  --color-warn-pale: #ffedd5;        /* orange-100 */
+  --color-danger: #b91c1c;           /* red-700, destructive */
+  --color-danger-pale: #fee2e2;      /* red-100 */
+
+  --font-sans:
+    var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-lora), Georgia, serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* shadow stack — 2-katman composition (Stripe / Linear / Anthropic ekol).
+     Slate-900 RGB temelli, cool tone uyumlu, depth + tactile feel. */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 1px rgba(15, 23, 42, 0.02);
+  --shadow-md: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.08);
+
+  /* transition tokens — cubic-bezier(0.16, 1, 0.3, 1) ease-out-expo.
+     Layered: 150ms color, 200ms transform, 300ms shadow. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+
+  /* type scale — mockup v3 hierarchy (akademik dergi konvansiyonu).
+     Inter UI gövde 14.5px / Lora display başlık 17-28px. */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14.5px;
+  --text-lg: 17px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+}
+
+/* ============================================================
+   Arbitra v2 review — semantic token SLOTS (structural scaffolding)
+   values are placeholder slots reusing existing theme; premium palette = human design pass
+   These map review-domain semantics (risk severity / evidence support level /
+   confidence band) onto the EXISTING P056 --color-* palette so nothing visual
+   changes yet. A later human design pass replaces the right-hand values.
+   ============================================================ */
+:root {
+  /* risk severity → existing status colors (critical=danger … minor=neutral) */
+  --arb-risk-critical: var(--color-danger);   /* red-700 */
+  --arb-risk-major: var(--color-warn);         /* orange-700 */
+  --arb-risk-moderate: var(--color-info);      /* blue-700 */
+  --arb-risk-minor: var(--color-ink-mute);     /* slate-600, low-urgency neutral */
+
+  /* evidence support level → strong→weak; unresolved kept neutral, NOT green */
+  --arb-evidence-verified: var(--color-ok);    /* emerald-700, full-text verified */
+  --arb-evidence-abstract: var(--color-warn);  /* orange-700, abstract-only caveat */
+  --arb-evidence-metadata: var(--color-info);  /* blue-700, metadata-only */
+  --arb-evidence-unresolved: var(--color-ink-faint); /* slate-500, unverifiable */
+
+  /* confidence band → high/medium/low */
+  --arb-confidence-high: var(--color-ok);      /* emerald-700 */
+  --arb-confidence-medium: var(--color-warn);  /* orange-700 */
+  --arb-confidence-low: var(--color-danger);   /* red-700 */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  /* bg + color shadcn @layer base'den geliyor (bg-background text-foreground) */
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.serif {
+  font-family: var(--font-serif);
+}
+
+.font-display {
+  font-family: var(--font-serif);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ============================================================
+   Chat surface — D16-Chatbox.html canonical (warm-neutral editorial).
+   Danışman global tek kimlik (zone bağımsız, amber YOK).
+   Raw hex: D16 mockup miras (HK-2).
+   ============================================================ */
+:root {
+  --chat-bg:       #F7F7F5;             /* kaynak: D16-Chatbox.html L11 panel bg */
+  --chat-surface:  #FFFFFF;             /* kaynak: D16-Chatbox.html L12 input + chip */
+  --chat-border:   #E4E4E0;             /* kaynak: D16-Chatbox.html L13 panel rule */
+  --chat-adviser:  #EFEFED;             /* kaynak: D16-Chatbox.html L14 adviser bubble */
+  --chat-user-bg:  var(--color-ink);    /* kaynak: D16-Chatbox.html L15 ink reuse */
+  --chat-header:   var(--color-ink);    /* kaynak: D16-Chatbox.html L20 header ink */
+  --chat-status:   #4ade80;             /* kaynak: D16-Chatbox.html L23 emerald-400 dot */
+}
+
+/* Dark variant — D16 satır 350-417 */
+.chatbox-dark {
+  --chat-bg:       #1C1C1E;
+  --chat-surface:  rgba(255, 255, 255, 0.06);
+  --chat-border:   rgba(255, 255, 255, 0.08);
+  --chat-adviser:  rgba(255, 255, 255, 0.06);
+  --chat-user-bg:  rgba(255, 255, 255, 0.10);
+  --chat-header:   #1C1C1E;
+  --chat-status:   #4ade80;
+}
+
+@keyframes chatbox-slide-in {
+  from { transform: translateX(20px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes chatbox-typing-dot {
+  0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); }
+  40%           { opacity: 0.85; transform: scale(1); }
+}
+
+/* prefers-reduced-motion: global override (line 148-157) chatbox-slide-in + chatbox-typing-dot
+   süresini 0.01ms'e indirir → otomatik fade fallback. Ek özelleştirme gerekmez. */
+
+/* ============================================================
+   Simulation Curtain — D17-SimulationCurtain.html canonical.
+   defense-5 (Jüri & Hakem Simülasyonü) açılış perde animasyonu.
+   Class-toggle pattern (D17 native): .active / .open / .jury-visible / .spotlight-on / .visible
+   Raw hex: D17 mockup miras (HK-2). Satır referansları yorumda.
+   ============================================================ */
+
+/* Sahne zemini — D17 L26-36 */
+.sim-curtain-stage {
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 60%, rgba(40,30,20,0) 0%, rgba(10,8,6,0.95) 100%),
+    linear-gradient(to bottom, #0d0b09 0%, #1a1410 40%, #120f0c 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Spotlight 3-katman — D17 L39-101 */
+.sim-curtain-spotlight {
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease 2.0s;
+}
+.sim-curtain-stage.spotlight-on .sim-curtain-spotlight { opacity: 1; }
+
+.sim-curtain-spotlight::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 280px solid transparent;
+  border-right: 280px solid transparent;
+  border-top: 680px solid rgba(255,220,130,0.07);
+  filter: blur(28px);
+}
+.sim-curtain-spotlight::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-top: 680px solid rgba(255,230,160,0.09);
+  filter: blur(12px);
+}
+
+.sim-curtain-floor-glow {
+  position: absolute;
+  bottom: 60px;
+  left: 50%; transform: translateX(-50%);
+  width: 520px; height: 60px;
+  background: radial-gradient(ellipse, rgba(255,220,130,0.18) 0%, transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease 2.3s;
+}
+.sim-curtain-stage.spotlight-on .sim-curtain-floor-glow { opacity: 1; }
+
+.sim-curtain-lamp {
+  position: absolute;
+  top: 10px;
+  left: 50%; transform: translateX(-50%);
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: rgba(255,240,180,0.95);
+  box-shadow:
+    0 0 8px 4px rgba(255,230,160,0.5),
+    0 0 24px 10px rgba(255,210,100,0.25),
+    0 0 60px 24px rgba(255,190,80,0.12);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease 2.0s;
+}
+.sim-curtain-stage.spotlight-on .sim-curtain-lamp { opacity: 1; }
+
+/* Zemin gölgesi — D17 L104-108 */
+.sim-curtain-floor {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 160px;
+  background: linear-gradient(to bottom, transparent, rgba(8,6,4,0.9));
+}
+
+/* Jüri sırası — D17 L111-153 */
+.sim-curtain-jury-row {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  height: 320px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.sim-curtain-stage.jury-visible .sim-curtain-jury-row {
+  opacity: 1; transform: translateY(0);
+}
+
+.sim-curtain-seat {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.sim-curtain-seat.center { transform: scale(1.08); z-index: 2; }
+.sim-curtain-seat svg { display: block; }
+
+.sim-curtain-silhouette {
+  position: absolute;
+  bottom: 100%;
+  left: 50%; transform: translateX(-50%);
+  width: 56px; height: 90px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.sim-curtain-stage.jury-visible .sim-curtain-silhouette { opacity: 1; }
+.sim-curtain-seat:nth-child(1) .sim-curtain-silhouette { transition-delay: 0.1s; }
+.sim-curtain-seat:nth-child(2) .sim-curtain-silhouette { transition-delay: 0.2s; }
+.sim-curtain-seat:nth-child(3) .sim-curtain-silhouette { transition-delay: 0.05s; }
+.sim-curtain-seat:nth-child(4) .sim-curtain-silhouette { transition-delay: 0.25s; }
+.sim-curtain-seat:nth-child(5) .sim-curtain-silhouette { transition-delay: 0.15s; }
+
+/* Masa çubuğu — D17 L156-164 */
+.sim-curtain-table-bar {
+  position: absolute;
+  bottom: 100px;
+  left: 50%; transform: translateX(-50%);
+  width: 680px; height: 18px;
+  background: linear-gradient(to bottom, #2a2018, #1a1410);
+  border-top: 1px solid rgba(255,200,100,0.08);
+  border-radius: 2px;
+}
+
+/* Perde sarmal — D17 L169-243 */
+.sim-curtain-wrap {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.sim-curtain-left,
+.sim-curtain-right {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 55%;
+  background:
+    repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 12px,
+      rgba(0,0,0,0.06) 12px,
+      rgba(0,0,0,0.06) 13px
+    ),
+    linear-gradient(
+      135deg,
+      #2d1a1a 0%,
+      #1f1010 30%,
+      #2a1515 60%,
+      #1a0d0d 100%
+    );
+  transition: transform 1.1s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+}
+.sim-curtain-left {
+  left: 0;
+  transform: translateX(0);
+  border-right: 3px solid rgba(80,30,30,0.6);
+  box-shadow: inset -20px 0 40px rgba(0,0,0,0.4), 20px 0 60px rgba(0,0,0,0.5);
+}
+.sim-curtain-right {
+  right: 0;
+  transform: translateX(0);
+  border-left: 3px solid rgba(80,30,30,0.6);
+  box-shadow: inset 20px 0 40px rgba(0,0,0,0.4), -20px 0 60px rgba(0,0,0,0.5);
+}
+
+.sim-curtain-left::before, .sim-curtain-right::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255,255,255,0.015) 0px,
+    rgba(255,255,255,0.015) 2px,
+    rgba(0,0,0,0.04) 2px,
+    rgba(0,0,0,0.04) 28px,
+    rgba(255,255,255,0.008) 28px,
+    rgba(255,255,255,0.008) 30px,
+    rgba(0,0,0,0.03) 30px,
+    rgba(0,0,0,0.03) 56px
+  );
+}
+
+.sim-curtain-left::after, .sim-curtain-right::after {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 48px;
+  background: linear-gradient(to bottom, rgba(255,200,100,0.06), transparent);
+  border-bottom: 1px solid rgba(255,200,100,0.08);
+}
+
+.sim-curtain-wrap.open .sim-curtain-left  { transform: translateX(-88%); }
+.sim-curtain-wrap.open .sim-curtain-right { transform: translateX(88%); }
+
+/* Perde rayı — D17 L246-253 */
+.sim-curtain-rail {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 16px;
+  background: linear-gradient(to bottom, #1a1208, #0d0906);
+  border-bottom: 1px solid rgba(255,200,100,0.12);
+  z-index: 11;
+}
+
+/* Kararma — D17 L258-266 */
+.sim-curtain-blackout {
+  position: fixed; inset: 0;
+  background: #000;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.sim-curtain-blackout.active { opacity: 1; pointer-events: auto; }
+
+/* Transcript bubble — D17 L271-321 */
+.sim-curtain-transcript {
+  position: fixed;
+  bottom: 32px; left: 50%; transform: translateX(-50%);
+  max-width: 560px; width: 90%;
+  z-index: 15;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.sim-curtain-transcript.visible { opacity: 1; }
+.sim-curtain-transcript-bubble {
+  background: rgba(10,8,6,0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,200,100,0.14);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.sim-curtain-who {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255,200,100,0.1);
+  border: 1px solid rgba(255,200,100,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-serif, Georgia, serif);
+  font-style: italic; font-size: 12px;
+  color: rgba(255,200,100,0.75);
+  flex-shrink: 0; margin-top: 1px;
+}
+.sim-curtain-tbody { flex: 1; }
+.sim-curtain-role {
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px; color: rgba(255,200,100,0.45);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.sim-curtain-text {
+  font-family: var(--font-serif, Georgia, serif);
+  font-style: italic;
+  font-size: 15px; line-height: 1.5;
+  color: rgba(245,235,215,0.88);
+}
+.sim-curtain-cursor {
+  display: inline-block;
+  width: 1px; height: 14px;
+  background: rgba(255,200,100,0.6);
+  margin-left: 1px; vertical-align: middle;
+  animation: sim-curtain-blink .8s ease-in-out infinite;
+}
+@keyframes sim-curtain-blink {
+  0%, 100% { opacity: 1; } 50% { opacity: 0; }
+}
+
+/* Atla butonu — D17 L326-344 */
+.sim-curtain-skip {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.45);
+  font-family: var(--font-mono, monospace);
+  font-size: 11px; letter-spacing: 0.06em;
+  cursor: pointer; z-index: 30;
+  transition: all .15s;
+  display: flex; align-items: center; gap: 6px;
+}
+.sim-curtain-skip:hover {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.75);
+}
+
+/* Tekrar izle — D17 L349-367 */
+.sim-curtain-replay {
+  position: fixed;
+  top: 24px; right: 24px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.3);
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px; letter-spacing: 0.06em;
+  cursor: pointer; z-index: 30;
+  display: flex; align-items: center; gap: 5px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.sim-curtain-replay.visible { opacity: 1; pointer-events: auto; }
+.sim-curtain-replay:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); }
+
+/* prefers-reduced-motion — animasyon süreleri 0.01ms; CSS bypass etmek yerine
+   component skipAll() çağırır (final state direkt). Bu blok yedek güvenlik. */
+@media (prefers-reduced-motion: reduce) {
+  .sim-curtain-spotlight,
+  .sim-curtain-floor-glow,
+  .sim-curtain-lamp,
+  .sim-curtain-jury-row,
+  .sim-curtain-silhouette,
+  .sim-curtain-left,
+  .sim-curtain-right,
+  .sim-curtain-blackout,
+  .sim-curtain-transcript,
+  .sim-curtain-replay {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* a11y — amber focus halkası (mockup v3 + WCAG AA) */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* link reset */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* button reset */
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* prefers-reduced-motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   B42-051 — 4-Zone Design System Tokens (2026-05-01)
+   Her tezgah kendi atmosferine sahip. Kullanici yer degistirdigini hisseder.
+   Zone aktif degilken P056 base palet gecerli (retrofit-safe).
+   Kullanim: <main data-zone="discovery"> veya data-zone="gapatlas" etc.
+   ============================================================ */
+
+/* -- ZONE LIGHT PALETTES ---------------------------------------- */
+
+[data-zone="discovery"] {
+  --zone-bg: #F5EBDD;            /* krem-parsomen */
+  --zone-bg-card: #FAF7F2;       /* saf krem */
+  --zone-fg: #1A1F3A;            /* ink lacivert */
+  --zone-fg-soft: #3D3F52;
+  --zone-fg-mute: #5A5C6E;
+  --zone-accent: #E8A157;        /* abajur amber */
+  --zone-accent-pale: #FCEBD9;   /* peach-cream */
+  --zone-accent-fg: #1A1F3A;
+  --zone-rule: #D4C5A8;          /* kutuphane fisi bej */
+  --zone-rule-soft: #E5D8C0;
+}
+
+/* Curation = ayni palet (Discovery ile ortak calisma masasi) */
+[data-zone="curation"] {
+  --zone-bg: #F5EBDD;
+  --zone-bg-card: #FAF7F2;
+  --zone-fg: #1A1F3A;
+  --zone-fg-soft: #3D3F52;
+  --zone-fg-mute: #5A5C6E;
+  --zone-accent: #E8A157;
+  --zone-accent-pale: #FCEBD9;
+  --zone-accent-fg: #1A1F3A;
+  --zone-rule: #D4C5A8;
+  --zone-rule-soft: #E5D8C0;
+}
+
+[data-zone="gapatlas"] {
+  --zone-bg: #EEF2F5;            /* soguk acik gri */
+  --zone-bg-card: #FFFFFF;
+  --zone-fg: #1A1F3A;
+  --zone-fg-soft: #3D3F52;
+  --zone-fg-mute: #5A5C6E;
+  --zone-accent: #0E4F4A;        /* derin teal */
+  --zone-accent-pale: #D0E8E5;
+  --zone-accent-fg: #FFFFFF;
+  --zone-rule: #C5CDD5;
+  --zone-rule-soft: #DDE3E8;
+}
+
+[data-zone="authoring"] {
+  --zone-bg: #FAF7F2;            /* saf krem */
+  --zone-bg-card: #FFFFFF;
+  --zone-fg: #2A1F3A;            /* koyu mor-gri */
+  --zone-fg-soft: #443A52;
+  --zone-fg-mute: #5E5670;
+  --zone-accent: #E8A157;        /* amber */
+  --zone-accent-pale: #FCEBD9;
+  --zone-accent-fg: #2A1F3A;
+  --zone-rule: #D4C5A8;
+  --zone-rule-soft: #E5D8C0;
+}
+
+[data-zone="defense"] {
+  --zone-bg: #F0E9DD;            /* parsomen ustu */
+  --zone-bg-card: #FAF7F2;
+  --zone-fg: #0F1A2E;            /* koyu lacivert */
+  --zone-fg-soft: #2A3548;
+  --zone-fg-mute: #455060;
+  --zone-accent: #C9A961;        /* ahsap altin */
+  --zone-accent-pale: #F5EDD5;
+  --zone-accent-fg: #0F1A2E;
+  --zone-rule: #CFC3A8;
+  --zone-rule-soft: #E0D6C0;
+}
+
+/* -- ZONE DARK PALETTES ("Gece Kutuphanesi") -------------------- */
+
+.dark [data-zone="discovery"],
+.dark [data-zone="curation"] {
+  --zone-bg: #1A1610;            /* koyu ahsap */
+  --zone-bg-card: #241E16;
+  --zone-fg: #F5EBDD;
+  --zone-fg-soft: #D4C9BA;
+  --zone-fg-mute: #A89E90;
+  --zone-accent: #E8A157;        /* amber sabit */
+  --zone-accent-pale: #2A1810;
+  --zone-accent-fg: #F5EBDD;
+  --zone-rule: #3A3025;
+  --zone-rule-soft: #2E2519;
+}
+
+.dark [data-zone="gapatlas"] {
+  --zone-bg: #0F1418;            /* derin gece-mavisi */
+  --zone-bg-card: #171D22;
+  --zone-fg: #E5EAEE;
+  --zone-fg-soft: #B8C0C8;
+  --zone-fg-mute: #8A949E;
+  --zone-accent: #16A39B;        /* parlak teal */
+  --zone-accent-pale: #0D2825;
+  --zone-accent-fg: #E5EAEE;
+  --zone-rule: #253035;
+  --zone-rule-soft: #1C2428;
+}
+
+.dark [data-zone="authoring"] {
+  --zone-bg: #161420;            /* koyu murekkep */
+  --zone-bg-card: #1E1C28;
+  --zone-fg: #FAF7F2;
+  --zone-fg-soft: #D4D0C8;
+  --zone-fg-mute: #A8A49C;
+  --zone-accent: #E8A157;
+  --zone-accent-pale: #2A1810;
+  --zone-accent-fg: #FAF7F2;
+  --zone-rule: #352E3A;
+  --zone-rule-soft: #28222E;
+}
+
+.dark [data-zone="defense"] {
+  --zone-bg: #0A1018;            /* derin lacivert */
+  --zone-bg-card: #131A22;
+  --zone-fg: #F0E9DD;
+  --zone-fg-soft: #C8C0B4;
+  --zone-fg-mute: #9A9288;
+  --zone-accent: #C9A961;        /* ahsap altin */
+  --zone-accent-pale: #1A1508;
+  --zone-accent-fg: #F0E9DD;
+  --zone-rule: #2A2818;
+  --zone-rule-soft: #1E1C10;
+}
+
+/* -- ZONE OVERRIDE: zone aktifken P056 base'i zone ile degistir -- */
+[data-zone] {
+  --color-bg: var(--zone-bg);
+  --color-bg-card: var(--zone-bg-card);
+  --color-ink: var(--zone-fg);
+  --color-ink-soft: var(--zone-fg-soft);
+  --color-ink-mute: var(--zone-fg-mute);
+  --color-accent: var(--zone-accent);
+  --color-accent-pale: var(--zone-accent-pale);
+  --color-accent-fg: var(--zone-accent-fg);
+  --color-rule: var(--zone-rule);
+  --color-rule-soft: var(--zone-rule-soft);
+
+  /* shadcn semantic tokens da zone'a uyar */
+  --background: var(--zone-bg);
+  --foreground: var(--zone-fg);
+  --card: var(--zone-bg-card);
+  --card-foreground: var(--zone-fg);
+  --primary: var(--zone-accent);
+  --primary-foreground: var(--zone-accent-fg);
+  --accent: var(--zone-accent-pale);
+  --accent-foreground: var(--zone-accent);
+  --border: var(--zone-rule);
+  --input: var(--zone-rule);
+  --ring: var(--zone-accent);
+}
+
+/* -- ZONE-SPECIFIC UTILITY CLASSES ------------------------------ */
+
+/* Danisman banner — her zone'da ayni amber sol-border */
+.advisor-banner {
+  background: var(--zone-accent-pale, var(--color-accent-pale));
+  border-left: 4px solid #E8A157; /* amber sabit — zone degismez */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* DataViz card frame — zone-aware border */
+.dataviz-frame {
+  border: 1px solid var(--zone-rule, var(--color-rule));
+  background: var(--zone-bg-card, var(--color-bg-card));
+}
+
+/* Killer feature ozel vurgu (D27 Bosluk Heatmap) */
+.dataviz-frame-killer {
+  border: 2px solid var(--zone-accent, var(--color-accent));
+  background: var(--zone-bg-card, var(--color-bg-card));
+}
+
+/* Paper-grain texture (PaperCard kutuphane fisi hissi) */
+.paper-grain {
+  background-image: radial-gradient(
+    ellipse,
+    rgba(0, 0, 0, 0.015) 1px,
+    transparent 1px
+  );
+  background-size: 8px 8px;
+}
+
+/* GhostCard soluk gorunum */
+.ghost-card {
+  opacity: 0.85;
+  border-style: dashed;
+}
+
+/* Danisman amber halka pulse */
+@keyframes advisorPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 161, 87, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(232, 161, 87, 0); }
+}
+.advisor-pulse {
+  animation: advisorPulse 1.5s ease-in-out infinite;
+}
+
+/* Pusula rotasi mevcut nokta pulse */
+@keyframes compassPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.15); }
+}
+.compass-current {
+  animation: compassPulse 1.5s ease-in-out infinite;
+}
+
+/* Sidebar current-page pulse-dot (D9) */
+@keyframes pmPulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(79,70,229,0.4); }
+  50% { box-shadow: 0 0 0 5px rgba(79,70,229,0); }
+}
+.pm-pulse-dot {
+  animation: pmPulseDot 1.5s ease-in-out infinite;
+}
+
+/* -- TYPOGRAPHY EXTENSIONS (B42-050) ---------------------------- */
+
+.font-crimson {
+  font-family: var(--font-crimson), Georgia, serif;
+}
+
+.font-mono-pmid {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* Ritual button — serif label (Crimson Pro), rakip ayrisim */
+.btn-ritual {
+  font-family: var(--font-crimson), Georgia, serif;
+  font-size: 15px;
+  background: #E8A157;
+  color: #1A1F3A;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.btn-ritual:hover {
+  background: #D4923E;
+}
+
+/* P058 — SearchPending 3D rotating carousel keyframes (KD-24 F4-S2).
+   12s linear infinite Y-axis rotation; rotateX tilt parent wrapper'da uygulanır. */
+@keyframes searchpending-rotating {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* P058.1 — Custom utility classes (Tailwind v4 directional border-color +
+   arbitrary animation generate etmiyor; token-only canon korunsun diye düz CSS).
+   Token referansı zorunlu — raw renk yasak. @layer utilities Tailwind v4'te
+   parse edilmediği için plain CSS class formatı tercih edildi. */
+.anim-searchpending {
+  animation: searchpending-rotating 12s linear infinite;
+}
+.stripe-ok {
+  border-left-color: var(--color-ok);
+}
+.stripe-info {
+  border-left-color: var(--color-info);
+}
+.stripe-accent {
+  border-left-color: var(--color-accent);
+}
+.stripe-warn {
+  border-left-color: var(--color-warn);
+}
+
+@theme inline {
+  --font-heading: var(--font-serif);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  /* radius scale mockup v3 @theme block'undan: sm=6 / md=10 / lg=14.
+     xl/2xl: shadcn block'larında (Card, Sheet) ihtiyaç çıkarsa eklenir. */
+}
+
+:root {
+  /* shadcn semantic tokens → mockup v3 palet (B-mapping, 2026-04-30).
+     UYARI: shadcn --accent = subtle highlight (hover bg);
+     mockup v3 --color-accent = PRIMARY brand (sıcak amber).
+     Mapping'de shadcn --primary = mockup --color-accent;
+     shadcn --accent = mockup --color-accent-pale. */
+  --background: var(--color-bg);
+  --foreground: var(--color-ink);
+  --card: var(--color-bg-card);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-bg-card);
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-accent);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-bg-soft);
+  --secondary-foreground: var(--color-ink);
+  --muted: var(--color-bg-soft);
+  --muted-foreground: var(--color-ink-mute);
+  --accent: var(--color-accent-pale);
+  --accent-foreground: var(--color-accent);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: var(--color-rule);
+  --input: var(--color-rule);
+  --ring: var(--color-accent);
+  /* MVP'de chart yok — shadcn default'ları korundu, post-MVP karar */
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: var(--radius-md);
+  --sidebar: var(--color-bg-soft);
+  --sidebar-foreground: var(--color-ink-soft);
+  --sidebar-primary: var(--color-accent);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--color-bg-hover);
+  --sidebar-accent-foreground: var(--color-ink);
+  --sidebar-border: var(--color-rule);
+  --sidebar-ring: var(--color-accent);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}

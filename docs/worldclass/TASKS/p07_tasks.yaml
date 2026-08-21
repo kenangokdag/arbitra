@@ -1,0 +1,98 @@
+{
+  "phase": "P07",
+  "tasks": [
+    {
+      "id": "P07-T01_GOLDSET_AND_EVAL_SCHEMA",
+      "phase": "P07",
+      "priority": "P0",
+      "title": "Goldset ve eval schema’yı dünya klası metriklerle genişlet",
+      "deps": [
+        "P06-T01_REVIEW_REPORT_SCHEMA_V2"
+      ],
+      "touchpoints": [
+        "eval/review/goldset.json",
+        "eval/review/schema.py",
+        "eval/review/metrics.py",
+        "eval/review/README.md"
+      ],
+      "steps": [
+        "Eval labels: document_type, study_design, expected_findings, citation_truth, guideline_items, hallucination_flags, actionability score.",
+        "Goldset kategorileri: article, conference, thesis, grant, qualitative, quantitative, systematic.",
+        "Metrikleri schema’ya bağla."
+      ],
+      "tests": [
+        "unit: eval schema validation",
+        "unit: metrics compute on sample_reports"
+      ],
+      "done_when": [
+        "Eval sadece skor değil akademik kalite boyutlarını ölçüyor."
+      ],
+      "advance_when": "Sample reports üzerinde metrics deterministic çalışıyorsa.",
+      "stop_if": [
+        "Eval LLM judge only ve gold evidence yoksa."
+      ]
+    },
+    {
+      "id": "P07-T02_RELEASE_EVAL_GATE",
+      "phase": "P07",
+      "priority": "P0",
+      "title": "Release eval gate ve regression thresholdları",
+      "deps": [
+        "P07-T01_GOLDSET_AND_EVAL_SCHEMA"
+      ],
+      "touchpoints": [
+        "eval/review/run_eval.py",
+        ".github/workflows/polish_gate.yml",
+        "config/faithfulness_thresholds.yaml"
+      ],
+      "steps": [
+        "Eval komutu CI’da opsiyonel/required mode desteklesin.",
+        "Thresholdlar: hallucination max, actionability min, citation precision min, schema validity 100%.",
+        "Regression durumunda release fail.",
+        "Eval report artifact üret."
+      ],
+      "tests": [
+        "CI dry run",
+        "unit: threshold failure exits nonzero"
+      ],
+      "done_when": [
+        "Yeni prompt/model değişikliği kaliteyi düşürürse yakalanıyor."
+      ],
+      "advance_when": "Eval gate en az smoke goldset ile CI’da çalıştığında.",
+      "stop_if": [
+        "Eval flaky ve release’i anlamsız kırıyorsa threshold stabilize et."
+      ]
+    },
+    {
+      "id": "P07-T03_HUMAN_EXPERT_REVIEW_LOOP",
+      "phase": "P07",
+      "priority": "P1",
+      "title": "Human expert feedback loop ve calibration workflow",
+      "deps": [
+        "P07-T01_GOLDSET_AND_EVAL_SCHEMA"
+      ],
+      "touchpoints": [
+        "eval/review/build_goldset.py",
+        "docs/worldclass/TEMPLATES/eval_card_template.md",
+        "api/models/review.py"
+      ],
+      "steps": [
+        "Expert reviewer annotation template oluştur.",
+        "False positive/false negative taxonomy tut.",
+        "Rubric weights calibration dosyasına bağla.",
+        "Eval dashboard için JSON report standardize et."
+      ],
+      "tests": [
+        "sample annotation import test",
+        "metrics with human labels test"
+      ],
+      "done_when": [
+        "Akademik kalite insan uzman kıyasına bağlanabilir."
+      ],
+      "advance_when": "En az 10 örnek uzman annotation formatına alınabildiğinde.",
+      "stop_if": [
+        "Uzman feedback serbest metin olarak kayboluyorsa."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+# F8 Gemini 2.5 unified provider (DM-LLM-1)
+# Plan: docs/plans/F8_llm_provider_unification.md §9.1
+#
+# F14-S1 (DM-VTX-2): LLM_PROVIDER=vertex iken litellm_router._apply_vertex_provider
+# bu model_list'i runtime'da map eder — `gemini/<m>` → `vertex_ai/<m>`, api_key düşer,
+# vertex_project/location eklenir (kimlik ADC ile). Bu dosya tek kaynak kalır; aşağıdaki
+# satırlar gemini-key yolu içindir, vertex'te otomatik dönüştürülür (drift yok).
+
+model_list:
+  - model_name: gemini-flash-tr
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: ${GEMINI_API_KEY}
+      max_tokens: 600
+      temperature: 0.2
+
+  - model_name: gemini-flash-en
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: ${GEMINI_API_KEY}
+      max_tokens: 600
+      temperature: 0.2
+
+  - model_name: gemini-flash-id
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: ${GEMINI_API_KEY}
+      max_tokens: 600
+      temperature: 0.2
+
+  - model_name: gemini-pro-tiebreak
+    litellm_params:
+      model: gemini/gemini-2.5-pro
+      api_key: ${GEMINI_API_KEY}
+      max_tokens: 800
+      temperature: 0.1
+
+  # F14-S2 Claude yedek (Sonnet 4.6 — DM-VTX-5). Yalnız ANTHROPIC_API_KEY +
+  # LLM_FALLBACK_ENABLED iken aktif; pasifse router bu girdileri düşürür.
+  # litellm_router._FALLBACK_MAP gemini alias'larını buraya yönlendirir.
+  - model_name: claude-flash-fallback
+    litellm_params:
+      model: anthropic/claude-sonnet-4-6
+      api_key: ${ANTHROPIC_API_KEY}
+      max_tokens: 600
+      temperature: 0.2
+
+  - model_name: claude-pro-fallback
+    litellm_params:
+      model: anthropic/claude-sonnet-4-6
+      api_key: ${ANTHROPIC_API_KEY}
+      max_tokens: 800
+      temperature: 0.1
+
+router_settings:
+  PRESENTER_TR_MODEL: gemini-flash-tr
+  PRESENTER_EN_MODEL: gemini-flash-en
+  PRESENTER_ID_MODEL: gemini-flash-id
+  LISTENER_MODEL: gemini-flash-en
+  CHAT_ADVISOR_MODEL: gemini-flash-tr
+  TIEBREAK_MODEL: gemini-pro-tiebreak

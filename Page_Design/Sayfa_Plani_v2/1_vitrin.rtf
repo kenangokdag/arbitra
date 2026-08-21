@@ -1,0 +1,263 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 1. V\uc0\u304 TR\u304 N\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 5 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i \'97 bu sayfa "vitrin" taraf\u305 .\
+    SciSpace / Consensus dengi a\'e7\uc0\u305 k literat\'fcr \'f6zeti.\
+    Veri kayna\uc0\u287 \u305 : OpenAlex (her t\'fcr yay\u305 n). B\u304 Z\u304 M HAVUZ (CORPUS) BURAYA DE\u286 MEZ.\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+(5) veri ambar\uc0\u305  envanteri \'97 vitrin'de corpus kullan\u305 lmaz; sadece OpenAlex.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Bu sayfan\uc0\u305 n amac\u305 , hesab\u305  olmayan bir kullan\u305 c\u305 n\u305 n literat\'fcr d\'fcnyas\u305 na ilk dokunu\u351 unu sade ve vanilla bir bi\'e7imde ya\u351 atmas\u305 d\u305 r. Felsefemiz \u351 udur: vitrin bilin\'e7li olarak basit kal\u305 r; ESTRA radar\u305 , validator \'e7ift m\'fchr\'fc, ghost, persona, kavram a\u287 \u305  gibi at\'f6lye imzalar\u305 m\u305 z\u305  burada g\'f6stermeyiz. Sebep: vitrin'in sadeli\u287 i "Projeye D\'f6n\'fc\u351 t\'fcr" CTA's\u305 n\u305 n de\u287 erini b\'fcy\'fct\'fcr; kullan\u305 c\u305  at\'f6lye'ye ge\'e7ince "oh i\u351 te fark buradaym\u305 \u351 " an\u305 n\u305  ya\u351 ar. Vitrin bir vaattir, kan\u305 t de\u287 il.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: Kullan\u305 c\u305  sorgusunu Gemini 2.5 Flash ile \u304 ngilizce'ye \'e7evirip OpenAlex Polite Pool \'fcst\'fcnden \'e7ift dil paralel sorgu \'e7al\u305 \u351 t\u305 r\u305 p 25 makaleyi at\u305 f say\u305 s\u305 na g\'f6re listeleriz; kullan\u305 c\u305  se\'e7tiklerinden Gemini Flash ile akademik formatl\u305  literat\'fcr incelemesi \'fcretiriz. At\'f6lyeye ge\'e7i\u351 te yaln\u305 z \{alan, alt-alan, konu\} bilgisi ta\u351 \u305 n\u305 r \'97 paper id, se\'e7im haf\u305 zas\u305 , kullan\u305 c\u305  profili k\'f6pr\'fcden ge\'e7mez. Bu s\u305 n\u305 r, vitrin'in OpenAlex'e dayanmas\u305 na ve at\'f6lyenin B\u304 Z\u304 M HAVUZ (~25M) ile \'e7al\u305 \u351 mas\u305 na net bir hat \'e7izer.\
+\
+Eklenecek \uc0\u304 ki Dokunu\u351 : Vitrin sadeli\u287 ini bozmayan ve OpenAlex hatt\u305 n\u305 n i\'e7inde kalan iki k\'fc\'e7\'fck geli\u351 tirme \'f6ng\'f6r\'fcyoruz. Birincisi \'e7evrilen \u304 ngilizce sorgunun "EN sorgun: \'85" sat\u305 r\u305  olarak arama alan\u305 n\u305 n alt\u305 nda k\'fc\'e7\'fck g\'f6sterilmesidir; \'e7ift dil paralel sorgu \'e7\u305 kt\u305 s\u305  zaten elde oldu\u287 u i\'e7in ek backend maliyeti yoktur, sadece frontend'de translation alan\u305 n\u305  render etmek gerekir, kullan\u305 c\u305  \'e7ift dilli\u287 in sessizce \'e7al\u305 \u351 t\u305 \u287 \u305 n\u305  g\'f6r\'fcr. \u304 kincisi literat\'fcr incelemesinin ba\u351 l\u305 \u287 \u305 nda "K paper \'b7 ~\u931  at\u305 f \'b7 %X e\u351 le\u351 me" kompozisyonunda k\'fc\'e7\'fck bir kalite rozetidir. \'dc\'e7 say\u305  \u351 \'f6yle hesaplan\u305 r: K paper say\u305 s\u305  kullan\u305 c\u305 n\u305 n se\'e7ti\u287 i makale adedi (zaten elde), toplam at\u305 f OpenAlex'in d\'f6nd\'fcrd\'fc\u287 \'fc cited_by_count alanlar\u305 n\u305 n toplam\u305  (fetch_papers_by_ids zaten getiriyor, sadece toplama eklenir), faithfulness skoru ise mevcut Pydantic kap\u305 s\u305 n\u305 n (citations[i].paper_ids \u8838  used_paper_ids) s\'fcrekli versiyonu \'97 ka\'e7 c\'fcmle ge\'e7erli rank-tag tutturdu / toplam c\'fcmle. Mevcut retry kap\u305 s\u305  zaten bu kontrol\'fc c\'fcmle-c\'fcmle yap\u305 yor; tek de\u287 i\u351 iklik binary ge\'e7ti/ge\'e7medi yerine say\u305 m\u305  saklay\u305 p y\'fczdeye \'e7evirmek. Yeni LLM \'e7a\u287 r\u305 s\u305  eklenmiyor. Backend taraf\u305  api/models/q.py'deki LiteratureReviewResponse'a \'fc\'e7 alan ekleme (paper_count, total_citations, faithfulness_score) ve api/routes/q.py'de literature-review endpoint'inde skoru hesaplay\u305 p d\'f6nd\'fcrme i\u351 idir, yakla\u351 \u305 k bir plan iterasyonu. Frontend taraf\u305  useLitReview hook'unun yeni alanlar\u305  yakalamas\u305  (TanStack Query otomatik) ve sentez ba\u351 l\u305 \u287 \u305 nda tek sat\u305 r rozet komponentidir. Plan oturumunda netle\u351 ecek iki ufak karar var: rozet renk e\u351 i\u287 i (Pydantic kap\u305 s\u305  zaten <%100'\'fc retry'ledi\u287 i i\'e7in kullan\u305 c\u305  pratikte hep y\'fcksek skor g\'f6r\'fcr, n\'f6tr gri yeterli olabilir) ve at\u305 f say\u305 s\u305 n\u305 n "kalite i\u351 areti" de\u287 il "ham bilgi" olarak g\'f6sterilmesi gere\u287 i (y\'fcksek at\u305 f eski paper birikmesi olabilir, Sleeping Beauty az at\u305 fl\u305  olabilir \'f6nemliyken). \'dc\'e7 say\u305 n\u305 n kompozisyonu birlikte g\'fc\'e7l\'fc \'e7\'fcnk\'fc paper say\u305 s\u305  geni\u351 li\u287 i, at\u305 f toplam\u305  a\u287 \u305 rl\u305 \u287 \u305 , faithfulness g\'fcvenilirli\u287 i g\'f6sterir; rakipte bu \'fc\'e7l\'fc tek sat\u305 rda yok ve vitrin'in vanilla felsefesini bozmadan hal\'fcsinasyon-s\u305 f\u305 r vaadini \u351 effafla\u351 t\u305 r\u305 r.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Kullan\uc0\u305 c\u305  sisteme girmeden sadece d\u305 \u351 ar\u305 dan bakt\u305 \u287 \u305  yer.\
+\
+Vitrin ak\uc0\u305 \u351 \u305 :\
+- Kullan\uc0\u305 c\u305  ara\u351 t\u305 rmas\u305  ile alakal\u305  bir ka\'e7 kelime yazar\
+- 25 adet OpenAlex sorgusu g\'f6r\'fcr\
+\
+Tier davran\uc0\u305 \u351 \u305 :\
+- Free: 25 makaleden sadece 3 adet se\'e7ebilir ve bunun \'f6zetini alabilir\
+        (LLM: Gemini 2.5)\
+- Pro:  25 makaleden istediklerini se\'e7er ve \'f6zetini al\uc0\u305 r (LLM: Gemini 2.5)\
+\
+\uc0\u304 kisi de "Projeye D\'f6n\'fc\u351 t\'fcr" yapabilir:\
+- Free: \'fccret \'f6deme te\uc0\u351 viki ile\
+- Pro:  normal proje dosyas\uc0\u305  a\'e7ar\
+\
+Projeye d\'f6n\'fc\uc0\u351 \'fcnce:\
+- Di\uc0\u287 er kanallar a\'e7\u305 l\u305 r\
+- Bizim en \'fcst d\'fczey yay\uc0\u305 nlar\u305 n oldu\u287 u havuzda \'e7al\u305 \u351 maya ba\u351 lan\u305 r\
+\
+Fark (kritik):\
+- OpenAlex her t\'fcr yay\uc0\u305 n\u305  al\u305 r (kaliteli/kalitesiz ayr\u305 m\u305  yok)\
+- Bizim havuz se\'e7ili yay\uc0\u305 nlar\u305  sunar\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+Kan\uc0\u305 t seviyesi: A (bu oturumda Read/Grep ile do\u287 ruland\u305 ; file:line referansl\u305 ).\
+Tarih: 2026-05-10.\
+\
+\
+[ (i)  VER\uc0\u304  AMBARI ]\
+\
+Vitrin DO\uc0\u286 RUDAN bizim corpus'a de\u287 mez. Sadece OpenAlex Polite Pool \'e7a\u287 r\u305 l\u305 r.\
+\
+  - Corpus 25M (warehouse final/) \uc0\u8594  KULLANILMIYOR (vitrin scope d\u305 \u351 \u305 )\
+  - dim_ghost_paper                  \uc0\u8594  KULLANILMIYOR (sayfa 3.2'de devreye girer)\
+  - Supabase papers tablosu          \uc0\u8594  KULLANILMIYOR\
+  - Pinecone embeddings              \uc0\u8594  KULLANILMIYOR\
+\
+Vitrin'in tek d\uc0\u305 \u351  kayna\u287 \u305  OpenAlex (api/services/openalex_polite.py).\
+"Bizim havuz" sadece kullan\uc0\u305 c\u305  "Projeye D\'f6n\'fc\u351 t\'fcr" CTA's\u305 yla atelyeye\
+ge\'e7ti\uc0\u287 inde devreye girer (sayfa 2.1 Ara\u351 t\u305 rma Alan\u305 'ndan itibaren).\
+\
+Mimari bo\uc0\u351 luk: yok (vitrin'in OpenAlex'e dayanmas\u305  karar \'97 DM karar\u305 ).\
+\
+\
+[ (ii) BACKEND ]\
+\
+Endpoint dosyas\uc0\u305 :\
+  api/routes/q.py (295 sat\uc0\u305 r)\
+\
+Endpoint'ler:\
+  - POST /api/q                    (line 99-152)  \'97 25 makale OpenAlex preview\
+                                                      LLM yok, sadece arama+dedup\
+  - POST /api/q/literature-review  (line 198-277) \'97 Gemini 2.5 Flash sentez\
+  - POST /api/q2                   (line 283-291) \'97 V1'de "yak\uc0\u305 nda" kilitli\
+                                                      (DM-054, 403 tier_locked_soon)\
+\
+Sabitler (q.py):\
+  - _Q_LIMIT = 25            (line 48, KD-V1-S10-01)\
+  - _ANON_PAPER_LIMIT = 3    (line 158, KD-V1-S10-02)\
+  - _LANG_INSTRUCTION dict   (line 160-164, TR/EN/ID prompt y\'f6nergesi)\
+\
+\'c7ift dil paralel arama (KD-V1-S11):\
+  - translate_query \uc0\u8594  Gemini 2.5 Flash \u8594  \u304 ng + dil tespiti (line 51-78)\
+  - asyncio.gather: kullan\uc0\u305 c\u305  dili + EN paralel (line 117-128)\
+  - Translate fail \uc0\u8594  1 query graceful degrade (KD-V1-S11-04)\
+  - dedup by openalex_id \uc0\u8594  cited_by_count desc \u8594  top 25 (line 81-96)\
+\
+LLM Modelleri (DO\uc0\u286 RULANMI\u350  \'97 config.py):\
+  api/config.py:53,54\
+    GEMINI_FLASH_MODEL = "gemini-2.5-flash"\
+    GEMINI_PRO_MODEL   = "gemini-2.5-pro"\
+  Vitrin tier="flash" \uc0\u8594  gemini-2.5-flash (translate + literature-review)\
+  Vitrin tier="pro"  \uc0\u8594  kullan\u305 lm\u305 yor\
+\
+OpenAlex servisi:\
+  api/services/openalex_polite.py\
+  - search_papers(query, limit, year_from, year_to)\
+  - fetch_papers_by_ids(paper_ids)\
+  - OpenAlexError \uc0\u8594  503 service_unavailable\
+\
+Tier gate (api/middleware/tier_gate.py:56-65):\
+  /api/q                         : anon=3/g\'fcn, authed=5/g\'fcn\
+  /api/q/literature-review       : anon=3/g\'fcn, authed=10/g\'fcn\
+  /api/tts/literature-review     : anon=1/g\'fcn, authed=5/g\'fcn\
+  - Redis INCR + g\'fcnl\'fck TTL (UTC midnight reset)\
+  - 3 authed tier (ogrenci/arastirmaci/profesyonel) ayn\uc0\u305  kotada\
+    (KD-V1-S5-03: V2 i\uc0\u351  karar\u305 , \'f6deme tier'\u305  eklenince ayr\u305 \u351 \u305 r)\
+\
+Pydantic modeller (api/models/q.py):\
+  QRequest, QResponse, PaperPreview,\
+  QueryTranslation, QueryTranslationLLM,\
+  LiteratureReviewRequest, LiteratureReviewResponse, LiteratureReviewLLM\
+\
+\
+[ (iii) FRONTEND ]\
+\
+Sayfa dosyas\uc0\u305 :\
+  web/src/app/(app)/q/page.tsx (939 sat\uc0\u305 r)\
+Route: /q\
+\
+Tier sabitleri (page.tsx):\
+  - ANON_PAPER_LIMIT = 3      (line 53, KD-V1-S10-02)\
+  - AUTHED_PAPER_LIMIT = 25   (line 54)\
+  - maxSelect = isAuthenticated ? 25 : 3   (line 95)\
+\
+Tier kayna\uc0\u287 \u305 :\
+  web/src/hooks/useTierMock.ts (51 sat\uc0\u305 r)\
+  - localStorage tabanl\uc0\u305  mock (TODO V1-S5: Supabase auth, line 4)\
+  - Tier tipleri: "ogrenci" | "arastirmaci" | "profesyonel"  (line 9)\
+  - Mode: "anon" | UserTier  (line 10)\
+  - isAuthenticated = tier !== "anon"  (line 49)\
+\
+Veri ak\uc0\u305 \u351 \u305  (frontend hook'lar\u305 ):\
+  - 25 makale listesi: useQ \uc0\u8594  POST /api/q  (web/src/hooks/useQ.ts)\
+  - Literat\'fcr \'f6zeti: useLitReview \uc0\u8594  POST /api/q/literature-review\
+                     (web/src/hooks/useLitReview.ts)\
+  - Filtre: q-filters.ts (y\uc0\u305 l backend; min at\u305 f/abstract/s\u305 ralama frontend)\
+  - Sesli arama: useSpeechInput (TR-only V1, KD-V1-S12-02)\
+  - Ses \'e7\uc0\u305 k\u305 \u351 \u305 : AudioPlayButton (\'f6zet TR seslendirme, V1-S12-03)\
+\
+"Projeye D\'f6n\'fc\uc0\u351 t\'fcr" CTA:\
+  - convertToProject() (page.tsx:175-203)\
+  - POST /api/project/from-q (F11 Phase A \'97 ger\'e7ek backend, mock de\uc0\u287 il)\
+  - enterProject(project_id) \uc0\u8594  /project/\{id\}/discovery-1\
+                              (yani 2.1 Ara\uc0\u351 t\u305 rma Alan\u305  sayfas\u305 na atlar)\
+\
+V1-S15 P001 (sticky selection bar):\
+  - Review haz\uc0\u305 r olunca kaynak paneli collapse, \'f6zet \'f6ne \'e7\u305 kar\
+  - "Kaynaklar\uc0\u305  d\'fczenle" toggle ile geri a\'e7\u305 l\u305 r\
+\
+\
+[ VER\uc0\u304  AKI\u350 I \'97 U\'c7TAN UCA ]\
+\
+1. Kullan\uc0\u305 c\u305  sorgu yazar (page.tsx form)\
+2. POST /api/q\
+   \uc0\u8594  translate (gemini-2.5-flash, dil tespiti)\
+   \uc0\u8594  OpenAlex paralel TR + EN sorgu (B\u304 Z\u304 M HAVUZ de\u287 il)\
+   \uc0\u8594  dedup by openalex_id\
+   \uc0\u8594  cited_by_count desc \u8594  top 25\
+   \uc0\u8594  QResponse (papers + translation + quota_remaining)\
+3. Kullan\uc0\u305 c\u305  checkbox ile makale se\'e7er\
+   - anon: max 3\
+   - authed: max 25\
+4. POST /api/q/literature-review\
+   \uc0\u8594  fetch_papers_by_ids (yine OpenAlex)\
+   \uc0\u8594  gemini-2.5-flash sentez (1 retry)\
+   \uc0\u8594  LiteratureReviewResponse (content + numaral\u305  references)\
+5. (opsiyonel) AudioPlayButton t\uc0\u305 klan\u305 rsa\
+   \uc0\u8594  POST /api/tts/literature-review (ElevenLabs)\
+6. (opsiyonel) "Projeye D\'f6n\'fc\uc0\u351 t\'fcr" CTA\
+   \uc0\u8594  POST /api/project/from-q (F11 Phase A)\
+   \uc0\u8594  /project/\{id\}/discovery-1 (sayfa 2.1)\
+   \uc0\u8594  BURADAN \u304 T\u304 BAREN B\u304 Z\u304 M HAVUZ DEVREDE.\
+\
+\
+[ \uc0\u304 LG\u304 L\u304  TESTLER ]\
+\
+  web/src/hooks/useQ.test.tsx\
+  web/src/hooks/useLitReview.test.tsx\
+  web/src/hooks/useTierMock.test.tsx\
+  web/src/lib/q-api.test.ts\
+  web/src/lib/q-filters.test.ts\
+  web/src/lib/lit-review-api.test.ts\
+\
+\
+[ GEL\uc0\u304 \u350 T\u304 R\u304 C\u304  NOTU \u304 LE DELTA \'97 KR\u304 T\u304 K ]\
+\
+(1) "Free vs Pro" ayr\uc0\u305 m\u305  (notu) \u8596  "anon vs authed" (mevcut):\
+    - Geli\uc0\u351 tirici Notu: Free = \'f6deme yapmam\u305 \u351  (3 makale se\'e7),\
+                       Pro  = \'f6deme yapm\uc0\u305 \u351  (25 makale se\'e7).\
+    - Mevcut: anon  = giri\uc0\u351  yok (3 makale se\'e7),\
+              authed = 3 tier hepsi ayn\uc0\u305  (25 makale se\'e7).\
+    - \'d6deme katman\uc0\u305  V1'de YOK. KD-V1-S5-03: V2 i\u351  karar\u305 .\
+\
+(2) "Free \'fccret \'f6deme te\uc0\u351 viki ile Projeye D\'f6n\'fc\u351 t\'fcr\'fcr" (notu):\
+    - Mevcut: convertToProject CTA t\'fcm kullan\uc0\u305 c\u305 lara a\'e7\u305 k (anon dahil).\
+    - PaywallModal komponenti VAR\
+      (web/src/components/PaywallModal.tsx)\
+      ama Q sayfas\uc0\u305 nda ba\u287 lanmam\u305 \u351 .\
+\
+(3) "LLM: Gemini 2.5" (notu) \'97 DO\uc0\u286 RULANDI:\
+    - api/config.py:53 \uc0\u8594  gemini-2.5-flash\
+    - api/config.py:54 \uc0\u8594  gemini-2.5-pro (vitrin'de kullan\u305 lm\u305 yor)\
+    - Vitrin t\'fcm LLM \'e7a\uc0\u287 r\u305 lar\u305  tier="flash" \u8594  gemini-2.5-flash.\
+\
+(4) "Bizim havuzda \'e7al\uc0\u305 \u351 maya ba\u351 lan\u305 r" (notu) \'97 DO\u286 RULANDI:\
+    - "Bizim havuz" = ~25M makale corpus (warehouse v4 final/).\
+    - Vitrin BU HAVUZA DE\uc0\u286 MEZ \'97 OpenAlex kullan\u305 r.\
+    - Proje d\'f6n\'fc\uc0\u351 \'fcm\'fc (POST /api/project/from-q) sonras\u305  warehouse devreye girer.\
+    - Ayr\uc0\u305  do\u287 rulama gereken: from-q endpoint'inin warehouse'tan paper\
+      kopyalama / referans tutma mant\uc0\u305 \u287 \u305  (api/routes/project.py bu oturumda\
+      okunmad\uc0\u305 ).\
+\
+\
+[ REFERANS PLAN MANIFESTLERI ]\
+\
+  docs/plans/V1_S10_vitrin_tek_sayfa.md   \'97 KD-V1-S10-01..07\
+  docs/plans/V1_S11_*.md                  \'97 KD-V1-S11 \'e7ift dil\
+  docs/plans/V1_S12_*.md                  \'97 KD-V1-S12 sesli\
+  docs/plans/V1_S15_*.md                  \'97 sticky selection bar\
+  F11 Phase A                             \'97 vitrin \uc0\u8594  atelye k\'f6pr\'fcs\'fc\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+(1) M\uc0\u304 MAR\u304  D\'dcZELTME \'97 KR\u304 T\u304 K (karar 2026-05-10, Omer):\
+    Vitrin \uc0\u8594  Proje aras\u305 nda SADECE \{alan, alt-alan, konu\} akacak.\
+    Mevcut "Projeye D\'f6n\'fc\uc0\u351 t\'fcr" CTA paper_id listesi g\'f6nderiyor \'97 yanl\u305 \u351 .\
+    Detay ve d\'fczeltme noktalar\uc0\u305 : 2.1_arastirma_alani.rtf \'a7\'c7EL\u304 \u350 K\u304 .\
+\
+    Vitrin taraf\uc0\u305  etki:\
+      - convertToProject() (page.tsx:175-203) payload yeniden yaz\uc0\u305 l\u305 r:\
+        \{ field, subfield, topic, lang \} \'97 selected_paper_ids S\uc0\u304 L\u304 N\u304 R.\
+      - api/routes/project.py:223-287 from-q endpoint imzas\uc0\u305  de\u287 i\u351 ir.\
+      - api/models/project.py ProjectFromQRequest field listesi g\'fcncellenir.\
+      - db/migrations/0019_project_seed_papers.sql vitrin i\'e7in \'f6l\'fc;\
+        tutulsun mu silinsin mi \uc0\u8594  DM karar\u305  bekliyor.\
+\
+    A\'e7\uc0\u305 k soru: Vitrin'in literature-review LLM \'e7\u305 kt\u305 s\u305 ndan field/subfield/topic\
+    nas\uc0\u305 l \'e7\u305 kart\u305 lacak? (ek LLM \'e7a\u287 r\u305 s\u305  m\u305 , mevcut \'f6zetin parse'\u305  m\u305 , yoksa\
+    kullan\uc0\u305 c\u305  manuel mi se\'e7ecek?) \'97 Plan oturumunda karar.\
+\
+(2) Free vs Pro \'f6deme katman\uc0\u305  V2'ye ertelendi (KD-V1-S5-03).\
+    PaywallModal komponenti var ama Q sayfas\uc0\u305 nda ba\u287 lanmad\u305 ; V1'de ba\u287 lamak\
+    gerekir mi yoksa V2 ile mi gelir? \'97 DM karar\uc0\u305  bekliyor.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 onay sonras\u305  plan manifest yaz\u305 l\u305 r]\
+}

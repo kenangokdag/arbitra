@@ -1,0 +1,147 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 6.2 SAVUNMA \'97 SAVUNMA FORMATI\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Savunma sim\'fclasyonu ki\uc0\u351 iselle\u351 sin diye ger\'e7ek bilgilerle (j\'fcri, tarih, alan) haz\u305 rl\u305 k. Felsefemiz: sahte sim\'fclasyon zay\u305 f; kullan\u305 c\u305  ger\'e7ek j\'fcri \'fcyelerini ve onlar\u305 n alanlar\u305 n\u305  girerse, sim\'fclasyon o ki\u351 ilerin ger\'e7ek \'e7al\u305 \u351 ma alanlar\u305 na \'f6zel sorular \'fcretir. Genel persona de\u287 il, ki\u351 iye-\'f6zg\'fc antrenman. Stanford-style 2-derinlik zincir soru.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: Kullan\u305 c\u305  makale/tez/yeterlilik/bildiri se\'e7er; tarih, j\'fcri b\'fcy\'fckl\'fc\u287 \'fc, ba\u351 l\u305 k, alan girer; opsiyonel j\'fcri \'fcyeleri (isim+alan) girer. Backend her j\'fcri \'fcyesi i\'e7in OpenAlex/Scopus ile ger\'e7ek paper listesini \'e7eker (varsa); her \'fcyenin alan-paper'\u305 ndan soru havuzu LLM ile \'fcretilir. Output: defense_session tablosuna persist; 6.3-6.4-6.5'te bu havuz kullan\u305 l\u305 r.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7larda (genel chatbot/QA pratikleri) jenerik j\'fcri sim\'fclasyonu var ama ger\'e7ek j\'fcri \'fcyesinin paper'lar\u305 ndan ki\u351 i-spesifik soru \'fcreten \'fcr\'fcn yok \'97 bu sayfa PaperMind imzas\u305  "ki\u351 iselle\u351 mi\u351  savunma antrenman\u305 ". T\'fcm dokunu\u351 lar V1 \'97 V2 yok (Omer karar\u305 ). (1) Yay\u305 n t\'fcr\'fc se\'e7ici (V1 \u10003 , ham vizyon): 4 kart \'97 Makale / Tez / Yeterlilik / Bildiri. Her t\'fcre \'f6zel j\'fcri format\u305  (Tez 5 \'fcye, Yeterlilik 3 \'fcye vb. default). Felsefe: t\'fcr-spesifik haz\u305 rl\u305 k; \'f6\u287 renci/dan\u305 \u351 man persona. (2) Temel bilgi formu (V1 \u10003 , ham vizyon): tarih (datepicker), j\'fcri b\'fcy\'fckl\'fc\u287 \'fc (1-7), ba\u351 l\u305 k (text), alan (dropdown \'97 havuz tema'lar\u305 ndan autocomplete). Felsefe: sim\'fclasyon kontekstini netle\u351 tirir; \'f6\u287 renci persona. (3) J\'fcri \'fcyeleri detay form AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , ham vizyon): opsiyonel \'97 her \'fcye i\'e7in isim + alan + (opsiyonel) ORCID/affiliation. Dinamik "Ekle" butonu j\'fcri b\'fcy\'fckl\'fc\u287 \'fc kadar. Felsefe: ger\'e7ek ki\u351 i \u8594  ger\'e7ek soru; dan\u305 \u351 man/j\'fcri persona \'97 rakipte yok. (4) OpenAlex Author API entegrasyonu (V1 \u10003 , ham vizyon): isim + affiliation + alan \'fc\'e7l\'fcs\'fc ile author disambiguation; bulunan author i\'e7in top-20 cited paper. Bulunamazsa "ki\u351 i bulunamad\u305 , generic alan profili kullan\u305 lacak" uyar\u305 s\u305 . ORCID girilmi\u351 se direkt match. Felsefe: d\'fcr\'fcst ki\u351 i-e\u351 le\u351 tirme; teknik kan\u305 t \'97 OpenAlex \'fccretsiz API. (5) J\'fcri profili \'f6nizleme (V1 \u10003 , bedava UI): her j\'fcri i\'e7in kart \'97 top-5 paper ba\u351 l\u305 \u287 \u305  + alan da\u287 \u305 l\u305 m\u305  (mini bar chart) + at\u305 f say\u305 s\u305 . \u350 effafl\u305 k \'97 kullan\u305 c\u305  yanl\u305 \u351  ki\u351 i se\'e7ildiyse d\'fczeltebilir "Bu ki\u351 i de\u287 il" butonu. Felsefe: do\u287 rulama g\'f6z\'fc; dan\u305 \u351 man/j\'fcri persona. (6) Soru havuzu \'fcretici AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , kan\u305 t-ba\u287 l\u305 ): her j\'fcri \'fcyesinin paper'lar\u305 ndan + kullan\u305 c\u305 n\u305 n manuscript_section i\'e7eri\u287 inden Gemini Pro 1 \'e7a\u287 r\u305  \u8594  ki\u351 i-spesifik soru havuzu (ki\u351 i ba\u351 \u305 na 8-12 soru, 2-derinlik zincir Stanford-style). Sorular kategorize: y\'f6ntem / katk\u305  / s\u305 n\u305 rl\u305 l\u305 k / etik / alan-spesifik. Felsefe: ki\u351 i-paper kan\u305 t-ba\u287 l\u305 ; j\'fcri/hakem persona \'97 rakipte yok. (7) Generic j\'fcri profili fallback (V1 \u10003 ): j\'fcri ismi yoksa veya OpenAlex'te bulunamazsa, alan ortalamas\u305  \'fczerinden generic j\'fcri (havuzdan en aktif 5 paper'\u305 n yazar\u305  + ortalama soru profili). \u350 effafl\u305 k: "Generic mode aktif" sar\u305  rozet. Felsefe: d\'fcr\'fcst fallback. (8) defense_session tablosu persist (V1 \u10003 , Migration 0028): project_id + session_type + date + jury_size + title + field + jury_members JSONB + question_pool JSONB + created_at. 6.3/6.4/6.5 bu tabloyu okur. RLS kendi proje. Felsefe: tek kaynak do\u287 ruluk. (9) "Haz\u305 rl\u305 k Tamamland\u305 " CTA (V1 \u10003 ): t\'fcm zorunlu alanlar + min 1 j\'fcri \'fcyesi (veya generic onay) + soru havuzu \'fcretildi \u8594  3 hedef kart aktifle\u351 ir: 6.3 Bireysel Kontrol / 6.4 Dergi Sim\'fclasyonu / 6.5 J\'fcri Sim\'fclasyonu. Felsefe: s\'fcre\'e7 ak\u305 \u351  kav\u351 a\u287 \u305 . (10) Otomatik j\'fcri \'f6nerisi (V1 \u10003 , ek dokunu\u351 ): alan + kullan\u305 c\u305  havuzu \'fczerinden 5 \'f6neri j\'fcri (en aktif 5 yazar). Kullan\u305 c\u305  se\'e7erse veya manuel ekler. Felsefe: ke\u351 if yard\u305 m\u305 ; \'f6\u287 renci persona. (11) Multi-language soru havuzu (V1 \u10003 , ek dokunu\u351 ): TR + EN se\'e7ici \'97 kullan\u305 c\u305  tezini hangi dilde savunacaksa ona g\'f6re. user_profiles.preferred_lang varsay\u305 lan. Felsefe: dil-yerli antrenman. (12) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): j\'fcri \'fcyesinin paper listesi D6 Lite + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon: "+soru havuzuna ekle" \'97 kullan\u305 c\u305  manuel bir paper'\u305  soru havuzu kayna\u287 \u305  olarak i\u351 aretleyebilir; LLM o paper'\u305  extra context olarak kullan\u305 r. Felsefe: kullan\u305 c\u305  kontrol\'fc; dan\u305 \u351 man persona. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase'de do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 ; OpenAlex Author API \'fccretsiz quota'l\u305  entegrasyon plan oturumuna +0.5 g\'fcn; Migration 0028 (defense_session) toplu plan oturumuna eklendi.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Kullan\uc0\u305 c\u305  ne yapacaksa onunla alakal\u305  se\'e7imi yapacak:\
+- Makale / Tez / Yeterlilik / Bildiri\
+\
+Ard\uc0\u305 ndan bilgileri verecek:\
+- Tarih\
+- J\'fcri b\'fcy\'fckl\'fc\uc0\u287 \'fc\
+- Ba\uc0\u351 l\u305 k\
+- Alan\
+\
+Ayr\uc0\u305 ca ger\'e7ekte varsa:\
+- J\'fcri bilgilerini ve alanlar\uc0\u305 n\u305  girecek\
+\
+Buna g\'f6re biz j\'fcri / hakemlik veya ne ise onunla alakal\uc0\u305  haz\u305 rl\u305 k yapaca\u287 \u305 z.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10):\
+\
+(1) MIGRATION 0028 \'97 defense_session tablosu (V1 zorunlu, toplu plan oturumu):\
+    - Schema:\
+      * id (uuid)\
+      * project_id (FK user_projects)\
+      * session_type (ENUM: makale/tez/yeterlilik/bildiri)\
+      * scheduled_date (DATE, nullable)\
+      * jury_size (INT 1-7)\
+      * title (TEXT)\
+      * field (TEXT \'97 havuz tema_id ile JOIN)\
+      * preferred_lang (CHAR(2): tr/en)\
+      * jury_members (JSONB):\
+        [\{ name, affiliation, field, orcid?, openalex_author_id?, found_papers[], generic_fallback: bool \}]\
+      * question_pool (JSONB):\
+        [\{ jury_member_index, category, question, depth, source_paper_id, follow_up_questions[] \}]\
+      * created_at + updated_at\
+    - RLS: kullan\uc0\u305 c\u305  yaln\u305 z kendi project'lerini\
+    - Tahmini i\uc0\u351 : 0.5 g\'fcn\
+\
+(2) OPENALEX AUTHOR API ENTEGRASYONU (V1 zorunlu, ~0.5 g\'fcn):\
+    - Endpoint: https://api.openalex.org/authors?search=\{name\}&filter=affiliations.institution.display_name.search:\{affiliation\}\
+    - Rate limit: dakikada 10 (polite pool, mailto header ile artt\uc0\u305 r\u305 labilir)\
+    - Cache: 7-g\'fcn TTL Redis (author_id \uc0\u8594  top-20 paper meta)\
+    - Disambiguation:\
+      * Tam isim e\uc0\u351 le\u351 me + affiliation cosine \u8805  0.7 \u8594  tek match\
+      * \'c7oklu match \uc0\u8594  top-3 candidate listele, kullan\u305 c\u305  se\'e7\
+      * Match yok \uc0\u8594  generic_fallback = true\
+    - Output: \{ author_id, display_name, top_papers[20], works_count, cited_by_count \}\
+\
+(3) BACKEND \'97 soru havuzu \'fcretici endpoint:\
+    - POST /api/workshop/defense/generate-questions\
+    - Body: \{ project_id, jury_member_index \}\
+    - Ad\uc0\u305 mlar:\
+      a) defense_session.jury_members[index] \'e7ek\
+      b) manuscript_section t\'fcm 5 b\'f6l\'fcm i\'e7erik\
+      c) J\'fcri \'fcyesinin top-10 paper title + abstract\
+      d) Gemini Pro 1 \'e7a\uc0\u287 r\u305  (Pydantic structured output):\
+         * Input: j\'fcri uzmanl\uc0\u305 k paperlar\u305  + kullan\u305 c\u305  manuscript + t\'fcr context\
+         * Output: \{ questions: [\{ category, depth, question, follow_up?, source_paper_id \}] \}\
+         * Min 8 max 12 soru/j\'fcri; depth 1-2 zincir\
+         * Kategoriler: method | contribution | limitation | ethics | field_specific\
+      e) defense_session.question_pool UPDATE\
+    - Output: \{ questions[], generation_count \}\
+    - Cache: j\'fcri profili + manuscript hash de\uc0\u287 i\u351 medik\'e7e yeniden \'fcretilmez\
+\
+(4) BACKEND \'97 generic fallback \'fcretici:\
+    - J\'fcri ismi yok / OpenAlex match yok ise:\
+      a) field tema_id \'fczerinden havuzdan en aktif 5 yazar\
+      b) Onlar\uc0\u305 n ortalama paper alan profili\
+      c) Ayn\uc0\u305  Pro \'e7a\u287 r\u305  ile generic question pool\
+    - "Generic mode" rozet sar\uc0\u305 \
+\
+(5) BACKEND \'97 otomatik j\'fcri \'f6nerisi:\
+    - GET /api/workshop/defense/suggest-jury?project_id=\{id\}&field=\{tema_id\}\
+    - Ad\uc0\u305 mlar:\
+      a) Havuzdan field i\'e7inde en aktif 5 yazar (papers JOIN dim_author)\
+      b) Her birinin top-3 paper + at\uc0\u305 f say\u305 s\u305 \
+    - Output: \{ suggestions[5] \}\
+\
+(6) FRONTEND:\
+    - Ad\uc0\u305 m 1: Yay\u305 n t\'fcr\'fc se\'e7ici (4 kart)\
+    - Ad\uc0\u305 m 2: Temel bilgi formu (tarih + j\'fcri b\'fcy\'fckl\'fc\u287 \'fc + ba\u351 l\u305 k + alan + dil)\
+    - Ad\uc0\u305 m 3: J\'fcri \'fcyeleri formu (dinamik sat\u305 r, j\'fcri b\'fcy\'fckl\'fc\u287 \'fc kadar)\
+      * Her sat\uc0\u305 r: isim + affiliation + alan + (ORCID opsiyonel)\
+      * "Otomatik \'f6ner" butonu \uc0\u8594  suggest-jury sonucu listede\
+      * "Ki\uc0\u351 i bul" butonu \u8594  OpenAlex search; \'e7oklu match'te se\'e7im modali\
+    - Ad\uc0\u305 m 4: J\'fcri profili \'f6nizleme kartlar\u305 \
+      * Her kart: top-5 paper + alan chart + at\uc0\u305 f say\u305 s\u305  + "Bu ki\u351 i de\u287 il" d\'fczeltme\
+      * Generic mode rozet (varsa)\
+    - Ad\uc0\u305 m 5: "Soru havuzu \'fcret" butonu (j\'fcri \'fcyesi ba\u351 \u305 na 1 Pro \'e7a\u287 r\u305  veya all-in-one)\
+    - Ad\uc0\u305 m 6: "Haz\u305 rl\u305 k Tamamland\u305 " CTA \u8594  3 hedef kart (6.3/6.4/6.5)\
+    - Yan panel: j\'fcri paper listesi Standart Yay\uc0\u305 n Kart\u305  + "+soru havuzuna ekle"\
+\
+(7) LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - Soru havuzu \'fcretimi (Pro): ~5K input + ~1.5K output = ~$0.03-0.04 per j\'fcri\
+    - Tipik j\'fcri 3-5 \'fcye \uc0\u8594  ~$0.10-0.20 per session, 1-time, cache 7 g\'fcn\
+    - Otomatik j\'fcri \'f6nerisi: SQL only, \'fccretsiz\
+    - OpenAlex Author API: \'fccretsiz (polite pool)\
+\
+(8) PERFORMANS HEDEF\uc0\u304 :\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351 : < 400ms (form bo\u351 )\
+    - OpenAlex search: ~600-1000ms (cache hit < 100ms)\
+    - Soru havuzu \'fcretimi: j\'fcri ba\uc0\u351 \u305 na ~3-5s (paralel m\'fcmk\'fcn)\
+    - Profil \'f6nizleme: < 300ms\
+\
+KULLANIM:\
+    - Sayfa varsay\uc0\u305 lan: 6.1'den ge\'e7i\u351  + manuscript_section dolu\
+    - 6.1 olgunluk gate a\'e7\uc0\u305 k de\u287 ilse uyar\u305  + 6.1'e geri d\'f6n\
+    - Haz\uc0\u305 rl\u305 k tamamland\u305 \u287 \u305 nda defense_session.id ile 6.3/6.4/6.5'e y\'f6nlendirme\
+    - project_progress.step_id='6.2' completed\
+}

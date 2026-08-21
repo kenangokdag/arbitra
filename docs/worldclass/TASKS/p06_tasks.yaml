@@ -1,0 +1,135 @@
+{
+  "phase": "P06",
+  "tasks": [
+    {
+      "id": "P06-T01_REVIEW_REPORT_SCHEMA_V2",
+      "phase": "P06",
+      "priority": "P0",
+      "title": "ReviewReport v2: verdict, risk, council, evidence, action plan",
+      "deps": [
+        "P03-T03_RUBRIC_REGISTRY_AND_DIMENSION_SCHEMA",
+        "P04-T03_CLAIM_EVIDENCE_ALIGNMENT"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "api/services/review_orchestration.py",
+        "web/src/lib/review-api.ts",
+        "web/src/components/review/ReviewReportView.tsx"
+      ],
+      "steps": [
+        "Report sections: executive_verdict, risk_radar, reviewer_council, evidence_map, action_plan, section_reviews, exports.",
+        "Backward compatibility adapter ekle.",
+        "Every high severity item requires anchor/action/confidence.",
+        "Report schema versioning ekle."
+      ],
+      "tests": [
+        "schema validation",
+        "backward compatibility fixture",
+        "frontend render report v2"
+      ],
+      "done_when": [
+        "Rapor yapısal olarak cockpit’e hizmet ediyor."
+      ],
+      "advance_when": "ReportView string blob yerine typed sections render ediyorsa.",
+      "stop_if": [
+        "High severity finding action item olmadan geçiyorsa."
+      ]
+    },
+    {
+      "id": "P06-T02_REVIEWER_COUNCIL_ENGINE",
+      "phase": "P06",
+      "priority": "P0",
+      "title": "Persona modüllerini Reviewer Council Engine’e dönüştür",
+      "deps": [
+        "P06-T01_REVIEW_REPORT_SCHEMA_V2"
+      ],
+      "touchpoints": [
+        "api/services/review_orchestration.py",
+        "api/services/role_modules/*",
+        "engine/personas/review/*"
+      ],
+      "steps": [
+        "Council roles: methodologist, field_expert, skeptical_reviewer, constructive_reviewer, citation_auditor, ethics_reviewer, statistics_reviewer, editor_synthesizer.",
+        "Her role output schema’sı aynı: findings, severity, evidence, actions, confidence.",
+        "Editor synthesizer duplicate findings merge etsin.",
+        "Role weights rubric/study type’a göre değişsin."
+      ],
+      "tests": [
+        "unit: council role schema validation",
+        "unit: duplicate merge",
+        "fixture: qualitative role weighting"
+      ],
+      "done_when": [
+        "Persona outputları serbest metin değil birleşebilir structured findings üretiyor."
+      ],
+      "advance_when": "Editor synthesis conflicting role outputs’u çözüyor.",
+      "stop_if": [
+        "Bir role failure tüm raporu sessiz boşa düşürüyorsa."
+      ]
+    },
+    {
+      "id": "P06-T03_ACTION_PLAN_AND_REVISION_TASKS",
+      "phase": "P06",
+      "priority": "P0",
+      "title": "P0/P1/P2 revision action plan ve task modeli",
+      "deps": [
+        "P06-T01_REVIEW_REPORT_SCHEMA_V2"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "web/src/components/review/ReviewReportView.tsx",
+        "web/src/app/(app)/review/[jobId]/page.tsx"
+      ],
+      "steps": [
+        "ActionItem model: priority, effort, expected_gain, target_section, instruction, acceptance_check.",
+        "Risk findings action item’a bağlansın.",
+        "Frontend’de actionable checklist ve filters.",
+        "Done/ignored/user note state için local/server model tasarla."
+      ],
+      "tests": [
+        "schema test action item required fields",
+        "frontend checklist interaction test"
+      ],
+      "done_when": [
+        "Kullanıcı rapordan doğrudan revizyon planı çıkarabiliyor."
+      ],
+      "advance_when": "High severity bulguların %100’ü action item taşıyorsa.",
+      "stop_if": [
+        "Öneriler generic ve uygulanamaz kalıyorsa."
+      ]
+    },
+    {
+      "id": "P06-T04_EXPORTS_AND_RESPONSE_TO_REVIEWERS",
+      "phase": "P06",
+      "priority": "P1",
+      "title": "PDF/DOCX/Markdown/LaTeX export ve response-to-reviewers assistant",
+      "deps": [
+        "P06-T03_ACTION_PLAN_AND_REVISION_TASKS"
+      ],
+      "touchpoints": [
+        "api/routes/review.py",
+        "api/services/review_service.py",
+        "web/src/components/review/ReviewReportView.tsx",
+        "web/src/lib/review-api.ts"
+      ],
+      "steps": [
+        "Export endpoint contract: format, sections, include_evidence, include_disclosure.",
+        "Markdown ilk MVP, PDF/DOCX sonra adapter.",
+        "Response-to-reviewers draft: issue, proposed fix, polite response, evidence.",
+        "Export audit event ekle."
+      ],
+      "tests": [
+        "unit: markdown export snapshot",
+        "integration: export authz",
+        "frontend export button state"
+      ],
+      "done_when": [
+        "Rapor dış dünyada kullanılabilir çıktı formatlarına dönüşüyor."
+      ],
+      "advance_when": "En az Markdown export tam ve testli olduğunda.",
+      "stop_if": [
+        "Export başka kullanıcının raporuna erişebiliyorsa."
+      ]
+    }
+  ]
+}

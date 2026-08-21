@@ -1,0 +1,102 @@
+{
+  "phase": "P00",
+  "tasks": [
+    {
+      "id": "P00-T01_BRAND_AND_PRODUCT_CONTRACT",
+      "phase": "P00",
+      "priority": "P0",
+      "title": "Arbitra/PaperMind marka ve ürün sözleşmesini tekilleştir",
+      "deps": [],
+      "touchpoints": [
+        "web/src/lib/brand.ts",
+        "web/src/components/review/ArbitraWordmark.tsx",
+        "web/src/app/(marketing)/landing/page.tsx",
+        "README.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "steps": [
+        "Arbitra ana ürün, PaperMind suite/platform varsayımını kod ve docs içinde sözleşmeye bağla.",
+        "brand.ts içinde tek source-of-truth oluştur: productName, suiteName, tagline, confidentiality promise, review modes.",
+        "Landing ve review sayfalarındaki PaperMind/Arbitra karışıklığını inventory çıkarıp düzelt.",
+        "Docs içinde eski marka iddialarını yeni sözleşmeye göre güncelle."
+      ],
+      "tests": [
+        "brand contract unit/snapshot test",
+        "landing text smoke test"
+      ],
+      "done_when": [
+        "Tek marka sözleşmesi var.",
+        "UI copy çelişmiyor.",
+        "Agent ve insan aynı product definition ile ilerliyor."
+      ],
+      "advance_when": "Brand auditte çelişen ana ürün adı kalmadığında.",
+      "stop_if": [
+        "Ürün sahibi Arbitra/PaperMind rolünü farklı belirlerse docs güncellenmeden ilerleme."
+      ]
+    },
+    {
+      "id": "P00-T02_REPO_REALITY_DOC_SYNC",
+      "phase": "P00",
+      "priority": "P0",
+      "title": "README/ARCHITECTURE/SECURITY gerçek kodla eşitlensin",
+      "deps": [
+        "P00-T01_BRAND_AND_PRODUCT_CONTRACT"
+      ],
+      "touchpoints": [
+        "README.md",
+        "docs/ARCHITECTURE.md",
+        "docs/STATE.md",
+        "docs/NEXT_ACTION.md",
+        "pyproject.toml",
+        "web/package.json"
+      ],
+      "steps": [
+        "README’de Next/FastAPI/worker/env iddialarını gerçek package ve kodla karşılaştır.",
+        "Celery/worker varsa gerçek implementation path yaz; yoksa roadmap olarak işaretle.",
+        "Docs içindeki outdated provider, env, deployment ve mock ifadelerini güncelle.",
+        "docs/worldclass/STATE.md içine mevcut gerçeklik snapshot’ı yaz."
+      ],
+      "tests": [
+        "docs grep check for obsolete claims",
+        "manual docs/code consistency checklist"
+      ],
+      "done_when": [
+        "Ana docs gerçek kodu yansıtıyor.",
+        "Hayali worker/provider iddiası yok."
+      ],
+      "advance_when": "Yeni geliştirici README ile lokal/dev/prod farkını anlayabiliyorsa.",
+      "stop_if": [
+        "Docs ürün kabiliyetini olduğundan fazla iddia ediyorsa."
+      ]
+    },
+    {
+      "id": "P00-T03_AUTONOMOUS_STATE_AND_LEDGER",
+      "phase": "P00",
+      "priority": "P0",
+      "title": "Otonom ilerleme state/ledger dosyalarını aktifleştir",
+      "deps": [
+        "P00-T02_REPO_REALITY_DOC_SYNC"
+      ],
+      "touchpoints": [
+        "docs/worldclass/STATE.md",
+        "docs/worldclass/TASKS/backlog.csv",
+        "docs/worldclass/TEMPLATES/pr_template.md"
+      ],
+      "steps": [
+        "STATE.md içinde active task, completed tasks, verification commands alanlarını agent için güncelle.",
+        "Backlog CSV/YAML task status alanını kullanılır hâle getir.",
+        "PR template ile task ID zorunluluğu getir."
+      ],
+      "tests": [
+        "Manual: agent can pick next task from ROADMAP.yaml"
+      ],
+      "done_when": [
+        "Her task sonunda güncellenecek tek state dosyası var."
+      ],
+      "advance_when": "Agent hiçbir ek açıklama almadan P01 ilk taskını seçebildiğinde.",
+      "stop_if": [
+        "State ve roadmap task id’leri uyuşmuyorsa."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 4.3 L\uc0\u304 TERAT\'dcR BO\u350 LU\u286 U \'97 \'d6ZG\'dcNL\'dcK DE\u286 ERLEND\u304 RMES\u304 \
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Alan\uc0\u305  sarsan (CD index \u9733 ) ve gecikmi\u351  ke\u351 if (Sleeping Beauty \u9670 ) makalelerin kan\u305 t-bazl\u305  listesi. Felsefemiz: \'f6zg\'fcnl\'fck subjektif de\u287 il \'97 Funk-Owen CD index ve Sleeping Beauty B-coefficient \'f6l\'e7\'fclebilir g\'f6stergelerdir; biz y\u305 llarca offline hesaplatt\u305 \u287 \u305 m\u305 z fact_paper_velocity tablosundan bunlar\u305  g\'f6stereriz. Rakip Scite ba\u287 lam veriyor ama disruption skoru yok; bu sayfada PaperMind imzas\u305  en y\'fcksek seviyede.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: project_pool paper'lar\u305 n\u305 n fact_paper_disruption (cd_5) ve fact_paper_beauty (b) tablolar\u305 ndan kalibre e\u351 iklerle iki ayr\u305  liste; her \u9733  kart i\'e7in n_a/n_i/n_j \'f6zet bar chart, her \u9670  kart i\'e7in tek-rakam \'f6zet (uyku s\'fcresi t_m, c_max, b skoru). LLM lazy load \'97 kart ba\u351 \u305 na "neden \'f6nemli?" 1 c\'fcmle Flash, kullan\u305 c\u305  t\u305 klay\u305 nca.\
+\
+CANLI SUPABASE BULGUSU (2026-05-10): fact_paper_disruption \uc0\u10003  aktif (paper_id + pub_year + n_a + n_i + n_j + total_window_papers + cd_5 + cd_undefined). fact_paper_beauty \u10003  aktif (paper_id + pub_year + c_max + t_m + t_a + c_0 + total_cites + year_obs_max + b + b_undefined). fact_paper_velocity \u10003  aktif ama y\u305 ll\u305 k at\u305 f zaman serisi YOK (sadece anl\u305 k velocity + age_adjusted_impact). cd_5 ve b e\u351 ik da\u287 \u305 l\u305 mlar\u305  offline analiz gerektiriyor (canl\u305  sorgu timeout) \'97 Migration plan oturumunda 1 g\'fcn e\u351 ik kalibrasyon notebook'u eklendi.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7larda (SciSpace/Consensus/Elicit/Scite) disruption skoru ve Sleeping Beauty hi\'e7 yok \'97 bu sayfa PaperMind imzas\u305 n\u305 n zirvesi. (1) \u304 ki sekme: \u9733  Y\u305 k\u305 c\u305  | \u9670  Sleeping Beauty (V1 \u10003 , bedava UI): \'fcstte sekme ge\'e7i\u351 i. Felsefe: iki ayr\u305  kavram kar\u305 \u351 mas\u305 n; sayfa kabar\u305 k olmas\u305 n. (2) \u9733  Y\u305 k\u305 c\u305  liste (V1 \u10003 ): cd_5 > kalibre e\u351 ik paper'lar Standart Yay\u305 n Kart\u305  (Daralt\u305 lm\u305 \u351 ); kart \'fcst\'fcnde \u9733  rozet + cd_5 de\u287 eri. S\u305 ralama cd_5 desc varsay\u305 lan. fact_paper_disruption Excel envanter + canl\u305  sorgu kan\u305 t A. (3) \u9670  Sleeping Beauty liste (V1 \u10003 ): b > kalibre e\u351 ik paper'lar Standart Yay\u305 n Kart\u305  (Daralt\u305 lm\u305 \u351 ); kart \'fcst\'fcnde \u9670  rozet + B skoru + uyku s\'fcresi (t_m y\u305 l) + c_max. fact_paper_beauty kan\u305 t A. (4) \'dcst-3 vurgu kart\u305  (V1 \u10003 , bedava UI): her listenin ba\u351 \u305 nda "En \'e7arp\u305 c\u305  3 paper" gradient \'e7er\'e7eve. Felsefe: tarama yorgunlu\u287 u olmas\u305 n. (5) Mikro-yorum lazy load (V1 \u10003 , 1 Flash \'e7a\u287 r\u305  per paper): kart \'fcst\'fcnde "?" simgesi \u8594  t\u305 k \u8594  "Bu paper neden \u9733 /\u9670 ?" 1 c\'fcmle. Otomatik de\u287 il \'97 maliyet kontrol. Felsefe: ham skor \u8594  a\'e7\u305 klama; dan\u305 \u351 man personas\u305 . (6) \u9733  i\'e7in n_a/n_i/n_j \'f6zet bar chart (V1 \u10003 , bedava UI): kart a\'e7\u305 ld\u305 \u287 \u305 nda a/i/j tipleri g\'f6rsel bar chart + cd_5 form\'fcl\'fc etiket. Bireysel "y\u305 kt\u305 \u287 \u305  paper listesi" yok \'97 bu paper \'d7 reference matrisi (~750M sat\u305 r) yeni tablo gerektiriyor, V2'ye kald\u305 . Felsefe: kan\u305 t-bazl\u305  g\'f6rsel; hakem persona. (7) \u9670  i\'e7in tek-rakam \'f6zeti (V1 \u10003 , bedava UI): "12 y\u305 l uyudu, 2018'de uyand\u305 , c_max=347 at\u305 f/y\u305 l". Y\u305 ll\u305 k at\u305 f sparkline yok \'97 y\u305 ll\u305 k zaman serisi tablosu (~250-375M sat\u305 r) yeni hesap gerektiriyor, V2'ye kald\u305 . Felsefe: gecikmi\u351  ke\u351 if tek-rakam ile somut. (8) Filtre: y\u305 l + tema (V1 \u10003 , bedava UI): \'fcstte iki dropdown \'97 son 5/10 y\u305 l, tema se\'e7imi. fact_paper_id_card.year + fact_paper_topic JOIN. Felsefe: kabar\u305 k olmas\u305 n; kullan\u305 c\u305  kendi alt-k\'fcme. (9) S\u305 ralama dropdown (V1 \u10003 , bedava UI): cd_5 / b / pub_year / total_cites. Felsefe: kullan\u305 c\u305  kontrol\'fc. V2'ye ertelenenler: \u9733  "Y\u305 kt\u305 \u287 \u305  tek tek referanslar\u305 " panel \'97 paper \'d7 reference matrisi (~750M sat\u305 r yeni tablo + 1-2 haftal\u305 k pipeline); cost/benefit k\'f6t\'fc, nadir kullan\u305 m. \u9670  Y\u305 ll\u305 k at\u305 f sparkline \'97 y\u305 ll\u305 k at\u305 f zaman serisi tablosu (~250-375M sat\u305 r) + OpenAlex y\u305 ll\u305 k parquet upload; maj\'f6r i\u351  de\u287 il ama V1'de tek-rakam yeter. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase'de do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 ; e\u351 ik kalibrasyonu V1 zorunlu plan kalemi olarak Migration 0023 plan oturumuna eklendi.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Alan\uc0\u305  sarsan ve gecikmi\u351  ke\u351 ifler (sleeping beauties) makale olarak\
+g\'f6r\'fcnecek.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10):\
+\
+(1) E\uc0\u350 \u304 K KAL\u304 BRASYON NOTEBOOK (V1 zorunlu, plan ba\u351 \u305 nda):\
+    - Offline Python notebook \'97 fact_paper_disruption.cd_5 ve fact_paper_beauty.b da\uc0\u287 \u305 l\u305 m analizi\
+    - Ad\uc0\u305 mlar:\
+      a) cd_5 da\uc0\u287 \u305 l\u305 m\u305 : percentile (p50, p75, p90, p95, p99) \'97 ka\'e7 paper hangi e\u351 i\u287 in \'fcst\'fcnde?\
+      b) cd_undefined=true olan paper'lar\uc0\u305  hari\'e7 tut\
+      c) b da\uc0\u287 \u305 l\u305 m\u305 : ayn\u305  percentile analizi; b_undefined=true hari\'e7\
+      d) \'d6nerilen e\uc0\u351 ikler:\
+         - \uc0\u9733  Y\u305 k\u305 c\u305 : cd_5 > p90 (\'fcst %10) \'f6nerilir; ham vizyondaki 0.3 muhtemelen y\'fcksek\
+         - \uc0\u9670  Sleeping Beauty: b > p95 (\'fcst %5) \'f6nerilir; literat\'fcrde Ke et al. 2015 \'f6nerisi varsa onunla k\u305 yasla\
+      e) Kalibre e\uc0\u351 ik de\u287 erleri config tablosuna yaz\u305 l\u305 r (config.originality_thresholds JSON)\
+    - Tahmini i\uc0\u351 : 1 g\'fcn\
+    - V1 release \'f6ncesi MUTLAKA tamamlanmal\uc0\u305 ; yoksa bo\u351  veya kabar\u305 k liste\
+\
+(2) BACKEND \'97 \'f6zg\'fcnl\'fck endpoint:\
+    - GET /api/workshop/originality?project_id=\{id\}&type=\{disruption|sleeping_beauty\}&year_from&year_to&theme_id\
+    - Ad\uc0\u305 mlar:\
+      a) project_pool paper_id'leri al\
+      b) JOIN fact_paper_disruption (type=disruption) veya fact_paper_beauty (type=sleeping_beauty)\
+      c) WHERE cd_5 > config.disruption_threshold (veya b > config.beauty_threshold)\
+      d) Filtre: year_from/year_to + theme_id (opsiyonel)\
+      e) ORDER BY cd_5/b DESC LIMIT 50\
+    - Output: paper_id list + skor metadata (cd_5/b/n_a/n_i/n_j/t_m/c_max)\
+\
+(3) FRONTEND:\
+    - Sekme: \uc0\u9733  Y\u305 k\u305 c\u305  | \u9670  Sleeping Beauty\
+    - \'dcst-3 gradient \'e7er\'e7eve + s\uc0\u305 ralama + filtre dropdown\
+    - Standart Yay\uc0\u305 n Kart\u305  (Daralt\u305 lm\u305 \u351 ) liste; rozet kart \'fcst\'fcnde\
+    - Kart a\'e7\uc0\u305 ld\u305 \u287 \u305 nda \u9733  i\'e7in n_a/n_i/n_j bar chart, \u9670  i\'e7in tek-rakam \'f6zet\
+    - "?" t\uc0\u305 klay\u305 nca lazy Flash mikro-yorum\
+\
+(4) LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - Mikro-yorum: 1 Flash \'e7a\uc0\u287 r\u305  per paper, ~500 input + ~50 output = ~$0.0001 per paper\
+    - Lazy load + 5 dakika cache \uc0\u8594  kullan\u305 c\u305  ba\u351 \u305 na ortalama 5-10 mikro-yorum/sayfa\
+    - Toplam ~$0.001 per sayfa a\'e7\uc0\u305 l\u305 \u351 \u305 \
+\
+(5) PERFORMANS HEDEF\uc0\u304 :\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351 : < 500ms (LLM yok, sadece SQL)\
+    - E\uc0\u351 ik kalibrasyonu config'den okunur, runtime hesap yok\
+\
+V2 G\'dcNDEM (sayfa scope d\uc0\u305 \u351 \u305 ):\
+    - \uc0\u9733  "Y\u305 kt\u305 \u287 \u305  tek tek referanslar\u305 " tablosu (~750M sat\u305 r, 1-2 haftal\u305 k pipeline)\
+    - \uc0\u9670  Y\u305 ll\u305 k at\u305 f zaman serisi tablosu (~250-375M sat\u305 r, OpenAlex parquet upload)\
+    - Bu iki kalem 4.5 Akademik Etki E\uc0\u287 risi sayfas\u305 nda da de\u287 erlendirilebilir; toplu V2 faz\u305 na ertelendi\
+}

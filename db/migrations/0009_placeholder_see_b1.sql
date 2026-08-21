@@ -1,0 +1,12 @@
+-- =====================================================================
+-- 0009 PLACEHOLDER — gerçek DDL eksik (B-1 audit follow-up)
+-- =====================================================================
+-- Production Supabase'inde `schema_migrations` tablosunda `0009_*` versiyon
+-- kaydı VAR ama bu repo'da karşılık gelen .sql dosyası YOK. Fresh staging
+-- spin'i için Supabase Studio'dan `pg_dump --schema-only` ile ilgili
+-- DDL'i çıkarıp BU DOSYAYI ÜZERİNE YAZ.
+--
+-- Audit referansı: AUDIT_REPORT.md §11 B-1 / finding-C2.
+-- =====================================================================
+-- UYARI: Bu dosya boş; DDL eksik olduğu için doğrudan APPLY ETME.
+-- =====================================================================

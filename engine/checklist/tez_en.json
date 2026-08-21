@@ -1,0 +1,24 @@
+{
+  "version": "v0_skeleton_2026-05-11",
+  "language": "en",
+  "doc_type": "tez",
+  "note": "Content to be curated by academic advisor; this skeleton tests app structure.",
+  "categories": [
+    {
+      "id": "irb_ethics",
+      "label": "IRB / Ethics",
+      "items": [
+        {
+          "id": "irb_approval",
+          "soru": "Has the IRB approved the study?",
+          "aciklama": "Studies with human/animal subjects require IRB clearance before defense.",
+          "evet_metin": "Attach the approval letter to the thesis appendix.",
+          "hayir_metin": "TODO: institutional IRB walkthrough to be added.",
+          "yapamadim_metin": "Contact your institution's IRB office (typical lead time: 4-6 weeks).",
+          "kritik": true,
+          "link": null
+        }
+      ]
+    }
+  ]
+}

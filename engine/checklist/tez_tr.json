@@ -1,0 +1,72 @@
+{
+  "version": "v0_skeleton_2026-05-11",
+  "language": "tr",
+  "doc_type": "tez",
+  "note": "İçerik akademik danışman tarafından doldurulacak; bu skeleton uygulamanın yapısını test etmek içindir.",
+  "categories": [
+    {
+      "id": "etik_kurul",
+      "label": "Etik Kurul",
+      "items": [
+        {
+          "id": "etik_basvuru",
+          "soru": "Etik kurul başvurunuz onaylandı mı?",
+          "aciklama": "İnsan/hayvan denek içeren tezler için etik kurul onayı zorunludur.",
+          "evet_metin": "Onay kararı tez ekine konmalı.",
+          "hayir_metin": "TODO: başvuru süreç metni eklenecek.",
+          "yapamadim_metin": "Üniversitenizin etik kurul birimine başvurun (4-6 hafta süreç).",
+          "kritik": true,
+          "link": null
+        }
+      ]
+    },
+    {
+      "id": "metod",
+      "label": "Metod",
+      "items": [
+        {
+          "id": "metod_uygunluk",
+          "soru": "Seçilen metod araştırma sorusuna uygun mu?",
+          "aciklama": "Danışman ile metod uygunluğu tartışılmış olmalı.",
+          "evet_metin": "Devam.",
+          "hayir_metin": "TODO: metod seçim rehberi eklenecek.",
+          "yapamadim_metin": "Danışmanınızla bu konuyu netleştirin — savunma öncesi kritik.",
+          "kritik": true,
+          "link": null
+        }
+      ]
+    },
+    {
+      "id": "uygulama",
+      "label": "Uygulama",
+      "items": [
+        {
+          "id": "uygulama_kayit",
+          "soru": "Veri toplama / saha çalışması kayıtları düzenli mi?",
+          "aciklama": "Jüri sürecin tekrarlanabilirliğini sorgular.",
+          "evet_metin": "Tamam.",
+          "hayir_metin": "TODO: kayıt şablonu eklenecek.",
+          "yapamadim_metin": "Saha defteri + ham veri yedeklemesi yapın.",
+          "kritik": false,
+          "link": null
+        }
+      ]
+    },
+    {
+      "id": "yazim_finali",
+      "label": "Yazım Finali",
+      "items": [
+        {
+          "id": "yazim_tutarlilik",
+          "soru": "Bölümler arası tutarlılık denetimi yapıldı mı?",
+          "aciklama": "Intro hipotezleri discussion'da cevaplanmalı.",
+          "evet_metin": "Devam.",
+          "hayir_metin": "TODO: 'Bölüm tutarlılığı denetle' butonu eklenecek (sentence-trans + Flash).",
+          "yapamadim_metin": "Bu butona henüz erişim yok — manuel kontrol yapın.",
+          "kritik": false,
+          "link": null
+        }
+      ]
+    }
+  ]
+}

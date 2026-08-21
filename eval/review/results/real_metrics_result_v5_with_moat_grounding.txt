@@ -1,0 +1,17 @@
+=== F14 HAKEMLİK — KALİTE KANITI (insan-uyum) ===
+Verdict doğruluğu: %57 tam isabet, %64 bir-kademe-tolerans (35/61 tam, 39/61 yakın).
+
+Boyut uyumu (motor skoru ↔ insan skoru):
+  - originality: r=-0.37, ort. fark=3.37, şişirme=+3.10 (n=30)
+  - importance: r=0.54, ort. fark=3.15, şişirme=+3.15 (n=5)
+  - soundness: r=-0.08, ort. fark=2.04, şişirme=+0.52 (n=29)
+  - clarity: r=0.25, ort. fark=1.68, şişirme=+0.12 (n=31)
+
+Moat-doğruluk (atıf sahteciliği — insan-verdict'ten BAĞIMSIZ):
+  25 makalede güçlü (critical/major) atıf-bütünlüğü iddiası; %16 kanıta dayalı (4/25 EvidencePack'te gerçek fabricated/retracted karşılığı var).
+  UYARI: 21 makalede kanıtsız güçlü iddia — incele: openreview:imT03YXlG2, openreview:odjMSBSWRt, openreview:w7P92BEsb2, peerread:iclr2017-318, peerread:iclr2017-358, peerread:iclr2017-361, peerread:iclr2017-367, peerread:iclr2017-371, peerread:iclr2017-376, peerread:iclr2017-377, peerread:iclr2017-380, peerread:iclr2017-384, peerread:iclr2017-390, peerread:iclr2017-403, peerread:iclr2017-405, peerread:iclr2017-415, peerread:iclr2017-424, peerread:iclr2017-467, peerread:iclr2017-549, peerread:iclr2017-560, peerread:iclr2017-695
+  Kanıta dayalı tespitlerin insan kararı dağılımı (goldset'in kör noktası): {'accept': 3, 'reject': 1}
+
+Eşleşen makale: 61 | motor var-altın yok: 0 | insan-bekliyor (atlandı): 0
+
+Referans: Stanford AI reviewer ICLR 2025'e karşı Spearman 0.42 (insan-insan tavanı ~0.41)

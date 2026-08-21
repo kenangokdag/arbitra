@@ -1,0 +1,17 @@
+{
+  "raw_text": "```json\n{\n  \"focuses\": [\n    \"Yükseköğretim akreditasyonunda ÇKKV metodolojilerinin karşılaştırılması ve uyarlanması\",\n    \"Akreditasyon kriterlerinin ÇKKV ile ağırlıklandırılması ve önceliklendirilmesi\",\n    \"ÇKKV tabanlı akreditasyon sistemlerinin uygulama vakaları ve etkileri\"\n  ],\n  \"field\": \"Mühendislik ve Teknoloji\",\n  \"subfield\": \"Endüstri Mühendisliği\",\n  \"interdisc\": true,\n  \"confidence\": \"high\",\n  \"adviser_text\": \"Araştırma alanınızı yükseköğretimde kalite akreditasyonu için Çok Kriterli Karar Verme (ÇKKV) yöntemleri olarak belirlediniz. Bu alanda, ÇKKV metodolojilerinin karşılaştırılması ve uyarlanması, akreditasyon kriterlerinin ağırlıklandırılması ve ÇKKV tabanlı sistemlerin uygulama vakaları gibi üç temel odak noktası öneriyorum. Bu üç odak araştırma niyetinizi yansıtıyor mu? Düzeltmek istediğiniz olursa söyleyin.\",\n  \"finished\": false\n}\n```",
+  "parsed": {
+    "focuses": [
+      "Yükseköğretim akreditasyonunda ÇKKV metodolojilerinin karşılaştırılması ve uyarlanması",
+      "Akreditasyon kriterlerinin ÇKKV ile ağırlıklandırılması ve önceliklendirilmesi",
+      "ÇKKV tabanlı akreditasyon sistemlerinin uygulama vakaları ve etkileri"
+    ],
+    "field": "Mühendislik ve Teknoloji",
+    "subfield": "Endüstri Mühendisliği",
+    "interdisc": true,
+    "confidence": "high",
+    "adviser_text": "Araştırma alanınızı yükseköğretimde kalite akreditasyonu için Çok Kriterli Karar Verme (ÇKKV) yöntemleri olarak belirlediniz. Bu alanda, ÇKKV metodolojilerinin karşılaştırılması ve uyarlanması, akreditasyon kriterlerinin ağırlıklandırılması ve ÇKKV tabanlı sistemlerin uygulama vakaları gibi üç temel odak noktası öneriyorum. Bu üç odak araştırma niyetinizi yansıtıyor mu? Düzeltmek istediğiniz olursa söyleyin.",
+    "finished": false
+  },
+  "latency_ms": 10523
+}

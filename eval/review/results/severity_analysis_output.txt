@@ -1,0 +1,30 @@
+61 rapor tarandi
+
+MOAT severity dagilimi: {'info': 372, 'major': 163, 'moderate': 168, 'minor': 52, 'critical': 3}
+moat critical+major iceren makale: 56/61 (92%)
+
+MOAT-DISI severity dagilimi: {'info': 483, 'major': 129, 'minor': 123, 'moderate': 152, 'critical': 8}
+moat-disi critical+major iceren makale: 58/61 (95%)
+
+=== major severity - moat alt-boyut dagilimi ===
+  sample_and_power: major=44/60 kez (72% makalede)
+  effect_size_and_uncertainty: major=41/50 kez (67% makalede)
+  reproducibility: major=25/59 kez (41% makalede)
+  citation_integrity: major=23/115 kez (38% makalede)
+  missing_data_and_outliers: major=7/44 kez (11% makalede)
+  literature_positioning: major=6/82 kez (10% makalede)
+  reporting_quality: major=5/58 kez (8% makalede)
+  effect_size: major=4/6 kez (7% makalede)
+  analysis_plan: major=3/59 kez (5% makalede)
+  design_validity: major=2/57 kez (3% makalede)
+  causal_language_discipline: major=2/57 kez (3% makalede)
+  measurement_validity: major=1/53 kez (2% makalede)
+
+=== critical severity - moat alt-boyut dagilimi ===
+  causal_language_discipline: critical=2/57 kez (3% makalede)
+  statistical_consistency: critical=1/57 kez (2% makalede)
+
+=== kaynak bazinda sample_and_power/effect_size 'major' orani ===
+  openreview: 3/5 (60%)
+  peerj: 5/6 (83%)
+  peerread: 44/50 (88%)

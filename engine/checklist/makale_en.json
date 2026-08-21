@@ -1,0 +1,24 @@
+{
+  "version": "v0_skeleton_2026-05-11",
+  "language": "en",
+  "doc_type": "makale",
+  "note": "Content to be curated by academic advisor; this skeleton tests app structure.",
+  "categories": [
+    {
+      "id": "international_submission",
+      "label": "International (SSCI/Scopus) Submission",
+      "items": [
+        {
+          "id": "intl_preregistration",
+          "soru": "Is the study pre-registered (if applicable)?",
+          "aciklama": "Registered reports / pre-registration increases publishability.",
+          "evet_metin": "Cite the OSF/AsPredicted link in methods.",
+          "hayir_metin": "TODO: pre-registration walkthrough to be added.",
+          "yapamadim_metin": "Consult https://osf.io for templates.",
+          "kritik": false,
+          "link": "https://osf.io"
+        }
+      ]
+    }
+  ]
+}

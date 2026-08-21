@@ -1,0 +1,34 @@
+{
+  "version": "v1_2026-05-11",
+  "note": "Nuijten et al. 2016 statcheck — TR + EN regex set. p-değer tutarlılık kontrolü: |reported - computed| ≤ 0.005 → green; ≤ 0.01 → yellow; > 0.01 → red.",
+  "tolerance": {
+    "green_max": 0.005,
+    "yellow_max": 0.01
+  },
+  "patterns": [
+    {
+      "test_type": "t",
+      "regex": "t\\s*\\(\\s*(?P<df>\\d+(?:\\.\\d+)?)\\s*\\)\\s*=\\s*(?P<stat>-?\\d+(?:\\.\\d+)?).{0,40}?p\\s*(?P<op>[=<>])\\s*(?P<p>\\.?\\d+(?:\\.\\d+)?)",
+      "groups": ["df", "stat", "op", "p"]
+    },
+    {
+      "test_type": "F",
+      "regex": "F\\s*\\(\\s*(?P<df1>\\d+)\\s*,\\s*(?P<df2>\\d+)\\s*\\)\\s*=\\s*(?P<stat>\\d+(?:\\.\\d+)?).{0,40}?p\\s*(?P<op>[=<>])\\s*(?P<p>\\.?\\d+(?:\\.\\d+)?)",
+      "groups": ["df1", "df2", "stat", "op", "p"]
+    },
+    {
+      "test_type": "chi2",
+      "regex": "(?:χ²|χ2|chi[-\\s]?square|ki[-\\s]?kare)\\s*\\(\\s*(?P<df>\\d+)\\s*\\)\\s*=\\s*(?P<stat>\\d+(?:\\.\\d+)?).{0,40}?p\\s*(?P<op>[=<>])\\s*(?P<p>\\.?\\d+(?:\\.\\d+)?)",
+      "groups": ["df", "stat", "op", "p"]
+    },
+    {
+      "test_type": "r",
+      "regex": "r\\s*=\\s*(?P<stat>-?\\.?\\d+(?:\\.\\d+)?)\\s*,?\\s*n\\s*=\\s*(?P<n>\\d+).{0,80}?p\\s*(?P<op>[=<>])\\s*(?P<p>\\.?\\d+(?:\\.\\d+)?)",
+      "groups": ["stat", "n", "op", "p"]
+    }
+  ],
+  "locale_synonyms": {
+    "tr": ["p değeri", "p-değeri", "p değ.", "anlamlılık düzeyi"],
+    "en": ["p value", "p-value", "p val.", "significance level"]
+  }
+}

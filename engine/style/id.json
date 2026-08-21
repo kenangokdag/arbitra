@@ -1,0 +1,41 @@
+{
+  "lang": "id",
+  "version": "v1",
+  "source": "Page_Design/Sayfa_Plani_v2/5.3_akademik_dil_uslup.rtf §Plan-Detayı (2)",
+  "forbidden_definitive": [
+    "selalu",
+    "tidak pernah",
+    "pasti",
+    "tentu",
+    "mutlak",
+    "semua",
+    "tidak ada"
+  ],
+  "hedge_terms": [
+    "mungkin",
+    "dapat",
+    "cenderung",
+    "diperkirakan",
+    "menunjukkan",
+    "mengindikasikan"
+  ],
+  "passive_voice_triggers": [
+    "telah ditunjukkan",
+    "diamati",
+    "dilakukan",
+    "telah dibuktikan"
+  ],
+  "hedge_alternatives": {
+    "membuktikan": "menunjukkan",
+    "menyatakan": "mengindikasikan",
+    "akan": "diperkirakan akan",
+    "adalah": "dapat dianggap sebagai"
+  },
+  "section_hints": {
+    "intro": "Kerangka luas, naratif, istilah hedge dianjurkan.",
+    "methods": "Suara pasif wajib; pernyataan metode yang tepat.",
+    "findings": "Netral, berbasis pengukuran; tanpa spekulasi; nilai numerik konkret.",
+    "discussion": "Interpretif tetapi seimbang; gaya hedging 'dapat dikatakan', 'menunjukkan'."
+  },
+  "llm_prompt_template": "Tulis ulang kalimat berikut dalam bahasa Indonesia akademik. Aturan: (1) hindari istilah absolut ('selalu', 'tidak pernah'), gunakan hedge; (2) gunakan kalimat pasif; (3) gaya formal, orang ketiga; (4) MAKNA TIDAK BOLEH BERUBAH — hanya gaya. {section_hint} {user_style_note}"
+}

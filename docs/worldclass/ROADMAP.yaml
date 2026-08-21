@@ -1,0 +1,1369 @@
+{
+  "version": "1.0",
+  "product": "Arbitra",
+  "generated_for": "arbitra-2026-06-25-4aec211",
+  "world_class_definition": "confidentiality-first evidence-backed scientific review operating system",
+  "phases": {
+    "P00": {
+      "title": "Ürün Kimliği, Governance ve Çalışma Sözleşmesi",
+      "goal": "Marka, ürün felsefesi, agent çalışma düzeni ve repo gerçekliği netleşir. Daha başlamadan dağınıklık kesilir.",
+      "gate": "North Star, state, docs ve marka sözleşmesi güncel; agent hangi dosyadan başlayacağını biliyor.",
+      "specs": [
+        "WORLDCLASS_NORTH_STAR.md",
+        "EXECUTION_PROTOCOL.md"
+      ]
+    },
+    "P01": {
+      "title": "Production Güvenlik, Gizlilik ve Launch Blocker Temizliği",
+      "goal": "Production’da mock, silent fallback, authz, rate-limit, confidential manuscript ve external AI riskleri kapatılır.",
+      "gate": "Security/privacy checklist yeşil; başka kullanıcı objesine erişim testleri geçiyor; mock auth production build’e giremiyor.",
+      "specs": [
+        "security_privacy_threat_model.md",
+        "backend_architecture_spec.md"
+      ]
+    },
+    "P02": {
+      "title": "Durable Backend Review OS",
+      "goal": "Review job kalıcı, stage-based, retry/idempotency destekli, provider bağımsız ve gözlemlenebilir hâle gelir.",
+      "gate": "Bir review job restart/retry senaryosunda kaybolmuyor; stage progress ve degraded states doğru raporlanıyor.",
+      "specs": [
+        "workflow_engine_spec.md",
+        "backend_architecture_spec.md",
+        "data_model_migration_spec.md"
+      ]
+    },
+    "P03": {
+      "title": "Akademik Engine v1",
+      "goal": "Generic review biter; belge türü, çalışma türü, rubrik ve reporting guideline’a göre akademik değerlendirme başlar.",
+      "gate": "Makale/bildiri/tez/proje ve nitel/nicel/sistematik çalışma farklı rubriklerle değerlendiriliyor.",
+      "specs": [
+        "academic_engine_spec.md",
+        "qualitative_rigor_engine_spec.md",
+        "quantitative_validity_engine_spec.md"
+      ]
+    },
+    "P04": {
+      "title": "Evidence, Provider ve Citation Integrity Katmanı",
+      "goal": "Atıf çözümleme, claim-evidence alignment, literature coverage, source provenance ve provider abstraction güçlenir.",
+      "gate": "Her major critique manuscript anchor + source/evidence state + confidence + limitation taşıyor.",
+      "specs": [
+        "evidence_provider_spec.md",
+        "review_report_schema_spec.md"
+      ]
+    },
+    "P05": {
+      "title": "Premium Frontend, Landing ve Wizard",
+      "goal": "Toolbox hissi biter; landing, onboarding, upload wizard ve canlı review cockpit premium ve frictionless olur.",
+      "gate": "Yeni kullanıcı tek tuşla review başlatır; uzman kullanıcı rubric/privacy/depth ayarlarını kontrol eder.",
+      "specs": [
+        "frontend_design_system_spec.md",
+        "review_wizard_and_cockpit_spec.md"
+      ]
+    },
+    "P06": {
+      "title": "Report & Revision Cockpit",
+      "goal": "Rapor pasif metin olmaktan çıkar; risk radar, reviewer council, evidence map, action plan ve export akışına dönüşür.",
+      "gate": "High-severity bulgular P0/P1/P2 tasklara dönüşüyor; export ve response-to-reviewers akışı çalışıyor.",
+      "specs": [
+        "review_report_schema_spec.md",
+        "review_wizard_and_cockpit_spec.md"
+      ]
+    },
+    "P07": {
+      "title": "Evaluation Lab ve Akademik Kalite Ölçümü",
+      "goal": "AI çıktısı ölçülür hâle gelir: hallucination, citation accuracy, rubric agreement, actionability ve regression benchmark.",
+      "gate": "Release eval benchmark’dan geçmeden çıkamıyor.",
+      "specs": [
+        "evaluation_lab_spec.md"
+      ]
+    },
+    "P08": {
+      "title": "100 Dil, Enterprise ve Kurumsal Güven",
+      "goal": "Source language/output language/UI locale ayrılır; tenant, institution, private deployment ve compliance temeli atılır.",
+      "gate": "TR/EN dışı dil modeli teknik olarak desteklenir; confidential/enterprise deployment kararları dokümante edilir.",
+      "specs": [
+        "i18n_100_language_spec.md",
+        "security_privacy_threat_model.md"
+      ]
+    },
+    "P09": {
+      "title": "Launch, Operasyon ve 10 Yıl Dayanıklılık",
+      "goal": "Observability, runbook, incident, cost/performance, release ve model/provider değişim operasyonu oturur.",
+      "gate": "Production readiness checklist yeşil; runbook ve rollback planları var.",
+      "specs": [
+        "observability_runbook_spec.md"
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "id": "P00-T01_BRAND_AND_PRODUCT_CONTRACT",
+      "phase": "P00",
+      "priority": "P0",
+      "title": "Arbitra/PaperMind marka ve ürün sözleşmesini tekilleştir",
+      "deps": [],
+      "touchpoints": [
+        "web/src/lib/brand.ts",
+        "web/src/components/review/ArbitraWordmark.tsx",
+        "web/src/app/(marketing)/landing/page.tsx",
+        "README.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "steps": [
+        "Arbitra ana ürün, PaperMind suite/platform varsayımını kod ve docs içinde sözleşmeye bağla.",
+        "brand.ts içinde tek source-of-truth oluştur: productName, suiteName, tagline, confidentiality promise, review modes.",
+        "Landing ve review sayfalarındaki PaperMind/Arbitra karışıklığını inventory çıkarıp düzelt.",
+        "Docs içinde eski marka iddialarını yeni sözleşmeye göre güncelle."
+      ],
+      "tests": [
+        "brand contract unit/snapshot test",
+        "landing text smoke test"
+      ],
+      "done_when": [
+        "Tek marka sözleşmesi var.",
+        "UI copy çelişmiyor.",
+        "Agent ve insan aynı product definition ile ilerliyor."
+      ],
+      "advance_when": "Brand auditte çelişen ana ürün adı kalmadığında.",
+      "stop_if": [
+        "Ürün sahibi Arbitra/PaperMind rolünü farklı belirlerse docs güncellenmeden ilerleme."
+      ]
+    },
+    {
+      "id": "P00-T02_REPO_REALITY_DOC_SYNC",
+      "phase": "P00",
+      "priority": "P0",
+      "title": "README/ARCHITECTURE/SECURITY gerçek kodla eşitlensin",
+      "deps": [
+        "P00-T01_BRAND_AND_PRODUCT_CONTRACT"
+      ],
+      "touchpoints": [
+        "README.md",
+        "docs/ARCHITECTURE.md",
+        "docs/STATE.md",
+        "docs/NEXT_ACTION.md",
+        "pyproject.toml",
+        "web/package.json"
+      ],
+      "steps": [
+        "README’de Next/FastAPI/worker/env iddialarını gerçek package ve kodla karşılaştır.",
+        "Celery/worker varsa gerçek implementation path yaz; yoksa roadmap olarak işaretle.",
+        "Docs içindeki outdated provider, env, deployment ve mock ifadelerini güncelle.",
+        "docs/worldclass/STATE.md içine mevcut gerçeklik snapshot’ı yaz."
+      ],
+      "tests": [
+        "docs grep check for obsolete claims",
+        "manual docs/code consistency checklist"
+      ],
+      "done_when": [
+        "Ana docs gerçek kodu yansıtıyor.",
+        "Hayali worker/provider iddiası yok."
+      ],
+      "advance_when": "Yeni geliştirici README ile lokal/dev/prod farkını anlayabiliyorsa.",
+      "stop_if": [
+        "Docs ürün kabiliyetini olduğundan fazla iddia ediyorsa."
+      ]
+    },
+    {
+      "id": "P00-T03_AUTONOMOUS_STATE_AND_LEDGER",
+      "phase": "P00",
+      "priority": "P0",
+      "title": "Otonom ilerleme state/ledger dosyalarını aktifleştir",
+      "deps": [
+        "P00-T02_REPO_REALITY_DOC_SYNC"
+      ],
+      "touchpoints": [
+        "docs/worldclass/STATE.md",
+        "docs/worldclass/TASKS/backlog.csv",
+        "docs/worldclass/TEMPLATES/pr_template.md"
+      ],
+      "steps": [
+        "STATE.md içinde active task, completed tasks, verification commands alanlarını agent için güncelle.",
+        "Backlog CSV/YAML task status alanını kullanılır hâle getir.",
+        "PR template ile task ID zorunluluğu getir."
+      ],
+      "tests": [
+        "Manual: agent can pick next task from ROADMAP.yaml"
+      ],
+      "done_when": [
+        "Her task sonunda güncellenecek tek state dosyası var."
+      ],
+      "advance_when": "Agent hiçbir ek açıklama almadan P01 ilk taskını seçebildiğinde.",
+      "stop_if": [
+        "State ve roadmap task id’leri uyuşmuyorsa."
+      ]
+    },
+    {
+      "id": "P01-T01_KILL_PRODUCTION_MOCK_AUTH",
+      "phase": "P01",
+      "priority": "P0",
+      "title": "Production mock auth ve dev token üretimini imkânsız yap",
+      "deps": [
+        "P00-T03_AUTONOMOUS_STATE_AND_LEDGER"
+      ],
+      "touchpoints": [
+        "web/src/lib/auth.ts",
+        "api/middleware/auth.py",
+        "api/config.py",
+        ".env.example",
+        ".github/workflows/polish_gate.yml"
+      ],
+      "steps": [
+        "Dev auth yalnız APP_ENV=development ve localhost şartında çalışacak şekilde ayır.",
+        "Production build’de dev-mock-signature, mock token, fake user id bundle’a girerse CI fail.",
+        "Backend production’da dev token kabul etmeyecek.",
+        "Env validation: APP_ENV=production ve auth provider eksikse boot fail."
+      ],
+      "tests": [
+        "unit test: dev token production rejected",
+        "frontend grep/build guard test",
+        "middleware auth tests"
+      ],
+      "done_when": [
+        "Production build mock auth ile alınamaz.",
+        "Dev auth local developer deneyimini kırmadan izole."
+      ],
+      "advance_when": "CI guard ve backend auth tests yeşil olduğunda.",
+      "stop_if": [
+        "Gerçek auth provider kararı yoksa secure fail-closed bırak."
+      ]
+    },
+    {
+      "id": "P01-T02_OBJECT_LEVEL_AUTHORIZATION_MATRIX",
+      "phase": "P01",
+      "priority": "P0",
+      "title": "Review domain için object-level authorization matrisi ve testleri",
+      "deps": [
+        "P01-T01_KILL_PRODUCTION_MOCK_AUTH"
+      ],
+      "touchpoints": [
+        "api/routes/review.py",
+        "api/services/review_service.py",
+        "api/db/supabase_client.py",
+        "tests/unit/test_middleware.py",
+        "tests/integration/test_review_routes.py"
+      ],
+      "steps": [
+        "ReviewJob, ReviewReport, EvidencePack, export ve audit objeleri için owner/tenant kuralları yaz.",
+        "Her GET/POST/PATCH/DELETE endpoint’te user_id/tenant_id kontrolünü servis seviyesine indir.",
+        "User A cannot access User B senaryolarını integration test yap.",
+        "Admin role için RBAC boundary oluştur; string allowlist kullanma."
+      ],
+      "tests": [
+        "integration: user_a cannot read user_b job",
+        "unit: service rejects mismatched owner",
+        "admin RBAC negative tests"
+      ],
+      "done_when": [
+        "Kritik review endpointlerinin tamamında BOLA testi var."
+      ],
+      "advance_when": "403/404 semantics kararlı ve testli olduğunda.",
+      "stop_if": [
+        "Service-role RLS bypass ediyor ama manuel owner check yoksa."
+      ]
+    },
+    {
+      "id": "P01-T03_CONFIDENTIALITY_AND_EXTERNAL_AI_CONSENT",
+      "phase": "P01",
+      "priority": "P0",
+      "title": "Confidential manuscript mode ve external AI consent gate",
+      "deps": [
+        "P01-T02_OBJECT_LEVEL_AUTHORIZATION_MATRIX"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "api/routes/review.py",
+        "api/services/review_service.py",
+        "web/src/app/(app)/review/page.tsx",
+        "web/src/lib/review-api.ts",
+        "db/migrations/0041_review_domain.sql"
+      ],
+      "steps": [
+        "ReviewCreateRequest içine document_ownership_mode, confidentiality_mode, external_ai_consent, retention_policy alanları ekle.",
+        "Editor/reviewer mode’da external_ai_consent=false default yap.",
+        "LLM/provider çağrılarından önce consent gate middleware/service check ekle.",
+        "Frontend wizard’da “dosya size mi ait / gizli hakemlik dosyası mı?” adımı ekle.",
+        "Rapor metadata’sında AI usage disclosure oluştur."
+      ],
+      "tests": [
+        "unit: confidential mode blocks external LLM without consent",
+        "frontend wizard contract test",
+        "db migration test"
+      ],
+      "done_when": [
+        "Confidential flow external AI kullanmadan çalışabiliyor veya açıkça degraded gösteriyor."
+      ],
+      "advance_when": "Kullanıcı hangi verinin nereye gittiğini görmeden review başlayamıyorsa.",
+      "stop_if": [
+        "Gizli dosya external providera sessiz gönderiliyorsa."
+      ]
+    },
+    {
+      "id": "P01-T04_FAIL_CLOSED_RATE_LIMIT_AND_QUOTA",
+      "phase": "P01",
+      "priority": "P0",
+      "title": "Production rate-limit/quota fail-closed davranışı",
+      "deps": [
+        "P01-T01_KILL_PRODUCTION_MOCK_AUTH"
+      ],
+      "touchpoints": [
+        "api/middleware/rate_limit.py",
+        "api/middleware/tier_gate.py",
+        "api/db/redis_client.py",
+        "api/config.py",
+        ".env.example"
+      ],
+      "steps": [
+        "Redis yoksa development dışında expensive endpointleri fail-closed yap.",
+        "Review create/export/provider endpoints için tier-aware quota tanımla.",
+        "Quota error response kullanıcıya açık ve retry-after taşısın.",
+        "Silent bypass envleri production’da yasakla."
+      ],
+      "tests": [
+        "unit: production redis missing => fail closed",
+        "integration: quota exceeded response",
+        "env validation test"
+      ],
+      "done_when": [
+        "Production quota Redis/real backing olmadan bypass olmuyor."
+      ],
+      "advance_when": "Expensive review endpointleri kontrolsüz çağrılamadığında.",
+      "stop_if": [
+        "WAITLIST_BYPASS veya quota bypass production’da true kalabiliyorsa."
+      ]
+    },
+    {
+      "id": "P01-T05_FILE_SECURITY_AND_RETENTION_BASELINE",
+      "phase": "P01",
+      "priority": "P0",
+      "title": "Dosya güvenliği, parser sandbox ve retention baseline",
+      "deps": [
+        "P01-T03_CONFIDENTIALITY_AND_EXTERNAL_AI_CONSENT"
+      ],
+      "touchpoints": [
+        "engine/ingestion/zip_handler.py",
+        "engine/ingestion/pdf_parser.py",
+        "engine/ingestion/docx_parser.py",
+        "engine/ingestion/latex_parser.py",
+        "api/services/manuscript_service.py",
+        "db/migrations/0041_review_domain.sql"
+      ],
+      "steps": [
+        "Magic-byte + MIME + extension üçlü doğrulama ekle.",
+        "ZIP path traversal, nested archive, zip bomb limitlerini testle.",
+        "Parser timeout, max page/token/size limitlerini config’e taşı.",
+        "Retention policy alanlarını storage/delete flow’a bağla.",
+        "Audit event: file_uploaded, file_parsed, file_deleted."
+      ],
+      "tests": [
+        "unit: malicious zip fixtures rejected",
+        "unit: mime mismatch rejected",
+        "integration: delete/retention event emitted"
+      ],
+      "done_when": [
+        "Untrusted file parser sınırları ve delete flow testli."
+      ],
+      "advance_when": "Dosya işleme güvenlik checklist’i yeşil olduğunda.",
+      "stop_if": [
+        "Parser unbounded resource tüketebiliyorsa."
+      ]
+    },
+    {
+      "id": "P02-T01_REVIEW_JOB_STAGE_SCHEMA",
+      "phase": "P02",
+      "priority": "P0",
+      "title": "Review job stage/progress schema genişletmesi",
+      "deps": [
+        "P01-T05_FILE_SECURITY_AND_RETENTION_BASELINE"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "db/migrations/0041_review_domain.sql",
+        "web/src/lib/review-api.ts",
+        "web/src/hooks/useReview.ts"
+      ],
+      "steps": [
+        "ReviewJob status modelini queued/running/stage_failed/completed/cancelled olarak genişlet.",
+        "Stage enum ekle: security_scan, parse, classify, references, evidence, guidelines, council, synthesis, export.",
+        "Stage progress, started_at, completed_at, error_code, degraded_reason alanları ekle.",
+        "Frontend type contract güncelle."
+      ],
+      "tests": [
+        "model serialization test",
+        "migration test",
+        "frontend type/contract test"
+      ],
+      "done_when": [
+        "Job progress tek numeric bar değil stage-based contract taşıyor."
+      ],
+      "advance_when": "Frontend stage progression gerçek API contractından okuyabiliyorsa.",
+      "stop_if": [
+        "Eski response shape kırılıp frontend compile etmiyorsa."
+      ]
+    },
+    {
+      "id": "P02-T02_DURABLE_WORKFLOW_ADAPTER",
+      "phase": "P02",
+      "priority": "P0",
+      "title": "BackgroundTasks yerine durable workflow adapter interface",
+      "deps": [
+        "P02-T01_REVIEW_JOB_STAGE_SCHEMA"
+      ],
+      "touchpoints": [
+        "api/routes/review.py",
+        "api/services/review_service.py",
+        "api/services/review_orchestration.py",
+        "api/services/progress_service.py",
+        "pyproject.toml",
+        "docs/backend/celery_setup.md"
+      ],
+      "steps": [
+        "WorkflowClient protocol tanımla: enqueue, cancel, retry, get_status.",
+        "Development için in-memory/dev runner, production için queue adapter tasarla.",
+        "FastAPI BackgroundTasks kullanımını review route dışına çıkar.",
+        "Idempotency key ve job dedupe ekle.",
+        "Worker function her stage’i DB’ye checkpoint etsin."
+      ],
+      "tests": [
+        "unit: enqueue creates durable job",
+        "unit: duplicate idempotency key returns same job",
+        "integration/smoke: worker resumes failed stage"
+      ],
+      "done_when": [
+        "API process restart senaryosu job kaybına yol açmayacak şekilde tasarlandı/uygulandı."
+      ],
+      "advance_when": "Review route sadece job oluşturup workflow’a teslim ediyorsa.",
+      "stop_if": [
+        "Long-running LLM work web request içinde kalıyorsa."
+      ]
+    },
+    {
+      "id": "P02-T03_PROVIDER_ABSTRACTION_FOUNDATION",
+      "phase": "P02",
+      "priority": "P0",
+      "title": "Scholarly provider abstraction temeli",
+      "deps": [
+        "P02-T01_REVIEW_JOB_STAGE_SCHEMA"
+      ],
+      "touchpoints": [
+        "api/services/openalex_polite.py",
+        "api/services/papers_hydration_service.py",
+        "api/services/citation_service.py",
+        "api/config.py",
+        "tests/fixtures/openalex_search.json"
+      ],
+      "steps": [
+        "api/providers/scholarly/base.py içinde ScholarlyProvider Protocol oluştur.",
+        "Provider errors: RateLimited, AuthMissing, Timeout, Degraded, NotFound tanımla.",
+        "Work, Author, Venue, CitationEdge, ProviderSnapshot modelleri yaz.",
+        "Mevcut OpenAlex kullanım noktalarını inventory çıkar."
+      ],
+      "tests": [
+        "unit: provider protocol model serialization",
+        "unit: provider error mapping"
+      ],
+      "done_when": [
+        "Review/citation servisleri provider-specific parametre bilmeden çalışabilecek interface’e sahip."
+      ],
+      "advance_when": "OpenAlex implementation bu interface’e bağlanmaya hazır olduğunda.",
+      "stop_if": [
+        "Business logic içinde raw OpenAlex URL/params kalmaya devam ediyorsa."
+      ]
+    },
+    {
+      "id": "P02-T04_OPENALEX_API_KEY_MIGRATION",
+      "phase": "P02",
+      "priority": "P0",
+      "title": "OpenAlex mailto/polite mirasını API-key provider client’a taşı",
+      "deps": [
+        "P02-T03_PROVIDER_ABSTRACTION_FOUNDATION"
+      ],
+      "touchpoints": [
+        "api/services/openalex_polite.py",
+        "api/providers/openalex/client.py",
+        "api/config.py",
+        ".env.example",
+        "tests/unit/test_openalex_polite.py"
+      ],
+      "steps": [
+        "OPENALEX_EMAIL/mailto/polite pool kullanımını deprecated wrapper’a al veya kaldır.",
+        "OPENALEX_API_KEY env tanımla ve production’da required/degraded policy belirle.",
+        "Rate limit, retry, cache ve auth-missing davranışlarını provider error olarak döndür.",
+        "Eski testleri yeni client’a taşı."
+      ],
+      "tests": [
+        "unit: API key header/param behavior",
+        "unit: auth missing => degraded state",
+        "unit: rate limit retry/backoff"
+      ],
+      "done_when": [
+        "OpenAlex provider yeni abstraction ile çalışıyor, mailto/polite production path’te yok."
+      ],
+      "advance_when": "Citation/literature calls OpenAlex client üzerinden çalıştığında.",
+      "stop_if": [
+        "Provider yokken sahte literatür sonucu üretiliyorsa."
+      ]
+    },
+    {
+      "id": "P02-T05_DEGRADED_MODE_AND_PROVENANCE_PIPELINE",
+      "phase": "P02",
+      "priority": "P0",
+      "title": "Silent fallback yerine görünür degraded/provenance pipeline",
+      "deps": [
+        "P02-T04_OPENALEX_API_KEY_MIGRATION"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "api/services/review_service.py",
+        "api/services/review_orchestration.py",
+        "web/src/components/review/ReviewReportView.tsx"
+      ],
+      "steps": [
+        "EvidencePack içine provider_snapshots, degraded_features, unavailable_checks ekle.",
+        "Her stage kendi confidence ve limitation metadata’sını yazsın.",
+        "Frontend raporda “bu bulgu sınırlı doğrulandı” badge’i göstersin.",
+        "Mock/fallback pathler production’da error veya degraded state üretsin."
+      ],
+      "tests": [
+        "unit: provider down creates degraded evidence",
+        "frontend render degraded badge test",
+        "eval fixture with missing provider"
+      ],
+      "done_when": [
+        "Sistem hiçbir akademik bulguyu sessiz fallback ile tam güvenilir gibi sunmuyor."
+      ],
+      "advance_when": "Report metadata tüm provider/stage sınırlamalarını taşıdığında.",
+      "stop_if": [
+        "Empty list fallback confidence artırıyorsa."
+      ]
+    },
+    {
+      "id": "P03-T01_MANUSCRIPT_TYPE_CLASSIFIER",
+      "phase": "P03",
+      "priority": "P0",
+      "title": "Belge türü sınıflandırıcı: makale/bildiri/tez/proje",
+      "deps": [
+        "P02-T05_DEGRADED_MODE_AND_PROVENANCE_PIPELINE"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "api/services/review_orchestration.py",
+        "engine/ingestion/builder.py",
+        "tests/unit/test_review_orchestration.py"
+      ],
+      "steps": [
+        "DocumentType enum ekle: journal_article, conference_paper, thesis, grant_proposal, preprint, technical_report, unknown.",
+        "Classifier input: sections, title, abstract, headings, metadata, file hints.",
+        "Confidence ve rationale üret.",
+        "User override alanı ekle; model tahminini kullanıcı seçimiyle reconcile et."
+      ],
+      "tests": [
+        "fixtures: thesis detected",
+        "fixtures: grant detected",
+        "low confidence => ask/unknown behavior"
+      ],
+      "done_when": [
+        "Review job belge türünü confidence ile saklıyor ve rubrik seçimi buna bağlanıyor."
+      ],
+      "advance_when": "Unknown durumunda generic değil, safe minimal review akışı seçiliyorsa.",
+      "stop_if": [
+        "Belge türü yanlış olsa bile kullanıcı override edemiyorsa."
+      ]
+    },
+    {
+      "id": "P03-T02_STUDY_DESIGN_CLASSIFIER",
+      "phase": "P03",
+      "priority": "P0",
+      "title": "Çalışma türü sınıflandırıcı",
+      "deps": [
+        "P03-T01_MANUSCRIPT_TYPE_CLASSIFIER"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "api/services/review_orchestration.py",
+        "engine/checklist/*",
+        "tests/unit/test_review_orchestration.py"
+      ],
+      "steps": [
+        "StudyDesign enum ekle: qualitative, quantitative, mixed_methods, systematic_review, meta_analysis, scoping_review, theoretical, design_science, computational, dataset, software, replication, protocol, unknown.",
+        "Section cues ve method terms ile classifier yaz.",
+        "Confidence/rationale ve multi-label destekle.",
+        "Study design rubrik ve guideline selector’a input olsun."
+      ],
+      "tests": [
+        "qualitative fixture",
+        "systematic review fixture",
+        "mixed methods fixture",
+        "unknown/low confidence fixture"
+      ],
+      "done_when": [
+        "Aynı belge türü altında farklı çalışma türleri farklı review path’e gidiyor."
+      ],
+      "advance_when": "Qualitative ve quantitative en az iki fixture ile ayrışıyorsa.",
+      "stop_if": [
+        "Her dosya article+generic review’e düşüyorsa."
+      ]
+    },
+    {
+      "id": "P03-T03_RUBRIC_REGISTRY_AND_DIMENSION_SCHEMA",
+      "phase": "P03",
+      "priority": "P0",
+      "title": "RubricRegistry ve genişletilmiş akademik dimension schema",
+      "deps": [
+        "P03-T02_STUDY_DESIGN_CLASSIFIER"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "engine/checklist/makale_tr.json",
+        "engine/checklist/tez_tr.json",
+        "api/services/review_orchestration.py"
+      ],
+      "steps": [
+        "AcademicDimension enum/model tasarla: contribution, theory, literature, methods, data, analysis, claims, citation, guideline, ethics, reproducibility, writing, venue_fit.",
+        "RubricRegistry belge+study_type kombinasyonuna göre dimension weights döndürsün.",
+        "Her dimension severity/confidence/action_items/evidence_anchors taşısın.",
+        "Mevcut DimensionKey geriye uyumluluk adapter’ı yaz."
+      ],
+      "tests": [
+        "unit: article qualitative rubric selected",
+        "unit: thesis rubric selected",
+        "schema backwards compatibility test"
+      ],
+      "done_when": [
+        "ReviewReport generic DimensionScore yerine zengin academic dimension taşıyabiliyor."
+      ],
+      "advance_when": "Mevcut ReviewReportView yeni schema’yı en az degrade olmadan render ediyorsa.",
+      "stop_if": [
+        "Frontend/backend schema drift oluşuyorsa."
+      ]
+    },
+    {
+      "id": "P03-T04_QUALITATIVE_RIGOR_ENGINE",
+      "phase": "P03",
+      "priority": "P0",
+      "title": "Nitel araştırma hakemlik motoru",
+      "deps": [
+        "P03-T03_RUBRIC_REGISTRY_AND_DIMENSION_SCHEMA"
+      ],
+      "touchpoints": [
+        "api/services/review_orchestration.py",
+        "api/services/role_modules/reviewer_yontemci.py",
+        "engine/checklist/*",
+        "tests/unit/test_review_orchestration.py"
+      ],
+      "steps": [
+        "QualitativeRigorEngine oluştur.",
+        "Kontrol boyutları: paradigm, design fit, sampling, context, data collection, coding, theme development, quotes, reflexivity, trustworthiness, ethics, transferability, limitations.",
+        "Her boyut için evidence anchor ve action item üret.",
+        "Nitel çalışma tespitinde bu engine zorunlu çalışsın."
+      ],
+      "tests": [
+        "unit: missing reflexivity detected",
+        "unit: unsupported theme claim flagged",
+        "eval fixture qualitative report"
+      ],
+      "done_when": [
+        "Nitel çalışma raporu generic yöntem eleştirisi değil, nitel rigor boyutları içeriyor."
+      ],
+      "advance_when": "En az 3 nitel kırılma exact anchor ile raporlanıyorsa.",
+      "stop_if": [
+        "Nitel engine LLM text’ini schema’sız serbest bırakıyorsa."
+      ]
+    },
+    {
+      "id": "P03-T05_QUANTITATIVE_VALIDITY_ENGINE",
+      "phase": "P03",
+      "priority": "P0",
+      "title": "Nicel/istatistiksel geçerlilik motoru MVP",
+      "deps": [
+        "P03-T03_RUBRIC_REGISTRY_AND_DIMENSION_SCHEMA"
+      ],
+      "touchpoints": [
+        "engine/statcheck/multilingual.json",
+        "api/services/review_orchestration.py",
+        "api/models/review.py",
+        "tests/unit/test_review_eval.py"
+      ],
+      "steps": [
+        "QuantitativeValidityEngine oluştur veya mevcut statcheck’i genişlet.",
+        "p-value, CI, effect size, sample size, power, missing data, model assumptions, multiple comparisons, causal language kontrollerini schema’ya bağla.",
+        "Tablo/metin çelişkisi için MVP numeric extractor ekle.",
+        "Bulguları severity/confidence ile dön."
+      ],
+      "tests": [
+        "unit: causal wording in observational study flagged",
+        "unit: missing effect size warning",
+        "unit: p-value text pattern consistency"
+      ],
+      "done_when": [
+        "Nicel review yöntem/istatistik alanında uygulanabilir, anchor’lı riskler üretiyor."
+      ],
+      "advance_when": "High severity quantitative claims exact manuscript anchor taşıdığında.",
+      "stop_if": [
+        "Statistical finding confidence alanı yoksa."
+      ]
+    },
+    {
+      "id": "P03-T06_REPORTING_GUIDELINE_SELECTOR",
+      "phase": "P03",
+      "priority": "P1",
+      "title": "Reporting guideline selector ve checklist engine",
+      "deps": [
+        "P03-T04_QUALITATIVE_RIGOR_ENGINE",
+        "P03-T05_QUANTITATIVE_VALIDITY_ENGINE"
+      ],
+      "touchpoints": [
+        "engine/checklist/*",
+        "api/services/review_orchestration.py",
+        "api/models/review.py",
+        "web/src/components/review/ReviewReportView.tsx"
+      ],
+      "steps": [
+        "GuidelineProfile modeli oluştur: id, name, applies_to, checklist_items, severity, evidence_required.",
+        "StudyDesign’e göre PRISMA/STROBE/CONSORT/COREQ/SRQR-like/TRIPOD/STARD/SPIRIT/ARRIVE vb. registry yapısı kur.",
+        "MVP’de public checklist text kopyalamadan kendi compliance item schema’nı kullan.",
+        "Rapor içinde guideline compliance bölümü göster."
+      ],
+      "tests": [
+        "unit: systematic_review => PRISMA-like profile",
+        "unit: qualitative_interview => qualitative reporting profile",
+        "frontend guideline checklist render"
+      ],
+      "done_when": [
+        "Çalışma türüne göre guideline uyumu ayrı bölüm olarak raporlanıyor."
+      ],
+      "advance_when": "Guideline not applicable/unknown durumları doğru gösterildiğinde.",
+      "stop_if": [
+        "Guideline isimleri iddia edilip checklist maddeleri boş kalıyorsa."
+      ]
+    },
+    {
+      "id": "P04-T01_CLAIM_EXTRACTION_MODEL",
+      "phase": "P04",
+      "priority": "P0",
+      "title": "Claim extraction ve manuscript anchor modeli",
+      "deps": [
+        "P03-T03_RUBRIC_REGISTRY_AND_DIMENSION_SCHEMA"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "engine/ingestion/common.py",
+        "api/services/anchor_finder.py",
+        "tests/unit/test_anchor_finder.py"
+      ],
+      "steps": [
+        "Claim model: text, section, anchor_id, claim_type, strength, evidence_needed.",
+        "Section/paragraph anchors ingestion’dan stable id alsın.",
+        "Claims introduction/results/discussion bölümlerinden çıkarılsın.",
+        "LLM output JSON schema validation ile sınırlandırılsın."
+      ],
+      "tests": [
+        "unit: stable anchor ids",
+        "unit: claim schema validation",
+        "fixture: claims extracted from sample manuscript"
+      ],
+      "done_when": [
+        "Rapor eleştirileri manuscript anchor id’ye bağlanabiliyor."
+      ],
+      "advance_when": "Anchor değişmeden frontend highlight yapabiliyorsa.",
+      "stop_if": [
+        "Claim text serbest LLM output olarak doğrulanmadan kullanılıyorsa."
+      ]
+    },
+    {
+      "id": "P04-T02_REFERENCE_RESOLUTION_PIPELINE",
+      "phase": "P04",
+      "priority": "P0",
+      "title": "Reference extraction ve DOI/provider resolution pipeline",
+      "deps": [
+        "P02-T04_OPENALEX_API_KEY_MIGRATION"
+      ],
+      "touchpoints": [
+        "engine/ingestion/*",
+        "api/services/review_citation_service.py",
+        "api/providers/*",
+        "tests/unit/test_review_citation.py"
+      ],
+      "steps": [
+        "Reference model standardize et: raw, title, authors, year, doi, source, resolution_status.",
+        "Crossref/OpenAlex/SemanticScholar adapter slotları oluştur.",
+        "Resolution confidence ve duplicate merge logic ekle.",
+        "Unresolved references reportta açık gösterilsin."
+      ],
+      "tests": [
+        "unit: DOI exact resolution",
+        "unit: fuzzy title resolution confidence",
+        "unit: unresolved does not fabricate"
+      ],
+      "done_when": [
+        "Atıflar provider ve confidence ile çözümleniyor."
+      ],
+      "advance_when": "Unresolved atıf uydurulmadan raporlanıyorsa.",
+      "stop_if": [
+        "Kaynak bulunamadığında fake DOI üretiliyorsa."
+      ]
+    },
+    {
+      "id": "P04-T03_CLAIM_EVIDENCE_ALIGNMENT",
+      "phase": "P04",
+      "priority": "P0",
+      "title": "Claim-evidence alignment ve citation support levels",
+      "deps": [
+        "P04-T01_CLAIM_EXTRACTION_MODEL",
+        "P04-T02_REFERENCE_RESOLUTION_PIPELINE"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "api/services/review_citation_service.py",
+        "api/services/review_orchestration.py",
+        "web/src/components/review/ReviewReportView.tsx"
+      ],
+      "steps": [
+        "SupportLevel enum: full_text_verified, abstract_only, metadata_only, unresolved, contradictory, not_applicable.",
+        "ClaimCitationAlignment model ekle.",
+        "Citation context ile claim strength uyumunu kontrol et.",
+        "Rapor dilinde abstract-only limitation açık yazılsın."
+      ],
+      "tests": [
+        "unit: abstract_only does not become verified",
+        "unit: unsupported causal claim flagged",
+        "frontend support level badge render"
+      ],
+      "done_when": [
+        "Citation integrity bulguları kaynak doğrulama seviyesini gösteriyor."
+      ],
+      "advance_when": "Her citation critique support_level taşıdığında.",
+      "stop_if": [
+        "Abstract-only bulgu full verification gibi sunuluyorsa."
+      ]
+    },
+    {
+      "id": "P04-T04_LITERATURE_COVERAGE_AND_GAP_MAP",
+      "phase": "P04",
+      "priority": "P1",
+      "title": "Literature coverage, seminal/recent/missing works ve gap map",
+      "deps": [
+        "P04-T02_REFERENCE_RESOLUTION_PIPELINE"
+      ],
+      "touchpoints": [
+        "api/services/gap_profile_workshop_service.py",
+        "api/services/originality_service.py",
+        "api/services/review_citation_service.py",
+        "web/src/components/project/GapHeatmapCard.tsx"
+      ],
+      "steps": [
+        "Manuscript topic/claims ile reference set arasında coverage analysis yap.",
+        "Recent/seminal/methodological/theoretical missing buckets oluştur.",
+        "Coverage confidence provider availability ile bağlansın.",
+        "Mevcut gap/originality modüllerini review output’a entegre et."
+      ],
+      "tests": [
+        "unit: missing recent works bucket",
+        "unit: provider degraded lowers confidence",
+        "frontend coverage section render"
+      ],
+      "done_when": [
+        "Literature critique “daha kaynak ekle” değil, hangi boşluk türü olduğunu söylüyor."
+      ],
+      "advance_when": "Coverage map action items ürettiğinde.",
+      "stop_if": [
+        "Provider sonuçları olmadan yüksek confidence coverage iddia ediliyorsa."
+      ]
+    },
+    {
+      "id": "P05-T01_PREMIUM_LANDING_REPOSITIONING",
+      "phase": "P05",
+      "priority": "P0",
+      "title": "Landing page’i Arbitra Scientific Review OS olarak yeniden konumlandır",
+      "deps": [
+        "P01-T03_CONFIDENTIALITY_AND_EXTERNAL_AI_CONSENT",
+        "P00-T01_BRAND_AND_PRODUCT_CONTRACT"
+      ],
+      "touchpoints": [
+        "web/src/app/(marketing)/landing/page.tsx",
+        "web/src/components/marketing/WaitlistModal.tsx",
+        "web/src/lib/brand.ts",
+        "web/src/styles/globals.css"
+      ],
+      "steps": [
+        "Hero copy: hakeme gitmeden önce kırılma noktalarını görün.",
+        "Trust blocks: confidentiality-first, evidence-backed, methodology-aware, revision cockpit.",
+        "Comparison block: chatbot vs Arbitra.",
+        "Output preview: risk radar, reviewer objections, evidence map, action plan.",
+        "CTA: örnek rapor ve çalışmamı incelet."
+      ],
+      "tests": [
+        "component render test",
+        "copy snapshot smoke",
+        "accessibility landmarks manual check"
+      ],
+      "done_when": [
+        "Landing AI assistant template değil, hakemlik OS vaadi veriyor."
+      ],
+      "advance_when": "İlk ekran ürünün farkını 10 saniyede anlatıyorsa.",
+      "stop_if": [
+        "Gerçek olmayan kabiliyetler landing’de iddia ediliyorsa."
+      ]
+    },
+    {
+      "id": "P05-T02_REVIEW_INTAKE_WIZARD",
+      "phase": "P05",
+      "priority": "P0",
+      "title": "Tek upload formunu guided review wizard’a çevir",
+      "deps": [
+        "P02-T01_REVIEW_JOB_STAGE_SCHEMA",
+        "P01-T03_CONFIDENTIALITY_AND_EXTERNAL_AI_CONSENT"
+      ],
+      "touchpoints": [
+        "web/src/app/(app)/review/page.tsx",
+        "web/src/lib/review-api.ts",
+        "web/src/hooks/useReview.ts",
+        "api/routes/review.py"
+      ],
+      "steps": [
+        "Wizard steps: file, document type, target, privacy, review depth.",
+        "Beginner default: Arbitra benim için seçsin.",
+        "Expert drawer: rubric, guideline, strictness, provider depth, locale, retention.",
+        "Backend create request contractını wizard state ile eşle.",
+        "Validation errorları kullanıcı dostu göster."
+      ],
+      "tests": [
+        "frontend wizard state test",
+        "API contract test",
+        "confidential mode wizard test"
+      ],
+      "done_when": [
+        "Yeni başlayan tek akışla review başlatır, uzman detay kontrolü alır."
+      ],
+      "advance_when": "Wizard form verisi backend schema ile typed şekilde eşleştiğinde.",
+      "stop_if": [
+        "Privacy step bypass edilebiliyorsa."
+      ]
+    },
+    {
+      "id": "P05-T03_LIVE_REVIEW_COCKPIT_PROGRESS",
+      "phase": "P05",
+      "priority": "P0",
+      "title": "Spinner yerine canlı review cockpit progress",
+      "deps": [
+        "P02-T01_REVIEW_JOB_STAGE_SCHEMA"
+      ],
+      "touchpoints": [
+        "web/src/app/(app)/review/[jobId]/page.tsx",
+        "web/src/hooks/useReview.ts",
+        "web/src/components/review/ReviewReportView.tsx",
+        "api/routes/review.py"
+      ],
+      "steps": [
+        "Stage timeline component oluştur.",
+        "Her stage için done/running/degraded/failed states.",
+        "İlk ara bulguları veya detected manuscript type göster.",
+        "Retry/cancel UI ekle.",
+        "Failure state çözüm önerisi ve support/debug id taşısın."
+      ],
+      "tests": [
+        "component test stage states",
+        "polling hook test",
+        "error/degraded render test"
+      ],
+      "done_when": [
+        "Kullanıcı beklerken sistemin ne yaptığını ve ne bulduğunu görüyor."
+      ],
+      "advance_when": "Numeric-only progress bar artık ana deneyim değilse.",
+      "stop_if": [
+        "Stage failed durumunda kullanıcı boş ekranda kalıyorsa."
+      ]
+    },
+    {
+      "id": "P05-T04_DESIGN_SYSTEM_PREMIUM_TOKENS",
+      "phase": "P05",
+      "priority": "P1",
+      "title": "Premium visual system tokens ve component kuralları",
+      "deps": [
+        "P05-T01_PREMIUM_LANDING_REPOSITIONING"
+      ],
+      "touchpoints": [
+        "web/src/styles/globals.css",
+        "web/src/components/ui/button.tsx",
+        "web/src/components/Card.tsx",
+        "docs/frontend/COMPONENT_RULES.md"
+      ],
+      "steps": [
+        "Editorial typography, spacing, elevation, surface, risk severity, evidence confidence tokenları tanımla.",
+        "Arbitra-specific components: RiskBadge, EvidenceBadge, ConfidenceMeter, ManuscriptAnchorLink.",
+        "Motion aşırı değil, anlamlı progress için kullanılsın.",
+        "Dark/light veya premium neutral palette tutarlı olsun."
+      ],
+      "tests": [
+        "visual smoke test",
+        "component snapshot",
+        "manual contrast check"
+      ],
+      "done_when": [
+        "UI parçaları random Tailwind değil tutarlı product language taşıyor."
+      ],
+      "advance_when": "Review/landing/wizard aynı görsel sistemde birleştiğinde.",
+      "stop_if": [
+        "Inline magic classes yeni component standardını bozuyorsa."
+      ]
+    },
+    {
+      "id": "P06-T01_REVIEW_REPORT_SCHEMA_V2",
+      "phase": "P06",
+      "priority": "P0",
+      "title": "ReviewReport v2: verdict, risk, council, evidence, action plan",
+      "deps": [
+        "P03-T03_RUBRIC_REGISTRY_AND_DIMENSION_SCHEMA",
+        "P04-T03_CLAIM_EVIDENCE_ALIGNMENT"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "api/services/review_orchestration.py",
+        "web/src/lib/review-api.ts",
+        "web/src/components/review/ReviewReportView.tsx"
+      ],
+      "steps": [
+        "Report sections: executive_verdict, risk_radar, reviewer_council, evidence_map, action_plan, section_reviews, exports.",
+        "Backward compatibility adapter ekle.",
+        "Every high severity item requires anchor/action/confidence.",
+        "Report schema versioning ekle."
+      ],
+      "tests": [
+        "schema validation",
+        "backward compatibility fixture",
+        "frontend render report v2"
+      ],
+      "done_when": [
+        "Rapor yapısal olarak cockpit’e hizmet ediyor."
+      ],
+      "advance_when": "ReportView string blob yerine typed sections render ediyorsa.",
+      "stop_if": [
+        "High severity finding action item olmadan geçiyorsa."
+      ]
+    },
+    {
+      "id": "P06-T02_REVIEWER_COUNCIL_ENGINE",
+      "phase": "P06",
+      "priority": "P0",
+      "title": "Persona modüllerini Reviewer Council Engine’e dönüştür",
+      "deps": [
+        "P06-T01_REVIEW_REPORT_SCHEMA_V2"
+      ],
+      "touchpoints": [
+        "api/services/review_orchestration.py",
+        "api/services/role_modules/*",
+        "engine/personas/review/*"
+      ],
+      "steps": [
+        "Council roles: methodologist, field_expert, skeptical_reviewer, constructive_reviewer, citation_auditor, ethics_reviewer, statistics_reviewer, editor_synthesizer.",
+        "Her role output schema’sı aynı: findings, severity, evidence, actions, confidence.",
+        "Editor synthesizer duplicate findings merge etsin.",
+        "Role weights rubric/study type’a göre değişsin."
+      ],
+      "tests": [
+        "unit: council role schema validation",
+        "unit: duplicate merge",
+        "fixture: qualitative role weighting"
+      ],
+      "done_when": [
+        "Persona outputları serbest metin değil birleşebilir structured findings üretiyor."
+      ],
+      "advance_when": "Editor synthesis conflicting role outputs’u çözüyor.",
+      "stop_if": [
+        "Bir role failure tüm raporu sessiz boşa düşürüyorsa."
+      ]
+    },
+    {
+      "id": "P06-T03_ACTION_PLAN_AND_REVISION_TASKS",
+      "phase": "P06",
+      "priority": "P0",
+      "title": "P0/P1/P2 revision action plan ve task modeli",
+      "deps": [
+        "P06-T01_REVIEW_REPORT_SCHEMA_V2"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "web/src/components/review/ReviewReportView.tsx",
+        "web/src/app/(app)/review/[jobId]/page.tsx"
+      ],
+      "steps": [
+        "ActionItem model: priority, effort, expected_gain, target_section, instruction, acceptance_check.",
+        "Risk findings action item’a bağlansın.",
+        "Frontend’de actionable checklist ve filters.",
+        "Done/ignored/user note state için local/server model tasarla."
+      ],
+      "tests": [
+        "schema test action item required fields",
+        "frontend checklist interaction test"
+      ],
+      "done_when": [
+        "Kullanıcı rapordan doğrudan revizyon planı çıkarabiliyor."
+      ],
+      "advance_when": "High severity bulguların %100’ü action item taşıyorsa.",
+      "stop_if": [
+        "Öneriler generic ve uygulanamaz kalıyorsa."
+      ]
+    },
+    {
+      "id": "P06-T04_EXPORTS_AND_RESPONSE_TO_REVIEWERS",
+      "phase": "P06",
+      "priority": "P1",
+      "title": "PDF/DOCX/Markdown/LaTeX export ve response-to-reviewers assistant",
+      "deps": [
+        "P06-T03_ACTION_PLAN_AND_REVISION_TASKS"
+      ],
+      "touchpoints": [
+        "api/routes/review.py",
+        "api/services/review_service.py",
+        "web/src/components/review/ReviewReportView.tsx",
+        "web/src/lib/review-api.ts"
+      ],
+      "steps": [
+        "Export endpoint contract: format, sections, include_evidence, include_disclosure.",
+        "Markdown ilk MVP, PDF/DOCX sonra adapter.",
+        "Response-to-reviewers draft: issue, proposed fix, polite response, evidence.",
+        "Export audit event ekle."
+      ],
+      "tests": [
+        "unit: markdown export snapshot",
+        "integration: export authz",
+        "frontend export button state"
+      ],
+      "done_when": [
+        "Rapor dış dünyada kullanılabilir çıktı formatlarına dönüşüyor."
+      ],
+      "advance_when": "En az Markdown export tam ve testli olduğunda.",
+      "stop_if": [
+        "Export başka kullanıcının raporuna erişebiliyorsa."
+      ]
+    },
+    {
+      "id": "P07-T01_GOLDSET_AND_EVAL_SCHEMA",
+      "phase": "P07",
+      "priority": "P0",
+      "title": "Goldset ve eval schema’yı dünya klası metriklerle genişlet",
+      "deps": [
+        "P06-T01_REVIEW_REPORT_SCHEMA_V2"
+      ],
+      "touchpoints": [
+        "eval/review/goldset.json",
+        "eval/review/schema.py",
+        "eval/review/metrics.py",
+        "eval/review/README.md"
+      ],
+      "steps": [
+        "Eval labels: document_type, study_design, expected_findings, citation_truth, guideline_items, hallucination_flags, actionability score.",
+        "Goldset kategorileri: article, conference, thesis, grant, qualitative, quantitative, systematic.",
+        "Metrikleri schema’ya bağla."
+      ],
+      "tests": [
+        "unit: eval schema validation",
+        "unit: metrics compute on sample_reports"
+      ],
+      "done_when": [
+        "Eval sadece skor değil akademik kalite boyutlarını ölçüyor."
+      ],
+      "advance_when": "Sample reports üzerinde metrics deterministic çalışıyorsa.",
+      "stop_if": [
+        "Eval LLM judge only ve gold evidence yoksa."
+      ]
+    },
+    {
+      "id": "P07-T02_RELEASE_EVAL_GATE",
+      "phase": "P07",
+      "priority": "P0",
+      "title": "Release eval gate ve regression thresholdları",
+      "deps": [
+        "P07-T01_GOLDSET_AND_EVAL_SCHEMA"
+      ],
+      "touchpoints": [
+        "eval/review/run_eval.py",
+        ".github/workflows/polish_gate.yml",
+        "config/faithfulness_thresholds.yaml"
+      ],
+      "steps": [
+        "Eval komutu CI’da opsiyonel/required mode desteklesin.",
+        "Thresholdlar: hallucination max, actionability min, citation precision min, schema validity 100%.",
+        "Regression durumunda release fail.",
+        "Eval report artifact üret."
+      ],
+      "tests": [
+        "CI dry run",
+        "unit: threshold failure exits nonzero"
+      ],
+      "done_when": [
+        "Yeni prompt/model değişikliği kaliteyi düşürürse yakalanıyor."
+      ],
+      "advance_when": "Eval gate en az smoke goldset ile CI’da çalıştığında.",
+      "stop_if": [
+        "Eval flaky ve release’i anlamsız kırıyorsa threshold stabilize et."
+      ]
+    },
+    {
+      "id": "P07-T03_HUMAN_EXPERT_REVIEW_LOOP",
+      "phase": "P07",
+      "priority": "P1",
+      "title": "Human expert feedback loop ve calibration workflow",
+      "deps": [
+        "P07-T01_GOLDSET_AND_EVAL_SCHEMA"
+      ],
+      "touchpoints": [
+        "eval/review/build_goldset.py",
+        "docs/worldclass/TEMPLATES/eval_card_template.md",
+        "api/models/review.py"
+      ],
+      "steps": [
+        "Expert reviewer annotation template oluştur.",
+        "False positive/false negative taxonomy tut.",
+        "Rubric weights calibration dosyasına bağla.",
+        "Eval dashboard için JSON report standardize et."
+      ],
+      "tests": [
+        "sample annotation import test",
+        "metrics with human labels test"
+      ],
+      "done_when": [
+        "Akademik kalite insan uzman kıyasına bağlanabilir."
+      ],
+      "advance_when": "En az 10 örnek uzman annotation formatına alınabildiğinde.",
+      "stop_if": [
+        "Uzman feedback serbest metin olarak kayboluyorsa."
+      ]
+    },
+    {
+      "id": "P08-T01_LANGUAGE_CONFIG_MODEL",
+      "phase": "P08",
+      "priority": "P0",
+      "title": "Source language, output language ve UI locale ayrımı",
+      "deps": [
+        "P06-T01_REVIEW_REPORT_SCHEMA_V2"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "web/src/lib/review-api.ts",
+        "web/src/lib/i18n/*",
+        "api/services/translator.py"
+      ],
+      "steps": [
+        "LanguageConfig model: source_language, output_language, ui_locale, citation_language_policy, rtl.",
+        "Review create request ve report metadata’ya ekle.",
+        "TR/EN literal type kısıtlarını kaldırıp BCP-47 string validation yap.",
+        "Bilingual quote policy: original quote + translated explanation."
+      ],
+      "tests": [
+        "unit: language config validation",
+        "frontend type test",
+        "RTL smoke where possible"
+      ],
+      "done_when": [
+        "100 dil vizyonu teknik olarak iki literal ile sınırlı değil."
+      ],
+      "advance_when": "TR manuscript EN report ve EN manuscript TR UI ayrışabiliyorsa.",
+      "stop_if": [
+        "Citation quotes çevrilip orijinal kayboluyorsa."
+      ]
+    },
+    {
+      "id": "P08-T02_TENANT_AND_ENTERPRISE_BOUNDARIES",
+      "phase": "P08",
+      "priority": "P1",
+      "title": "Tenant/institution boundary ve enterprise deployment temeli",
+      "deps": [
+        "P01-T02_OBJECT_LEVEL_AUTHORIZATION_MATRIX"
+      ],
+      "touchpoints": [
+        "api/models/*",
+        "api/middleware/auth.py",
+        "api/db/supabase_client.py",
+        "db/migrations/*"
+      ],
+      "steps": [
+        "Tenant model ve membership roles tasarla.",
+        "Institution policy: retention, allowed providers, local model required, export controls.",
+        "Tenant-aware authz tests.",
+        "Future on-prem/private cloud config surface."
+      ],
+      "tests": [
+        "tenant A cannot access tenant B",
+        "institution policy blocks external provider"
+      ],
+      "done_when": [
+        "Kurumsal kullanıcı için veri sınırı ve provider policy uygulanabiliyor."
+      ],
+      "advance_when": "Single-user flow kırılmadan tenant-aware path çalıştığında.",
+      "stop_if": [
+        "Tenant_id sadece UI’da var backend enforcement yoksa."
+      ]
+    },
+    {
+      "id": "P09-T01_OBSERVABILITY_AND_AUDIT_RUNBOOKS",
+      "phase": "P09",
+      "priority": "P0",
+      "title": "Review OS observability, audit ve runbook seti",
+      "deps": [
+        "P02-T02_DURABLE_WORKFLOW_ADAPTER",
+        "P01-T03_CONFIDENTIALITY_AND_EXTERNAL_AI_CONSENT"
+      ],
+      "touchpoints": [
+        "api/middleware/sentry.py",
+        "api/services/review_service.py",
+        "docs/runbook/*",
+        "docs/worldclass/SPECS/observability_runbook_spec.md"
+      ],
+      "steps": [
+        "Metrics: review latency by stage, provider errors, degraded rate, LLM cost, citation resolution rate.",
+        "Audit events: create, upload, parse, external_provider_call, report_view, export, delete.",
+        "Runbooks: provider down, queue stuck, auth incident, data deletion, eval regression.",
+        "Correlation id/debug id kullanıcı hata ekranına bağlansın."
+      ],
+      "tests": [
+        "unit: audit event emitted",
+        "manual runbook drill",
+        "metrics smoke"
+      ],
+      "done_when": [
+        "Production incident olduğunda neye bakılacağı belli."
+      ],
+      "advance_when": "Her review job trace/audit/log ile izlenebiliyorsa.",
+      "stop_if": [
+        "External provider call audit logsuz yapılıyorsa."
+      ]
+    },
+    {
+      "id": "P09-T02_PRODUCTION_READINESS_AND_LAUNCH_GATE",
+      "phase": "P09",
+      "priority": "P0",
+      "title": "Production readiness ve launch gate",
+      "deps": [
+        "P07-T02_RELEASE_EVAL_GATE",
+        "P09-T01_OBSERVABILITY_AND_AUDIT_RUNBOOKS",
+        "P05-T03_LIVE_REVIEW_COCKPIT_PROGRESS"
+      ],
+      "touchpoints": [
+        "docs/worldclass/CHECKLISTS/RELEASE_GATE.md",
+        "deploy/render.yaml",
+        "Dockerfile",
+        "web/Dockerfile",
+        ".env.example"
+      ],
+      "steps": [
+        "Release checklist tüm P0 gate’lerini toplasın.",
+        "Rollback plan, migration plan, env validation, eval report, security checklist zorunlu olsun.",
+        "Launch smoke: create review, process, view report, export, delete.",
+        "Cost/performance budget belirle."
+      ],
+      "tests": [
+        "release smoke script",
+        "migration dry run",
+        "production env validation test"
+      ],
+      "done_when": [
+        "Launch kararı sezgiyle değil gate raporuyla veriliyor."
+      ],
+      "advance_when": "Tüm P0 gate’ler yeşil, P1 açıklar launch notes’ta belgeli.",
+      "stop_if": [
+        "P0 security/privacy/eval açık kalırsa launch yok."
+      ]
+    }
+  ]
+}

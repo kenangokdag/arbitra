@@ -1,0 +1,413 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 2.1 KE\uc0\u350 \u304 F \'97 ARA\u350 TIRMA ALANI (\'c7APA BEL\u304 RLEME)\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 5 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i \'97 bu sayfa "proje" taraf\u305 n\u305 n ilk dura\u287 \u305 .\
+    Buradan itibaren B\uc0\u304 Z\u304 M HAVUZ (corpus 25M) devreye girer.\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+(5) veri ambar\uc0\u305  envanteri.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Bu sayfa projenin DNA's\uc0\u305 n\u305  belirler; kullan\u305 c\u305 n\u305 n "ne ara\u351 t\u305 r\u305 yorum?" sorusunu K\'fct\'fcphaneci sohbetiyle netle\u351 tirir, sonra 3 \'e7apa makale aday\u305  sunar. Felsefemiz: \'e7apa proje boyunca t\'fcm mod\'fclleri (havuz, bibliyometrik, gap, yazma, savunma) hizalayan bir akademik referans noktas\u305 d\u305 r; bu nedenle hesapl\u305 , kan\u305 tl\u305 , geri-d\'f6n\'fc\u351 \'fc pahal\u305  bir karar olmal\u305 . SciSpace generic Q&A, Consensus query\u8594 evidence-only \'97 hi\'e7biri "bir \'e7apa etraf\u305 nda proje" mant\u305 \u287 \u305 n\u305  kurmaz. PaperMind imzas\u305 : 2 turluk yap\u305 l\u305  sohbet + havuz tabanl\u305  3 aday + uyumsuzluk haf\u305 zas\u305  (rejected_anchors).\
+\
+Nas\uc0\u305 l Yap\u305 lacak: Kullan\u305 c\u305  vitrin'den geldiyse \{alan, alt-alan, konu\} bilgisini Stage A girdisi olarak al\u305 p Gemini Flash ile en fazla 2 turluk K\'fct\'fcphaneci sohbeti y\'fcr\'fct\'fcr\'fcz; sohbet sonu parsed_understanding kaydedilir. Stage B'de bu \'e7\u305 kt\u305 dan HyDE \'fcretilir, B\u304 Z\u304 M HAVUZ \'fcst\'fcnde Pinecone (semantic) + Supabase tsvector (lexical) paralel sorgu \u8594  RRF k=60 \u8594  BGE-v2-m3 reranker \u8594  top-3 \'e7apa aday\u305 . Kullan\u305 c\u305  birini "\'c7APA SE\'c7" der; arka planda 500 kom\u351 u makale + ESTRA skor + curator \'e7\u305 kt\u305 s\u305  (Stage C) haz\u305 rlan\u305 r, otomatik 2.2'ye ge\'e7er.\
+\
+Eklenecek \'dc\'e7 Dokunu\uc0\u351  ve Standart Yay\u305 n Kart\u305 : Bu sayfaya \'fc\'e7 dokunu\u351  ekleyece\u287 iz; ESTRA skorlar\u305  ve PaperMind Standart Yay\u305 n Kart\u305  (D5-D6-Cards.html mock'undan) buradan ba\u351 lay\u305 p t\'fcm sayfalarda yay\u305 lacak \'97 kullan\u305 c\u305 n\u305 n platform okuryazarl\u305 \u287 \u305 n\u305  art\u305 rman\u305 n en ucuz yolu tek tip kart. (1) "Anlad\u305 \u287 \u305 m kadar\u305 yla" kart\u305 : K\'fct\'fcphaneci sohbeti bittikten sonra parsed_understanding (focuses[3] + field + subfield + interdisc + confidence) kullan\u305 c\u305 ya k\'fc\'e7\'fck bir kart olarak geri yans\u305 t\u305 l\u305 r \'97 "Senin ara\u351 t\u305 rman\u305  \u351 \'f6yle anlad\u305 m. Do\u287 ru mu?" \'97 confidence=low/medium/high rozeti ve "D\'fczelt" CTA's\u305  i\'e7erir. Bu bedava: librarian.py:121-141 zaten parsed_understanding'i project_chat_messages'a yaz\u305 yor; ResearchAreaConfirmPage.tsx:58-70 fixture'\u305  GET /api/project/\{id\} response'undan hidrate edilir. Felsefe gerek\'e7esi: dan\u305 \u351 man/\'f6\u287 renci personas\u305  \'97 sistem dinledi\u287 ini ve do\u287 ru anlad\u305 \u287 \u305 n\u305  g\'f6rsel ispatla g\'f6stermeli, sessiz kara kutu olmamal\u305 . (2) "Niye bu paper?" mikro-a\'e7\u305 klama: 3 \'e7apa aday\u305  kart\u305 n\u305 n her birinde 1-c\'fcmlelik gerek\'e7e sat\u305 r\u305  ("\'c7\'fcnk\'fc senin 'X' fokusunla 'Y' y\'f6ntemini kullan\u305 yor"). Bu \'fccretli ama k\'fc\'e7\'fck: anchor_finder.run() sonunda 3 ayr\u305  Gemini Flash \'e7a\u287 r\u305 s\u305  (cumulative ~600ms tek paralel batch'te), prompt input parsed_understanding + paper.title + paper.abstract_truncated. Felsefe gerek\'e7esi: j\'fcri/hakem personas\u305  \'97 gerek\'e7esiz tavsiye sycophancy; mikro-a\'e7\u305 klama sistemin ak\u305 l y\'fcr\'fctmesini g\'f6r\'fcn\'fcr k\u305 lar (DM-049 sycophant kilidi paraleli). (3) Reset haf\u305 zas\u305 : kullan\u305 c\u305  3 aday\u305  reddederse "Tur 1'e d\'f6n" CTA's\u305  ile s\u305 f\u305 rdan de\u287 il, hat\u305 rlayarak yeniden sohbet a\'e7\u305 l\u305 r. Backend yar\u305  haz\u305 r: librarian.py:70-83 rejected_anchors + reject_reasons'\u305  project_anchor'dan ZATEN OKUYOR (ve sohbet promptuna ekliyor); ama yazma taraf\u305  YOK \'97 POST /api/project/\{id\}/research-area/reset endpoint + anchor_finder.run() i\'e7inde rejected paper_id'leri project_anchor.rejected_anchors'a append yaz\u305 m\u305  eksik (kan\u305 t: api/services/anchor_finder.py i\'e7inde "rejected_anchors" ge\'e7miyor \'97 Grep do\u287 ruland\u305 ). Felsefe gerek\'e7esi: sayfa-kabar\u305 k-olmas\u305 n ilkesi \'97 kullan\u305 c\u305  reddini hat\u305 rlamayan sistem ayn\u305  \'f6nerileri tekrar \'fcretir, kullan\u305 c\u305  yorulur. ESTRA skorlar\u305 : Stage B'de top-3 \'e7apa aday\u305 n\u305 n her birinde fact_paper_id_card.q_weak_score (anchor_finder.py:214 zaten okuyor) yatay bar olarak g\'f6sterilir; kart \'fcst-sa\u287 \u305 nda accent rengi 0-10 skor; Stage C arka planda haz\u305 rlan\u305 rken q_weak yeterli, dolu 7-boyut radar 2.5'te. Standart Yay\u305 n Kart\u305  (kanon, D5-D6-Cards.html'den): chip sat\u305 r\u305  (alan/dil/decision_band) + serif italik ba\u351 l\u305 k + meta (yazar \'b7 yer \'b7 y\u305 l \'b7 at\u305 f) + 3-sat\u305 r abstract clamp + ESTRA bar + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). "Listeme ekle" = bu projenin k\'fct\'fcphanesine kaydet. \u304 ki versiyon: A\'e7\u305 k kart (full, abstract+ESTRA g\'f6r\'fcn\'fcr) \'97 az say\u305 da \'f6neri i\'e7in (3.1, 3.2 top-N gibi); Daralt\u305 lm\u305 \u351  kart (lite, ba\u351 l\u305 k+meta+ayn\u305  4 buton, abstract gizli) \'97 \'e7ok say\u305 da \'f6neri listesi i\'e7in (4.1 bo\u351 luk haritas\u305  kom\u351 u listesi gibi). Bu sayfada (2.1) 3 \'e7apa aday\u305  az oldu\u287 u i\'e7in A\'e7\u305 k kart kullan\u305 l\u305 r. Kart karar\u305  buradan t\'fcm sayfalara yay\u305 lacak \'97 yay\u305 n g\'f6sterilen her yer ayn\u305  kart, ayn\u305  4 buton.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Kullan\uc0\u305 c\u305  giri\u351  yapt\u305 ktan sonra ara\u351 t\u305 rma alan\u305 n\u305  belirlemeliyiz.\
+\
+Ak\uc0\u305 \u351 :\
+- \'d6n ad\uc0\u305 mdan (Vitrin'den) geldiyse: oradaki sorgudan elde edilen alan-topic\
+  bilgileri ve k\'fct\'fcphaneci ile chat\
+- Bir adet konu belirleyip "\'c7apa" olarak bir makale se\'e7mesini sa\uc0\u287 lar\u305 z\
+- Bunun i\'e7in 3 adet aday \'c7apa veririz\
+- Kullan\uc0\u305 c\u305  bunlardan birini se\'e7erse \u8594  proje bu \'e7apa etraf\u305 nda d\'f6ner\
+- Be\uc0\u287 enmediyse \u8594  yenilenir\
+\
+Kullan\uc0\u305 lan prompt:\
+"\'d6n ad\uc0\u305 mdaki se\'e7ilen makaleyi-alan\u305 -keyword hat\u305 rla ve buna g\'f6re\
+havuzdan 3 \'e7apa aday\uc0\u305  bul ve sun. E\u287 er emin de\u287 ilsen yeniden sohbet et.\
+2 tur hakk\uc0\u305 n var. E\u287 er hatal\u305 ysan yeni oturum gibi s\u305 f\u305 rdan ele al ve\
+iyi anlamay\uc0\u305  sa\u287 la."\
+\
+Bu ad\uc0\u305 mdaki tek ama\'e7: "\'c7apa" bulmak.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  KARAR (2026-05-10, Omer) \u9472 \u9472 \u9472 \u9472 \
+\
+Vitrin'den Proje'ye akacak TEK B\uc0\u304 LG\u304 :\
+  alan + alt-alan + konu (topic).\
+\
+YASAK:\
+  - paper_id listesi ta\uc0\u351 \u305 mak\
+  - "seed_paper_count" g\'f6stermek\
+  - "Q'da se\'e7ti\uc0\u287 in 25 makale" haf\u305 zas\u305 \
+\
+NEDEN:\
+  - Vitrin OpenAlex (kalitesiz dahil), proje B\uc0\u304 Z\u304 M HAVUZ (kaliteli, ~25M).\
+    \uc0\u304 ki kaynak farkl\u305 ; paper_id transfer mant\u305 ks\u305 z.\
+  - \'c7apa makalesi B\uc0\u304 Z\u304 M HAVUZ'dan se\'e7ilir, OpenAlex'ten de\u287 il.\
+    Vitrin'den paper_id ta\uc0\u351 \u305 mak \'e7apa adaylar\u305 n\u305  sap\u305 t\u305 r.\
+  - K\'fct\'fcphaneci sohbeti yal\uc0\u305 n bir konu \'e7er\'e7evesinden ba\u351 lamal\u305 ; vitrin'deki\
+    rastgele se\'e7imler "anlama" de\uc0\u287 il "g\'fcr\'fclt\'fc" verir.\
+\
+NASIL UYGULANIR:\
+  A\uc0\u351 a\u287 \u305 daki "\'c7EL\u304 \u350 K\u304 " b\'f6l\'fcm\'fcnde mevcut koddaki paper_id transfer noktalar\u305 \
+  kan\uc0\u305 tl\u305  listelendi \'97 d\'fczeltilecek.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+Kan\uc0\u305 t seviyesi: A (bu oturumda Read/Grep ile do\u287 ruland\u305 ; file:line referansl\u305 ).\
+Tarih: 2026-05-10.\
+\
+\
+[ (i) VER\uc0\u304  AMBARI ]\
+\
+Bu sayfa B\uc0\u304 Z\u304 M HAVUZ'a ilk kez de\u287 en yer. 4 ayr\u305  kaynaktan beslenir:\
+\
+  - Pinecone vekt\'f6r havuzu (anchor candidates semantic top-80)\
+      api/services/anchor_finder.py:158-163 (get_pinecone_index)\
+      Encoder: api/services/pool_router._QueryEncoder\
+  - Supabase tsvector havuzu (anchor candidates lexical top-80)\
+      api/services/anchor_finder.py:42 (lexical_tsvector_pool import)\
+      api/services/anchor_finder.py:280 (lex_task)\
+  - Supabase papers tablosu (corpus metadata join)\
+      api/services/anchor_finder.py:206\
+  - Supabase fact tablolar\uc0\u305  (kalite/skor)\
+      fact_paper_id_card        (anchor_finder.py:214)\
+      fact_paper_quality_v3     (anchor_finder.py:224)\
+\
+Sayfa-spesifik state tablolar\uc0\u305  (db/migrations/0015_projects_skeleton.sql):\
+  - project_chat_messages (line 64-89) \'97 Stage A sohbet log + parsed_understanding\
+                                           (RLS owner-only, ENUM attempt_no/turn_no)\
+  - project_anchor        (line 95-108) \'97 \'e7apa kilidi + uyumsuzluk haf\uc0\u305 zas\u305 \
+                                           (RLS owner-only)\
+\
+dim_ghost_paper:\
+  - HEN\'dcZ KULLANILMIYOR. Sayfa 3.2 \uc0\u304 li\u351 kili \'c7al\u305 \u351 malar'da devreye girer\
+    (corpus'a at\uc0\u305 f yapan d\u305 \u351  makaleler).\
+\
+Mimari bo\uc0\u351 luk: yok. Pool fail durumu (504 pools_empty) handle edilmi\u351 .\
+\
+\
+[ (ii) BACKEND ]\
+\
+Endpoint dosyas\uc0\u305 :\
+  api/routes/research_area.py (113 sat\uc0\u305 r)\
+\
+Endpoint'ler:\
+  - POST /api/project/\{id\}/research-area/messages  (line 55-81)\
+        Stage A \'97 K\'fct\'fcphaneci 2-tur sohbet\
+        librarian.run() \uc0\u8594  MessageResponse\
+        Hatalar: 401 missing_user_id, 404 project_not_found,\
+                 503 supabase_unavailable / llm_unavailable\
+\
+  - POST /api/project/\{id\}/research-area/anchor-candidates  (line 84-113)\
+        Stage B \'97 HyDE \uc0\u8594  Pinecone+tsvector \u8594  RRF \u8594  BGE-rerank \u8594  top-3\
+        anchor_finder.run() \uc0\u8594  AnchorCandidatesResponse\
+        Hatalar: 401, 404, 409 stage_a_incomplete (parsed_understanding yok),\
+                 503 llm_unavailable, 504 pools_empty\
+\
+Servisler:\
+  - api/services/role_modules/librarian.py (220 sat\uc0\u305 r)\
+      project_chat_messages SELECT/INSERT  (line 97, 140)\
+      parsed_understanding persist          (line 136)\
+      project_anchor SELECT (kilit kontrol) (line 72)\
+      K-031 RLS z\uc0\u305 rh\u305 : her query .eq("user_id", uid) (line 52)\
+\
+  - api/services/anchor_finder.py (351 sat\uc0\u305 r)\
+      Pinecone semantic top-80 (line 158-163)\
+      tsvector lexical top-80  (line 280)\
+      RRF birle\uc0\u351 im \u8594  BGE rerank \u8594  top-3\
+      Stage A ba\uc0\u287 \u305 ml\u305 l\u305 \u287 \u305 : project_chat_messages.parsed_understanding\
+        (line 87) yoksa ParsedUnderstandingMissingError \uc0\u8594  409.\
+\
+LLM Modelleri (api/config.py:53,54):\
+  - gemini-2.5-flash \uc0\u8594  librarian Stage A sohbet\
+  - gemini-2.5-flash \uc0\u8594  HyDE (anchor_finder)\
+  - gemini-2.5-pro   \uc0\u8594  hen\'fcz kullan\u305 lm\u305 yor (DM-054)\
+\
+Pydantic modeller (api/models/research_area.py):\
+  MessageRequest, MessageResponse,\
+  AnchorCandidatesResponse, AnchorCandidate,\
+  ParsedUnderstanding (focuses + field + subfield + confidence)\
+\
+\
+[ (iii) FRONTEND ]\
+\
+Sayfa dosyas\uc0\u305 :\
+  web/src/components/project/ResearchAreaConfirmPage.tsx (504 sat\uc0\u305 r)\
+Route: /project/\{id\}/discovery-1\
+\
+Veri ak\uc0\u305 \u351 \u305  (canl\u305  backend):\
+  - GET /api/project/\{id\}             (line 117-123, projectQuery)\
+  - POST .../research-area/anchor-candidates  (line 128-138, anchorsQuery)\
+  - 'p1' demo path'inde her ikisi de disabled (placeholder UI)\
+\
+Anchor render (canl\uc0\u305 ):\
+  - line 139: liveAnchors mapping\
+  - line 344-411: 3-kart grid (title + abstract preview + band + q_weak)\
+  - line 328-343: loading / error / empty state\
+\
+PARSED skeleton (line 58-70):\
+  - H\'c2L\'c2 FIXTURE (focuses=3 madde, field/subfield/confidence sabit)\
+  - Stage A sohbet UI (P097) ba\uc0\u287 lan\u305 nca parsed_understanding canl\u305 ya ge\'e7er\
+  - librarian.py:121-141 zaten persist ediyor; tek eksik UI\
+\
+Q'dan miras banner (line 198-233):\
+  - seed_query + seed_paper_count + seed_lang g\'f6steriyor\
+  - line 226: "\{seed_paper_count\} secim" sat\uc0\u305 r\u305 \
+  - "Kaynak" alan\uc0\u305  (line 304-305): "Q sorgu: '...' + N secim"\
+  - \'c7EL\uc0\u304 \u350 K\u304  \'97 yeni karara g\'f6re KALDIRILACAK (a\u351 a\u287 \u305 da detay).\
+\
+CTA bar:\
+  - "Onayla \uc0\u8594  Konu Belirleme" (line 449-459) \u8594  /project/\{id\}/discovery-2\
+  - "De\uc0\u287 i\u351 tir (K\'fct\'fcphaneci'yle sohbet)" (line 437-447) \u8594  P097'de ba\u287 lan\u305 r\
+\
+\
+[ VER\uc0\u304  AKI\u350 I \'97 U\'c7TAN UCA (yeni karar UYGULANDIKTAN sonra) ]\
+\
+1. Vitrin'den "Projeye D\'f6n\'fc\uc0\u351 t\'fcr" CTA \u8594  POST /api/project/from-q\
+   (yeni payload: \{ field, subfield, topic, lang \} \'97 paper_ids YOK)\
+2. projects tablosuna insert; project_seed_papers DOLDURULMAZ\
+3. Frontend \uc0\u8594  /project/\{id\}/discovery-1\
+4. ResearchAreaConfirmPage \uc0\u8594  GET /api/project/\{id\}\
+   (header'da SADECE alan+alt-alan+konu; "N secim" sat\uc0\u305 r\u305  YOK)\
+5. Stage A \'97 POST .../research-area/messages\
+   librarian.run \uc0\u8594  2-tur sohbet \u8594  parsed_understanding persist\
+6. Stage B \'97 POST .../research-area/anchor-candidates\
+   anchor_finder.run \uc0\u8594  HyDE (Gemini Flash)\
+                    \uc0\u8594  Pinecone+tsvector\
+                    \uc0\u8594  RRF \u8594  BGE-rerank\
+                    \uc0\u8594  top-3 anchor candidates (B\u304 Z\u304 M HAVUZ)\
+7. Kullan\uc0\u305 c\u305  1 \'e7apa se\'e7er \u8594  project_anchor INSERT\
+   \uc0\u8594  /project/\{id\}/discovery-2 (Konu Belirleme)\
+\
+\
+[ \uc0\u304 LG\u304 L\u304  TESTLER ]\
+\
+  api/tests/routes/test_research_area.py\
+  api/tests/services/role_modules/test_librarian.py\
+  api/tests/services/test_anchor_finder.py\
+  web/src/components/project/ResearchAreaConfirmPage.test.tsx (varsa)\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  SOHBET M\u304 MAR\u304 S\u304  (Stage A + Stage B + Stage C) \u9472 \u9472 \u9472 \u9472 \
+\
+Karar (kanon): 2-tur K\'fct\'fcphaneci sohbeti \uc0\u8594  3 \'e7apa aday\u305  \u8594  1 se\'e7im.\
+Kart say\uc0\u305 s\u305 : 3 (sabit). Gerek\'e7e felsefe uyumu tablosunda.\
+Kan\uc0\u305 t seviyesi: A (mock + plan + kod birebir k\u305 yasland\u305 , file:line referansl\u305 ).\
+\
+\
+[ AR\uc0\u350 \u304 V (KANON) ]\
+\
+  Mock:  Page_Design/Sayfa_Plani_v1/D_atolye_discovery/discovery-1.md (288 sat\uc0\u305 r)\
+  Plan:  docs/plans/F9_kesif_workbench.md (573 sat\uc0\u305 r)\
+\
+  Stage A (K\'fct\'fcphaneci 2-tur, max=2):\
+    - attempt_no \'d7 turn_no double-key (project_chat_messages tablosunda)\
+    - Tur 1: kullan\uc0\u305 c\u305  serbest yaz\u305  \u8594  LLM parse + adviser_text + finished?\
+    - Tur 2: yan\uc0\u305 t \u8594  JSON \{focuses[3], field, subfield, interdisc, confidence\}\
+    - Tur 2 sonu: parsed_understanding pin kart\
+    - "Tur 1'e d\'f6n" CTA: rejected_anchors + reject_reasons haf\uc0\u305 zas\u305  ekleyip\
+      attempt_no++ (s\uc0\u305 f\u305 rdan de\u287 il, uyumsuzluk hat\u305 rlanarak)\
+    - LLM: gemini-2.5-flash (KD-V1: tier="flash")\
+\
+  Stage B (3 \'e7apa aday\uc0\u305 ):\
+    - HyDE (Gemini Flash) \uc0\u8594  packet_p (passage) + packet_s (keyword listesi)\
+    - Pinecone vec havuzu (top-80) + Supabase tsvector (top-80) PARALEL\
+    - RRF k=60 \uc0\u8594  BGE-v2-m3 reranker \u8594  top-3\
+    - Card i\'e7eri\uc0\u287 i: title + abstract preview + chip'ler (alan, dil, y\u305 l,\
+                    decision_band) + q_weak ESTRA bar\
+    - 5 aksiyon (mock): Detay / K\'fct\'fcphaneye ekle / \'d6zetle / \'c7evir / Dan\uc0\u305 \u351 mana sor\
+    - "\'c7APA SE\'c7" CTA \uc0\u8594  kilit \u8594  Stage C tetiklenir \u8594  discovery-2'ye otomatik ge\'e7i\u351 \
+\
+  Stage C (background, 4-6 sn):\
+    - 500-aday vec+bib+theme RRF (cluster_expander.py)\
+    - Supabase enrich JOIN\
+    - ESTRA q_weak/cd_5/beauty/pagerank skor\
+    - curator signals_13\
+    - project_cluster persist\
+\
+\
+[ MEVCUT KOD \'97 UYGUN ]\
+\
+  Backend:\
+    - api/services/role_modules/librarian.py:93   turn_no cap=2 \uc0\u10003 \
+    - librarian.py:195                             finished force at turn_no=2 \uc0\u10003 \
+    - librarian.py:140                             project_chat_messages persist \uc0\u10003 \
+    - api/services/anchor_finder.py:51             _FINAL_TOP_K = 3 \uc0\u10003 \
+    - anchor_finder.py:88                          parsed_understanding ba\uc0\u287 \u305 ml\u305 l\u305 \u287 \u305  \u10003 \
+    - anchor_finder.py:280                         lex_task paralel \uc0\u10003 \
+    - 409 stage_a_incomplete (parsed yoksa) \uc0\u10003 \
+\
+\
+[ MEVCUT KOD \'97 EKS\uc0\u304 K / WIRE'SIZ ]\
+\
+  Backend:\
+    - POST /api/project/\{id\}/research-area/reset endpoint YOK.\
+      F9 plan \'a7endpoint listesinde tan\uc0\u305 ml\u305 ; kod yaz\u305 lmad\u305 .\
+      Gerekli payload: \{ reject_reason: str \}, response: \{ attempt_no, rejected_count \}\
+      Etki: "Tur 1'e d\'f6n" ak\uc0\u305 \u351 \u305  + uyumsuzluk haf\u305 zas\u305  \'e7al\u305 \u351 maz.\
+\
+    - project_anchor.candidates_meta jsonb persist YOK.\
+      Migration 0015 tabloda kolon var; anchor_finder.py bunu yazm\uc0\u305 yor.\
+      Etki: rejected_anchors haf\uc0\u305 zas\u305  kaybolur (tur kapan\u305 nca).\
+\
+    - Stage C (cluster_expander + ESTRA + curator) entegrasyonu sayfa 2.1\
+      "\'c7APA SE\'c7" an\uc0\u305 nda de\u287 il, sayfa 2.2 giri\u351 inde tetikleniyor (varsay\u305 m,\
+      do\uc0\u287 rulanmad\u305 ; bkz A\'e7\u305 k Sorular #4).\
+\
+  Frontend:\
+    - ResearchAreaConfirmPage.tsx:146 \uc0\u8594  K\'fct\'fcphaneci sohbeti\
+      `alert("Kutuphaneci sohbeti Phase 2'de baglanir (P097 frontend)")`\
+      (sadece iskelet \'97 chat ak\uc0\u305 \u351 \u305  yok).\
+\
+    - ChatThread reuse YOK (web/src/components/chat/ChatThread.tsx mevcut\
+      ama ba\uc0\u287 lanmam\u305 \u351 ).\
+\
+    - ParsedUnderstandingCard komponenti YOK.\
+\
+    - useResearchAreaConversation hook YOK.\
+\
+    - Reset modal + "Tur 1'e d\'f6n" CTA YOK.\
+\
+    - PARSED fixture (line 58-70) live'a ge\'e7medi (zaten Stage A UI yok).\
+\
+\
+[ FELSEFE UYUM ]\
+\
+  | Konu                 | Karar          | Felsefe ile          |\
+  |----------------------|----------------|----------------------|\
+  | 2-tur sohbet limiti  | UYGUN          | Sayfa kabar\uc0\u305 k de\u287 il; |\
+  |                      |                | dan\uc0\u305 \u351 man/\'f6\u287 renci P.  |\
+  | 3 kart (kanon)       | UYGUN \'97 SAB\uc0\u304 T  | Hick's law; rerank   |\
+  |                      |                | "en iyi 3" iddias\uc0\u305 ;  |\
+  |                      |                | bili\uc0\u351 sel y\'fck d\'fc\u351 \'fck   |\
+  | 5 kart (yeni soru)   | UYUMSUZ        | Kabar\uc0\u305 k olmas\u305 n ile  |\
+  |                      |                | \'e7eli\uc0\u351 ir; rerank top-3|\
+  |                      |                | kalitesi sulan\uc0\u305 r     |\
+  | Reset + uyumsuzluk   | UYGUN          | "S\uc0\u305 f\u305 rdan ele al"    |\
+  | haf\uc0\u305 zas\u305              |                | notunun kar\u351 \u305 l\u305 \u287 \u305     |\
+\
+  Karar: _FINAL_TOP_K = 3 SAB\uc0\u304 T. De\u287 i\u351 tirmek istenirse anchor_finder.py:51\
+  tek sat\uc0\u305 r; geri d\'f6n\'fc\u351 \'fc kolay ama default'tan kaymak felsefe ihlali say\u305 l\u305 r.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  \'c7EL\u304 \u350 K\u304  \'97 KR\u304 T\u304 K M\u304 MAR\u304  D\'dcZELTME \u9472 \u9472 \u9472 \u9472 \
+\
+Karar (2026-05-10, Omer): Vitrin'den buraya yaln\uc0\u305 z \{alan, alt-alan, konu\}.\
+\
+Mevcut kod paper_id transfer ediyor. D\'fczeltilecek noktalar:\
+\
+(1) BACKEND \'97 api/routes/project.py:223-287 (POST /api/project/from-q)\
+    YANLI\uc0\u350 : ProjectFromQRequest.selected_paper_ids list[str] (1-25 OpenAlex id)\
+            line 266-281: project_seed_papers tablosuna bulk insert\
+    DO\uc0\u286 RU:  payload yaln\u305 z \{ field, subfield, topic, lang \}\
+            project_seed_papers tablosu vitrin i\'e7in kullan\uc0\u305 lmayacak.\
+\
+(2) BACKEND \'97 api/models/project.py (ProjectFromQRequest model)\
+    YANLI\uc0\u350 : selected_paper_ids field\
+    DO\uc0\u286 RU:  field: str, subfield: str, topic: str, lang: SeedLang\
+\
+(3) BACKEND \'97 api/routes/project.py:264 (ProjectFromQResponse)\
+    YANLI\uc0\u350 : seed_paper_count alan\u305  d\'f6n\'fcyor\
+    DO\uc0\u286 RU:  yaln\u305 z project_id + se\'e7ilen alan/alt-alan/konu echo.\
+\
+(4) DATABASE \'97 db/migrations/0019_project_seed_papers.sql\
+    Vitrin i\'e7in kullan\uc0\u305 m kalkacak. Tablo varsay\u305 lan bo\u351 .\
+    Karar: tablo silinsin mi yoksa "manuel ekleme" ama\'e7l\uc0\u305  tutulsun mu?\
+    \uc0\u8594  Plan oturumunda Omer karar verecek.\
+\
+(5) FRONTEND \'97 ResearchAreaConfirmPage.tsx:198-233\
+    YANLI\uc0\u350 : Q'dan miras banner seed_query + seed_paper_count g\'f6steriyor.\
+    DO\uc0\u286 RU:  Sadece \{alan, alt-alan, konu\} g\'f6steren minimal ba\u351 l\u305 k.\
+            "N secim" sat\uc0\u305 r\u305  S\u304 L\u304 NECEK (line 226).\
+            "Kaynak" alan\uc0\u305  (line 304-310) yeniden yaz\u305 lacak.\
+\
+(6) FRONTEND \'97 ResearchAreaConfirmPage.tsx:58-70 (PARSED fixture)\
+    YANLI\uc0\u350 : focuses fixture; backend'den gelen alan/alt-alan/konu\
+            ile hidrate edilmiyor.\
+    DO\uc0\u286 RU:  GET /api/project/\{id\} response \u8594  field/subfield/topic\
+            do\uc0\u287 rudan PARSED'a ge\'e7er (tek seferlik fixture-to-live ge\'e7i\u351 ).\
+    NOT:    librarian.py 2-tur sohbet sonucu parsed_understanding'i\
+            g\'fcnceller; o zaman da PARSED canl\uc0\u305 .\
+\
+(7) BACKEND \'97 api/services/anchor_finder.py\
+    Stage A \uc0\u351 u an parsed_understanding tablo \'fcst\'fcnden geliyor (line 87).\
+    Vitrin \uc0\u8594  Proje k\'f6pr\'fcs\'fcnde parsed_understanding'i first-cut olarak\
+    \{alan, alt-alan, konu\}'dan \'fcretmek mant\uc0\u305 kl\u305  (k\'fct\'fcphaneci sohbeti olmasa\
+    bile \'e7apa aday\uc0\u305  \'e7\u305 kabilir). Aksi halde her vitrin\u8594 proje ak\u305 \u351 \u305  409\
+    stage_a_incomplete d\'f6necek. Plan oturumunda detay.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[Mimari kararlar \'97 Omer'in karar vermesi gereken]\
+\
+1. project_seed_papers tablosu (0019 migration) tamamen kald\uc0\u305 r\u305 ls\u305 n m\u305 ,\
+   yoksa "manuel paper ekleme" senaryosu i\'e7in tutulsun mu?\
+\
+2. Vitrin'den gelen \{alan, alt-alan, konu\} parsed_understanding'e do\uc0\u287 rudan\
+   yaz\uc0\u305 ls\u305 n m\u305  (Stage A atlama), yoksa kullan\u305 c\u305  zorunlu K\'fct\'fcphaneci 2-tur\
+   sohbete sokulsun mu?\
+\
+3. Geli\uc0\u351 tirici Notu: "konu belirleyip \'c7apa olarak bir makale se\'e7mesini\
+   sa\uc0\u287 lar\u305 z" \'97 bu sayfa hem konuyu hem \'e7apay\u305  m\u305  belirliyor, yoksa\
+   konu = 2.2'ye ayr\uc0\u305 l\u305 yor mu? (sayfa numaralar\u305 m\u305 za g\'f6re 2.2 = Konu\
+   Belirleme, ayr\uc0\u305  sayfa. Notu ile \'e7eli\u351 iyor.)\
+\
+[Backend in\uc0\u351 a sorular\u305  \'97 implementasyondan \'f6nce netle\u351 tirilecek]\
+\
+4. POST /api/project/\{id\}/research-area/reset endpoint yaz\uc0\u305 lacak m\u305 ?\
+   Plan kanonunda var, kod yok. Yaz\uc0\u305 lmazsa "Tur 1'e d\'f6n" ak\u305 \u351 \u305  \'e7al\u305 \u351 maz.\
+   \'d6nerilen payload: \{ reject_reason: str \}\
+   \'d6nerilen response: \{ attempt_no, rejected_count \}\
+\
+5. project_anchor.candidates_meta jsonb persist (rejected_anchors haf\uc0\u305 zas\u305 )\
+   ne zaman wire'lan\uc0\u305 r? Migration 0015 tablo haz\u305 r; anchor_finder.run()\
+   sonunda yazma kodu eksik. Bu wire olmazsa reset haf\uc0\u305 zas\u305  yok.\
+\
+6. Stage C (cluster_expander + ESTRA + curator, 500 kom\uc0\u351 u makale) tetikleme\
+   noktas\uc0\u305 : 2.1'de "\'c7APA SE\'c7" an\u305 nda m\u305  (background async), yoksa 2.2 sayfa\
+   giri\uc0\u351 inde mi? Geli\u351 tirici Notu "proje bu \'e7apa etraf\u305 nda d\'f6ner" diyor \'97\
+   2.1'de tetiklemek 4-6 sn'lik gecikmeyi 2.2 ekran a\'e7\uc0\u305 l\u305 \u351 \u305 na paslamak i\'e7in\
+   tercih edilir.\
+\
+7. MessageRequest.attempt_no \uc0\u351 u an 1-10 limitli (api/models/research_area.py).\
+   Pratikte ka\'e7 deneme makul? \'d6nerim: 3 (ilk + 2 reset). 10 abuse vekt\'f6r\'fc.\
+\
+8. Card aksiyonlar\uc0\u305  (mock'ta 5: Detay / K\'fct\'fcphaneye ekle / \'d6zetle / \'c7evir /\
+   Dan\uc0\u305 \u351 mana sor) V1'de hepsi mi, alt k\'fcme mi?\
+   \'d6nerim V1: Detay + \'d6zetle (2 buton). \'c7evir/K\'fct\'fcphaneye/Dan\uc0\u305 \u351 mana V2.\
+\
+9. confidence="low" durumunda: anchor candidates yine 3 \'fcretilsin mi yoksa\
+   "Tur 1'e d\'f6n" zorla m\uc0\u305 ? Mock kanonu \'fcretir (kullan\u305 c\u305  se\'e7imi); \'f6nerim\
+   ayn\uc0\u305  \'97 kullan\u305 c\u305  kontrol\'fc.\
+\
+10. anchor_finder Stage A atlama (yeni karar gere\uc0\u287 i): Vitrin'den gelen\
+    \{field, subfield, topic\} parsed_understanding placeholder'\uc0\u305  olarak\
+    project_chat_messages'a "synthetic turn 0" sat\uc0\u305 r olarak yaz\u305 ls\u305 n m\u305 ?\
+    Yoksa anchor_finder'a yeni bir bypass parametresi eklensin mi?\
+    \'d6nerim: "synthetic turn 0" \'97 anchor_finder.py:87 query'sini de\uc0\u287 i\u351 tirmez,\
+    en az invasive. Stage A bypass flag'i SOLID'e ayk\uc0\u305 r\u305 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 onay sonras\u305  plan manifest yaz\u305 l\u305 r]\
+}

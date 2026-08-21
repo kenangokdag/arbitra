@@ -1,0 +1,253 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 6.5 SAVUNMA \'97 J\'dcR\uc0\u304  S\u304 M\'dcLASYONU\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Tez/yeterlilik savunmas\uc0\u305  sim\'fclasyonu \'97 hakem incelemesinden farkl\u305  oyun: 4-5 j\'fcri e\u351  zamanl\u305  sorar, 60 saniye timer bask\u305 s\u305 , soru-cevap ak\u305 \u351 \u305 . J\'fcri ba\u351 kan\u305  destekleyici (dan\u305 \u351 man rol\'fc), di\u287 er \'fcyeler alana-\'f6zg\'fc ele\u351 tirel sorgulama. Felsefemiz: ger\'e7ek j\'fcri her \'fcyesinin spesifik alan\u305 ndan sorar; biz 6.2'de girilen j\'fcri \'fcyelerinin ger\'e7ek paper'lar\u305 ndan sorular \'fcretir, max 2-derinlik zincir kurar\u305 z. Cinematic curtain (D17) a\'e7\u305 l\u305 \u351 \u305  dramatik atmosfer i\'e7in. Bu sayfan\u305 n imzas\u305  HyDE \u8594  fan-out \u8594  RRF \u8594  rerank arka plan zinciri (sinyal #4) \'97 kullan\u305 c\u305  cevap verirken biz canl\u305  kan\u305 t \'e7ekiyoruz; kullan\u305 c\u305  cevab\u305 n\u305  "olas\u305  iyi cevap" ile kar\u351 \u305 la\u351 t\u305 r\u305 p kan\u305 t-kapsam\u305  puanl\u305 yoruz. Bu rakipte yok.\
+\
+AR\uc0\u350 \u304 V REFERANSI (2026-05-10): Bu sayfa Page_Design/Sayfa_Plani_v1/S_atolye_defense/p-13_juri_simulasyonu.md kanon kabul edilir. KARARLAR (Omer 2026-05-10): (a) Cinematic curtain (D17) A\'c7IK; (b) Timer 60 saniye (ar\u351 ivdeki 30sn de\u287 il); (c) V1'de Gemini Flash, Pro V2; (d) V1'de mikrofon yok \'97 sadece yaz\u305 l\u305  cevap (Web Speech API + Whisper hepsi V2); (e) J\'fcri tepkisi keyfi e\u351 ik (0.8/0.55) yerine B\u304 L\u304 MSEL kalibrasyon \'97 multi-dimensional rubric + pilot validated set; (f) 6.4'teki gibi yeni DB migration yok \'97 engine/personas/jury/ + mevcut defense_session.scan_results JSONB.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: 6.2'deki defense_session.jury_members + her \'fcyenin OpenAlex paper'lar\u305  + manuscript_section input olarak; backend 5 persona paralel Gemini Flash \u8594  her persona 3-5 soru \'fcretir (depth \u8804  2, asyncio.gather). Aktif soru render edildi\u287 inde arka planda HyDE \u8594  fan-out \u8594  RRF \u8594  rerank zinciri \'e7al\u305 \u351 \u305 r (Pinecone proje paper'lar + tez i\'e7i, Cohere rerank-3 top-5). Kullan\u305 c\u305  yaz\u305 l\u305  cevap verir (60sn timer). Cevap \u8594  bge-m3 embed \u8594  kan\u305 t-kapsam skoru (multi-dimensional rubric). Skor \u8594  j\'fcri tepkisi (satisfied/probing/dissatisfied) + (varsa) depth-2 alt-soru. Sonunda tutarl\u305 l\u305 k taramas\u305  (LLM second-pass) \'e7eli\u351 en cevap \'e7iftlerini i\u351 aretler. \'c7\u305 kt\u305 lar defense_session.scan_results.jury_session JSONB i\'e7inde saklan\u305 r.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7lar (SciSpace/Consensus) j\'fcri sim\'fclasyonu yapmaz; ChatGPT generic soru \'fcretir ama paralel persona + canl\u305  kan\u305 t \'e7ekme yok \'97 bu sayfa PaperMind imzas\u305  "5 j\'fcri + HyDE arka plan + bilimsel tepki kalibrasyonu". T\'fcm dokunu\u351 lar V1; mikrofon V2'ye ertelendi. (1) Cinematic curtain D17 (V1 \u10003 , Omer onay\u305 ): sayfa a\'e7\u305 l\u305 \u351 \u305 nda dramatik perde animasyonu \'97 "Savunma ba\u351 l\u305 yor" ba\u351 l\u305 \u287 \u305  + perde a\'e7\u305 l\u305 r + 5 j\'fcri kart\u305  fade-in. CSS keyframe + Framer Motion. Felsefe: ger\'e7ek savunma atmosfer benzetmesi; \'f6\u287 renci persona \'97 rakipte yok. (2) 5 j\'fcri persona paralel AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , ar\u351 iv kanon): Canl\u305  (alan-uzman\u305 , \u55357 \u57314  destekleyici, j\'fcri ba\u351 kan\u305 /dan\u305 \u351 man rol\'fc) / Anti-tez (\u55357 \u56628  s\u305 k\u305 ) / Y\'f6ntemci (\u55357 \u56628  metodoloji-odakl\u305 ) / D\u305 \u351 -disiplin (\u55357 \u57313  n\'f6tr, alan\u305  d\u305 \u351 \u305 ndan) / Pratisyen/Klinisyen (\u55357 \u57313  uygulamac\u305 ). 5 s\'fctun grid \'fcst k\u305 s\u305 mda. asyncio.gather paralel 5 Gemini Flash \'e7a\u287 r\u305 . engine/personas/jury/\{canli,anti_tez,yontemci,dis_disiplin,pratisyen\}.json \'97 DB tablo yok. Felsefe: j\'fcri rol asimetrisi ger\'e7ek savunma; j\'fcri/hakem persona \'97 rakipte yok. (3) 60 saniye timer hard-cap AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , Omer kalibrasyonu): aktif soru kart\u305  sa\u287  \'fcstte \u9201  geri say\u305 m; s\'fcre dolarsa cevap bo\u351 , sonraki soruya otomatik ge\'e7i\u351 . Ger\'e7ek savunma stres sim\'fclasyonu. "S\'fcre uzat" butonu YOK (ger\'e7ek j\'fcride uzatma yok). Felsefe: zaman bask\u305 s\u305  ger\'e7ek\'e7ilik; \'f6\u287 renci persona \'97 rakipte yok. (4) Zincir derinlik 2 hard-cap (V1 \u10003 , ar\u351 iv kanon, 6.4 ile tutarl\u305 ): max 1 alt-soru per soru. parent_question_id ile ba\u287 lant\u305 . Felsefe: t\'fcketici 5+ derinli\u287 e gitmez; \'f6\u287 renci/dan\u305 \u351 man persona. (5) HyDE \u8594  fan-out \u8594  RRF \u8594  rerank arka plan zinciri AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , ar\u351 iv kanon, sinyal #4): aktif soru render edilince paralel ba\u351 lar \'97 (a) HyDE: Gemini Flash "5 hipotetik m\'fckemmel cevap" \'fcretir; (b) Fan-out: her hipotetik bge-m3 embed \u8594  Pinecone proje paper'lar + tez i\'e7i top-50 chunk; (c) RRF: reciprocal rank fusion (score = sum(1/(60+rank))); (d) Rerank: Cohere rerank-3 top-50 \u8594  top-5 c\'fcmle; (e) Missing detection: top-5'in tezde olmayan kavramlar \u8594  "alt soru olas\u305 l\u305 \u287 \u305  y\'fcksek" uyar\u305 . Sa\u287  alt panelde 4 sat\u305 r mono ad\u305 mlar g\'f6r\'fcn\'fcr (canl\u305 ). Felsefe: ger\'e7ek-zamanl\u305  kan\u305 t m\'fchendisli\u287 i; j\'fcri/hakem persona \'97 rakipte hi\'e7 yok. (6) Yaz\u305 l\u305  cevap modu (V1 \u10003 , Omer karar\u305 ): textarea \'97 kullan\u305 c\u305  cevab\u305 n\u305  yazar; mikrofon V1'de yok (Web Speech API + Whisper V2). Submit veya 60sn dolunca otomatik g\'f6nderim. Felsefe: V1 sadelik; \'f6\u287 renci persona. (7) Bilimsel j\'fcri tepkisi kalibrasyonu AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , Omer karar\u305  \'97 keyfi 0.8/0.55 de\u287 il): cevap puanlamas\u305  multi-dimensional rubric \'97 (a) kan\u305 t-kapsam\u305 : kullan\u305 c\u305  cevap embed \'d7 HyDE rerank top-5 c\'fcmle ortalama cosine (0-1); (b) cevap derinli\u287 i: LLM second-pass "cevap ka\'e7 ana hipoteti\u287 i kar\u351 \u305 l\u305 yor?" (0-5); (c) netlik: c\'fcmle taml\u305 \u287 \u305  + at\u305 f var m\u305  (regex). \'dc\'e7 boyut weighted sum + pilot validated dataset \'fczerinde ROC curve e\u351 ik kalibrasyonu. Pilot dataset: 50-100 ger\'e7ek savunma Q&A \'e7ifti (3 etiket: satisfied/probing/dissatisfied \'97 2 akademik annotator). engine/jury/reaction_thresholds.json kalibre edilmi\u351  e\u351 ikler + metodoloji a\'e7\u305 klama (\u351 effafl\u305 k). Felsefe: \'f6l\'e7\'fclebilir + bilimsel temelli + reprodusibl tepki; dan\u305 \u351 man/j\'fcri persona \'97 rakipte yok. (8) J\'fcri tepkisi \u8594  alt-soru tetikleme (V1 \u10003 , ar\u351 iv kanon): tepki = probing ve missing concept varsa \u8594  otomatik depth-2 alt-soru ("X eksik kabul ettiniz; Y i\'e7in ne dersiniz?"). Felsefe: organik soru ak\u305 \u351 \u305 ; j\'fcri persona. (9) Tutarl\u305 l\u305 k taramas\u305  (V1 \u10003 , ham vizyon): t\'fcm sorular bitti\u287 inde kullan\u305 c\u305 n\u305 n t\'fcm cevaplar\u305  birlikte LLM second-pass \'97 \'e7eli\u351 en cevap \'e7iftleri ("Soru 1: X dediniz; Soru 5: \'acX") tablosu. 1 Flash \'e7a\u287 r\u305 . Felsefe: i\'e7 tutarl\u305 l\u305 k; j\'fcri/hakem persona. (10) Toplu decision band tahmini (V1 \u10003 , ek dokunu\u351 ): t\'fcm cevap puanlar\u305  + tutarl\u305 l\u305 k skoru \u8594  "muhtemel j\'fcri karar\u305 " rozet (kabul / minor d\'fczeltme / major d\'fczeltme / red). Pilot validated rubric. Felsefe: tek bak\u305 \u351  sonu\'e7; \'f6\u287 renci/dan\u305 \u351 man persona. (11) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): HyDE rerank top-5 c\'fcmlenin geldi\u287 i paper'lar D6 Lite + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon: "+kan\u305 t olarak ekle" \'97 paper'\u305 n ilgili c\'fcmlesi cevap textarea's\u305 na enjekte edilir; kan\u305 t-kapsam yeniden hesaplan\u305 r. Felsefe: ke\u351 if \u8594  cevaba enjekte; \'f6\u287 renci persona. A\'c7IK SORULAR: (a) Pilot validated dataset (50-100 Q&A) toplama yolu \'97 5 alan \'d7 2 \'fcniversite + 2 academic annotator (~5-7 g\'fcnl\'fck i\u351 , V1 zorunlu). (b) HyDE prompt m\'fchendisli\u287 i i\'e7in "ideal cevap nas\u305 l olur?" \'f6rnek seti \'97 10-20 \'f6rnek + iteratif test. (c) Cohere rerank-3 maliyet ($0.001/1K tokens) ortalama 20 soru \'d7 ~$0.005 = ~$0.10/session \'97 b\'fct\'e7e limit gerek mi? (d) 60sn timer kan\u305 t: ger\'e7ek savunmada ortalama soru s\'fcresi \'97 Omer karar\u305  60s kabul. (e) bge-m3 embed pipeline: tez chunk'lara nerede b\'f6l\'fcn\'fcr (5.3 paraphrase'de mi, 6.5'te mi)? Performans i\'e7in 5.3'te pre-compute \'f6neririm. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase + ar\u351 iv (p-13_juri_simulasyonu.md) do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 ; YEN\u304  DB MIGRATION YOK \'97 engine/personas/jury/ + engine/jury/reaction_thresholds.json + Pinecone (mevcut) + defense_session.scan_results.jury_session JSONB.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Burada 3 se\'e7enek olacak.\
+\
+Yeterlilik s\uc0\u305 nav\u305 nda:\
+- Kullan\uc0\u305 c\u305 n\u305 n alan\u305 ndaki temel bilgiler sorgulanacak\
+\
+Kullan\uc0\u305 c\u305  i\'e7in:\
+- Alan + j\'fcri \'fcye bilgileri\
+- Onlar\uc0\u305 n spesifik \'e7al\u305 \u351 ma alanlar\u305 \
+esas al\uc0\u305 narak sorulacak.\
+\
+Roller:\
+- J\'fcri ba\uc0\u351 kan\u305 : dan\u305 \u351 man rol\'fcnde \'97 destekleyici, babacan, yap\u305 c\u305  ele\u351 tiriler\
+- J\'fcrilerin her biri: bir konu esas\uc0\u305 nda sorular soracak\
+\
+\uc0\u304 ncelenecek:\
+- Tutarl\uc0\u305 l\u305 k gibi sorunlar\
+\
+NOT: Bu konuda daha \'f6nce eski \'e7al\uc0\u305 \u351 mada planlamam\u305 z vard\u305 .\
+Stanford gibi yapmak i\'e7in haz\uc0\u305 rlam\u305 \u351 t\u305 k. Onu kullanal\u305 m.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10, ar\u351 iv p-13 kanon + Omer kalibrasyonlar\u305 ):\
+\
+(1) DOSYA-BAZLI YAPILANDIRMA (V1 zorunlu, DB yok):\
+    - engine/personas/jury/canli.json (j\'fcri ba\uc0\u351 kan\u305 /dan\u305 \u351 man, alan-uzman\u305 , \u55357 \u57314 )\
+    - engine/personas/jury/anti_tez.json (\uc0\u55357 \u56628 )\
+    - engine/personas/jury/yontemci.json (\uc0\u55357 \u56628 )\
+    - engine/personas/jury/dis_disiplin.json (\uc0\u55357 \u57313 )\
+    - engine/personas/jury/pratisyen.json (\uc0\u55357 \u57313 )\
+    - Her dosya schema:\
+      \{ persona_key, display_name, expertise_label, pressure_level,\
+        prompt_seed (TR + EN birle\uc0\u351 ik), question_focus[],\
+        question_count: 4, chain_max_depth: 2 \}\
+    - engine/jury/reaction_thresholds.json:\
+      \{ evidence_coverage: \{ satisfied_min, probing_range, dissatisfied_max \},\
+        depth_score: \{ ... \},\
+        clarity_score: \{ ... \},\
+        weighted_sum_thresholds: \{ satisfied: X, probing_min: Y, dissatisfied_max: Z \},\
+        calibration_methodology: "pilot 50-100 Q&A, ROC curve",\
+        last_calibrated: timestamp \}\
+    - \'c7\uc0\u305 kt\u305 lar: defense_session.scan_results.jury_session JSONB:\
+      \{ questions: [\{persona, idx, text, depth, parent_question_id?,\
+                     hyde_chunks, missing_concepts,\
+                     user_answer, answer_seconds, evidence_coverage,\
+                     depth_score, clarity_score, weighted_score, jury_reaction,\
+                     asked_at, answered_at\}],\
+        consistency_check: \{ conflicts: [\{q_idx_a, q_idx_b, conflict_text\}], summary \},\
+        decision_band: \{ prediction, confidence \} \}\
+\
+(2) PILOT VALIDATED DATASET \'97 bilimsel kalibrasyon (V1 zorunlu, ~5-7 g\'fcn):\
+    - Hedef: 50-100 ger\'e7ek savunma Q&A \'e7ifti\
+    - Toplama yolu (Omer onay sonras\uc0\u305 ):\
+      * 5 alan (sa\uc0\u287 l\u305 k, m\'fchendislik, sosyal, fen, e\u287 itim)\
+      * 2 \'fcniversite (TR + uluslararas\uc0\u305 )\
+      * Tez savunma kay\uc0\u305 tlar\u305 ndan / yay\u305 nlanm\u305 \u351  savunma transcriptlerinden\
+    - Etiketleme: 2 academic annotator, \'fc\'e7 s\uc0\u305 n\u305 f:\
+      satisfied (cevap doyurucu, eksiksiz)\
+      probing (cevap k\uc0\u305 smen, alt-soru gerek)\
+      dissatisfied (cevap yetersiz/eksik)\
+    - Inter-annotator agreement Cohen's kappa hedef \uc0\u8805  0.7\
+    - \'c7\uc0\u305 kt\u305 : ROC curve \u8594  optimal threshold per dimension\
+    - Notebook: scripts/jury_calibration.ipynb\
+    - Tahmini i\uc0\u351 : 5-7 g\'fcn (pilot ekip + annotator bulma dahil)\
+\
+(3) PERSONA PROMPT SEED (V1 zorunlu, ~0.5 g\'fcn):\
+    - canli (j\'fcri ba\uc0\u351 kan\u305  / dan\u305 \u351 man):\
+      "Sen j\'fcri ba\uc0\u351 kan\u305 s\u305 n, dan\u305 \u351 man pozisyonunda. Destekleyici tonla\
+       a\'e7\uc0\u305 l\u305 \u351  ve kapan\u305 \u351  sorular\u305  sor. \'c7al\u305 \u351 man\u305 n g\'fc\'e7l\'fc yanlar\u305 n\u305  vurgula,\
+       sonra yap\uc0\u305 c\u305  ele\u351 tiri ekle. Max 2 derinlik."\
+    - anti_tez:\
+      "Sen tezi sorgulayan ele\uc0\u351 tirel bir j\'fcri \'fcyesisin. Temel iddiaya\
+       sald\uc0\u305 r, alternatif yorumlar\u305  sor, s\u305 n\u305 rl\u305 l\u305 klar\u305  didikle. Max 2 derinlik."\
+    - yontemci:\
+      "Sen y\'f6ntem uzman\uc0\u305  bir j\'fcri \'fcyesisin. SADECE metodolojiye odaklan:\
+       tasar\uc0\u305 m, \'f6rneklem, istatistik, ge\'e7erlik-g\'fcvenirlik. Max 2 derinlik."\
+    - dis_disiplin:\
+      "Sen alan\uc0\u305  d\u305 \u351 \u305 ndan bir j\'fcri \'fcyesisin. Genel sorular sor:\
+       'Bu \'e7al\uc0\u305 \u351 ma X alan\u305 na ne katk\u305  sa\u287 lar?' 'Y disiplini ile ili\u351 kisi nedir?'.\
+       Max 2 derinlik."\
+    - pratisyen:\
+      "Sen uygulamac\uc0\u305 /klinisyen bir j\'fcri \'fcyesisin. Pratik sonu\'e7lar\u305  sor:\
+       'Saha uygulamas\uc0\u305  nas\u305 l olur?', 'Kim faydalan\u305 r?'. Max 2 derinlik."\
+    - TR + EN birle\uc0\u351 ik prompt (manuscript dilinden auto-tespit)\
+\
+(4) BACKEND \'97 5 j\'fcri soru \'fcretici endpoint:\
+    - POST /api/defense/jury-question\
+    - Body: \{ project_id, defense_session_id, manuscript_text \}\
+    - Ad\uc0\u305 mlar:\
+      a) engine/personas/jury/\{5 dosya\} y\'fckle\
+      b) defense_session.jury_members'a g\'f6re persona-\'fcye e\uc0\u351 leme\
+      c) 5 paralel Gemini Flash (asyncio.gather):\
+         * Her persona system_prompt + manuscript context + \'fcye OpenAlex paper'lar\uc0\u305 \
+      d) Pydantic structured output: \{ questions: [\{persona, idx, text, depth\}] \}\
+      e) depth > 2 trim (post-validation)\
+      f) defense_session.scan_results.jury_session.questions UPDATE\
+    - Output: \{ questions[20-25], active_persona, active_idx, timer_seconds: 60 \}\
+\
+(5) BACKEND \'97 HyDE \uc0\u8594  fan-out \u8594  RRF \u8594  rerank endpoint (sinyal #4):\
+    - POST /api/defense/hyde-fanout-rerank\
+    - Body: \{ question_text, project_id, manuscript_text \}\
+    - Ad\uc0\u305 mlar:\
+      a) HyDE: Gemini Flash "5 hipotetik m\'fckemmel cevap" \'fcret\
+         (prompt: "Bu soru i\'e7in ideal cevap nas\uc0\u305 l olur? 5 farkl\u305  versiyonda yaz.")\
+      b) Her hipotetik \uc0\u8594  bge-m3 embed\
+      c) Pinecone fan-out:\
+         * project paper chunks (mevcut Pinecone index)\
+         * tez i\'e7i chunks (5.3'te pre-compute \'f6nerisi \'97 5.3 plan'a not edilmeli)\
+         * top-50 chunk per hipotetik (5 \'d7 50 = 250 \uc0\u8594  dedup ~150)\
+      d) RRF: score = sum(1 / (60 + rank_i)) \'97 her chunk i\'e7in\
+      e) Rerank: Cohere rerank-3 (~150 \uc0\u8594  top-5)\
+      f) Missing detection: rerank top-5 ana kavramlar - manuscript_section\
+         keyword diff \uc0\u8594  missing_concepts[]\
+    - Output: \{ hyde_hypotheticals[5], rrf_chunks[150],\
+                rerank_top5[\{paper_id, chunk_idx, sentence, score\}],\
+                missing_concepts[] \}\
+    - Cache: question_hash + 5 dakika (ayn\uc0\u305  soru tekrar sorulmaz normalde)\
+\
+(6) BACKEND \'97 cevap puanlama endpoint:\
+    - POST /api/defense/answer-score\
+    - Body: \{ jury_session_question_idx, user_answer, answer_seconds \}\
+    - Ad\uc0\u305 mlar:\
+      a) user_answer \uc0\u8594  bge-m3 embed\
+      b) HyDE rerank top-5 ile cosine \uc0\u8594  evidence_coverage = mean(top-3)\
+      c) LLM second-pass (Flash): "Cevap ka\'e7 ana hipoteti\uc0\u287 i kar\u351 \u305 l\u305 yor?" (0-5)\
+         \uc0\u8594  depth_score = matched / 5\
+      d) Clarity score: regex\
+         (c\'fcmle taml\uc0\u305 \u287 \u305 : noktalama biti\u351 i var m\u305  + min N kelime)\
+         (at\uc0\u305 f: "Author Year" pattern var m\u305 )\
+      e) weighted_score = 0.5*evidence + 0.3*depth + 0.2*clarity (kalibre edilecek)\
+      f) engine/jury/reaction_thresholds.json e\uc0\u351 ik uygula \u8594  satisfied/probing/dissatisfied\
+      g) Eksik concepts varsa \uc0\u8594  depth-2 alt-soru tetikleme flag\
+      h) defense_session.scan_results.jury_session.questions[idx] UPDATE\
+    - Output: \{ evidence_coverage, depth_score, clarity_score, weighted_score,\
+                jury_reaction, missing_concepts, follow_up_triggered \}\
+\
+(7) BACKEND \'97 tutarl\uc0\u305 l\u305 k taramas\u305  endpoint:\
+    - POST /api/defense/consistency-check\
+    - Body: \{ defense_session_id \}\
+    - Ad\uc0\u305 mlar:\
+      a) T\'fcm cevaplar batch\
+      b) Cevap \'e7iftleri sentence-transformers embed\
+      c) LLM second-pass (Flash): "Bu cevap \'e7ifti \'e7eli\uc0\u351 iyor mu?"\
+         (yaln\uc0\u305 z semantic distance > 0.4 olan \'e7iftler i\'e7in, maliyet kontrol)\
+      d) \'c7eli\uc0\u351 en \'e7iftler listesi\
+    - Output: \{ conflicts: [\{q_idx_a, q_idx_b, conflict_text\}], summary \}\
+\
+(8) BACKEND \'97 decision band tahmini:\
+    - POST /api/defense/jury-decision-band\
+    - Body: \{ defense_session_id \}\
+    - Ad\uc0\u305 mlar:\
+      a) T\'fcm weighted_score'lar\uc0\u305 n ortalamas\u305 \
+      b) Tutars\uc0\u305 zl\u305 k \'e7ift say\u305 s\u305  (penalty)\
+      c) Pilot validated dataset rubric: skor \uc0\u8594  band map\
+      d) prediction (kabul / minor / major / red) + confidence\
+    - Output: \{ prediction, confidence, score_summary, advice \}\
+\
+(9) FRONTEND:\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351 \u305 : D17 cinematic curtain animation\
+      * "Savunma ba\uc0\u351 l\u305 yor" ba\u351 l\u305 k\
+      * Perde a\'e7\uc0\u305 l\u305 r (CSS keyframe + Framer Motion)\
+      * 5 j\'fcri kart\uc0\u305  fade-in\
+    - \'dcst 5-grid: 5 j\'fcri kart\uc0\u305  (Canl\u305 /Anti-tez/Y\'f6ntemci/D\u305 \u351 /Pratisyen)\
+      * Her kart: isim + uzmanl\uc0\u305 k + bask\u305  \u55357 \u57314 \u55357 \u57313 \u55357 \u56628 \
+    - Aktif soru kart\uc0\u305  (orta):\
+      * border-left 4px defense rengi\
+      * "Prof. C \'b7 soru 3/5 \'b7 \uc0\u9201  45sn" (60'dan geriye say\u305 m)\
+      * Soru italik (Lora 14px)\
+    - Sol alt: kullan\uc0\u305 c\u305  cevap textarea + submit + canl\u305  word counter\
+      * Mikrofon ikonu YOK (V1)\
+    - Sa\uc0\u287  alt: HyDE arka plan paneli (canl\u305 )\
+      * "\uc0\u55357 \u56577  HyDE: 5 hipotetik \'fcretildi"\
+      * "Fan-out: 150 paragraf"\
+      * "RRF + rerank: 5 c\'fcmle"\
+      * "\uc0\u9888  Missing: 'modification indices' tezde yok"\
+    - Cevap submit sonras\uc0\u305 : j\'fcri tepki rozet (ye\u351 il/sar\u305 /k\u305 rm\u305 z\u305 )\
+    - T\'fcm sorular bittikten sonra: tutarl\uc0\u305 l\u305 k tablosu + decision band rozet\
+    - Yan panel: HyDE top-5 c\'fcmle Standart Yay\uc0\u305 n Kart\u305  + "+kan\u305 t ekle"\
+\
+(10) LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - Soru \'fcretimi: 5 Flash paralel \'d7 (~3K input + ~500 output) = ~$0.0025 per session\
+    - HyDE: 1 Flash \'d7 (~1K input + ~500 output) = ~$0.0003 per soru\
+    - Cohere rerank-3: ~$0.001/1K tokens \'d7 ~5K tokens = ~$0.005 per soru\
+    - Cevap puanlama: 1 Flash second-pass \'d7 (~1.5K + ~100) = ~$0.0003 per cevap\
+    - Tutarl\uc0\u305 l\u305 k taramas\u305 : 1 Flash \'d7 (~3K + ~300) = ~$0.0006 per session\
+    - Decision band: 1 Flash \'d7 (~1K + ~200) = ~$0.0003 per session\
+    - Tipik 20 soru: ~$0.10-0.12 per session\
+    - B\'fct\'e7e yumu\uc0\u351 ak limit: $0.20/session \'97 a\u351 \u305 l\u305 rsa kullan\u305 c\u305  uyar\u305  + alt-soru \'fcretimi\
+      tetiklemez\
+\
+(11) PERFORMANS HEDEF\uc0\u304 :\
+    - D17 curtain a\'e7\uc0\u305 l\u305 \u351 : 1.5s animation\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351  (curtain sonras\u305 ): < 800ms (5 j\'fcri grid + ilk soru)\
+    - 5 paralel j\'fcri Flash: ~3-4s (asyncio.gather)\
+    - HyDE arka plan: ~2-3s (paralel cevap textarea ile)\
+    - Cevap puanlama: ~600ms (embed + Flash second-pass)\
+    - Tutarl\uc0\u305 l\u305 k + decision: ~2s (final ekran)\
+\
+KULLANIM:\
+    - Sayfa varsay\uc0\u305 lan: 6.2'den defense_session + 6.1 manuscript_section\
+    - Eksiksiz olmadan giri\uc0\u351 : uyar\u305  + ilgili sayfaya d\'f6n\'fc\u351 \
+    - Cinematic curtain "skip" butonu (k\uc0\u305 sa-t\u305 klama, klavye Esc)\
+    - 60sn timer \uc0\u9201  aktif kart \'fcst\'fcnde; t\'fckenirse evidence_coverage=0\
+    - project_progress.step_id='6.5' completed olunca olgunluk y\'fczdesi y\'fckselir\
+    - "Dan\uc0\u305 \u351 mana Gitmeden Evvel" butonu (5.1) bu ad\u305 mdan sonra final aktif\
+\
+V2 G\'dcNDEM (sayfa scope d\uc0\u305 \u351 \u305 , Omer karar\u305 ):\
+    - Mikrofon (Web Speech API) \'97 yaz\uc0\u305 l\u305  cevap V1 yeter\
+    - Whisper-large fallback (mikrofon transcript kalitesi i\'e7in)\
+    - Gemini Pro tier (profesyonel kullan\uc0\u305 c\u305  i\'e7in sofistike persona)\
+    - Cohere rerank-3 yerine alternatif rerank model (maliyet optimizasyon)\
+}

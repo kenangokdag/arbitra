@@ -1,0 +1,140 @@
+[project]
+name = "papermind-app"
+version = "0.1.0"
+description = "PaperMind v4 — TR-akademik literatür asistanı (MVP)"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = { text = "Proprietary" }
+authors = [
+    { name = "Omer Faruk Rencber", email = "dr.ofrencber@gaziantep.edu.tr" },
+]
+
+dependencies = [
+    "fastapi>=0.115,<1.0",
+    "uvicorn[standard]>=0.30,<1.0",
+    "pydantic[email]>=2.6,<3.0",
+    "pydantic-settings>=2.2,<3.0",
+    # P001 — middleware
+    "pyjwt[crypto]>=2.8,<3.0",
+    "sentry-sdk[fastapi]>=2.0,<3.0",
+    "redis>=5.0,<6.0",
+    "httpx>=0.27,<1.0",
+    # P002 — db clients
+    "supabase>=2.10,<3.0",
+    "pinecone>=5.0,<8.0",
+    "asyncpg>=0.29,<1.0",                  # P003e reading-list Postgres async CRUD
+    # P004 + P009 — LLM router (B-005 + DM-015)
+    "litellm>=1.50,<2.0",
+    # P008 — Outlines schema-enforced JSON (R8 K4)
+    "outlines>=0.1,<1.0",
+    # P007 — Reranker BGE-reranker-v2-m3 local CPU/MPS (Council 28 Sercan A-row)
+    "transformers>=4.45,<5.0",
+    "torch>=2.4,<3.0",
+    # config/*.yaml loaders
+    "pyyaml>=6.0,<7.0",
+    "sentence-transformers>=5.4.1",
+    # F5_S0 — dim_field seed parquet okuma (api/scripts/seed_dim_field.py)
+    "polars>=1.10,<2.0",
+    # F14 hakemlik (peer-review)
+    "python-multipart>=0.0.9,<1.0",        # dosya yükleme (Form/File multipart)
+    "pymupdf>=1.24,<2.0",                   # PDF parse (ingestion S1)
+    "python-docx>=1.1,<2.0",               # Word parse (ingestion S1)
+    "google-auth>=2.30,<3.0",              # Vertex AI (Gemini) ADC/SA auth
+    "anthropic>=0.116.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<9.0",
+    "pytest-asyncio>=0.23,<1.0",
+    "httpx>=0.27,<1.0",
+    "ruff>=0.6,<1.0",
+    "mypy>=1.10,<2.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["api"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0,<9.0",
+    "pytest-asyncio>=0.23,<1.0",
+    "httpx>=0.27,<1.0",
+    "ruff>=0.6,<1.0",
+    "mypy>=1.10,<2.0",
+    "types-PyYAML>=6.0,<7.0",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["scripts/", "reference/", "docs/", "db/", "web/"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",
+    "F",
+    "I",
+    "N",
+    "UP",
+    "B",
+    "ASYNC",
+    "S",
+    "C4",
+    "SIM",
+    "RUF",
+]
+ignore = [
+    "E501",
+    "S101",
+    "B008",
+    "RUF001",  # Turkish: 'ı' / 'İ' / 'ş' / 'ğ' ambiguous false-positive (string/identifier)
+    "RUF002",  # Turkish: ambiguous in docstring
+    "RUF003",  # Turkish: ambiguous in comment
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106", "S311"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+check_untyped_defs = true
+exclude = [
+    "scripts/",
+    "reference/",
+    "tests/",
+    "web/",
+    "db/",
+]
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+ignore_errors = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+asyncio_mode = "auto"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+]
+markers = [
+    "unit: unit test (fast, no I/O)",
+    "integration: integration test (DB/Redis/HTTP mocks)",
+    "slow: slow test (>1s)",
+]

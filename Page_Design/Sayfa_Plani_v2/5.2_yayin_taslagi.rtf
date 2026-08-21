@@ -1,0 +1,115 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 5.2 YAZIM VE HAZIRLIK \'97 YAYIN TASLA\uc0\u286 I\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: \'d6nceki ad\uc0\u305 mlar\u305 n (gap, metod, literat\'fcr, sentez) gap-uyumlu konu \'f6nerileri olarak \'e7\u305 kt\u305 ya d\'f6n\'fc\u351 mesi \'97 kullan\u305 c\u305  "yazacak somut konuyu" buradan al\u305 r. Felsefemiz: konu \'f6nerisi LLM hal\'fcsinasyonu de\u287 il, bizim havuz + gap matrisi + r-ESTRA \'fcst\'fcnden mant\u305 kla hesaplan\u305 r; kullan\u305 c\u305  3 kart aras\u305 ndan se\'e7er ve yazma ak\u305 \u351 \u305  ba\u351 lar. 3-mod RQ stilleri (temkinli/dengeli/iddial\u305 ) opsiyon olarak sunulur.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: 4.4'teki se\'e7ilmi\u351  gap, 3.3'teki metod profili, 3.4'teki sentez \'e7\u305 kt\u305 s\u305  LLM'e (Gemini Pro) prompt olarak verilir; structured output ile 3 konu kart\u305  d\'f6n\'fcl\'fcr: title proposal + sub-questions (3 mod) + ana literat\'fcr referans\u305  + metod \'f6nerisi. Kullan\u305 c\u305  bir konu se\'e7er \u8594  o konu i\'e7in yazma ak\u305 \u351 \u305  (intro/methods/findings/discussion b\'f6l\'fcmleri) a\'e7\u305 l\u305 r; her b\'f6l\'fcm i\'e7in LLM iskelet + 5.3'e ge\'e7i\u351 .\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7larda (SciSpace/Consensus/Elicit/Scite) "konu \'f6nerisi + yazma iskeleti" yok; Manuscripts/Overleaf yaz\u305 m edit\'f6r\'fc ama konu \'fcretmiyor \'97 bu sayfa PaperMind imzas\u305  "gap \u8594  konu \u8594  iskelet" zinciri. (1) 3 gap-uyumlu konu kart\u305  (V1 \u10003 , ham vizyon ana plan): her kart = title proposal + 3 alt-soru (3 mod) + en g\'fc\'e7l\'fc 3 referans + metod \'f6nerisi. 1 Gemini Pro \'e7a\u287 r\u305 , Pydantic structured output. Kan\u305 t: input promptta gap matrix_id + axes + 3.4 sentez_id + 3.3 metod profili. Felsefe: havadan konu \'fcretimi yok \'97 kan\u305 t-ba\u287 l\u305 ; dan\u305 \u351 man/\'f6\u287 renci persona. (2) 3-mod RQ stilleri AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , bedava UI): her kartta 3 alt-soru farkl\u305  agresiflik \'97 temkinli ("X ile Y aras\u305 nda ili\u351 ki var m\u305 ?") / dengeli ("X, Y'yi nas\u305 l etkiler?") / iddial\u305  ("X, Y'yi anlaml\u305  \u351 ekilde de\u287 i\u351 tirir"). Ayn\u305  Pro \'e7a\u287 r\u305 s\u305 n\u305 n structured output'unda \'fcretilir, ek maliyet yok. Felsefe: kullan\u305 c\u305  kendi konfor d\'fczeyini se\'e7er; \'f6\u287 renci/j\'fcri persona \'97 rakipte yok. (3) Kan\u305 t-ba\u287 l\u305  konu \'f6nerisi \u351 effafl\u305 \u287 \u305  (V1 \u10003 , bedava UI): kart alt\u305 nda "Bu konu \u351 u ad\u305 mlardan t\'fcredi: gap (4.4'ten X), metod (3.3'ten Y), sentez (3.4'ten Z)" \u351 effaf kaynak g\'f6sterimi \'97 t\u305 klan\u305 rsa o sayfaya y\'f6nlendirir. Felsefe: hal\'fcsinasyon kontrol; dan\u305 \u351 man persona. (4) Yazma iskeleti IMRaD (V1 \u10003 , ham vizyon): konu se\'e7ilince giri\u351  / metod / bulgular / tart\u305 \u351 ma 4 b\'f6l\'fcm \'97 her b\'f6l\'fcm i\'e7in LLM 1 paragraf taslak + "neden bu b\'f6l\'fcmde bunu yazmal\u305 s\u305 n?" tek c\'fcmle a\'e7\u305 klama. 4 Flash \'e7a\u287 r\u305  per konu se\'e7imi. Felsefe: yazma ak\u305 \u351 \u305  somutla\u351 \u305 r; \'f6\u287 renci persona. (5) B\'f6l\'fcm-bazl\u305  kaynak \'f6nerisi (V1 \u10003 , bedava SQL): her b\'f6l\'fcm i\'e7in havuzdan en uygun 5 paper \'97 giri\u351  = en y\'fcksek at\u305 f, metod = en y\'fcksek metod-uyum (fact_paper_metod JOIN), bulgular = en yak\u305 n gap paper'lar\u305  (fact_gap_matrix JOIN), tart\u305 \u351 ma = en y\'fcksek cd_5 \u9733 . fact_paper_id_card + fact_paper_disruption + fact_paper_w_estra Excel envanter kan\u305 t A. Felsefe: b\'f6l\'fcm-spesifik kaynak; j\'fcri/hakem persona. (6) "Yenile" butonu (V1 \u10003 , bedava UI): konu kartlar\u305 n\u305  be\u287 enmezse ayn\u305  gap i\'e7in tekrar \'fcretir \'97 max 3 kez/g\'fcn, rate limit Redis. Felsefe: kullan\u305 c\u305  kontrol\'fc; maliyet kap\u305 s\u305 . (7) 5.3'e ge\'e7i\u351  butonu (V1 \u10003 ): konu se\'e7ildikten + iskelet onayland\u305 ktan sonra 5.3 yay\u305 n detay\u305  sayfas\u305 na y\'f6nlendirir. project_progress.step_id='5.2' status='completed' yaz\u305 l\u305 r. Felsefe: s\'fcre\'e7 ak\u305 \u351 \u305 . (8) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): b\'f6l\'fcm-bazl\u305  kaynak \'f6nerilerinde D6 Lite + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon yok \'97 paper b\'f6l\'fcme \'f6nerilmi\u351 , aksiyon ikincil. V2'ye ertelenenler: Konu kart\u305  \'fczerinde manuel d\'fczenleme (kullan\u305 c\u305  kendi RQ yazs\u305 n) \'97 V1'de 3 mod yeter, manuel V2. Konu kartlar\u305 n\u305 n ge\'e7mi\u351 e kay\u305 t + kar\u351 \u305 la\u351 t\u305 rma (\'f6nceki \'fcretim turunu geri \'e7a\u287 \u305 r) \'97 nice-to-have. Multi-language e\u351  zamanl\u305  taslak (TR + EN birlikte) \'97 V1'de tek dil yeter (user_profiles.preferred_lang). Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase'de do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Kullan\uc0\u305 c\u305  \'f6nceki ad\u305 mda ne se\'e7tiyse ona uygun konular \'f6nerece\u287 iz.\
+\
+Burada daha \'f6nce belirlenmi\uc0\u351  ve hesaplanm\u305 \u351  olan\
+- Kavram\
+- Kapsam\
+- Metod\
+gibi kelimelerden gap-uyumlu 3 adet konu \'f6neri kart\uc0\u305  sunaca\u287 \u305 z.\
+\
+Bunlardan birini se\'e7ince:\
+- Konu \'f6zelinde yazmas\uc0\u305  gereken ak\u305 \u351 \u305  verece\u287 iz\
+- \uc0\u304 \'e7erikler hakk\u305 nda bilgileri kabaca verece\u287 iz\
+\
+Literat\'fcr \'f6zeti, gap hesaplar\uc0\u305 , metod \'f6nerisi zaten \'f6nceki ad\u305 mlarda vard\u305 .\
+Burada da LLM ile kullan\uc0\u305 c\u305 ya ger\'e7ekten konu \'f6nerece\u287 iz ve yaz\u305 m\u305 na\
+e\uc0\u351 lik edece\u287 iz.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10):\
+\
+(1) BACKEND \'97 konu \'f6nerisi endpoint:\
+    - POST /api/workshop/topic-proposals\
+    - Body: \{ project_id, gap_matrix_id, gap_axis_x, gap_axis_y, method_profile, synthesis_id \}\
+    - Ad\uc0\u305 mlar:\
+      a) project_pool \uc0\u8745  gap h\'fccresi \u8594  en g\'fc\'e7l\'fc 10 paper meta (title + abstract + cd_5 + q_weak)\
+      b) 3.3'ten metod profili (en yo\uc0\u287 un 3 metod)\
+      c) 3.4'ten sentez paragraf\uc0\u305  (\'f6zet ve gap arg\'fcman\u305 )\
+      d) Gemini Pro \'e7a\uc0\u287 r\u305  + Pydantic structured output:\
+         * 3 konu kart\uc0\u305 : \{ title, sub_questions: \{ cautious, balanced, bold \}, top_3_refs: [paper_id], method_suggestion, evidence_chain: \{ gap, method, synthesis \} \}\
+      e) Output cache: project_id + gap_id key, 1 saat TTL\
+    - Output: \{ proposals[3], generation_count, daily_quota_remaining \}\
+\
+(2) BACKEND \'97 yazma iskeleti endpoint:\
+    - POST /api/workshop/draft-skeleton\
+    - Body: \{ project_id, selected_topic_id, sections: ['intro', 'methods', 'findings', 'discussion'] \}\
+    - Ad\uc0\u305 mlar:\
+      a) Her b\'f6l\'fcm i\'e7in Gemini Flash \'e7a\uc0\u287 r\u305  (4 paralel):\
+         * Input: konu + sentez + gap + b\'f6l\'fcm context\
+         * Output: 1 paragraf taslak + "neden burada?" tek c\'fcmle\
+      b) B\'f6l\'fcm-bazl\uc0\u305  kaynak \'f6nerisi SQL'leri (paralel):\
+         * intro: ORDER BY total_cites DESC LIMIT 5\
+         * methods: fact_paper_metod JOIN se\'e7ilen metod_id ORDER BY metod_uyum DESC LIMIT 5\
+         * findings: fact_gap_matrix JOIN se\'e7ilen h\'fccre paper'lar\uc0\u305  ORDER BY gap-relevance DESC LIMIT 5\
+         * discussion: ORDER BY cd_5 DESC LIMIT 5\
+    - Output: \{ sections: [\{ name, draft_paragraph, why_explanation, top_5_papers \}] \}\
+\
+(3) FRONTEND:\
+    - \'dcstte 3 konu kart\uc0\u305  yan yana (b\'fcy\'fck, scrollable)\
+      * Title (bold) + 3 mod alt-soru (collapsible) + top-3 ref (mini Standart Yay\uc0\u305 n Kart\u305 ) + metod \'f6nerisi\
+      * Kart alt\uc0\u305 nda "Bu konu \u351 u ad\u305 mlardan t\'fcredi" \u351 effafl\u305 k kutusu\
+      * Sa\uc0\u287  \'fcst: "Yenile" butonu (3/g\'fcn quota g\'f6stergesi)\
+    - Konu se\'e7ilince \uc0\u8594  IMRaD b\'f6l\'fcm ak\u305 \u351 \u305  geni\u351 ler (4 panel)\
+      * Her panel: b\'f6l\'fcm ad\uc0\u305  + LLM taslak paragraf + "neden burada?" tek c\'fcmle + Top-5 paper Standart Yay\u305 n Kart\u305  (Daralt\u305 lm\u305 \u351 )\
+    - Alt: "5.3 Yay\uc0\u305 n Detay\u305 'na ge\'e7" CTA butonu\
+\
+(4) RATE LIMIT & QUOTA:\
+    - Konu kart\uc0\u305  \'fcretimi: 3 kez/g\'fcn/proje (Pro \'e7a\u287 r\u305  maliyetli)\
+    - Redis key: rate_limit:topic_proposal:\{project_id\}:\{date\}\
+    - Frontend g\'f6sterge: "X/3 \'fcretim hakk\uc0\u305  bug\'fcn"\
+\
+(5) LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - Konu \'f6nerisi (Pro): ~5K input + ~1K output = ~$0.025-0.03 per \'e7a\uc0\u287 r\u305 \
+    - Yazma iskeleti (Flash 4 paralel): ~2K input + ~150 output \'d7 4 = ~$0.0008 toplam\
+    - Kullan\uc0\u305 c\u305  ba\u351 \u305 na ortalama: 1-2 konu \'fcretim + 1 iskelet = ~$0.05-0.06\
+\
+(6) PERFORMANS HEDEF\uc0\u304 :\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351 : < 600ms (\'f6nceki ad\u305 mlar\u305 n \'f6zet meta's\u305 ; LLM lazy)\
+    - Konu \'f6nerisi Pro \'e7a\uc0\u287 r\u305 : ~3-4s (modal'da spinner, 3 kart birden render)\
+    - \uc0\u304 skelet 4 Flash paralel: ~1.5s (Promise.all)\
+    - B\'f6l\'fcm-bazl\uc0\u305  kaynak SQL: < 200ms (paralel)\
+\
+KULLANIM:\
+    - 4.4'ten ge\'e7ildi\uc0\u287 inde se\'e7ilen gap otomatik dolu\
+    - 3.4 sentez yoksa "\'d6nce sentez \'fcretin" uyar\uc0\u305  + 3.4'e y\'f6nlendirme\
+    - Konu se\'e7ildikten sonra project_progress.step_id='5.2' completed; "Dan\uc0\u305 \u351 mana Gitmeden Evvel" butonunda olgunluk y\'fczdesi y\'fckselir\
+}

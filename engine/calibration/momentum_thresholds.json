@@ -1,0 +1,18 @@
+{
+  "version": "v0_placeholder_2026-05-11",
+  "note": "F13-S11 4.5 Akademik Etki Eğrisi momentum rozet eşikleri. RTF 4.5 §Plan-Detayı (4) Momentum Eşik Kalibrasyonu V1 zorunlu — 4.1+4.4 notebook'una eklenir. Şu an RTF'deki taslak yüzdeler.",
+  "academic_slope": {
+    "green_min_pct_per_year": 5.0,
+    "red_max_pct_per_year": -5.0,
+    "rationale": "RTF 4.5 §Plan-Detayı (4): >+%5/yıl yeşil, <-%5/yıl kırmızı, arası sarı."
+  },
+  "trends_slope": {
+    "green_min_points_per_year": 5.0,
+    "red_max_points_per_year": -5.0,
+    "rationale": "RTF 4.5 §Plan-Detayı (4): 0-100 normalize'da slope > +5 puan/yıl yeşil. Taslak — kalibrasyon ayarlar."
+  },
+  "combine_rule": "both_green=>green; any_red=>red; mixed=>yellow",
+  "fallback_when_trends_missing": "use_academic_only_with_yellow_bias",
+  "calibration_status": "pending_notebook",
+  "last_calibrated": null
+}

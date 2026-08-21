@@ -1,0 +1,158 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 S1. ARA\uc0\u350 TIRMA DEFTER\u304  (SIDEBAR)\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: T\'fcm proje yolculu\uc0\u287 unun kullan\u305 c\u305 -kontroll\'fc ajandas\u305  \'97 sidebar'da s\'fcrekli eri\u351 im. Felsefemiz: PaperMind do\u287 rusal de\u287 il iteratif bir ara\'e7t\u305 r; kullan\u305 c\u305  her sayfada "Ajandama Kaydet / Dan\u305 \u351 mana Sor / K\'fct\'fcphaneme Ekle" yapar; bu i\'e7sel ajanda sonraki \'e7al\u305 \u351 malarda te\u351 vik edici geri-d\'f6n\'fc\u351  olarak g\'f6r\'fcn\'fcr ("3 hafta \'f6nce \u351 unu i\u351 aretlemi\u351 tin, h\'e2l\'e2 a\'e7\u305 k"). Kabuk sayfa, ana ak\u305 \u351 \u305 n 7. ad\u305 m\u305  de\u287 il \'97 yan tab.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: project_event tablosuna her sayfa eylemi (sayfa ad\u305  + paper_id + not + timestamp) yaz\u305 l\u305 r; bu sayfa o tabloyu zaman \'e7izgisi olarak rend\u305 r eder. Filtreler: tarih, sayfa, paper, etiket. Her sat\u305 ra "D\'fczenle / Kald\u305 r / Geri D\'f6n" butonu (geri d\'f6n \u8594  ilgili sayfaya jump). LLM yok; saf SQL.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Her proje i\'e7in hangi ad\uc0\u305 mda oldu\u287 unu g\'f6steren tipik bir ajanda.\
+\
+Kullan\uc0\u305 c\u305 ya bu yolda butonlar koyulacak \'97 her sayfada eri\u351 ilebilir:\
+- "Ajandama Kaydet"\
+- "Dan\uc0\u305 \u351 mana Sor"\
+- "K\'fct\'fcphaneme Ekle"\
+\
+B\'fct\'fcn ak\uc0\u305 \u351 ta kullan\u305 c\u305  bunlar\u305  yapabilecek.\
+\
+E\uc0\u287 er "Ajandama Ekle" derse:\
+- O ad\uc0\u305 m ile alakal\u305  bilgi buraya eklenir\
+- Daha sonra yap\uc0\u305 lacak \'e7al\u305 \u351 malarda te\u351 vik edici olur\
+\
+NOT: Sidebar'da s\'fcrekli eri\uc0\u351 im. Mevcut "Ayarlar" ve "Projelerim" gibi\
+yan men\'fc tab'\uc0\u305 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+(1) VER\uc0\u304  KATMANI\
+\
+project_event tablosu (var oldu\uc0\u287 u varsay\u305 l\u305 rsa \u351 ema do\u287 rulamas\u305  zorunlu;\
+yoksa Migration 0029 \'97 kapsam d\uc0\u305 \u351 \u305  plan oturumunda Omer onay\u305 yla):\
+- id (uuid pk)\
+- project_id (fk dim_project)\
+- user_id (fk auth.users)\
+- page_slug (text)              -- "5.1_yayin_formati", "4.2_bosluk_profili", ...\
+- paper_id (text, nullable)     -- OpenAlex / havuz paper kimli\uc0\u287 i\
+- event_type (text)             -- "kayit", "danismana_sor", "kutuphane_ekle", "not"\
+- payload (jsonb)               -- not metni, etiketler, persona, sayfa snapshot anahtarlar\uc0\u305 \
+- created_at (timestamptz)\
+- resolved_at (timestamptz, nullable)   -- "h\'e2l\'e2 a\'e7\uc0\u305 k" digest'i i\'e7in\
+\
+\uc0\u304 ndeks: (user_id, project_id, created_at desc), (user_id, resolved_at)\
+where resolved_at is null.\
+\
+LLM yok \'97 saf SQL. Maliyet \uc0\u8776  0.\
+\
+(2) BACKEND ENDPOINT \'97 UNIFIED\
+\
+POST /api/diary/event\
+- Body: \{ project_id, page_slug, paper_id?, event_type, payload \}\
+- 3 sayfa-i\'e7i buton bu tek endpoint'i \'e7a\uc0\u287 \u305 r\u305 r:\
+  - "Ajandama Kaydet" \uc0\u8594  event_type="kayit"\
+  - "Dan\uc0\u305 \u351 mana Sor"   \u8594  event_type="danismana_sor" (ve dan\u305 \u351 man ak\u305 \u351 \u305  tetiklenir)\
+  - "K\'fct\'fcphaneme Ekle" \uc0\u8594  event_type="kutuphane_ekle" (ve dim_user_library upsert)\
+\
+GET /api/diary/timeline?project_id&from&to&page_slug&paper_id&tag\
+- Zaman \'e7izgisi sayfalama (cursor-based, 50/sayfa)\
+- Her sat\uc0\u305 r: \{ id, page_slug, paper_id, event_type, payload, created_at,\
+              resolved_at, action_label("Geri D\'f6n \uc0\u8594  /sayfa") \}\
+\
+PATCH /api/diary/event/:id  (D\'fczenle / Kald\uc0\u305 r / Resolve)\
+\
+(3) FRONTEND \'97 SIDEBAR TAB\
+\
+- Yan men\'fc: Ayarlar / Projelerim / Ara\uc0\u351 t\u305 rma Defteri (yeni)\
+- \'dcst filtre \'e7ubu\uc0\u287 u: tarih aral\u305 \u287 \u305 , sayfa, paper, etiket\
+- G\'fcn-g\'fcn gruplanm\uc0\u305 \u351  zaman \'e7izgisi (Linear-style)\
+- Her sat\uc0\u305 rda: k\'fc\'e7\'fck D6-Lite paper kart\u305  (paper_id varsa) + not + 3 aksiyon\
+  (D\'fczenle / Kald\uc0\u305 r / Geri D\'f6n)\
+- "Geri D\'f6n" \uc0\u8594  router push (page_slug + paper_id query param ile sayfa\
+   ilgili karta scrollIntoView)\
+- Bo\uc0\u351  durum: "Hen\'fcz kay\u305 t yok. Sayfa alt\u305 nda 'Ajandama Kaydet' ile ba\u351 la."\
+- LLM kullan\uc0\u305 lmad\u305 \u287 \u305  i\'e7in stream gerekmez; React Query cache.\
+\
+(4) DANI\uc0\u350 MANA G\u304 TMEDEN EVVEL \'97 DEFTER MODU\
+\
+Sayfa-bazl\uc0\u305  paneller (5.1'deki "Dan\u305 \u351 mana Gitmeden Evvel" Pro endpoint'i ile\
+ayn\uc0\u305  felsefe):\
+- Defter sidebar \'fcst\'fcnde aksiyon: "Bu projede son 30 g\'fcn\'fc \'f6zetle"\
+- POST /api/diary/pre-advisor-summary \{ project_id \}\
+- Sunucu son 30 g\'fcn event'leri toplar \uc0\u8594  Gemini Flash tek paragraf \'f6zet:\
+  "Bu ay 4.2 bo\uc0\u351 luk profilinde M5'i i\u351 aretledin, 5.2'de 3 RQ tasla\u287 \u305  kurdun,\
+   6.1 doluluk gate'in 60% \'97 dan\uc0\u305 \u351 mana gitmeden bu 3 noktay\u305  g\'f6rmek\
+   isteyebilirsin."\
+- Maliyet \uc0\u8776  $0.002/\'e7a\u287 r\u305  (\u8804 2K input token).\
+- Bu mod ayr\uc0\u305  UI de\u287 il \'97 defter sidebar'\u305 nda \'fcst panel.\
+\
+(5) AYLIK MAIL \'97 TE\uc0\u350 V\u304 K ED\u304 C\u304  GER\u304 -D\'d6N\'dc\u350 \
+\
+Cron: her ay\uc0\u305 n 1'i 09:00 (kullan\u305 c\u305  timezone)\
+- Kapsam: son 30 g\'fcn\'fcn event'leri (proje baz\uc0\u305 nda ayr\u305  b\'f6l\'fcmler)\
+- \uc0\u304 \'e7erik:\
+  - "Bu ay 14 kay\uc0\u305 t eklendi, 5 paper k\'fct\'fcphanene girdi, 2 dan\u305 \u351 man sorusu a\'e7\u305 ld\u305 "\
+  - En \'e7ok dokundu\uc0\u287 un 3 sayfa + jump linki\
+  - 3+ haftad\uc0\u305 r resolved_at=null kalan event'ler (max 5)\
+  - "Bir sonraki ad\uc0\u305 m \'f6nerisi" \'97 sayfa ak\u305 \u351  mant\u305 \u287 \u305 na g\'f6re (\'f6rn. 4.2 dolu, 4.3\
+     hen\'fcz bo\uc0\u351  \u8594  "\'d6zg\'fcnl\'fck De\u287 erlendirmesi'ne haz\u305 r m\u305 s\u305 n?")\
+- Sa\uc0\u287 lay\u305 c\u305 : Resend / SES (papermind-app'te hangisi kuruluysa \'97 \u351 ema\
+  do\uc0\u287 rulamas\u305  gerek; hal\'fcsinasyon yapm\u305 yorum)\
+- Unsubscribe: kullan\uc0\u305 c\u305  ayarlar\u305 ndan "ayl\u305 k \'f6zet maili" toggle\
+- KVKK: profil hesab\uc0\u305 yla ba\u287 l\u305 , 3. tarafa veri gitmez\
+\
+(6) HAFTALIK NOTIFICATION CRON (UYGULAMA-\uc0\u304 \'c7\u304 )\
+\
+Cron: her Pazartesi 10:00\
+- 21+ g\'fcn a\'e7\uc0\u305 k event'leri tespit (resolved_at IS NULL AND created_at < now()-21d)\
+- Uygulama-i\'e7i notification (zil ikonu): "3 hafta \'f6nce 4.2'de M5 bo\uc0\u351 lu\u287 unu\
+   i\uc0\u351 aretledin, h\'e2l\'e2 a\'e7\u305 k. Devam edelim mi?"\
+- T\uc0\u305 klay\u305 nca o sayfaya + ilgili karta jump.\
+\
+(7) PERSONA UYUMU\
+\
+- \'f6\uc0\u287 renci: kendi yolculu\u287 unun haritas\u305  \'97 geri d\'f6n\'fc\u351  + ay sonu motivasyon\
+- dan\uc0\u305 \u351 man: "Ba\u287 lant\u305 l\u305  sorular" panelinde \'f6\u287 rencinin defter aktivitesini\
+  g\'f6r\'fcr (event_type="danismana_sor" filtresi ile)\
+- j\'fcri/hakem: bu sayfa i\'e7in do\uc0\u287 rudan ge\'e7erli de\u287 il \'97 kullan\u305 c\u305 ya \'f6zel sayfa.\
+\
+(8) PERFORMANS HEDEF\uc0\u304 \
+\
+- timeline GET p95 < 200ms (50 sat\uc0\u305 r/sayfa, indexed)\
+- pre-advisor-summary p95 < 3s (Gemini Flash)\
+- Ayl\uc0\u305 k mail render < 500ms/kullan\u305 c\u305  (template + SQL)\
+\
+(9) A\'c7IK SORULAR \'97 Omer Do\uc0\u287 rulayacak\
+\
+- project_event tablosu papermind-app'te mevcut mu? \uc0\u350 ema bu mant\u305 \u287 \u305 \
+  destekliyor mu? Yoksa Migration 0029 gerek mi?\
+- Mail sa\uc0\u287 lay\u305 c\u305 s\u305  Resend / SES / ba\u351 ka? (.env + provider client)\
+- Kullan\uc0\u305 c\u305  timezone alan\u305  dim_user'da var m\u305 ? Yoksa default UTC.\
+}

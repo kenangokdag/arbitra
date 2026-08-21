@@ -1,0 +1,55 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 2.5 KE\uc0\u350 \u304 F \'97 KAVRAM A\u286 I\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Anahtar kelimeler aras\uc0\u305  birliktelik \'97 "X ile Y ayn\u305  \'e7al\u305 \u351 mada hangi s\u305 kl\u305 kta yan yana?" sorusunun grafiksel cevab\u305 . Felsefemiz: kavram a\u287 \u305  SciSpace'de yok, Connected Papers'da paper-paper var (kavram-kavram de\u287 il); biz kavram d\'fczeyinde \'e7al\u305 \u351 \u305 r\u305 z. NPMI e\u351 -anma + betweenness centrality (k\'f6pr\'fc kavram, alt\u305 n y\u305 ld\u305 z) gibi network sinyalleri kullan\u305 c\u305 ya disiplin s\u305 n\u305 rlar\u305 n\u305  ve f\u305 rsat noktalar\u305 n\u305  g\'f6sterir. KeyBERT extraction + 11-kategori ontoloji (FLD/CON/THR/MTD/...) bizi rakipten bilgi-organizasyon \'f6l\'e7e\u287 inde ay\u305 r\u305 r.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: 500 paper'\u305 n anahtar kelimelerinden offline batch ile concept_node ve concept_edge tablolar\u305  zaten hesaplanm\u305 \u351 ; ARM (Association Rule Mining) ve NPMI skorlar\u305  \'fcst\'fcnden kullan\u305 c\u305 n\u305 n \'e7apa-merkezli alt-graf\u305 n\u305  Cytoscape veya D3 force-graph ile rend\u305 r ederiz. Her node 11-kategori ile renk-kodlu; betweenness y\'fcksek olanlar alt\u305 n y\u305 ld\u305 z rozeti al\u305 r. Kullan\u305 c\u305  kavram t\u305 klay\u305 nca: o kavram\u305  kullanan paper listesi + di\u287 er kavramlarla ba\u287 \u305 nt\u305  tablosu a\'e7\u305 l\u305 r.\
+\
+KR\uc0\u304 T\u304 K ALTYAPI BULGUSU (2026-05-10, kan\u305 t seviyesi A \'97 canl\u305  Supabase sorgu): "Nas\u305 l Yap\u305 lacak" paragraf\u305 n\u305 n varsay\u305 m\u305  k\u305 smen yanl\u305 \u351 t\u305 . Hesap Drive'da parquet olarak duruyor (Papermind_V2/ENVANTER.md kan\u305 t\u305 : fact_term_arm_static.parquet 297,855 sat\u305 r term_a/term_b/lift/npmi/support/conviction; fact_term_arm_temporal.parquet 547,824 sat\u305 r year-bazl\u305  delta_lift; dim_term_community.parquet 4,516 sat\u305 r term/community_id) ama Supabase canl\u305  veritaban\u305 na TA\u350 INMAMI\u350 . PostgREST sorgusu do\u287 rulad\u305 : concept_edge / concept_node / dim_term / fact_term_arm_static / fact_term_arm_temporal / dim_term_community tablolar\u305 n\u305 n H\u304 \'c7B\u304 R\u304  Supabase'de yok (PGRST205 "table not found" t\'fcm 6 isimde). Sayfa canl\u305 ya ba\u287 lanamaz; \'f6nce ta\u351 \u305 ma \u351 art. Karar (Omer onay\u305 , 2026-05-10): A yolu \'97 TA\u350 IMA YAPILACAK.\
+\
+Ta\uc0\u351 \u305 ma Plan\u305  (plan oturumu a\'e7\u305 ld\u305 \u287 \u305 nda detaylanacak): (1) Yeni migration 0021_concept_term_arm.sql: CREATE TABLE concept_edge (term_a text, term_b text, lift float8, npmi float8, support float8, conviction float8, PRIMARY KEY (term_a, term_b)); CREATE TABLE concept_edge_temporal (term_a, term_b, year, delta_lift, ...); CREATE TABLE dim_term_community (term text PRIMARY KEY, community_id int4). (2) N18_supabase_upload.ipynb notebook'a 3 yeni upload sat\u305 r\u305  (parquet \u8594  COPY veya batch insert). Hesaplama yok, sadece ta\u351 \u305 ma; tahmini 1-2 g\'fcnl\'fck i\u351 . (3) RLS policy: read-all authenticated; service_role write. (4) Endpoint: GET /api/discovery/concept-network?project_id=\{id\}&depth=\{1|2\} \'97 \'e7apa-merkezli alt-graf 1 hop veya 2 hop, project_pool keyword filter ile.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305  (ta\u351 \u305 ma sonras\u305  V1): (1) \'c7apa-merkezli alt-graf (V1 \u10003 ): D3 force-graph veya Cytoscape; \'e7apa makalenin top-10 keyword'\'fc merkez node, NPMI e\u351 -anma 1-hop kom\u351 u nodelar\u305  kenar olarak. fact_term_arm_static ta\u351 \u305 nd\u305 ktan sonra tek SQL. Felsefe: kullan\u305 c\u305 n\u305 n kendi kavramlar\u305 n\u305  "alan\u305 n tamam\u305 " yerine ki\u351 iselle\u351 mi\u351  a\u287 da g\'f6rmesi \'97 \'f6\u287 renci personas\u305 . (2) Trending/declining kavram i\u351 areti (V1 \u10003 ): fact_term_arm_temporal delta_lift > 0 ye\u351 il ok yukar\u305 , < 0 k\u305 rm\u305 z\u305  ok a\u351 a\u287 \u305  kavram nodelar\u305  \'fcst\'fcnde. Felsefe: j\'fcri/hakem personas\u305  \'97 savunmada "yeni y\'fckselen kavram\u305  kovalad\u305 m" iddias\u305  rakamla destekli. (3) Community renklendirme (V1 \u10003 ): dim_term_community community_id ile node renk-kodlu; ayn\u305  toplulu\u287 un kelimeleri ayn\u305  renk k\'fcmesi. Klasik Leiden/Louvain \'e7\u305 kt\u305 s\u305 . Felsefe: "alan\u305 n do\u287 al k\'fcmeleri" g\'f6rsel mesaj. (4) Mikro-yorum (V1 \u10003 , d\'fc\u351 \'fck maliyet): Flash 1 c\'fcmle "Havuzda en g\'fc\'e7l\'fc kavram \'e7ifti X-Y, NPMI=0.42 \'97 alan\u305 n imza ikilisi" graf alt\u305 nda. Klasik kavram a\u287 \u305  ara\'e7lar\u305 n\u305 n "ham \'e7\u305 kt\u305 " bo\u351 lu\u287 unu doldurur; dan\u305 \u351 man personas\u305 . (5) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): kavram nodu t\u305 klan\u305 nca o kavram\u305  i\'e7eren paper listesi a\'e7\u305 l\u305 r \u8594  D6 Lite + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon olarak node \'fczerinde "+\'e7apa kavram\u305 " k\'fc\'e7\'fck ikon (kullan\u305 c\u305  bu kavram\u305  yeni odak yaps\u305 n) \'97 ama bu V2 dokunu\u351 u, ana ak\u305 \u351 \u305  bozmadan eklenir. (6) "K\'f6pr\'fc kavram" alt\u305 n y\u305 ld\u305 z (V1 \u10003 , \u350 ARTLI): community s\u305 n\u305 rlar\u305  aras\u305  y\'fcksek lift edge \'97 community_a \u8800  community_b ama lift > e\u351 ik node \'e7iftleri "interdisiplin k\'f6pr\'fc" rozet al\u305 r; betweenness centrality i\'e7in ayr\u305  offline compute gerekmez, community + edge ta\u351 \u305 nd\u305 ktan sonra runtime SQL ile hesaplan\u305 r. V2'ye ertelenenler: 11-kategori ontoloji renk-kodu (FLD/CON/THR/MTD/ANL/SMP/CTX/INS/OUT/TEC/TMP) \'97 sinyal envanteri \'a73 #26'da listelenmi\u351  ama bu ontoloji parquet'i ENVANTER.md taramas\u305 nda do\u287 rulanmad\u305 ; "kategori kolonu nerede?" sorusu cevaps\u305 z \u8594  V1'e almak hal\'fcsinasyon riski; V2'de parquet bulunup ta\u351 \u305 nacak. Tam betweenness centrality hesab\u305  (ayr\u305  offline compute) \'97 community-bazl\u305  yakla\u351 \u305 mla V1 yeter, tam graph theory metric V2. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z ENVANTER.md ve canl\u305  Supabase'de do\u287 rulanm\u305 \u351  tablolar V1'e al\u305 nd\u305 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Havuzda yer alan makalelere ait anahtar kelimeler i\'e7in\
+ARM (Association Rule Mining \'97 birliktelik kural \'e7\uc0\u305 kar\u305 m\u305 ) sonu\'e7lar\u305 \
+burada g\'f6r\'fcnecek.\
+\
+Bir anahtar kelimeyi kullanan ba\uc0\u351 ka hangilerini kullan\u305 yor \'97 ba\u287 \u305 nt\u305 .\
+\
+Asl\uc0\u305 nda tam bir kavram a\u287 \u305 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+}

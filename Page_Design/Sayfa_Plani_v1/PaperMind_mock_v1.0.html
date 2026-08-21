@@ -1,0 +1,2156 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PaperMind — Mock v1.0 · 19 Sayfa Kart + İçerik Simülasyonu (2026-05-08)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E0DFD9; --paper-2:#D7D5CD; --paper-3:#CECCC4;
+  --surface:#F5F4EE;
+  --ink:#1c1917; --ink-2:#44403c; --muted:#78716c; --muted-2:#a8a29e;
+  --rule:#a8a29e; --rule-2:#d6d3d1;
+  --amber:#b45309; --amber-2:#92400e; --amber-3:#78350f; --amber-soft:#fef3c7;
+  --green:#047857; --green-soft:#d1fae5;
+  --red:#b91c1c; --red-soft:#fee2e2;
+  --blue:#1d4ed8; --blue-soft:#dbeafe;
+  --vitrine:#0e7490;
+  --discovery:#1d4ed8;
+  --curation:#b45309;
+  --gapatlas:#047857;
+  --authoring:#7c2d12;
+  --defense:#991b1b;
+  --general:#525252;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);
+  background-image:radial-gradient(rgba(28,25,23,.045) 1px,transparent 1px),
+                   radial-gradient(rgba(28,25,23,.025) 1px,transparent 1px);
+  background-size:8px 8px,16px 16px;background-position:0 0,4px 4px;
+  font-size:13.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.mono{font-family:'JetBrains Mono',monospace;letter-spacing:.01em}
+em.serif{font-family:'Lora',serif;font-style:italic}
+
+.layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+
+/* SIDEBAR */
+aside{background:#fff;color:#0f172a;position:sticky;top:0;align-self:start;height:100vh;
+  display:flex;flex-direction:column;border-right:1px solid #e2e8f0;overflow-y:auto}
+aside::-webkit-scrollbar{width:4px}
+aside::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+.ws-logo{padding:14px 16px;border-bottom:1px solid #e2e8f0}
+.ws-logo .mark{font-weight:600;font-size:17px;letter-spacing:-.04em;color:#0f172a}
+.ws-logo .mark em{font-style:normal;color:#b45309}
+.ws-logo .ver{margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:9.5px;
+  letter-spacing:.12em;color:#94a3b8;text-transform:uppercase}
+.nav-area{flex:1;padding:10px 8px;display:flex;flex-direction:column;gap:1px}
+.nav-section-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:#64748b;
+  padding:8px 10px 4px;display:flex;align-items:baseline;gap:8px}
+.nav-section-label .count{color:#94a3b8;font-size:9px}
+.nav-link{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;
+  cursor:pointer;color:#334155;text-decoration:none;font-size:12.5px}
+.nav-link:hover{background:#f1f5f9}
+.nav-link .pid{font-family:'JetBrains Mono',monospace;font-size:11px;color:#94a3b8;
+  min-width:24px;font-weight:600}
+.nav-link.is-vitrine .pid{color:var(--vitrine)}
+.nav-link.is-discovery .pid{color:var(--discovery)}
+.nav-link.is-curation .pid{color:var(--curation)}
+.nav-link.is-gapatlas .pid{color:var(--gapatlas)}
+.nav-link.is-authoring .pid{color:var(--authoring)}
+.nav-link.is-defense .pid{color:var(--defense)}
+
+/* MAIN */
+main{padding:18px 22px 60px;max-width:1320px}
+.topbar{display:flex;align-items:flex-start;gap:24px;padding-bottom:14px;
+  border-bottom:1px solid var(--rule-2);margin-bottom:18px}
+.topbar h1{font-family:'Lora',serif;font-size:22px;font-weight:600;letter-spacing:-.01em}
+.topbar h1 em{color:var(--amber);font-style:normal}
+.topbar .pill{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;
+  background:var(--amber-soft);color:var(--amber-3);padding:4px 8px;border-radius:4px;
+  letter-spacing:.06em}
+.topbar .meta{color:var(--muted);font-size:12px;margin-top:6px}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11.5px;color:var(--muted);
+  margin:10px 0 22px}
+.legend .swatch{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}
+
+.section-h{font-family:'Lora',serif;font-size:18px;font-weight:600;letter-spacing:-.01em;
+  margin:34px 0 6px;padding-bottom:8px;border-bottom:2px solid;display:flex;align-items:baseline;gap:14px}
+.section-h.vitrine{border-color:var(--vitrine);color:var(--vitrine)}
+.section-h.discovery{border-color:var(--discovery);color:var(--discovery)}
+.section-h.curation{border-color:var(--curation);color:var(--curation)}
+.section-h.gapatlas{border-color:var(--gapatlas);color:var(--gapatlas)}
+.section-h.authoring{border-color:var(--authoring);color:var(--authoring)}
+.section-h.defense{border-color:var(--defense);color:var(--defense)}
+.section-h.general{border-color:var(--general);color:var(--general)}
+.section-h .role{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--muted);font-weight:400}
+.section-h .role b{color:var(--ink)}
+.section-sub{font-style:italic;color:var(--muted);margin-bottom:14px;font-size:12.5px}
+
+/* PAGE BLOCK */
+.page-block{margin:18px 0 28px;padding:0;border:1px solid var(--rule-2);
+  border-radius:10px;background:var(--surface);overflow:hidden}
+.page-block-h{padding:12px 16px;background:#fff;border-bottom:1px solid var(--rule-2);
+  display:flex;align-items:center;gap:10px}
+.page-block-h .pid{font-family:'JetBrains Mono',monospace;font-size:11px;
+  background:var(--paper-3);color:var(--ink);padding:2px 7px;border-radius:4px;font-weight:600}
+.page-block-h .pid.vitrine{background:#cffafe;color:#155e75}
+.page-block-h .pid.discovery{background:#dbeafe;color:#1e40af}
+.page-block-h .pid.curation{background:#fef3c7;color:#92400e}
+.page-block-h .pid.gapatlas{background:#d1fae5;color:#065f46}
+.page-block-h .pid.authoring{background:#fed7aa;color:#7c2d12}
+.page-block-h .pid.defense{background:#fecaca;color:#991b1b}
+.page-block-h .pid.general{background:#e7e5e4;color:#44403c}
+.page-block-h h3{font-family:'Lora',serif;font-size:17px;font-weight:600}
+.page-block-h .role-tag{margin-left:auto;font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+
+.page-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.card-block{padding:16px 18px;border-right:1px solid var(--rule-2);background:#fdfdfb}
+.sim-block{padding:16px 18px;background:#fff}
+
+@media(max-width:1080px){
+  .page-grid{grid-template-columns:1fr}
+  .card-block{border-right:none;border-bottom:1px solid var(--rule-2)}
+}
+
+/* CARD content */
+.philosophy{font-family:'Lora',serif;font-style:italic;font-size:13.5px;color:var(--ink-2);
+  padding:8px 12px;background:var(--paper-2);border-left:3px solid var(--amber);margin-bottom:10px;border-radius:0 6px 6px 0}
+.simple{font-size:12.5px;line-height:1.6;margin-bottom:10px;color:var(--ink-2)}
+.simple b{color:var(--ink);display:block;margin-bottom:4px;font-size:11.5px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase}
+.simple i{font-style:italic;color:var(--ink)}
+
+.techspec{margin:8px 0;font-size:12px}
+.techspec summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:var(--muted);letter-spacing:.05em;padding:6px 0;text-transform:uppercase;font-weight:600}
+.techspec summary span{font-style:italic;color:var(--muted-2);text-transform:none;letter-spacing:0;font-weight:400}
+.techspec[open] summary{color:var(--ink)}
+.techspec-body{display:grid;grid-template-columns:60px 1fr;gap:6px 10px;
+  background:#fafaf7;padding:10px 12px;border-radius:6px;font-size:11.5px;line-height:1.5}
+.techspec-body b{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--amber-2);
+  letter-spacing:.06em;text-transform:uppercase;align-self:start;padding-top:1px}
+.techspec-body code{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  background:#fef9e6;padding:1px 5px;border-radius:3px;color:var(--amber-3)}
+
+.wow{padding:9px 12px;background:linear-gradient(90deg,#fef3c7,#fff);
+  border-left:3px solid var(--amber);border-radius:0 6px 6px 0;margin:8px 0;font-size:12px}
+.wow b{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--amber-3);
+  letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:3px}
+
+.io{font-size:11.5px;color:var(--muted);padding:6px 0;border-top:1px dashed var(--rule-2);margin-top:8px}
+.io b{color:var(--ink);font-weight:600}
+.io .arrow{color:var(--amber);margin:0 4px}
+
+.delta{margin-top:8px;padding:8px 10px;background:#dbeafe;border-left:3px solid var(--blue);
+  border-radius:0 6px 6px 0;font-size:11.5px;color:#1e3a8a}
+.delta b{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--blue);
+  letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* FUNNEL BAR */
+.funnel{display:flex;gap:2px;margin:8px 0 12px;font-family:'JetBrains Mono',monospace;font-size:9.5px}
+.funnel .step{flex:1;padding:5px 6px;background:var(--paper-2);text-align:center;color:var(--muted);
+  border-radius:3px;letter-spacing:.04em;text-transform:uppercase}
+.funnel .step.is-done{background:var(--green-soft);color:var(--green)}
+.funnel .step.is-active{background:var(--amber);color:#fff;font-weight:600}
+.funnel .step.is-todo{background:var(--paper-3);color:var(--muted-2)}
+
+/* r-ESTRA badge */
+.restra{display:inline-flex;align-items:center;gap:6px;padding:3px 7px;background:#fef3c7;
+  border:1px solid #fde68a;border-radius:12px;font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--amber-3);font-weight:600}
+.restra .dot{width:6px;height:6px;border-radius:50%;background:var(--amber)}
+
+/* SIMULATION components */
+.sim-h{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:600;
+  display:flex;align-items:center;gap:8px}
+.sim-h::before{content:"◍";color:var(--amber);font-size:11px}
+.sim-h .tag{margin-left:auto;background:var(--paper-2);padding:2px 6px;border-radius:3px;
+  font-size:9.5px;color:var(--muted-2);font-weight:500}
+
+.fake-tag{display:inline-block;font-size:9px;padding:1px 5px;background:#f3e8d6;color:#92400e;
+  border-radius:3px;letter-spacing:.06em;font-weight:600;margin-left:6px}
+
+/* paper card */
+.paper-card{padding:9px 11px;border:1px solid var(--rule-2);border-radius:6px;background:#fdfdfb;
+  margin:5px 0;font-size:12px}
+.paper-card .pt{font-weight:600;color:var(--ink);font-size:12.5px;line-height:1.35;margin-bottom:3px}
+.paper-card .pm{color:var(--muted);font-size:10.5px;font-family:'JetBrains Mono',monospace}
+.paper-card .pm span{margin-right:9px}
+.paper-card .badges{margin-top:4px;display:flex;flex-wrap:wrap;gap:4px}
+.paper-card .b{font-size:9.5px;padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-weight:600}
+.b.disrupt{background:#fef3c7;color:#92400e}
+.b.beauty{background:#dbeafe;color:#1e40af}
+.b.novelty{background:#e9d5ff;color:#6b21a8}
+.b.muhur-yesil{background:#d1fae5;color:#065f46}
+.b.muhur-sari{background:#fef3c7;color:#92400e}
+.b.muhur-kirmizi{background:#fee2e2;color:#991b1b}
+.b.role{background:var(--paper-3);color:var(--ink-2)}
+.b.year{background:#f5f5f4;color:var(--muted)}
+
+/* topic chip / cluster */
+.cluster-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:8px 0}
+.cluster-cell{padding:7px 8px;border-radius:5px;font-size:11px;font-family:'JetBrains Mono',monospace;
+  cursor:pointer;border:1px solid transparent;text-align:left}
+.cluster-cell .name{font-weight:600;font-size:11px;display:block;margin-bottom:2px}
+.cluster-cell .meta{font-size:9px;opacity:.75}
+.cell.core{background:#1e3a8a;color:#fff}
+.cell.emerging{background:#fbbf24;color:#78350f}
+.cell.golden{background:#10b981;color:#fff;border-color:#059669;box-shadow:0 0 0 2px rgba(16,185,129,.2)}
+.cell.weak{background:#e7e5e4;color:#525252}
+
+/* heat 8x8 */
+.heat-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-top:6px}
+.heat-cell{aspect-ratio:1;border-radius:2px;font-size:7px;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-family:'JetBrains Mono',monospace;font-weight:600;cursor:pointer}
+.heat-cell.h0{background:#f5f5f4;color:#a8a29e}
+.heat-cell.h1{background:#fef3c7;color:#92400e}
+.heat-cell.h2{background:#fbbf24;color:#78350f}
+.heat-cell.h3{background:#f59e0b;color:#fff}
+.heat-cell.h4{background:#10b981;color:#fff}
+.heat-cell.h5{background:#fcd34d;color:#78350f;outline:2px solid #f59e0b}
+
+.matrix-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0}
+.matrix-mini .m{padding:8px;background:var(--paper-2);border-radius:4px;font-size:10px;
+  font-family:'JetBrains Mono',monospace;text-align:center;cursor:pointer;border:1px solid transparent}
+.matrix-mini .m.is-active{border-color:var(--gapatlas);background:#d1fae5;color:#065f46}
+.matrix-mini .m .lbl{font-weight:700;display:block;font-size:11px;margin-bottom:3px}
+.matrix-mini .m .vl{color:var(--muted);font-size:9px}
+
+/* network svg */
+.netbox{background:#fafaf7;border:1px solid var(--rule-2);border-radius:6px;padding:8px;
+  position:relative;height:240px;overflow:hidden}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:50px 1fr 60px;gap:5px;align-items:center;
+  padding:4px 6px;border-bottom:1px dashed var(--rule-2);font-size:11px}
+.tl .yr{font-family:'JetBrains Mono',monospace;color:var(--muted);font-weight:600}
+.tl .bar{height:7px;background:linear-gradient(90deg,var(--discovery),var(--gapatlas));border-radius:3px}
+.tl .v{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-2);text-align:right}
+
+/* tier matrix */
+.tier-mat{border:1px solid var(--rule-2);border-radius:6px;background:#fafaf7;
+  font-family:'JetBrains Mono',monospace;font-size:11px;margin:8px 0}
+.tier-row{display:grid;grid-template-columns:60px 80px 1fr 80px;padding:7px 9px;
+  border-bottom:1px solid var(--rule-2);align-items:center}
+.tier-row:last-child{border-bottom:none}
+.tier-row.is-active{background:var(--amber-soft)}
+.tier-row .tg{font-weight:700;color:var(--amber-3)}
+.tier-row .nm{font-weight:600}
+.tier-row .ac{font-size:10.5px;color:var(--muted)}
+.tier-row .lm{text-align:right;font-size:10px;color:var(--ink-2)}
+
+/* style table */
+.kvp{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:11.5px;
+  font-family:'JetBrains Mono',monospace;margin:8px 0}
+.kvp .k{color:var(--muted);font-size:10px;letter-spacing:.04em;text-transform:uppercase;align-self:center}
+.kvp .v{color:var(--ink)}
+.kvp .v b{color:var(--amber-3)}
+
+/* radar */
+.radar-tbl{display:grid;grid-template-columns:90px 1fr 30px;gap:3px 8px;font-size:10.5px;
+  font-family:'JetBrains Mono',monospace;align-items:center;margin:6px 0}
+.radar-tbl .rb{color:var(--muted);font-size:10px}
+.radar-tbl .rbar{height:6px;background:var(--paper-2);border-radius:3px;position:relative;overflow:hidden}
+.radar-tbl .rbar::after{content:"";position:absolute;left:0;top:0;height:100%;background:var(--gapatlas);border-radius:3px}
+.radar-tbl .rv{color:var(--ink);text-align:right;font-weight:600;font-size:10px}
+
+/* speech */
+.bubble{padding:7px 10px;background:#fff;border:1px solid var(--rule-2);border-radius:8px;
+  margin:5px 0;font-size:11.5px;line-height:1.5}
+.bubble.user{background:#dbeafe;border-color:#93c5fd}
+.bubble.bot{background:#fef3c7;border-color:#fde68a}
+.bubble .who{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:2px;font-weight:600}
+
+/* faithfulness */
+.sent{display:flex;gap:6px;margin:3px 0;font-size:11.5px;line-height:1.5;align-items:flex-start;padding:3px 5px;border-radius:3px}
+.sent .nm{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--amber-3);font-weight:700;min-width:32px;padding-top:2px}
+.sent .tx{flex:1}
+.sent .fs{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:1px 4px;border-radius:3px;align-self:flex-start}
+.sent.ok .fs{background:#d1fae5;color:#065f46}
+.sent.warn .fs{background:#fef3c7;color:#92400e}
+.sent.err{background:#fee2e2}
+.sent.err .fs{background:#fecaca;color:#991b1b}
+.sent.err .tx{text-decoration:underline wavy var(--red);text-decoration-skip-ink:none}
+
+/* role drawer */
+.atif-d{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;font-size:10.5px;margin:6px 0}
+.atif-d .r{padding:5px 7px;background:var(--paper-2);border-radius:4px;border-left:3px solid var(--amber)}
+.atif-d .r b{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber-3);display:block;margin-bottom:2px}
+
+/* jüri */
+.jury{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+.jurycard{padding:8px;background:var(--paper-2);border-radius:5px;font-size:10.5px;border:2px solid transparent}
+.jurycard.is-active{border-color:var(--defense);background:#fee2e2}
+.jurycard .nm{font-weight:700;font-size:11.5px;color:var(--ink);margin-bottom:2px}
+.jurycard .role{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);
+  letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+
+/* progress */
+.pbar{height:7px;background:var(--paper-3);border-radius:4px;overflow:hidden;margin:4px 0}
+.pbar .fl{height:100%;background:var(--amber);border-radius:4px}
+
+/* footer */
+footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--rule);
+  font-size:11.5px;color:var(--muted);line-height:1.7}
+footer code{font-family:'JetBrains Mono',monospace;font-size:10.5px;background:#fef9e6;
+  padding:1px 4px;border-radius:3px;color:var(--amber-3)}
+footer b{color:var(--ink-2)}
+
+/* utility */
+.tabs{display:flex;border-bottom:1px solid var(--rule-2);margin-bottom:8px}
+.tabs .tab{padding:6px 11px;font-size:11px;font-family:'JetBrains Mono',monospace;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent}
+.tabs .tab.is-active{color:var(--amber-3);border-bottom-color:var(--amber);font-weight:700}
+
+.kanit{font-size:10px;color:var(--muted-2);font-family:'JetBrains Mono',monospace;margin-top:3px;letter-spacing:.04em}
+
+.notice{padding:8px 12px;background:#fef3c7;border-left:3px solid var(--amber);
+  font-size:11.5px;color:var(--amber-3);border-radius:0 4px 4px 0;margin-bottom:18px;font-style:italic}
+
+/* ════════════════════════════════════════════
+   D-CANON v1.1 PILOT  ·  scope: .dc
+   D5/D6 kart · D8 banner · D9 sidebar · D14 rota
+   D15 nota · D16 chatbox · D17 sahne (sayfa 13)
+   ════════════════════════════════════════════ */
+.dc{
+  --dc-ink:#0f172a; --dc-ink-soft:#334155; --dc-ink-mute:#475569; --dc-ink-faint:#64748b;
+  --dc-bg:#E0DFD9; --dc-surface:#ffffff; --dc-surface-soft:#f1f5f9; --dc-surface-hover:#e2e8f0;
+  --dc-rule:#cbd5e1; --dc-rule-soft:#e2e8f0;
+  --dc-accent:#b45309; --dc-accent-pale:#fef3c7;
+  --dc-wb-amber:#E8A157; --dc-wb-teal:#0E4F4A; --dc-wb-gold:#C9A961;
+  --dc-band-canon:#047857; --dc-band-strong:#1d4ed8;
+  --dc-band-frontier:#b45309; --dc-band-risk:#b91c1c;
+  --dc-ok:#047857; --dc-ok-soft:#d1fae5;
+  --dc-info:#1d4ed8; --dc-info-soft:#dbeafe;
+}
+
+/* tam-ekran sahne · scroll-snap */
+.dc.page{min-height:100vh;display:grid;
+  grid-template-columns:280px 1fr 340px;grid-template-rows:auto 1fr;
+  background:var(--dc-bg);scroll-snap-align:start;
+  font-family:'Inter',system-ui,sans-serif;color:var(--dc-ink);
+  border-bottom:1px dashed rgba(15,23,42,.10);position:relative}
+
+/* sayfa-içi sidebar (D9 esinli, sadece mock görseli — gerçek nav üst sidebar'da) */
+.dc .dc-sb{grid-column:1;grid-row:1/3;background:var(--dc-surface);
+  border-right:1px solid var(--dc-rule-soft);padding:14px 12px;
+  display:flex;flex-direction:column;gap:8px;font-size:13px}
+.dc .dc-sb .dc-ws{display:flex;align-items:center;gap:9px;padding:8px;border-radius:10px;
+  border-bottom:1px solid var(--dc-rule-soft);padding-bottom:14px;margin-bottom:6px}
+.dc .dc-sb .dc-ws-av{width:30px;height:30px;border-radius:8px;background:var(--dc-ink);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-family:'Lora',serif;font-style:italic;font-size:13px;font-weight:600}
+.dc .dc-sb .dc-ws-nm{font-size:13px;font-weight:600;color:var(--dc-ink)}
+.dc .dc-sb .dc-ws-tx{font-size:11px;color:var(--dc-ink-faint);margin-top:1px}
+.dc .dc-sb .dc-proj{margin-bottom:4px;padding:9px 10px;border-radius:10px;
+  border:1px solid rgba(232,161,87,.3);background:rgba(232,161,87,.08)}
+.dc .dc-sb .dc-proj .dc-pn{font-family:'Lora',serif;font-style:italic;font-size:13px;
+  font-weight:500;color:var(--dc-ink)}
+.dc .dc-sb .dc-proj .dc-pm{font-family:'JetBrains Mono',monospace;font-size:9.5px;
+  color:var(--dc-ink-faint);margin-top:3px;letter-spacing:.04em}
+.dc .dc-sb-sec{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--dc-ink-faint);
+  padding:8px 8px 4px}
+.dc .dc-sb-row{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;
+  cursor:pointer;color:var(--dc-ink-soft);font-size:13px;font-weight:500;
+  position:relative;transition:background .12s}
+.dc .dc-sb-row:hover{background:var(--dc-surface-soft)}
+.dc .dc-sb-row.is-active{background:var(--dc-surface-soft);color:var(--dc-ink)}
+.dc .dc-sb-row.is-active::before{content:"";position:absolute;left:0;top:6px;bottom:6px;
+  width:3px;border-radius:0 2px 2px 0;background:var(--dc-accent)}
+.dc .dc-sb-row .dc-ico{width:18px;height:18px;flex-shrink:0;color:var(--dc-ink-mute)}
+.dc .dc-sb-row .dc-co{margin-left:auto;font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--dc-ink-faint)}
+.dc .dc-sb-pages{margin-left:8px;padding-left:14px;border-left:2px solid var(--dc-rule-soft);
+  display:flex;flex-direction:column;gap:1px;margin-top:2px;margin-bottom:4px}
+.dc .dc-sb-pg{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;
+  font-size:12px;color:var(--dc-ink-mute);cursor:pointer;position:relative}
+.dc .dc-sb-pg:hover{background:var(--dc-surface-soft);color:var(--dc-ink-soft)}
+.dc .dc-sb-pg.current{background:rgba(180,83,9,.07);color:var(--dc-ink);font-weight:500}
+.dc .dc-sb-pg.current::before{content:"";position:absolute;left:-16px;top:0;bottom:0;
+  width:3px;background:var(--dc-accent);border-radius:0 2px 2px 0}
+.dc .dc-sb-pg.done{color:var(--dc-ink-mute)}
+.dc .dc-sb-pg.done .dc-pst{color:var(--dc-accent)}
+.dc .dc-sb-pg.lock{color:var(--dc-ink-faint);opacity:.65;cursor:not-allowed}
+.dc .dc-sb-pg .dc-pst{width:13px;height:13px;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px}
+.dc .dc-sb-pg .dc-pld{flex:1;font-family:'Inter',sans-serif}
+.dc .dc-pulse{width:6px;height:6px;border-radius:50%;background:var(--dc-accent);
+  flex-shrink:0;box-shadow:0 0 0 4px rgba(180,83,9,.18);animation:dc-pulse 1.5s ease-in-out infinite}
+@keyframes dc-pulse{0%,100%{box-shadow:0 0 0 0 rgba(180,83,9,.4)}50%{box-shadow:0 0 0 6px rgba(180,83,9,0)}}
+.dc .dc-sb-tools{margin-top:auto;border-top:1px solid var(--dc-rule-soft);padding-top:8px;
+  display:flex;flex-direction:column;gap:1px}
+
+/* D14 pusula rotası — topbar */
+.dc .dc-top{grid-column:2/4;grid-row:1;padding:14px 24px;background:transparent;
+  border-bottom:1px solid var(--dc-rule-soft);display:flex;align-items:center;gap:18px}
+.dc .dc-top .dc-route{display:flex;align-items:center;gap:0;flex:1;max-width:680px}
+.dc .dc-route .dc-line{flex:1;height:2px;background:var(--dc-rule-soft);position:relative}
+.dc .dc-route .dc-line.done{background:var(--dc-wb-amber)}
+.dc .dc-route .dc-line.partial{background:linear-gradient(to right,var(--dc-wb-amber) 60%,var(--dc-rule-soft) 60%)}
+.dc .dc-route .dc-node{display:flex;flex-direction:column;align-items:center;gap:5px;
+  flex-shrink:0;cursor:pointer;position:relative}
+.dc .dc-route .dc-circ{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;border:2px solid var(--dc-rule);background:var(--dc-surface);
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--dc-ink-mute);
+  transition:box-shadow .2s;position:relative;z-index:1}
+.dc .dc-route .dc-circ.done{background:var(--dc-wb-amber);border-color:var(--dc-wb-amber);color:#fff}
+.dc .dc-route .dc-circ.active{background:var(--dc-surface);border-color:var(--dc-accent);
+  color:var(--dc-accent);box-shadow:0 0 0 4px rgba(180,83,9,.12)}
+.dc .dc-route .dc-circ.teal{background:var(--dc-wb-teal);border-color:var(--dc-wb-teal);color:#fff}
+.dc .dc-route .dc-circ.gold{background:var(--dc-wb-gold);border-color:var(--dc-wb-gold);color:#fff}
+.dc .dc-route .dc-lbl{font-size:10.5px;color:var(--dc-ink-faint);font-weight:500}
+.dc .dc-route .dc-node.active .dc-lbl{color:var(--dc-ink);font-weight:600}
+
+.dc .dc-top-r{margin-left:auto;display:flex;align-items:center;gap:12px}
+.dc .dc-top-r .dc-search{padding:7px 12px;background:var(--dc-surface);
+  border:1px solid var(--dc-rule-soft);border-radius:8px;font-size:12px;color:var(--dc-ink-faint);
+  display:flex;align-items:center;gap:6px;width:220px;font-family:'Lora',serif;font-style:italic}
+.dc .dc-top-r .dc-uav{width:32px;height:32px;border-radius:50%;background:var(--dc-ink);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-family:'Lora',serif;font-style:italic;font-weight:600;font-size:13px}
+
+/* main content area */
+.dc .dc-main{grid-column:2;grid-row:2;padding:28px 32px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:24px}
+.dc .dc-h1{font-family:'Lora',serif;font-style:italic;font-size:28px;font-weight:500;
+  color:var(--dc-ink);letter-spacing:-.01em;line-height:1.2}
+.dc .dc-h2{font-family:'Lora',serif;font-style:italic;font-size:18px;font-weight:500;
+  color:var(--dc-ink)}
+.dc .dc-h-row{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+.dc .dc-sub{font-size:13.5px;color:var(--dc-ink-mute);max-width:580px;margin-top:6px;
+  font-family:'Lora',serif;font-style:italic;line-height:1.55}
+.dc .dc-cta{padding:9px 16px;border-radius:9px;background:var(--dc-ink);color:#fff;
+  font-size:13px;font-weight:600;border:none;cursor:pointer;display:flex;align-items:center;
+  gap:6px;font-family:'Inter',sans-serif;flex-shrink:0;transition:background .15s}
+.dc .dc-cta:hover{background:var(--dc-accent)}
+
+/* D5/D6 kart sistemi */
+.dc .dc-card{background:var(--dc-surface);border:1px solid var(--dc-rule-soft);
+  border-left:3px solid var(--dc-rule);border-radius:12px;padding:18px 20px;
+  box-shadow:0 1px 2px rgba(15,23,42,.04),0 4px 12px rgba(15,23,42,.04);
+  transition:box-shadow .2s,transform .2s;position:relative}
+.dc .dc-card:hover{box-shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.08);
+  transform:translateY(-1px)}
+.dc .dc-card.b-canon{border-left-color:var(--dc-band-canon)}
+.dc .dc-card.b-strong{border-left-color:var(--dc-band-strong)}
+.dc .dc-card.b-frontier{border-left-color:var(--dc-band-frontier)}
+.dc .dc-card.b-risk{border-left-color:var(--dc-band-risk)}
+.dc .dc-card.b-amber{border-left-color:var(--dc-wb-amber)}
+.dc .dc-card.b-teal{border-left-color:var(--dc-wb-teal)}
+.dc .dc-card.b-gold{border-left-color:var(--dc-wb-gold)}
+.dc .dc-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.dc .dc-chip{padding:2px 9px;border-radius:100px;border:1px solid var(--dc-rule-soft);
+  font-size:10.5px;font-weight:500;background:var(--dc-surface-soft);color:var(--dc-ink-mute)}
+.dc .dc-chip.ok{background:var(--dc-ok-soft);border-color:#a7f3d0;color:var(--dc-ok)}
+.dc .dc-chip.info{background:var(--dc-info-soft);border-color:#bfdbfe;color:var(--dc-info)}
+.dc .dc-chip.acc{background:var(--dc-accent-pale);border-color:#fde68a;color:var(--dc-accent)}
+.dc .dc-chip.red{background:#fee2e2;border-color:#fecaca;color:#b91c1c}
+.dc .dc-card-t{font-family:'Lora',serif;font-style:italic;font-size:16px;font-weight:500;
+  line-height:1.35;color:var(--dc-ink);margin-bottom:6px}
+.dc .dc-card-m{font-size:11.5px;color:var(--dc-ink-faint);margin-bottom:10px;
+  font-family:'Inter',sans-serif}
+.dc .dc-card-m em{font-family:'Lora',serif;font-style:italic;color:var(--dc-ink-mute)}
+.dc .dc-stage{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--dc-ink-mute);
+  letter-spacing:.06em;text-transform:uppercase}
+.dc .dc-stage b{color:var(--dc-accent)}
+.dc .dc-mini-route{display:flex;align-items:center;gap:0;margin:10px 0 0}
+.dc .dc-mini-route .dc-mn{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;
+  background:var(--dc-surface-soft);color:var(--dc-ink-faint);border:1.5px solid var(--dc-rule)}
+.dc .dc-mini-route .dc-mn.done{background:var(--dc-wb-amber);border-color:var(--dc-wb-amber);color:#fff}
+.dc .dc-mini-route .dc-mn.active{border-color:var(--dc-accent);color:var(--dc-accent);
+  box-shadow:0 0 0 2px rgba(180,83,9,.12)}
+.dc .dc-mini-route .dc-ml{flex:1;height:2px;background:var(--dc-rule-soft)}
+.dc .dc-mini-route .dc-ml.done{background:var(--dc-wb-amber)}
+.dc .dc-mini-route .dc-ml.partial{background:linear-gradient(to right,var(--dc-wb-amber) 50%,var(--dc-rule-soft) 50%)}
+.dc .dc-card-act{display:flex;gap:6px;margin-top:14px}
+.dc .dc-btn{padding:6px 12px;border-radius:7px;background:var(--dc-surface);
+  border:1px solid var(--dc-rule-soft);font-size:11.5px;font-weight:500;color:var(--dc-ink-soft);
+  cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .15s;
+  font-family:'Inter',sans-serif}
+.dc .dc-btn:hover{background:var(--dc-surface-soft);color:var(--dc-ink)}
+.dc .dc-btn.primary{background:var(--dc-ink);color:#fff;border-color:var(--dc-ink)}
+.dc .dc-btn.primary:hover{background:var(--dc-accent);border-color:var(--dc-accent)}
+.dc .dc-btn.adv{background:var(--dc-accent-pale);color:var(--dc-accent);border-color:#fde68a}
+
+.dc .dc-card.dashed{border-style:dashed;border-left-style:dashed;background:transparent;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:180px;color:var(--dc-ink-faint);box-shadow:none;cursor:pointer}
+.dc .dc-card.dashed:hover{background:rgba(255,255,255,.4);transform:none}
+.dc .dc-card.dashed .dc-plus{font-family:'Lora',serif;font-style:italic;font-size:15px;font-weight:500}
+
+/* D16 chatbox right rail */
+.dc .dc-chat{grid-column:3;grid-row:2;background:#F7F7F5;border-left:1px solid #E4E4E0;
+  display:flex;flex-direction:column;font-size:13px;overflow:hidden}
+.dc .dc-chat-h{padding:14px 16px;border-bottom:1px solid #E4E4E0;display:flex;
+  align-items:center;gap:8px;font-family:'Lora',serif;font-style:italic;font-size:14px;
+  font-weight:500;color:var(--dc-ink);background:#fff}
+.dc .dc-chat-h .dc-d{width:7px;height:7px;border-radius:50%;background:var(--dc-accent)}
+.dc .dc-chat-body{flex:1;padding:18px 16px;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.dc .dc-bub{max-width:90%;padding:11px 14px;border-radius:14px;font-size:13px;line-height:1.55}
+.dc .dc-bub.adv{background:#EFEFED;color:var(--dc-ink-soft);align-self:flex-start;
+  border-bottom-left-radius:4px;font-family:'Lora',serif;font-style:italic}
+.dc .dc-bub.usr{background:var(--dc-ink);color:#fff;align-self:flex-end;
+  border-bottom-right-radius:4px;font-family:'Inter',sans-serif}
+.dc .dc-bub-r{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dc-ink-faint);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;align-self:flex-start}
+.dc .dc-chat-empty{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;padding:32px;text-align:center;color:var(--dc-ink-faint)}
+.dc .dc-chat-empty .dc-ce-h{font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--dc-ink-mute)}
+.dc .dc-chat-empty .dc-ce-s{font-size:11.5px;line-height:1.5;max-width:240px}
+.dc .dc-chat-in{padding:12px;border-top:1px solid #E4E4E0;background:#fff;
+  display:flex;align-items:center;gap:8px}
+.dc .dc-chat-in input{flex:1;padding:9px 12px;border-radius:9px;border:1px solid #E4E4E0;
+  font-size:13px;font-family:'Lora',serif;font-style:italic;background:#fff;outline:none}
+.dc .dc-chat-in input:focus{border-color:var(--dc-accent)}
+.dc .dc-chat-in button{padding:9px 12px;border-radius:9px;background:var(--dc-ink);color:#fff;
+  border:none;font-size:12px;font-weight:600;cursor:pointer}
+
+/* D15 nota ekle sticky */
+.dc .dc-note-fab{position:absolute;bottom:24px;right:360px;z-index:10;
+  display:flex;align-items:center;gap:7px;padding:10px 14px;background:var(--dc-ink);color:#fff;
+  border:none;border-radius:24px;font-size:12px;font-weight:600;cursor:pointer;
+  box-shadow:0 4px 14px rgba(15,23,42,.18);transition:all .15s}
+.dc .dc-note-fab:hover{background:var(--dc-accent)}
+.dc .dc-note-fab .dc-ic{width:13px;height:13px}
+
+/* tier-mat (sayfa 0) */
+.dc .dc-tier{background:var(--dc-surface);border:1px solid var(--dc-rule-soft);border-radius:12px;
+  overflow:hidden;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.dc .dc-tier-h{padding:12px 18px;background:var(--dc-surface-soft);border-bottom:1px solid var(--dc-rule-soft);
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dc-ink-mute);display:flex;justify-content:space-between;align-items:center}
+.dc .dc-tier-row{display:grid;grid-template-columns:60px 110px 1fr 100px;padding:11px 18px;
+  align-items:center;border-bottom:1px solid var(--dc-rule-soft);font-size:12.5px}
+.dc .dc-tier-row:last-child{border-bottom:none}
+.dc .dc-tier-row.act{background:rgba(232,161,87,.08)}
+.dc .dc-tier-row .dc-tg{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--dc-accent);font-size:13px}
+.dc .dc-tier-row .dc-nm{font-weight:600;color:var(--dc-ink);font-family:'Lora',serif;font-style:italic}
+.dc .dc-tier-row .dc-ac{color:var(--dc-ink-mute);font-size:12px}
+.dc .dc-tier-row .dc-lm{text-align:right;font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:var(--dc-ink-faint);letter-spacing:.04em}
+
+/* monthly recommendation panel */
+.dc .dc-rec{background:var(--dc-surface);border:1px solid var(--dc-rule-soft);border-radius:12px;
+  padding:18px 20px;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.dc .dc-rec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.dc .dc-rec-q{font-family:'Lora',serif;font-style:italic;font-size:13px;color:var(--dc-ink-soft);
+  margin-top:14px;padding:12px 14px;background:var(--dc-accent-pale);border-radius:8px;
+  border:1px solid #fde68a;line-height:1.55}
+
+/* aşağıdaki teknik kart (philosophy + simple + back/front/data + wow + delta + io) */
+.dc .dc-spec{background:var(--dc-surface);border:1px solid var(--dc-rule-soft);border-radius:14px;
+  padding:24px 28px;margin:0 32px 32px;box-shadow:0 1px 2px rgba(15,23,42,.04),0 4px 12px rgba(15,23,42,.04);
+  display:grid;grid-template-columns:1fr 1fr;gap:20px 32px}
+.dc .dc-spec.wide{grid-column:1/-1}
+.dc .dc-spec-row{grid-column:1/-1;display:grid;grid-template-columns:120px 1fr;gap:18px;
+  padding:12px 0;border-bottom:1px solid var(--dc-rule-soft);align-items:start}
+.dc .dc-spec-row:last-child{border-bottom:none}
+.dc .dc-spec-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--dc-ink-faint);padding-top:2px}
+.dc .dc-spec-v{font-size:13px;line-height:1.65;color:var(--dc-ink-soft)}
+.dc .dc-spec-v code{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--dc-accent);
+  background:var(--dc-accent-pale);padding:1px 6px;border-radius:4px}
+.dc .dc-spec-v b{color:var(--dc-ink);font-weight:600}
+.dc .dc-spec-v em{font-family:'Lora',serif;font-style:italic;color:var(--dc-ink-mute)}
+.dc .dc-spec-section{padding:10px 14px;background:var(--dc-surface-soft);border-radius:10px;
+  border-left:3px solid var(--dc-accent)}
+.dc .dc-spec-section .dc-sl{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--dc-accent);margin-bottom:5px}
+.dc .dc-spec-section.wow{border-left-color:var(--dc-band-frontier);background:var(--dc-accent-pale)}
+.dc .dc-spec-section.wow .dc-sl{color:var(--dc-band-frontier)}
+.dc .dc-spec-section.delta{border-left-color:var(--dc-band-strong);background:var(--dc-info-soft)}
+.dc .dc-spec-section.delta .dc-sl{color:var(--dc-band-strong)}
+.dc .dc-spec-section.io{border-left-color:var(--dc-band-canon);background:var(--dc-ok-soft)}
+.dc .dc-spec-section.io .dc-sl{color:var(--dc-band-canon)}
+
+/* page label badge (sol üstte) */
+.dc .dc-page-label{position:absolute;top:14px;left:24px;z-index:5;
+  display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--dc-ink);color:#fff;
+  border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase}
+.dc .dc-page-label.amber{background:var(--dc-wb-amber)}
+.dc .dc-page-label.teal{background:var(--dc-wb-teal)}
+.dc .dc-page-label.gold{background:var(--dc-wb-gold)}
+
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ===== SIDEBAR ===== -->
+<aside>
+  <div class="ws-logo">
+    <div class="mark">Paper<em>Mind</em></div>
+    <div class="ver">v1.0 · 19 sayfa · simülasyon</div>
+  </div>
+  <div class="nav-area">
+    <div class="nav-section-label">Vitrin <span class="count">3 sayfa</span></div>
+    <a class="nav-link is-vitrine" href="#p-Q"><span class="pid">Q</span>Hızlı İnceleme</a>
+    <a class="nav-link is-vitrine" href="#p-Q1"><span class="pid">Q1</span>Literatür Özeti</a>
+    <a class="nav-link is-vitrine" href="#p-Q3"><span class="pid">Q3</span>Metod Önerisi</a>
+
+    <div class="nav-section-label">Kabuk <span class="count">1 sayfa</span></div>
+    <a class="nav-link" href="#p-0"><span class="pid">0</span>Projelerim</a>
+
+    <div class="nav-section-label">Discovery · gösterir <span class="count">3</span></div>
+    <a class="nav-link is-discovery" href="#p-1"><span class="pid">1</span>Keşfet</a>
+    <a class="nav-link is-discovery" href="#p-2"><span class="pid">2</span>Nabız</a>
+    <a class="nav-link is-discovery" href="#p-3"><span class="pid">3</span>Kavram Ağı</a>
+
+    <div class="nav-section-label">Curation · seçer <span class="count">2</span></div>
+    <a class="nav-link is-curation" href="#p-4"><span class="pid">4</span>Connected Papers</a>
+    <a class="nav-link is-curation" href="#p-5"><span class="pid">5</span>Havuzum</a>
+
+    <div class="nav-section-label">GapAtlas · işaretler <span class="count">2</span></div>
+    <a class="nav-link is-gapatlas" href="#p-6"><span class="pid">6</span>Boşluk Atlası</a>
+    <a class="nav-link is-gapatlas" href="#p-7"><span class="pid">7</span>Soru &amp; Başlık</a>
+
+    <div class="nav-section-label">Authoring · yazar <span class="count">3</span></div>
+    <a class="nav-link is-authoring" href="#p-8"><span class="pid">8</span>Literatür Yazımı</a>
+    <a class="nav-link is-authoring" href="#p-9"><span class="pid">9</span>Bölüm Yazımı</a>
+    <a class="nav-link is-authoring" href="#p-10"><span class="pid">10</span>Akademik Üslup</a>
+
+    <div class="nav-section-label">Defense · sınar <span class="count">4</span></div>
+    <a class="nav-link is-defense" href="#p-11"><span class="pid">11</span>Savunma Provası</a>
+    <a class="nav-link is-defense" href="#p-12"><span class="pid">12</span>Hakem Simülasyonu</a>
+    <a class="nav-link is-defense" href="#p-13"><span class="pid">13</span>Jüri Simülasyonu</a>
+    <a class="nav-link is-defense" href="#p-14"><span class="pid">14</span>Yöntem &amp; Etik &amp; Yayın</a>
+
+    <div class="nav-section-label">Genel <span class="count">1</span></div>
+    <a class="nav-link" href="#p-15"><span class="pid">15</span>Ayarlar</a>
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<main>
+
+<div class="topbar">
+  <div>
+    <h1>PaperMind <em>Mock v1.0</em></h1>
+    <div class="meta">19 sayfa · sol sütun = revize kart (philosophy + back/front/data + wow + io + Δ revize) · sağ sütun = içerik simülasyonu (mock veri)</div>
+  </div>
+  <span class="pill">2026-05-08</span>
+</div>
+
+<div class="notice">
+  <b>Mock veri uyarısı:</b> Tüm paper başlıkları, yazar adları, dergi isimleri, sayısal değerler <b>simülasyondur</b> (P-001, "A. Yazar 1", Q1 Dergi). Gerçek bilimsel iddia içermez. Yapı/format/akış gerçeğe sadıktır; sayılar plausible aralıkta uydurmadır.
+  Δ revize bloğu = v0.9 mock'tan farkları (5 eksik sinyal + 8 wow eklendi).
+</div>
+
+<div class="legend">
+  <span><span class="swatch" style="background:var(--vitrine)"></span>Vitrin · davet eder</span>
+  <span><span class="swatch" style="background:var(--discovery)"></span>Discovery · gösterir</span>
+  <span><span class="swatch" style="background:var(--curation)"></span>Curation · seçer</span>
+  <span><span class="swatch" style="background:var(--gapatlas)"></span>GapAtlas · işaretler</span>
+  <span><span class="swatch" style="background:var(--authoring)"></span>Authoring · yazar</span>
+  <span><span class="swatch" style="background:var(--defense)"></span>Defense · sınar</span>
+</div>
+
+<!-- ============== VITRIN ============== -->
+<div class="section-h vitrine">Hızlı İnceleme <span class="role">3 sayfa · rol: <b>VİTRİN</b> — profilsiz, açık mod, vanilla</span></div>
+<div class="section-sub">Atölyenin önündeki tezgah. Ziyaretçi sorgu girer, dakikalarda çıktı alır. İmza atölyede; burada sade SciSpace mantığı.</div>
+
+<!-- Q -->
+<div class="page-block" id="p-Q">
+  <div class="page-block-h"><span class="pid vitrine">Q</span><h3>Hızlı İnceleme · Ana Kapı</h3><span class="role-tag">Vanilla · Hesap yok</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">SciSpace mantığı: konu yaz, 3 makale gör, üç çıktıdan birini al, indir git. Hesap yok, validator yok, ESTRA yok — burası özgür alan.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Hesap açma yok. Konu yazılır, sistem OpenAlex'ten 20 / 50 / 100 makale çeker, önizleme verir. Üç çıktı seçeneği: ① Literatür özeti (Q1) · ② Metod önerisi (Q3). İndir git; veya "Projeme Dönüştür" ile atölyeye geç.</div>
+      <details class="techspec" open><summary>back · front · data <span>nereye bağlanıyor?</span></summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Arama kutusu (anahtar/RQ/abstract/DOI) · 20/50/100 makale aralığı · önizleme listesi · 2 eylem butonu (Q1/Q3) · "Projeme Dönüştür" CTA</span>
+          <b>Back</b><span><code>POST /api/q/search</code> · OpenAlex Works (polite-pool) + Semantic Scholar fallback · LLM router (lit/metod) · oturum cache anonim · rate limit 3/gün</span>
+          <b>Data</b><span>Harici API · DB'ye kalıcı yazma yok · session_id cache <code>q_session</code> · "Projeme Dönüştür" → <code>projects</code> + <code>project_pool</code></span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Hızlı = vanilla, atölye = imza. İki yol birbirini taklit etmez. Hızlı yolda PaperMind farkı görünmez (bilerek); atölyede validator çift mühür + ESTRA + gap matrix.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Q2 (Giriş Bölümü) <b>elimine</b> (DM-054); Q1+Q3 ile 2-buton akışı. Funnel barı eklendi.</div>
+      <div class="io"><b>Girdi:</b> ziyaretçi sorgu <span class="arrow">→</span> <b>Çıktı:</b> 3 makale + Q1/Q3 buton, veya "Projeme Dönüştür"</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · arama ekranı <span class="tag">vanilla</span></div>
+      <div class="bubble user"><div class="who">ziyaretçi · sorgu</div>“Adolescent screen time and sleep quality” <span class="kanit">[mock konu]</span></div>
+      <div style="display:flex;gap:6px;margin:8px 0;font-size:11px">
+        <span style="padding:3px 8px;background:var(--amber-soft);border-radius:4px;color:var(--amber-3);font-weight:600">20</span>
+        <span style="padding:3px 8px;background:var(--paper-3);border-radius:4px;color:var(--muted)">50</span>
+        <span style="padding:3px 8px;background:var(--paper-3);border-radius:4px;color:var(--muted)">100</span>
+        <span style="margin-left:auto;font-size:10px;color:var(--muted);align-self:center">makale aralığı</span>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-001 · Screen exposure and sleep latency in teens: a meta-analysis <span class="fake-tag">MOCK</span></div>
+        <div class="pm"><span>2023</span><span>OpenAlex</span><span>312 atıf</span><span>A. Yazar 1+12</span></div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-002 · Bedtime device use and adolescent depression <span class="fake-tag">MOCK</span></div>
+        <div class="pm"><span>2021</span><span>S2</span><span>198 atıf</span><span>B. Yazar 2+8</span></div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-003 · Digital media before sleep: a longitudinal study <span class="fake-tag">MOCK</span></div>
+        <div class="pm"><span>2024</span><span>OpenAlex</span><span>54 atıf</span><span>C. Yazar 3+5</span></div>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:10px">
+        <button style="flex:1;padding:8px;background:var(--vitrine);color:#fff;border:none;border-radius:5px;font-weight:600;font-size:12px;cursor:pointer">Q1 · Literatür özeti</button>
+        <button style="flex:1;padding:8px;background:var(--vitrine);color:#fff;border:none;border-radius:5px;font-weight:600;font-size:12px;cursor:pointer">Q3 · Metod önerisi</button>
+      </div>
+      <div style="margin-top:8px;padding:7px;background:var(--amber-soft);border-radius:5px;font-size:11px;text-align:center;color:var(--amber-3);font-weight:600">→ Projeme Dönüştür (atölyeye geç)</div>
+    </div>
+  </div>
+</div>
+
+<!-- Q1 -->
+<div class="page-block" id="p-Q1">
+  <div class="page-block-h"><span class="pid vitrine">Q1</span><h3>Literatür Özeti · Vanilla</h3><span class="role-tag">Vanilla · Tematik özet</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Q havuzundan en alakalı 12 paper'a dayalı <b>doğrudan literatür incelemesi</b> — sorgu dilinde, citation-grounded. Tema/küme yok; tek bütün metin.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>50-paper havuzdan hybrid rerank (50→25→12) ile en alakalı 12 paper seçilir, ~400 kelimelik tek bütün literatür özeti yazılır. Her cümle ≥1 paper'a dayanır; cümle sonunda <code>[01]</code>..<code>[12]</code> rank-tag. Sorgu diline eşit (TR/EN/ID). Beğenmedin yeniden üret, indir git; konuya derinleşmek için projeye taşı.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Sol panel 3 kart (sticky, hover ↔ sağda <code>[N]</code> highlight) · sağ gövde ~400 kelime tek bütün metin (Pro) veya paywall placeholder (Anon) · inline <code>[01]</code>..<code>[12]</code> tıklanabilir → sol panelde rank=N kart vurgulanır · "yeniden üret" / DOCX·MD indir / "Projeme Dönüştür"</span>
+          <b>Back</b><span><code>POST /api/q/literature</code> (DM-055 bağımsız endpoint) · Redis Q havuzundan <code>q:search:{sha256(query)}:{lang}</code> · Aşama 1 (deterministic native skor) 50→25 · Aşama 2 (Gemini Flash 2.0 rerank) 25→12 · Gemini Flash 2.0 ile sorgu dilinde özet · Pydantic <code>citations[i].paper_ids ⊆ used_paper_ids</code> grounding gate (faithfulness VAR — sınır dışı rank → reject + 1 retry)</span>
+          <b>Data</b><span>Q havuzu (S2 + TRDizin) Redis-driven · cache <code>q:literature:{qid}:{tier}</code> 24h · "Projeme Dönüştür" → makaleler <code>project_pool</code>, metin <code>manuscript_section [literatür]</code> taslağına. Vitrin warehouse tablosu **kullanmaz** (atölye'de açılır)</span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Vanilla bilerek: SciSpace'in yaptığı kadar tek bütün özet — atıf disiplini Pydantic gate'le sıkı ama tema/küme icat etmez. PaperMind imzası (ESTRA + validator + gap) atölyede saklı.</div>
+      <div class="delta"><b>Δ v1.0 tashih</b>Önceki taslakta "Tema 1/2/3 küme" yapısı yazıldı — <b>YANLIŞ</b>. q1.md kanonu: doğrudan ~400 kelime tek bütün metin, K=12 (50→25→12 hybrid rerank), [01]..[12] inline rank-tag. Tema yok.</div>
+      <div class="io"><b>Girdi:</b> <code>qid</code> (Q'dan, 50-havuz Redis'te) <span class="arrow">→</span> <b>Çıktı:</b> uçucu ~400 kelime literatür özeti + 12 paper rank (DOCX/MD) veya atölye [literatür] taslağı</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · ~400 kelime literatür özeti <span class="tag">K=12 · TR</span></div>
+      <div style="background:#fff;padding:12px;border:1px solid var(--rule-2);border-radius:5px;font-family:'Lora',serif;font-size:12.5px;line-height:1.7">
+        Ergenlerde akşam saatlerinde ekran maruziyetinin uyku başlangıcını ortalama 18-37 dakika geciktirdiği farklı tasarımlarla tutarlı biçimde gösterilmiştir <code style="font-family:'JetBrains Mono',monospace;font-size:10.5px">[01][03][07]</code>. Etki büyüklüğünün yaş, cihaz tipi ve maruziyet süresine göre belirgin biçimde değiştiği <code style="font-family:'JetBrains Mono',monospace;font-size:10.5px">[02][05]</code>; özellikle 13-15 yaş grubunda melatonin baskılanmasının daha hassas olduğu raporlanmıştır <code style="font-family:'JetBrains Mono',monospace;font-size:10.5px">[04]</code>. Bedtime cihaz kullanımı yalnızca uyku gecikmesiyle değil; depresif belirti, anksiyete ve gündüz uyuklama ile pozitif yönlü ilişki kurmaktadır <code style="font-family:'JetBrains Mono',monospace;font-size:10.5px">[02][06][09]</code>. Boylamsal veriler bu ilişkinin yaşla kümülatif olabileceğine işaret eder <code style="font-family:'JetBrains Mono',monospace;font-size:10.5px">[03][08]</code>; ancak nedensel zincirin kurulması için randomize müdahale çalışmalarına ihtiyaç vardır <code style="font-family:'JetBrains Mono',monospace;font-size:10.5px">[10]</code>. Yöntem açısından mevcut literatür ağırlıklı olarak özbildirim ölçümlerine dayanmakta <code style="font-family:'JetBrains Mono',monospace;font-size:10.5px">[03][06][11]</code>; pasif sensör (actigraphy / aktigrafi) içeren çalışmalar görece azdır <code style="font-family:'JetBrains Mono',monospace;font-size:10.5px">[12]</code>. Bu metodolojik çeşitlilik etki büyüklüğü heterojenliğini kısmen açıklamaktadır <code style="font-family:'JetBrains Mono',monospace;font-size:10.5px">[05][07]</code>.
+        <span style="display:block;margin-top:10px;font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.04em">~400 kelime · sorgu dili: tr · K=12 paper · [01]..[12] tıklanabilir → sol panel rank N highlight</span>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:8px;align-items:center">
+        <span style="font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace">grounding ✓ 12/12 cite ⊆ pool</span>
+        <button style="margin-left:auto;padding:6px 10px;background:var(--paper-3);border:none;border-radius:4px;font-size:11px;cursor:pointer">↻ yeniden üret</button>
+        <button style="padding:6px 10px;background:var(--paper-3);border:none;border-radius:4px;font-size:11px;cursor:pointer">↓ DOCX</button>
+        <button style="padding:6px 10px;background:var(--paper-3);border:none;border-radius:4px;font-size:11px;cursor:pointer">↓ MD</button>
+        <button style="padding:6px 10px;background:var(--amber);color:#fff;border:none;border-radius:4px;font-size:11px;cursor:pointer;font-weight:600">→ Projeme Dönüştür</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="page-block" id="p-Q3">
+  <div class="page-block-h"><span class="pid vitrine">Q3</span><h3>Metod Önerisi · Vanilla</h3><span class="role-tag">Vanilla · LLM gözlem</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Q havuzundan 25 paper'ı 7-tag yöntem enum'una sınıflandırır; dağılım + 2-3 metod önerisi + sample/dataset hint üretir. LLM kalitatif sınıflandırma — atölye empirik damıtması (<code>fact_paper_metod</code> sayım + statcheck) ayrı.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>50-havuzdan native skor ile top-25 paper alınır; her biri 7-tag yöntem enum'una (deneysel·gözlemsel·nitel·karma·sistematik derleme·simülasyon·teorik) sınıflandırılır. Sonuç 3 komponent: (a) %-bar dağılım, (b) sorguya uygun 2-3 metod öneri (gerekçe + örnek paper rank), (c) sample size aralığı + bilinen 2-5 dataset/araç. Sorgu dilinde (TR/EN/ID).</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Sol panel 3 kart (Q1 ile simetrik, sticky) · sağ gövde 3 blok: <code>MethodDistributionChart</code> 7-bar % · <code>MethodSuggestionList</code> 2-3 öneri (her biri <code>[örn.NN]</code> tıklama → sol panel rank highlight) · <code>SampleHintBlock</code> bullet list · DOCX/MD indir · "Projeme Dönüştür"</span>
+          <b>Back</b><span><code>POST /api/q/method</code> (DM-055 bağımsız endpoint) · Q havuzundan 50→25 native skor (Aşama 2 yok) · LLM Pass 1: Gemini Flash 2.0 batch 25-paper 7-tag sınıflandırma (per-paper cache <code>q:method_classify:{paper_id}</code> 30g, Q1+Q3 ortak) · Distribution deterministic % · LLM Pass 2: 2-3 suggestion + sample_hint (sorgu dilinde, Pydantic <code>example_paper_id ⊆ used_paper_ids</code> grounding gate)</span>
+          <b>Data</b><span>Q havuzu Redis-driven · cache <code>q:method:{qid}:{tier}</code> 24h · classify cache cross-query reusable (aynı paper iki sorguda iki kere sınıflandırılmaz). Vitrin <b>warehouse'a değmez</b> — atölyede <code>fact_paper_metod</code> + statcheck + S-14 audit açılır.</span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>25-paper'da yöntem dağılımı bir bakışta ("alanın çoğu RCT mi, gözlemsel mi?"); öneri kalitatif gözlem değil — 7-tag enum + örnek paper grounded.</div>
+      <div class="delta"><b>Δ v1.0 tashih</b>Önceki taslakta "3 makaleden gözlem" yazıldı — <b>YANLIŞ</b>. q3.md kanonu: K=25, 7-tag distribution + 2-3 suggestion + sample hint. <code>fact_paper_metod</code> warehouse tablosu vitrinde kullanılmaz; LLM classification + Redis cache.</div>
+      <div class="io"><b>Girdi:</b> <code>qid</code> (Q'dan, 50-havuz) <span class="arrow">→</span> <b>Çıktı:</b> 7-tag dağılım + 2-3 suggestion + sample/dataset hint, sorgu dilinde (DOCX/MD veya atölye [method] taslağı + S-14 audit)</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · 25 paper · 3 komponent <span class="tag">K=25 · TR</span></div>
+
+      <div style="background:#fff;padding:10px 12px;border:1px solid var(--rule-2);border-radius:5px">
+        <b style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)">Method Distribution · 25 paper</b>
+        <div style="margin-top:8px;display:flex;flex-direction:column;gap:5px;font-size:11px">
+          <div style="display:grid;grid-template-columns:140px 1fr 50px;align-items:center;gap:8px"><span>Gözlemsel (kohort)</span><span style="height:10px;background:var(--amber);border-radius:2px;width:36%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-align:right">36% · 9</span></div>
+          <div style="display:grid;grid-template-columns:140px 1fr 50px;align-items:center;gap:8px"><span>Deneysel / RCT</span><span style="height:10px;background:var(--amber);border-radius:2px;width:24%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-align:right">24% · 6</span></div>
+          <div style="display:grid;grid-template-columns:140px 1fr 50px;align-items:center;gap:8px"><span>Sist. derleme</span><span style="height:10px;background:var(--amber);border-radius:2px;width:16%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-align:right">16% · 4</span></div>
+          <div style="display:grid;grid-template-columns:140px 1fr 50px;align-items:center;gap:8px"><span>Karma</span><span style="height:10px;background:var(--amber);border-radius:2px;width:12%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-align:right">12% · 3</span></div>
+          <div style="display:grid;grid-template-columns:140px 1fr 50px;align-items:center;gap:8px"><span>Nitel</span><span style="height:10px;background:var(--amber);border-radius:2px;width:8%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-align:right">8% · 2</span></div>
+          <div style="display:grid;grid-template-columns:140px 1fr 50px;align-items:center;gap:8px"><span>Simülasyon</span><span style="height:10px;background:var(--amber);border-radius:2px;width:4%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-align:right">4% · 1</span></div>
+          <div style="display:grid;grid-template-columns:140px 1fr 50px;align-items:center;gap:8px"><span>Teorik</span><span style="height:10px;background:var(--paper-3);border-radius:2px;width:0%"></span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-align:right">0% · 0</span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;background:#fff;padding:10px 12px;border:1px solid var(--rule-2);border-radius:5px">
+        <b style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)">2-3 metod önerisi</b>
+        <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px;font-size:11.5px">
+          <div style="padding:8px 10px;background:var(--amber-soft);border-radius:4px;line-height:1.5">
+            <b>Cross-lagged panel + actigraphy</b> <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--amber-3)">[örn.04]</span>
+            <span style="display:block;color:var(--muted);font-size:11px;margin-top:2px">Boylamsal tasarımı pasif sensör verisiyle güçlendir; özbildirim sapmasını azalt. RI-CLPM sensitivity önerilir.</span>
+          </div>
+          <div style="padding:8px 10px;background:var(--paper-2);border-radius:4px;line-height:1.5">
+            <b>Sistematik derleme + meta-analiz</b> <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)">[örn.12]</span>
+            <span style="display:block;color:var(--muted);font-size:11px;margin-top:2px">Literatür yoğun ancak tasarım heterojen; PRISMA + random-effects ile etki büyüklüğü sentezi uygun.</span>
+          </div>
+          <div style="padding:8px 10px;background:var(--paper-2);border-radius:4px;line-height:1.5">
+            <b>Karma yöntem (sıralı)</b> <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)">[örn.07]</span>
+            <span style="display:block;color:var(--muted);font-size:11px;margin-top:2px">Nicel sensör + nitel günlük; sınırlılık nicel-tek-bakışın yakalayamadığı ergen deneyimi.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;background:#fff;padding:10px 12px;border:1px solid var(--rule-2);border-radius:5px;font-size:11.5px;line-height:1.55">
+        <b style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)">Sample / dataset hint</b>
+        <div style="margin-top:5px"><b>Sample:</b> n ≈ 200-600 ergen, 3 dalga (6 ay) — RCT/boylamsal literatür ortalaması</div>
+        <div><b>Dataset / araç:</b> ActiGraph wGT3X-BT · Pittsburgh Sleep Quality Index (PSQI) · Munich Chronotype Q. · Smartphone Addiction Scale-SV · NHANES sleep modülü</div>
+        <span style="display:block;margin-top:5px;font-size:10px;color:var(--muted);font-style:italic">Hızlı LLM önerisi · atölyede 850k+ paper'da method-topic affinity matrisi + statcheck ile damıtılır.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============== KABUK · ANA SAYFA ============== -->
+<div class="section-h general">Projelerim <span class="role">1 sayfa · rol: <b>KABUK</b> — girişli kullanıcının panosu</span></div>
+<div class="section-sub">Tüm projelerin görünür olduğu yer; başla, devam et, aylık öneriyi gör. Vitrin'den dönüştürülen projeler de burada.</div>
+
+<div class="page-block" id="p-0">
+
+  <!-- ═══ Tam-ekran simülasyon (D-canon) ═══ -->
+  <section class="dc page" data-tezgah="kabuk">
+    <div class="dc-page-label">0 · Kabuk · Projelerim</div>
+
+    <!-- ── D9 Sidebar (260px, no active project) ── -->
+    <aside class="dc-sb">
+      <div class="dc-ws">
+        <div class="dc-ws-av">P</div>
+        <div>
+          <div class="dc-ws-nm">Paper<em style="font-style:italic;font-family:'Lora',serif">Mind</em></div>
+          <div class="dc-ws-tx">omerren27 · T2 Başlangıç</div>
+        </div>
+      </div>
+      <div class="dc-proj" style="opacity:.55">
+        <div class="dc-pn">Henüz proje seçilmedi</div>
+        <div class="dc-pm">3 / 3 · sağdan birini aç</div>
+      </div>
+
+      <div class="dc-sb-sec">5 Tezgah · 25 Sayfa</div>
+      <div class="dc-sb-row" style="opacity:.7"><span style="width:10px;height:10px;border-radius:2px;background:var(--dc-wb-amber)"></span>Discovery<span class="dc-co">1.1–1.5</span></div>
+      <div class="dc-sb-row" style="opacity:.7"><span style="width:10px;height:10px;border-radius:2px;background:var(--dc-wb-amber)"></span>Curation<span class="dc-co">2.1–2.5</span></div>
+      <div class="dc-sb-row" style="opacity:.7"><span style="width:10px;height:10px;border-radius:2px;background:var(--dc-wb-teal)"></span>GapAtlas<span class="dc-co">3.1–3.5</span></div>
+      <div class="dc-sb-row" style="opacity:.5;cursor:not-allowed" title="T3+"><span style="width:10px;height:10px;border-radius:2px;background:var(--dc-wb-amber)"></span>Authoring<span class="dc-co">4.1–4.4 🔒</span></div>
+      <div class="dc-sb-row" style="opacity:.5;cursor:not-allowed" title="T3+"><span style="width:10px;height:10px;border-radius:2px;background:var(--dc-wb-gold)"></span>Defense<span class="dc-co">5.1–5.6 🔒</span></div>
+
+      <div class="dc-sb-tools">
+        <div class="dc-sb-row"><span style="font-size:14px">⚙</span>Ayarlar</div>
+        <div class="dc-sb-row"><span style="font-size:14px">↗</span>Çıkış</div>
+      </div>
+    </aside>
+
+    <!-- ── D14 Pusula Rotası (no project = silhouette) ── -->
+    <header class="dc-top">
+      <div class="dc-route" style="opacity:.4">
+        <div class="dc-node"><div class="dc-circ">D</div><div class="dc-lbl">Discovery</div></div>
+        <div class="dc-line"></div>
+        <div class="dc-node"><div class="dc-circ">C</div><div class="dc-lbl">Curation</div></div>
+        <div class="dc-line"></div>
+        <div class="dc-node"><div class="dc-circ teal" style="background:#cbd5e1;border-color:#cbd5e1">G</div><div class="dc-lbl">Gap</div></div>
+        <div class="dc-line"></div>
+        <div class="dc-node"><div class="dc-circ">A</div><div class="dc-lbl">Authoring</div></div>
+        <div class="dc-line"></div>
+        <div class="dc-node"><div class="dc-circ gold" style="background:#cbd5e1;border-color:#cbd5e1">S</div><div class="dc-lbl">Savunma</div></div>
+      </div>
+      <div class="dc-top-r">
+        <div class="dc-search">⌕ ara · proje, makale, kavram…</div>
+        <div class="dc-uav">O</div>
+      </div>
+    </header>
+
+    <!-- ── Main · projeler panosu ── -->
+    <main class="dc-main">
+      <div class="dc-h-row">
+        <div>
+          <h1 class="dc-h1">Projelerim</h1>
+          <div class="dc-sub">Hangisine dön, hangisine yeni başla? Sistem geçen ay neyi öğrendi, hangi katman bekliyor — bir bakışta.</div>
+        </div>
+        <button class="dc-cta">＋ Yeni proje</button>
+      </div>
+
+      <!-- Tier matrisi (T2 active) -->
+      <div class="dc-tier">
+        <div class="dc-tier-h"><span>Tier · erişim matrisi</span><span style="color:var(--dc-accent)">T2 · Başlangıç</span></div>
+        <div class="dc-tier-row"><span class="dc-tg">T0</span><span class="dc-nm">Anonim</span><span class="dc-ac">Vitrin Q · 3 makale önizleme, profilsiz</span><span class="dc-lm">Standart</span></div>
+        <div class="dc-tier-row"><span class="dc-tg">T1</span><span class="dc-nm">Ücretsiz</span><span class="dc-ac">Q1 5 mk · Kabuk · Ayarlar (+ paid unlock)</span><span class="dc-lm">Standart</span></div>
+        <div class="dc-tier-row act"><span class="dc-tg">T2</span><span class="dc-nm">Başlangıç</span><span class="dc-ac">+ Discovery · Curation · GapAtlas (yazım/savunma kapalı)</span><span class="dc-lm">Standart</span></div>
+        <div class="dc-tier-row"><span class="dc-tg">T3</span><span class="dc-nm">Akademik</span><span class="dc-ac">+ Authoring · Defense (tüm 25 sayfa açık)</span><span class="dc-lm">Standart</span></div>
+        <div class="dc-tier-row"><span class="dc-tg">T4</span><span class="dc-nm">Pro</span><span class="dc-ac">Hepsi · tutarlı sentez · uzun bağlam</span><span class="dc-lm">Gemini 2.5 Pro</span></div>
+      </div>
+
+      <!-- Projeler grid -->
+      <div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px">
+          <h2 class="dc-h2">Aktif projeler</h2>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--dc-ink-faint);letter-spacing:.04em">3 / 3 · T2 sınırı</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+
+          <!-- Proje α — stage 2.3 (Curation) -->
+          <article class="dc-card b-amber">
+            <div class="dc-chips">
+              <span class="dc-chip ok">aktif</span>
+              <span class="dc-chip">Curation · 2.3</span>
+              <span class="dc-chip acc">son: 4 saat önce</span>
+            </div>
+            <div class="dc-card-t">Adolescent Screen Time &amp; Sleep Quality</div>
+            <div class="dc-card-m">başlatıldı 2026-04-12 · <em>3 anchor kilitli</em> · cluster 18 alt-tema</div>
+            <div class="dc-mini-route">
+              <div class="dc-mn done">D</div><div class="dc-ml done"></div>
+              <div class="dc-mn active">C</div><div class="dc-ml"></div>
+              <div class="dc-mn">G</div><div class="dc-ml"></div>
+              <div class="dc-mn">A</div><div class="dc-ml"></div>
+              <div class="dc-mn">S</div>
+            </div>
+            <div class="dc-card-act">
+              <button class="dc-btn primary">2.3'e dön →</button>
+              <button class="dc-btn">timeline</button>
+            </div>
+          </article>
+
+          <!-- Proje β — stage 4.2 (Authoring locked at T2) -->
+          <article class="dc-card b-teal">
+            <div class="dc-chips">
+              <span class="dc-chip">aktif</span>
+              <span class="dc-chip">GapAtlas · 3.4</span>
+              <span class="dc-chip">son: dün</span>
+            </div>
+            <div class="dc-card-t">Workplace Burnout &amp; Recovery Interventions</div>
+            <div class="dc-card-m">başlatıldı 2026-03-08 · <em>gap-matrix hazır, Δ atlas çiziliyor</em></div>
+            <div class="dc-mini-route">
+              <div class="dc-mn done">D</div><div class="dc-ml done"></div>
+              <div class="dc-mn done">C</div><div class="dc-ml partial"></div>
+              <div class="dc-mn active">G</div><div class="dc-ml"></div>
+              <div class="dc-mn">A</div><div class="dc-ml"></div>
+              <div class="dc-mn">S</div>
+            </div>
+            <div class="dc-card-act">
+              <button class="dc-btn primary">3.4'e dön →</button>
+              <button class="dc-btn adv">A bekliyor (T3)</button>
+            </div>
+          </article>
+
+          <!-- Proje γ — stage 1.2 (idle 2 weeks) -->
+          <article class="dc-card">
+            <div class="dc-chips">
+              <span class="dc-chip">arşivde değil</span>
+              <span class="dc-chip">Discovery · 1.2</span>
+              <span class="dc-chip red">2 hafta inaktif</span>
+            </div>
+            <div class="dc-card-t">Climate Anxiety &amp; Pro-environmental Behaviour</div>
+            <div class="dc-card-m">başlatıldı 2026-04-22 · <em>henüz konu daraltılmadı</em></div>
+            <div class="dc-mini-route">
+              <div class="dc-mn active">D</div><div class="dc-ml"></div>
+              <div class="dc-mn">C</div><div class="dc-ml"></div>
+              <div class="dc-mn">G</div><div class="dc-ml"></div>
+              <div class="dc-mn">A</div><div class="dc-ml"></div>
+              <div class="dc-mn">S</div>
+            </div>
+            <div class="dc-card-act">
+              <button class="dc-btn primary">1.2'ye dön →</button>
+              <button class="dc-btn">arşivle</button>
+            </div>
+          </article>
+
+          <!-- + Yeni proje (dashed CTA) -->
+          <article class="dc-card dashed">
+            <div class="dc-plus" style="font-size:24px;color:var(--dc-accent);margin-bottom:6px">＋</div>
+            <div class="dc-plus">Yeni proje başlat</div>
+            <div style="font-size:11px;color:var(--dc-ink-faint);margin-top:4px;font-family:'Inter',sans-serif">Onboarding'den miras: 3 alan, 7 alt-alan</div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Aylık öneri panel -->
+      <div class="dc-rec">
+        <div class="dc-rec-h">
+          <div>
+            <h2 class="dc-h2" style="font-size:16px">Bu ay senin için</h2>
+            <div style="font-size:11.5px;color:var(--dc-ink-faint);margin-top:2px;font-family:'JetBrains Mono',monospace">recommendation engine · batch 2026-05-01</div>
+          </div>
+          <span class="dc-chip acc">deneysel</span>
+        </div>
+        <article class="dc-card b-frontier" style="margin-bottom:0">
+          <div class="dc-chips">
+            <span class="dc-chip acc">Proje α için</span>
+            <span class="dc-chip">cluster benzerlik 0.87</span>
+            <span class="dc-chip ok">w-ESTRA frontier</span>
+          </div>
+          <div class="dc-card-t">Smartphone use and circadian disruption in adolescents</div>
+          <div class="dc-card-m">2024 · J Sleep Res · IF 5.4 · <em>cesur · derin</em> · CD-index 0.31</div>
+        </article>
+        <div class="dc-rec-q">"Geçen ay önerdiğim 3 makaleden 2'sini havuza aldın. Bu ay biraz daha cesur bir aday seçtim — kabul edersen profil sinyalin güncellenir."</div>
+      </div>
+
+    </main>
+
+    <!-- ── D16 Chatbox (Kabuk = empty state) ── -->
+    <aside class="dc-chat">
+      <div class="dc-chat-h"><span class="dc-d"></span>Danışman</div>
+      <div class="dc-chat-empty">
+        <div style="font-size:36px;opacity:.4">✦</div>
+        <div class="dc-ce-h">Bir projeye gir, sohbet orada başlar.</div>
+        <div class="dc-ce-s">Kabuk seviyesinde danışman uyur — proje seçtiğinde uyanır, o projenin anchor'larıyla.</div>
+      </div>
+      <div class="dc-chat-in">
+        <input type="text" placeholder="proje seçilmeden mesaj yok…" disabled>
+        <button disabled style="opacity:.4">↑</button>
+      </div>
+    </aside>
+
+    <!-- ── D15 Sticky Note FAB ── -->
+    <button class="dc-note-fab"><span class="dc-ic">✎</span>Hızlı not</button>
+  </section>
+
+  <!-- ═══ Teknik kart · philosophy + simple + back/front/data + wow + delta + io ═══ -->
+  <aside class="dc dc-spec">
+    <div class="dc-spec-row">
+      <span class="dc-spec-k">Felsefe</span>
+      <span class="dc-spec-v"><em>Hangi projeye dön, hangisine yeni başla?</em> Pano = tek-bakış. Tier = şeffaf paywall. Aylık öneri = sessiz öğrenmenin kanıtı (recommendation engine'in geçen ayki seçimini bu ay sana hatırlatır).</span>
+    </div>
+    <div class="dc-spec-row">
+      <span class="dc-spec-k">Sade tarif</span>
+      <span class="dc-spec-v">Tüm projeler tek ekranda. Yenisine başla, eskisine devam et, tier matrisinden hangi sayfalara erişimin olduğunu gör. Kabuk'ta danışman uyur — proje seçince anchor-bilinçli olarak uyanır.</span>
+    </div>
+    <div class="dc-spec-row">
+      <span class="dc-spec-k">Back</span>
+      <span class="dc-spec-v"><code>GET /api/project</code> → <code>list[ProjectListItem{id, name, status, current_stage, updated_at}]</code> · <code>POST /api/project</code> (create + onboarding miras: <code>inherited_field_ids</code>, <code>inherited_subfield_ids</code>, <code>inherited_research_focus</code>) · <code>GET /api/project/{id}</code> (full read, P094+ anchor wire) · auth: Supabase service role + manuel <code>.eq("user_id", uid)</code> zırh (RLS bypass safety)</span>
+    </div>
+    <div class="dc-spec-row">
+      <span class="dc-spec-k">Front</span>
+      <span class="dc-spec-v">D9 sidebar 260px (workspace + proje slot + 5 tezgah · 25 sayfa) · D14 pusula rotası (Kabuk'ta dim — proje yok) · <b>tier matrisi</b> 5 satır · <b>proje kartları</b> (D5/D6 band-canon: stage chip + mini-route 5 nokta + tier-locked CTA) · <b>aylık öneri</b> panel (D6 frontier band) · D16 chatbox empty-state · D15 sticky note FAB</span>
+    </div>
+    <div class="dc-spec-row">
+      <span class="dc-spec-k">Data</span>
+      <span class="dc-spec-v"><code>projects</code> (uuid id, user_id, name, status active/archived, <code>current_stage</code> CHECK <code>^[1-5]\.[1-6]$</code>, inherited_*[], created_at, updated_at) · <code>project_anchor</code> (P094+ wire, henüz None placeholder) · <code>project_cluster</code> (preview chip) · <code>user_profiles</code> (tier metadata) · <code>user_quota</code> (proje limiti) · <code>summary_cache</code> (recommendation batch çıktısı)</span>
+    </div>
+
+    <div class="dc-spec-section wow">
+      <div class="dc-sl">Wow</div>
+      <span class="dc-spec-v">"Geçen ay önerdiğim 3 makaleden 2'sini havuza aldın." Sessiz öğrenmenin somut kanıtı — kullanıcı sistemin onun beğeni-uzayını öğrendiğini görür. Tier matrisi şeffaf paywall: T3 ne açıyor, görerek karar verir.</span>
+    </div>
+    <div class="dc-spec-section delta">
+      <div class="dc-sl">Δ v1.1</div>
+      <span class="dc-spec-v">Funnel barı (D/C/G/A/S 5-adım) artık kart içinde D5/D6 mini-route → her proje stage'i D9 canon'una göre <code>1.1–5.6</code> formatında görünür. Eski "step is-active" yerine band-renkli mini circle. Sidebar app-içi gerçek nav (D9 esinli) — mock chrome'undan ayrı.</span>
+    </div>
+    <div class="dc-spec-section io">
+      <div class="dc-sl">I/O</div>
+      <span class="dc-spec-v"><b>Girdi:</b> kullanıcı oturumu + tier (user_profiles) + proje listesi (projects) <b>→ Çıktı:</b> proje seçimi (URL → /project/{id}, stage'a yönlendirme) · veya <b>＋ Yeni</b> (POST /api/project, onboarding miras kopyalama) · veya tier yükseltme (Ayarlar 5.6).</span>
+    </div>
+  </aside>
+
+</div>
+
+<!-- ============== DISCOVERY ============== -->
+<div class="section-h discovery">Discovery <span class="role">3 sayfa · rol: <b>GÖSTERİR</b> — manzara, anchor-nötr</span></div>
+<div class="section-sub">Kullanıcı görür, okur, kafasında olgunlaştırır. Boşluk işaretleme YOK.</div>
+
+<!-- D1 -->
+<div class="page-block" id="p-1">
+  <div class="page-block-h"><span class="pid discovery">1</span><h3>Keşfet</h3><span class="role-tag">Sohbet → Cluster → Anchor</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Alan → konu → başlıca yayın, tek akışta. Önce sohbet (Stage A), sonra cluster (Stage A.2), sonra anchor (Stage B + Lock).</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Sistem "Hangi alanda çalışıyorsun?" diye sorar. Cevabı okur, alanın 5-15 alt başlığını t-ESTRA olgunluk renklerinde haritalar (Core/Emerging/Golden/Weak). Alt başlık → temel makale önerisi. 3 anchor seçilir, kilitlenir.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Sohbet kutusu (3-5 mesaj) · alan aday kartları · 5-15 alt-konu ısı haritası (t-ESTRA renk-kod) · alt-konu paneli + temel makaleler · 3-anchor seçim + lock CTA · funnel barı + r-ESTRA mini-rozet (üst)</span>
+          <b>Back</b><span><b>Stage A</b> <code>POST .../research-area/messages</code> ✅ · <b>Stage A.2</b> <code>POST /api/discovery/topics</code> (cluster) · <b>Stage B</b> <code>POST .../anchor-candidates</code> ✅ · <b>Lock</b> <code>POST .../anchor/lock</code> ⏳ · <b>HyDE</b> → fan-out → RRF → bgem3 rerank → margin gate</span>
+          <b>Data</b><span><code>dim_paper_field</code> · <code>fact_paper_topic</code> · <code>fact_paper_centrality</code> · Pinecone bgem3 (1024d cosine) · çıktı: <code>project_cluster</code> + <code>project_anchor</code></span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Cluster rengi = t-ESTRA klasifikasyonu (Core / Emerging Frontier / Golden Zone / Weak Signal). Alanın olgunluğu rakiplerin aksine tek bakışta görünür.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Sinyal #4 <b>HyDE→RRF→rerank</b> mock'a enjekte: anchor candidate'larında her paper'ın HyDE skoru görünür (mock'ta yoktu). F9 staged endpoint mimarisi netleşti (P094✅ · P095✅ · P096⏳). Funnel barı + r-ESTRA mini-rozet ilave.</div>
+      <div class="io"><b>Girdi:</b> boş proje <span class="arrow">→</span> <b>Çıktı:</b> project_cluster + project_anchor (3 lock)</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · 4-aşamalı akış <span class="tag">Proje α</span></div>
+      <div class="funnel">
+        <div class="step is-active">Discovery</div><div class="step is-todo">Curation</div>
+        <div class="step is-todo">Gap</div><div class="step is-todo">Yazım</div><div class="step is-todo">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA · cesur 0.71 · derin 0.58</span></div>
+
+      <div class="bubble bot"><div class="who">PaperMind</div>Hangi alanda çalışıyorsun?</div>
+      <div class="bubble user"><div class="who">Omer · proje α</div>Ergenlerde ekran kullanımı ve uyku kalitesi</div>
+      <div class="bubble bot"><div class="who">PaperMind · stage A</div>Anladım. Aşağıdaki 5-15 alt-konuyu t-ESTRA olgunluk haritasında gösteriyorum:</div>
+
+      <div class="cluster-grid">
+        <div class="cluster-cell cell.golden cell golden"><span class="name">Akşam ekranı &amp; melatonin</span><span class="meta">Golden · 287 paper</span></div>
+        <div class="cluster-cell cell core"><span class="name">Genel ekran-uyku ilişkisi</span><span class="meta">Core · 1,432 paper</span></div>
+        <div class="cluster-cell cell emerging"><span class="name">Pasif sensör actigraphy</span><span class="meta">Emerging · 89 paper</span></div>
+        <div class="cluster-cell cell golden"><span class="name">Sosyal medya &amp; uyku gecikme</span><span class="meta">Golden · 213 paper</span></div>
+        <div class="cluster-cell cell weak"><span class="name">VR &amp; uyku (yeni)</span><span class="meta">Weak · 14 paper</span></div>
+        <div class="cluster-cell cell core"><span class="name">Ekran tipi etkisi (TV/PC/cep)</span><span class="meta">Core · 902 paper</span></div>
+        <div class="cluster-cell cell emerging"><span class="name">Algı vs gerçek maruziyet</span><span class="meta">Emerging · 67 paper</span></div>
+        <div class="cluster-cell cell weak"><span class="name">Bedtime saat değişkeni</span><span class="meta">Weak · 8 paper</span></div>
+        <div class="cluster-cell cell core"><span class="name">Depresyon co-occurrence</span><span class="meta">Core · 624 paper</span></div>
+        <div class="cluster-cell cell golden"><span class="name">Mavi ışık filtreleri etkisi</span><span class="meta">Golden · 156 paper</span></div>
+      </div>
+
+      <div style="font-size:10.5px;color:var(--muted);margin:6px 0;display:flex;gap:10px;flex-wrap:wrap">
+        <span><span class="b" style="background:#1e3a8a;color:#fff;padding:1px 5px;border-radius:3px">Core</span> oturmuş</span>
+        <span><span class="b" style="background:#fbbf24;color:#78350f;padding:1px 5px;border-radius:3px">Emerging</span> yükseliyor</span>
+        <span><span class="b" style="background:#10b981;color:#fff;padding:1px 5px;border-radius:3px">Golden</span> altın bölge</span>
+        <span><span class="b" style="background:#e7e5e4;color:#525252;padding:1px 5px;border-radius:3px">Weak</span> zayıf</span>
+      </div>
+
+      <div class="sim-h" style="margin-top:14px">Stage B · Anchor Adayları (HyDE+RRF) <span class="tag">top-5</span></div>
+      <div class="paper-card">
+        <div class="pt">P-001 · Screen exposure and sleep latency in teens: a meta-analysis</div>
+        <div class="pm"><span>2023</span><span>312 atıf</span><span>HyDE: 0.94</span><span>RRF: 0.88</span><span>betweenness 0.31</span></div>
+        <div class="badges"><span class="b muhur-yesil">RCR×FCR×SJR 🟢</span><span class="b" style="background:var(--gapatlas);color:#fff">Golden Zone</span></div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-007 · Bedtime smartphone exposure: a systematic review</div>
+        <div class="pm"><span>2022</span><span>489 atıf</span><span>HyDE: 0.91</span><span>RRF: 0.83</span><span>betweenness 0.27</span></div>
+        <div class="badges"><span class="b muhur-yesil">🟢</span><span class="b" style="background:#1e3a8a;color:#fff">Core</span></div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-013 · Adolescent self-report bias in screen use studies</div>
+        <div class="pm"><span>2024</span><span>78 atıf</span><span>HyDE: 0.86</span><span>RRF: 0.79</span><span>betweenness 0.18</span></div>
+        <div class="badges"><span class="b muhur-sari">🟡 RCR sapma</span><span class="b" style="background:#fbbf24;color:#78350f">Emerging</span></div>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px">
+        <button style="flex:1;padding:7px;background:var(--discovery);color:#fff;border:none;border-radius:4px;font-weight:600;font-size:11px;cursor:pointer">3 anchor seç → Lock</button>
+        <button style="padding:7px 12px;background:var(--paper-3);border:none;border-radius:4px;font-size:11px;cursor:pointer">↻ alternatif aday</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D2 -->
+<div class="page-block" id="p-2">
+  <div class="page-block-h"><span class="pid discovery">2</span><h3>Nabız</h3><span class="role-tag">Atılım · Uyanış · Otorite</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Cluster zaman içinde nasıl davranıyor — anomaliler, otoriteler, baskın mecralar.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Seçtiğin konunun son yıllardaki seyrini görürsün: hangi yıl atılım olmuş, kim oyunu değiştirmiş (★), kimin çalışması yıllar sonra fark edilmiş (◆), Novelty/Uzzi yüksek paperlar (◇), hangi yazarlar konuyu biçimlendirmiş, hangi dergiler öne çıkıyor.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Zaman serisi (yıl × paper + atıf hızı eğrisi) · ★ Disruption + ◆ Sleeping Beauty + ◇ Novelty rozetli paperlar · top-10 yazar tablosu · top-12 mecra (Q1-Q4 dağılımı) · funnel barı + r-ESTRA</span>
+          <b>Back</b><span><code>GET /api/discovery/biblio?topic_id=</code> · Funk-Owen CD index · Sleeping Beauty B-coef · Uzzi Novelty · h-index sıralama · validator çift mühür (SJR)</span>
+          <b>Data</b><span><code>fact_paper_velocity</code> · <code>fact_paper_quality_v3</code> (Uzzi novelty) · <code>fact_paper_centrality</code> · <code>dim_author</code> (22.65M) · <code>dim_journal</code> SCImago</span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Disruption ★ + Sleeping Beauty ◆ + Novelty ◇ aynı eksende işaretli. ★ tıkla → "hangi referansı yıktı" mini-paneli.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Sinyal #21 <b>Novelty/Uzzi (◇)</b> Nabız'a enjekte (mock'ta C1'de gizliydi). Yazar isim listesinden yazar profili linkine bağlandı. Funnel barı + r-ESTRA ilave.</div>
+      <div class="io"><b>Girdi:</b> cluster <span class="arrow">→</span> <b>Çıktı:</b> bibliometric_snapshot</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · zaman serisi <span class="tag">Konu: Akşam ekranı &amp; melatonin</span></div>
+      <div class="funnel">
+        <div class="step is-active">Discovery</div><div class="step is-todo">Curation</div>
+        <div class="step is-todo">Gap</div><div class="step is-todo">Yazım</div><div class="step is-todo">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA · cesur 0.71</span></div>
+
+      <div style="background:#fafaf7;padding:10px;border-radius:5px;border:1px solid var(--rule-2)">
+        <div class="tl"><span class="yr">2017</span><div class="bar" style="width:18%"></div><span class="v">8 paper · 0.4×</span></div>
+        <div class="tl"><span class="yr">2018</span><div class="bar" style="width:24%"></div><span class="v">14 · 0.6×</span></div>
+        <div class="tl"><span class="yr">2019</span><div class="bar" style="width:38%"></div><span class="v">22 · 0.9×</span></div>
+        <div class="tl"><span class="yr">2020</span><div class="bar" style="width:62%;background:linear-gradient(90deg,var(--amber),var(--gapatlas))"></div><span class="v">★ 41 · 1.4×</span></div>
+        <div class="tl"><span class="yr">2021</span><div class="bar" style="width:82%"></div><span class="v">59 · 2.1×</span></div>
+        <div class="tl"><span class="yr">2022</span><div class="bar" style="width:88%"></div><span class="v">68 · 2.4×</span></div>
+        <div class="tl"><span class="yr">2023</span><div class="bar" style="width:91%"></div><span class="v">73 · 2.7×</span></div>
+        <div class="tl"><span class="yr">2024</span><div class="bar" style="width:74%"></div><span class="v">52 · 1.9×</span></div>
+        <div class="tl"><span class="yr">2025</span><div class="bar" style="width:46%"></div><span class="v">28 · 1.3× <span style="color:var(--muted-2)">(Q3)</span></span></div>
+      </div>
+
+      <div class="sim-h" style="margin-top:12px">Anomali işaretli paperlar</div>
+      <div class="paper-card">
+        <div class="pt">P-019 · Blue light suppression and sleep onset (2020) <span class="b disrupt" style="margin-left:5px">★ CD 0.42</span></div>
+        <div class="pm"><span>1,847 atıf</span><span>SJR Q1: 4.2</span><span>"hangi referansı yıktı?"</span></div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-046 · Pre-2010 study on melatonin baseline (2008) <span class="b beauty" style="margin-left:5px">◆ B 8.7</span></div>
+        <div class="pm"><span>uyandı 2020</span><span>cumulative 423 → 1,289</span></div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-053 · Atypical biomarker model (2022) <span class="b novelty" style="margin-left:5px">◇ Uzzi 92%</span></div>
+        <div class="pm"><span>89 atıf</span><span>%92 novel kombinasyon</span></div>
+      </div>
+
+      <div class="sim-h" style="margin-top:12px">Top yazar &amp; mecra</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px">
+        <div>
+          <b style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)">YAZAR</b>
+          <div style="margin-top:3px">A. Yazar 1 · h-index 47 · 12 paper</div>
+          <div>B. Yazar 2 · h-index 38 · 8 paper</div>
+          <div>C. Yazar 3 · h-index 29 · 6 paper</div>
+        </div>
+        <div>
+          <b style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)">MECRA (Q1-Q4)</b>
+          <div style="margin-top:3px">Q1 Dergi 1 · SJR 4.2 · 38 paper</div>
+          <div>Q1 Dergi 2 · SJR 3.6 · 21 paper</div>
+          <div>Q2 Dergi 3 · SJR 1.8 · 14 paper</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D3 -->
+<div class="page-block" id="p-3">
+  <div class="page-block-h"><span class="pid discovery">3</span><h3>Kavram Ağı</h3><span class="role-tag">Eş-anma + ontoloji</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Konunun fikir dokusu — köprü kavramları yakala, yükselenleri gör.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Konunun kavramları ağ olarak çıkar. Hangi terimler hep birlikte (kalın bağlar), hangileri uzak alanları bağlar (köprü), hangi yeni terimler yükseliyor? Tıkla → kavramı besleyen makaleler.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Force-directed kavram ağı (11 kategori renk-kodlu) · kategori filtre chip'leri (FLD/CON/THR/MTD/ANL/SMP/CTX/INS/OUT/TEC/TMP) · seçili kavram paneli (komşular, yükseliş eğrisi, top-5 makale) · funnel + r-ESTRA</span>
+          <b>Back</b><span><code>GET /api/discovery/concept-network?topic_id=</code> · KeyBERT extraction · NPMI eş-anma · betweenness + eigenvector centrality</span>
+          <b>Data</b><span><code>fact_paper_topic</code> · <code>concept_node</code> · <code>concept_edge</code> · 11-kategori ontoloji <code>dim_term</code></span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Köprü kavram rozetı — yüksek betweenness + düşük frekans = altın yıldız. Tipik kelime bulutlarının kaçırdığı sinyali yakalar.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>11-kategori ontolojisi A2 Bölüm Yazımı'na rol-aware atıf filtresi olarak köprülendi (sinyal #35'in tam kullanımı). Funnel + r-ESTRA ilave.</div>
+      <div class="io"><b>Girdi:</b> cluster <span class="arrow">→</span> <b>Çıktı:</b> concept_node, concept_edge</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · kavram ağı (force-directed) <span class="tag">11 kategori</span></div>
+      <div class="funnel">
+        <div class="step is-active">Discovery</div><div class="step is-todo">Curation</div>
+        <div class="step is-todo">Gap</div><div class="step is-todo">Yazım</div><div class="step is-todo">Savunma</div>
+      </div>
+
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;font-size:10px">
+        <span style="padding:2px 7px;background:#1e3a8a;color:#fff;border-radius:10px">FLD · alan</span>
+        <span style="padding:2px 7px;background:#7c3aed;color:#fff;border-radius:10px">CON · kavram</span>
+        <span style="padding:2px 7px;background:#b91c1c;color:#fff;border-radius:10px">THR · teori</span>
+        <span style="padding:2px 7px;background:#047857;color:#fff;border-radius:10px">MTD · yöntem</span>
+        <span style="padding:2px 7px;background:#0891b2;color:#fff;border-radius:10px">ANL · analiz</span>
+        <span style="padding:2px 7px;background:#92400e;color:#fff;border-radius:10px">SMP · örneklem</span>
+        <span style="padding:2px 7px;background:#9333ea;color:#fff;border-radius:10px">CTX · bağlam</span>
+        <span style="padding:2px 7px;background:var(--paper-3);color:#525252;border-radius:10px">+4 daha</span>
+      </div>
+
+      <div class="netbox">
+        <svg viewBox="0 0 460 230" style="width:100%;height:100%">
+          <line x1="80" y1="50" x2="180" y2="80" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="180" y1="80" x2="280" y2="60" stroke="#9ca3af" stroke-width="3"/>
+          <line x1="180" y1="80" x2="220" y2="160" stroke="#9ca3af" stroke-width="2.5"/>
+          <line x1="280" y1="60" x2="380" y2="100" stroke="#9ca3af" stroke-width="1.5"/>
+          <line x1="220" y1="160" x2="120" y2="190" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="220" y1="160" x2="350" y2="180" stroke="#9ca3af" stroke-width="3"/>
+          <line x1="280" y1="60" x2="220" y2="160" stroke="#fbbf24" stroke-width="2" stroke-dasharray="3 2"/>
+          <line x1="380" y1="100" x2="350" y2="180" stroke="#9ca3af" stroke-width="1"/>
+          <circle cx="80" cy="50" r="14" fill="#1e3a8a"/><text x="80" y="54" text-anchor="middle" fill="#fff" font-size="8" font-family="Inter">uyku</text>
+          <circle cx="180" cy="80" r="20" fill="#7c3aed"/><text x="180" y="84" text-anchor="middle" fill="#fff" font-size="9" font-family="Inter">ekran</text>
+          <circle cx="280" cy="60" r="16" fill="#7c3aed"/><text x="280" y="64" text-anchor="middle" fill="#fff" font-size="8" font-family="Inter">melatonin</text>
+          <circle cx="380" cy="100" r="11" fill="#b91c1c"/><text x="380" y="104" text-anchor="middle" fill="#fff" font-size="7" font-family="Inter">sirkadiyen</text>
+          <circle cx="220" cy="160" r="13" fill="#fbbf24" stroke="#92400e" stroke-width="3"/><text x="220" y="164" text-anchor="middle" fill="#78350f" font-size="7" font-family="Inter">aktigrafi★</text>
+          <circle cx="120" cy="190" r="10" fill="#047857"/><text x="120" y="194" text-anchor="middle" fill="#fff" font-size="7" font-family="Inter">RI-CLPM</text>
+          <circle cx="350" cy="180" r="12" fill="#92400e"/><text x="350" y="184" text-anchor="middle" fill="#fff" font-size="7" font-family="Inter">ergen</text>
+        </svg>
+      </div>
+      <div style="font-size:10px;color:var(--muted);margin-top:5px;font-style:italic">★ Köprü kavram: betweenness 0.41 · sıklık düşük (12 paper) · MTD ↔ CTX bağlıyor → "altın yıldız"</div>
+
+      <div class="sim-h" style="margin-top:12px">Seçili: aktigrafi (MTD)</div>
+      <div class="kvp">
+        <span class="k">eigenvector</span><span class="v">0.27</span>
+        <span class="k">betweenness</span><span class="v"><b>0.41 (köprü)</b></span>
+        <span class="k">eş-anma top</span><span class="v">ekran (npmi 0.62) · uyku (0.58) · melatonin (0.43)</span>
+        <span class="k">yükseliş</span><span class="v">+340% (2020-2024)</span>
+        <span class="k">top-5 paper</span><span class="v">P-019, P-046, P-053, P-074, P-088</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============== CURATION ============== -->
+<div class="section-h curation">Curation <span class="role">2 sayfa · rol: <b>SEÇER</b> — kişisel havuz</span></div>
+<div class="section-sub">Anchor-merkezli kişisel kürasyon. Toplama + okuma tek havuzda.</div>
+
+<!-- C1 -->
+<div class="page-block" id="p-4">
+  <div class="page-block-h"><span class="pid curation">4</span><h3>Connected Papers</h3><span class="role-tag">Anchor → bibcoupling 50</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Anchor'ın etrafındaki paper komşuluğu — bibliographic coupling lookup, hesap yok. Pasaport <b>sticky panel</b>'de (eskiden hover-card şişti).</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Anchor merkezli ağ; sistem aynı kaynaklardan beslenen 50-100 akrabasını gösterir. Renk yıl, boyut atıf, çizgi yakınlık. Filtreler: yıl/benzerlik/tema/★◆◇ rozet. Sepete at. Pasaport sağ panelde (tıkla → 6 sinyal).</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Anchor-merkezli ağ (renk=yıl, boyut=atıf, kalınlık=yakınlık) · benzerlik/yıl/tema filtreleri · ★◆◇ rozet filtre · komşu detay paneli + sepet · <b>ESTRA Pasaport sticky panel</b> (sağda · 6 satır radar) · funnel + r-ESTRA</span>
+          <b>Back</b><span><code>GET /api/discovery/anchor?paper_id=</code> · bibliographic coupling top-50 lookup · 2-hop opsiyonel (co-citation)</span>
+          <b>Data</b><span><code>fact_paper_bibcoupling_top50</code> (4.81 GB · 643M satır) · <code>mart_cocitation_pair</code> · <code>fact_paper_quality_v3</code> + <code>fact_paper_w_estra</code> · çıktı: <code>curation_pool</code></span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>ESTRA Pasaport sticky panel: RCR · FCR · SJR · Disruption (CD) · Novelty (Uzzi) · w-ESTRA 7-boyut radar — paper tıklandığında sağda kalıcı görünür (eski hover-card 7 sinyali sıkıştırıyordu, bilişsel yük yüksekti).</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Pasaport <b>hover→sticky</b> bölünmesi (yoğunluk dengesi). Sinyal #21 Novelty Uzzi rozet havuza taşındı (D2 ile cross-page). Wow #5: ★◆◇ rozet filtreleri eklendi. Funnel + r-ESTRA.</div>
+      <div class="io"><b>Girdi:</b> başlıca yayın (anchor) <span class="arrow">→</span> <b>Çıktı:</b> curation_pool</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · anchor ağı + pasaport <span class="tag">P-001 merkez</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-active">Curation</div>
+        <div class="step is-todo">Gap</div><div class="step is-todo">Yazım</div><div class="step is-todo">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA · cesur 0.71 · derin 0.58</span></div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px">
+        <div class="netbox" style="height:200px">
+          <svg viewBox="0 0 280 200" style="width:100%;height:100%">
+            <line x1="140" y1="100" x2="60" y2="60" stroke="#cbd5e1" stroke-width="2"/>
+            <line x1="140" y1="100" x2="220" y2="50" stroke="#cbd5e1" stroke-width="3"/>
+            <line x1="140" y1="100" x2="240" y2="130" stroke="#cbd5e1" stroke-width="2"/>
+            <line x1="140" y1="100" x2="80" y2="160" stroke="#cbd5e1" stroke-width="1.5"/>
+            <line x1="140" y1="100" x2="170" y2="170" stroke="#cbd5e1" stroke-width="2.5"/>
+            <line x1="140" y1="100" x2="40" y2="120" stroke="#cbd5e1" stroke-width="1.5"/>
+            <circle cx="140" cy="100" r="20" fill="#b45309"/><text x="140" y="104" text-anchor="middle" fill="#fff" font-size="10">P-001</text>
+            <circle cx="60" cy="60" r="9" fill="#1d4ed8"/><text x="60" y="79" text-anchor="middle" fill="#1e40af" font-size="7">P-019</text>
+            <circle cx="220" cy="50" r="13" fill="#7c3aed"/><text x="220" y="69" text-anchor="middle" fill="#6b21a8" font-size="7">P-046</text>
+            <circle cx="240" cy="130" r="8" fill="#10b981"/><text x="240" y="148" text-anchor="middle" fill="#065f46" font-size="7">P-053</text>
+            <circle cx="80" cy="160" r="7" fill="#ef4444"/><text x="80" y="176" text-anchor="middle" fill="#991b1b" font-size="7">P-074</text>
+            <circle cx="170" cy="170" r="11" fill="#f59e0b"/><text x="170" y="188" text-anchor="middle" fill="#78350f" font-size="7">P-088</text>
+            <circle cx="40" cy="120" r="6" fill="#0891b2"/><text x="40" y="135" text-anchor="middle" fill="#155e75" font-size="7">P-091</text>
+          </svg>
+        </div>
+        <div style="background:#fafaf7;padding:8px;border:1px solid var(--rule-2);border-radius:5px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;font-weight:600">ESTRA Pasaport</div>
+          <div style="font-weight:700;font-size:11px;margin-bottom:6px">P-019 · 2020</div>
+          <div class="kvp" style="font-size:9.5px">
+            <span class="k">RCR</span><span class="v"><b>2.4</b></span>
+            <span class="k">FCR</span><span class="v"><b>1.9</b></span>
+            <span class="k">SJR</span><span class="v"><b>Q1 · 4.2</b></span>
+            <span class="k">CD</span><span class="v">★ 0.42</span>
+            <span class="k">Uzzi</span><span class="v">62%</span>
+          </div>
+          <div class="radar-tbl" style="margin-top:6px">
+            <span class="rb">canon</span><div class="rbar"><div style="width:78%;height:100%;background:var(--gapatlas);position:absolute;top:0;left:0;border-radius:3px"></div></div><span class="rv">.78</span>
+            <span class="rb">teorik</span><div class="rbar"><div style="width:64%;height:100%;background:var(--gapatlas);position:absolute;top:0;left:0;border-radius:3px"></div></div><span class="rv">.64</span>
+            <span class="rb">empirik</span><div class="rbar"><div style="width:91%;height:100%;background:var(--gapatlas);position:absolute;top:0;left:0;border-radius:3px"></div></div><span class="rv">.91</span>
+            <span class="rb">methodol.</span><div class="rbar"><div style="width:72%;height:100%;background:var(--gapatlas);position:absolute;top:0;left:0;border-radius:3px"></div></div><span class="rv">.72</span>
+            <span class="rb">replikasyon</span><div class="rbar"><div style="width:34%;height:100%;background:var(--amber);position:absolute;top:0;left:0;border-radius:3px"></div></div><span class="rv">.34</span>
+            <span class="rb">novelty</span><div class="rbar"><div style="width:62%;height:100%;background:var(--gapatlas);position:absolute;top:0;left:0;border-radius:3px"></div></div><span class="rv">.62</span>
+            <span class="rb">ölçek</span><div class="rbar"><div style="width:81%;height:100%;background:var(--gapatlas);position:absolute;top:0;left:0;border-radius:3px"></div></div><span class="rv">.81</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-h" style="margin-top:12px">Filtreler: ★ atılım · ◆ uyanan · ◇ novel · 🟢 mühür · 2020+ <span class="tag">52 paper · seçili 7</span></div>
+      <div class="paper-card">
+        <div class="pt">P-019 · Blue light suppression and sleep onset (2020)</div>
+        <div class="pm"><span>1,847 atıf</span><span>benzerlik 0.84</span></div>
+        <div class="badges"><span class="b muhur-yesil">🟢</span><span class="b disrupt">★ CD 0.42</span><span class="b year">2020</span></div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-046 · Pre-2010 melatonin study (2008, uyandı 2020)</div>
+        <div class="pm"><span>1,289 atıf</span><span>benzerlik 0.61</span></div>
+        <div class="badges"><span class="b muhur-yesil">🟢</span><span class="b beauty">◆ B 8.7</span></div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-053 · Atypical biomarker model (2022)</div>
+        <div class="pm"><span>89 atıf</span><span>benzerlik 0.72</span></div>
+        <div class="badges"><span class="b muhur-sari">🟡</span><span class="b novelty">◇ Uzzi 92%</span></div>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px">
+        <button style="flex:1;padding:7px;background:var(--curation);color:#fff;border:none;border-radius:4px;font-weight:600;font-size:11px;cursor:pointer">Sepete at (3) → Havuzum</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- C2 -->
+<div class="page-block" id="p-5">
+  <div class="page-block-h"><span class="pid curation">5</span><h3>Havuzum</h3><span class="role-tag">6 raf · rol-aware · çift mühür</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Topladıklarım: rol-rafa diz, tıkla oku, alıntıla, dışa aktar. Tek sayfa.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Havuzdaki makaleler 6 rafta (Temel/Ampirik/Yöntem/Sarsıcı/Cephe/Dışla). Sistem rol önerir; kabul/değiştir. Tıkla → özet, TR mini-çeviri (2 satır), alıntı kopyala. Sonunda APA/RIS/BibTeX/DOCX export. Her kart üstünde validator çift mühür rozeti.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>6 raf (Temel/Ampirik/Yöntem/Sarsıcı/Cephe/Dışla) · sürükle-bırak rol değiştirme · kapsama sayaçları · seçili makale okuyucu (Özetle / Çevir / Alıntıla) · çift mühür rozet · ★◆◇ rozet · <b>r-ESTRA uyum %</b> paper-bazında · <b>"Boşluk × bu paper"</b> mini-tahmin · kaynakça indir · funnel + r-ESTRA</span>
+          <b>Back</b><span><code>POST /api/curation/role-suggest</code> · <code>POST /api/translate</code> (EN→TR, 2 satır cache) · validator API'leri (iCite RCR · Dimensions FCR · SCImago SJR) · <code>POST /api/gapatlas/paper-fill-preview</code> (yeni: bu paper hangi M-hücresini doldurur?)</span>
+          <b>Data</b><span><code>project_pool</code> · <code>paper_role</code> · <code>paper_translation_cache</code> · <code>paper_annotation</code> · <code>fact_paper_w_estra</code> · <code>user_style_profile</code> (r-ESTRA) · çıktı: shortlist + APA/RIS/BibTeX/DOCX export</span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Validator çift mühür rozetı + r-ESTRA paper-bazında uyum + boşluk-doldurma tahmini. iCite + Dimensions + SCImago üç bağımsız kaynak; çelişki gizlenmiyor, gösteriliyor.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Sinyal #12 <b>r-ESTRA paper-bazında uyum %</b> her kart üstünde (mock'ta yoktu). Wow #1 <b>"Boşluk × bu paper" inverted lookup</b> mini-rozet — paper hangi M-hücresini doldurur. Wow #5: ★◆◇ rozet havuza taşındı.</div>
+      <div class="io"><b>Girdi:</b> curation_pool <span class="arrow">→</span> <b>Çıktı:</b> shortlist + paper_annotation + export</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · 6 raf <span class="tag">23 paper · doygunluk %72</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-active">Curation</div>
+        <div class="step is-todo">Gap</div><div class="step is-todo">Yazım</div><div class="step is-todo">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA · cesur 0.71</span></div>
+
+      <div style="display:flex;gap:5px;flex-wrap:wrap;font-size:10.5px;margin-bottom:8px">
+        <span style="padding:3px 8px;background:#1e3a8a;color:#fff;border-radius:4px;font-weight:600">Temel · 6</span>
+        <span style="padding:3px 8px;background:#047857;color:#fff;border-radius:4px;font-weight:600">Ampirik · 9</span>
+        <span style="padding:3px 8px;background:#0891b2;color:#fff;border-radius:4px;font-weight:600">Yöntem · 4</span>
+        <span style="padding:3px 8px;background:#b91c1c;color:#fff;border-radius:4px;font-weight:600">Sarsıcı · 2</span>
+        <span style="padding:3px 8px;background:#7c2d12;color:#fff;border-radius:4px;font-weight:600">Cephe · 1</span>
+        <span style="padding:3px 8px;background:var(--paper-3);color:var(--muted);border-radius:4px;font-weight:600">Dışla · 1</span>
+      </div>
+
+      <div class="paper-card">
+        <div class="pt">P-019 · Blue light suppression and sleep onset (2020)</div>
+        <div class="pm"><span>1,847 atıf</span><span>r-ESTRA uyum %88</span><span>M3-Yöntem boşluğu doldurur</span></div>
+        <div class="badges">
+          <span class="b role">Ampirik</span>
+          <span class="b muhur-yesil">RCR×FCR×SJR 🟢</span>
+          <span class="b disrupt">★ CD 0.42</span>
+          <span class="b" style="background:var(--gapatlas);color:#fff">→ G1 M3</span>
+        </div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-046 · Pre-2010 melatonin baseline (2008)</div>
+        <div class="pm"><span>1,289 atıf · uyandı 2020</span><span>r-ESTRA uyum %72</span><span>M5-Bağlam boşluğu doldurur</span></div>
+        <div class="badges">
+          <span class="b role">Temel</span>
+          <span class="b muhur-yesil">🟢</span>
+          <span class="b beauty">◆ B 8.7</span>
+          <span class="b" style="background:var(--gapatlas);color:#fff">→ G1 M5</span>
+        </div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">P-053 · Atypical biomarker model (2022)</div>
+        <div class="pm"><span>89 atıf</span><span>r-ESTRA uyum %94 ⚡</span><span>M7-Atılım boşluğu doldurur</span></div>
+        <div class="badges">
+          <span class="b role">Sarsıcı</span>
+          <span class="b muhur-sari">🟡 RCR sapma</span>
+          <span class="b novelty">◇ Uzzi 92%</span>
+          <span class="b" style="background:var(--gapatlas);color:#fff">→ G1 M7</span>
+        </div>
+      </div>
+
+      <div class="sim-h" style="margin-top:12px">Seçili: P-019 · okuyucu</div>
+      <div style="background:#fff;padding:9px;border:1px solid var(--rule-2);border-radius:5px;font-size:11.5px">
+        <b style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:.04em">TR ÖZET (2 satır)</b>
+        <div style="margin:4px 0;font-style:italic;line-height:1.5">Akşam saatlerinde mavi ışık maruziyetinin melatonin baskılaması yoluyla uyku başlangıcını ortalama 31 dakika geciktirdiği bulundu. Etki büyüklüğü yaşa bağlı (12-15 yaş bandında daha güçlü).</div>
+        <div style="display:flex;gap:5px;margin-top:6px">
+          <button style="padding:4px 8px;background:var(--paper-3);border:none;border-radius:3px;font-size:10px;cursor:pointer">⇄ EN'e dön</button>
+          <button style="padding:4px 8px;background:var(--paper-3);border:none;border-radius:3px;font-size:10px;cursor:pointer">📋 alıntıla</button>
+          <button style="padding:4px 8px;background:var(--paper-3);border:none;border-radius:3px;font-size:10px;cursor:pointer">📌 anotasyon ekle</button>
+          <button style="margin-left:auto;padding:4px 8px;background:var(--curation);color:#fff;border:none;border-radius:3px;font-size:10px;cursor:pointer;font-weight:600">↓ APA</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============== GAPATLAS ============== -->
+<div class="section-h gapatlas">GapAtlas <span class="role">2 sayfa · rol: <b>İŞARETLER</b> — boşluk tespiti</span></div>
+<div class="section-sub">"Boşluğu işaretle" eylemi sadece burada. 8 matris formülü: 0.25×D + 0.20×K + 0.20×E + 0.15×F + 0.20×Y.</div>
+
+<!-- G1 -->
+<div class="page-block" id="p-6">
+  <div class="page-block-h"><span class="pid gapatlas">6</span><h3>Boşluk Atlası</h3><span class="role-tag">8 matris · sweet spot 0.55-0.85</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">8 matrisin hangisinde fırsat var? Hücreleri gör, danışmanla kesiştir, işaretle.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Hangi soru henüz sorulmamış, hangi yöntem o konuda hiç denenmemiş, hangi bağlama bakılmamış? 8 boşluk haritası. Boş hücre = fırsat, parlak = altın fırsat. Sana ve danışmanına en uygun olanı işaretle. <b>Boşluk işaretleme yalnız burada.</b></div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>8 mini ısı haritası (M1-M8) · seçili matris hücre haritası · ★ altın fırsat · "Boşluğu işaretle" butonu · <b>r-ESTRA × a-ESTRA canlı bant</b> sweet spot 0.55-0.85 yeşil · <b>"Bu hücreyi havuzdaki hangi paper en iyi doldurur"</b> inverted lookup · funnel + r-ESTRA</span>
+          <b>Back</b><span><code>POST /api/gapatlas/matrix</code> · 8 boşluk formülü (0.25D + 0.20K + 0.20E + 0.15F + 0.20Y) · a-ESTRA × r-ESTRA kesişim · sweet spot 0.55-0.85 · <code>POST /api/gapatlas/inverse-lookup</code> (yeni)</span>
+          <b>Data</b><span><code>fact_paper_topic</code> · <code>fact_paper_metod</code> · <code>fact_paper_w_estra</code> · <code>fact_paper_bibcoupling_top50</code> · <code>advisor_profile</code> · <code>user_style_profile</code> (r-ESTRA) · çıktı: <code>gap_signal</code> + <code>golden_gap</code></span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>r-ESTRA × a-ESTRA uyum % her hücrede; sweet spot 0.55-0.85 yeşil bant. Öğrenci-danışman dahil edilen tek boşluk haritası. <b>Inverted lookup:</b> hücreye tıkla → havuzdan en iyi dolduran paper.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Wow #1 <b>"hücre × havuz paper" inverted lookup</b> mock'a enjekte. Wow #4 r-ESTRA×a-ESTRA canlı bant şeffaflaştırıldı. Funnel + r-ESTRA ilave.</div>
+      <div class="io"><b>Girdi:</b> havuz + r-ESTRA + a-ESTRA <span class="arrow">→</span> <b>Çıktı:</b> golden_gap (top fırsatlar)</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · 8 matris atlas <span class="tag">M3 seçili</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-done">Curation</div>
+        <div class="step is-active">Gap</div><div class="step is-todo">Yazım</div><div class="step is-todo">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA × a-ESTRA · 0.74 ✓ sweet spot</span></div>
+
+      <div class="matrix-mini">
+        <div class="m"><span class="lbl">M1</span><span class="vl">Konu × Yöntem</span><span class="vl" style="margin-top:4px;color:var(--gapatlas)">3 ★</span></div>
+        <div class="m"><span class="lbl">M2</span><span class="vl">Konu × Bağlam</span><span class="vl" style="margin-top:4px">1 ★</span></div>
+        <div class="m is-active"><span class="lbl" style="color:#065f46">M3</span><span class="vl">Yöntem × Örneklem</span><span class="vl" style="margin-top:4px;color:var(--gapatlas)">★ 4 altın</span></div>
+        <div class="m"><span class="lbl">M4</span><span class="vl">Bağlam × Sonuç</span><span class="vl" style="margin-top:4px">2 ★</span></div>
+        <div class="m"><span class="lbl">M5</span><span class="vl">Konu × Bağlam-2</span><span class="vl" style="margin-top:4px;color:var(--gapatlas)">3 ★</span></div>
+        <div class="m"><span class="lbl">M6</span><span class="vl">Yöntem × Bağlam</span><span class="vl" style="margin-top:4px">1 ★</span></div>
+        <div class="m"><span class="lbl">M7</span><span class="vl">Atılım × Konu</span><span class="vl" style="margin-top:4px;color:var(--gapatlas)">★ 2 altın</span></div>
+        <div class="m"><span class="lbl">M8</span><span class="vl">Sonuç × Yöntem</span><span class="vl" style="margin-top:4px">0</span></div>
+      </div>
+
+      <div class="sim-h" style="margin-top:12px">M3 · Yöntem × Örneklem hücre haritası <span class="tag">8×8</span></div>
+      <div class="heat-grid">
+        <div class="heat-cell h2">12</div><div class="heat-cell h3">21</div><div class="heat-cell h0">0</div><div class="heat-cell h1">3</div><div class="heat-cell h0">0</div><div class="heat-cell h2">9</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div>
+        <div class="heat-cell h3">28</div><div class="heat-cell h4">52</div><div class="heat-cell h1">5</div><div class="heat-cell h0">0</div><div class="heat-cell h1">2</div><div class="heat-cell h2">14</div><div class="heat-cell h1">4</div><div class="heat-cell h0">0</div>
+        <div class="heat-cell h0">0</div><div class="heat-cell h1">3</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h1">2</div><div class="heat-cell h0">0</div><div class="heat-cell h5">★</div>
+        <div class="heat-cell h2">14</div><div class="heat-cell h3">19</div><div class="heat-cell h0">0</div><div class="heat-cell h5">★</div><div class="heat-cell h0">0</div><div class="heat-cell h2">11</div><div class="heat-cell h1">3</div><div class="heat-cell h0">0</div>
+        <div class="heat-cell h1">2</div><div class="heat-cell h2">8</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h1">3</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div>
+        <div class="heat-cell h3">22</div><div class="heat-cell h4">41</div><div class="heat-cell h1">4</div><div class="heat-cell h0">0</div><div class="heat-cell h1">3</div><div class="heat-cell h2">10</div><div class="heat-cell h0">0</div><div class="heat-cell h5">★</div>
+        <div class="heat-cell h0">0</div><div class="heat-cell h1">3</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h5">★</div>
+        <div class="heat-cell h2">7</div><div class="heat-cell h3">17</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h1">5</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div>
+      </div>
+      <div style="font-size:10px;color:var(--muted);margin-top:5px">x = analiz tipi (1-8) · y = örneklem tipi (1-8) · sayı = paper sayısı · ★ = altın boşluk (sweet spot içi)</div>
+
+      <div class="sim-h" style="margin-top:12px">Seçili: hücre [3,8] · ★ altın</div>
+      <div class="kvp">
+        <span class="k">tarif</span><span class="v">RI-CLPM × pasif sensör örneklem</span>
+        <span class="k">paper sayısı</span><span class="v"><b>0</b> (boşluk)</span>
+        <span class="k">D · derinlik</span><span class="v">0.78</span>
+        <span class="k">K · keskinlik</span><span class="v">0.82</span>
+        <span class="k">E · evren</span><span class="v">0.71</span>
+        <span class="k">F · fırsat</span><span class="v">0.69</span>
+        <span class="k">Y · yapıt-uyum</span><span class="v">0.74</span>
+        <span class="k">toplam</span><span class="v"><b>0.75 (golden)</b></span>
+        <span class="k">a-ESTRA × r-ESTRA</span><span class="v"><b>0.74 ✓ sweet spot</b></span>
+      </div>
+
+      <div style="margin-top:8px;padding:8px;background:#dbeafe;border-radius:4px;font-size:11px;line-height:1.55">
+        <b style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--blue);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:3px">↩ Inverted lookup · havuzundan en yakın</b>
+        <b>P-019</b> (uyum %88) · bu paperı havuza alırsan <b>M3 hücresini %62 doldurur</b><br>
+        <b>P-053</b> (uyum %94) · M7 hücresine daha yakın
+      </div>
+
+      <button style="margin-top:8px;width:100%;padding:9px;background:var(--gapatlas);color:#fff;border:none;border-radius:5px;font-weight:600;font-size:12px;cursor:pointer">★ Bu hücreyi boşluk olarak işaretle → G2'ye geç</button>
+    </div>
+  </div>
+</div>
+
+<!-- G2 -->
+<div class="page-block" id="p-7">
+  <div class="page-block-h"><span class="pid gapatlas">7</span><h3>Soru &amp; Başlık</h3><span class="role-tag">3 mod RQ + özgünlük 3 API</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Boşluktan araştırma sorusuna ve başlığa — 3 mod öneri, literatür doğrulama.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>İşaretli boşluktan üç stilde RQ: temkinli (YL), dengeli (PhD), iddialı (deneyimli). 3 başlık adayı + özgünlük denetimi (OpenAlex + S2 + Pinecone). 230-keyword title profile ile atıf-potansiyeli bandı.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>3 stilde RQ (temkinli/dengeli/iddialı) · hipotez taslağı · 3 başlık adayı · özgünlük rozet (🟢/⚠/🔴) · <b>atıf projeksiyonu bandı</b> (alt-üst) · funnel + r-ESTRA</span>
+          <b>Back</b><span><code>POST /api/gapatlas/rq-title</code> · LLM RQ + hipotez · matris-özgü başlık şablonu · 3 bağımsız özgünlük denetimi (OpenAlex + Semantic Scholar + Pinecone semantic) · 230-keyword title profile</span>
+          <b>Data</b><span><code>golden_gap</code> · <code>research_question</code> · <code>title_proposal</code> · validator API trio · 230-keyword profile · çıktı: araştırma paketi → Authoring</span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>3 bağımsız API'den özgünlük mührü (OpenAlex · Semantic Scholar · Pinecone). 230-keyword title profile ile atıf-potansiyeli bandı.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Atıf-potansiyel bandı projeksiyonu zenginleştirildi (alt-üst aralık + benzer paper kanıt zinciri). Funnel + r-ESTRA ilave.</div>
+      <div class="io"><b>Girdi:</b> golden_gap <span class="arrow">→</span> <b>Çıktı:</b> RQ + hipotez + başlık paketi → Authoring</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · 3-mod RQ + başlık <span class="tag">M3[3,8] altın</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-done">Curation</div>
+        <div class="step is-active">Gap</div><div class="step is-todo">Yazım</div><div class="step is-todo">Savunma</div>
+      </div>
+
+      <div style="background:#fafaf7;padding:9px;border:1px solid var(--rule-2);border-radius:5px;margin-bottom:8px">
+        <b style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:.05em">RQ · TEMKİNLİ (YL)</b>
+        <div style="margin:4px 0;font-size:12px;line-height:1.5;font-style:italic">Pasif sensör (actigraphy) verisi kullanılarak ergenlerde akşam ekran maruziyetinin uyku başlangıç süresine etkisi nasıl değişir?</div>
+        <div style="font-size:10px;color:var(--muted)">uygulanabilirlik 🟢 · risk 🟢 · etki düşük</div>
+      </div>
+      <div style="background:#fafaf7;padding:9px;border:1px solid var(--gapatlas);border-radius:5px;margin-bottom:8px">
+        <b style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--gapatlas);letter-spacing:.05em">RQ · DENGELİ (PhD) · ÖNERİLEN ✓</b>
+        <div style="margin:4px 0;font-size:12px;line-height:1.5;font-style:italic">RI-CLPM çerçevesinde, pasif sensörle ölçülen akşam ekran maruziyeti, ergenlerde uyku gecikmesini özbildirim ölçümlerinden farklı bir şekilde mi öngörür?</div>
+        <div style="font-size:10px;color:var(--muted)">uygulanabilirlik 🟢 · risk 🟡 örneklem · etki orta-yüksek</div>
+      </div>
+      <div style="background:#fafaf7;padding:9px;border:1px solid var(--rule-2);border-radius:5px;margin-bottom:10px">
+        <b style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:.05em">RQ · İDDİALI</b>
+        <div style="margin:4px 0;font-size:12px;line-height:1.5;font-style:italic">Pasif sensör tabanlı RI-CLPM, ergenlerde ekran-uyku ilişkisinin nedensel yönünü, mevcut özbildirim çalışmalarının raporladığı yönü tersine çevirir mi?</div>
+        <div style="font-size:10px;color:var(--muted)">uygulanabilirlik 🟡 · risk 🔴 reddi yüksek · etki yüksek</div>
+      </div>
+
+      <div class="sim-h" style="margin-top:8px">3 başlık adayı · özgünlük denetimi</div>
+      <div class="paper-card">
+        <div class="pt">"Passive screen exposure and sleep onset in adolescents: an RI-CLPM design"</div>
+        <div class="pm"><span>OpenAlex 🟢 0 eşleşme</span><span>S2 🟢 0</span><span>Pinecone 🟡 sim 0.81 (P-019)</span></div>
+        <div style="margin-top:5px;font-size:10.5px">
+          <b style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--amber-3);letter-spacing:.05em;text-transform:uppercase">Atıf projeksiyonu (5 yıl)</b>
+          <div class="pbar" style="margin-top:3px"><div class="fl" style="width:62%"></div></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-2)">[34, 87] atıf · medyan 58 · 230-keyword title profile</span>
+        </div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">"RI-CLPM evidence for actigraphy-measured screen time on teen sleep latency"</div>
+        <div class="pm"><span>OpenAlex 🟢</span><span>S2 🟢</span><span>Pinecone 🟢 sim 0.74</span></div>
+        <div style="margin-top:5px;font-size:10.5px">
+          <div class="pbar" style="margin-top:3px"><div class="fl" style="width:54%;background:var(--gapatlas)"></div></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-2)">[28, 71] atıf · medyan 47</span>
+        </div>
+      </div>
+      <div class="paper-card">
+        <div class="pt">"Reverse causality reconsidered: passive sensors in screen-sleep research"</div>
+        <div class="pm"><span>OpenAlex 🔴 1 eşleşme</span><span>S2 🟡 sim 0.78</span><span>Pinecone 🔴 sim 0.91</span></div>
+        <div style="font-size:10px;color:var(--red);margin-top:3px;font-style:italic">⚠ Benzer başlık var (2023, sim 0.91) — yeniden yaz öner</div>
+      </div>
+
+      <button style="margin-top:8px;width:100%;padding:9px;background:var(--gapatlas);color:#fff;border:none;border-radius:5px;font-weight:600;font-size:12px;cursor:pointer">Araştırma paketini Authoring'e taşı →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ AUTHORING ============ -->
+<div class="section-h authoring">Authoring <span class="role">3 sayfa · rol: <b>YAZAR</b> — faithfulness denetimli atıf-bağı yazım</span></div>
+
+<!-- A1 -->
+<div class="page-block" id="p-8">
+  <div class="page-block-h"><span class="pid authoring">8</span><h3>Literatür Yazımı</h3><span class="role-tag">cite-bound · faithfulness</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Boş sayfa korkusu yapay zekâyla bitmez — denetimli atıf-bağı yazımıyla biter. Her cümle bir kanıta bağlı; bağsız iddia <b>kırmızı altı çizik</b>. "İlk taslağı sen aç, ben dolduruyum" anti-pattern; PaperMind <b>cümle başına</b> kanıt zinciri kurar.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Havuzdan paper'ları açıp paragraf paragraf <b>denetimli paraphrase</b>: cümle yazılır → arka planda faithfulness skoru → 0.70 altı kırmızı + alternatif paper önerisi. Aynı paper 5+ tekrar = <b>over-citation uyarısı</b>. Kanıtsız iddia altı çizik. Yan panelde paper kartı, bağlam, ★◆◇ rozet (D2/G1'den propagasyon).</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Sol: paragraf editörü (cümle-bazlı highlight) · sağ: aktif paper kartı + ESTRA Pasaport (D2'den propagasyon) · alt: faithfulness şeridi (canlı 0-1 skor + renk) · over-citation sayacı · funnel + <b>r-ESTRA paper-bazında</b> mini şerit (eklenen her atıfla cesur/derin/tarafsızlık güncellenir)</span>
+          <b>Back</b><span><code>POST /api/authoring/sentence</code> {sentence, evidence_paper_ids[]} → <code>cite-verifier</code> + <code>faithfulness-scorer</code> · <code>POST /api/authoring/draft-paragraph</code> · <code>GET /api/authoring/r-estra-live?session_id=</code></span>
+          <b>Data</b><span><code>fact_paper_quality_v3</code> + <code>fact_paper_w_estra</code> + <code>mart_paper_keybert_extraction</code> · session: <code>fact_user_authoring_session</code> (cümle log + faithfulness) · <code>fact_user_r_estra_paper_level</code> (sinyal #12 — paper-level r-ESTRA agregasyonu)</span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>3 motor aynı sayfada: <b>(a)</b> faithfulness < 0.70 → kırmızı şerit + alternatif paper otomatik öneri (Pinecone bgem3 ile semantik en yakın), <b>(b)</b> over-citation tespiti (aynı P-NNN ≥5 → "tek bir paper'a gömülmüşsün — varyant öner"), <b>(c)</b> atıfsız iddia altı çizik (S1'den geri-besleme: aynı detection motoru).</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Sinyal #12 (r-ESTRA paper-bazında) görünür kılındı — eklenen her paper r-ESTRA'yı oynatır, kullanıcı kendi tarzının güncel halini canlı görür. Wow #3 (auto-suggest), wow #6 (over-citation), wow #8 (atıfsız altı çizik) entegre. Funnel: Yazım is-active.</div>
+      <div class="io"><b>Girdi:</b> RQ + havuz + outline (G2'den) <span class="arrow">→</span> <b>Çıktı:</b> denetimli literatür taslağı → A2</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · cümle-bazlı faithfulness <span class="tag">RQ G2'den</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-done">Curation</div>
+        <div class="step is-done">Gap</div><div class="step is-active">Yazım</div><div class="step is-todo">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA · cesur 0.74 ↑.03 · derin 0.61 ↑.02 · tarafsız 0.58</span></div>
+
+      <div style="background:#fff;border:1px solid var(--rule-2);border-radius:5px;padding:9px;margin-bottom:8px;font-family:'Lora',serif;font-size:12.5px;line-height:1.7">
+        <span class="sent ok">Ergenlerde akşam ekran maruziyetinin uyku başlangıç süresi üzerindeki etkisi son on yılda artan biçimde belgelenmiştir <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--curation)">[P-019; P-046]</span>.</span>
+        <span class="sent warn">Bu etkinin nedensel yönü, çoğunlukla özbildirim ölçümlerine dayanan kesitsel çalışmaların bir kısıtıdır <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--amber-3)">[P-019]</span>.</span>
+        <span class="sent err">Pasif sensörlerle yapılan çalışmaların sayısı sınırlı kalmıştır ve bu durum literatürün önemli bir boşluğudur.</span>
+        <span class="sent ok">RI-CLPM gibi panel modeller, eş-zamanlı ölçümlerin nedensel yönlülüğünü ayrıştırmak için uygun çerçeveler sunar <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--curation)">[P-088]</span>.</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:5px;padding:8px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#991b1b;letter-spacing:.05em;text-transform:uppercase;font-weight:700">⚠ Faithfulness 0.41 · cümle 3</div>
+          <div style="font-size:10.5px;color:#7f1d1d;margin-top:4px">"Pasif sensörlerle yapılan çalışmaların sayısı sınırlı…" — kanıt yok. <b>Öneri:</b> P-053 (atypical biomarker, 2022, sim 0.81) bu iddiayı destekliyor mu?</div>
+          <button style="margin-top:5px;width:100%;padding:5px;background:#dc2626;color:#fff;border:none;border-radius:3px;font-size:10px;font-weight:600;cursor:pointer">P-053 ekle · faithfulness'ı yeniden ölç</button>
+        </div>
+        <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:5px;padding:8px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#92400e;letter-spacing:.05em;text-transform:uppercase;font-weight:700">⚠ Over-citation · P-019</div>
+          <div style="font-size:10.5px;color:#78350f;margin-top:4px">P-019 bu paragrafta 5 kez. Varyant: P-046 (uyanan ◆ B 8.7) ya da P-088 (RI-CLPM canon) ile çeşitlendir.</div>
+        </div>
+      </div>
+
+      <div style="background:#fafaf7;padding:8px;border:1px solid var(--rule-2);border-radius:5px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:600;margin-bottom:5px">Aktif paper · ESTRA Pasaport (D2/G1 propagasyonu)</div>
+        <div style="font-weight:700;font-size:11px">P-019 · 2020 · Q1 (4.2)</div>
+        <div class="badges" style="margin-top:4px"><span class="b muhur-yesil">🟢 mühür</span><span class="b disrupt">★ CD 0.42</span><span class="b role">CON · canon</span></div>
+        <div class="kvp" style="margin-top:5px;font-size:9.5px"><span class="k">RCR</span><span class="v">2.4</span><span class="k">FCR</span><span class="v">1.9</span><span class="k">faithfulness ort.</span><span class="v"><b>0.83</b> (4 cümle)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A2 -->
+<div class="page-block" id="p-9">
+  <div class="page-block-h"><span class="pid authoring">9</span><h3>Bölüm Yazımı</h3><span class="role-tag">11-kategori atıf rolü</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Atıf, "kim demiş" değildir; <b>nasıl konumlanmış</b> olduğudur. Method bölümü canon-tanım ister, Bulgular karşılaştırma ister, Tartışma sınır ister. PaperMind 11 kategoriye böler (FLD/CON/THR/MTD/ANL/SMP/CTX/INS/OUT/TEC/TMP) ve <b>bölüm-aware filtreleme</b> yapar.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Bölüm seç (Giriş / Yöntem / Bulgular / Tartışma) → ilgili atıf rolleri öne çıkar (Yöntem ⇒ MTD/ANL/SMP). Kullanıcı paragraf yazarken yan panelde rol-bazlı paper alt-kümesi. A1'in faithfulness + over-citation + atıfsız iddia motorları aynen burada. Bölüm sınırlarına geçişte özet kontrol.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Üst: bölüm seçici sekmeli (Giriş / Yöntem / Bulgular / Tartışma) · sol: editör · sağ: <b>rol-aware paper drawer</b> (FLD/CON/THR/MTD/ANL/SMP/CTX/INS/OUT/TEC/TMP renkli ikonlu) · alt: faithfulness + over-citation + atıfsız iddia (A1 motorları) · funnel + r-ESTRA</span>
+          <b>Back</b><span><code>GET /api/authoring/role-aware-papers?section=method&pool_id=</code> · <code>POST /api/authoring/section-coherence</code> (bölüm sınır geçiş tutarlılık) · A1'in <code>cite-verifier</code> + <code>faithfulness-scorer</code> tekrar kullanılır</span>
+          <b>Data</b><span><code>fact_paper_citation_role_v2</code> (sinyal #35 — 11 kategori) · <code>mart_pool_role_distribution</code> (havuz × bölüm × rol matrisi) · session: <code>fact_user_authoring_session</code></span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>11-kategori atıf rolü <b>bölümle eşleşmiyorsa uyarır</b>: "Yöntem bölümünde TEC etiketli paper (P-074, ölçek aracı) yerine MTD/ANL bekleniyor — örn. P-088 (RI-CLPM canon)." Bu, sadece atıf değil, <b>atıfın bilimsel rolü</b> üzerinden kalibrasyon — rakiplerde yok.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Sinyal #35 (11-kategori atıf rolü) görünür kılındı. Bölüm-rol eşleme matrisi yeni. Wow #5 ★◆◇ rozet propagasyonu burada da sürer (tıklanan paper rozetiyle birlikte yapışık). Funnel + r-ESTRA.</div>
+      <div class="io"><b>Girdi:</b> A1 taslağı + havuz <span class="arrow">→</span> <b>Çıktı:</b> bölüm-yapılı tam metin → A3</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · Yöntem bölümü · rol-aware <span class="tag">section=method</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-done">Curation</div>
+        <div class="step is-done">Gap</div><div class="step is-active">Yazım</div><div class="step is-todo">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA · cesur 0.74 · derin 0.66 ↑.05 · tarafsız 0.61</span></div>
+
+      <div style="display:flex;gap:0;margin-bottom:8px;border-bottom:2px solid var(--rule-2);font-size:11px">
+        <div style="padding:5px 10px;color:var(--muted)">Giriş</div>
+        <div style="padding:5px 10px;background:var(--authoring);color:#fff;font-weight:700;border-radius:4px 4px 0 0">Yöntem ✓</div>
+        <div style="padding:5px 10px;color:var(--muted)">Bulgular</div>
+        <div style="padding:5px 10px;color:var(--muted)">Tartışma</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:8px">
+        <div style="background:#fff;border:1px solid var(--rule-2);border-radius:5px;padding:9px;font-family:'Lora',serif;font-size:12px;line-height:1.7">
+          <span class="sent ok">Çalışma, RI-CLPM çerçevesinde tasarlanmıştır <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--curation)">[P-088 · MTD]</span>.</span>
+          <span class="sent ok">Akşam ekran maruziyeti, kalça-monteli aktigrafiyle objektif olarak ölçülmüştür <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--curation)">[P-053 · TEC]</span>.</span>
+          <span class="sent warn">Örneklem 14-17 yaş arası 312 ergenden oluşmaktadır <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--amber-3)">[P-074 · SMP]</span>.</span>
+          <span class="sent err">Veri analizi standart paket programlarla yapılmıştır.</span>
+          <div style="font-size:10px;color:var(--red);margin-top:6px;font-style:italic">⚠ Yöntem cümlesi atıfsız (TEC/ANL bekleniyor).</div>
+        </div>
+
+        <div style="background:#fafaf7;padding:8px;border:1px solid var(--rule-2);border-radius:5px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:600;margin-bottom:5px">Yöntem bölümü · rol önerisi</div>
+          <div class="atif-d" style="background:#fff;padding:6px;border-radius:4px;margin-bottom:5px">
+            <span class="b role" style="background:#3b82f6">MTD</span>
+            <div style="margin-top:3px;font-size:11px;font-weight:700">P-088 · 2017</div>
+            <div style="font-size:10px;color:var(--muted)">RI-CLPM canon — yöntem bölümü için ana referans</div>
+            <div class="badges" style="margin-top:3px"><span class="b muhur-yesil">🟢</span><span class="b">canon</span></div>
+          </div>
+          <div class="atif-d" style="background:#fff;padding:6px;border-radius:4px;margin-bottom:5px">
+            <span class="b role" style="background:#7c3aed">ANL</span>
+            <div style="margin-top:3px;font-size:11px;font-weight:700">P-091 · 2021</div>
+            <div style="font-size:10px;color:var(--muted)">lavaan paket implementasyonu — analiz akışı</div>
+            <div class="badges" style="margin-top:3px"><span class="b muhur-yesil">🟢</span><span class="b novelty">◇ Uzzi 71%</span></div>
+          </div>
+          <div class="atif-d" style="background:#fff;padding:6px;border-radius:4px">
+            <span class="b role" style="background:#10b981">SMP</span>
+            <div style="margin-top:3px;font-size:11px;font-weight:700">P-019 · 2020</div>
+            <div style="font-size:10px;color:var(--muted)">benzer örneklem stratejisi (ergen, n≥250)</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:5px;padding:7px;margin-top:8px;font-size:10.5px;color:#1e3a8a">
+        <b>Bölüm-rol uyum matrisi:</b> Yöntem bölümünde 4 atıf var → 1 MTD ✓ · 1 TEC ✓ · 1 SMP ⚠ (zayıf) · 1 atıfsız ⚠. <b>Hedef:</b> en az 2 MTD + 1 ANL.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A3 -->
+<div class="page-block" id="p-10">
+  <div class="page-block-h"><span class="pid authoring">10</span><h3>Akademik Üslup</h3><span class="role-tag">sycophant kilidi · sessiz öğrenme</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">"Yapay zekâ sesi" gerçek bir koku verir; akademize ederken kullanıcının <b>kendi sesini</b> bozmaz, sadece üslup-disiplini uygular. Üst-ses (LLM) bastırılır; alt-ses (kullanıcı tarzı) korunur. <b>Sycophant kilidi</b>: AI ısrarla "haklısınız" diyerek tarzı bozarsa kullanıcı kilitler, sistem 24h öğrenmez.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Yazılı paragraf seçilir → "akademize" değil "tut + budama" modu (passive voice oranı, hedge ifadelerinin tutarlığı, terminoloji yumuşaklığı). <b>Sycophant lock</b> görünür: AI son 7 günde 10 hayır almışsa <b>otomatik kilitlenir</b>, tarz önerisi durur. <b>Sessiz öğrenme defteri</b>: kullanıcının kabul/red ettiği önerilerin 30g log'u — şeffaflık.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Sol: paragraf editörü · sağ üst: <b>sycophant lock göstergesi</b> (yeşil/sarı/kırmızı + son 7g hayır sayısı) · sağ alt: <b>sessiz öğrenme defteri</b> (son 30g · kabul/red oranı + tarz patern listesi) · alt: stil metrik şeridi (passive %, hedge tutarlığı, jargon yoğunluğu) · funnel + r-ESTRA</span>
+          <b>Back</b><span><code>POST /api/authoring/style-suggest</code> {paragraph, user_voice_profile} · <code>GET /api/authoring/sycophant-status?user_id=</code> (10/7g eşik) · <code>GET /api/authoring/silent-ledger?days=30</code></span>
+          <b>Data</b><span><code>fact_user_voice_profile</code> (passive %, hedge dağılımı, tipik kelime yoğunluğu) · <code>fact_user_style_suggestion_log</code> (kabul/red + zamanlama → sycophant detection) · <code>mart_user_silent_ledger_30d</code></span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>2 yön aynı yüzeyde: <b>(a)</b> Sycophant kilidi otomatik — AI 7 günde 10+ red alırsa öneri durur (kullanıcı tarzı bozulmasın). <b>(b)</b> Sessiz öğrenme defteri 30 gün şeffaf log: "AI hangi tarz önerini reddettiniz, hangi tipoloji öğrendi" görünür. KVKK uyumu + şeffaflık.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Sycophant lock görünürleştirildi (eski mock'ta sadece backend'di). Sessiz öğrenme defteri 30g panel olarak getirildi. r-ESTRA <b>tarafsızlık ekseni</b> burada en aktif — yazım stili tarafsızlık eksenini doğrudan oynatır. Funnel.</div>
+      <div class="io"><b>Girdi:</b> A2 bölüm-yapılı metin <span class="arrow">→</span> <b>Çıktı:</b> akademize tam metin → S1</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · stil disiplini + sycophant şeffaflığı <span class="tag">paragraf 4/12</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-done">Curation</div>
+        <div class="step is-done">Gap</div><div class="step is-active">Yazım</div><div class="step is-todo">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA · cesur 0.74 · derin 0.66 · tarafsız 0.69 ↑.08</span></div>
+
+      <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:8px">
+        <div style="background:#fff;border:1px solid var(--rule-2);border-radius:5px;padding:9px;font-family:'Lora',serif;font-size:12px;line-height:1.7">
+          <div style="font-size:9.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px">Asıl cümle (kullanıcı)</div>
+          "Bizim çalışmamız, mevcut literatürde ihmal edilmiş olan pasif sensör yaklaşımını kullanarak ergenlerde uyku gecikmesini gerçekten doğru bir şekilde ölçmüştür."
+          <div style="font-size:9.5px;color:var(--authoring);font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;margin-top:9px">Tut + buda (önerilen)</div>
+          <div style="font-style:italic;color:#374151">"Bu çalışma, literatürde sınırlı kalan pasif sensör yaklaşımıyla ergenlerde uyku gecikmesini ölçmüştür."</div>
+          <div style="margin-top:6px;display:flex;gap:5px">
+            <button style="padding:5px 9px;background:var(--authoring);color:#fff;border:none;border-radius:3px;font-size:10px;font-weight:600;cursor:pointer">Kabul</button>
+            <button style="padding:5px 9px;background:#fff;color:var(--ink);border:1px solid var(--rule-2);border-radius:3px;font-size:10px;cursor:pointer">Red (sebep: yumuşatma)</button>
+          </div>
+          <div style="font-size:9.5px;color:var(--muted);margin-top:7px">Δ passive 0% · hedge yok · gereksiz "gerçekten doğru" → "ölçmüştür" + epistemik nötr.</div>
+        </div>
+
+        <div>
+          <div style="background:#dcfce7;border:1px solid #86efac;border-radius:5px;padding:8px;margin-bottom:6px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#14532d;letter-spacing:.05em;text-transform:uppercase;font-weight:700">🔓 Sycophant lock · YEŞİL</div>
+            <div style="font-size:10.5px;color:#14532d;margin-top:3px">Son 7g · 2 red / 14 kabul → sağlıklı oran. Kilit aktif değil.</div>
+          </div>
+          <div style="background:#fafaf7;padding:8px;border:1px solid var(--rule-2);border-radius:5px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:700;margin-bottom:5px">Sessiz öğrenme defteri · 30g</div>
+            <div style="font-size:10px;line-height:1.6">
+              <div>• "gerçekten / aslında" → kaldır (12 kez kabul)</div>
+              <div>• passive → active (8/14 kabul · karışık)</div>
+              <div style="color:#dc2626">• "ihmal edilmiş" → "sınırlı kalmış" (3 kez red — sen <b>yumuşatma istemiyorsun</b>)</div>
+              <div>• epistemik hedge ("muhtemelen") → koru (9 kabul)</div>
+              <div style="color:var(--muted);margin-top:4px;font-style:italic">→ Sistem 30g'da kullanıcı tarzını öğrenmiş: tarafsızlık + güçlü iddia + jargon yumuşatma yok.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:9px;font-size:10px">
+        <div style="background:#fafaf7;padding:6px;border:1px solid var(--rule-2);border-radius:4px;text-align:center">
+          <div style="color:var(--muted);font-size:9px">passive</div><div style="font-weight:700">14% 🟢</div>
+        </div>
+        <div style="background:#fafaf7;padding:6px;border:1px solid var(--rule-2);border-radius:4px;text-align:center">
+          <div style="color:var(--muted);font-size:9px">hedge tutarlığı</div><div style="font-weight:700">0.81 🟢</div>
+        </div>
+        <div style="background:#fffbeb;padding:6px;border:1px solid #fde68a;border-radius:4px;text-align:center">
+          <div style="color:var(--muted);font-size:9px">jargon yoğunluğu</div><div style="font-weight:700">0.62 🟡</div>
+        </div>
+        <div style="background:#fafaf7;padding:6px;border:1px solid var(--rule-2);border-radius:4px;text-align:center">
+          <div style="color:var(--muted);font-size:9px">cümle uzunluğu</div><div style="font-weight:700">19 kel 🟢</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DEFENSE ============ -->
+<div class="section-h defense">Defense <span class="role">4 sayfa · rol: <b>SINAR</b> — yazımdan önce sürtünme katmanı</span></div>
+
+<!-- S1 -->
+<div class="page-block" id="p-11">
+  <div class="page-block-h"><span class="pid defense">11</span><h3>Savunma Provası</h3><span class="role-tag">atıfsız iddia · ters-bakış G1</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Yazılan metni kendi gözünle okumak yetmez — <b>hakem gözüne</b> ihtiyaç vardır. Önce metin, sonra hakem değil; her cümle düzeyinde sürtünme. Atıfsız iddia tespiti aynı motorla A1/A2'de var; burada <b>tüm metin düzeyinde panoramik</b> tarama + G1 ters-bakış (boşluk hâlâ açık mı?).</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Yazılan metnin tamamı tek dosya olarak yüklenir → atıfsız iddia raporu (cümle cümle), <b>G1 ters-bakış</b> (sistemin RQ'lerin hâlâ G1'de boşluk olduğunu doğrulaması — yazım sürerken yeni paper çıkmış olabilir), zayıf iddia listesi, "tartışma bölümü sınır cümlesi eksik" tipi makro uyarılar.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Sol: tam metin önizleme (atıfsız altı çizik · zayıf iddia turuncu · G1-onay yeşil) · sağ üst: <b>G1 ters-bakış paneli</b> (boşluk kapanmış mı? son 90g yeni paper sayısı) · sağ alt: hakem-gözü özet (5 sürtünme noktası) · funnel: Savunma is-active</span>
+          <b>Back</b><span><code>POST /api/defense/full-text-scan</code> (atıfsız + zayıf + makro) · <code>GET /api/defense/gap-still-open?rq_id=</code> (G1'in <code>fact_paper_gap_v3</code> tablosuna yeniden bakar) · <code>POST /api/defense/argument-graph</code> (cümleler arası iddia zinciri)</span>
+          <b>Data</b><span><code>fact_paper_gap_v3</code> + <code>mart_user_authoring_session</code> · <code>fact_paper_publication_recent</code> (90g window — boşluk kapanma kontrolü) · çıktı: <code>fact_user_defense_session</code></span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Wow #1 (inverted lookup) burada en güçlü: kullanıcı G1'de "şu RQ boşlukta" demişti; sistem 30 gün sonra Savunma'ya gelinen anda "<b>P-117 Şubat 2026'da yayınlandı, RQ'nun bir kısmını kapatmış olabilir</b>" der. Bu, akademide gerçek bir risk (tez teslim edilirken aynı anda başkası yayınlar) — kimse otomatize etmiyor.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>G1 ters-bakış paneli yeni (eski mock'ta yoktu). Atıfsız iddia motoru A1/A2'den paylaşılan kod (tek motor). r-ESTRA cesur ekseni burada izlenir (savunmasal gerileme tespiti).</div>
+      <div class="io"><b>Girdi:</b> A3 akademize tam metin <span class="arrow">→</span> <b>Çıktı:</b> sürtünme raporu → S2</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · tam metin tarama + G1 ters-bakış <span class="tag">12 sf · 47 cümle</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-done">Curation</div>
+        <div class="step is-done">Gap</div><div class="step is-done">Yazım</div><div class="step is-active">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA · cesur 0.71 ↓.03 · derin 0.66 · tarafsız 0.69</span></div>
+
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:5px;padding:9px;margin-bottom:8px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#1e3a8a;letter-spacing:.05em;text-transform:uppercase;font-weight:700">🔄 G1 ters-bakış · boşluk hâlâ açık mı?</div>
+        <div style="margin-top:5px;font-size:11px;color:#1e3a8a;line-height:1.6">
+          RQ "pasif sensör + RI-CLPM" boşluğu (M3 [3,8] altın) son 90g'da <b>yeni 3 paper</b>: <b>P-117</b> (Şubat 2026, RI-CLPM ✓ pasif sensör ✗) · <b>P-119</b> (Mart 2026, aktigrafi ✓ RI-CLPM ✗) · <b>P-121</b> (Nisan 2026, kesitsel).
+          <br><b style="color:#dc2626">⚠ P-117 boşluğun yöntem ayağını kısmen kapatmış</b> — tartışma bölümünde "P-117 ile farkımız: pasif sensör + RI-CLPM kombinasyonu" cümlesi ekle.
+        </div>
+        <button style="margin-top:5px;padding:5px 9px;background:#1d4ed8;color:#fff;border:none;border-radius:3px;font-size:10px;font-weight:600;cursor:pointer">P-117'yi tartışmaya enjekte et →</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:8px">
+        <div style="background:#fff;border:1px solid var(--rule-2);border-radius:5px;padding:9px;font-family:'Lora',serif;font-size:11.5px;line-height:1.7">
+          <div style="font-size:9.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px">Tartışma · paragraf 3</div>
+          <span class="sent err">Çalışmamız, ergenlerde ekran-uyku ilişkisinde nedensel yönlülüğü ortaya koymuştur.</span>
+          <span class="sent warn">Bu durum, mevcut literatürün özbildirim odaklı çalışmalarının ötesine geçmektedir <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--curation)">[P-019]</span>.</span>
+          <span class="sent ok">Pasif sensör verisi, gözlemsel düzeyde nedensel çıkarım sağlamaktadır <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--curation)">[P-088]</span>.</span>
+          <span class="sent err">Sonuçlar, ergen uyku müdahaleleri için önemli politika sonuçları doğurur.</span>
+        </div>
+        <div style="background:#fafaf7;padding:8px;border:1px solid var(--rule-2);border-radius:5px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:700;margin-bottom:5px">5 sürtünme noktası</div>
+          <div style="font-size:10.5px;line-height:1.7">
+            <div>① <b style="color:#dc2626">"nedensel yönlülüğü ortaya koymuştur"</b> — gözlemsel veri için fazla iddialı (cümle 1)</div>
+            <div>② Atıfsız: "politika sonuçları doğurur" (cümle 4)</div>
+            <div>③ P-117 referansı eksik (G1 ters-bakış)</div>
+            <div>④ Yöntem-Bulgular geçişinde özet eksik</div>
+            <div>⑤ Limitations bölümü 1 paragraf — en az 3 limitasyon bekleniyor</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="page-block" id="p-12">
+  <div class="page-block-h"><span class="pid defense">12</span><h3>Hakem Simülasyonu</h3><span class="role-tag">3-persona · dergi-spesifik kalibrasyon</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Hakem tek-tip değildir. <b>Şüpheci</b> her metodolojiye saldırır, <b>Sempatik</b> kabul eder ama küçük şeyler kaşır, <b>Yöntemci</b> sadece yöntem bölümünü didikler. PaperMind 3 personayı paralel çalıştırır + dergi-spesifik kalibrasyon (örn. "Sleep Medicine son 50 makalede %62 major") + statcheck p-değer tutarlılığı.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Hedef dergi seç → 3 persona aynı metni okur ve revizyon talep listesi çıkarır. Statcheck arka planda p-değerleri istatistiksel testlerle uyumlu mu kontrol eder. <b>Zincir soru max 2 derinlik</b> (rakipler 5+ derinliğe gidip kullanıcıyı tüketiyor). Major/minor revizyon olasılığı dergiye özel kalibrasyon.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Üst: dergi seçici (Sleep Medicine / Sleep Health / J Adolesc Health · Q-band gösterimi) · 3 sütun (Şüpheci · Sempatik · Yöntemci) — her biri 4-7 madde + zincir soru max 2 derinlik · alt sol: <b>statcheck şeridi</b> (p-değer tutarlılık 🟢🟡🔴) · alt sağ: <b>dergi-spesifik kalibrasyon paneli</b> (son 50 makale: kabul/major/minor/red yüzdeleri) · funnel</span>
+          <b>Back</b><span><code>POST /api/defense/reviewer-3persona</code> (paralel 3-LLM zinciri · zincir derinlik=2 hard-cap) · <code>POST /api/defense/statcheck</code> (Nuijten 2016 metodu · t/F → p tutarlılık) · <code>GET /api/defense/journal-calibration?journal_id=</code></span>
+          <b>Data</b><span><code>fact_journal_review_distribution</code> (dergi × son 50 makale · kabul/major/minor/red yüzdeleri) · <code>fact_paper_pvalue_extraction</code> (statcheck — sinyal #42) · <code>mart_reviewer_persona_template</code></span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Wow #7 dergi-spesifik kalibrasyon — "Sleep Medicine son 50 makalede %62 major revision" gibi <b>somut tarihsel veriden</b> beslenmiş tahmin (rakiplerin "AI hakem"i jeneriktir). Statcheck p-değer otomasyonu (sinyal #42) literatürde rapor edilen tutarsızlık oranını (%50+) hedefliyor.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Sinyal #42 (statcheck) görünür kılındı. Wow #7 (dergi-spesifik kalibrasyon) yeni — eski mock'ta sadece "hakem simülasyonu" jenerikti. Zincir soru max 2 derinlik kuralı arayüzde gösteriliyor. Funnel.</div>
+      <div class="io"><b>Girdi:</b> S1 sürtünme raporu + tam metin <span class="arrow">→</span> <b>Çıktı:</b> 3-persona revizyon listesi → S3</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · 3 persona + Sleep Medicine kalibrasyonu <span class="tag">Q1 · IF 4.2</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-done">Curation</div>
+        <div class="step is-done">Gap</div><div class="step is-done">Yazım</div><div class="step is-active">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA · cesur 0.71 · derin 0.66 · tarafsız 0.69</span></div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px">
+        <div style="background:#fff;border:1px solid var(--rule-2);border-top:3px solid #dc2626;border-radius:5px;padding:7px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#dc2626;letter-spacing:.05em;text-transform:uppercase;font-weight:700">Şüpheci</div>
+          <div style="font-size:10.5px;line-height:1.6;margin-top:4px">
+            <div>• Pasif sensör validasyonu zayıf — kalibrasyon paper yok</div>
+            <div>• Örneklem 312 yeterli mi? (P-019 n=890)</div>
+            <div>• <span style="color:var(--muted)">↳ alt soru: power analizi raporlanmış mı? <i>(derinlik 2/2)</i></span></div>
+            <div>• Limitations 1 paragraf — yetersiz</div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--rule-2);border-top:3px solid #10b981;border-radius:5px;padding:7px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#10b981;letter-spacing:.05em;text-transform:uppercase;font-weight:700">Sempatik</div>
+          <div style="font-size:10.5px;line-height:1.6;margin-top:4px">
+            <div>• Yöntem güçlü, sunum net</div>
+            <div>• Tablo 2 başlığı belirsiz (minor)</div>
+            <div>• Discussion → 1 ek paragraf (gelecek araştırma)</div>
+            <div>• Yazım dili akıcı 🟢</div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--rule-2);border-top:3px solid #7c3aed;border-radius:5px;padding:7px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#7c3aed;letter-spacing:.05em;text-transform:uppercase;font-weight:700">Yöntemci</div>
+          <div style="font-size:10.5px;line-height:1.6;margin-top:4px">
+            <div>• RI-CLPM uygunluğu 🟢 (P-088 referans ✓)</div>
+            <div>• Rastgelesi modeli yapı geçerliği test edildi mi?</div>
+            <div>• <span style="color:var(--muted)">↳ alt soru: model fit indices χ²/CFI/RMSEA <i>(2/2)</i></span></div>
+            <div>• Eksik veri yöntemi açıkça yazılmamış</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+        <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:5px;padding:8px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#92400e;letter-spacing:.05em;text-transform:uppercase;font-weight:700">📊 statcheck · p-değer tutarlılık</div>
+          <div style="font-size:10.5px;color:#78350f;margin-top:4px;line-height:1.5">
+            12 p-değer tarandı · <b>10 🟢 tutarlı</b> · <b>2 🟡 yuvarlama</b> (Tablo 3, t(310)=2.14, p=.034 → gerçek p=.033) · <b>0 🔴</b>.
+          </div>
+        </div>
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:5px;padding:8px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#1e3a8a;letter-spacing:.05em;text-transform:uppercase;font-weight:700">📈 Sleep Medicine kalibrasyon</div>
+          <div style="font-size:10.5px;color:#1e3a8a;margin-top:4px;line-height:1.5">
+            Son 50: <b>kabul %14 · major %62 · minor %18 · red %6</b>. Tahmin: <b>major revision</b> (örneklem + limitations + statcheck minor).
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S3 -->
+<div class="page-block" id="p-13">
+  <div class="page-block-h"><span class="pid defense">13</span><h3>Jüri Simülasyonu</h3><span class="role-tag">5 üye · zincir derinlik 2 · zaman baskısı</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Tez savunması, hakem incelemesinden <b>farklı bir oyun</b>: 4-5 jüri üyesi <i>aynı anda</i> sorar, zaman baskısı vardır, sözlü cevap istenir. PaperMind beş üyeyi tarz/uzmanlık/baskı seviyesiyle ayrıştırır + her cevap için <b>HyDE → fan-out → RRF → rerank</b> ile arka plandan kanıt çekerek "olası iyi cevap" simüle eder.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>Tez başlığı + tam metin yüklendiğinde 5 jüri kartı çıkar (Profesyonel canlı, Anti-tez, Yöntemci, Disiplin-dışı, Pratisyen). Her üye 3-5 soru sorar; <b>kullanıcı sözlü cevap dener</b> (mikrofon) ya da yazılı; sistem cevabın kanıt-kapsamını puanlar. Zaman baskısı: 30sn / soru. <b>Zincir soru max 2 derinlik</b>.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>Üst: 5 jüri kartı (avatar · uzmanlık etiketi · baskı seviyesi 🟢🟡🔴) · ortada aktif soru + 30sn timer · kullanıcı mikrofon/yazılı cevap · sağ: <b>arka plan kanıt zinciri</b> (HyDE → fan-out → RRF · sistem ne çekti) · alt: cevap puanı + jüri tepki ifadesi · funnel: final stop</span>
+          <b>Back</b><span><code>POST /api/defense/jury-question</code> (5-üye paralel · derinlik 2 hard-cap) · <code>POST /api/defense/hyde-fanout-rerank</code> (sinyal #4 — HyDE→RRF arka plan) · <code>POST /api/defense/answer-score</code> (kullanıcı cevabı × beklenen kanıt overlap)</span>
+          <b>Data</b><span><code>mart_jury_persona_template</code> (5 tip + uzmanlık alanları) · <code>fact_user_jury_session</code> (her soru/cevap log + zaman) · Pinecone (HyDE genişletmesi için) · <code>fact_paper_quality_v3</code></span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Sinyal #4 (HyDE → fan-out → RRF → rerank) burada en görünür: kullanıcı cevap verirken arka planda sistem <b>5 hipotetik mükemmel cevap</b> üretir, bunları dökümana fan-out yapar, RRF ile birleştirir, rerank — sonuç kullanıcıya "kanıt-kapsamı puanı" olarak döner. Zincir soru hard-cap 2 derinlik (kullanıcı tüketilmesin).</div>
+      <div class="delta"><b>Δ v1.0 revize</b>HyDE→RRF (sinyal #4) görünür hale getirildi (eski mock'ta backend'di). 5-jüri persona şablonu tipoloji genişledi. Zaman baskısı + zincir derinlik UI'da. Funnel: final stop'a yaklaşılıyor.</div>
+      <div class="io"><b>Girdi:</b> S2 revizyon listesi + tam metin <span class="arrow">→</span> <b>Çıktı:</b> jüri-savunulurluk skoru → S4</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · 5 jüri + HyDE arka plan <span class="tag">tez · 12 sf</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-done">Curation</div>
+        <div class="step is-done">Gap</div><div class="step is-done">Yazım</div><div class="step is-active">Savunma</div>
+      </div>
+      <div style="text-align:right;margin-bottom:6px"><span class="restra"><span class="dot"></span>r-ESTRA · cesur 0.71 · derin 0.66 · tarafsız 0.69</span></div>
+
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:8px">
+        <div style="background:#fff;border:1px solid var(--rule-2);border-radius:4px;padding:6px;text-align:center;font-size:10px">
+          <div style="font-weight:700">Prof. A</div><div style="color:var(--muted);font-size:9px">canlı · uyku</div><div style="color:#10b981;font-size:9px">🟢 destekçi</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--rule-2);border-radius:4px;padding:6px;text-align:center;font-size:10px">
+          <div style="font-weight:700">Prof. B</div><div style="color:var(--muted);font-size:9px">anti-tez</div><div style="color:#dc2626;font-size:9px">🔴 sıkı</div>
+        </div>
+        <div style="background:#fafaf7;border:2px solid var(--defense);border-radius:4px;padding:6px;text-align:center;font-size:10px">
+          <div style="font-weight:700">Prof. C</div><div style="color:var(--muted);font-size:9px">yöntemci</div><div style="color:#dc2626;font-size:9px">🔴 aktif soru</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--rule-2);border-radius:4px;padding:6px;text-align:center;font-size:10px">
+          <div style="font-weight:700">Doç. D</div><div style="color:var(--muted);font-size:9px">dışı · informatik</div><div style="color:#f59e0b;font-size:9px">🟡 nötr</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--rule-2);border-radius:4px;padding:6px;text-align:center;font-size:10px">
+          <div style="font-weight:700">Dr. E</div><div style="color:var(--muted);font-size:9px">pratisyen · klinik</div><div style="color:#f59e0b;font-size:9px">🟡 uygulama</div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--defense);border-left:4px solid var(--defense);border-radius:5px;padding:9px;margin-bottom:7px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--defense);letter-spacing:.05em;text-transform:uppercase;font-weight:700">Prof. C · soru 3/5 · ⏱ 23sn</div>
+        <div style="margin-top:4px;font-size:12px;font-style:italic">"RI-CLPM modelinizde rastgele etkilerin yapı geçerliliğini nasıl doğruladınız? Cross-loadings için ek model uyum testleri raporlanmış mı?"</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px">↳ <i>derinlik 1/2 · alt soru olabilir</i></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:7px">
+        <div style="background:#fafaf7;padding:8px;border:1px solid var(--rule-2);border-radius:5px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:700;margin-bottom:5px">Kullanıcı cevap · canlı (mikrofon)</div>
+          <div style="font-size:10.5px;font-style:italic;color:#374151;line-height:1.5">"Modelin uyum indekslerini Tablo 4'te raporladım: CFI .94, RMSEA .052, SRMR .041. Cross-loadings için modification indices'i incelemedim, bu eksik bir nokta…"</div>
+          <div style="display:flex;gap:5px;margin-top:5px">
+            <div style="background:#dcfce7;padding:3px 6px;border-radius:3px;font-size:9px;color:#14532d;font-weight:600">kanıt-kapsam 0.71 🟢</div>
+            <div style="background:#fffbeb;padding:3px 6px;border-radius:3px;font-size:9px;color:#92400e;font-weight:600">eksik kabul 🟡</div>
+          </div>
+        </div>
+        <div style="background:#fafaf7;padding:8px;border:1px solid var(--rule-2);border-radius:5px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:700;margin-bottom:5px">🔁 HyDE → fan-out → RRF (arka plan)</div>
+          <div style="font-size:10px;line-height:1.5">
+            <div>• HyDE: 5 hipotetik ideal cevap üretildi</div>
+            <div>• fan-out: 23 paragraf (P-088 + P-091 + tez içi)</div>
+            <div>• RRF + rerank: 4 cümle önemli</div>
+            <div style="color:#dc2626;margin-top:4px">⚠ "Modification indices" tez içinde yok — Prof. C alt soru sorma olasılığı yüksek</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="page-block" id="p-14">
+  <div class="page-block-h"><span class="pid defense">14</span><h3>Yöntem &amp; Etik &amp; Yayın</h3><span class="role-tag">statcheck · top-10 dergi · final stop</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Akış son durağı. Tez/makale teslim edilmeden önce <b>3 kapı</b>: yöntem-tutarlılık (statcheck), etik (KVKK + IRB beyanları), yayın stratejisi (top-10 dergi eşleme · scope/IF/kabul oranı/açık erişim politikası). Bu kapılar geçilmeden gönderme — saç çıkartmama protokolü.</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>3 kapı sırayla geçilir: (1) <b>statcheck full report</b> (tüm p-değerler · tutarsızlık varsa kırmızı + öneri), (2) etik beyanları checklist (IRB onayı · veri paylaşım · KVKK · çıkar çatışması), (3) <b>top-10 dergi öneri matrisi</b> (Q-band · IF · kabul oranı · açık erişim · ortalama cevap süresi · scope-uyumluluk). En sonda "Gönderim paketi indir" butonu.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>3 sekme: <b>statcheck</b> (tablo: tüm p-değerler · gerçek/raporlanan · 🟢🟡🔴) · <b>etik checklist</b> (5-7 madde · IRB · KVKK · veri paylaşım · çıkar çatışması · katkı beyanı) · <b>top-10 dergi matrisi</b> (sıralı: scope-uyum · Q · IF · kabul %) · funnel: final stop ✓ + gönderim paketi indir butonu</span>
+          <b>Back</b><span><code>POST /api/defense/statcheck-full</code> · <code>POST /api/defense/ethics-check</code> · <code>POST /api/defense/journal-match</code> (kullanıcı tezi → semantik scope match + Q-band + IF + kabul oranı sıralama)</span>
+          <b>Data</b><span><code>fact_paper_pvalue_extraction</code> (S2'den paylaşılan) · <code>dim_journal_v2</code> (Q-band · IF · scope vector) · <code>fact_journal_acceptance_rate</code> · <code>mart_user_authoring_session</code> · son çıktı: gönderim paketi (PDF + cover letter + statcheck rapor)</span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Tek panelde 3 final-stop kapısı: statcheck (S2'de gördüğü tüm p-değerleri burada toplu rapor olarak), etik checklist (KVKK Türkiye-bağlamlı), top-10 dergi semantik eşleme (rakipler scope keyword match yapar; PaperMind tez metnini bgem3 vector ile dergi scope vector'üne kosinüs benzerliği — daha doğru).</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Sinyal #42 (statcheck) burada full-report olarak. Top-10 dergi matrisi semantik scope-match (rakip keyword match'in üstünde). Funnel <b>final stop ✓</b> görünüyor. Gönderim paketi tek tıkla indir.</div>
+      <div class="io"><b>Girdi:</b> S3 jüri-skoru + tam metin <span class="arrow">→</span> <b>Çıktı:</b> gönderim paketi (PDF + cover letter + statcheck) — akış sonu</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · 3 final kapı <span class="tag">akış sonu</span></div>
+      <div class="funnel">
+        <div class="step is-done">Discovery</div><div class="step is-done">Curation</div>
+        <div class="step is-done">Gap</div><div class="step is-done">Yazım</div><div class="step is-active">Savunma ✓</div>
+      </div>
+
+      <div style="display:flex;gap:0;margin-bottom:8px;border-bottom:2px solid var(--rule-2);font-size:11px">
+        <div style="padding:5px 10px;background:var(--defense);color:#fff;font-weight:700;border-radius:4px 4px 0 0">① statcheck</div>
+        <div style="padding:5px 10px;color:var(--muted)">② etik</div>
+        <div style="padding:5px 10px;color:var(--muted)">③ dergi</div>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--rule-2);border-radius:5px;padding:9px;margin-bottom:8px">
+        <table style="width:100%;font-size:10.5px;border-collapse:collapse">
+          <thead><tr style="background:#fafaf7;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase">
+            <th style="padding:5px;text-align:left">konum</th><th style="padding:5px;text-align:left">test</th><th style="padding:5px">raporlanan p</th><th style="padding:5px">gerçek p</th><th style="padding:5px">durum</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:5px">Tablo 2</td><td>t(310)=3.41</td><td style="text-align:center">.001</td><td style="text-align:center">.0007</td><td style="text-align:center">🟢</td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:5px">Tablo 3</td><td>t(310)=2.14</td><td style="text-align:center">.034</td><td style="text-align:center">.033</td><td style="text-align:center">🟡 yuvarlama</td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:5px">Tablo 4</td><td>F(2,309)=8.92</td><td style="text-align:center">.0001</td><td style="text-align:center">.0002</td><td style="text-align:center">🟢</td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:5px">Şekil 3</td><td>χ²(1)=4.18</td><td style="text-align:center">.04</td><td style="text-align:center">.041</td><td style="text-align:center">🟢</td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:5px;color:#dc2626">Bulgular §3.2</td><td>r=.31, n=312</td><td style="text-align:center">.001</td><td style="text-align:center">.0000</td><td style="text-align:center">🔴 tutarsız</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:10px;color:#dc2626;margin-top:5px">⚠ 1 tutarsızlık (§3.2): r=.31, n=312 → gerçek p=2.5e-08, raporda p=.001. <b>Düzelt</b> butonu ile metni güncelle.</div>
+      </div>
+
+      <div style="background:#fafaf7;padding:9px;border:1px solid var(--rule-2);border-radius:5px;margin-bottom:8px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:700;margin-bottom:5px">Top-10 dergi · semantik scope eşleme</div>
+        <table style="width:100%;font-size:10px">
+          <thead><tr style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase">
+            <th style="text-align:left;padding:3px">dergi</th><th>Q</th><th>IF</th><th>scope-uyum</th><th>kabul %</th><th>cevap (gün)</th><th>OA</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px;font-weight:700">Sleep Medicine</td><td style="text-align:center">Q1</td><td style="text-align:center">4.2</td><td style="text-align:center"><b style="color:#10b981">0.91</b></td><td style="text-align:center">14%</td><td style="text-align:center">68</td><td style="text-align:center">hibrit</td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px">Sleep Health</td><td style="text-align:center">Q1</td><td style="text-align:center">3.7</td><td style="text-align:center"><b style="color:#10b981">0.87</b></td><td style="text-align:center">22%</td><td style="text-align:center">52</td><td style="text-align:center">hibrit</td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px">J Adolesc Health</td><td style="text-align:center">Q1</td><td style="text-align:center">5.1</td><td style="text-align:center"><b style="color:#f59e0b">0.74</b></td><td style="text-align:center">18%</td><td style="text-align:center">94</td><td style="text-align:center">hibrit</td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px">J Sleep Research</td><td style="text-align:center">Q1</td><td style="text-align:center">3.4</td><td style="text-align:center"><b style="color:#f59e0b">0.81</b></td><td style="text-align:center">28%</td><td style="text-align:center">45</td><td style="text-align:center">tam</td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px;color:var(--muted)">Pediatrics</td><td style="text-align:center">Q1</td><td style="text-align:center">8.0</td><td style="text-align:center">0.62</td><td style="text-align:center">8%</td><td style="text-align:center">110</td><td style="text-align:center">hibrit</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <button style="width:100%;padding:10px;background:var(--defense);color:#fff;border:none;border-radius:5px;font-weight:700;font-size:12px;cursor:pointer">📦 Gönderim paketi indir (PDF + cover letter + statcheck rapor)</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ AYARLAR ============ -->
+<div class="section-h general">Ayarlar <span class="role">1 sayfa · rol: <b>SİSTEM</b> — profil + veri sağlığı + KVKK</span></div>
+
+<!-- 15 Ayarlar -->
+<div class="page-block" id="p-15">
+  <div class="page-block-h"><span class="pid">15</span><h3>Ayarlar</h3><span class="role-tag">profil · bildirim &amp; veri · veri sağlığı L6</span></div>
+  <div class="page-grid">
+    <div class="card-block">
+      <div class="philosophy">Ayarlar bir "kontrol kutusu" değildir; <b>kullanıcı-sistem sözleşmesinin görünür yüzü</b>'dür. KVKK + KVKK olmadan veri sağlığı + AI'ın kullanıcıdan ne öğrendiği. Üç kapı: kim olduğun (profil), neyi paylaştığın (bildirim & veri), sistemin sana ne kadar güvenebildiği (veri sağlığı L6 = data quality ledger).</div>
+      <div class="simple"><b>Bu sayfada ne yapılır</b>3 sekme. (1) <b>Profil</b> — alan, dil, akademik tier (T0-T4). (2) <b>Bildirim &amp; Veri</b> — KVKK aydınlatma + veri export + sessiz öğrenme defteri 30g (A3'ten). (3) <b>Veri Sağlığı L6</b> — DQ ledger: 30 warehouse tablosu × hangi tarihte ne kadar tazelendi · son hata · kullanıcı veri tüketimine güven katsayısı.</div>
+      <details class="techspec" open><summary>back · front · data</summary>
+        <div class="techspec-body">
+          <b>Front</b><span>3 sekme. <b>Profil</b>: alan/dil/tier (mock canon T0-T4 · pricing değil) + r-ESTRA snapshot. <b>Bildirim &amp; Veri</b>: KVKK aydınlatma metni · veri export (JSON/PDF) · sessiz öğrenme defteri 30g (A3 ile aynı veri) · sycophant kilit log. <b>Veri Sağlığı L6</b>: 30 warehouse tablosu listesi × son refresh · kapsama oranı · hata sayısı (DQ ledger).</span>
+          <b>Back</b><span><code>GET /api/settings/profile</code> · <code>POST /api/settings/data-export</code> (JSON+PDF gzip) · <code>GET /api/settings/dq-ledger</code> · <code>DELETE /api/settings/account</code> (KVKK silme)</span>
+          <b>Data</b><span><code>dim_user_v3</code> · <code>fact_user_consent_log</code> (KVKK) · <code>mart_user_silent_ledger_30d</code> (A3'ten paylaşılan) · <code>fact_warehouse_dq_ledger</code> (sinyal: tier modeli T0-T4 · 30 tablo refresh log · hata)</span>
+        </div>
+      </details>
+      <div class="wow"><b>Ayırt edici</b>Veri Sağlığı L6 · <b>DQ ledger görünür</b>: kullanıcı sisteme "şu tabloyu hangi tarihte taze gördün, kaç hata var" sorabiliyor. Bu, AI tool'larında neredeyse hiç görülmez — kullanıcı genelde sisteme kara kutu olarak güvenir. PaperMind tier modelini (T0-T4) ve veri ambarı sağlığını şeffaflaştırır.</div>
+      <div class="delta"><b>Δ v1.0 revize</b>Sessiz öğrenme defteri 30g A3 ile birleşik (tek veri kaynağı). DQ ledger görünür (eskiden backend-only). T0-T4 tier modeli mock canon'a oturtuldu (DM-046 Anon+Pro override edildi).</div>
+      <div class="io"><b>Girdi:</b> kullanıcı isteği <span class="arrow">→</span> <b>Çıktı:</b> profil/sözleşme/veri-sağlığı görünürlüğü</div>
+    </div>
+    <div class="sim-block">
+      <div class="sim-h">Simülasyon · 3 sekme · veri sağlığı sekmesi açık <span class="tag">user · T2</span></div>
+
+      <div style="display:flex;gap:0;margin-bottom:9px;border-bottom:2px solid var(--rule-2);font-size:11px">
+        <div style="padding:5px 10px;color:var(--muted)">Profil</div>
+        <div style="padding:5px 10px;color:var(--muted)">Bildirim &amp; Veri</div>
+        <div style="padding:5px 10px;background:var(--ink);color:#fff;font-weight:700;border-radius:4px 4px 0 0">Veri Sağlığı L6 ✓</div>
+      </div>
+
+      <div style="background:#fafaf7;padding:9px;border:1px solid var(--rule-2);border-radius:5px;margin-bottom:8px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:700;margin-bottom:5px">DQ ledger · 30 warehouse tablosu · özet</div>
+        <table style="width:100%;font-size:10px">
+          <thead><tr style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase">
+            <th style="text-align:left;padding:3px">tablo</th><th>katman</th><th>son taze</th><th>satır</th><th>hata 7g</th><th>güven</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px;font-family:'JetBrains Mono',monospace;font-size:10px">fact_paper_quality_v3</td><td style="text-align:center">L4</td><td style="text-align:center">2026-05-08</td><td style="text-align:center">12.4M</td><td style="text-align:center">0</td><td style="text-align:center"><b style="color:#10b981">🟢 0.97</b></td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px;font-family:'JetBrains Mono',monospace;font-size:10px">fact_paper_w_estra</td><td style="text-align:center">L4</td><td style="text-align:center">2026-05-08</td><td style="text-align:center">12.1M</td><td style="text-align:center">0</td><td style="text-align:center"><b style="color:#10b981">🟢 0.95</b></td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px;font-family:'JetBrains Mono',monospace;font-size:10px">fact_paper_bibcoupling_top50</td><td style="text-align:center">L4</td><td style="text-align:center">2026-05-07</td><td style="text-align:center">643M</td><td style="text-align:center">2</td><td style="text-align:center"><b style="color:#f59e0b">🟡 0.88</b></td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px;font-family:'JetBrains Mono',monospace;font-size:10px">fact_paper_pvalue_extraction</td><td style="text-align:center">L5</td><td style="text-align:center">2026-05-06</td><td style="text-align:center">1.8M</td><td style="text-align:center">0</td><td style="text-align:center"><b style="color:#10b981">🟢 0.94</b></td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px;font-family:'JetBrains Mono',monospace;font-size:10px">fact_paper_gap_v3</td><td style="text-align:center">L5</td><td style="text-align:center">2026-05-08</td><td style="text-align:center">8.4M</td><td style="text-align:center">1</td><td style="text-align:center"><b style="color:#f59e0b">🟡 0.91</b></td></tr>
+            <tr style="border-top:1px solid var(--rule-2)"><td style="padding:3px;font-family:'JetBrains Mono',monospace;font-size:10px">fact_paper_citation_role_v2</td><td style="text-align:center">L5</td><td style="text-align:center">2026-05-04</td><td style="text-align:center">38.2M</td><td style="text-align:center">0</td><td style="text-align:center"><b style="color:#10b981">🟢 0.93</b></td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:9.5px;color:var(--muted);margin-top:6px">… 24 tablo daha · ortalama güven <b>0.92 🟢</b> · son 7g hata: <b>3</b> (bibcoupling: yıl=null × 2 + gap: kategori dışı × 1).</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+        <div style="background:#dcfce7;border:1px solid #86efac;border-radius:5px;padding:8px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#14532d;letter-spacing:.05em;text-transform:uppercase;font-weight:700">Tier · T2 · profesyonel</div>
+          <div style="font-size:10.5px;color:#14532d;margin-top:4px;line-height:1.5">Akış: tam · 19 sayfa açık · ESTRA Pasaport: 6 sinyal · Pinecone semantik arama. (T0 anon · T1 free · T2 pro · T3 lab · T4 enterprise — mock canon, fiyatlama Plan 2'de)</div>
+        </div>
+        <div style="background:#fafaf7;padding:8px;border:1px solid var(--rule-2);border-radius:5px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:700;margin-bottom:4px">KVKK + veri export</div>
+          <div style="font-size:10.5px;line-height:1.6">
+            <div>• Aydınlatma: <span style="color:#10b981">✓ kabul (2026-04-12)</span></div>
+            <div>• Veri export: <button style="background:none;border:1px solid var(--ink);padding:2px 6px;border-radius:3px;font-size:9.5px;cursor:pointer">JSON+PDF indir</button></div>
+            <div>• Hesap silme: <button style="background:none;border:1px solid #dc2626;color:#dc2626;padding:2px 6px;border-radius:3px;font-size:9.5px;cursor:pointer">talep et (30g)</button></div>
+            <div>• Sycophant kilit log: 2 olay (son 30g)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AKIS DEMO ÖZETİ -->
+<div style="margin:18px 0 6px;padding:11px 14px;background:#fafaf7;border:1px solid var(--rule-2);border-radius:6px">
+  <b style="font-family:'Lora',serif;font-size:13px">Cross-page demo akışı (özet)</b>
+  <div style="font-size:11px;color:var(--ink-2);margin-top:5px;line-height:1.7">
+    <b>D1</b>(P-001 anchor) → <b>D2</b>(★◆◇ rozet havuza propagasyon) → <b>D3</b>(KeyBERT-NPMI ağ) → <b>C1</b>(Pasaport sticky · 7 paper sepet) → <b>C2</b>(havuz radar · ★◆◇ rozet sürer · sinyal #21 Novelty Uzzi) → <b>G1</b>(M3 [3,8] altın · wow#1 inverted lookup) → <b>G2</b>(3-mod RQ · başlık özgünlük) → <b>A1</b>(faithfulness denetimli yazım · over-citation · atıfsız iddia · sinyal #12 r-ESTRA paper-bazında) → <b>A2</b>(11-kategori atıf rolü · sinyal #35 · bölüm-aware) → <b>A3</b>(sycophant lock · sessiz öğrenme defteri · r-ESTRA tarafsızlık ↑) → <b>S1</b>(G1 ters-bakış · P-117 yeni paper uyarısı · wow#1 cross-page) → <b>S2</b>(3-persona hakem · statcheck p-değer · dergi-spesifik kalibrasyon · wow#7) → <b>S3</b>(5-jüri · HyDE→fan-out→RRF arka plan · sinyal #4 · zincir derinlik 2) → <b>S4</b>(statcheck full · top-10 dergi semantik eşleme · gönderim paketi · final stop) → <b>15</b>(profil · KVKK · DQ ledger L6 · tier T0-T4).
+  </div>
+</div>
+
+</main>
+</div>
+
+<footer>
+  <b>Kanıt referansları:</b><br>
+  Mock kaynak: PaperMind_mock.html (1414 sat, v0.9, 20 sayfa) · DM-054 (Q2 elimine) · _envanter_felsefe.md (48 sinyal · 30 warehouse tablo · 25 endpoint).<br>
+  <b>Δ v1.0 enjeksiyonları:</b> 5 eksik sinyal (#4 HyDE→RRF · #12 r-ESTRA paper-bazında · #21 Novelty/Uzzi Nabız · #35 11-kategori atıf rolü · #42 statcheck S4) + 8 wow eklemesi (#1 inverted gap-paper · #2 funnel barı · #3 faithfulness auto-suggest · #4 r-ESTRA canlı şeffaflık · #5 ★◆◇ cross-page · #6 over-citation · #7 dergi-spesifik kalibrasyon · #8 atıfsız iddia canlı yazım).<br>
+  Tüm <code>P-NNN</code>, <code>A. Yazar X</code>, <code>Q1 Dergi N</code>, sayısal değerler <b>simülasyondur</b>; gerçek bilimsel iddia içermez. Yapı/akış gerçek; veri uydurma.<br>
+  <b>Tur 2 tamamlandı:</b> Authoring (8-9-10) + Defense (11-12-13-14) + Ayarlar (15) + cross-page demo akışı eklendi. <b>19 sayfa · kart + simülasyon · 8 wow + 5 eksik sinyal</b> tüm sayfalara dağıtıldı.
+</footer>
+
+</body>
+</html>

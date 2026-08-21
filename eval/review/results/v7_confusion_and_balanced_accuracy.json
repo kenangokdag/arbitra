@@ -1,0 +1,43 @@
+{
+  "motor_dagilim": {
+    "accept": 42,
+    "major_revision": 15,
+    "reject": 4
+  },
+  "confusion_matrix_insan_satir_motor_sutun": {
+    "accept": {
+      "accept": 37,
+      "major_revision": 11,
+      "reject": 1
+    },
+    "major_revision": {
+      "accept": 1,
+      "major_revision": 1
+    },
+    "reject": {
+      "accept": 4,
+      "major_revision": 3,
+      "reject": 3
+    }
+  },
+  "sinif_basi_dogruluk": {
+    "accept": {
+      "dogru": 37,
+      "toplam": 49
+    },
+    "minor_revision": {
+      "dogru": 0,
+      "toplam": 0
+    },
+    "major_revision": {
+      "dogru": 1,
+      "toplam": 2
+    },
+    "reject": {
+      "dogru": 3,
+      "toplam": 10
+    }
+  },
+  "sinif_dengeli_dogruluk": 0.5183673469387755,
+  "openalex_kesintili_makale_sayisi": 17
+}

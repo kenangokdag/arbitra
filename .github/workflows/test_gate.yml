@@ -1,0 +1,44 @@
+name: Test Gate
+
+# QA-1 / P07 — gerçek backbone kapısı: tüm test paketi + eval-harness smoke.
+# "N test geçti" demek tek başına kanıt değil (YASA 2); bu kapı paketi BAĞIMSIZ
+# ortamda (temiz runner) çalıştırır → yeşil yerel ≠ yeşil CI riskini kapatır.
+
+on:
+  push:
+    branches: [main, "worldclass/**", "feat/*"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-gate:
+    runs-on: ubuntu-latest
+    env:
+      # Temiz runner'da canlı HuggingFace indirmesi = ağ bağımlılığı (yavaş/flaky).
+      # Test paketi offline graceful degrade ediyor (lokal kanıt: 735 pass offline,
+      # 68s vs 111s) → CI'yi deterministik + ağsız tut.
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python 3.12
+        run: uv python install 3.12
+
+      - name: Sync deps (frozen lock)
+        run: uv sync --frozen
+
+      - name: Run test suite
+        run: uv run pytest -q
+
+      - name: Eval harness smoke (dry-run, schema + metrics validity)
+        # --dry-run motoru ÇAĞIRMAZ (LLM/key yok); goldset şeması + metrik motorunun
+        # CANLI çalıştığını doğrular. İllüstratif sayılar KALİTE KANITI değildir
+        # (banner uyarır) — bu adım yalnız harness'in sağlamlığını kapılar.
+        # Gerçek kalite kanıtı: run_eval --live (Omer key + parser hattı, ayrı iş).
+        run: uv run python -m eval.review.run_eval

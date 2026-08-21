@@ -1,0 +1,20 @@
+{
+  "service": "pinecone_index_stats",
+  "index_name": "papers-bgem3",
+  "elapsed_seconds": 0.623,
+  "stats": {
+    "namespaces": {
+      "": {
+        "vector_count": 24867210
+      }
+    },
+    "index_fullness": 0.0,
+    "total_vector_count": 24867210,
+    "dimension": 1024,
+    "metric": "cosine",
+    "vector_type": "dense"
+  },
+  "expected_dimension": 1024,
+  "expected_metric": "cosine",
+  "_captured_at": "2026-04-30T17:54:09.179238+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "version": "v0_placeholder_2026-05-11",
+  "note": "F13-S11 4.3 Özgünlük placeholder eşikler. 4.3 RTF §Plan-Detayı (1) Eşik Kalibrasyon Notebook (V1 zorunlu) tamamlandığında p90/p95 percentile değerleriyle override edilecek (Migration 0023 plan oturumu). Şu an offline notebook çıktısı yok — RTF'de önerilen ham vizyon eşikleri varsayılan.",
+  "disruption": {
+    "cd_5_threshold": 0.3,
+    "rationale": "RTF 4.3 §Plan-Detayı (1d): üst %10 yıkıcı önerildi (cd_5 > p90). Ham vizyon 0.3 — Ke et al. literatürde tipik 0.2-0.5 aralığı. cd_undefined=true paper'lar filtre dışı."
+  },
+  "sleeping_beauty": {
+    "b_threshold": 70.0,
+    "rationale": "RTF 4.3 §Plan-Detayı (1d): üst %5 (b > p95) önerildi. Ke et al. 2015 literatürde 60-100 tipik. b_undefined=true paper'lar filtre dışı."
+  },
+  "calibration_status": "pending_notebook",
+  "last_calibrated": null,
+  "calibration_methodology": "offline_python_notebook_p90_p95"
+}

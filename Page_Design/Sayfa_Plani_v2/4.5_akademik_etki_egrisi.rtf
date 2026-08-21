@@ -1,0 +1,109 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 4.5 L\uc0\u304 TERAT\'dcR BO\u350 LU\u286 U \'97 AKADEM\u304 K ETK\u304  E\u286 R\u304 S\u304 \
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Gap karar\uc0\u305 n\u305  akademik d\'fcnya + pop\'fcler trend \'e7ift mercekten do\u287 rulamak. Felsefemiz: bir konu akademik olarak y\u305 k\u305 c\u305  g\'f6r\'fcnebilir ama kamu ilgisi d\'fc\u351 \'fckse uzun vadeli etkisi s\u305 n\u305 rl\u305 ; tersine kamu ilgisi y\'fcksek ama akademik a\'e7\u305 k yoksa yay\u305 n stratejisi farkl\u305 la\u351 \u305 r. \'c7ok-boyutlu (Konu/Kavram/Metod) projeksiyon imzam\u305 z. Bu sayfa 2.3 Bibliyometrik Analiz'den ta\u351 \u305 nan \u9733 /\u9670  rozetlerinin ana g\'f6r\'fcnt\'fcleme yeri (etki/at\u305 l\u305 m odakl\u305  sayfa daha yerinde).\
+\
+\uc0\u304 T\u304 RAF (2026-05-10): \'d6nceki taslakta "230-keyword title profile sinyali" felsefeye ve plana eklenmi\u351 ti \'97 Omer taraf\u305 ndan do\u287 ruland\u305 : b\'f6yle bir sinyal yap\u305 lmad\u305 , envanterde tablo yok. Hal\'fcsinasyon idi; tamamen \'e7\u305 kar\u305 ld\u305 . Do\u287 ru yer 5.x yay\u305 n taslak sayfalar\u305  (ba\u351 l\u305 k \'f6nerisi orada mant\u305 kl\u305 ), o sayfalarda ayr\u305  tart\u305 \u351 \u305 lacak.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: 4.4'te se\'e7ilen gap i\'e7in (a) corpus i\'e7i paper say\u305 s\u305  zaman serisi (son 10 y\u305 l) \'97 papers.publication_year + boyut filtresi (theme_id / metod_id / keyword) JOIN, bedava SQL aggregation; (b) Google Trends API (Pytrends) ile ayn\u305  d\'f6nem pop\'fcler ilgi indeksi, 24h cache + rate limit y\'f6netimi. \'dczerine \u9733  Y\u305 k\u305 c\u305  (cd_5 y\'fcksek) ve \u9670  Sleeping Beauty (b y\'fcksek) paper noktalar\u305  zaman ekseninde overlay. LLM tek c\'fcmle kombine yorum (1 Flash \'e7a\u287 r\u305 ).\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7lar (SciSpace/Consensus/Elicit/Scite) trend \'d7 pop\'fcler ilgi \'e7ift mercek vermez \'97 bu sayfa \u9733 /\u9670  rozetleriyle birle\u351 ince PaperMind imzas\u305 n\u305 n doruk noktas\u305 . (1) \'c7ift line chart (V1 \u10003 , ana plan): corpus i\'e7i y\u305 ll\u305 k paper say\u305 s\u305  + Google Trends y\u305 ll\u305 k ilgi indeksi ayn\u305  zaman ekseni; iki \'e7izgi yan yana okunur. Felsefe: akademik + pop\'fcler tek bak\u305 \u351 ta; dan\u305 \u351 man persona. (2) Boyut se\'e7ici (V1 \u10003 , ham vizyon): 3 toggle \'97 Konu / Kavram / Metod. G\'f6rsel boyut de\u287 i\u351 ince yeniden \'e7izilir. fact_paper_topic / fact_paper_metod / fact_paper_id_card.keywords JOIN. Felsefe: kabar\u305 k olmas\u305 n \'97 tek g\'f6rsel \'e7ok bak\u305 \u351 ; ham vizyon ana plan. (3) \u9733  Y\u305 k\u305 c\u305  paper noktalar\u305  (V1 \u10003 ): chart \'fcst\'fcnde y\u305 llar baz\u305 nda \u9733  noktalar\u305  (tooltip = paper ba\u351 l\u305 \u287 \u305  + cd_5). 2.3'ten ta\u351 \u305 nan rozet ana g\'f6r\'fcnt\'fcleme yeri. fact_paper_disruption.cd_5 + pub_year (Excel envanter kan\u305 t A). Felsefe: y\u305 k\u305 c\u305  paper'lar zaman ekseninde nerede; j\'fcri persona. (4) \u9670  Sleeping Beauty paper noktalar\u305  (V1 \u10003 ): pub_year + uyand\u305 \u287 \u305  y\u305 l (pub_year + t_m) iki nokta + aralar\u305 nda dashed line "uyku s\'fcresi". fact_paper_beauty.b + t_m kan\u305 t A. Felsefe: gecikmi\u351  ke\u351 if g\'f6rsel kan\u305 t; j\'fcri persona. (5) Yay\u305 n momentum i\u351 areti AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , bedava UI): chart sa\u287 \u305 nda k\'fc\'e7\'fck rozet \'97 ye\u351 il "\u351 imdi yay\u305 nla" / sar\u305  "bekle" / k\u305 rm\u305 z\u305  "konu s\'f6nd\'fc". Akademik slope (son 5 y\u305 l) + Trends slope kombine; e\u351 ik kalibrasyonu offline notebook'unda yap\u305 l\u305 r. Felsefe: d\'fcr\'fcst karar destek; j\'fcri/hakem persona \'97 rakipte yok. (6) LLM kombine yorum (V1 \u10003 , 1 Flash \'e7a\u287 r\u305 ): grafi\u287 in alt\u305 nda 1 c\'fcmle \'97 "akademik trend y\'fckselen, kamu ilgisi paralel, yay\u305 n momentumu uygun" veya "akademik canl\u305  ama kamu ilgisi d\'fc\u351 \'fck \'97 yay\u305 n hedefini akademik dergiye odakla". Felsefe: ham veri \u8594  karar; dan\u305 \u351 man persona. (7) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): chart'taki nokta t\u305 klan\u305 nca o paper Standart Yay\u305 n Kart\u305  + \u9733 /\u9670  rozeti + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon: yok \'97 chart noktas\u305  direkt paper. V2'ye ertelenenler: yok \'97 Omer karar\u305 yla t\'fcm V2 eklemeleri \'e7\u305 kar\u305 ld\u305 ; 230-keyword title profile sinyali hal\'fcsinasyondu, \'e7\u305 kar\u305 ld\u305 ; trend tahmini (predicted slope) gerek g\'f6r\'fclmedi; multi-gap \'e7ak\u305 \u351 t\u305 rma UX karma\u351 a olarak g\'f6r\'fcld\'fc. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase'de do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 ; Google Trends API entegrasyonu (Pytrends) plan oturumuna +1 g\'fcn olarak eklendi.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Ar\uc0\u351 iv i\'e7inde son zamanlarda yap\u305 lan \'e7al\u305 \u351 malar + Google Trends gibi\
+platformlar bu konuda neler s\'f6yl\'fcyor \'97 onu g\'f6stermeli.\
+\
+G\'f6rsel ve bilgisel taraflar\uc0\u305  tam olmal\u305 .\
+\
+Temel aramalar farkl\uc0\u305  boyutlarda olmal\u305 :\
+- Konu\
+- Kavram\
+- Metod\
+\
+Kullan\uc0\u305 c\u305  \'e7ok boyutlu inceleyebilmeli.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10):\
+\
+(1) GOOGLE TRENDS API ENTEGRASYONU (V1 zorunlu, ~1 g\'fcn):\
+    - K\'fct\'fcphane: Pytrends (Python; \'fccretsiz quota, rate limit var)\
+    - Ya da resmi Google Trends API (Cloud, \'fccretli) \'97 Omer kullan\uc0\u305 c\u305  plan\u305  se\'e7er\
+    - Cache stratejisi: keyword/tema bazl\uc0\u305 ; 24h TTL Redis veya Supabase summary_cache tablosunda\
+    - Rate limit y\'f6netimi: kullan\uc0\u305 c\u305  ba\u351 \u305 na dakikada 5 sorgu; cache miss \u8594  quota da\u287 \u305 l\u305 m\u305 \
+    - Fallback: API yan\uc0\u305 t vermezse "trend verisi \u351 u an al\u305 nam\u305 yor" + sadece akademik chart g\'f6sterilir (sayfa k\u305 r\u305 lmaz)\
+\
+(2) BACKEND \'97 etki e\uc0\u287 risi endpoint:\
+    - GET /api/workshop/impact-curve?project_id=\{id\}&dimension=\{topic|method|keyword\}&value=\{id\}&years=\{5|10\}\
+    - Ad\uc0\u305 mlar:\
+      a) Akademik zaman serisi: papers JOIN (fact_paper_topic / fact_paper_metod / fact_paper_id_card.keywords) \uc0\u8594  y\u305 ll\u305 k COUNT\
+      b) Google Trends: dimension+value'dan keyword string \'fcret \uc0\u8594  Pytrends.interest_over_time\
+      c) \uc0\u9733  noktalar: project_pool \u8745  fact_paper_disruption WHERE cd_5 > config.disruption_threshold \u8594  pub_year listesi\
+      d) \uc0\u9670  noktalar: project_pool \u8745  fact_paper_beauty WHERE b > config.beauty_threshold \u8594  (pub_year, pub_year + t_m) \'e7ift listesi\
+      e) Momentum hesab\uc0\u305 : son 5 y\u305 l akademik slope + Trends slope linear regression \u8594  e\u351 ikle ye\u351 il/sar\u305 /k\u305 rm\u305 z\u305 \
+      f) Gemini Flash \'e7a\uc0\u287 r\u305 : t\'fcm sinyaller \u8594  1 c\'fcmle yorum\
+    - Output: \{ academic_series[], trends_series[], stars[], beauties[], momentum_color, llm_comment \}\
+\
+(3) FRONTEND:\
+    - Recharts veya D3 ile \'e7ift line chart (sol y: paper say\uc0\u305 s\u305 , sa\u287  y: Trends ilgi 0-100)\
+    - \'dcstte boyut se\'e7ici (3 radio: Konu / Kavram / Metod)\
+    - Chart \'fcst\'fcne \uc0\u9733  ve \u9670  noktalar (tooltip)\
+    - Sa\uc0\u287 da momentum rozet\
+    - Altta LLM yorum\
+    - Nokta t\uc0\u305 k \u8594  side panel Standart Yay\u305 n Kart\u305 \
+\
+(4) MOMENTUM E\uc0\u350 \u304 K KAL\u304 BRASYONU (V1 zorunlu, 4.1 + 4.4 kalibrasyon notebook'una eklenir):\
+    - Akademik slope e\uc0\u351 ik:\
+      * slope > +%5/y\uc0\u305 l \u8594  ye\u351 il\
+      * -%5 ile +%5 aras\uc0\u305  \u8594  sar\u305 \
+      * < -%5/y\uc0\u305 l \u8594  k\u305 rm\u305 z\u305 \
+    - Trends slope e\uc0\u351 ik (0-100 normalize):\
+      * slope > +5 puan/y\uc0\u305 l \u8594  ye\u351 il\
+      * ... (taslak; kalibrasyonda ayarlan\uc0\u305 r)\
+    - Kombine kural\uc0\u305 : akademik VE Trends ikisi ye\u351 il \u8594  ye\u351 il; biri k\u305 rm\u305 z\u305  \u8594  k\u305 rm\u305 z\u305 ; kar\u305 \u351 \u305 k \u8594  sar\u305 \
+    - Tahmini ek i\uc0\u351 : 0.5 g\'fcn (mevcut kalibrasyon notebook'una eklenir)\
+\
+(5) LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - Kombine yorum: ~3K input + ~100 output = ~$0.0005 per \'e7a\uc0\u287 r\u305 \
+    - Boyut de\uc0\u287 i\u351 ti\u287 inde yeniden hesap; debounce 300ms\
+    - Sayfa ba\uc0\u351 \u305 na ortalama 3-5 yorum \'fcretimi \u8594  ~$0.002\
+\
+(6) PERFORMANS HEDEF\uc0\u304 :\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351 : < 1.2s (Google Trends API senkron olabilir; cache hit < 200ms)\
+    - Boyut de\uc0\u287 i\u351 imi: < 500ms (academic SQL h\u305 zl\u305 ; Trends cache hit gerekiyorsa)\
+    - Cache miss: ~800ms (Pytrends ger\'e7ek \'e7a\uc0\u287 r\u305 )\
+\
+KULLANIM:\
+    - 4.4'ten ge\'e7ildi\uc0\u287 inde se\'e7ilen gap otomatik dolu\
+    - Boyut varsay\uc0\u305 lan: Konu (en y\'fcksek granularite)\
+    - "Yay\uc0\u305 n momentumu" rozet 4.4'teki yay\u305 nlanabilirlik eksenine ek bilgi sa\u287 lar\
+}

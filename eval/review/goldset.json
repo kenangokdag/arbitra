@@ -1,0 +1,816 @@
+{
+  "meta": {
+    "version": "0.1.0-openreview-seed",
+    "created_at": "2026-06-22",
+    "pilot_field": "quant_social_science",
+    "description": "Başlangıç altın-set: OpenReview ICLR 2025 gerçek hakem verisi (ML alanı tohum). PİLOT (nicel sosyal bilim) makaleleri Omer PeerJ açık-hakem / elindeki hakem-raporlu örneklerden ekleyecek. 2026-08-06: allenai/PeerRead (ICLR 2017) üzerinden 50 makale eklendi (30 alt-boyut-skorlu [tamamı accept, veri setinin kendi sınırlaması] + 20 verdict-only [10 accept/10 reject]).",
+    "real_entry_count": 61,
+    "placeholder_entry_count": 0,
+    "stanford_reference": "Stanford AI reviewer ICLR 2025'e karşı Spearman 0.42 (insan-insan tavanı ~0.41)"
+  },
+  "entries": [
+    {
+      "paper_id": "openreview:PwxYoMvmvy",
+      "source": "openreview",
+      "title": "Beyond Random Masking: When Dropout meets Graph Convolutional Networks",
+      "field": "ml",
+      "pdf_url": "https://openreview.net/pdf/2630e5206aeeb0a02cc48e38f5890bb07d7b7f77.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "soundness": 5.5,
+        "clarity": 7.0,
+        "importance": 5.5
+      },
+      "human_review_excerpt": "ICLR ortalama rating (1-10): 6.00 (4 hakem) | Karar: Accept (Poster)",
+      "notes": "OpenReview ICLR 2025 gerçek veri. human_scores: soundness/clarity/importance ICLR soundness/presentation/contribution(1-4)'ten 1-10'a ölçeklendi. Diğer boyutlar + minor/major_revision kademesi ICLR'de ölçülmedi → OMER nicel-sosyal-bilim pilotundan doldurur."
+    },
+    {
+      "paper_id": "openreview:ONfWFluZBI",
+      "source": "openreview",
+      "title": "Self-supervised contrastive learning performs non-linear system identification",
+      "field": "ml",
+      "pdf_url": "https://openreview.net/pdf/a0e89f340d21f75df21f82b519f7eafed7b8ea88.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "soundness": 7.0,
+        "clarity": 5.8,
+        "importance": 6.4
+      },
+      "human_review_excerpt": "ICLR ortalama rating (1-10): 6.40 (5 hakem) | Karar: Accept (Poster)",
+      "notes": "OpenReview ICLR 2025 gerçek veri. human_scores: soundness/clarity/importance ICLR soundness/presentation/contribution(1-4)'ten 1-10'a ölçeklendi. Diğer boyutlar + minor/major_revision kademesi ICLR'de ölçülmedi → OMER nicel-sosyal-bilim pilotundan doldurur."
+    },
+    {
+      "paper_id": "openreview:odjMSBSWRt",
+      "source": "openreview",
+      "title": "DarkBench: Benchmarking Dark Patterns in Large Language Models",
+      "field": "ml",
+      "pdf_url": "https://openreview.net/pdf/66d66215ed6e8821cf14e0c9c0e83be089660c40.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "soundness": 5.5,
+        "clarity": 4.75,
+        "importance": 6.25
+      },
+      "human_review_excerpt": "ICLR ortalama rating (1-10): 7.00 (4 hakem) | Karar: Accept (Oral)",
+      "notes": "OpenReview ICLR 2025 gerçek veri. human_scores: soundness/clarity/importance ICLR soundness/presentation/contribution(1-4)'ten 1-10'a ölçeklendi. Diğer boyutlar + minor/major_revision kademesi ICLR'de ölçülmedi → OMER nicel-sosyal-bilim pilotundan doldurur."
+    },
+    {
+      "paper_id": "openreview:imT03YXlG2",
+      "source": "openreview",
+      "title": "Sparse autoencoders reveal selective remapping of visual concepts during adaptation",
+      "field": "ml",
+      "pdf_url": "https://openreview.net/pdf/469d7576c891b95a4ab30850be28e467ff37f566.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "soundness": 7.0,
+        "clarity": 5.5,
+        "importance": 4.75
+      },
+      "human_review_excerpt": "ICLR ortalama rating (1-10): 6.50 (4 hakem) | Karar: Accept (Poster)",
+      "notes": "OpenReview ICLR 2025 gerçek veri. human_scores: soundness/clarity/importance ICLR soundness/presentation/contribution(1-4)'ten 1-10'a ölçeklendi. Diğer boyutlar + minor/major_revision kademesi ICLR'de ölçülmedi → OMER nicel-sosyal-bilim pilotundan doldurur."
+    },
+    {
+      "paper_id": "openreview:w7P92BEsb2",
+      "source": "openreview",
+      "title": "PIED: Physics-Informed Experimental Design for Inverse Problems",
+      "field": "ml",
+      "pdf_url": "https://openreview.net/pdf/ecbc79cad364be2be0e1e48a7cf0b675efc75687.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "soundness": 7.0,
+        "clarity": 7.0,
+        "importance": 6.25
+      },
+      "human_review_excerpt": "ICLR ortalama rating (1-10): 7.00 (4 hakem) | Karar: Accept (Poster)",
+      "notes": "OpenReview ICLR 2025 gerçek veri. human_scores: soundness/clarity/importance ICLR soundness/presentation/contribution(1-4)'ten 1-10'a ölçeklendi. Diğer boyutlar + minor/major_revision kademesi ICLR'de ölçülmedi → OMER nicel-sosyal-bilim pilotundan doldurur."
+    },
+    {
+      "paper_id": "peerj:20153",
+      "source": "peerj",
+      "title": "The 6-item specific object anthropomorphism scale: a new questionnaire for children and adults",
+      "field": "quant_social_science",
+      "pdf_url": "https://peerj.com/articles/20153/",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "David, Stowe, Caruana ve Norberg (2025), Specific Object Anthropomorphism Scale (SOAS) adli 6 maddelik bir olcek gelistirip 3 ayri calismada gecerlik/guvenilirligini test etmis. Aciklayici faktor analizi tek faktorlu yapiyi dogrulamis, test-tekrar test guvenilirligi ve yakinsak/iraksak gecerlik gosterilmis.",
+      "notes": "PeerJ acik-hakem, nihai karar accept. Sayisal hakem skoru YOK, sadece verdict gercek."
+    },
+    {
+      "paper_id": "peerj:4181",
+      "source": "peerj",
+      "title": "Examining the stress-burnout relationship: the mediating role of negative thoughts",
+      "field": "quant_social_science",
+      "pdf_url": "https://peerj.com/articles/4181/",
+      "human_verdict": "major_revision",
+      "human_scores": {},
+      "human_review_excerpt": "Hakem, sporcularda stres-tukenmislik iliskisinin negatif dusuncelerin araciligi uzerinden incelenmesini zamaninda ve konuyla ilgili bulmus; ancak makalenin genelinde ele alinmasi gereken onemli metodolojik/sunum sorunlari oldugunu belirterek buyuk revizyon olmadan yayina uygun olmadigini bildirmis.",
+      "notes": "PeerJ acik-hakem, round-1 editor karari major_revision. Verdict cesitliligi katan onemli girdi."
+    },
+    {
+      "paper_id": "peerj:cs-3113",
+      "source": "peerj",
+      "title": "Applying the S-O-R model to explore impulsive buying behavior driven by influencers on social commerce websites",
+      "field": "quant_social_science",
+      "pdf_url": "https://peerj.com/articles/cs-3113/",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "Hakem, calismanin yontemsel acidan saglam oldugunu belirtmis - tam veri setleri, dogrulayici faktor analizi (CFA), guvenilirlik testleri ve yapisal esitlik modellemesi (SEM) standart uygulamalara uygun. Ancak tekrar/uyarlama icin guclu bir gerekce sunulmadigi elestirilmis. Makale 20 Temmuz 2025'te kabul edilmis.",
+      "notes": "PeerJ acik-hakem. Alan tanimina (nicel sosyal bilim - tuketici davranisi) en iyi uyan aday."
+    },
+    {
+      "paper_id": "peerj:cs-1844",
+      "source": "peerj",
+      "title": "Using deep learning-based artificial intelligence electronic images in improving middle school teachers' literacy",
+      "field": "quant_social_science",
+      "pdf_url": "https://peerj.com/articles/cs-1844/",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "Calisma, paralel dogrulayici faktor analizi kullanilarak onerilen faktor yapisinin psikometrik gecerliligini destekliyor; model verilerle uyumlu bulunmus, ardindan yapisal esitlik modellemesi ile teorik model dogrulanmis. Makale 29 Mart 2024'te yayinlanmis.",
+      "notes": "PeerJ acik-hakem. Egitim alaninda nicel metodoloji (CFA+SEM) ornegi."
+    },
+    {
+      "paper_id": "peerj:cs-3937",
+      "source": "peerj",
+      "title": "Artificial intelligence-supported health counseling scale (AI-HCS): a reliability and validity study",
+      "field": "quant_social_science",
+      "pdf_url": "https://peerj.com/articles/cs-3937/",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "Calisma, cok asamali olcek gelistirme ilkelerini temel kilavuz olarak kullanmis. Iki ayri orneklemle (592 katilimci EFA icin, 663 katilimci CFA icin) calisilmis - metodolojik olarak saglam.",
+      "notes": "PeerJ acik-hakem. Yapay zeka destekli saglik danismanligi olcegi, guclu nicel metodoloji ornegi."
+    },
+    {
+      "paper_id": "peerj:11863",
+      "source": "peerj",
+      "title": "Validity and usefulness of the student-athletes' motivation toward sport and academics questionnaire: a Bayesian multilevel approach",
+      "field": "quant_social_science",
+      "pdf_url": "https://peerj.com/articles/11863/",
+      "human_verdict": "major_revision",
+      "human_scores": {},
+      "human_review_excerpt": "Hakem, makalenin iyi yazilmis ve yapilandirilmis oldugunu, metodoloji ve istatistiksel analizlerin calismanin en guclu yonleri oldugunu belirtmis. Ancak baslangictaki genis orneklemin dogrulama icin kullanilmasina ragmen, ayni orneklemin baska analizler icin tekrar kullanilmasinin gerekli olmayabilecegini elestirmis. Hakemin tavsiyesi major revizyon.",
+      "notes": "PeerJ acik-hakem, round-1 editor karari major_revision. Bayesian cok-seviyeli modelleme + anket gecerleme calismasi."
+    },
+    {
+      "paper_id": "peerread:iclr2017-415",
+      "source": "peerread",
+      "title": "Regularizing CNNs with Locally Constrained Decorrelations",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/415.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 9.0,
+        "soundness": 10.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-405",
+      "source": "peerread",
+      "title": "Recurrent Environment Simulators",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/405.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 7.0,
+        "soundness": 6.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-376",
+      "source": "peerread",
+      "title": "Capacity and Trainability in Recurrent Neural Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/376.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 4.0,
+        "soundness": 4.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-361",
+      "source": "peerread",
+      "title": "Learning Curve Prediction with Bayesian Neural Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/361.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 5.33,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-393",
+      "source": "peerread",
+      "title": "Structured Attention Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/393.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 4.0,
+        "soundness": 4.0,
+        "clarity": 6.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 8.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-422",
+      "source": "peerread",
+      "title": "Deep Variational Bayes Filters: Unsupervised Learning of State Space Models from Raw Data",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/422.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 4.0,
+        "soundness": 6.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-400",
+      "source": "peerread",
+      "title": "Tree-structured decoding with doubly-recurrent neural networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/test/pdfs/400.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 6.0,
+        "clarity": 7.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-339",
+      "source": "peerread",
+      "title": "Improving Neural Language Models with a Continuous Cache",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/339.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 4.0,
+        "soundness": 8.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-426",
+      "source": "peerread",
+      "title": "Offline bilingual word vectors, orthogonal transformations and the inverted softmax",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/426.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 7.0,
+        "soundness": 4.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-351",
+      "source": "peerread",
+      "title": "Diet Networks: Thin Parameters for Fat Genomics",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/351.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 5.33,
+        "soundness": 10.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-350",
+      "source": "peerread",
+      "title": "Deep Predictive Coding Networks for Video Prediction and Unsupervised Learning",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/dev/pdfs/350.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 8.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-408",
+      "source": "peerread",
+      "title": "Multi-view Recurrent Neural Acoustic Word Embeddings",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/408.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 4.0,
+        "soundness": 10.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 5.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-341",
+      "source": "peerread",
+      "title": "Third Person Imitation Learning",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/341.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 2.0,
+        "soundness": 8.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 5.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-403",
+      "source": "peerread",
+      "title": "Lie-Access Neural Turing Machines",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/403.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 4.0,
+        "soundness": 4.8
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.8 (8 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-331",
+      "source": "peerread",
+      "title": "Learning Invariant Feature Spaces to Transfer Skills with Reinforcement Learning",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/331.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 8.0,
+        "soundness": 6.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-367",
+      "source": "peerread",
+      "title": "Optimal Binary Autoencoding with Pairwise Correlations",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/367.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 10.0,
+        "soundness": 4.0,
+        "clarity": 8.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-328",
+      "source": "peerread",
+      "title": "Multilayer Recurrent Network Models of Primate Retinal Ganglion Cell Responses",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/dev/pdfs/328.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 8.0,
+        "soundness": 8.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-398",
+      "source": "peerread",
+      "title": "A recurrent neural network without chaos",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/test/pdfs/398.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 8.0,
+        "soundness": 9.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-318",
+      "source": "peerread",
+      "title": "Learning Graphical State Transitions",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/318.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "soundness": 6.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 8.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-322",
+      "source": "peerread",
+      "title": "Nonparametric Neural Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/322.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 10.0,
+        "soundness": 10.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-424",
+      "source": "peerread",
+      "title": "Mollifying Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/424.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 7.0,
+        "clarity": 9.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-371",
+      "source": "peerread",
+      "title": "A Compositional Object-Based Approach to Learning Physical Dynamics",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/371.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 7.0,
+        "soundness": 9.0,
+        "clarity": 7.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-420",
+      "source": "peerread",
+      "title": "Frustratingly Short Attention Spans in Neural Language Modeling",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/420.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 8.0,
+        "soundness": 10.0,
+        "clarity": 5.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-394",
+      "source": "peerread",
+      "title": "Zoneout: Regularizing RNNs by Randomly Preserving Hidden Activations",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/394.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 4.67,
+        "soundness": 4.0,
+        "clarity": 7.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-358",
+      "source": "peerread",
+      "title": "Towards a Neural Statistician",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/test/pdfs/358.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 4.0,
+        "clarity": 6.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-390",
+      "source": "peerread",
+      "title": "Metacontrol for Adaptive Imagination-Based Optimization",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/390.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 6.0,
+        "soundness": 8.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.8 (8 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-306",
+      "source": "peerread",
+      "title": "Optimization as a Model for Few-Shot Learning",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/306.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 9.6,
+        "soundness": 6.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-379",
+      "source": "peerread",
+      "title": "Deep Learning with Dynamic Computation Graphs",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/379.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 10.0,
+        "soundness": 10.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-380",
+      "source": "peerread",
+      "title": "Calibrating Energy-based Generative Adversarial Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/380.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 8.0,
+        "soundness": 10.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-384",
+      "source": "peerread",
+      "title": "Machine Comprehension Using Match-LSTM and Answer Pointer",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/384.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 10.0,
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-430",
+      "source": "peerread",
+      "title": "Latent Sequence Decompositions",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/430.pdf",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-498",
+      "source": "peerread",
+      "title": "Dropout with Expectation-linear Regularization",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/test/pdfs/498.pdf",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-309",
+      "source": "peerread",
+      "title": "Reinforcement Learning with Unsupervised Auxiliary Tasks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/309.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "clarity": 10.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-413",
+      "source": "peerread",
+      "title": "Sigma Delta Quantized Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/413.pdf",
+      "human_verdict": "accept",
+      "human_scores": {
+        "originality": 2.0
+      },
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı)."
+    },
+    {
+      "paper_id": "peerread:iclr2017-455",
+      "source": "peerread",
+      "title": "Energy-based Generative Adversarial Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/455.pdf",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-476",
+      "source": "peerread",
+      "title": "Do Deep Convolutional Nets Really Need to be Deep and Convolutional?",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/476.pdf",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-377",
+      "source": "peerread",
+      "title": "Learning to Perform Physics Experiments via Deep Reinforcement Learning",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/dev/pdfs/377.pdf",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.8 (8 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-445",
+      "source": "peerread",
+      "title": "Dialogue Learning With Human-in-the-Loop",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/445.pdf",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-487",
+      "source": "peerread",
+      "title": "Sparsely-Connected Neural Networks: Towards Efficient VLSI Implementation of Deep Neural Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/487.pdf",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 6.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-467",
+      "source": "peerread",
+      "title": "Adversarial Feature Learning",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/467.pdf",
+      "human_verdict": "accept",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: kabul. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 7.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-560",
+      "source": "peerread",
+      "title": "On orthogonality and learning recurrent networks with long term dependencies",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/560.pdf",
+      "human_verdict": "reject",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: ret. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 5.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-695",
+      "source": "peerread",
+      "title": "A Simple yet Effective Method to Prune Dense Layers of Neural Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/695.pdf",
+      "human_verdict": "reject",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: ret. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 4.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-778",
+      "source": "peerread",
+      "title": "Ternary Weight Decomposition and Binary Activation Encoding for Fast and Compact Neural Network",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/test/pdfs/778.pdf",
+      "human_verdict": "reject",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: ret. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 5.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-715",
+      "source": "peerread",
+      "title": "Coarse Pruning of Convolutional Neural Networks with Random Masks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/715.pdf",
+      "human_verdict": "reject",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: ret. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 5.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-613",
+      "source": "peerread",
+      "title": "Neural Causal Regularization under the Independence of Mechanisms Assumption",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/613.pdf",
+      "human_verdict": "reject",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: ret. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 5.0 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-655",
+      "source": "peerread",
+      "title": "Distributed Transfer Learning for Deep Convolutional Neural Networks by Basic Probability Assignment",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/655.pdf",
+      "human_verdict": "reject",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: ret. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 3.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-519",
+      "source": "peerread",
+      "title": "Recurrent Normalization Propagation",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/519.pdf",
+      "human_verdict": "reject",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: ret. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 5.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-606",
+      "source": "peerread",
+      "title": "Learning Approximate Distribution-Sensitive Data Structures",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/606.pdf",
+      "human_verdict": "reject",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: ret. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 3.7 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-693",
+      "source": "peerread",
+      "title": "Fast Adaptation in Generative Models with Generative Matching Networks",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/693.pdf",
+      "human_verdict": "reject",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: ret. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 5.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    },
+    {
+      "paper_id": "peerread:iclr2017-549",
+      "source": "peerread",
+      "title": "Energy-Based Spherical Sparse Coding",
+      "field": "ml",
+      "pdf_url": "https://raw.githubusercontent.com/allenai/PeerRead/master/data/iclr_2017/train/pdfs/549.pdf",
+      "human_verdict": "reject",
+      "human_scores": {},
+      "human_review_excerpt": "ICLR 2017 gerçek hakem kararı: ret. | PeerRead ortalama RECOMMENDATION (gözlemlenen aralık 2-9): 5.3 (6 hakem girdisi)",
+      "notes": "allenai/PeerRead (GitHub) veri setinden — ICLR 2017 gerçek hakem verisi. human_scores: originality/soundness/clarity PeerRead'in ORIGINALITY/SOUNDNESS_CORRECTNESS/CLARITY alanlarından (1-5 skala, birden fazla hakem varsa ortalama), 1-10'a ×2 ile ölçeklendi. RECOMMENDATION/REVIEWER_CONFIDENCE/MEANINGFUL_COMPARISON Arbitra boyutlarından hiçbirine net karşılık gelmediği için human_scores'a DAHIL EDİLMEDİ (2026-08-06 kullanıcı onaylı eşleme kararı). Bu makalede alt-boyut skoru YOK, sadece verdict."
+    }
+  ]
+}

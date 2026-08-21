@@ -1,0 +1,122 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 6.1 SAVUNMA \'97 YAYIN \uc0\u304 \'c7ER\u304 \u286 \u304  DOLDURMA\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Savunma sim\'fclasyonundan \'f6nce kullan\uc0\u305 c\u305 n\u305 n yay\u305 n iskeletini sistemli doldurmas\u305  \'97 "anlatt\u305 klar\u305 n\u305  anlat" zemini. Felsefemiz: sim\'fclasyon i\'e7erik \'fczerinde \'e7al\u305 \u351 \u305 r; i\'e7erik yoksa sycophant LLM havai yorum \'fcretir, biz buna izin vermeyiz. Emerald 5-b\'f6l\'fcm modeli (intro/methods/findings/discussion/conclusion) \'97 en az 3 doldurulmadan "Sim\'fclasyonu Ba\u351 lat" aktif olmaz.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: 5 form alan\u305  + word counter + LLM "dolulu\u287 u yeterli mi?" gate (her b\'f6l\'fcm min 50 kelime). 3/5 dolu e\u351 i\u287 i ge\'e7ti\u287 inde "Sim\'fclasyonu Ba\u351 lat" CTA aktif; kullan\u305 c\u305  6.2'ye veya 6.4/6.5'e se\'e7im yapar. Output: manuscript_section tablosuna persist; sonraki sim\'fclasyonlar bu sat\u305 r\u305  okur.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7larda (Manuscripts/Overleaf/Word) yay\u305 n iskeleti bo\u351  \u351 ablon olarak gelir; kullan\u305 c\u305 n\u305 n ne kadar doldurdu\u287 unu takip eden + sim\'fclasyona giri\u351 e gate koyan \'fcr\'fcn yok \'97 bu sayfa PaperMind imzas\u305  "savunma giri\u351  kap\u305 s\u305 ". (1) 5 b\'f6l\'fcm form edit\'f6r\'fc (V1 \u10003 , ham vizyon): Giri\u351  / Metod / Bulgular / Tart\u305 \u351 ma / Sonu\'e7 \'97 her b\'f6l\'fcm rich-text textarea + alt\u305 nda min 50 kelime word counter real-time. Felsefe: Emerald 5-b\'f6l\'fcm modeli; \'f6\u287 renci/dan\u305 \u351 man persona. (2) Doluluk gate AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , kan\u305 t-ba\u287 l\u305 ): "Sim\'fclasyonu Ba\u351 lat" CTA pasif \'97 tooltip "Min 3/5 b\'f6l\'fcm + her birinde min 50 kelime gerek". 3/5 \u10003  oldu\u287 unda ye\u351 il aktifle\u351 ir. Felsefe: zemin ko\u351 ulu \'97 sycophant sim\'fclasyon kap\u305 s\u305 ; dan\u305 \u351 man persona \'97 rakipte yok. (3) \'d6nceki ad\u305 mlardan otomatik doldurma (V1 \u10003 , bedava): 3.4 sentez_id \u8594  giri\u351  \'f6n taslak (paragraf\u305 n ilk versiyonu); 3.3 metod profili \u8594  metod \'f6n taslak; 4.4 gap karar\u305  \u8594  tart\u305 \u351 ma \'f6n taslak. project_progress.meta's\u305 ndan \'e7ekilir. Kullan\u305 c\u305  d\'fczenler veya silebilir. Felsefe: s\'fcre\'e7 b\'fct\'fcnl\'fc\u287 \'fc; \'f6\u287 renci persona. (4) B\'f6l\'fcm-bazl\u305  LLM iskelet butonu (V1 \u10003 , opsiyonel): bo\u351  b\'f6l\'fcmde "AI ile taslak \'fcret" butonu \'97 Gemini Flash 1 paragraf taslak (\'f6nceki ad\u305 mlar\u305  input). Kullan\u305 c\u305  d\'fczenler veya kabul eder. Otomatik de\u287 il, kullan\u305 c\u305  tetikler \'97 maliyet kontrol. Felsefe: yard\u305 m eli; \'f6\u287 renci persona. (5) Doluluk kalite kontrol AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , 1 Flash per b\'f6l\'fcm): word count yeterli ama "doldurma kalitesi" kontrol \'97 LLM 1 c\'fcmle "bu b\'f6l\'fcm ger\'e7ek i\'e7erik mi yoksa lorem ipsum/sahte mi?" de\u287 erlendirme. Sahte doldurma k\u305 rm\u305 z\u305  bayrak + "Ger\'e7ek i\'e7erik girin" uyar\u305 s\u305 . Lazy load \'97 kullan\u305 c\u305  b\'f6l\'fcm\'fc kaydedince. Felsefe: ger\'e7ek zemin ko\u351 ulu; dan\u305 \u351 man persona \'97 rakipte yok. (6) Sim\'fclasyon hedef se\'e7ici (V1 \u10003 , ham vizyon): doluluk gate ge\'e7ildikten sonra 3 y\'f6n kart\u305  \'97 6.2 Savunma Format\u305  (genel) / 6.4 Dergi Sim\'fclasyonu (peer review) / 6.5 J\'fcri Sim\'fclasyonu (tez savunmas\u305 ). Felsefe: s\'fcre\'e7 ak\u305 \u351  kav\u351 a\u287 \u305 ; \'f6\u287 renci/dan\u305 \u351 man persona. (7) manuscript_section tablosu persist (V1 \u10003 , Migration 0027): project_id + section_type (intro/methods/findings/discussion/conclusion) + content (TEXT) + word_count + ai_quality_flag (ENUM: ok/sahte/null) + updated_at. Sonraki sim\'fclasyonlar (6.2/6.4/6.5) bu sat\u305 r\u305  okur. RLS: kendi proje. Felsefe: tek kaynak do\u287 ruluk; teknik kan\u305 t. (8) Doluluk skor bar\u305  (V1 \u10003 , bedava UI): 0/5 \u8594  5/5 g\'f6rsel progress; renkli (k\u305 rm\u305 z\u305  0-1 / sar\u305  2 / ye\u351 il 3+). 5.1'deki olgunluk bar\u305  stiliyle tutarl\u305 . Felsefe: tek bak\u305 \u351  doluluk; \'f6\u287 renci persona. (9) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): bu sayfada birincil de\u287 il \'97 ancak kullan\u305 c\u305  bir b\'f6l\'fcmde "at\u305 f ekle" derse 5.4'teki arama paneli a\'e7\u305 l\u305 r (yan panel) ve oradaki Standart Yay\u305 n Kart\u305  + 4 standart buton g\'f6r\'fcn\'fcr. Felsefe: doldurma s\u305 ras\u305 nda kaynak ak\u305 \u351 \u305 ; \'f6\u287 renci persona. V2'ye ertelenenler: Kelime \'f6nerisi inline yaz\u305 m yard\u305 m\u305  (autocomplete) \'97 5.3 parafrasing yeter, V1'de gereksiz. B\'f6l\'fcmler aras\u305  tutarl\u305 l\u305 k denetimi (intro'daki iddia discussion'da var m\u305 ?) \'97 6.3 Bireysel Kontrol sayfas\u305 nda yap\u305 l\u305 r. Versiyon kontrol her kay\u305 tta snapshot \'97 V1'de updated_at + son i\'e7erik yeter, history V2. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase'de do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 ; Migration 0027 (manuscript_section) toplu plan oturumuna eklendi.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Burada Emerald gibi 5 maddeden 3 tanesini en az doldurmas\uc0\u305 n\u305 \
+isteyece\uc0\u287 iz.\
+\
+Daha sonra "Sim\'fclasyonu Ba\uc0\u351 lat" butonuna t\u305 klamas\u305 n\u305  isteyece\u287 iz.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10):\
+\
+(1) MIGRATION 0027 \'97 manuscript_section tablosu (V1 zorunlu, toplu plan oturumu):\
+    - Schema:\
+      * id (uuid)\
+      * project_id (FK user_projects)\
+      * section_type (ENUM: intro/methods/findings/discussion/conclusion)\
+      * content (TEXT)\
+      * word_count (INT, computed/cached)\
+      * ai_quality_flag (ENUM: ok/sahte/null) \'97 null=hen\'fcz de\uc0\u287 erlendirilmedi\
+      * created_at + updated_at\
+      * UNIQUE (project_id, section_type)\
+    - RLS: kullan\uc0\u305 c\u305  yaln\u305 z kendi project'lerini g\'f6r\'fcr\
+    - Tahmini i\uc0\u351 : 0.3 g\'fcn (toplu migration oturumunda 0021-0027)\
+\
+(2) BACKEND \'97 b\'f6l\'fcm CRUD endpoint:\
+    - GET /api/workshop/manuscript?project_id=\{id\}\
+      \uc0\u8594  t\'fcm 5 b\'f6l\'fcm\'fcn i\'e7erik + word_count + quality_flag\
+    - PUT /api/workshop/manuscript/\{section_type\}\
+      \uc0\u8594  Body: \{ project_id, content \}\
+      \uc0\u8594  word_count auto-compute\
+      \uc0\u8594  ai_quality_flag null'a reset (yeniden de\u287 erlendirme gerek)\
+    - Output: \{ sections[], gate_status: \{ filled_count, gate_open: bool \} \}\
+\
+(3) BACKEND \'97 kalite de\uc0\u287 erlendirme endpoint:\
+    - POST /api/workshop/manuscript/quality-check\
+    - Body: \{ project_id, section_type \}\
+    - Ad\uc0\u305 mlar:\
+      a) \uc0\u304 \'e7erik \'e7ek\
+      b) Gemini Flash 1 \'e7a\uc0\u287 r\u305 : "Bu metin akademik i\'e7erik mi yoksa lorem ipsum/sahte/test mi? Tek kelime yan\u305 t: ok | sahte"\
+         + 1 c\'fcmle gerek\'e7e\
+      c) ai_quality_flag UPDATE\
+    - Output: \{ flag, reason \}\
+    - Cache: 24h (i\'e7erik de\uc0\u287 i\u351 medik\'e7e yeniden \'e7a\u287 r\u305 lmaz)\
+\
+(4) BACKEND \'97 otomatik doldurma endpoint:\
+    - POST /api/workshop/manuscript/auto-draft\
+    - Body: \{ project_id, section_type \}\
+    - Ad\uc0\u305 mlar:\
+      a) project_progress.meta'dan ilgili ad\uc0\u305 m \'e7\u305 kt\u305 s\u305 n\u305  \'e7ek:\
+         * intro: 3.4 sentez paragraf\uc0\u305  + 4.4 gap karar\u305 \
+         * methods: 3.3 metod profili\
+         * findings: 4.5 etki e\uc0\u287 risi yorum\
+         * discussion: 4.4 gap karar gerek\'e7esi + 4.5 momentum\
+         * conclusion: 5.1 akademik \'f6zet (varsa)\
+      b) Gemini Flash 1 \'e7a\uc0\u287 r\u305 : bu girdileri 1 paragraf taslak halinde format\
+      c) Kullan\uc0\u305 c\u305  kabul edene kadar manuscript_section'a yaz\u305 lmaz\
+    - Output: \{ draft_content, source_steps[] \}\
+\
+(5) FRONTEND:\
+    - \'dcstte yatay doluluk skor bar\uc0\u305  (0/5 \u8594  5/5)\
+    - 5 b\'f6l\'fcm tabs (Giri\uc0\u351  / Metod / Bulgular / Tart\u305 \u351 ma / Sonu\'e7):\
+      * Her tab: rich-text textarea + word counter + sa\uc0\u287  \'fcstte "AI ile taslak \'fcret" butonu\
+      * B\'f6l\'fcm kaydedildikten sonra alt k\uc0\u305 s\u305 mda kalite de\u287 erlendirme rozet (ye\u351 il/k\u305 rm\u305 z\u305  + gerek\'e7e)\
+      * Sahte i\'e7erik k\uc0\u305 rm\u305 z\u305  kenar\
+    - Alt: "Sim\'fclasyonu Ba\uc0\u351 lat" CTA (pasif/aktif state'e g\'f6re renk)\
+      * Aktif olunca yan a\'e7\uc0\u305 l\u305 r panel: 3 hedef kart (6.2 / 6.4 / 6.5)\
+    - Sa\uc0\u287  panel (collapsible): "5.4 at\u305 f arama" yan paneli \'97 b\'f6l\'fcm yazarken at\u305 f eklenebilir\
+\
+(6) LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - Kalite de\uc0\u287 erlendirme: ~500 input + ~50 output = ~$0.0001 per b\'f6l\'fcm \'d7 5 = ~$0.0005\
+    - Otomatik taslak: ~1.5K input + ~200 output = ~$0.0003 per b\'f6l\'fcm (opsiyonel, kullan\uc0\u305 c\u305  tetiklerse)\
+    - Sayfa ba\uc0\u351 \u305 na ortalama: ~$0.001-0.002\
+\
+(7) PERFORMANS HEDEF\uc0\u304 :\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351 : < 400ms (manuscript_section SELECT + word counts)\
+    - B\'f6l\'fcm kaydetme: < 200ms (PUT + word_count compute)\
+    - Kalite de\uc0\u287 erlendirme: ~600ms (Flash async, badge fade-in)\
+    - Otomatik taslak: ~1s (Flash, loading spinner)\
+\
+KULLANIM:\
+    - Sayfa varsay\uc0\u305 lan: en son d\'fczenlenen b\'f6l\'fcm a\'e7\u305 k\
+    - 3/5 \uc0\u10003  + her birinde min 50 kelime + ai_quality_flag != 'sahte' = gate a\'e7\u305 k\
+    - Sim\'fclasyon ba\uc0\u351 lad\u305 \u287 \u305 nda ilgili sayfa (6.2/6.4/6.5) manuscript_section tablosunu okur\
+    - project_progress.step_id='6.1' completed; "Dan\uc0\u305 \u351 mana Gitmeden Evvel" olgunlu\u287 a katk\u305 \
+}

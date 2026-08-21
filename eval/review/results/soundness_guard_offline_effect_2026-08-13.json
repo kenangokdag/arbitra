@@ -1,0 +1,21 @@
+{
+  "n_total": 61,
+  "n_triggered": 38,
+  "before_most_common": [
+    7.75,
+    40
+  ],
+  "after_most_common": [
+    9.55,
+    37
+  ],
+  "n_human_scored": 29,
+  "spearman_before": {
+    "r": -0.06949549410096598,
+    "p": 0.7201814884179802
+  },
+  "spearman_after": {
+    "r": 0.0691991380493627,
+    "p": 0.7213276493589796
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "n_reports": 61,
+  "coverage_flagged": 20,
+  "citation_flagged_new_ss41": 26,
+  "citation_only_flagged": 8,
+  "any_provider_flagged_union": 28,
+  "clean_after_ss41": 33,
+  "motor_dagilim": {
+    "accept": 43,
+    "major_revision": 13,
+    "reject": 5
+  },
+  "confusion_matrix_insan_satir_motor_sutun": {
+    "accept": {
+      "accept": 38,
+      "major_revision": 8,
+      "reject": 3
+    },
+    "major_revision": {
+      "accept": 1,
+      "major_revision": 1
+    },
+    "reject": {
+      "accept": 4,
+      "major_revision": 4,
+      "reject": 2
+    }
+  },
+  "sinif_basi_dogruluk": {
+    "accept": {
+      "dogru": 38,
+      "toplam": 49
+    },
+    "minor_revision": {
+      "dogru": 0,
+      "toplam": 0
+    },
+    "major_revision": {
+      "dogru": 1,
+      "toplam": 2
+    },
+    "reject": {
+      "dogru": 2,
+      "toplam": 10
+    }
+  },
+  "sinif_dengeli_dogruluk": 0.4918367346938775
+}

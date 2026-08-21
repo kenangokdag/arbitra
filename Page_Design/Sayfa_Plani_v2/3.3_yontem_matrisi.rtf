@@ -1,0 +1,90 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 3.3 \uc0\u304 NCELEME \'97 Y\'d6NTEM MATR\u304 S\u304 \
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: 25 se\'e7ili paper'\uc0\u305 n hangi y\'f6ntemlerle \'e7al\u305 \u351 t\u305 \u287 \u305 n\u305  \'e7apraz matris olarak g\'f6stermek \'97 kullan\u305 c\u305 n\u305 n "alan\u305 m hangi metodu ne s\u305 kl\u305 kta kullan\u305 yor?" sorusunun cevab\u305 . Felsefemiz: metodoloji haritas\u305  kullan\u305 c\u305 n\u305 n kendi \'e7al\u305 \u351 mas\u305 n\u305  konumland\u305 rmas\u305 na ve gap fark etmesine zemin haz\u305 rlar. Rakipler (Elicit %20 metod kategorisi g\'f6steriyor) ama matris yok; Consensus / SciSpace metodolojiyi yok sayar. Bizim imza: 7-tag s\u305 n\u305 fland\u305 rma \'d7 Konu/Kavram \'e7apraz tablo + heatmap.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: fact_paper_metod tablosundaki \'f6nceden hesaplanm\u305 \u351  7-tag (experimental_rct / observational / qualitative / mixed_methods / systematic_review / simulation / theoretical) s\u305 n\u305 fland\u305 rmay\u305  kullan\u305 r\u305 z. Tek dinamik heatmap \'97 kullan\u305 c\u305  X ve Y eksenlerini iki dropdown ile se\'e7er (Metod / Tema / Kavram / Alan, ayn\u305  eksen se\'e7ilemez). H\'fccreler paper say\u305 s\u305  ile renklendirilir; t\u305 klan\u305 nca h\'fccredeki paper listesi standart yay\u305 n kart\u305  (Daralt\u305 lm\u305 \u351  s\'fcr\'fcm) ile a\'e7\u305 l\u305 r. Mikro-yorum hari\'e7 LLM yok; saf SQL aggregation.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik metod matris ara\'e7lar\u305  (Elicit %20 metod kategorisi g\'f6sterir ama matris yok) "ham heatmap, kullan\u305 c\u305  yorumlas\u305 n" bo\u351 lu\u287 u b\u305 rak\u305 r; bizim ay\u305 rt edici dokunu\u351 umuz yorumlu + alan-referansl\u305  + bo\u351 luk-vurgulu matris. (1) Tek dinamik heatmap (V1 \u10003 , ana plan): X/Y dropdown ile 4\'d73=12 kombinasyon (Metod\'d7Tema, Metod\'d7Alan, Metod\'d7Kavram, Tema\'d7Alan, Tema\'d7Kavram, Alan\'d7Kavram + transpose). fact_paper_metod + fact_paper_topic + fact_paper_field + fact_paper_id_card.keywords (jsonb expand) JOIN ile her kombinasyon bedava SQL. Felsefe: kullan\u305 c\u305 ya ke\u351 if \'f6zg\'fcrl\'fc\u287 \'fc, sayfa kabar\u305 k olmas\u305 n \'97 tek g\'f6rsel, \'e7ok bak\u305 \u351 . (2) Lift overlay AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 ): Her h\'fccreye global referans rakam "+%Y" \'97 fact_method_topic_affinity ve fact_method_field_affinity (Excel envanter kan\u305 t A \'97 Supabase'de aktif) ile kar\u351 \u305 la\u351 t\u305 r. Di\u287 er 4 kombinasyon (Tema\'d7Alan, Tema\'d7Kavram, Alan\'d7Kavram, Metod\'d7Kavram) i\'e7in 3 yeni t\'fcretilmi\u351  tablo (fact_theme_field_affinity / fact_theme_keyword_affinity / fact_field_keyword_affinity) migration 0022 ile V1'de eklenir; eski affinity tablolar\u305 yla ayn\u305  patternde offline aggregation. Felsefe: j\'fcri/hakem personas\u305  \'97 savunmada "alan\u305 n geneline g\'f6re dengeli/sapk\u305 n" iddias\u305  rakamla destekli; klasik ara\'e7 bunu vermez. (3) Bo\u351  h\'fccre = bo\u351 luk i\u351 areti (V1 \u10003 , bedava UI): s\u305 f\u305 r paper olan h\'fccreler \'e7apraz \'e7izgili a\'e7\u305 k gri desen \'97 "burada hi\'e7 \'e7al\u305 \u351 \u305 lmam\u305 \u351 , f\u305 rsat" g\'f6rsel mesaj\u305 . 4.1 Bo\u351 luk Haritas\u305  ile mant\u305 ksal ba\u287 . Felsefe: j\'fcri/hakem personas\u305  \'97 ham heatmap yerine bo\u351 luk-vurgulu heatmap. (4) Mikro-yorum (V1 \u10003 , d\'fc\u351 \'fck maliyet, 1 Flash \'e7a\u287 r\u305 ): matris alt\u305 nda 1-2 c\'fcmle \'97 "Havuzun \'e7o\u287 unlu\u287 u observational + theme T1; deneysel metod bo\u351 luk var (sadece 2 paper)" gibi. Klasik arac\u305 n "ham \'e7\u305 kt\u305 " bo\u351 lu\u287 unu doldurur; dan\u305 \u351 man personas\u305 . (5) Confidence flag filtresi (V1 \u10003 , bedava UI): \'fcstte toggle "Sadece high confidence" \'97 fact_paper_metod.confidence_flag ile filtre, d\'fc\u351 \'fck g\'fcvenli s\u305 n\u305 fland\u305 rmay\u305  d\u305 \u351 lar. Felsefe: j\'fcri/hakem personas\u305  \'97 "metod s\u305 n\u305 fland\u305 rma g\'fcvenilir mi?" sorusunun cevab\u305 . (6) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): h\'fccre t\u305 klan\u305 nca o h\'fccredeki paper'lar listelenir \u8594  D6 Lite + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon yok \'97 matris h\'fccresi paper de\u287 il, agregasyon; kart d\'fcz. V2'ye ertelenenler: Metod \'d7 Metod birlikteli\u287 i (mixed methods alt-katman\u305 , ek analiz). H\'fccre-bazl\u305  \'e7apa transferi ("+bu metod+tema \'e7apa yap" \'97 UX karma\u351 as\u305 ). Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanterde do\u287 rulanm\u305 \u351  4 ham tablo + migration 0022 ile ayn\u305  patternde t\'fcretilecek 3 yeni affinity tablosu V1'e al\u305 nd\u305 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Daha \'f6nce hesaplanan ve veri ambar\uc0\u305 nda duran verilerden\
+proje havuzuna atanan ve se\'e7ilen 25 makale i\'e7in hangi y\'f6ntemler\
+kullan\uc0\u305 lm\u305 \u351  ise onun matrisi g\'f6sterilecek.\
+\
+Se\'e7enekler:\
+- Kavram x Metod\
+- Konu x Metod\
+\
+(Veri ambar\uc0\u305 n\u305  kontrol edelim \'97 haz\u305 r veri kaynaklar\u305 n\u305  \'f6nerelim.)\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+EKLENECEK M\uc0\u304 GRAT\u304 ON (2026-05-10, plan oturumunda detaylanacak):\
+\
+Migration 0022_extended_affinity.sql \'97 3 yeni t\'fcretilmi\uc0\u351  tablo:\
+\
+(1) fact_theme_field_affinity\
+    - theme_id text\
+    - primary_field text\
+    - n_papers int4 (joint count)\
+    - mean_centrality float8\
+    - mean_q_weak float8\
+    - lift float8 (P(theme,field) / (P(theme)\'b7P(field)))\
+    - PRIMARY KEY (theme_id, primary_field)\
+\
+(2) fact_theme_keyword_affinity\
+    - theme_id text\
+    - keyword text (corpus genelinde top-1000 keyword ile s\uc0\u305 n\u305 rl\u305 )\
+    - n_papers int4\
+    - mean_q_weak float8\
+    - lift float8\
+    - PRIMARY KEY (theme_id, keyword)\
+    - tahmini boyut: 4516 \'d7 1000 \uc0\u8776  4.5M sat\u305 r\
+\
+(3) fact_field_keyword_affinity\
+    - primary_field text (~19 OpenAlex field)\
+    - keyword text (top-1000)\
+    - n_papers int4\
+    - mean_q_weak float8\
+    - lift float8\
+    - PRIMARY KEY (primary_field, keyword)\
+    - tahmini boyut: 19 \'d7 1000 \uc0\u8776  19K sat\u305 r\
+\
+OFFLINE NOTEBOOK: mevcut affinity hesap pipeline'\uc0\u305  (fact_method_topic_affinity ve fact_method_field_affinity \'fcreten) ile ayn\u305  pattern \'97 joint count + marginal count + lift form\'fcl\'fc. Ham veri: fact_paper_topic + fact_paper_field + fact_paper_id_card.keywords (jsonb expand). Hesaplama 1 kez offline, sonu\'e7 parquet \u8594  Supabase upload (N18 notebook gibi).\
+\
+RLS: read-all authenticated; service_role write.\
+\
+Tahmini i\uc0\u351 : 1-2 g\'fcnl\'fck (2.5'in concept_edge / concept_edge_temporal / dim_term_community ta\u351 \u305 mas\u305 yla ayn\u305  plan oturumuna toplanabilir \'97 toplam 6 yeni tablo, tek migration toplulu \'e7al\u305 \u351 ma).\
+\
+KULLANIM: 3.3 sayfas\uc0\u305 nda lift overlay 6 kombinasyonun hepsinde aktif olur (mevcut 2 + yeni 3 + transpose'lar). Hal\'fcsinasyon yok \'97 pattern eski affinity tablolar\u305 yla ayn\u305 , kan\u305 t seviyesi A.\
+}

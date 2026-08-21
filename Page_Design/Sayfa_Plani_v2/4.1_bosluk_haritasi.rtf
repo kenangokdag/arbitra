@@ -1,0 +1,105 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 4.1 L\uc0\u304 TERAT\'dcR BO\u350 LU\u286 U \'97 BO\u350 LUK HAR\u304 TASI\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: 500 makalelik proje havuzunun gap heatmap'i \'97 "ne \'e7al\uc0\u305 \u351 \u305 lm\u305 \u351 , ne \'e7al\u305 \u351 \u305 lmam\u305 \u351 ?" sorusunun matris cevab\u305 . Felsefemiz: gap analizi PaperMind'\u305 n \'e7ekirdek imzalar\u305 ndan biri (M1-M8 bo\u351 luk form\'fcl\'fc, 0.25D + 0.20K + 0.20E + 0.15F + 0.20Y); rakipler (SciSpace/Consensus/Elicit/Scite) hi\'e7biri gap matrix sunmaz. \'dc\'e7 heatmap (Metod\'d7Kavram, Konu\'d7Kavram, Metod\'d7Konu) kullan\u305 c\u305 ya \'e7ok-eksenli g\'f6r\'fcn\'fcm sa\u287 lar; y\u305 l filtresi gap'in zaman boyutunu a\'e7ar.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: fact_gap_matrix tablosu (Excel envanter + canl\u305  Supabase sorgu kan\u305 t A \'97 504,436 sat\u305 r) t\'fcm gap mant\u305 \u287 \u305 n\u305  \'f6nceden hesapl\u305  tutar: matrix_id + axis_x + axis_y + depth + depth_norm + neighbor + e_value + feasibility + publishability + gap_value + matrix_confidence_prior + matrix_confidence_calibrated. Tek dinamik heatmap \'97 kullan\u305 c\u305  X/Y dropdown ile matrix_id se\'e7er; gap_value renk-kodu (koyu = dolu, a\'e7\u305 k = f\u305 rsat). LLM yok (mikro-yorum hari\'e7); anl\u305 k SQL.\
+\
+CANLI SUPABASE BULGUSU (2026-05-10): Mevcut hesapl\uc0\u305  3 matris \'97 M1 (Tema\'d7Metod, 56,192 sat\u305 r), M7 (Tema\'d7C\'fcmle-rol\'fc, 21,181 sat\u305 r; BACKGROUND/CONCLUSION/METHOD/OBJECTIVE/RESULT \'97 bonus \'f6zg\'fcn sinyal), M8 (Tema\'d7Tema, 427,063 sat\u305 r). Eksik kalibrasyon kolonlar\u305 : publishability t\'fcm sat\u305 rlarda 0.5 sabit, matrix_confidence_prior 0.5 sabit, matrix_confidence_calibrated 504,436/504,436 NULL. M2-M6 (Konu\'d7Kavram, Metod\'d7Kavram, temporal gap) hesaplanmam\u305 \u351 . Karar (Omer onay\u305  2026-05-10): HEPS\u304  V1'E ALINACAK \'97 kalibrasyon pipeline + 5 eksik matris + temporal s\'fcr\'fcm tek plan oturumunda toplu yap\u305 l\u305 r.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7lar (SciSpace/Consensus/Elicit/Scite) gap matrix vermez \'97 bu sayfa tamamen bizim imzam\u305 z; ay\u305 rt edici dokunu\u351 umuz yorumlu + g\'fcven-kalibreli + \'e7ok-eksenli + temporal gap. (1) Tek dinamik heatmap (V1 \u10003 , ana plan): X/Y dropdown ile matrix_id se\'e7imi (M1-M8). 3.3 ile tutarl\u305  UX. Felsefe: tutarl\u305 l\u305 k + sayfa kabar\u305 k olmas\u305 n. (2) gap_value renk-kodu (V1 \u10003 , ana sinyal): koyu = dolu, a\'e7\u305 k = f\u305 rsat. M1-M8 birle\u351 ik form\'fcl. Felsefe: bizim form\'fcl = imza. (3) G\'fcven kalibrasyonu i\u351 areti AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 , kalibrasyon sonras\u305 ): matrix_confidence_calibrated < e\u351 ik h\'fccreler "?" simgesi \'97 "bo\u351 luk olabilir ama veri az, emin de\u287 iliz". Felsefe: j\'fcri/hakem persona \'97 savunmada "veri yetersiz alan" d\'fcr\'fcst itiraf\u305 ; rakipte yok. (4) Top-N f\u305 rsat tablosu (V1 \u10003 , bedava SQL): heatmap alt\u305 nda k\'fc\'e7\'fck tablo \'97 gap_value \'d7 feasibility \'d7 publishability ortak y\'fcksek olan top-5/10/25 h\'fccre. Kalibrasyon sonras\u305  publishability anlaml\u305  s\u305 ralama yapar. Felsefe: kullan\u305 c\u305 ya y\'f6n; \'f6\u287 renci/dan\u305 \u351 man personas\u305 . (5) Y\u305 l filtresi (V1 \u10003 , temporal matris sonras\u305 ): \'fcstte slider; temporal s\'fcr\'fcm fact_gap_matrix_temporal ile y\u305 l-bazl\u305  gap_value dilimi. "Yeni bo\u351 luk mu, terk edilmi\u351  alan m\u305 ?" cevab\u305 . Felsefe: dan\u305 \u351 man/j\'fcri persona. (6) M7 BONUS \'97 Tema \'d7 C\'fcmle-rol\'fc matrisi (V1 \u10003 , \'f6zg\'fcn): "Bu temada METHOD b\'f6l\'fcm\'fc \'e7o\u287 unlukla zay\u305 f \'e7al\u305 \u351 \u305 lm\u305 \u351 " sinyali \'97 hi\'e7bir rakipte yok. fact_paper_sentence_role tablosu kan\u305 tla zaten Supabase'de aktif. Felsefe: ni\u351  \'f6zg\'fcn dokunu\u351 ; j\'fcri/hakem persona. (7) Mikro-yorum (V1 \u10003 , d\'fc\u351 \'fck maliyet, 1 Flash \'e7a\u287 r\u305 ): heatmap alt\u305 nda 1 c\'fcmle \'97 "Konu T1 \'d7 observasyonal metod en g\'fc\'e7l\'fc f\u305 rsat (gap=0.78), feasibility y\'fcksek". Klasik ara\'e7 yorum vermez; dan\u305 \u351 man personas\u305 . (8) 4.2 Bo\u351 luk Profili'ne ge\'e7i\u351  (V1 \u10003 ): h\'fccre t\u305 klan\u305 nca side panel "Bu bo\u351 lu\u287 u derinlemesine incele" \u8594  4.2 sayfas\u305 na y\'f6nlendirir. Felsefe: harita \u8594  se\'e7im \u8594  derin profil mant\u305 ksal ak\u305 \u351 . (9) Standart Yay\u305 n Kart\u305  (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): h\'fccre i\'e7indeki paper'lar D6 Lite + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon yok \'97 h\'fccre paper de\u287 il, agregasyon. V2'ye ertelenenler: H\'fccre-bazl\u305  \'e7apa transferi (kullan\u305 c\u305  bu bo\u351 lu\u287 u kendi konusu yaps\u305 n) \'97 UX karma\u351 as\u305 . 3-eksenli g\'f6r\'fcn\'fcm (Metod \'d7 Konu \'d7 Y\u305 l 3D) \'97 V1'de gerek yok. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase sorgusunda do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 ; kalibrasyon ve eksik matrisler i\'e7in yeni offline hesap plan\u305  a\u351 a\u287 \u305 da.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+500 makale i\'e7in a\uc0\u351 a\u287 \u305 daki e\u351 le\u351 meler kapsam\u305 nda matris g\'f6rseli sunulur:\
+- Metod x Kavram\
+- Konu x Kavram\
+- Metod x Konu\
+\
+Renk kodu:\
+- Koyu renk: \'e7ok \'e7al\uc0\u305 \u351 \u305 lan\
+- A\'e7\uc0\u305 k renk: az \'e7al\u305 \u351 \u305 lan\
+\
+Y\uc0\u305 l filtresi ile \'e7al\u305 \u351 abilecek.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10, plan oturumunda detaylanacak \'97 TOPLU PLAN OTURUMU 2.5 + 3.3 + 4.1 birlikte):\
+\
+(1) MIGRATION 0023_extended_gap_matrix.sql:\
+    - Mevcut fact_gap_matrix'e yeni matrix_id de\uc0\u287 erleri eklenir (M2-M6 + temporal):\
+      M2: Konu \'d7 Kavram (axis_x = theme_id, axis_y = keyword)\
+      M3: Metod \'d7 Kavram (axis_x = metod_id, axis_y = keyword)\
+      M4: Alan \'d7 Kavram (axis_x = primary_field, axis_y = keyword)\
+      M5: Alan \'d7 Konu (axis_x = primary_field, axis_y = theme_id)\
+      M6: Alan \'d7 Metod (axis_x = primary_field, axis_y = metod_id)\
+    - Yeni tablo: fact_gap_matrix_temporal (matrix_id + axis_x + axis_y + year + gap_value + depth)\
+      Y\uc0\u305 l boyutu i\'e7in ayr\u305  tablo (ana fact_gap_matrix overload olmas\u305 n)\
+    - Index: (matrix_id, axis_x, axis_y) ve (matrix_id, gap_value DESC) \'97 top-N sorgular h\uc0\u305 zl\u305 \
+\
+(2) OFFLINE NOTEBOOK \'97 gap matrix hesab\uc0\u305 :\
+    - M2-M6: mevcut M1 pipeline'\uc0\u305  ile ayn\u305  pattern (joint count + neighbor + e_value + feasibility + gap_value form\'fcl\'fc)\
+    - Keyword corpus genelinde top-1000 ile s\uc0\u305 n\u305 rlan\u305 r (kabar\u305 kl\u305 k y\'f6netimi)\
+    - Temporal s\'fcr\'fcm: y\uc0\u305 l-bazl\u305  paper alt-k\'fcme + her y\u305 l i\'e7in ayn\u305  form\'fcl; tahmini son 10-15 y\u305 l \'d7 5 matris\
+\
+(3) KAL\uc0\u304 BRASYON P\u304 PEL\u304 NE:\
+    - publishability hesab\uc0\u305 :\
+      * H\'fccredeki paper'lar\uc0\u305 n venue da\u287 \u305 l\u305 m\u305  \u8594  SJR Q1/Q2/Q3/Q4 oran\u305  (papers tablosu venue + envanterde SJR s\u305 n\u305 fland\u305 rma)\
+      * Y\'fcksek-tier dergi oran\uc0\u305  y\'fcksek h\'fccreler \u8594  publishability y\'fcksek\
+      * Form\'fcl: 0.7 \'d7 Q1_oran + 0.5 \'d7 Q2_oran + 0.3 \'d7 Q3_oran + 0.1 \'d7 Q4_oran (taslak; offline kalibrasyonda ayarlan\uc0\u305 r)\
+    - matrix_confidence_prior:\
+      * Bayesian prior \'97 h\'fccredeki paper say\uc0\u305 s\u305  az = d\'fc\u351 \'fck g\'fcven\
+      * Form\'fcl: depth >= 50 \uc0\u8594  prior=0.9, 10-49 \u8594  0.6, < 10 \u8594  0.3 (e\u351 ikler kalibrasyonda)\
+    - matrix_confidence_calibrated:\
+      * Prior + neighbor density + e_value combination\
+      * Holdout corpus \'fcst\'fcnde kalibre edilir (binarl\uc0\u305  se\'e7im: bu h\'fccre publishable \'e7\u305 kt\u305  m\u305 ?)\
+    - Tahmini hesap s\'fcresi: 2-3 g\'fcn offline, 1 kez\
+\
+(4) FRONTEND:\
+    - Heatmap: D3 veya React-Vis; matrix_id dropdown\
+    - Tooltip: gap_value + depth + feasibility + publishability + confidence\
+    - Top-N tablosu: alt panel, s\uc0\u305 ralama dropdown (gap_value / feasibility / publishability)\
+    - Y\uc0\u305 l slider: temporal matris \'fcst\'fcnde aktif\
+    - 4.2 ge\'e7i\uc0\u351 : h\'fccre t\u305 klama \u8594  /workshop/gap/\{matrix_id\}/\{axis_x\}/\{axis_y\}\
+\
+(5) TOPLU PLAN OTURUMU \uc0\u304 \'c7ER\u304 \u286 \u304 :\
+    - 2.5 Kavram A\uc0\u287 \u305 : migration 0021_concept_term_arm.sql (concept_edge / concept_edge_temporal / dim_term_community ta\u351 \u305 ma)\
+    - 3.3 Y\'f6ntem Matrisi: migration 0022_extended_affinity.sql (3 yeni t\'fcretilmi\uc0\u351  tablo)\
+    - 4.1 Bo\uc0\u351 luk Haritas\u305 : migration 0023_extended_gap_matrix.sql (M2-M6 + temporal) + kalibrasyon pipeline\
+    - Toplam: 3 migration + 3 offline notebook + 1 kalibrasyon pipeline\
+    - Tahmini i\uc0\u351 : 5-8 g\'fcnl\'fck (paralel ilerleyebilir)\
+    - Hesaplama maliyeti: tek seferlik offline; \'fcr\'fcn maliyeti yok\
+\
+KULLANIM (V1 release):\
+    - Sayfa varsay\uc0\u305 lan: M1 (Tema \'d7 Metod), Top-10 f\u305 rsat tablosu, mikro-yorum\
+    - Kullan\uc0\u305 c\u305  dropdown ile di\u287 er matrislere ge\'e7er\
+    - Y\uc0\u305 l filtresi temporal matris \'fcst\'fcnde aktif (ana matriste pasif)\
+}

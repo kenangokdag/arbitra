@@ -1,0 +1,74 @@
+{
+  "version": "v1_2026-05-11",
+  "doc": "F13-S13 S2 Proje Tamamlama — adım skorları → rozet eşikleri. score [0..1]. >= basarili_min ⇒ 'basarili', altı 'gelistirilmeli'. Pilot sonrası kalibre edilecek (calibration_status: pending_pilot).",
+  "calibration_status": "pending_pilot",
+  "steps": [
+    {
+      "step_id": "2.1_arastirma_alani",
+      "label": "Araştırma Alanı",
+      "basarili_min": 0.6,
+      "signal_source": "project_event",
+      "page_slug": "2.1_arastirma_alani"
+    },
+    {
+      "step_id": "2.2_konu_belirleme",
+      "label": "Konu Belirleme",
+      "basarili_min": 0.6,
+      "signal_source": "project_event",
+      "page_slug": "2.2_konu_belirleme"
+    },
+    {
+      "step_id": "3.4_literatur_sentezi",
+      "label": "Literatür Sentezi",
+      "basarili_min": 0.5,
+      "signal_source": "project_event",
+      "page_slug": "3.4_literatur_sentezi"
+    },
+    {
+      "step_id": "4.1_bosluk_haritasi",
+      "label": "Boşluk Haritası",
+      "basarili_min": 0.5,
+      "signal_source": "project_event",
+      "page_slug": "4.1_bosluk_haritasi"
+    },
+    {
+      "step_id": "5.1_yayin_formati",
+      "label": "Yayın Formatı",
+      "basarili_min": 0.5,
+      "signal_source": "project_event",
+      "page_slug": "5.1_yayin_formati"
+    },
+    {
+      "step_id": "6.1_yayin_icerigi",
+      "label": "Yayın İçeriği",
+      "basarili_min": 0.6,
+      "signal_source": "manuscript_section",
+      "min_filled_sections": 3,
+      "min_word_count_per_section": 50
+    },
+    {
+      "step_id": "6.2_savunma_formati",
+      "label": "Savunma Formatı",
+      "basarili_min": 0.5,
+      "signal_source": "defense_session"
+    },
+    {
+      "step_id": "6.3_bireysel_kontrol",
+      "label": "Bireysel Kontrol",
+      "basarili_min": 0.7,
+      "signal_source": "defense_session.scan_results.individual_check"
+    },
+    {
+      "step_id": "6.4_dergi_simulasyonu",
+      "label": "Dergi Simülasyonu",
+      "basarili_min": 0.5,
+      "signal_source": "defense_session.scan_results.journal_calibration"
+    },
+    {
+      "step_id": "6.5_juri_simulasyonu",
+      "label": "Jüri Simülasyonu",
+      "basarili_min": 0.6,
+      "signal_source": "defense_session.scan_results.jury_session.decision_band"
+    }
+  ]
+}

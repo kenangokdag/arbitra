@@ -1,0 +1,14 @@
+{
+  "verdict_accuracy": {
+    "n": 44,
+    "exact": 33,
+    "within_one": 33,
+    "exact_accuracy": 0.75,
+    "within_one_accuracy": 0.75
+  },
+  "moat_grounding": {
+    "n_flagged": 2,
+    "n_grounded": 2,
+    "ratio": 1.0
+  }
+}

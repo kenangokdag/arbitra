@@ -1,0 +1,47 @@
+{
+  "lang": "en",
+  "version": "v1",
+  "source": "Page_Design/Sayfa_Plani_v2/5.3_akademik_dil_uslup.rtf §Plan-Detayı (2)",
+  "forbidden_definitive": [
+    "always",
+    "never",
+    "definitely",
+    "certainly",
+    "absolutely",
+    "obviously",
+    "clearly",
+    "all",
+    "none"
+  ],
+  "hedge_terms": [
+    "may",
+    "might",
+    "could",
+    "suggests",
+    "indicates",
+    "appears to",
+    "tends to",
+    "is likely to"
+  ],
+  "passive_voice_triggers": [
+    "it has been shown",
+    "is observed",
+    "was conducted",
+    "has been demonstrated",
+    "can be argued"
+  ],
+  "hedge_alternatives": {
+    "proves": "suggests",
+    "shows": "indicates",
+    "demonstrates": "appears to demonstrate",
+    "is": "may be",
+    "will": "is expected to"
+  },
+  "section_hints": {
+    "intro": "Broad framing, narrative tone, hedge terms preferred.",
+    "methods": "Passive voice required; precise method statements; past tense.",
+    "findings": "Neutral, measurement-driven; no speculation; concrete numerical values.",
+    "discussion": "Interpretive yet balanced; 'it can be argued', 'this suggests' style hedging."
+  },
+  "llm_prompt_template": "Rewrite the following sentences in academic English. Rules: (1) avoid absolute terms ('always', 'never'), use hedging; (2) prefer passive voice constructions; (3) third-person, formal register; (4) MEANING MUST NOT CHANGE — only style. {section_hint} {user_style_note}"
+}

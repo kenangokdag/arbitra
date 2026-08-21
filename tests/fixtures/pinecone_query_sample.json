@@ -1,0 +1,25 @@
+{
+  "service": "pinecone_query",
+  "index_name": "papers-bgem3",
+  "top_k": 5,
+  "elapsed_seconds": 0.293,
+  "match_count": 5,
+  "metadata_keys_in_response": [],
+  "expected_metadata_keys": [
+    "D",
+    "F",
+    "S",
+    "year",
+    "q_weak",
+    "method",
+    "lang",
+    "v_conf"
+  ],
+  "metadata_present": false,
+  "first_match_redacted": {
+    "id_prefix": "W315505365",
+    "score": 0.15252848,
+    "metadata_sample": {}
+  },
+  "_captured_at": "2026-04-30T17:54:09.474362+00:00"
+}

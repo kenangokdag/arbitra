@@ -1,0 +1,260 @@
+version: 1
+name: frontend_worldclass_extension
+purpose: >
+  Autonomous frontend execution plan for transforming Arbitra from toolbox UI into
+  a premium Scientific Review OS experience.
+
+rules:
+  - Do not create generic SaaS UI.
+  - Do not remove confidentiality decisions from the user journey.
+  - Do not render report as a single unstructured text blob.
+  - Every high-severity report item must expose anchor, evidence, confidence and action.
+  - Update docs/worldclass/STATE.md after each completed task.
+  - Add or update tests before marking a task complete.
+
+phases:
+  - id: FE00
+    name: Frontend audit and route mapping
+    priority: P0
+    success_gate: Existing frontend routes, components, data contracts and gaps are documented.
+    tasks:
+      - id: FE00-T01_FRONTEND_INVENTORY
+        touches:
+          - web/src/app/**
+          - web/src/components/**
+          - web/src/lib/**
+          - web/src/hooks/**
+          - web/src/types/**
+          - docs/worldclass/STATE.md
+        steps:
+          - Map current marketing routes.
+          - Map current app/review routes.
+          - Map ReviewReport data shape used by frontend.
+          - Identify placeholder/mock UI in production path.
+          - Record findings in STATE.md.
+        acceptance:
+          - Frontend gaps are listed before implementation.
+          - No route refactor begins blindly.
+
+  - id: FE01
+    name: Design system foundation
+    priority: P0
+    success_gate: Premium semantic tokens and core components exist and are used by new pages.
+    tasks:
+      - id: FE01-T01_SEMANTIC_TOKENS
+        touches:
+          - web/src/styles/globals.css
+          - web/src/components/ui/**
+          - docs/frontend/COMPONENT_RULES.md
+        steps:
+          - Add semantic tokens for surface, text, border, risk, evidence, confidence.
+          - Add focus and accessibility styles.
+          - Remove new one-off styling from core flows.
+        acceptance:
+          - Tokens exist for risk/evidence/confidence.
+          - New frontend pages do not rely on random magic Tailwind classes for semantic states.
+      - id: FE01-T02_CORE_COMPONENTS
+        touches:
+          - web/src/components/review/**
+          - web/src/components/marketing/**
+          - web/src/components/ui/**
+        steps:
+          - Implement RiskBadge, EvidenceBadge, ConfidenceMeter.
+          - Implement ManuscriptAnchorLink and ActionItemCard.
+          - Implement StageTimeline and DegradedNotice.
+          - Add render tests or stories.
+        acceptance:
+          - Components are typed and reusable.
+          - Accessibility labels are present.
+
+  - id: FE02
+    name: Premium landing and trust pages
+    priority: P0
+    success_gate: Landing creates category clarity and routes user to sample report or review wizard.
+    tasks:
+      - id: FE02-T01_LANDING_REBUILD
+        touches:
+          - web/src/app/(marketing)/**
+          - web/src/components/marketing/**
+          - web/src/lib/brand.ts
+        steps:
+          - Implement hero with review-before-reviewer promise.
+          - Add output preview.
+          - Add use-case cards for article, conference, thesis, grant, reviewer/editor.
+          - Add chatbot vs Arbitra comparison.
+          - Add confidentiality-first block.
+          - Add final CTA.
+        acceptance:
+          - H1 communicates Arbitra category within 10 seconds.
+          - Sample report CTA is visible.
+          - Confidentiality block is present before final CTA.
+      - id: FE02-T02_SAMPLE_REPORT_PAGE
+        touches:
+          - web/src/app/(marketing)/sample-report/**
+          - web/src/fixtures/report-v2-demo.ts
+          - web/src/components/review/**
+        steps:
+          - Create safe report v2 fixture.
+          - Render report cockpit preview without real user data.
+          - Link from landing.
+        acceptance:
+          - Demo contains no user/private data.
+          - Report preview shows verdict, risk, evidence, action.
+      - id: FE02-T03_SECURITY_PAGE
+        touches:
+          - web/src/app/(marketing)/security/**
+          - web/src/components/marketing/ConfidentialityBlock.tsx
+        steps:
+          - Explain author vs confidential reviewer mode.
+          - Explain external AI consent and retention.
+          - Avoid unsupported security claims.
+        acceptance:
+          - Security page matches implemented backend capabilities.
+
+  - id: FE03
+    name: Guided review wizard
+    priority: P0
+    success_gate: Beginner can start safely; expert can control depth/rubric/privacy.
+    tasks:
+      - id: FE03-T01_REVIEW_WIZARD_STATE_AND_UI
+        touches:
+          - web/src/app/(app)/review/new/**
+          - web/src/components/review/wizard/**
+          - web/src/hooks/useReviewWizard.ts
+          - web/src/lib/review-api.ts
+        steps:
+          - Implement five-step wizard.
+          - Add beginner/expert mode.
+          - Preserve state while navigating.
+          - Map request to backend create-review schema.
+        acceptance:
+          - Valid beginner path creates job.
+          - Expert drawer supports rubric/guideline/depth/language when backend supports them.
+      - id: FE03-T02_PRIVACY_CONSENT_GATE
+        touches:
+          - web/src/components/review/wizard/PrivacyConsentStep.tsx
+          - web/src/lib/review-api.ts
+          - api/routes/review.py
+        steps:
+          - Make privacy step non-skippable.
+          - Default confidential reviewer mode to external AI blocked.
+          - Show limitation if private analysis path is unavailable.
+        acceptance:
+          - Confidential file cannot be submitted to external AI accidentally.
+          - Consent is persisted backend-side.
+
+  - id: FE04
+    name: Live review cockpit
+    priority: P0
+    success_gate: Spinner-only waiting is eliminated.
+    tasks:
+      - id: FE04-T01_STAGE_COCKPIT
+        touches:
+          - web/src/app/(app)/review/[jobId]/**
+          - web/src/components/review/LiveReviewCockpit.tsx
+          - web/src/components/review/StageTimeline.tsx
+          - web/src/hooks/useReview.ts
+        steps:
+          - Render real stage timeline from ReviewJob.
+          - Show detected manuscript profile.
+          - Show early findings and degraded notices.
+          - Add retry/cancel if backend supports them.
+        acceptance:
+          - User sees truthful progress story.
+          - Failed/degraded states are useful.
+
+  - id: FE05
+    name: Report cockpit v2
+    priority: P0
+    success_gate: Report is structured, evidence-backed and actionable.
+    tasks:
+      - id: FE05-T01_REPORT_SCHEMA_TYPES
+        touches:
+          - web/src/types/review.ts
+          - web/src/lib/review-api.ts
+          - web/src/fixtures/report-v2-demo.ts
+        steps:
+          - Add ReviewReportV2 frontend types.
+          - Add adapter for old report shape if needed.
+          - Add demo fixture.
+        acceptance:
+          - Type check catches missing high-severity action data where feasible.
+      - id: FE05-T02_REPORT_VIEW_REBUILD
+        touches:
+          - web/src/components/review/ReviewReportView.tsx
+          - web/src/components/review/VerdictHeader.tsx
+          - web/src/components/review/FatalRisksPanel.tsx
+          - web/src/components/review/RiskRadar.tsx
+          - web/src/components/review/ReviewerCouncil.tsx
+          - web/src/components/review/EvidenceMap.tsx
+          - web/src/components/review/ActionPlanBoard.tsx
+          - web/src/components/review/SectionReviewList.tsx
+        steps:
+          - Render verdict header.
+          - Render top fatal risks.
+          - Render risk radar.
+          - Render reviewer council.
+          - Render evidence map.
+          - Render action plan and section reviews.
+        acceptance:
+          - No primary report path renders a giant text blob.
+          - High severity findings show anchor, confidence and action.
+      - id: FE05-T03_DRAWERS_AND_PROVENANCE
+        touches:
+          - web/src/components/review/ManuscriptDrawer.tsx
+          - web/src/components/review/EvidenceDrawer.tsx
+          - web/src/components/review/ProvenanceDrawer.tsx
+        steps:
+          - Add accessible drawers.
+          - Connect anchors and evidence badges.
+          - Show support level and provenance.
+        acceptance:
+          - Anchor click opens manuscript quote.
+          - Evidence click opens provider/support/confidence.
+
+  - id: FE06
+    name: Revision board and exports
+    priority: P1
+    success_gate: Report becomes revision workflow and exportable artifact.
+    tasks:
+      - id: FE06-T01_REVISION_BOARD
+        touches:
+          - web/src/app/(app)/review/[jobId]/revision/**
+          - web/src/components/review/ActionPlanBoard.tsx
+        steps:
+          - Create P0/P1/P2 revision board.
+          - Add filters and statuses.
+          - Persist status if backend supports it; otherwise mark local-only clearly.
+        acceptance:
+          - User can turn critique into revision work.
+      - id: FE06-T02_EXPORT_UI
+        touches:
+          - web/src/components/review/ExportPanel.tsx
+          - web/src/lib/review-api.ts
+        steps:
+          - Add export UI for Markdown/PDF/DOCX/LaTeX as backend allows.
+          - Include disclosure and evidence options.
+          - Handle unauthorized and confidential restrictions.
+        acceptance:
+          - Export path is tested and authz-protected.
+
+  - id: FE07
+    name: Frontend quality hardening
+    priority: P0
+    success_gate: Critical journeys pass tests and accessibility gate.
+    tasks:
+      - id: FE07-T01_E2E_AND_A11Y
+        touches:
+          - web/tests/**
+          - web/playwright.config.*
+          - docs/worldclass/STATE.md
+        steps:
+          - Add landing clarity test.
+          - Add beginner wizard test.
+          - Add confidential reviewer test.
+          - Add live cockpit fixture test.
+          - Add report cockpit test.
+          - Add drawer keyboard/a11y tests.
+        acceptance:
+          - Critical journeys pass in CI.
+          - Accessibility smoke tests pass.

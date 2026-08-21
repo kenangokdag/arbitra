@@ -1,0 +1,8 @@
+-- =====================================================================
+-- 0020 PLACEHOLDER — gerçek DDL eksik (B-1 audit follow-up)
+-- =====================================================================
+-- 0009/0010 ile aynı kapsamda; Supabase Studio'dan DDL export edilecek.
+-- Audit referansı: AUDIT_REPORT.md §11 B-1 / finding-C2.
+-- =====================================================================
+-- UYARI: Bu dosya boş; DDL eksik olduğu için doğrudan APPLY ETME.
+-- =====================================================================

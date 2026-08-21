@@ -1,0 +1,37 @@
+{
+  "version": "v1_2026-05-11",
+  "doc": "F13-S13 S2 — mezun (tamamlama) sonrası ileri-adım önerileri. Trigger: ilgili adımın rozeti ya 'basarili' ya '__any__'. Generic SaaS reflexi yasak — niş-spesifik akademik çıktı odaklı (PaperMind kanonu).",
+  "rules": [
+    {
+      "id": "yayinlanmaya_hazir",
+      "trigger_step": "6.1_yayin_icerigi",
+      "trigger_status": "basarili",
+      "advice": "Yayın içeriğin 3+ bölüm doluluğa ulaştı. SCI/SSCI Q1/Q2 dergi hedefi belirle (6.4 Dergi Simülasyonu çıktısı bunu destekler); submit öncesi 5.4 Atıf Stili son kontrolü öner."
+    },
+    {
+      "id": "savunmaya_hazir",
+      "trigger_step": "6.5_juri_simulasyonu",
+      "trigger_status": "basarili",
+      "advice": "Jüri simülasyonu kararı kabul/minör bandında. Gerçek savunma için 6.2 jüri üye notlarını tekrar gözden geçir, 6.3 bireysel kontroldeki açık maddeleri kapat."
+    },
+    {
+      "id": "savunma_iyileşmeli",
+      "trigger_step": "6.5_juri_simulasyonu",
+      "trigger_status": "gelistirilmeli",
+      "advice": "Jüri simülasyonu majör/red yönelimli. 6.5 'missing_concepts' listesinden 3.4 sentez paragrafına dön; aynı kavramları metoda gömüp tekrar dene."
+    },
+    {
+      "id": "sonraki_proje",
+      "trigger_step": "__any__",
+      "trigger_status": "basarili",
+      "advice": "Bu projenin boşluk haritası (4.1) sonraki konuna giden ipuçlarını içerir; yeni proje açarken 2.1 araştırma alanı seçiminde aynı boşluklara açıklık getiren niş seç."
+    },
+    {
+      "id": "bos_alanlar_acik",
+      "trigger_step": "4.1_bosluk_haritasi",
+      "trigger_status": "gelistirilmeli",
+      "advice": "Boşluk haritası tamamlanmadan kapanış yapıldı — sonraki turda 4.1 + 4.2 + 4.3 üçlüsünü ardışık koş, kanıt zinciri tutarlılığı artar."
+    }
+  ],
+  "max_advice_in_snapshot": 3
+}

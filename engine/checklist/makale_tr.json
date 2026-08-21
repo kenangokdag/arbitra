@@ -1,0 +1,50 @@
+{
+  "version": "v0_skeleton_2026-05-11",
+  "language": "tr",
+  "doc_type": "makale",
+  "note": "İçerik akademik danışman tarafından doldurulacak; bu skeleton uygulamanın yapısını test etmek içindir.",
+  "categories": [
+    {
+      "id": "ssci_gonderi",
+      "label": "SSCI Gönderi Adımları",
+      "items": [
+        {
+          "id": "ssci_cover_letter",
+          "soru": "Cover letter hazır mı?",
+          "aciklama": "Editöre hitap eden, çalışmanın katkısını öz ifadeyle anlatan kapak yazısı.",
+          "evet_metin": "Hazır görünüyor — devam.",
+          "hayir_metin": "TODO: cover letter şablonu eklenecek.",
+          "yapamadim_metin": "Dergi sayfasındaki author guidelines'a bakın.",
+          "kritik": true,
+          "link": null
+        },
+        {
+          "id": "ssci_orcid",
+          "soru": "Tüm yazarların ORCID'i girildi mi?",
+          "aciklama": "SSCI dergileri yazar kimlik doğrulaması için ORCID ister.",
+          "evet_metin": "Tamam.",
+          "hayir_metin": "TODO: ORCID kayıt yönlendirmesi eklenecek.",
+          "yapamadim_metin": "https://orcid.org adresinden ücretsiz hesap açın.",
+          "kritik": true,
+          "link": "https://orcid.org"
+        }
+      ]
+    },
+    {
+      "id": "tr_dizin_gonderi",
+      "label": "TR Dizin Gönderi Adımları",
+      "items": [
+        {
+          "id": "tr_dizin_etik_kurul",
+          "soru": "Etik kurul onayı alındı mı?",
+          "aciklama": "TR Dizin dergileri insan/hayvan denek içeren çalışmalar için etik kurul onayı şart koşar.",
+          "evet_metin": "Onay kararı PDF olarak yüklenmeli.",
+          "hayir_metin": "TODO: üniversite etik kurul yönlendirmesi eklenecek.",
+          "yapamadim_metin": "Başvuru süreci ortalama 4-6 hafta; planlayın.",
+          "kritik": true,
+          "link": null
+        }
+      ]
+    }
+  ]
+}

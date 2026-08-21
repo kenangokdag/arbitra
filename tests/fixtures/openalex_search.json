@@ -1,0 +1,16 @@
+{
+  "service": "openalex_polite",
+  "query": "metaheuristic optimization",
+  "elapsed_seconds": 6.889,
+  "result_count": 3,
+  "first_paper": {
+    "openalex_id": "https://openalex.org/W2800788706",
+    "title": "SMOTE for Learning from Imbalanced Data: Progress and Challenges, Marking the 15-year Anniversary",
+    "year": 2018,
+    "authors_count": 4,
+    "abstract_present": true,
+    "cited_by_count": 2075
+  },
+  "ok": true,
+  "_captured_at": "2026-05-07T14:39:59.013469+00:00"
+}

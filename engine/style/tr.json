@@ -1,0 +1,38 @@
+{
+  "lang": "tr",
+  "version": "v1",
+  "source": "Page_Design/Sayfa_Plani_v2/5.3_akademik_dil_uslup.rtf §Plan-Detayı (2)",
+  "forbidden_definitive": [
+    "kesinlikle",
+    "asla",
+    "her zaman",
+    "mutlaka",
+    "şüphesiz",
+    "hiç bir zaman",
+    "tüm",
+    "hiçbir"
+  ],
+  "preferred_passive_endings": [
+    "-mektedir",
+    "-maktadır",
+    "-ılmaktadır",
+    "-ilmektedir",
+    "-ulmaktadır",
+    "-ülmektedir"
+  ],
+  "hedge_alternatives": {
+    "gösteriyor": "göstermektedir",
+    "olur": "olabilmektedir",
+    "vardır": "bulunmaktadır",
+    "açıklar": "açıklamaktadır",
+    "kanıtlıyor": "işaret etmektedir",
+    "ispatlar": "destekler nitelikte bulgular sunmaktadır"
+  },
+  "section_hints": {
+    "intro": "Geniş çerçeve, anlatımsal, hedge terimler tercih edilir.",
+    "methods": "Pasif çatı zorunlu; kesin yöntem ifadeleri; 'yapıldı' yerine '-mıştır'.",
+    "findings": "Tarafsız, ölçü-odaklı; spekülasyon yok; sayısal değerler somut.",
+    "discussion": "Yorumlayıcı ama dengeli; 'düşünülmektedir', 'önerilebilir' gibi hedge."
+  },
+  "llm_prompt_template": "Aşağıdaki cümleleri akademik Türkçe'ye dönüştür. Kurallar: (1) kesin ifadelerden ('kesinlikle', 'asla' vb.) kaçın, hedge kullan; (2) pasif çatı tercih et ('-mektedir', '-maktadır'); (3) 3. tekil/genel ton; (4) anlam DEĞİŞMEZ — sadece üslup. {section_hint} {user_style_note}"
+}

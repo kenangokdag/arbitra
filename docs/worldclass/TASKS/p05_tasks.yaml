@@ -1,0 +1,142 @@
+{
+  "phase": "P05",
+  "tasks": [
+    {
+      "id": "P05-T01_PREMIUM_LANDING_REPOSITIONING",
+      "phase": "P05",
+      "priority": "P0",
+      "title": "Landing page’i Arbitra Scientific Review OS olarak yeniden konumlandır",
+      "deps": [
+        "P01-T03_CONFIDENTIALITY_AND_EXTERNAL_AI_CONSENT",
+        "P00-T01_BRAND_AND_PRODUCT_CONTRACT"
+      ],
+      "touchpoints": [
+        "web/src/app/(marketing)/landing/page.tsx",
+        "web/src/components/marketing/WaitlistModal.tsx",
+        "web/src/lib/brand.ts",
+        "web/src/styles/globals.css"
+      ],
+      "steps": [
+        "Hero copy: hakeme gitmeden önce kırılma noktalarını görün.",
+        "Trust blocks: confidentiality-first, evidence-backed, methodology-aware, revision cockpit.",
+        "Comparison block: chatbot vs Arbitra.",
+        "Output preview: risk radar, reviewer objections, evidence map, action plan.",
+        "CTA: örnek rapor ve çalışmamı incelet."
+      ],
+      "tests": [
+        "component render test",
+        "copy snapshot smoke",
+        "accessibility landmarks manual check"
+      ],
+      "done_when": [
+        "Landing AI assistant template değil, hakemlik OS vaadi veriyor."
+      ],
+      "advance_when": "İlk ekran ürünün farkını 10 saniyede anlatıyorsa.",
+      "stop_if": [
+        "Gerçek olmayan kabiliyetler landing’de iddia ediliyorsa."
+      ]
+    },
+    {
+      "id": "P05-T02_REVIEW_INTAKE_WIZARD",
+      "phase": "P05",
+      "priority": "P0",
+      "title": "Tek upload formunu guided review wizard’a çevir",
+      "deps": [
+        "P02-T01_REVIEW_JOB_STAGE_SCHEMA",
+        "P01-T03_CONFIDENTIALITY_AND_EXTERNAL_AI_CONSENT"
+      ],
+      "touchpoints": [
+        "web/src/app/(app)/review/page.tsx",
+        "web/src/lib/review-api.ts",
+        "web/src/hooks/useReview.ts",
+        "api/routes/review.py"
+      ],
+      "steps": [
+        "Wizard steps: file, document type, target, privacy, review depth.",
+        "Beginner default: Arbitra benim için seçsin.",
+        "Expert drawer: rubric, guideline, strictness, provider depth, locale, retention.",
+        "Backend create request contractını wizard state ile eşle.",
+        "Validation errorları kullanıcı dostu göster."
+      ],
+      "tests": [
+        "frontend wizard state test",
+        "API contract test",
+        "confidential mode wizard test"
+      ],
+      "done_when": [
+        "Yeni başlayan tek akışla review başlatır, uzman detay kontrolü alır."
+      ],
+      "advance_when": "Wizard form verisi backend schema ile typed şekilde eşleştiğinde.",
+      "stop_if": [
+        "Privacy step bypass edilebiliyorsa."
+      ]
+    },
+    {
+      "id": "P05-T03_LIVE_REVIEW_COCKPIT_PROGRESS",
+      "phase": "P05",
+      "priority": "P0",
+      "title": "Spinner yerine canlı review cockpit progress",
+      "deps": [
+        "P02-T01_REVIEW_JOB_STAGE_SCHEMA"
+      ],
+      "touchpoints": [
+        "web/src/app/(app)/review/[jobId]/page.tsx",
+        "web/src/hooks/useReview.ts",
+        "web/src/components/review/ReviewReportView.tsx",
+        "api/routes/review.py"
+      ],
+      "steps": [
+        "Stage timeline component oluştur.",
+        "Her stage için done/running/degraded/failed states.",
+        "İlk ara bulguları veya detected manuscript type göster.",
+        "Retry/cancel UI ekle.",
+        "Failure state çözüm önerisi ve support/debug id taşısın."
+      ],
+      "tests": [
+        "component test stage states",
+        "polling hook test",
+        "error/degraded render test"
+      ],
+      "done_when": [
+        "Kullanıcı beklerken sistemin ne yaptığını ve ne bulduğunu görüyor."
+      ],
+      "advance_when": "Numeric-only progress bar artık ana deneyim değilse.",
+      "stop_if": [
+        "Stage failed durumunda kullanıcı boş ekranda kalıyorsa."
+      ]
+    },
+    {
+      "id": "P05-T04_DESIGN_SYSTEM_PREMIUM_TOKENS",
+      "phase": "P05",
+      "priority": "P1",
+      "title": "Premium visual system tokens ve component kuralları",
+      "deps": [
+        "P05-T01_PREMIUM_LANDING_REPOSITIONING"
+      ],
+      "touchpoints": [
+        "web/src/styles/globals.css",
+        "web/src/components/ui/button.tsx",
+        "web/src/components/Card.tsx",
+        "docs/frontend/COMPONENT_RULES.md"
+      ],
+      "steps": [
+        "Editorial typography, spacing, elevation, surface, risk severity, evidence confidence tokenları tanımla.",
+        "Arbitra-specific components: RiskBadge, EvidenceBadge, ConfidenceMeter, ManuscriptAnchorLink.",
+        "Motion aşırı değil, anlamlı progress için kullanılsın.",
+        "Dark/light veya premium neutral palette tutarlı olsun."
+      ],
+      "tests": [
+        "visual smoke test",
+        "component snapshot",
+        "manual contrast check"
+      ],
+      "done_when": [
+        "UI parçaları random Tailwind değil tutarlı product language taşıyor."
+      ],
+      "advance_when": "Review/landing/wizard aynı görsel sistemde birleştiğinde.",
+      "stop_if": [
+        "Inline magic classes yeni component standardını bozuyorsa."
+      ]
+    }
+  ]
+}

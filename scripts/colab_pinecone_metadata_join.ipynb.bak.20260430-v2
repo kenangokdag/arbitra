@@ -1,0 +1,396 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# PaperMind v4 — Pinecone metadata patch (B-012)\n",
+    "\n",
+    "**Hedef**: `papers-bgem3` index'ine 8 metadata field yapıştır (D, F, S, year, q_weak, method, lang, v_conf).\n",
+    "**Yöntem**: 4 parquet stream join → `id, values, metadata` shard'lı parquet → GCS upload → Pinecone bulk import (upsert mode).\n",
+    "**Önkoşul**: B-008 PaperCard ✅ (24,862,232 satır), B-011 Pinecone import ✅ (24,867,210 vector).\n",
+    "**Tahmini süre**: ~4-5h (join 30 dk + GCS upload 1h + Pinecone import 2-3h + smoke 5 dk).\n",
+    "\n",
+    "**`v_conf` = `topic_profile.theme_scores[0]`** (Council 20 onayı — 6/6 GREEN; alan/tema güveni semantiği).\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Cell 1 — Setup (Drive + pip + env)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "from google.colab import drive, userdata\n",
+    "drive.mount('/content/drive')\n",
+    "\n",
+    "!pip -q install pinecone==8.1.2 polars==1.35.2 pyarrow==17.0.0 google-cloud-storage==2.18.0\n",
+    "\n",
+    "import os, json, math, time, pickle\n",
+    "from datetime import datetime, timedelta\n",
+    "from pathlib import Path\n",
+    "import polars as pl\n",
+    "import pyarrow as pa\n",
+    "import pyarrow.parquet as pq\n",
+    "from pinecone import Pinecone\n",
+    "\n",
+    "PINECONE_API_KEY = userdata.get('PINECONE_API_KEY')\n",
+    "PINECONE_INDEX_NAME = userdata.get('PINECONE_INDEX_NAME') or 'papers-bgem3'\n",
+    "GCS_PROJECT_ID = userdata.get('GCS_PROJECT_ID')\n",
+    "GCS_BUCKET = userdata.get('GCS_BUCKET') or 'embeddings_v3'\n",
+    "GCS_PREFIX = 'papers_with_metadata_v1'   # B-012 yeni prefix; eski papers/ dokunulmaz\n",
+    "\n",
+    "DRIVE_ROOT = Path('/content/drive/MyDrive/Dataleak')\n",
+    "PATHS = {\n",
+    "    'paper_card':    DRIVE_ROOT / 'facts/fact_paper_id_card.parquet',\n",
+    "    'paper_field':   DRIVE_ROOT / 'facts/fact_paper_field.parquet',\n",
+    "    'paper_quality': DRIVE_ROOT / 'facts/fact_paper_quality_v3.parquet',\n",
+    "    'paper_method':  DRIVE_ROOT / 'facts/fact_paper_metod.parquet',\n",
+    "    'embed_a':       DRIVE_ROOT / 'dims/fact_paper_embedding_bge_m3_shard_a.parquet',\n",
+    "    'embed_b':       DRIVE_ROOT / 'dims/fact_paper_embedding_bge_m3_shard_b.parquet',\n",
+    "}\n",
+    "WORK_ROOT = Path('/content/pinecone_metadata_work')\n",
+    "WORK_ROOT.mkdir(exist_ok=True)\n",
+    "\n",
+    "for name, p in PATHS.items():\n",
+    "    exists = p.exists()\n",
+    "    size_gb = p.stat().st_size / 1e9 if exists else 0\n",
+    "    flag = '✓' if exists else '✗'\n",
+    "    print(f\"  {flag}  {name:15s}  {p.name}  ({size_gb:.2f} GB)\")\n",
+    "\n",
+    "assert PINECONE_API_KEY, 'Colab Secrets → PINECONE_API_KEY'\n",
+    "pc = Pinecone(api_key=PINECONE_API_KEY)\n",
+    "idx_info = pc.describe_index(PINECONE_INDEX_NAME)\n",
+    "print(f\"\\nPinecone index: {idx_info.name}  host={idx_info.host}  dim={idx_info.dimension}  metric={idx_info.metric}\")\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Cell 2 — 4 parquet schema audit"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "for name in ['paper_card', 'paper_field', 'paper_quality', 'paper_method']:\n",
+    "    pf = pq.ParquetFile(str(PATHS[name]))\n",
+    "    print(f'=== {name} ===')\n",
+    "    print(f'  rows: {pf.metadata.num_rows:,}')\n",
+    "    print(f'  cols: {pf.schema_arrow.names}')\n",
+    "    head = next(pf.iter_batches(batch_size=2)).to_pandas()\n",
+    "    print(f'  head:\\n{head.head(2)}\\n')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Cell 3 — Unified metadata parquet (Polars stream join)\n",
+    "\n",
+    "Çıktı şema (24.86M × 9 col, ~1 GB):\n",
+    "- `paper_id` (bare W canonical), `D/F/S` String, `year` Int, `q_weak` Float, `method` String, `lang` String, `v_conf` Float\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "META_PARQUET = WORK_ROOT / 'paper_metadata_unified.parquet'\n",
+    "\n",
+    "print('Loading PaperCard master...')\n",
+    "pc_df = (\n",
+    "    pl.scan_parquet(str(PATHS['paper_card']))\n",
+    "    .select([\n",
+    "        pl.col('paper_id'),\n",
+    "        pl.col('year').cast(pl.Int32),\n",
+    "        pl.col('language').alias('lang'),\n",
+    "        pl.col('topic_profile').struct.field('theme_scores').list.first().alias('v_conf'),\n",
+    "    ])\n",
+    ")\n",
+    "\n",
+    "print('Loading paper_field...')\n",
+    "field_df = (\n",
+    "    pl.scan_parquet(str(PATHS['paper_field']))\n",
+    "    .select([pl.col('paper_id'), pl.col('domain').alias('D'), pl.col('field').alias('F'), pl.col('subfield').alias('S')])\n",
+    ")\n",
+    "\n",
+    "print('Loading paper_quality...')\n",
+    "quality_df = (\n",
+    "    pl.scan_parquet(str(PATHS['paper_quality']))\n",
+    "    .select([pl.col('paper_id'), pl.col('q_weak').cast(pl.Float32)])\n",
+    ")\n",
+    "\n",
+    "print('Loading paper_method (group_by primary)...')\n",
+    "method_df = (\n",
+    "    pl.scan_parquet(str(PATHS['paper_method']))\n",
+    "    .group_by('paper_id')\n",
+    "    .agg(pl.col('method_id').sort_by('p_method_in_paper', descending=True).first().alias('method'))\n",
+    ")\n",
+    "\n",
+    "print('Streaming join + sink_parquet...')\n",
+    "unified = (\n",
+    "    pc_df\n",
+    "    .join(field_df,   on='paper_id', how='left')\n",
+    "    .join(quality_df, on='paper_id', how='left')\n",
+    "    .join(method_df,  on='paper_id', how='left')\n",
+    "    .select(['paper_id', 'D', 'F', 'S', 'year', 'q_weak', 'method', 'lang', 'v_conf'])\n",
+    ")\n",
+    "unified.sink_parquet(str(META_PARQUET), compression='zstd')\n",
+    "\n",
+    "mpf = pq.ParquetFile(str(META_PARQUET))\n",
+    "print(f'\\n✓ unified metadata: {mpf.metadata.num_rows:,} rows, {META_PARQUET.stat().st_size/1e6:.1f} MB')\n",
+    "print(f'  cols: {mpf.schema_arrow.names}')\n",
+    "sample = next(mpf.iter_batches(batch_size=3)).to_pandas()\n",
+    "print(f'  sample:\\n{sample}')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Cell 4 — `id, values, metadata` shard'lı parquet (Pinecone bulk import formatı)\n",
+    "\n",
+    "BGE-M3 embedding shard A + B + unified metadata inner join. Sparse drop (DM-016 dense-only).\n",
+    "Çıktı: 2 shard parquet (~50 GB total).\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "print('Building meta_dict (~3 GB RAM)...')\n",
+    "meta_lf = pl.scan_parquet(str(META_PARQUET))\n",
+    "meta_df = meta_lf.collect()\n",
+    "meta_dict = {}\n",
+    "for row in meta_df.iter_rows(named=True):\n",
+    "    pid = row.pop('paper_id')\n",
+    "    meta_dict[pid] = {k: v for k, v in row.items() if v is not None}\n",
+    "print(f'  ✓ meta_dict size: {len(meta_dict):,}')\n",
+    "\n",
+    "def build_pinecone_shard(embed_path, out_path, shard_label):\n",
+    "    print(f'\\n=== shard {shard_label}: {embed_path.name} → {out_path.name} ===')\n",
+    "    pf = pq.ParquetFile(str(embed_path))\n",
+    "    total = pf.metadata.num_rows\n",
+    "    cols = pf.schema_arrow.names\n",
+    "    print(f'  embed cols: {cols}, total rows: {total:,}')\n",
+    "\n",
+    "    # Dense kolonu otomatik bul\n",
+    "    dense_col = None\n",
+    "    for cand in ('dense_embedding', 'embedding', 'values', 'dense'):\n",
+    "        if cand in cols:\n",
+    "            dense_col = cand; break\n",
+    "    assert dense_col, f'dense kolon bulunamadı: {cols}'\n",
+    "\n",
+    "    schema = pa.schema([\n",
+    "        pa.field('id', pa.string()),\n",
+    "        pa.field('values', pa.list_(pa.float32())),\n",
+    "        pa.field('metadata', pa.string()),\n",
+    "    ])\n",
+    "    writer = pq.ParquetWriter(str(out_path), schema, compression='zstd')\n",
+    "\n",
+    "    written = 0\n",
+    "    skipped_no_meta = 0\n",
+    "    t0 = time.time()\n",
+    "    BATCH = 100_000\n",
+    "    for batch in pf.iter_batches(batch_size=BATCH, columns=['paper_id', dense_col]):\n",
+    "        df = batch.to_pandas()\n",
+    "        kept_ids, kept_vecs, kept_metas = [], [], []\n",
+    "        for pid, vec in zip(df['paper_id'].astype(str).tolist(), df[dense_col]):\n",
+    "            md_d = meta_dict.get(pid)\n",
+    "            if md_d is None:\n",
+    "                skipped_no_meta += 1; continue\n",
+    "            kept_ids.append(pid)\n",
+    "            kept_vecs.append([float(x) for x in vec])\n",
+    "            kept_metas.append(json.dumps(md_d, ensure_ascii=False, default=str))\n",
+    "        if kept_ids:\n",
+    "            tbl = pa.Table.from_pydict({'id': kept_ids, 'values': kept_vecs, 'metadata': kept_metas}, schema=schema)\n",
+    "            writer.write_table(tbl)\n",
+    "            written += len(kept_ids)\n",
+    "        elapsed = time.time() - t0\n",
+    "        rate = written / elapsed if elapsed > 0 else 0\n",
+    "        eta = (total - written) / rate if rate > 0 else 0\n",
+    "        stamp = datetime.now().strftime('%H:%M:%S')\n",
+    "        print(f'    [{stamp}] {written:>11,}/{total:,} ({100*written/total:5.1f}%)  rate={rate:>6,.0f}/s  ETA={timedelta(seconds=int(eta))}', flush=True)\n",
+    "    writer.close()\n",
+    "    print(f'\\n✓ shard {shard_label}: {written:,} rows, skipped_no_meta={skipped_no_meta:,}, file={out_path.stat().st_size/1e9:.2f} GB')\n",
+    "\n",
+    "OUT_A = WORK_ROOT / 'pinecone_upsert_shard_a.parquet'\n",
+    "OUT_B = WORK_ROOT / 'pinecone_upsert_shard_b.parquet'\n",
+    "build_pinecone_shard(PATHS['embed_a'], OUT_A, 'A')\n",
+    "build_pinecone_shard(PATHS['embed_b'], OUT_B, 'B')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Cell 5 — GCS upload (`gs://embeddings_v3/papers_with_metadata_v1/`)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "from google.cloud import storage\n",
+    "from google.colab import auth as gauth\n",
+    "gauth.authenticate_user()\n",
+    "\n",
+    "client = storage.Client(project=GCS_PROJECT_ID)\n",
+    "bucket = client.bucket(GCS_BUCKET)\n",
+    "\n",
+    "for local_path in [OUT_A, OUT_B]:\n",
+    "    blob_name = f'{GCS_PREFIX}/{local_path.name}'\n",
+    "    print(f'Uploading {local_path.name} → gs://{GCS_BUCKET}/{blob_name} ({local_path.stat().st_size/1e9:.2f} GB)...')\n",
+    "    blob = bucket.blob(blob_name)\n",
+    "    blob.chunk_size = 256 * 1024 * 1024\n",
+    "    t0 = time.time()\n",
+    "    blob.upload_from_filename(str(local_path))\n",
+    "    print(f'  ✓ uploaded in {timedelta(seconds=int(time.time()-t0))}')\n",
+    "\n",
+    "print(f'\\nGCS prefix: gs://{GCS_BUCKET}/{GCS_PREFIX}/')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Cell 6 — Pinecone bulk import (upsert mode)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "idx = pc.Index(PINECONE_INDEX_NAME)\n",
+    "import_uri = f'gs://{GCS_BUCKET}/{GCS_PREFIX}/'\n",
+    "\n",
+    "print(f'Starting bulk import from: {import_uri}')\n",
+    "op = idx.start_import(uri=import_uri)\n",
+    "import_id = op.id if hasattr(op, 'id') else op.get('id')\n",
+    "print(f'  ✓ IMPORT_ID = {import_id}')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Cell 7 — Status poll (60s × 8h timeout)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "POLL_INTERVAL = 60\n",
+    "TIMEOUT_HOURS = 8\n",
+    "\n",
+    "print(f'Polling every {POLL_INTERVAL} s, timeout {TIMEOUT_HOURS} h')\n",
+    "print('-' * 60)\n",
+    "t_start = time.time()\n",
+    "status = None\n",
+    "while True:\n",
+    "    info = idx.describe_import(import_id)\n",
+    "    status = info.status\n",
+    "    pct = float(getattr(info, 'percent_complete', 0) or 0)\n",
+    "    records = int(getattr(info, 'records_imported', 0) or 0)\n",
+    "    stamp = datetime.now().strftime('%H:%M:%S')\n",
+    "    print(f'[{stamp}] status={status} pct={pct:.1f} records={records:,}', flush=True)\n",
+    "    if status in ('Completed', 'Failed', 'Cancelled'):\n",
+    "        break\n",
+    "    if time.time() - t_start > TIMEOUT_HOURS * 3600:\n",
+    "        print('TIMEOUT — bulk import hâlâ koşuyor, manuel kontrol gerek.')\n",
+    "        break\n",
+    "    time.sleep(POLL_INTERVAL)\n",
+    "\n",
+    "print(f'\\nFinal status: {status}')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Cell 8 — Smoke verify (fetch + query metadata audit)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "stats = idx.describe_index_stats()\n",
+    "print('=== describe_index_stats ===')\n",
+    "print(f'  total: {stats.total_vector_count:,}')\n",
+    "print(f'  expected: 24,867,210  (upsert mode mevcut korur)')\n",
+    "print(f'  delta: {stats.total_vector_count - 24_867_210:+,}')\n",
+    "\n",
+    "sample_ids = list(meta_dict.keys())[:3]\n",
+    "print(f'\\n=== fetch metadata audit (3 sample) ===')\n",
+    "fetched = idx.fetch(ids=sample_ids, namespace='__default__')\n",
+    "expected_keys = {'D', 'F', 'S', 'year', 'q_weak', 'method', 'lang', 'v_conf'}\n",
+    "all_ok = True\n",
+    "for vid, vec in fetched.vectors.items():\n",
+    "    md_dict = dict(vec.metadata) if vec.metadata else {}\n",
+    "    found = set(md_dict.keys())\n",
+    "    missing = expected_keys - found\n",
+    "    flag = '✓' if not missing else f'✗ missing={missing}'\n",
+    "    if missing: all_ok = False\n",
+    "    print(f'  {vid}: {flag}')\n",
+    "    print(f'    sample: {dict(list(md_dict.items())[:5])}')\n",
+    "\n",
+    "print(f'\\n=== query smoke (topK=10, by-vector) ===')\n",
+    "qvec = list(fetched.vectors.values())[0].values if fetched.vectors else None\n",
+    "dt_ms = -1\n",
+    "if qvec:\n",
+    "    t0 = time.time()\n",
+    "    qres = idx.query(vector=qvec, top_k=10, namespace='__default__', include_metadata=True)\n",
+    "    dt_ms = (time.time() - t0) * 1000\n",
+    "    print(f'  latency: {dt_ms:.1f} ms (DoD <500 ms)')\n",
+    "    print(f'  matches: {len(qres.matches)}')\n",
+    "    for m in qres.matches[:5]:\n",
+    "        keys = sorted(m.metadata.keys()) if m.metadata else []\n",
+    "        print(f'    {m.id}  score={m.score:.4f}  meta_keys={keys}')\n",
+    "\n",
+    "print(f'\\n=== B-012 DoD verdict ===')\n",
+    "v_parity = stats.total_vector_count == 24_867_210\n",
+    "print(f'  vector parity: {\"✓\" if v_parity else \"✗\"}')\n",
+    "print(f'  metadata 8-field complete: {\"✓\" if all_ok else \"✗\"}')\n",
+    "print(f'  query latency <500ms: {\"✓\" if (qvec and dt_ms < 500) else \"✗\"}')\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "name": "python",
+   "version": "3.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

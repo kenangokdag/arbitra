@@ -1,0 +1,13 @@
+{
+  "service": "supabase_admin",
+  "url_host": "ewggwvadfqwkxgddywma.supabase.co",
+  "elapsed_seconds": 0.651,
+  "row_count": 4,
+  "row_keys_sample": [
+    "version",
+    "applied_at",
+    "description"
+  ],
+  "first_row_id_or_version": "0001_init_schema_v1",
+  "_captured_at": "2026-04-30T17:54:10.414251+00:00"
+}

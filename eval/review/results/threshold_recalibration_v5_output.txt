@@ -1,0 +1,12 @@
+61 rapor yuklendi
+
+Eski esikler (78.5/72.0, kod HALEN bu degerlerde): VerdictAccuracy(n=61, exact=35, within_one=39, exact_accuracy=0.5737704918032787, within_one_accuracy=0.639344262295082)
+  sinif-dengeli dogruluk: 31.77%  {'accept': [32, 49], 'major_revision': [0, 2], 'reject': [3, 10]}
+
+accept vs reject readiness ayrisikligi:
+  accept: n=49 ort=80.1 stdev=5.5
+  reject: n=10 ort=76.6 stdev=5.3
+  fark: 3.5 puan
+  6/10 reject-etiketli makale accept dagiliminin 1-stdev icine giriyor
+
+EN IYI (sinif-dengeli) esik: t1=79.0 t2=71.5 balanced_acc=48.44%  {'accept': [32, 49], 'major_revision': [1, 2], 'reject': [3, 10]}

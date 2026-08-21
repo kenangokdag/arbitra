@@ -1,0 +1,14 @@
+{
+  "version": "v0_skeleton_2026-05-11",
+  "note": "RTF §Plan-Detayı (6): top-50 hedef dergi manuel kürasyon ilk faz. Boş — akademik danışman (Omer) doldurur. Dergi yokken field_average fallback (havuzdan field ortalaması). kmkarakaya HF dergitarama runtime entegrasyonu V2'ye ertelendi.",
+  "window_size": 50,
+  "journals": [],
+  "field_average_fallback": {
+    "accept_pct": 0.12,
+    "major_pct": 0.42,
+    "minor_pct": 0.30,
+    "reject_pct": 0.16,
+    "source": "field_average_placeholder",
+    "note": "PaperMind V1 generic ortalama; gerçek dergi verisi yüklenince override."
+  }
+}

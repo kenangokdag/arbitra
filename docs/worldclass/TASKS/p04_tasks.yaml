@@ -1,0 +1,138 @@
+{
+  "phase": "P04",
+  "tasks": [
+    {
+      "id": "P04-T01_CLAIM_EXTRACTION_MODEL",
+      "phase": "P04",
+      "priority": "P0",
+      "title": "Claim extraction ve manuscript anchor modeli",
+      "deps": [
+        "P03-T03_RUBRIC_REGISTRY_AND_DIMENSION_SCHEMA"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "engine/ingestion/common.py",
+        "api/services/anchor_finder.py",
+        "tests/unit/test_anchor_finder.py"
+      ],
+      "steps": [
+        "Claim model: text, section, anchor_id, claim_type, strength, evidence_needed.",
+        "Section/paragraph anchors ingestion’dan stable id alsın.",
+        "Claims introduction/results/discussion bölümlerinden çıkarılsın.",
+        "LLM output JSON schema validation ile sınırlandırılsın."
+      ],
+      "tests": [
+        "unit: stable anchor ids",
+        "unit: claim schema validation",
+        "fixture: claims extracted from sample manuscript"
+      ],
+      "done_when": [
+        "Rapor eleştirileri manuscript anchor id’ye bağlanabiliyor."
+      ],
+      "advance_when": "Anchor değişmeden frontend highlight yapabiliyorsa.",
+      "stop_if": [
+        "Claim text serbest LLM output olarak doğrulanmadan kullanılıyorsa."
+      ]
+    },
+    {
+      "id": "P04-T02_REFERENCE_RESOLUTION_PIPELINE",
+      "phase": "P04",
+      "priority": "P0",
+      "title": "Reference extraction ve DOI/provider resolution pipeline",
+      "deps": [
+        "P02-T04_OPENALEX_API_KEY_MIGRATION"
+      ],
+      "touchpoints": [
+        "engine/ingestion/*",
+        "api/services/review_citation_service.py",
+        "api/providers/*",
+        "tests/unit/test_review_citation.py"
+      ],
+      "steps": [
+        "Reference model standardize et: raw, title, authors, year, doi, source, resolution_status.",
+        "Crossref/OpenAlex/SemanticScholar adapter slotları oluştur.",
+        "Resolution confidence ve duplicate merge logic ekle.",
+        "Unresolved references reportta açık gösterilsin."
+      ],
+      "tests": [
+        "unit: DOI exact resolution",
+        "unit: fuzzy title resolution confidence",
+        "unit: unresolved does not fabricate"
+      ],
+      "done_when": [
+        "Atıflar provider ve confidence ile çözümleniyor."
+      ],
+      "advance_when": "Unresolved atıf uydurulmadan raporlanıyorsa.",
+      "stop_if": [
+        "Kaynak bulunamadığında fake DOI üretiliyorsa."
+      ]
+    },
+    {
+      "id": "P04-T03_CLAIM_EVIDENCE_ALIGNMENT",
+      "phase": "P04",
+      "priority": "P0",
+      "title": "Claim-evidence alignment ve citation support levels",
+      "deps": [
+        "P04-T01_CLAIM_EXTRACTION_MODEL",
+        "P04-T02_REFERENCE_RESOLUTION_PIPELINE"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "api/services/review_citation_service.py",
+        "api/services/review_orchestration.py",
+        "web/src/components/review/ReviewReportView.tsx"
+      ],
+      "steps": [
+        "SupportLevel enum: full_text_verified, abstract_only, metadata_only, unresolved, contradictory, not_applicable.",
+        "ClaimCitationAlignment model ekle.",
+        "Citation context ile claim strength uyumunu kontrol et.",
+        "Rapor dilinde abstract-only limitation açık yazılsın."
+      ],
+      "tests": [
+        "unit: abstract_only does not become verified",
+        "unit: unsupported causal claim flagged",
+        "frontend support level badge render"
+      ],
+      "done_when": [
+        "Citation integrity bulguları kaynak doğrulama seviyesini gösteriyor."
+      ],
+      "advance_when": "Her citation critique support_level taşıdığında.",
+      "stop_if": [
+        "Abstract-only bulgu full verification gibi sunuluyorsa."
+      ]
+    },
+    {
+      "id": "P04-T04_LITERATURE_COVERAGE_AND_GAP_MAP",
+      "phase": "P04",
+      "priority": "P1",
+      "title": "Literature coverage, seminal/recent/missing works ve gap map",
+      "deps": [
+        "P04-T02_REFERENCE_RESOLUTION_PIPELINE"
+      ],
+      "touchpoints": [
+        "api/services/gap_profile_workshop_service.py",
+        "api/services/originality_service.py",
+        "api/services/review_citation_service.py",
+        "web/src/components/project/GapHeatmapCard.tsx"
+      ],
+      "steps": [
+        "Manuscript topic/claims ile reference set arasında coverage analysis yap.",
+        "Recent/seminal/methodological/theoretical missing buckets oluştur.",
+        "Coverage confidence provider availability ile bağlansın.",
+        "Mevcut gap/originality modüllerini review output’a entegre et."
+      ],
+      "tests": [
+        "unit: missing recent works bucket",
+        "unit: provider degraded lowers confidence",
+        "frontend coverage section render"
+      ],
+      "done_when": [
+        "Literature critique “daha kaynak ekle” değil, hangi boşluk türü olduğunu söylüyor."
+      ],
+      "advance_when": "Coverage map action items ürettiğinde.",
+      "stop_if": [
+        "Provider sonuçları olmadan yüksek confidence coverage iddia ediliyorsa."
+      ]
+    }
+  ]
+}

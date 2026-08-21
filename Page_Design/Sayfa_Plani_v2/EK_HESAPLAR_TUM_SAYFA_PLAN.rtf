@@ -1,0 +1,414 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 PAPERMIND \'97 T\'dcM SAYFALAR EK HESAPLAR & VER\uc0\u304 -TABLOSU \u304 \u350 LER\u304  PLANI\
+Tarih: 2026-05-10  \'b7  Sahip: Omer (kararlar) / Claude (analiz)\
+Kapsam: 26 sayfa (0, 1, 2.1-2.5, 3.1-3.4, 4.1-4.5, 5.1-5.4, 6.1-6.5, S1, S2)\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+0. AMA\'c7\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+Bu dosya, Sayfa_Plani_v2/ alt\uc0\u305 ndaki 26 sayfa tasar\u305 m RTF'sinin T\'dcM\'dcNDE\
+biriken backend / Supabase / dosya / cron / LLM API i\uc0\u351 lerinin tek\
+yerden g\'f6r\'fcn\'fcm\'fc. Omer bu dosyaya bakarak veri taraf\uc0\u305 ndaki eksiklikleri\
+tamamlayacak.\
+\
+Kan\uc0\u305 t seviyeleri:\
+  A = sayfa txt'sinde + canl\uc0\u305  Supabase + Excel envanterinde do\u287 rulanm\u305 \u351 \
+  B = sayfa txt'sinde ge\'e7er + benzer pattern var (deneyim)\
+  C = do\uc0\u287 rulanmam\u305 \u351  varsay\u305 m (Omer onay verecek)\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+1. MIGRATION TABLOSU \'97 B\uc0\u304 R\u304 KEN YEN\u304 /DE\u286 \u304 \u350 EN \u350 EMA\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+V1 ZORUNLU (sayfalar\uc0\u305 n \'e7al\u305 \u351 mas\u305  i\'e7in kritik yol):\
+\
+| # | Migration                  | Sayfa | Tablo/Kolon                                    | Kan\uc0\u305 t |\
+|---|----------------------------|-------|------------------------------------------------|-------|\
+| 1 | 0022_extended_affinity     | 3.3   | 3 t\'fcretilmi\uc0\u351  affinity tablo (lift + transpose) | A     |\
+| 2 | 0023_gap_matrix_calibration| 4.1   | fact_gap_matrix.matrix_confidence_calibrated   | A     |\
+| 3 | 0025_project_progress      | 5.1   | project_progress (state machine)               | A     |\
+| 4 | 0026_silent_learning       | 5.3   | user_silent_learning_log + user_style_profile  | A     |\
+| 5 | 0027_manuscript_section    | 6.1   | manuscript_section                             | A     |\
+| 6 | 0028_defense_session       | 6.2   | defense_session                                | A     |\
+| 7 | 0029_project_event         | S1    | project_event (timeline)                       | A     |\
+| 8 | 0030_completion            | S2    | dim_project +3 kolon, dim_feedback,            | A     |\
+|   |                            |       | project_completion_snapshot                    |       |\
+\
+V1 OPS\uc0\u304 YONEL (jsonb yedek tercih edildi \u8594  migration gerek yok):\
+\
+| # | \uc0\u304 lgili Migration         | Sayfa | Karar                                          | Kan\u305 t |\
+|---|--------------------------|-------|------------------------------------------------|-------|\
+| - | 0024_user_gap_targets    | 4.2   | REDDED\uc0\u304 LD\u304  \u8594  user_profiles.metadata jsonb      | A     |\
+| - | 6.4 reviewer/statcheck   | 6.4   | REDDED\uc0\u304 LD\u304  \u8594  defense_session.scan_results JSONB| A     |\
+| - | 6.5 jury_session         | 6.5   | REDDED\uc0\u304 LD\u304  \u8594  defense_session.scan_results JSONB| A     |\
+\
+V2 (sonraki sprint, sayfa kalibrasyonundan sonra):\
+\
+| # | Tablo                       | Sayfa | Boyut tahmini                          | Kan\uc0\u305 t |\
+|---|-----------------------------|-------|----------------------------------------|-------|\
+| - | fact_gap_matrix_temporal    | 4.1   | 504K \'d7 N_y\uc0\u305 l sat\u305 r (zaman serisi)      | B     |\
+| - | dim_ghost_paper             | 3.2   | OpenAlex metadata ta\uc0\u351 \u305 ma gerekir       | A     |\
+| - | fact_paper_disrupted_refs   | 4.3   | ~750M sat\uc0\u305 r, 1-2 hafta pipeline         | A     |\
+| - | fact_paper_yearly_citations | 4.3   | ~250-375M sat\uc0\u305 r                        | A     |\
+| - | mart_completion_health      | S2    | view, admin dashboard                   | B     |\
+\
+NOT: 0021 ve 0024 numaralar\uc0\u305  rezerv kald\u305  (\'f6nceki oturumlarda atand\u305 \u287 \u305 \
+varsay\uc0\u305 l\u305 r \'97 Omer canl\u305  \u351 ema do\u287 rulayacak; hal\'fcsinasyon yapm\u305 yorum).\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+2. MEVCUT TABLOYA JSONB KOLON / GEN\uc0\u304 \u350 LETME\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+Migration GEREKMEYEN ama mevcut tabloya JSONB merge edilen veri:\
+\
+| Tablo                  | Kolon                                | Sayfa | \uc0\u304 \'e7erik                                   |\
+|------------------------|--------------------------------------|-------|------------------------------------------|\
+| defense_session        | scan_results.reviewer_3persona JSONB | 6.4   | 3-persona hakem yorumlar\uc0\u305                  |\
+| defense_session        | scan_results.statcheck JSONB         | 6.4   | p-value uyumsuzluklar\uc0\u305                    |\
+| defense_session        | scan_results.jury_session JSONB      | 6.5   | 5-j\'fcri tepki + skor + decision band      |\
+| defense_session        | individual_check JSONB               | 6.3   | makale/tez checklist sonu\'e7lar\uc0\u305            |\
+| project_anchor         | candidates_meta JSONB                | 2.1   | rejected anchor haf\uc0\u305 zas\u305  (mevcut, persist YOK \'97 fix laz\u305 m) |\
+| user_profiles          | metadata.gap_targets JSONB           | 4.2   | gap target listesi                        |\
+| dim_project            | completed_at + tier_at_completion +  | S2    | retention + tier limit                   |\
+|                        | deletion_due_at                      |       |                                          |\
+\
+NOT: defense_session.scan_results JSONB tek alanda 3 farkl\uc0\u305  sayfa\
+veri yaz\uc0\u305 yor (6.4 reviewer + 6.4 statcheck + 6.5 jury) \'97 schema\
+versiyonlanmas\uc0\u305  zorunlu (scan_results.schema_version int).\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+3. DOSYA-BAZLI YAPILANDIRMA (engine/)\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+Migration GEREKMEYEN, dosya sisteminde tutulan + git ile s\'fcr\'fcmlenen\
+yap\uc0\u305 land\u305 rma. Dosya tree:\
+\
+engine/\
+\uc0\u9500 \u9472 \u9472  style/                      [5.3 \'97 akademik dil/\'fcslup]\
+\uc0\u9474    \u9500 \u9472 \u9472  tr.json                 \'97 TR akademik dil kurallar\u305  (passive\u8594 active vb.)\
+\uc0\u9474    \u9500 \u9472 \u9472  en.json                 \'97 EN akademik dil kurallar\u305 \
+\uc0\u9474    \u9492 \u9472 \u9472  id.json                 \'97 Bahasa Indonesia\
+\uc0\u9474 \
+\uc0\u9500 \u9472 \u9472  checklist/                  [6.3 \'97 bireysel kontrol]\
+\uc0\u9474    \u9500 \u9472 \u9472  makale_tr.json\
+\uc0\u9474    \u9500 \u9472 \u9472  makale_en.json\
+\uc0\u9474    \u9500 \u9472 \u9472  tez_tr.json\
+\uc0\u9474    \u9492 \u9472 \u9472  tez_en.json\
+\uc0\u9474 \
+\uc0\u9500 \u9472 \u9472  citation/                   [5.4 \'97 at\u305 f stil k\u305 lavuzu]\
+\uc0\u9474    \u9500 \u9472 \u9472  apa.py\
+\uc0\u9474    \u9500 \u9472 \u9472  vancouver.py\
+\uc0\u9474    \u9500 \u9472 \u9472  ieee.py\
+\uc0\u9474    \u9500 \u9472 \u9472  chicago.py\
+\uc0\u9474    \u9492 \u9472 \u9472  mla.py\
+\uc0\u9474 \
+\uc0\u9500 \u9472 \u9472  dictionary/                 [5.4 \'97 synonym fallback]\
+\uc0\u9474    \u9500 \u9472 \u9472  tr.json\
+\uc0\u9474    \u9500 \u9472 \u9472  en.json\
+\uc0\u9474    \u9492 \u9472 \u9472  id.json\
+\uc0\u9474 \
+\uc0\u9500 \u9472 \u9472  personas/journal/           [6.4 \'97 dergi simulasyonu]\
+\uc0\u9474    \u9500 \u9472 \u9472  skeptik.json            \'97 \u350 \'fcpheci hakem prompt seed\
+\uc0\u9474    \u9500 \u9472 \u9472  sempatik.json           \'97 Sempatik hakem\
+\uc0\u9474    \u9492 \u9472 \u9472  yontemci.json           \'97 Y\'f6ntemci hakem\
+\uc0\u9474 \
+\uc0\u9500 \u9472 \u9472  personas/jury/              [6.5 \'97 j\'fcri simulasyonu]\
+\uc0\u9474    \u9500 \u9472 \u9472  canli.json              \'97 J\'fcri ba\u351 kan\u305  (alan-uzman\u305 , \u55357 \u57314 )\
+\uc0\u9474    \u9500 \u9472 \u9472  anti_tez.json           \'97 Anti-tez (\u55357 \u56628 )\
+\uc0\u9474    \u9500 \u9472 \u9472  yontemci.json           \'97 Y\'f6ntemci (\u55357 \u56628 )\
+\uc0\u9474    \u9500 \u9472 \u9472  dis_disiplin.json       \'97 D\u305 \u351  disiplin (\u55357 \u57313 )\
+\uc0\u9474    \u9492 \u9472 \u9472  pratisyen.json          \'97 Pratisyen (\u55357 \u57313 )\
+\uc0\u9474 \
+\uc0\u9500 \u9472 \u9472  statcheck/                  [6.4]\
+\uc0\u9474    \u9492 \u9472 \u9472  multilingual.json       \'97 TR+EN birle\u351 ik p-value regex set\
+\uc0\u9474 \
+\uc0\u9500 \u9472 \u9472  journals/                   [6.4]\
+\uc0\u9474    \u9492 \u9472 \u9472  review_distribution.json \'97 Top-50 derginin manuel revizyon profili\
+\uc0\u9474 \
+\uc0\u9500 \u9472 \u9472  jury/                       [6.5]\
+\uc0\u9474    \u9492 \u9472 \u9472  reaction_thresholds.json \'97 Pilot validated e\u351 ikler (Cohen's \u954  \u8805 0.7)\
+\uc0\u9474 \
+\uc0\u9492 \u9472 \u9472  completion/                 [S2 \'97 proje tamamlama]\
+    \uc0\u9500 \u9472 \u9472  badge_thresholds.json   \'97 Ad\u305 m rozeti e\u351 ikleri (8 sayfa)\
+    \uc0\u9500 \u9472 \u9472  oneri_kural\u305 .json       \'97 Sonraki proje \'f6neri a\u287 \u305 rl\u305 klar\u305 \
+    \uc0\u9500 \u9472 \u9472  badge_calculator.py     \'97 SQL + JSON yorumlay\u305 c\u305 \
+    \uc0\u9500 \u9472 \u9472  oneri_skorlayici.py     \'97 \'d6neri skorlay\u305 c\u305 \
+    \uc0\u9492 \u9472 \u9472  yorum_prompts/          \'97 Ad\u305 m ba\u351 \u305  LLM sistem promptu\
+        \uc0\u9500 \u9472 \u9472  4.1.txt, 4.2.txt, 5.2.txt, 6.1.txt\
+        \uc0\u9492 \u9472 \u9472  6.2.txt, 6.3.txt, 6.4.txt, 6.5.txt\
+\
+Toplam: 35+ yap\uc0\u305 land\u305 rma dosyas\u305 . T\'fcm\'fc git'le s\'fcr\'fcmlenir, hot-reload\
+m\'fcmk\'fcn (deploy gerekmez k\'fc\'e7\'fck de\uc0\u287 i\u351 iklik i\'e7in).\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+4. PRE-COMPUTE / NOTEBOOK \uc0\u304 \u350 LER\u304  (offline ETL)\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+Sayfalar\uc0\u305 n \'e7al\u305 \u351 mas\u305  i\'e7in Supabase'e UPLOAD edilmesi gereken hesap:\
+\
+| Sayfa | \uc0\u304 \u351                                           | Boyut       | S\'fcre tahmini  | Kan\u305 t |\
+|-------|---------------------------------------------|-------------|---------------|-------|\
+| 2.4   | dim_theme_embedding (4516 tema vekt\'f6r\'fc)     | ~7 MB       | mevcut (A)    | A     |\
+| 2.5   | concept_edge + concept_edge_temporal +      | tahmini     | 1-2 g\'fcn       | A     |\
+|       | dim_term_community                          | 50-200M     |               |       |\
+| 3.3   | extended_affinity (3 yeni: keyword\'d7field,   | ~10-20M     | 1-2 g\'fcn       | A     |\
+|       | keyword\'d7topic, keyword\'d7method)              |             |               |       |\
+| 4.1   | fact_gap_matrix kalibrasyon                 | 504K sat\uc0\u305 r  | 0.5 g\'fcn       | A     |\
+| 4.3   | originality_thresholds config kalibrasyon   | -           | 0.5 g\'fcn       | A     |\
+| 4.5   | summary_cache (Redis veya Supabase)         | dinamik     | 0.3 g\'fcn       | B     |\
+\
+NOT: 2.5 + 3.3 toplam 6 yeni t\'fcretilmi\uc0\u351  tablo TEK migration toplulu\
+plan oturumunda i\uc0\u351 lenebilir (4.1'in kalibrasyon migration'\u305  ile ayn\u305 \
+oturum).\
+\
+Pattern (3.3 kanon \'97 Excel envanter do\uc0\u287 rulanm\u305 \u351 ):\
+  Ham veri \uc0\u8594  joint count + marginal count + lift form\'fcl\'fc\
+  \uc0\u8594  parquet \u8594  Supabase upload (N18 notebook benzeri)\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+5. CRON / OFFLINE BATCH \uc0\u304 \u350 LER\u304 \
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+| Cron                          | Frekans              | Sayfa | \uc0\u304 \u351                                         |\
+|-------------------------------|----------------------|-------|-------------------------------------------|\
+| user_style_profile_update     | Her gece 02:00       | 5.3   | user_silent_learning_log \uc0\u8594  profile pattern|\
+| retention_cleanup_snapshot    | Her g\'fcn 03:00        | S2    | 90 g\'fcn dolmu\uc0\u351  projeleri sil (soft+hard)   |\
+| nps_rollup_daily              | Her g\'fcn 04:00        | S2    | dim_feedback \uc0\u8594  mart_nps_daily             |\
+| signed_url_refresh            | Her Pazartesi 02:00  | S2    | Storage signed URL yenile (7 g\'fcn \'f6ncesi)  |\
+| diary_weekly_digest           | Her Pazartesi 10:00  | S1    | 21+ g\'fcn a\'e7\uc0\u305 k event \u8594  uygulama notification|\
+| diary_monthly_email           | Her ay 1, 09:00 (TZ) | S1    | Ayl\uc0\u305 k \'f6zet maili                          |\
+\
+Toplam: 6 cron job. Stack: Supabase pg_cron VEYA GitHub Actions\
+(papermind-app deploy stack \'97 Omer do\uc0\u287 rulayacak).\
+\
+Y\'dcKSEK R\uc0\u304 SK CRON: retention_cleanup_snapshot (cascade delete).\
+Mitigation: soft delete \'f6nce (deleted_at = now()), 7 g\'fcn sonra hard\
+delete; staging'de 100x h\uc0\u305 zland\u305 r\u305 lm\u305 \u351  test.\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+6. LLM API \'c7A\uc0\u286 RILARI \'97 TOPLU MAL\u304 YET\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+PROVIDER VE KULLANIM YER\uc0\u304 :\
+\
+| Sayfa | Endpoint                              | Model        | \'c7a\uc0\u287 r\u305 /oturum | Token tahmini    |\
+|-------|---------------------------------------|--------------|--------------|------------------|\
+| 1     | /api/q/literature-review              | Flash 2.5    | 1            | ~5K in / 1K out  |\
+| 1     | /api/tts/literature-review            | ElevenLabs   | 1            | TTS dakikal\uc0\u305      |\
+| 2.1   | research-area chat + anchor reasoning | Flash + Pro  | 5-8          | ~3K/\'e7a\uc0\u287 r\u305         |\
+| 3.4   | /api/workshop/synthesize              | Flash/Pro    | 1            | ~10K in / 2K out |\
+| 4.2   | gap profil yorumu                     | Flash        | 1            | ~3K in / 500 out |\
+| 4.3   | "neden \'f6nemli?" kart yorumu           | Flash (lazy) | N kart       | ~1K in / 100 out |\
+| 4.4   | h\'fccre mikro-yorumu + \'f6neri \'f6zeti      | Flash        | N+1          | ~2K in / 200 out |\
+| 5.2   | topic-proposals + draft-skeleton      | Pro          | 2            | ~5K in / 2K out  |\
+| 5.3   | parafrasing                           | Pro          | 1/c\'fcmle      | ~500 in / 500 out|\
+| 5.4   | citation-verify + format-citation     | Flash        | 1-2          | ~2K in / 500 out |\
+| 6.1   | manuscript quality + auto-draft       | Flash + Pro  | 2            | ~5K in / 1K out  |\
+| 6.2   | jury question generator               | Pro          | N_j\'fcri       | ~5K in / 2K out  |\
+| 6.3   | dergi \'f6neri + coherence + personal    | Flash        | 3            | ~3K in / 500 out |\
+| 6.4   | 3-persona reviewer + statcheck        | Flash \'d7 3    | 3            | ~5K in / 1K out  |\
+| 6.5   | 5 j\'fcri Q + answer-score + consistency | Flash \'d7 7+   | 7+           | ~3K in / 500 out |\
+| S1    | pre-advisor-summary                   | Flash        | 1            | ~2K in / 300 out |\
+| S2    | snapshot 8 yorum + 3 \'f6neri            | Flash \'d7 11   | 11           | ~5K in / 200 out |\
+\
+TAR\uc0\u304 FE (A \'97 Google Gemini docs 2026-01):\
+  Flash 2.0:  $0.075 / 1M input,  $0.30 / 1M output\
+  Pro 2.5:    $1.25  / 1M input,  $5.00 / 1M output\
+\
+ORTALAMA PROJE BA\uc0\u350 I MAL\u304 YET (1 proje = t\'fcm sayfalar\u305  gezer):\
+  Flash \'e7a\uc0\u287 r\u305 lar\u305 :  ~30 \'e7a\u287 r\u305  \'d7 ortalama $0.0005 = $0.015\
+  Pro \'e7a\uc0\u287 r\u305 lar\u305 :    ~5  \'e7a\u287 r\u305  \'d7 ortalama $0.012  = $0.060\
+  TTS (ElevenLabs):  Vitrin 1 \'e7a\uc0\u287 r\u305                 = $0.020\
+  Cohere rerank-3:  6.5'te HyDE fanout            = $0.005\
+  TOPLAM proje:                                    \uc0\u8776  $0.10\
+\
+100 PROJE/AY VARSAYIM: ~$10/ay LLM operasyonu.\
+1000 PROJE/AY:         ~$100/ay.\
+Yumu\uc0\u351 ak limit \'f6nerisi: $50/ay 100 proje i\'e7in (5x g\'fcvenlik marj\u305 ).\
+\
+NOT: 6.5 j\'fcri simulasyonu tek ba\uc0\u351 \u305 na en pahal\u305  sayfa\
+(~$0.10-0.12/oturum). Vitrin TTS de pahal\uc0\u305 . Di\u287 er t\'fcm sayfalar\u305 n\
+toplam\uc0\u305  ~$0.03/proje civar\u305 .\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+7. SAYFA-BAZLI \'d6ZET \'97 TEK SATIR S\uc0\u304 NYAL\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+Her sayfa i\'e7in: yeni-tablo / mevcut-tablo / dosya / cron / LLM \'f6zetli.\
+\
+| Sayfa                       | Migration  | JSONB | Dosya                | Cron | LLM      |\
+|-----------------------------|------------|-------|----------------------|------|----------|\
+| 0_genel_kurallar            | -          | -     | -                    | -    | -        |\
+| 1_vitrin                    | -          | -     | -                    | -    | Flash+TTS|\
+| 2.1_arastirma_alani         | 0015 var   | candidates_meta(fix)| -      | -    | Flash+Pro|\
+| 2.2_konu_belirleme          | -          | -     | -                    | -    | Flash    |\
+| 2.3_bibliyometrik_analiz    | -          | -     | -                    | -    | -        |\
+| 2.4_tematik_analiz          | -          | -     | -                    | -    | -        |\
+| 2.5_kavram_agi              | 3 t\'fcretilmi\uc0\u351 | -    | -                    | -    | -        |\
+| 3.1_onerilen_literatur      | -          | -     | -                    | -    | Flash    |\
+| 3.2_iliskili_calismalar     | V2:dim_ghost| -    | -                    | -    | -        |\
+| 3.3_yontem_matrisi          | 0022       | -     | -                    | -    | -        |\
+| 3.4_literatur_sentezi       | -          | -     | -                    | -    | Flash/Pro|\
+| 4.1_bosluk_haritasi         | 0023       | -     | -                    | -    | Flash    |\
+| 4.2_bosluk_profili          | -          | gap_targets jsonb| -      | -    | Flash    |\
+| 4.3_ozgunluk_degerlendirmesi| -          | originality_thresholds config| -| - | Flash (lazy)|\
+| 4.4_calisma_karsilastirma   | -          | -     | -                    | -    | Flash    |\
+| 4.5_akademik_etki_egrisi    | -          | -     | summary_cache(opt)   | -    | Flash    |\
+| 5.1_yayin_formati           | 0025       | -     | -                    | -    | Pro      |\
+| 5.2_yayin_taslagi           | -          | -     | -                    | -    | Pro      |\
+| 5.3_akademik_dil_uslup      | 0026       | -     | engine/style/        | gece | Pro      |\
+| 5.4_atif_stil_kilavuzu      | -          | -     | engine/citation/+dict| -    | Flash    |\
+| 6.1_yayin_icerigi_doldurma  | 0027       | -     | -                    | -    | Flash+Pro|\
+| 6.2_savunma_formati         | 0028       | -     | -                    | -    | Pro      |\
+| 6.3_bireysel_kontrol        | -          | individual_check | engine/checklist/| - | Flash    |\
+| 6.4_dergi_simulasyonu       | -          | scan_results.reviewer/statcheck| engine/personas/journal+statcheck+journals| - | Flash\'d73 |\
+| 6.5_juri_simulasyonu        | -          | scan_results.jury_session| engine/personas/jury+jury| - | Flash\'d77+|\
+| S1_arastirma_defteri        | 0029       | -     | -                    | hafta+ay| Flash |\
+| S2_proje_tamamlama          | 0030       | dim_project +3 kolon| engine/completion/| 3 cron| Flash\'d711|\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+8. KR\uc0\u304 T\u304 K YOL VE BA\u286 IMLILIKLAR\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+V1 SPRINT SIRASI (zorunlu, ~3 sprint = 6 hafta):\
+\
+SPRINT-A (2 hafta) \'97 VER\uc0\u304  ALTYAPISI:\
+  Hafta 1: Migration toplu plan oturumu (0022, 0023, 0025-0030)\
+           - 8 migration + RLS policy + index\
+           - Staging deploy + integration test\
+  Hafta 2: Pre-compute notebook'lar\uc0\u305  (3.3 + 2.5 + 4.1 + 4.3)\
+           - Parquet \uc0\u8594  Supabase upload\
+           - Veri validasyon + segment do\uc0\u287 rulama\
+\
+SPRINT-B (2 hafta) \'97 DOSYA-BAZLI YAPI + ENDPOINT'LER:\
+  Hafta 1: engine/ klas\'f6r yap\uc0\u305 s\u305  + 35+ yap\u305 land\u305 rma dosyas\u305 \
+           - Pilot kalibrasyon (e\uc0\u351 ikler, a\u287 \u305 rl\u305 klar)\
+           - Annotator \'e7al\uc0\u305 \u351 mas\u305  (6.5 reaction_thresholds i\'e7in 50-100 Q&A)\
+  Hafta 2: Backend endpoint'leri (her sayfa i\'e7in POST/GET)\
+           - Hal\'fcsinasyon kap\uc0\u305 s\u305  (5.4 citation-verify)\
+           - Asyncio.gather paralel LLM \'e7a\uc0\u287 r\u305 lar\u305  (6.5 + S2)\
+\
+SPRINT-C (2 hafta) \'97 CRON + FRONTEND BA\uc0\u286 LAMA:\
+  Hafta 1: 6 cron job (retention \'f6zellikle dikkatli + audit log)\
+           - Mail sa\uc0\u287 lay\u305 c\u305  entegrasyonu (Resend/SES)\
+           - Sentry alert + DLQ\
+  Hafta 2: Frontend wire-up + u\'e7tan uca QA\
+           - Standart Yay\uc0\u305 n Kart\u305  kanon do\u287 rulamas\u305  (D5/D6 Lite)\
+           - 4 persona alignment denetimi\
+\
+KR\uc0\u304 T\u304 K BA\u286 IMLILIKLAR:\
+\
+  - Migration 0028 (defense_session) \uc0\u8594  6.2, 6.3, 6.4, 6.5 hepsinin \'f6nko\u351 ulu\
+  - Migration 0027 (manuscript_section) \uc0\u8594  6.1, 6.2, 6.4, 6.5 hepsinin \'f6nko\u351 ulu\
+  - Migration 0025 (project_progress) \uc0\u8594  5.1, S1, S2 \'f6nko\u351 ulu\
+  - 0028 + 0027 \'f6nce, sonra 6.x sayfa endpoint'leri\
+  - engine/personas/jury \uc0\u8594  6.5 reaction_thresholds.json pilot dataset\
+    \'f6nko\uc0\u351 ulu (5-7 g\'fcnl\'fck annotator i\u351 i paralel y\'fcr\'fct\'fclmeli)\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+9. TOPLAM MAL\uc0\u304 YET \'d6ZET\u304 \
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+GEL\uc0\u304 \u350 T\u304 RME:\
+  Sprint-A:  10 i\uc0\u351  g\'fcn\'fc (1 dev + 1 dev k\u305 smi pre-compute notebook)\
+  Sprint-B:  10 i\uc0\u351  g\'fcn\'fc (1 dev + annotator paralel)\
+  Sprint-C:  10 i\uc0\u351  g\'fcn\'fc (1 dev + QA)\
+  TOPLAM:    30 i\uc0\u351  g\'fcn\'fc (3 sprint = 6 hafta, 1 dev)\
+\
+ANNOTATOR (6.5 i\'e7in zorunlu):\
+  2 akademik annotator \'d7 5-7 g\'fcn \uc0\u8776  10-14 person-day\
+  \'dccret tahmini: $500-1000 (alan-ba\uc0\u287 l\u305 )\
+\
+LLM AYLIK (varsay\uc0\u305 m N=100 proje/ay):\
+  Flash + Pro + TTS + Cohere \uc0\u8776  $10/ay\
+\
+DB AYLIK:\
+  Yeni sat\uc0\u305 r y\'fck\'fc: <10 MB/ay (ihmal edilebilir)\
+  Storage (PDF): ~20 MB rolling 90 g\'fcn retention\
+\
+TOPLAM AYLIK OPERASYON: ~$15/ay (LLM + storage + DB)\
+TOPLAM GEL\uc0\u304 \u350 T\u304 RME: 30 i\u351  g\'fcn\'fc + 1 annotator paketi.\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+10. A\'c7IK SORULAR (Omer do\uc0\u287 rulayacak \'97 hal\'fcsinasyon yok)\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+\uc0\u350 EMA DO\u286 RULAMA:\
+  1. dim_project tablosunda completed_at / tier_at_completion benzeri\
+     kolon var m\uc0\u305 ? (S2)\
+  2. dim_feedback tablosu var m\uc0\u305 ? (S2)\
+  3. project_event tablosu mevcut mu? (S1)\
+  4. project_anchor.candidates_meta jsonb persist neden YAPILMIYOR?\
+     Migration 0015 haz\uc0\u305 r ama anchor_finder.py yazm\u305 yor \'97 fix scope?\
+  5. project_seed_papers tablosu (Migration 0019) tutulsun mu yoksa\
+     silinsin mi? (2.1 \'97 vitrin i\'e7in kullan\uc0\u305 lm\u305 yor)\
+  6. defense_session.scan_results JSONB schema_version alan\uc0\u305  eklensin\
+     mi (3 sayfa veri yaz\uc0\u305 yor \'97 6.4\'d72 + 6.5)?\
+  7. dim_user.tier kolonu var m\uc0\u305 ? Free/Pro limit varsay\u305 m\u305  do\u287 ru mu?\
+  8. dim_journal tablosu var m\uc0\u305  (6.3 dergi \'f6nerisi i\'e7in)?\
+  9. config.originality_thresholds \'97 ayr\uc0\u305  tablo m\u305 , .env mi, JSON\
+     dosya m\uc0\u305 ? (4.3)\
+\
+ALTYAPI DO\uc0\u286 RULAMA:\
+  10. Cron stack: Supabase pg_cron m\uc0\u305 , GitHub Actions m\u305 ?\
+  11. Mail sa\uc0\u287 lay\u305 c\u305 s\u305 : Resend / SES / ba\u351 ka?\
+  12. Storage bucket 'papermind-completion-pdf' mevcut mu? (S2)\
+  13. PDF render: react-pdf mi, puppeteer m\uc0\u305 ? (S2)\
+  14. Embedding altyap\uc0\u305 s\u305 : bge-m3 + Pinecone aktif mi (6.5 HyDE +\
+     S2 madde 4 \'f6neri overlap i\'e7in)?\
+  15. Cohere rerank-3 API key mevcut mu? (6.5)\
+\
+KAL\uc0\u304 BRASYON:\
+  16. 6.5 reaction_thresholds i\'e7in 50-100 Q&A pilot dataset \'97 hangi\
+     5 alan + 2 \'fcniversite se\'e7ilecek? Annotator b\'fct\'e7esi onayl\uc0\u305  m\u305 ?\
+  17. 4.3 originality e\uc0\u351 ikleri \'97 kalibrasyon sonras\u305  v1 de\u287 er ne?\
+  18. 6.1 manuscript doluluk gate (3/5 + 50 kelime) e\uc0\u351 i\u287 i test\
+      edilecek mi yoksa v1 \'f6nerimle gidilsin mi?\
+  19. S2 badge_thresholds.json \'97 pilot N\uc0\u8805 30 sonras\u305  v2 kalibrasyon\
+      planland\uc0\u305 ; v1 i\'e7in yeterli mi?\
+\
+\'dcR\'dcN KARARI:\
+  20. Mail tercihi (S1 ayl\uc0\u305 k + S2 mezun rapor) varsay\u305 lan A\'c7IK m\u305 \
+      KAPALI m\uc0\u305  kullan\u305 c\u305  i\'e7in? KVKK perspektifi.\
+  21. Tier limit (Free 1, Pro 3) do\uc0\u287 ru mu?\
+  22. 6.4'te Migration reddi gibi, ba\uc0\u351 ka sayfa i\'e7in de "yeni tablo\
+      yerine JSONB / dosya-bazl\uc0\u305 " tercih var m\u305 ? (\'f6zellikle 6.3\
+      individual_check ekleme onay\uc0\u305  gerek)\
+\
+\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+11. SIRADAK\uc0\u304  ADIM\
+\uc0\u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \u9552 \
+\
+Bu dosya:\
+  - /tmp/pages_v2_txt/EK_HESAPLAR_TUM_SAYFA_PLAN.txt (kaynak)\
+  - /Users/omer/papermind-app/Page_Design/Sayfa_Plani_v2/\
+    EK_HESAPLAR_TUM_SAYFA_PLAN.rtf (RTF mirror)\
+\
+Omer ad\uc0\u305 mlar\u305 :\
+  (1) Bu dosyay\uc0\u305  ba\u351 tan sona okur, a\'e7\u305 k sorular\u305  (madde 10) yan\u305 tlar\
+  (2) Migration toplu plan oturumu a\'e7ar \'97 8 migration tek pakette\
+      tart\uc0\u305 \u351 \u305 l\u305 r, onay sonras\u305  SPRINT-A ba\u351 lar\
+  (3) Pre-compute notebook'lar\uc0\u305  i\'e7in ayr\u305  kapsam belirler\
+  (4) Annotator paketi (6.5) i\'e7in b\'fct\'e7e + 5 alan se\'e7imi yapar\
+\
+Bu dosya ya\uc0\u351 ayan dok\'fcmand\u305 r \'97 sayfa tasar\u305 m\u305  evrildik\'e7e g\'fcncellenir.\
+ESK\uc0\u304  S2_EK_HESAPLAR_PLAN.txt/.rtf bu dosyaya birle\u351 ti, silinebilir.\
+}

@@ -1,0 +1,70 @@
+{
+  "phase": "P08",
+  "tasks": [
+    {
+      "id": "P08-T01_LANGUAGE_CONFIG_MODEL",
+      "phase": "P08",
+      "priority": "P0",
+      "title": "Source language, output language ve UI locale ayrımı",
+      "deps": [
+        "P06-T01_REVIEW_REPORT_SCHEMA_V2"
+      ],
+      "touchpoints": [
+        "api/models/review.py",
+        "web/src/lib/review-api.ts",
+        "web/src/lib/i18n/*",
+        "api/services/translator.py"
+      ],
+      "steps": [
+        "LanguageConfig model: source_language, output_language, ui_locale, citation_language_policy, rtl.",
+        "Review create request ve report metadata’ya ekle.",
+        "TR/EN literal type kısıtlarını kaldırıp BCP-47 string validation yap.",
+        "Bilingual quote policy: original quote + translated explanation."
+      ],
+      "tests": [
+        "unit: language config validation",
+        "frontend type test",
+        "RTL smoke where possible"
+      ],
+      "done_when": [
+        "100 dil vizyonu teknik olarak iki literal ile sınırlı değil."
+      ],
+      "advance_when": "TR manuscript EN report ve EN manuscript TR UI ayrışabiliyorsa.",
+      "stop_if": [
+        "Citation quotes çevrilip orijinal kayboluyorsa."
+      ]
+    },
+    {
+      "id": "P08-T02_TENANT_AND_ENTERPRISE_BOUNDARIES",
+      "phase": "P08",
+      "priority": "P1",
+      "title": "Tenant/institution boundary ve enterprise deployment temeli",
+      "deps": [
+        "P01-T02_OBJECT_LEVEL_AUTHORIZATION_MATRIX"
+      ],
+      "touchpoints": [
+        "api/models/*",
+        "api/middleware/auth.py",
+        "api/db/supabase_client.py",
+        "db/migrations/*"
+      ],
+      "steps": [
+        "Tenant model ve membership roles tasarla.",
+        "Institution policy: retention, allowed providers, local model required, export controls.",
+        "Tenant-aware authz tests.",
+        "Future on-prem/private cloud config surface."
+      ],
+      "tests": [
+        "tenant A cannot access tenant B",
+        "institution policy blocks external provider"
+      ],
+      "done_when": [
+        "Kurumsal kullanıcı için veri sınırı ve provider policy uygulanabiliyor."
+      ],
+      "advance_when": "Single-user flow kırılmadan tenant-aware path çalıştığında.",
+      "stop_if": [
+        "Tenant_id sadece UI’da var backend enforcement yoksa."
+      ]
+    }
+  ]
+}

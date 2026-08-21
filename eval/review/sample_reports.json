@@ -1,0 +1,171 @@
+{
+  "_illustrative": true,
+  "_warning": "BU DOSYA İLLÜSTRATİFTİR — GERÇEK MOTOR ÇIKTISI DEĞİL. Skorlar insan skoruna gürültü eklenerek kurgulandı; KALİTE KANITI DEĞİL. Gerçek kanıt için run_eval --live (Omer key+parse hattı) gerekir.",
+  "reports": {
+    "openreview:PwxYoMvmvy": {
+      "mode": "author",
+      "language": "en",
+      "manuscript_meta": {
+        "title": "Beyond Random Masking: When Dropout meets Graph Convolutional Networks"
+      },
+      "summary": "İLLÜSTRATİF örnek rapor — sadece harness gösterimi.",
+      "overall_assessment": "İLLÜSTRATİF.",
+      "verdict": "accept",
+      "dimension_scores": [
+        {
+          "key": "soundness",
+          "score": 5.9,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        },
+        {
+          "key": "clarity",
+          "score": 5.6,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        },
+        {
+          "key": "importance",
+          "score": 4.8,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        }
+      ],
+      "provenance": {
+        "model_used": "ILLUSTRATIVE-SAMPLE-NOT-REAL",
+        "persona_version": "sample",
+        "engine_version": "sample",
+        "generated_at": "2026-06-22T05:02:31.889782+00:00"
+      }
+    },
+    "openreview:ONfWFluZBI": {
+      "mode": "author",
+      "language": "en",
+      "manuscript_meta": {
+        "title": "Self-supervised contrastive learning performs non-linear system identification"
+      },
+      "summary": "İLLÜSTRATİF örnek rapor — sadece harness gösterimi.",
+      "overall_assessment": "İLLÜSTRATİF.",
+      "verdict": "accept",
+      "dimension_scores": [
+        {
+          "key": "soundness",
+          "score": 6.2,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        },
+        {
+          "key": "clarity",
+          "score": 6.5,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        },
+        {
+          "key": "importance",
+          "score": 6.9,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        }
+      ],
+      "provenance": {
+        "model_used": "ILLUSTRATIVE-SAMPLE-NOT-REAL",
+        "persona_version": "sample",
+        "engine_version": "sample",
+        "generated_at": "2026-06-22T05:02:31.890097+00:00"
+      }
+    },
+    "openreview:odjMSBSWRt": {
+      "mode": "author",
+      "language": "en",
+      "manuscript_meta": {
+        "title": "DarkBench: Benchmarking Dark Patterns in Large Language Models"
+      },
+      "summary": "İLLÜSTRATİF örnek rapor — sadece harness gösterimi.",
+      "overall_assessment": "İLLÜSTRATİF.",
+      "verdict": "accept",
+      "dimension_scores": [
+        {
+          "key": "soundness",
+          "score": 6.7,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        },
+        {
+          "key": "clarity",
+          "score": 3.5,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        },
+        {
+          "key": "importance",
+          "score": 6.0,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        }
+      ],
+      "provenance": {
+        "model_used": "ILLUSTRATIVE-SAMPLE-NOT-REAL",
+        "persona_version": "sample",
+        "engine_version": "sample",
+        "generated_at": "2026-06-22T05:02:31.890103+00:00"
+      }
+    },
+    "openreview:imT03YXlG2": {
+      "mode": "author",
+      "language": "en",
+      "manuscript_meta": {
+        "title": "Sparse autoencoders reveal selective remapping of visual concepts during adaptation"
+      },
+      "summary": "İLLÜSTRATİF örnek rapor — sadece harness gösterimi.",
+      "overall_assessment": "İLLÜSTRATİF.",
+      "verdict": "accept",
+      "dimension_scores": [
+        {
+          "key": "soundness",
+          "score": 5.6,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        },
+        {
+          "key": "clarity",
+          "score": 4.7,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        },
+        {
+          "key": "importance",
+          "score": 4.8,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        }
+      ],
+      "provenance": {
+        "model_used": "ILLUSTRATIVE-SAMPLE-NOT-REAL",
+        "persona_version": "sample",
+        "engine_version": "sample",
+        "generated_at": "2026-06-22T05:02:31.890106+00:00"
+      }
+    },
+    "openreview:w7P92BEsb2": {
+      "mode": "author",
+      "language": "en",
+      "manuscript_meta": {
+        "title": "PIED: Physics-Informed Experimental Design for Inverse Problems"
+      },
+      "summary": "İLLÜSTRATİF örnek rapor — sadece harness gösterimi.",
+      "overall_assessment": "İLLÜSTRATİF.",
+      "verdict": "accept",
+      "dimension_scores": [
+        {
+          "key": "soundness",
+          "score": 5.6,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        },
+        {
+          "key": "clarity",
+          "score": 6.1,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        },
+        {
+          "key": "importance",
+          "score": 6.7,
+          "rationale": "İLLÜSTRATİF örnek (gerçek motor çıktısı DEĞİL)"
+        }
+      ],
+      "provenance": {
+        "model_used": "ILLUSTRATIVE-SAMPLE-NOT-REAL",
+        "persona_version": "sample",
+        "engine_version": "sample",
+        "generated_at": "2026-06-22T05:02:31.890109+00:00"
+      }
+    }
+  }
+}

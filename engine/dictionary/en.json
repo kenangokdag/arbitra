@@ -1,0 +1,16 @@
+{
+  "lang": "en",
+  "version": "v1",
+  "synonyms": {
+    "learning": ["education", "training", "acquisition"],
+    "method": ["approach", "technique", "methodology"],
+    "effect": ["impact", "influence", "outcome"],
+    "research": ["study", "investigation", "inquiry"],
+    "analysis": ["examination", "evaluation"],
+    "model": ["framework", "scheme", "structure"],
+    "data": ["evidence", "observation", "measurement"],
+    "participant": ["subject", "student", "respondent"],
+    "improvement": ["enhancement", "advancement", "development"],
+    "assessment": ["evaluation", "measurement", "appraisal"]
+  }
+}

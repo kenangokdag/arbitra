@@ -1,0 +1,200 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 2.4 KE\uc0\u350 \u304 F \'97 TEMAT\u304 K ANAL\u304 Z\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: 500 makalelik k\'fct\'fcphanenin tematik DNA's\uc0\u305 n\u305  "kullan\u305 c\u305 n\u305 n \'e7apa ile ba\u287 lant\u305 s\u305 n\u305 " merkeze alarak g\'f6stermek. Felsefemiz: tematik analiz \'f6\u287 retici olmal\u305  \'97 ham UMAP+HDBSCAN \'e7\u305 kt\u305 s\u305  de\u287 il, "senin \'e7apan \u351 u temada burada konumlan\u305 yor" diye konu\u351 mal\u305 . 3 dominant tema se\'e7ilir; daha fazlas\u305  kabar\u305 k olur, daha az\u305  genelleyici. Rakip: SciSpace topic clustering yok; Consensus iddia-bazl\u305 ; Elicit tema g\'f6stermiyor. Bizim imza: \'e7apa pozisyon i\u351 aretleyici + tema-paper e\u351 le\u351 mesi.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: dim_theme_embedding tablosundaki \'f6nceden hesaplanm\u305 \u351  tema vekt\'f6rleri ile 500 paper'\u305 n embedding'lerini cosine e\u351 le\u351 tirip, project_pool ile en y\'fcksek toplam a\u287 \u305 rl\u305 \u287 a sahip 3 temay\u305  se\'e7eriz. Her tema kart\u305 nda: tema label, paper say\u305 s\u305 , en g\'fc\'e7l\'fc 5 paper (rerank), ve \'e7apa makalenin tema-i\'e7i g\'f6reli konumu (radar veya scatter). Hesaplama offline; sayfa SQL agregasyon + 1 cosine join, LLM yok.\
+\
+Eklenecek Be\uc0\u351  Dokunu\u351  ve Standart Yay\u305 n Kart\u305 : Klasik tema k\'fcmeleme ara\'e7lar\u305  "Cluster_1, Cluster_2" bo\u351 lu\u287 unu kullan\u305 c\u305 ya b\u305 rak\u305 r; bizim ay\u305 rt edici dokunu\u351 umuz isimli + konumland\u305 r\u305 lm\u305 \u351  + yorumlanm\u305 \u351  tema. Be\u351  dokunu\u351 , hepsi envanter ile \'e7apraz do\u287 rulanm\u305 \u351  (db/migrations/0002_static_facts.sql kan\u305 t). (1) "\'c7apan nerede duruyor?" tek c\'fcmle (bedava UI): scatter'\u305 n alt\u305 nda \'97 "\'c7apan T1'de %72, T2'de %18, T3'de %10". Mevcut cosine e\u351 le\u351 mesi zaten hesapl\u305 , sadece g\'f6rselle\u351 tirme. Felsefe: \'f6\u287 renci personas\u305  \'97 kullan\u305 c\u305  kendi konumunu basit dilde okur. (2) Bo\u351  tema uyar\u305 s\u305  (bedava): 3. tema <30 paper ise "Bu havuzda dominant 2 tema; \'fc\'e7\'fcnc\'fcs\'fc zay\u305 f" sat\u305 r\u305 . Felsefe: j\'fcri/hakem personas\u305  \'97 savunmada "\'fc\'e7 temam var" yalan\u305  tespit edilmesin, kullan\u305 c\u305  yanl\u305 \u351  g\'fcvenden korunur. (3) Tema mikro-altyaz\u305  (d\'fc\u351 \'fck maliyet, 3 paralel Flash \'e7a\u287 r\u305  ~300ms): her tema kart\u305 nda 1 c\'fcmle \'97 "Bu tema havuzda X y\'f6ntemleriyle \'f6zelle\u351 iyor". Klasik ara\'e7lar\u305 n "Cluster_1" bo\u351 lu\u287 unu doldurur; dan\u305 \u351 man personas\u305 . (4) Tema y\'fckseli\u351  sparkline (bedava SQL): fact_theme_year_aggregates tablosu (db/migrations/0002_static_facts.sql:42-45 \'97 theme_id + year + paper_count, kan\u305 t seviyesi A) son 5-10 y\u305 ll\u305 k paper say\u305 s\u305  \'e7izgisi olarak her tema kart\u305 nda k\'fc\'e7\'fck sparkline; "y\'fckseliyor / sabit / s\'f6n\'fcyor" tek-kelime etiketi altta. Felsefe: j\'fcri/hakem personas\u305  \'97 "alan\u305 m canl\u305 " iddias\u305  rakamla desteklenir. (5) Standart Yay\u305 n Kart\u305  (kanon, Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): her teman\u305 n en g\'fc\'e7l\'fc 5 paper'\u305  t\u305 klanabilir liste; D6 Lite + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon olarak \'e7apa konum i\u351 aretleyici g\'f6rsel ana bile\u351 en \'97 kart \'fcst\'fcnde de\u287 il scatter/radar grafikte yer al\u305 r, kart d\'fcz kal\u305 r. V2'ye ertelenenler (envanter do\u287 rulamas\u305 yla): K\'f6pr\'fc paper listesi (betweenness centrality) \'97 concept_edge tablosu envanter \'a73'te sinyal #23/#24/#25 olarak listelenmi\u351  ama 0001-0007 migration'lar\u305 nda CREATE TABLE concept_edge YOK; plan'da var, kod yaz\u305 lmam\u305 \u351 . Tema-tema benzerlik haritas\u305  \'97 yeni hesaplama gerekli. Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z migration'da kan\u305 t\u305  olan tablolar V1'e al\u305 nd\u305 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Daha \'f6nce hesaplanan temalardan k\'fct\'fcphane ile en \'e7ok e\uc0\u351 le\u351 en\
+3 tema g\'f6sterilecek.\
+\
+Se\'e7ilen \'e7apa makaleler bu temada nerede \'97 onu da g\'f6rebilecek.\
+\
+Tipik bir tematik analiz sonu\'e7 sayfas\uc0\u305 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+Kan\uc0\u305 t seviyesi: A (bu oturumda Read/Grep ile do\u287 ruland\u305 ; file:line referansl\u305 ).\
+Tarih: 2026-05-10.\
+\
+\
+[ (i) VER\uc0\u304  AMBARI ]\
+\
+Vizyon talep ediyor: dim_theme_embedding (4516 tema, 256-d vekt\'f6r) \'d7 500 paper embedding\
+cosine \uc0\u8594  3 dominant tema. Mevcut k\'f6pr\'fc tamamen farkl\u305 : sayfa fact_gap_matrix M1\
+\'fcst\'fcnden \'e7al\uc0\u305 \u351 \u305 yor (theme\'d7method gap), tema embedding cosine YOK.\
+\
+AMBAR'da MEVCUT (file:line, kan\uc0\u305 t-A):\
+  - dim_theme (db/migrations/0001_init_schema_v1.sql:100-117)\
+      4516 tema, name_tr/name_en/slug, parent_theme_id (hiyerar\uc0\u351 i), level\
+      metadata jsonb \uc0\u8594  'group' alt-key (sayfa cluster ad\u305  i\'e7in kullan\u305 yor)\
+      RLS authenticated read_all (line 113-115)\
+  - dim_theme_embedding (db/migrations/0002_static_facts.sql:18-27)\
+      4516 \'d7 4 — embedding vector(256) NOT NULL, TF-IDF L2-normed\
+      HNSW index (m=16, ef_construction=64) \uc0\u8594  cosine search haz\u305 r\
+      RLS authenticated read_all (line 30-31)\
+      KAYNAK: ENVANTER §10.1 (N17b/W-32, n_terms_used)\
+  - fact_theme_year_aggregates (db/migrations/0002_static_facts.sql:42-58)\
+      53,943 \'d7 15 — theme_id+year+paper_count + R/E/ED/ES/TS/CD/MQ\
+      Vizyondaki "tema y\uc0\u305 ksili\u351  sparkline" buradan beslenebilir (paper_count by year)\
+      \u350 u an UI'da KULLANILMIYOR\
+  - fact_gap_matrix (db/migrations/0002_static_facts.sql:80...)\
+      504,436 \'d7 12 — M1 (theme\'d7method) bu sayfan\uc0\u305 n GER\u304 \'c7EK kayna\u287 \u305 \
+      axis_x = theme_id, axis_y = metod_id, gap_value, depth_norm\
+\
+AMBAR'da YOK (vizyon talep ediyor):\
+  - paper \'d7 theme cosine matrix \'97 fact_paper_theme veya benzeri yok\
+      paper_id'leri 256-d uzayda temsil edecek paper-side embedding\
+      var (Pinecone vec kanal\uc0\u305 ) ama tema-uzay\u305 yla EWA cosine join kodu yok.\
+  - project_pool (vizyondaki tablo ad\uc0\u305 ) \'97 migration'larda yok\
+      proxy: project_cluster (0016, 2.2'de bo\uc0\u351 ) veya project_seed_papers (0019)\
+  - concept_edge (vizyon V2'ye erteledi, bilin\'e7li karar)\
+\
+Veri \'f6l\uc0\u351 e\u287 i: warehouse'de 4516 tema vekt\'f6r\'fc HAZIR. \'c7apa-tema\
+konumland\uc0\u305 rmas\u305  i\'e7in tek eksik: paper-tema cosine job (offline ETL veya runtime).\
+\
+\
+[ (ii) BACKEND ]\
+\
+Dedicated tema endpoint: YOK.\
+  Glob api/routes/*theme*.py \uc0\u8594  bo\u351 \
+  Grep api/services 'dim_theme|theme_embedding|fact_theme' \uc0\u8594  3 dosya:\
+    - api/services/pool_router.py (theme_id referans, embedding kullan\uc0\u305 m\u305  do\u287 rulanmad\u305 )\
+    - api/routes/gap_profile.py\
+    - api/routes/gap_heatmap.py \'97 sayfan\uc0\u305 n \'e7a\u287 \u305 rd\u305 \u287 \u305 \
+\
+Sayfan\uc0\u305 n \'e7a\u287 \u305 rd\u305 \u287 \u305  endpoint:\
+  GET /api/gap-heatmap?top_methods=14&top_topics=30\
+    api/routes/gap_heatmap.py:181-225\
+    matrix_id=M1 default (theme\'d7method gap matrix)\
+    Output: GapHeatmapResponse (methods, topics, cells, matrix_id)\
+    Cache: Redis 1h (line 22, _CACHE_TTL=3600)\
+\
+Veri d\'f6n\'fc\uc0\u351 \'fcm\'fc:\
+  1. fact_gap_matrix \'fcst\'fcnden top-N gap_value (line 59-70)\
+  2. dim_theme JOIN ile name_tr + metadata.group label (line 73-87)\
+  3. Top top_methods + top top_topics seçilir (line 245-246)\
+  4. Method family heuristic (line 165-178: Fuzzy/Network/Reference/Weighting/Aggregation)\
+\
+DOMINANT 3 TEMA HESABI: YOK.\
+  Vizyon: project_seed_papers \'d7 dim_theme_embedding cosine \uc0\u8594  toplam a\u287 \u305 rl\u305 k\
+  \uc0\u8594  top-3 tema. Mevcut: gap_value rank \u8594  top-30 tema (vizyondan farkl\u305 ).\
+\
+\'c7APA POZ\uc0\u304 SYON HESABI: YOK.\
+  Vizyon: \'e7apa makalesinin tema-i\'e7i g\'f6reli konumu (radar/scatter koordinat\uc0\u305 ).\
+  Mevcut: frontend hardcoded 51%/47% (a\uc0\u351 a\u287 \u305 da).\
+\
+LLM: yok. (Vizyondaki 3 paralel Flash mikro-altyaz\uc0\u305  i\'e7in kod yok.)\
+\
+\
+[ (iii) FRONTEND ]\
+\
+Sayfa dosyas\uc0\u305 :\
+  web/src/components/project/ThematicAnalysisPage.tsx (227 sat\uc0\u305 r)\
+Route: /project/\{id\}/discovery-4\
+  Lazy: web/src/app/(app)/project/[id]/[[...slug]]/page.tsx:9\
+  Dispatch: page.tsx:93 case "discovery-4"\
+\
+Veri ak\uc0\u305 \u351 \u305 :\
+  - useQuery (line 69-73) \uc0\u8594  GET /api/gap-heatmap?top_methods=14&top_topics=30\
+  - staleTime: 3600_000 (1 saat)\
+  - response.topics[].group \uc0\u8594  cluster ad\u305  (line 27-29)\
+\
+Render:\
+  AdvisorBanner (line 96): "Konunun temadaki yerini gosteriyorum..."\
+  DataVizCard (line 98): "Tematik Harita" badge "fact_gap_matrix M1" zoneTint=#E8A157\
+    Sol panel (line 107-128):\
+      - Tema Gruplari ba\uc0\u351 l\u305 \u287 \u305  + cluster say\u305 s\u305 \
+      - Her cluster: renk dot + name + groupPaperCount.get() veya count*10\
+      - Selected cluster amber border + bg\
+    Sa\uc0\u287  scatter (line 130-194):\
+      - 600\'d7400 div canvas\
+      - Dot pozisyonlar\uc0\u305  seededRandom(137) \'d7 cluster center cx/cy (FAKE konum)\
+      - Cluster label\uc0\u305  cx/cy \'fcst\'fcnde\
+      - "Konunuz" marker HARDCODED left:51% top:47% (line 175) — \'e7apa pozisyonu YOK\
+      - Pulse animation (umapPulse 2s, line 189-194)\
+    Kontroller (line 198-220):\
+      - colorMode select (Tema/Yil/Atif) — sadece label, viz'e ETK\uc0\u304  YOK\
+      - opacity slider 20-100 (dot opacity)\
+\
+Cluster cx/cy hesab\uc0\u305 :\
+  cx = 80 + (i % 3) * 200 + rand() * 60   (line 36)\
+  cy = 80 + Math.floor(i / 3) * 160 + rand() * 40   (line 37)\
+  \uc0\u8594  GR\u304 D pozisyon, embedding-bazl\u305  UMAP/cosine projeksiyonu DE\u286 \u304 L\
+\
+Test: Glob web/src/components/project/ThematicAnalysisPage.test.tsx \uc0\u8594  do\u287 rulanmad\u305 \
+\
+\
+[ VER\uc0\u304  AKI\u350 I \'97 U\'c7TAN UCA (mevcut, kan\u305 t-A) ]\
+\
+1. Kullan\uc0\u305 c\u305  /project/\{id\}/discovery-4 sayfas\u305 na geldi\
+2. ThematicAnalysisPage mount \uc0\u8594  GET /api/gap-heatmap?top_methods=14&top_topics=30\
+3. gap_heatmap.py:181 \uc0\u8594  Redis cache check (1h TTL); miss ise:\
+4. fact_gap_matrix WHERE matrix_id='M1' ORDER BY gap_value DESC LIMIT (top_methods*top_topics*3)\
+5. dim_theme JOIN \uc0\u8594  name_tr + metadata.group\
+6. Top 14 method + Top 30 topic seçilir, GapHeatmapResponse d\'f6ner\
+7. Frontend: topics[].group counter \uc0\u8594  cluster ad\u305 \
+8. seededRandom \uc0\u8594  cluster cx/cy + dot scatter (FAKE konum)\
+9. "Konunuz" marker hardcoded 51%/47% (proje \'e7apa hi\'e7 sorulmuyor)\
+\
+\
+[ \'c7EL\uc0\u304 \u350 K\u304  \'97 KR\u304 T\u304 K (Geli\u351 tirici Notu vs Mevcut Kod) ]\
+\
+Notu (2026-05-10): "500 paper \'d7 dim_theme_embedding cosine \uc0\u8594  3 dominant tema +\
+tema-i\'e7i \'e7apa konumu + 5 dokunu\uc0\u351  (\'e7apa nerede / bo\u351  tema uyar\u305  / mikro-altyaz\u305  /\
+y\'fckseli\uc0\u351  sparkline / standart kart 5 paper)"\
+Mevcut: "gap_heatmap M1 ÜZERİNDEN top-30 tema, seededRandom scatter, hardcoded \'e7apa marker"\
+\
+Bo\uc0\u351 luklar (kan\u305 t-A, file:line):\
+  (1) Vizyonun temel kayna\uc0\u287 \u305  (dim_theme_embedding cosine join) UI'da KULLANILMIYOR\
+      \'97 endpoint sadece fact_gap_matrix \uc0\u8594  embedding tablosu var ama \'e7a\u287 r\u305 lm\u305 yor.\
+  (2) project_seed_papers / project_cluster ile e\uc0\u351 le\u351 me YOK\
+      \'97 endpoint matrix_id='M1' alm\uc0\u305 yor; proje-spesifik DE\u286 \u304 L (k\'fcresel matrix).\
+  (3) 3 dominant tema YOK \uc0\u8594  top-30 tema (vizyondan 10\'d7 fazla, kabar\u305 k).\
+  (4) \'c7apa pozisyonu HARDCODED (line 175 left:51% top:47%) \'97 herhangi bir paper-tema\
+      cosine hesab\uc0\u305  yok; kullan\u305 c\u305  hep ayn\u305  noktada g\'f6r\'fcn\'fcr.\
+  (5) Scatter dot pozisyonlar\uc0\u305  seededRandom (line 17-23, 32, 45) \'97 UMAP / t-SNE /\
+      embedding projeksiyonu DEĞİL; rastgele d\uc0\u'f6kt\'fcl\'fcyor.\
+  (6) Tema mikro-altyaz\uc0\u305  YOK \'97 vizyondaki 3 paralel Flash \'e7a\u287 r\u305 s\u305  i\'e7in kod yok.\
+  (7) Y\'fckseli\uc0\u351  sparkline YOK \'97 fact_theme_year_aggregates AMBAR'da hazır,\
+      backend ÇAĞIRMIYOR; her tema kart\uc0\u305 nda y\u305 ll\u305 k paper_count \'e7izgisi yok.\
+  (8) Bo\uc0\u351  tema uyar\u305 s\u305  YOK \'97 3. tema <30 paper kontrol\'fc yok\
+      (zaten "3 tema" konsepti yok).\
+  (9) Standart Yay\uc0\u305 n Kart\u305  YOK \'97 her teman\u305 n top-5 paper\u305  listesi yok\
+      (mevcut sadece method\'d7theme cell'leri d\'f6n\'fcyor).\
+  (10) colorMode select (Tema/Yil/Atif, line 202-209) sadece label \'97 viz'e BAĞLI DE\uc0\u286 \u304 L\
+       (state de\uc0\u287 i\u351 ir, render kullanm\u305 yor).\
+  (11) Sayfa esasen "gap heatmap'in scatter g\'f6rsele\uc0\u351 imi" \'97 4.1/4.2 GapAtlas faz\u305 yla\
+       \'e7ak\uc0\u305 \u351 \u305 yor; 2.4'\'fcn vizyondaki \'f6zg\'fcn rol\'fc (tema kümeleme + \'e7apa konumu) bo\u351 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+}

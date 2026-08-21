@@ -1,0 +1,263 @@
+services:
+  - type: web
+    name: papermind-api
+    env: python
+    region: frankfurt
+    plan: starter
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: uv run uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    autoDeploy: true
+    healthCheckPath: /healthz
+    envVars:
+      # ── APP ───────────────────────────────────────────────────────────
+      - key: APP_ENV
+        value: production
+      - key: APP_VERSION
+        value: 0.1.0
+      - key: APP_LOG_LEVEL
+        value: INFO
+
+      # ── Supabase (dashboard'dan gir) ───────────────────────────────────
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      # 2026-04-30 canon: JWKS (ES256). HS256 JWT_SECRET legacy/test fallback.
+      - key: SUPABASE_JWKS_URL
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+      # Migration apply job için (scripts/apply_migrations.sh)
+      - key: SUPABASE_DB_URL
+        sync: false
+
+      # ── Pinecone (dashboard'dan gir) ───────────────────────────────────
+      - key: PINECONE_API_KEY
+        sync: false
+      - key: PINECONE_INDEX_NAME
+        value: papers-bgem3
+      - key: PINECONE_NAMESPACE
+        value: mdv1
+      - key: PINECONE_DIMENSION
+        value: 1024
+      - key: PINECONE_METRIC
+        value: cosine
+
+      # ── Redis (managed; fromService inject) ────────────────────────────
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: papermind-redis
+          property: connectionString
+
+      # ── Gemini (dashboard'dan gir) — F8 DM-LLM-1 ───────────────────────
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_FLASH_MODEL
+        value: gemini-2.5-flash
+      - key: GEMINI_PRO_MODEL
+        value: gemini-2.5-pro
+
+      # ── OpenAlex polite pool ───────────────────────────────────────────
+      - key: OPENALEX_EMAIL
+        value: dr.ofrencber@gaziantep.edu.tr
+
+      # ── Sentry (dashboard'dan gir) ─────────────────────────────────────
+      - key: SENTRY_DSN
+        sync: false
+      - key: SENTRY_ENVIRONMENT
+        value: production
+      - key: SENTRY_TRACES_SAMPLE_RATE
+        value: 0.1
+
+      # ── Waitlist gate (prod = false, dev/test = true) ──────────────────
+      - key: WAITLIST_BYPASS
+        value: false
+
+      # ── ⛔ PROD-FATAL: CORS — BOŞ ise config_validation boot REDDEDER ────
+      # (api/config_validation.py). Dashboard'dan gir: https://FE_DOMAIN (virgülle çoklu).
+      - key: FRONTEND_ORIGINS
+        sync: false
+
+      # ── Admin paneli (tema/işler/istatistik) — boş = uçlar fail-closed kapalı ──
+      - key: ADMIN_USER_IDS
+        sync: false
+
+      # ── F14 review IZOLE Supabase (Clarus) — boş = default SUPABASE_* ───
+      - key: REVIEW_SUPABASE_URL
+        sync: false
+      - key: REVIEW_SUPABASE_SECRET_KEY
+        sync: false
+
+      # ── Claude fallback (LLM arıza yolu, opsiyonel) ─────────────────────
+      - key: ANTHROPIC_API_KEY
+        sync: false
+
+      # ── Model warm-up (ilk-request cold-start cezasını kaldırır; ~1GB RAM) ──
+      - key: BGE_WARMUP_ENABLED
+        value: true
+
+      # ── Rate limit ────────────────────────────────────────────────────
+      - key: RATE_LIMIT_OGRENCI_PER_MIN
+        value: 60
+
+  - type: redis
+    name: papermind-redis
+    plan: starter
+    ipAllowList: []
+
+  # ── F13-S14 Cron Jobs ──────────────────────────────────────────────────
+  # Plan: docs/plans/F13_sayfa_plani_v2_implementation.md §3 F13-S14
+  # Mail provider Q4 açık: digest job'ları mail GÖNDERMEZ, log üretir.
+
+  - type: cron
+    name: papermind-cron-completion-delete-expired
+    env: python
+    region: frankfurt
+    plan: starter
+    schedule: "0 4 * * *"  # her gün 04:00 UTC — KVKK 3-ay sil (S2)
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: uv run python -m scripts.cron.completion_delete_expired
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_LOG_LEVEL
+        value: INFO
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+
+  - type: cron
+    name: papermind-cron-review-retention-delete-expired
+    env: python
+    region: frankfurt
+    plan: starter
+    schedule: "30 4 * * *"  # her gün 04:30 UTC — F14 KVKK review retention sil (04:00 completion ile çakışmaz)
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: uv run python -m scripts.cron.review_retention_delete_expired
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_LOG_LEVEL
+        value: INFO
+      # review IZOLE Supabase (Clarus). Boş ise get_review_supabase_admin
+      # default SUPABASE_* fallback yapar → ikisini de ver.
+      - key: REVIEW_SUPABASE_URL
+        sync: false
+      - key: REVIEW_SUPABASE_SECRET_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+
+  - type: cron
+    name: papermind-cron-diary-unresolved-weekly
+    env: python
+    region: frankfurt
+    plan: starter
+    schedule: "0 9 * * 1"  # Pazartesi 09:00 UTC — 21+ gün açık event raporu (S1)
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: uv run python -m scripts.cron.diary_unresolved_weekly
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_LOG_LEVEL
+        value: INFO
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+
+  - type: cron
+    name: papermind-cron-diary-monthly-digest
+    env: python
+    region: frankfurt
+    plan: starter
+    schedule: "0 8 1 * *"  # her ayın 1'i 08:00 UTC — aylık defter özeti (S1)
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: uv run python -m scripts.cron.diary_monthly_digest
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_LOG_LEVEL
+        value: INFO
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+
+  - type: cron
+    name: papermind-cron-method-centrality-refresh
+    env: python
+    region: frankfurt
+    plan: starter
+    schedule: "0 3 * * 0"  # Pazar 03:00 UTC — method_centrality staleness check
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: uv run python -m scripts.cron.method_centrality_refresh
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_LOG_LEVEL
+        value: INFO
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+
+  - type: cron
+    name: papermind-cron-neighbor-bibcoupling-refresh
+    env: python
+    region: frankfurt
+    plan: starter
+    schedule: "30 3 * * 0"  # Pazar 03:30 UTC — neighbor_bibcoupling staleness check
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: uv run python -m scripts.cron.neighbor_bibcoupling_refresh
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_LOG_LEVEL
+        value: INFO
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+
+  - type: cron
+    name: papermind-cron-health-heartbeat
+    env: python
+    region: frankfurt
+    plan: starter
+    schedule: "*/10 * * * *"  # her 10 dakikada bir — /healthz ping (cold-start önle)
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: uv run python -m scripts.cron.health_heartbeat
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_LOG_LEVEL
+        value: INFO
+      - key: PAPERMIND_API_BASE
+        value: https://papermind-api.onrender.com

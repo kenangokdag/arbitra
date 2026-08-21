@@ -1,0 +1,132 @@
+{
+  "paper_id": "openreview:PwxYoMvmvy",
+  "purpose": "EvidencePack wiring (SS31/SS32) + fabricated/retracted vs not_found_in_index severity ayrimi (SS33) davranis kaniti",
+  "stage_1_before_any_fix_evidence_blind": {
+    "evidence_pack.citation_integrity": {
+      "total": 73,
+      "resolved": 7,
+      "not_found_in_index": 66,
+      "fabricated": 0,
+      "retracted": 0
+    },
+    "evidence_pack.degraded_features": [],
+    "findings": [
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "title": "Kapsamlı ve Doğru Literatür Konumlandırması",
+        "summary": "Makale, dropout'ın geleneksel sinir ağlarındaki rolü ile GCN'lerdeki rolü arasındaki temel farkı vurgulayarak, çalışmasını mevcut literatürde başarılı bir şekilde konumlandırmıştır. Özellikle, GCN'lerdeki aşırı yumuşatma (oversmoothing) sorununa odaklanması ve dropout'ın bu bağlamdaki benzersiz etkilerini teorik olarak incelemesi, literatürdeki önemli bir boşluğu doldurmaktadır.",
+        "global_issue": false,
+        "limitations": []
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "major",
+        "title": "Atıf Tutarsızlığı ve Destekleyici Kanıt Eksikliği",
+        "summary": "Makale, 'GCN ile dropout ve batch normalization'ın state-of-the-art yöntemlerden daha iyi performans gösterdiğini' iddia etmesine rağmen, bu iddiayı destekleyecek deneysel sonuçları doğrudan sunmamaktadır. Tablo 2'de GCN, SAGE ve GAT modellerinin 'w/o dp' ve 'w/o BN' versiyonları ile karşılaştırmaları mevcutken, 'GCN with dropout and batch normalization'ın diğer state-of-the-art yöntemlerden üstün olduğuna dair açık bir satır veya karşılaştırma bulunmamaktadır. Bu durum, temel iddialardan birinin kanıtlanmasında eksiklik yaratmaktadır.",
+        "global_issue": false,
+        "limitations": []
+      },
+      {
+        "finding_id": "citation_integrity.f1",
+        "dimension": "citation_integrity",
+        "severity": "minor",
+        "title": "Dirichlet Enerjisi Değerlerinin Bağlam Eksikliği",
+        "summary": "Tablo 2'de 'Dirichlet energy' başlığı altında iki satır bulunmaktadır. İlk satır 'GCNII' ve 'GPRGNN' gibi modellerin altında yer alırken, ikinci satır 'GCN w/o dp' modelinin altında yer almaktadır. Bu değerlerin neyi temsil ettiği, hangi koşullar altında hesaplandığı ve makalenin genel argümanıyla nasıl ilişkilendirildiği açıkça belirtilmemiştir. Bu durum, okuyucunun bu verileri yorumlamasını zorlaştırmaktadır.",
+        "global_issue": false,
+        "limitations": []
+      },
+      {
+        "finding_id": "citation_integrity.f2",
+        "dimension": "citation_integrity",
+        "severity": "info",
+        "title": "Atıfların Genellikle Yerinde Kullanımı",
+        "summary": "Makale genel olarak atıfları uygun ve yerinde kullanmaktadır. Giriş ve ilgili çalışmalar bölümlerinde, dropout'un geleneksel sinir ağlarındaki rolü, GNN'lerdeki düzenlileştirme teknikleri ve GNN'ler için teorik çerçeveler gibi konuları desteklemek için çok sayıda ilgili çalışma referans gösterilmiştir. Bu, makalenin argümanlarını sağlam bir literatür temeline oturtmaktadır.",
+        "global_issue": false,
+        "limitations": []
+      }
+    ]
+  },
+  "stage_2_after_wiring_fix_no_severity_differentiation": {
+    "evidence_pack.citation_integrity": {
+      "total": 73,
+      "resolved": 8,
+      "not_found_in_index": 65,
+      "fabricated": 0,
+      "retracted": 0
+    },
+    "evidence_pack.degraded_features": [],
+    "findings": [
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "major",
+        "title": "Yüksek Oranda Çözülemeyen Referanslar Literatür Konumlandırmasını Zayıflatıyor",
+        "summary": "Makalenin referans listesindeki 73 referanstan 65'i (%89) otomatik sistemler tarafından OpenAlex veya Semantic Scholar indekslerinde bulunamamıştır. Bu durum, makalenin atıfta bulunduğu çalışmaların doğruluğu ve erişilebilirliği konusunda ciddi şüpheler uyandırmakta ve literatürdeki konumlandırmasını zayıflatmaktadır. Okuyucuların ve hakemlerin atıf yapılan kaynakları doğrulamalarını ve makalenin iddialarının temelini oluşturan önceki çalışmaları anlamalarını zorlaştırmaktadır.",
+        "global_issue": true,
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin referansları bulamaması, referansın tamamen geçersiz olduğu anlamına gelmez, ancak erişilebilirlik ve doğrulama açısından sorun teşkil eder."
+        ]
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "critical",
+        "title": "Yüksek Oranda Çözülemeyen ve Bulunamayan Atıflar",
+        "summary": "Makaledeki atıfların büyük çoğunluğu (%89'dan fazlası) otomatik sistemler tarafından çözülememiş veya bulunamamıştır. Bu durum, okuyucuların referans verilen çalışmalara erişimini ve makaledeki iddiaların doğrulanmasını ciddi şekilde engellemektedir.",
+        "global_issue": true,
+        "limitations": [
+          "Otomatik çözümleme araçlarının sınırlamaları nedeniyle bazı referanslar doğru olsa bile 'bulunamayan' olarak işaretlenmiş olabilir. Ancak bu durum, referans bilgilerinin okuyucu için yeterince açık ve erişilebilir olmadığı gerçeğini değiştirmez."
+        ]
+      }
+    ]
+  },
+  "stage_3_after_severity_differentiation_fix": {
+    "evidence_pack.citation_integrity": {
+      "total": 73,
+      "resolved": 4,
+      "not_found_in_index": 69,
+      "fabricated": 0,
+      "retracted": 0
+    },
+    "evidence_pack.degraded_features": [
+      "coverage:openalex_unavailable"
+    ],
+    "findings": [
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "title": "Referansların Yüksek Oranda Çözülememesi",
+        "summary": "Makaledeki referansların büyük bir çoğunluğunun (73 referanstan 69'u) OpenAlex veya Semantic Scholar gibi akademik indekslerde otomatik olarak çözülememesi, literatür konumlandırmasının doğrulanabilirliğini ve şeffaflığını olumsuz etkilemektedir. Bu durum, okuyucuların atıf yapılan çalışmalara kolayca erişmesini ve makalenin literatürdeki yerini tam olarak anlamasını zorlaştırmaktadır.",
+        "global_issue": true,
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle bazı niş veya yeni yayınların indekslenmemiş olabileceği ihtimali bulunmaktadır. Ancak, bu kadar yüksek bir oranın sadece bu durumla açıklanması pek olası değildir."
+        ]
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "title": "Kapsamlı ve Güncel Literatür Taraması",
+        "summary": "Makale, dropout'un geleneksel sinir ağlarındaki rolünden GCN'lerdeki farklı işlevine kadar geniş bir literatür yelpazesini kapsamaktadır. Özellikle 'Related Work' bölümü, dropout'un evrimini, GNN'lerdeki düzenlileştirme tekniklerini ve GNN'ler için teorik çerçeveleri detaylı bir şekilde ele alarak çalışmanın literatürdeki yerini sağlam bir şekilde konumlandırmaktadır. Atıf yapılan kaynaklar arasında hem seminal çalışmalar (örn. Srivastava et al., 2014; Kipf & Welling, 2017) hem de güncel araştırmalar bulunmaktadır.",
+        "global_issue": false,
+        "limitations": []
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "title": "Yüksek Oranda Çözülemeyen Atıflar",
+        "summary": "Makaledeki 73 atıftan 69'u (%94.5) OpenAlex veya Semantic Scholar indekslerinde başlık, yazar ve yıla dayalı otomatik eşleştirme ile çözülememiştir. Bu durum, makalenin referanslarının doğrulanabilirliğini ve erişilebilirliğini önemli ölçüde azaltmaktadır.",
+        "global_issue": true,
+        "limitations": [
+          "Otomatik indeksleme araçlarının (OpenAlex, Semantic Scholar) kapsam sınırlamaları nedeniyle bazı geçerli referanslar 'bulunamayan' olarak işaretlenmiş olabilir. Özellikle arXiv, OpenReview veya niş/İngilizce dışı yayınlar bu durumdan etkilenebilir. Ancak bu durum, referansların manuel olarak kontrol edilmesi ve eksik bilgilerin tamamlanması ihtiyacını ortadan kaldırmaz."
+        ]
+      }
+    ]
+  },
+  "note": "stage_3 kosumunda OpenAlex gecici olarak coktu (degraded_features), not_found orani bu yuzden stage_2den bile yuksek (%94.5 vs %89) - buna ragmen severity critical/major -> moderate dustu, bu fix in daha da guclu kanitidir (yuksek oran severity yukseltmiyor)."
+}

@@ -1,0 +1,12 @@
+=== F14 HAKEMLİK — KALİTE KANITI (insan-uyum) ===
+Verdict doğruluğu: %57 tam isabet, %64 bir-kademe-tolerans (35/61 tam, 39/61 yakın).
+
+Boyut uyumu (motor skoru ↔ insan skoru):
+  - originality: r=-0.37, ort. fark=3.37, şişirme=+3.10 (n=30)
+  - importance: r=0.54, ort. fark=3.15, şişirme=+3.15 (n=5)
+  - soundness: r=-0.08, ort. fark=2.04, şişirme=+0.52 (n=29)
+  - clarity: r=0.25, ort. fark=1.68, şişirme=+0.12 (n=31)
+
+Eşleşen makale: 61 | motor var-altın yok: 0 | insan-bekliyor (atlandı): 0
+
+Referans: Stanford AI reviewer ICLR 2025'e karşı Spearman 0.42 (insan-insan tavanı ~0.41)

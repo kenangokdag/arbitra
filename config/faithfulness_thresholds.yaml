@@ -1,0 +1,18 @@
+# P008 Faithfulness Gate eşikleri (B-010 §1 + R8 K4-K5 + C3-C5).
+# F2 Day 4 LVR kalibrasyonu sonrası `lvr_min_distance` revize edilebilir
+# (docs/plans/F2_day4_lvr_calibration_spec.md — Council 29).
+
+# SEARCH level (F2 P008 Curator) — 2-kat aktif
+jsonschema_pct: 100        # C3 binary; Pydantic forbid runtime enforce
+lvr_min_distance: 0.7      # K5 cümle-düzey atıf cosine; F2 Day 4 calibration
+
+# SUMMARY level (F3c P022 summarize_task) — 4-kat (TODO Sercan handoff)
+minicheck_nli: 0.7         # C4; KD-14 MiniCheck v2 5B Faz 3
+alce_recall: 0.8           # C5; F3c P022
+
+# Retry policy (B-010 §1)
+retry_count: 1             # ilk fail → 1× retry temperature=0; sonra 500
+
+# Performance budget (B-010 §1)
+search_p95_ms: 800         # SEARCH 2-kat
+summary_p95_ms: 1500       # SUMMARY 4-kat

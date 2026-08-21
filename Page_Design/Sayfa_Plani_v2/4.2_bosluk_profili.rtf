@@ -1,0 +1,90 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 4.2 L\uc0\u304 TERAT\'dcR BO\u350 LU\u286 U \'97 BO\u350 LUK PROF\u304 L\u304 \
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: Bir gap h\'fccresine zoom \'97 son 5 y\uc0\u305 l trendi, kom\u351 uluk skoru, di\u287 er ESTRA boyutlar\u305 , ama yorumlanabilir dilde. Felsefemiz: ham skor de\u287 il, hikaye \'97 kullan\u305 c\u305 n\u305 n "buraya neden girmeli?" sorusunun cevab\u305 . SciSpace/Consensus skor g\'f6stermez; biz skor g\'f6sterip \'fcst\'fcne LLM ile yorum \'fcretiriz, b\'f6ylece kullan\u305 c\u305  hem rakam hem hikaye g\'f6r\'fcr. \'c7ift kan\u305 t + sycophant kilidi.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: Se\'e7ilen gap h\'fccresinin paper'lar\u305 na dair fact_paper_velocity (at\u305 f h\u305 z\u305 , CD index, beauty), fact_paper_w_estra (7-boyut), trend (son 5 y\u305 l paper say\u305 s\u305 ) \'e7ekilir; LLM (Gemini Flash) bu skorlardan yorumlanabilir paragraf \'fcretir ("son 5 y\u305 lda y\u305 ll\u305 k ortalama %12 b\'fcy\'fcyen, at\u305 f h\u305 z\u305  y\'fcksek ama \'e7al\u305 \u351 ma say\u305 s\u305  az bir b\'f6lge"). Skorlar grafiksel (radar + sparkline), LLM \'e7\u305 kt\u305 s\u305  yan kolonda.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Klasik ara\'e7lar (SciSpace/Consensus/Elicit/Scite) gap profili vermez \'97 bu sayfa tamamen bizim imzam\u305 z. Ay\u305 rt edici dokunu\u351 umuz: ham skor de\u287 il, hikaye + dual overlay 7-boyut kar\u351 \u305 la\u351 t\u305 rma + somut yay\u305 n \'f6nerisi. (1) H\'fccre \'f6zet kart\u305  (V1 \u10003 , bedava UI): \'fcstte b\'fcy\'fck punto \'97 "Tema: Yapay zeka \'d7 Metod: Observasyonal", gap_value=0.78, depth=23, feasibility=0.84, publishability=0.62. Excel envanter + canl\u305  Supabase kan\u305 t A \'97 fact_gap_matrix t\'fcm kolonlar dolu (kalibrasyon sonras\u305 ). Felsefe: hangi h\'fccreye bak\u305 ld\u305 \u287 \u305  an\u305 nda belli; \'f6\u287 renci personas\u305 . (2) 5 y\u305 ll\u305 k trend sparkline (V1 \u10003 , ham vizyon ana plan): h\'fccredeki paper say\u305 s\u305  son 5-10 y\u305 l \'e7ubuk grafik + "%12 b\'fcy\'fcme/sabit/d\'fc\u351 \'fc\u351 " tek-kelime etiket. fact_paper_id_card.year ile bedava SQL aggregation. Felsefe: alan\u305 n canl\u305 /s\'f6nen oldu\u287 u g\'f6r\'fcl\'fcr; dan\u305 \u351 man/j\'fcri persona. (3) Kom\u351 u h\'fccre kar\u351 \u305 la\u351 t\u305 rma (V1 \u10003 , ham vizyon "kom\u351 uluk ekstra"): bu h\'fccrenin neighbor de\u287 eri + 4 kom\u351 u h\'fccrenin gap_value/depth k\'fc\'e7\'fck tablo. fact_gap_matrix.neighbor zaten hesapl\u305 . Felsefe: h\'fccre tek ba\u351 \u305 na de\u287 il, \'e7evre context \'97 j\'fcri/hakem persona. (4) ESTRA 7-boyut radar \'97 DUAL OVERLAY + INTERAKT\u304 F AYIRT ED\u304 C\u304  DOKUNU\u350  (V1 \u10003 ): h\'fccredeki paper'lar\u305 n ortalama 7-boyut (wir/wts/wd/q_weak/cd_5/beauty/pagerank) havuz ortalamas\u305 yla \'fcst \'fcste radar \'97 "alan\u305 n geneline g\'f6re nerede g\'fc\'e7l\'fc, nerede zay\u305 f?". Her boyut t\u305 klanabilir: t\u305 klanan boyutta h\'fccre i\'e7indeki en g\'fc\'e7l\'fc 3 paper Standart Yay\u305 n Kart\u305  (Daralt\u305 lm\u305 \u351 ) ile yan panele a\'e7\u305 l\u305 r. fact_paper_w_estra alt-bile\u351 enleri Excel envanterde aktif (kan\u305 t A). Felsefe: j\'fcri/hakem persona \'97 "neden bu bo\u351 luk de\u287 erli" 7-boyutla savunulabilir + interaktif derinle\u351 me; rakipte yok. (5) LLM yorumlu hikaye (V1 \u10003 , ham vizyon imza, 1 Flash \'e7a\u287 r\u305 ): 3-5 c\'fcmle hikaye \'97 "Son 5 y\u305 lda y\u305 ll\u305 k %12 b\'fcy\'fcyen alan, at\u305 f h\u305 z\u305  y\'fcksek ama \'e7al\u305 \u351 ma az; en g\'fc\'e7l\'fc 3 paper observational; bu bo\u351 lu\u287 u deneysel metodla doldurmak \'f6zg\'fcn ve yay\u305 nlanabilir katk\u305  olabilir". Felsefe: ham skor \u8594  hikaye; dan\u305 \u351 man personas\u305  \'97 rakipte yok. (6) Top-3 paper h\'fccreden (V1 \u10003 , kanon Daralt\u305 lm\u305 \u351  s\'fcr\'fcm): h\'fccredeki en y\'fcksek q_weak \'d7 gap-relevance paper'lar Standart Yay\u305 n Kart\u305  + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle). Sayfa-spesifik aksiyon: "+\'e7apa yap" sa\u287  \'fcst k\'f6\u351 e \'97 kullan\u305 c\u305  bu paper'\u305  odak yapar. (7) Yay\u305 nlanabilir dergi \'f6nerisi (V1 \u10003 , kalibrasyon sonras\u305 ): h\'fccredeki paper'lar\u305 n venue da\u287 \u305 l\u305 m\u305  + SJR Q1-Q2 s\u305 n\u305 fland\u305 rma \u8594  top-5 dergi listesi. "Bu bo\u351 luk i\'e7in: Nature Methods, Bioinformatics, ...". Migration 0023 kalibrasyon pipeline'\u305 nda publishability hesab\u305  tamamland\u305 ktan sonra anlaml\u305 . Felsefe: j\'fcri/hakem persona \'97 "yay\u305 nlanabilirlik" somutla\u351 \u305 r. (8) "Bu bo\u351 lu\u287 u hedefle" butonu (V1 \u10003 ): kullan\u305 c\u305 n\u305 n proje notuna bu h\'fccreyi kaydeder (axes + gap_value + dergi \'f6nerileri); sonra 6.x savunma sayfalar\u305 nda referans olur. Felsefe: ke\u351 if \u8594  karar k\'f6pr\'fc; \'f6\u287 renci/dan\u305 \u351 man persona. V2'ye ertelenenler: yok \'97 t\'fcm dokunu\u351 lar V1'e al\u305 nd\u305 . Hi\'e7bir alanda hal\'fcsinasyon yok \'97 yaln\u305 z Excel envanter + canl\u305  Supabase + Migration 0023 kalibrasyon plan\u305 nda do\u287 rulanm\u305 \u351  kolonlar V1'e al\u305 nd\u305 .\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Son 5 y\uc0\u305 ll\u305 k makalelerde:\
+- Trend\
+- Kom\uc0\u351 uluk ekstra\
+- Di\uc0\u287 er skorlar\
+\
+g\'f6r\'fcnebilecek.\
+\
+Ancak yorumlanabilir olmal\uc0\u305  (ham skor de\u287 il; kullan\u305 c\u305 n\u305 n anlayaca\u287 \u305  dil).\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351  \'97 Omer ad\u305 m ad\u305 m sorgulay\u305 p dolduracak;\
+hal\'fcsinasyon riski nedeniyle Claude bu alan\uc0\u305  doldurmaz]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+PLAN AKI\uc0\u350 I (2026-05-10, plan oturumunda detaylanacak):\
+\
+(1) BACKEND \'97 gap profil endpoint:\
+    - GET /api/workshop/gap/\{matrix_id\}/\{axis_x\}/\{axis_y\}\
+    - Ad\uc0\u305 mlar:\
+      a) fact_gap_matrix \uc0\u8594  h\'fccre meta (gap_value, depth, feasibility, publishability, neighbor, e_value, calibrated_confidence)\
+      b) H\'fccredeki paper_id'leri \'e7\uc0\u305 kar (axis_x ve axis_y JOIN ile)\
+      c) fact_paper_w_estra \uc0\u8594  7-boyut ortalamas\u305  (wir/wts/wd/q_weak/cd_5/beauty/pagerank); havuz geneli ortalama ile kar\u351 \u305 la\u351 t\u305 r\
+      d) fact_paper_id_card.year \uc0\u8594  son 5-10 y\u305 l y\u305 ll\u305 k paper say\u305 s\u305  (sparkline data)\
+      e) Kom\uc0\u351 u h\'fccreler: ayn\u305  matrix_id'de neighbor de\u287 eri y\'fcksek 4 h\'fccre\
+      f) Venue da\uc0\u287 \u305 l\u305 m\u305  + SJR Q s\u305 n\u305 fland\u305 rma \u8594  top-5 dergi\
+      g) Gemini Flash \'e7a\uc0\u287 r\u305 : t\'fcm rakamlar\u305  al, 3-5 c\'fcmle hikaye \'fcret\
+    - Output: \{ cell_meta, sparkline[], radar_7d\{cell, corpus\}, neighbors[], journals[], story, top_papers[] \}\
+\
+(2) FRONTEND:\
+    - Sol kolon: \'f6zet kart\uc0\u305  + sparkline + kom\u351 u h\'fccre tablosu + dergi \'f6nerisi\
+    - Sa\uc0\u287  kolon: 7-boyut radar (D3 veya Recharts; her boyut t\u305 klan\u305 r)\
+    - Alt: LLM hikaye paragraf\uc0\u305  + Top-3 paper Standart Yay\u305 n Kart\u305  (Daralt\u305 lm\u305 \u351 ) listesi\
+    - Sa\uc0\u287  \'fcst: "Bu bo\u351 lu\u287 u hedefle" butonu\
+\
+(3) "BU BO\uc0\u350 LU\u286 U HEDEFLE" \'97 DEPOLAMA KARARI (Omer do\u287 rulayacak):\
+    Se\'e7enek (a): Yeni tablo user_project_gap_targets (project_id + matrix_id + axis_x + axis_y + axes_label + gap_value + journals jsonb + created_at) \'97 Migration 0024\
+    Se\'e7enek (b): user_profiles.metadata jsonb \uc0\u8594  gap_targets array (mevcut user_profiles tablosu \'fcst\'fcnde, migration yok)\
+    \'d6nerim (b): jsonb basit, h\uc0\u305 zl\u305 , V1 i\'e7in yeterli; (a) V2'de relational ihtiya\'e7 do\u287 arsa yap\u305 l\u305 r\
+\
+(4) LLM MAL\uc0\u304 YET TAHM\u304 N\u304 :\
+    - H\'fccre profili: ~2K input token (t\'fcm rakamlar) + ~300 output token (3-5 c\'fcmle hikaye)\
+    - Flash fiyatland\uc0\u305 rma ile ~$0.001 per profil\
+    - Lazy load: kullan\uc0\u305 c\u305  sayfaya geldi\u287 inde tek \'e7a\u287 r\u305 ; yeniden a\'e7\u305 l\u305 rsa cache (5 dakika TTL)\
+\
+(5) PERFORMANS HEDEF\uc0\u304 :\
+    - Sayfa a\'e7\uc0\u305 l\u305 \u351 : < 800ms (LLM hari\'e7)\
+    - LLM hikaye: arka planda async; geldi\uc0\u287 inde fade-in\
+    - Radar interactive t\uc0\u305 k: < 200ms (top-3 paper SQL)\
+\
+KULLANIM:\
+    - Sayfa varsay\uc0\u305 lan: 4.1'den se\'e7ilen h\'fccre\
+    - Do\uc0\u287 rudan URL ile de a\'e7\u305 labilir (payla\u351 \u305 labilir gap profili)\
+    - "Bu bo\uc0\u351 lu\u287 u hedefle" sonras\u305  6.x savunma sayfalar\u305 nda bu h\'fccre referans olarak kullan\u305 l\u305 r\
+}

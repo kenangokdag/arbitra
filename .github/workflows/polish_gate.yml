@@ -1,0 +1,35 @@
+name: Polish Gate
+
+on:
+  push:
+    branches: [main, "feat/*"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  polish-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check no TODO(P markers in api/
+        run: |
+          count=$(grep -r 'TODO(P' api/ --include='*.py' | wc -l)
+          if [ "$count" -ne 0 ]; then
+            echo "FAIL: $count TODO(P markers found in api/"
+            grep -rn 'TODO(P' api/ --include='*.py'
+            exit 1
+          fi
+          echo "PASS: 0 TODO(P markers in api/"
+
+      - name: Check no TODO(P markers in engine/
+        run: |
+          if [ -d "engine/" ]; then
+            count=$(grep -r 'TODO(P' engine/ --include='*.py' | wc -l)
+            if [ "$count" -ne 0 ]; then
+              echo "FAIL: $count TODO(P markers found in engine/"
+              grep -rn 'TODO(P' engine/ --include='*.py'
+              exit 1
+            fi
+          fi
+          echo "PASS: 0 TODO(P markers in engine/"

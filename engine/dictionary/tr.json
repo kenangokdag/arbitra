@@ -1,0 +1,16 @@
+{
+  "lang": "tr",
+  "version": "v1",
+  "synonyms": {
+    "öğrenme": ["eğitim", "edinim", "kazanım"],
+    "yöntem": ["metod", "yaklaşım", "teknik"],
+    "etki": ["tesir", "sonuç", "yansıma"],
+    "araştırma": ["çalışma", "inceleme", "tetkik"],
+    "analiz": ["çözümleme", "inceleme"],
+    "model": ["yapı", "çerçeve", "şema"],
+    "veri": ["bulgu", "gözlem"],
+    "katılımcı": ["denek", "öğrenci", "iştirakçi"],
+    "geliştirme": ["iyileştirme", "ilerleme"],
+    "değerlendirme": ["ölçüm", "tahlil", "skor"]
+  }
+}

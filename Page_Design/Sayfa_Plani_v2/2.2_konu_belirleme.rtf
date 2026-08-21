@@ -1,0 +1,193 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 2.2 KE\uc0\u350 \u304 F \'97 KONU BEL\u304 RLEME (500 MAKALE \u8594  25 KART)\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Felsefe \u9472 \u9472 \u9472 \u9472 \
+\
+Bu sayfa, 0_genel_kurallar.rtf'deki 4 ilkeye tabidir:\
+(1) vitrin/proje ikili\uc0\u287 i\
+(2) rakip k\uc0\u305 yas (3 soru)\
+(3) 4 persona modellemesi (dan\uc0\u305 \u351 man / \'f6\u287 renci / j\'fcri / hakem)\
+(4) sayfa kabar\uc0\u305 k olmas\u305 n; e\u287 itici, doyurucu, bir felsefesi olsun.\
+\
+Bu sayfaya \'f6zel felsefe notu:\
+\
+Felsefe / Ama\'e7: \'c7apa kilitlendi; \uc0\u351 imdi kullan\u305 c\u305 n\u305 n "hangi konu?" sorusunu netle\u351 tirme zaman\u305 . Felsefemiz: \'e7apa makro \'f6l\'e7ek (alan), konu mikro \'f6l\'e7ek (mesele) \'97 bu iki \'f6l\'e7ek aras\u305  ge\'e7i\u351  kullan\u305 c\u305 n\u305 n kontrol\'fcnde olmal\u305 . 2-3 ek \'e7apa se\'e7imine izin vererek k\'fct\'fcphaneyi yeniliyoruz; ama "\u305 srar etmezse" 500 yay\u305 n varsay\u305 lan k\'fct\'fcphane olarak kilitleniyor. Rakip yok bu kombinasyonda \'97 SciSpace anchor mant\u305 \u287 \u305  yok; Consensus tek-soru-tek-cevap; Elicit literat\'fcr \'f6zet ama 500 kom\u351 u havuzu kal\u305 c\u305 la\u351 t\u305 rm\u305 yor.\
+\
+Nas\uc0\u305 l Yap\u305 lacak: Stage C \'e7\u305 kt\u305 s\u305  (cluster_expander.py: vec [Pinecone] + bib [bibcoupling top-50] + theme [dim_theme_embedding] RRF) ile 500 aday haz\u305 rlan\u305 r; Supabase enrich JOIN ve ESTRA skor (q_weak/cd_5/beauty/pagerank) \'fcst\'fcnden ilk 25'i kart formunda g\'f6sterece\u287 iz. Her kart: detay-skorlar, \'e7evir, 2-3 sat\u305 r LLM \'f6zeti, k\'fct\'fcphaneye ekle, "\'c7apa Olarak Bunu Belirle". Kullan\u305 c\u305  1-2 ek \'e7apa se\'e7erse cluster yenilenir; aksi halde 500 yay\u305 n project_pool tablosuna kal\u305 c\u305  kaydedilir, sonraki t\'fcm mod\'fcller bu havuza ba\u287 lan\u305 r.\
+\
+Eklenecek Dokunu\uc0\u351 lar ve Standart Yay\u305 n Kart\u305 : Bu sayfada 25 kart \'e7ok oldu\u287 u i\'e7in Standart Yay\u305 n Kart\u305 'n\u305 n Daralt\u305 lm\u305 \u351  s\'fcr\'fcm\'fc (D6 Lite) varsay\u305 lan; ba\u351 l\u305 k + meta + 4 standart buton (Dan\u305 \u351 mana sor / Detay / Listeme ekle / \'c7evir ve \'f6zetle) g\'f6r\'fcn\'fcr, t\u305 klan\u305 nca A\'e7\u305 k s\'fcr\'fcm (D5 full: chip sat\u305 r\u305  + 3-sat\u305 r abstract + ESTRA bar + 2-3 sat\u305 r LLM \'f6zeti) geni\u351 ler. "\'c7apa Olarak Bunu Belirle" 5'inci buton olarak s\u305 \u287 maz; bunun yerine kart sa\u287  \'fcst k\'f6\u351 esine k\'fc\'e7\'fck "+\'e7apa" ikonu yerle\u351 tirilir \'97 A\'e7\u305 k veya Daralt\u305 lm\u305 \u351  fark etmeksizin sabit konum, tek t\u305 kla ek \'e7apa atama. Felsefe gerek\'e7esi: 4 standart buton b\'fct\'fcn sayfalarda ayn\u305  kal\u305 r, sayfa-spesifik aksiyonlar (burada "+\'e7apa") k\'f6\u351 e ikonu olarak ayr\u305  bir g\'f6rsel s\u305 n\u305 fa d\'fc\u351 er; kullan\u305 c\u305  kart d\'fczenini her sayfada \'f6\u287 renmek zorunda kalmaz. \'dc\'e7 dokunu\u351 : (1) S\u305 ralama gerek\'e7esi (bedava): kart listesi \'fcst\'fcnde tek sat\u305 r \'97 "Bu s\u305 ra: ESTRA \'d7 \'e7apa-benzerli\u287 i \'d7 yenilik" \'97 kullan\u305 c\u305  s\u305 ralaman\u305 n sebebini g\'f6r\'fcr, kara-kutu hissi yok olur; dan\u305 \u351 man personas\u305  ile uyumlu ("niye bu s\u305 rada?" sorusunun sessiz cevab\u305 ). (2) Tema \'e7e\u351 itlili\u287 i bar\u305  (orta maliyet): 25 kart\u305 n dim_theme_embedding \'fcst\'fcnden tema da\u287 \u305 l\u305 m\u305  k\'fc\'e7\'fck yatay bar olarak g\'f6sterilir \'97 "tek temaya topland\u305 " (havuz dar, ek \'e7apa d\'fc\u351 \'fcn) veya "3 temaya yay\u305 ld\u305 " (sa\u287 l\u305 kl\u305  \'e7e\u351 itlilik); j\'fcri/hakem personas\u305  ile uyumlu \'97 sa\u287 l\u305 kl\u305  havuz i\u351 areti olmadan ileri mod\'fcller (3.x sentezi, 4.x bo\u351 luk) g\'fcvenilir konu\u351 amaz. (3) K\'fct\'fcphane diff g\'f6stergesi (bedava): kullan\u305 c\u305  ek \'e7apa se\'e7ip cluster yenilenince k\'fc\'e7\'fck bilgi sat\u305 r\u305  \'97 "havuzun 180 makalesi de\u287 i\u351 ti, 320'si ayn\u305  kald\u305 "; \'f6\u287 renci personas\u305  ile uyumlu \'97 "ne de\u287 i\u351 ti?" sorusunu g\'f6rsel ispatla cevaplar, sessiz havuz de\u287 i\u351 imi kullan\u305 c\u305 n\u305 n g\'fcvenini sarsar. ESTRA skoru: A\'e7\u305 k kartta q_weak yatay bar olarak; Daralt\u305 lm\u305 \u351  kartta say\u305 sal mini-rozet (\'f6rn. "8.4") sa\u287  \'fcst k\'f6\u351 ede "+\'e7apa" ikonunun yan\u305 nda. Buradaki kart karar\u305  2.1'deki kanonun devam\u305 ; yay\u305 n g\'f6sterilen t\'fcm sayfalar (3.1, 3.2, 4.1, 4.4 dahil) ayn\u305  kart \u351 ablonunu kullanacak \'97 sayfa ba\u351 \u305 na \'f6zel buton/ikon eklemek serbest ama 4 standart buton sabit kal\u305 r.\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Ham Vizyon (Geli\u351 tirici Notu, 2026-05-10) \u9472 \u9472 \u9472 \u9472 \
+\
+Kullan\uc0\u305 c\u305  \'f6nceki ad\u305 mda \'e7apa olacak 1 makaleyi belirledi.\
+\
+Ard\uc0\u305 ndan biz onun i\'e7in havuzdan 500 makale buluruz.\
+Bunlar\uc0\u305 n 25 tanesini kart ile g\'f6steririz.\
+\
+Kart tasar\uc0\u305 m\u305  (her kartta):\
+- Detay (skorlar)\
+- \'c7evir\
+- \'d6zetle (2-3 sat\uc0\u305 r \'f6zetin \'f6zeti, \'e7evrilmi\u351 )\
+- K\'fct\'fcphaneye Ekle\
+- \'c7apa Olarak Bunu Belirle\
+\
+Kullan\uc0\u305 c\u305  isterse buradan toplam 2-3 \'e7apa se\'e7ebilecek.\
+- Se\'e7erse \uc0\u8594  k\'fct\'fcphane yenilenir\
+- De\uc0\u287 ilse \u8594  \'f6nceki se\'e7ti\u287 imiz 500 yay\u305 n art\u305 k bu projenin k\'fct\'fcphanesi\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Mevcut Durum (kod taban\u305 nda) \u9472 \u9472 \u9472 \u9472 \
+\
+Kan\uc0\u305 t seviyesi: A (bu oturumda Read/Grep ile do\u287 ruland\u305 ; file:line referansl\u305 ).\
+Tarih: 2026-05-10.\
+\
+\
+[ (i) VER\uc0\u304  AMBARI ]\
+\
+Bu sayfan\uc0\u305 n as\u305 l veri kayna\u287 \u305  project_cluster tablosu (500-paper havuzu).\
+HEN\'dcZ DOLDURULMUYOR \'97 cluster_expander servisi yaz\uc0\u305 lmad\u305  (a\u351 a\u287 \u305 da BACKEND b\'f6l\'fcm\'fcnde detay).\
+\
+Tablo (db/migrations/0016_project_cluster.sql):\
+  - project_cluster (line 9-19)\
+      Composite PK (project_id, paper_id)\
+      source CHECK ('vec','bib','theme') \'97 RRF kanal etiketi\
+      rrf_score numeric, q_weak, estra_score, rank_final int, frozen_at\
+      RLS owner-only (line 25-28)\
+      F9 B\'d6L\'dcM 3 RRF + B\'d6L\'dcM 4-5 ESTRA materialize i\'e7in tasarland\uc0\u305 \
+\
+Mevcut frontend (TopicSuggestionPage) BU TABLOYU OKUMAZ.\
+Bunun yerine /api/top5 endpoint'ine sorgu g\'f6nderiyor; \'e7apa (2.1 \'e7\uc0\u305 kt\u305 s\u305 )\
+ile ba\uc0\u287 lant\u305  yok.\
+\
+JOIN kaynaklar\uc0\u305  (cluster_expander \'e7al\u305 \u351 t\u305 \u287 \u305 nda planlanan):\
+  - Pinecone (vec kanal\uc0\u305 )                  \'97 F9 plan \'a7333\
+  - fact_paper_bibcoupling_top50 (bib)        \'97 F9 plan \'a7333,423\
+  - dim_theme_embedding (theme)               \'97 F9 plan \'a7333\
+  - papers + fact_paper_id_card + temporal /\
+    disruption / beauty / centrality enrich   \'97 F9 plan \'a7334\
+\
+dim_ghost_paper:\
+  - HEN\'dcZ KULLANILMIYOR (3.2 \uc0\u304 li\u351 kili \'c7al\u305 \u351 malar'da devreye girer).\
+\
+Mimari bo\uc0\u351 luk: project_cluster tablosu var ama dolduran kod (Stage C, F9 plan\
+P096 ~280 sat\uc0\u305 r) yaz\u305 lmad\u305 .\
+\
+\
+[ (ii) BACKEND ]\
+\
+Endpoint dosyalar\uc0\u305 :\
+  api/routes/top5.py (46 sat\uc0\u305 r)              \'97 TopicSuggestionPage'in kulland\u305 \u287 \u305 \
+  api/routes/research_area.py (113 sat\uc0\u305 r)    \'97 lock/lock-status YOK\
+\
+Endpoint'ler (mevcut):\
+  - POST /api/top5 (top5.py:46)\
+        Top5Response \uc0\u8594  papers / needs_clarify / margin_used\
+        Input: query + k (default 5) + margin (0.3) + session_id\
+        \'c7APAYA BA\uc0\u286 LI DE\u286 \u304 L. session_id rastgele UUID frontend'den.\
+\
+Endpoint'ler (F9 plan'da var, HEN\'dcZ YAZILMAMI\uc0\u350 ):\
+  - POST /api/project/\{id\}/research-area/anchor/lock  (F9 plan \'a798)\
+        Stage C tetikleyici, 202 Accepted + job_id d\'f6ner\
+  - GET  /api/project/\{id\}/research-area/lock-status  (F9 plan \'a799)\
+        Polling 800ms, status: ready \uc0\u8594  otomatik discovery-2 ge\'e7i\u351 \
+\
+Servisler (planlanm\uc0\u305 \u351 , kod YOK):\
+  - api/services/cluster_expander.py \'97 B\'d6L\'dcM 3 RRF + B\'d6L\'dcM 4 enrich\
+        F9 plan \'a775 (P096) ~280 sat\uc0\u305 r, vec+bib+theme RRF k=60\
+        Grep "cluster_expander" \uc0\u8594  yaln\u305 z api/models/project.py:78,\
+        api/models/project.py:57 yorum sat\uc0\u305 rlar\u305  (kod yok, planda referans).\
+  - api/services/estra_scorer.py     \'97 B\'d6L\'dcM 5 q_weak/cd_5/beauty/pagerank\
+        F9 plan \'a775, kod yok\
+  - api/workers/anchor_lock_worker.py \'97 FastAPI BackgroundTasks adapt\'f6r\
+        F9 plan \'a775, kod yok\
+\
+LLM: yok (saf SQL aggregation + ESTRA skor hesab\uc0\u305  tasarland\u305 ).\
+\
+Pydantic modeller (mevcut):\
+  api/models/top5.py \'97 Top5Request, Top5Response, PaperCard (signals_13 dict)\
+\
+\
+[ (iii) FRONTEND ]\
+\
+Sayfa dosyas\uc0\u305 :\
+  web/src/components/project/TopicSuggestionPage.tsx (214 sat\uc0\u305 r)\
+Route: /project/\{id\}/discovery-2\
+Lazy import: web/src/app/(app)/project/[id]/[[...slug]]/page.tsx:8,91\
+Nav label: web/src/lib/nav-config.ts:62 "Konu Belirleme"\
+\
+Veri ak\uc0\u305 \u351 \u305 :\
+  - useQuery \uc0\u8594  fetchTopics \u8594  POST /api/top5 (line 27-32)\
+  - Default query: "MCDM cok kriterli karar verme" (line 25, SAB\uc0\u304 T)\
+  - margin=0.3, k=5, session_id rastgele UUID (line 30)\
+  - staleTime: 900_000 (15 dk cache)\
+\
+Render:\
+  - AdvisorBanner (line 61): "Sana en ilgili 5 paper'i getirdim..."\
+  - Query bar (line 64-82): kullan\uc0\u305 c\u305  input + Ara butonu\
+  - 2-kolon grid kart (line 96-168) \'97 5 kart\
+  - Kart i\'e7eri\uc0\u287 i: title + abstract_excerpt (3-line clamp)\
+                  + authors + year + paper_id (mono)\
+                  + "Konu bana kilitli" rozet (line 141-148)\
+                  + "Bu paper'i sec" CTA + "Detay gor" stub\
+  - selectedId tek string \'97 TEK SE\'c7\uc0\u304 M (vizyondaki 2-3 ek \'e7apa YOK)\
+\
+Konu lock CTA (line 177-211):\
+  - selectedId varsa sticky bar a\'e7\uc0\u305 l\u305 r\
+  - "Konuyu Kilitle ve Devam Et" \uc0\u8594  router.push(/project/\{id\}/discovery-3)\
+  - Backend lock endpoint YOK \'97 yorum line 44-45'te "Phase 2"\
+\
+ResearchAreaConfirmPage.tsx:141'den buraya y\'f6nlendirme:\
+  router.push(`/project/$\{projectId\}/discovery-2`)\
+  ANCAK \'e7apa context'i ta\uc0\u351 \u305 nm\u305 yor \'97 TopicSuggestionPage anchor'\u305  bilmiyor.\
+\
+\
+[ VER\uc0\u304  AKI\u350 I \'97 U\'c7TAN UCA (mevcut, kan\u305 t-A) ]\
+\
+1. Kullan\uc0\u305 c\u305  2.1'de "\'c7APA SE\'c7" \u8594  router.push(/project/\{id\}/discovery-2)\
+   (anchor metadata BACKEND'e veya FRONTEND state'e KOPYALANMAZ)\
+2. TopicSuggestionPage mount \uc0\u8594  default query "MCDM..." (sabit)\
+3. POST /api/top5 \uc0\u8594  fact_paper_id_card + signals_13 \'fcst\'fcnde top-5\
+4. 5 kart render \uc0\u8594  kullan\u305 c\u305  1 se\'e7er (tek se\'e7im) \u8594  selectedId\
+5. "Konuyu Kilitle ve Devam Et" \uc0\u8594  router.push(/project/\{id\}/discovery-3)\
+   (lock backend'e YAZILMAZ \'97 Phase 2'de ba\uc0\u287 lanacak yorum)\
+\
+\
+[ \uc0\u304 LG\u304 L\u304  TESTLER ]\
+\
+  api/tests/routes/test_top5.py (varsa, do\uc0\u287 rulanmad\u305 )\
+  web/src/components/project/TopicSuggestionPage.test.tsx (Glob \uc0\u8594  bulunamad\u305 )\
+\
+\
+[ \'c7EL\uc0\u304 \u350 K\u304  \'97 KR\u304 T\u304 K (Geli\u351 tirici Notu vs Mevcut Kod) ]\
+\
+Notu (2026-05-10): "havuzdan 500 makale + 25 kart + 2-3 ek \'e7apa + project pool persist"\
+Mevcut: "/api/top5 \uc0\u8594  5 kart, tek se\'e7im, \'e7apadan ba\u287 \u305 ms\u305 z, persist yok"\
+\
+Bo\uc0\u351 luklar (kan\u305 t-A):\
+  (1) cluster_expander.py YOK \uc0\u8594  500-aday RRF (vec+bib+theme) \'e7al\u305 \u351 m\u305 yor\
+  (2) project_cluster tablosu BO\uc0\u350  kal\u305 yor (0016 haz\u305 r, dolduran kod yok)\
+  (3) anchor \uc0\u8594  discovery-2 context k\'f6pr\'fcs\'fc YOK (frontend state ta\u351 \u305 nm\u305 yor)\
+  (4) k=5 sabit (line 30); vizyon k=25\
+  (5) Tek se\'e7im (selectedId: string|null); vizyon 2-3 ek \'e7apa\
+  (6) "+\'e7apa" ikonu, ESTRA bar, tema da\uc0\u287 \u305 l\u305 m\u305  bar\u305 , k\'fct\'fcphane diff\
+      g\'f6stergesi, s\uc0\u305 ralama gerek\'e7esi YOK (D5/D6 standart kart kanonu, 2.1 RTF)\
+  (7) Lock endpoint YOK (line 44-45 Phase 2 yorum), 202+job_id polling YOK\
+  (8) signals_13 alan\uc0\u305  PaperCard interface'inde geliyor (line 16) ama UI'da\
+      render edilmiyor (sa\uc0\u287 lam imza, bo\u351  pencere)\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  A\'e7\u305 k Sorular \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+\
+\
+\uc0\u9472 \u9472 \u9472 \u9472  Plan Detay\u305  \u9472 \u9472 \u9472 \u9472 \
+\
+[bo\uc0\u351 ]\
+}

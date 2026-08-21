@@ -1,0 +1,40 @@
+
+=== TUM 61 ===
+=== F14 HAKEML?K ? KAL?TE KANITI (insan-uyum) ===
+Verdict do?rulu?u: %67 tam isabet, %72 bir-kademe-tolerans (41/61 tam, 44/61 yak?n).
+
+Boyut uyumu (motor skoru ? insan skoru):
+  - originality: r=-0.26, ort. fark=3.41, ?i?irme=+3.21 (n=30)
+  - importance: r=-0.69, ort. fark=3.11, ?i?irme=+3.11 (n=5)
+  - soundness: r=0.16, ort. fark=1.99, ?i?irme=+0.75 (n=29)
+  - clarity: r=0.37, ort. fark=1.53, ?i?irme=+0.12 (n=31)
+
+Moat-do?ruluk (at?f sahtecili?i ? insan-verdict'ten BA?IMSIZ):
+  4 makalede g??l? (critical/major) at?f-b?t?nl??? iddias?; %100 kan?ta dayal? (4/4 EvidencePack'te ger?ek fabricated/retracted kar??l??? var).
+  Kan?ta dayal? tespitlerin insan karar? da??l?m? (goldset'in k?r noktas?): {'accept': 3, 'reject': 1}
+
+E?le?en makale: 61 | motor var-alt?n yok: 0 | insan-bekliyor (atland?): 0
+
+Referans: Stanford AI reviewer ICLR 2025'e kar?? Spearman 0.42 (insan-insan tavan? ~0.41)
+
+=== COVERAGE-FLAGSIZ ALT-KUME (44) ===
+=== F14 HAKEML?K ? KAL?TE KANITI (insan-uyum) ===
+Verdict do?rulu?u: %75 tam isabet, %75 bir-kademe-tolerans (33/44 tam, 33/44 yak?n).
+
+Boyut uyumu (motor skoru ? insan skoru):
+  - originality: r=-0.27, ort. fark=3.46, ?i?irme=+3.26 (n=29)
+  - importance: r=-0.69, ort. fark=3.11, ?i?irme=+3.11 (n=5)
+  - soundness: r=0.17, ort. fark=2.02, ?i?irme=+0.82 (n=28)
+  - clarity: r=0.34, ort. fark=1.57, ?i?irme=+0.09 (n=29)
+
+Moat-do?ruluk (at?f sahtecili?i ? insan-verdict'ten BA?IMSIZ):
+  2 makalede g??l? (critical/major) at?f-b?t?nl??? iddias?; %100 kan?ta dayal? (2/2 EvidencePack'te ger?ek fabricated/retracted kar??l??? var).
+  Kan?ta dayal? tespitlerin insan karar? da??l?m? (goldset'in k?r noktas?): {'accept': 2}
+
+E?le?en makale: 44 | motor var-alt?n yok: 0 | insan-bekliyor (atland?): 0
+
+Referans: Stanford AI reviewer ICLR 2025'e kar?? Spearman 0.42 (insan-insan tavan? ~0.41)
+
+motor dagilim: {'accept': 42, 'major_revision': 15, 'reject': 4}
+sinif basi dogruluk: {'accept': (37, 49), 'minor_revision': (0, 0), 'major_revision': (1, 2), 'reject': (3, 10)}
+sinif-dengeli dogruluk: 51.8%

@@ -1,0 +1,60 @@
+{
+  "gates": {
+    "security_privacy": {
+      "required_for": [
+        "P01",
+        "P02",
+        "P06",
+        "P08",
+        "P09"
+      ],
+      "hard_fail_if": [
+        "production mock auth possible",
+        "object-level authorization missing",
+        "confidential manuscript external AI without consent",
+        "secret exposed to frontend",
+        "provider failure hidden"
+      ]
+    },
+    "academic_quality": {
+      "required_for": [
+        "P03",
+        "P04",
+        "P06",
+        "P07"
+      ],
+      "hard_fail_if": [
+        "high severity finding without manuscript anchor or global issue rationale",
+        "high severity finding without action item",
+        "citation source fabricated",
+        "abstract-only evidence presented as full-text verified",
+        "generic rubric applied to all document types"
+      ]
+    },
+    "frontend_premium": {
+      "required_for": [
+        "P05",
+        "P06"
+      ],
+      "hard_fail_if": [
+        "privacy step bypassable",
+        "spinner-only progress",
+        "report cannot show provenance/confidence/limitations",
+        "new user cannot complete default flow"
+      ]
+    },
+    "backend_reliability": {
+      "required_for": [
+        "P02",
+        "P04",
+        "P09"
+      ],
+      "hard_fail_if": [
+        "long-running review runs in web request",
+        "job lost on process restart",
+        "provider errors swallowed",
+        "migration without rollback/mitigation note"
+      ]
+    }
+  }
+}
