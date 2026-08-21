@@ -137,6 +137,21 @@ _REVIEW_PIPELINE_MODES = frozenset(
 # canlı testte bu boyutun en gürültülü çıkmasının kök nedeni muhtemelen bu.
 # citation_integrity'nin göreceli stabil kalması (6/6 run'da 6.22) gerçek
 # OpenAlex verisine büyük ölçüde dayanmasıyla tutarlı.
+#
+# SONUÇ (2026-08-21, canlı 3-run doğrulama, deneme.pdf, backend temiz restart
+# sonrası — eval/review/results/temperature_zero_academic_modes_log.jsonl):
+# TAM BAŞARI. verdict, overall_readiness_score, final_score, toplam bulgu
+# sayısı, severity dağılımı VE 10 boyutun TAMAMI 3 run'da BİT-BİREBİR AYNI
+# çıktı (önceki turlarda coverage_completeness/statistical_consistency en
+# gürültülü olanlardı — şimdi ikisi de 3/3 sabit). Kullanıcının kabul
+# kriteri (verdict+major-count birebir) sadece karşılanmadı, AŞILDI (tüm
+# alanlar). n=3 hâlâ küçük örneklem — "her zaman" garantisi verilemez, ama
+# bu artık güçlü, doğrudan kanıt. AÇIK KALAN SORU (guardian, 2026-08-21):
+# manuscript_classifier'ın deterministik olması, YANLIŞ sınıflandırmayı da
+# artık HER SEFERİNDE aynı şekilde sabitliyor (document_type→rubric seçimi
+# rubric_registry.py:355'te confidence-eşiksiz) — bu goldset'e (61 makale,
+# Spearman) karşı DOĞRULANMADI, sadece tek-makale determinism kanıtlandı.
+# Kalibrasyon/doğruluk iddiası DEĞİL, sadece tutarlılık iddiası.
 _ACADEMIC_ASSESSMENT_MODES = frozenset(
     {
         "manuscript_classifier",

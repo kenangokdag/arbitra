@@ -1370,9 +1370,44 @@ Kök neden: `review_orchestration.py`'nin 7 aşaması (writer + 5 critic + edito
 
 **Kanıt:** `api/services/llm_service.py` diff'i (seed + drop_params + genişletilmiş yorum), `tests/unit/test_llm_service.py` (2 test güncellendi), `eval/review/temperature_zero_consistency_check.py` (idempotency-çakışma bug'ı da bulunup düzeltildi — `_unique_run_sub`), `eval/review/results/temperature_zero_seed_consistency_log.jsonl`.
 
+### 70. §69'un TODO'su ÇÖZÜLDÜ — assess_manuscript'in 4 iç motoru da deterministik yapıldı, 3-run TAM bit-birebir eşleşti
+
+**Kullanıcı talebi:** §69'daki açık TODO'yu ("moat 3-boyutu bu pipeline'da rubric_registry'siz, LLM-üretimi") çöz.
+
+**Daha derin araştırma, önceki turun eksiğini düzeltti:** `review_service.py:639`'da `report_synthesis.apply_deterministic_dimension_scores()` zaten writer/editor'ın serbest skorlarını `risk_radar`'dan (deterministik severity-sayım formülü) gelen değerle override ediyormuş — mekanizma DOĞRU bağlıymış. Guardian'ın "rubric_registry hiç geçmiyor" bulgusu `review_orchestration.py`'ye bakınca doğruydu ama `review_service.py`'nin post-processing'ini kaçırmıştı.
+
+**Gerçek kök neden:** override'ın girdisi olan `findings`, `assess_manuscript()`'in (gerçek rubric_registry/dimension_engine motoru) KENDİ İÇİNDEKİ 4 LLM çağrısından geçiyor — bunların hiçbiri önceki turda eklenen `_REVIEW_PIPELINE_MODES`'ta değildi:
+- `engine/academic/classifier.py:159` → `mode="manuscript_classifier"` (document_type/study_design → rubrik seçimi)
+- `engine/academic/dimension_engine.py:120` → `mode="academic_dimension"` (30+ genel rubrik boyutu)
+- `engine/academic/qualitative_engine.py:86` → `mode="qualitative_rigor"`
+- `engine/academic/quantitative_engine.py:101` → `mode="quantitative_validity"` (statistical_consistency/coverage'ı DOĞRUDAN besliyor)
+
+Hepsi tier="flash", aynı `_engine_base.py:assess()` chokepoint'i üzerinden `llm_service.call()`'a gidiyor.
+
+**Düzeltme:** `_ACADEMIC_ASSESSMENT_MODES` frozenset eklendi (4 mode), `_DETERMINISTIC_SCORING_MODES = _REVIEW_PIPELINE_MODES | _ACADEMIC_ASSESSMENT_MODES` — aynı temperature=0+seed=42+drop_params=True üçlüsü şimdi 11 mode'a uygulanıyor (7+4).
+
+**Guardian 3. tur:** commit'e engel itiraz yok, mekanizma doğrulandı (A-kanıt, `rubric_registry.py:355` document_type→rubric seçimini, `assessment.py:182-203` study_design→severity-gating'i doğruladı). Ama YENİ bir risk işaret etti: `manuscript_classifier`'ı deterministik yapmak, YANLIŞ sınıflandırmayı da artık HER SEFERİNDE aynı şekilde sabitliyor (`document_type→rubric` seçiminde confidence eşiği YOK). **Asıl soru: bu goldset'e (61 makale, Spearman korelasyon) karşı doğrulanmadı — sadece tek-makale determinism kanıtlandı, kalibrasyon/doğruluk iddiası DEĞİL.**
+
+**Canlı doğrulama (deneme.pdf, backend temiz restart sonrası, 3/3 run başarılı — ilk kez network/billing arızası YOK):**
+
+| alan | run1 | run2 | run3 |
+|---|---|---|---|
+| verdict | accept | accept | accept |
+| overall_readiness | 79.4 | 79.4 | 79.4 |
+| toplam bulgu | 30 | 30 | 30 |
+| major+critical | 4 | 4 | 4 |
+| **10 boyutun TAMAMI** | aynı | aynı | aynı |
+
+**TAM BAŞARI — kullanıcının kabul kriteri (verdict+major-count birebir) sadece karşılanmadı, AŞILDI.** `coverage_completeness=5.14` ve `statistical_consistency=7.84` dahil TÜM alanlar 3 run'da bit-birebir aynı çıktı — önceki turlarda bu ikisi en gürültülü olanlardı. n=3 hâlâ küçük örneklem, "her zaman" garantisi verilemez, ama bu güçlü, doğrudan kanıt.
+
+**Kenan kararı (bekliyor, 2026-08-21):** guardian'ın goldset-revalidasyon sorusu — bu turun (determinism artışı) goldset Spearman korelasyonunu (kalibrasyon doğruluğu) etkileyip etkilemediği ayrı, daha büyük bir iş (61 makale canlı koşum, saatler sürebilir). Şimdi mi yapılsın, yoksa determinism-only kazanım olarak commit edilip goldset revalidasyonu ayrı bir konu mu bırakılsın — karar bekliyor.
+
+**Kanıt:** `api/services/llm_service.py` diff'i (`_ACADEMIC_ASSESSMENT_MODES` + genişletilmiş yorum), `tests/unit/test_llm_service.py` (9 yeni test, `_ACADEMIC_ASSESSMENT_MODES` × temp/seed/drop_params), `eval/review/results/temperature_zero_academic_modes_log.jsonl` (3 run'ın tam kaydı), `tests/unit/test_academic_classifier.py` + `test_academic_engines.py` (33 test, regresyon yok, 29dk35s).
+
 ## Henüz Yapılmayanlar (Sıradaki)
 
-- [ ] **YENİ, YÜKSEK ÖNCELİK (§69, guardian bulgusu, 2026-08-20):** `review_orchestration.py`'nin (writer→critic→editor) "3 deterministik moat boyutu" (citation_integrity/coverage_completeness/statistical_consistency) iddiası bu pipeline'da GERÇEK DEĞİL — `rubric_registry.py`/`dimension_engine.py`'den hiç geçmiyor, LLM üretiyor. Canlı veri bu boyutların Stanford-7'den DAHA GÜRÜLTÜLÜ olduğunu gösterdi. Hangi pipeline'ın (`review_orchestration` vs `assess_manuscript`) "moat" iddiasını gerçekten taşıdığı netleştirilmeli — bkz §69 detay.
+- [ ] **AÇIK SORU (§70, guardian, 2026-08-21):** determinism artışının (§69-70) goldset Spearman korelasyonunu (kalibrasyon doğruluğu) etkileyip etkilemediği DOĞRULANMADI — özellikle `manuscript_classifier`'ın artık yanlış sınıflandırmayı da sabitleyebilmesi riski. 61-makale (ya da alt-küme) goldset koşumu gerekiyor — kullanıcı kararı bekliyor.
+- [x] ~~§69: `review_orchestration.py`'nin "3 deterministik moat boyutu" iddiası ile gerçek davranışı arasındaki kopukluk~~ — §70'te çözüldü: mekanizma zaten doğru bağlıydı (review_service.py post-processing), eksik olan assess_manuscript'in 4 iç motorunun deterministik olmamasıydı, düzeltildi, 3/3 canlı run bit-birebir eşleşti.
 - [x] ~~`quantitative_validity`'nin `sample_and_power` katı kuralını study_design'a bağlamak~~ — §46/47'de yapıldı, test edildi (27/27), guardian 3 tur onayladı (commit `39f0724`). **AMA dürüst sonuç: mekanizma doğru, korelasyon problemi ÇÖZÜLMEDİ** (Spearman -0.07→+0.07, gürültü seviyesinde) — bkz §47.
 - [ ] **§48'de TÜKENDİ, YENİDEN ÇERÇEVELENDİ:** `design_validity`/`measurement_validity`'nin neden ayırt edici olmadığı sorusu — "hangi tek quant boyutu insan-soundness'i en iyi öngörür" yaklaşımıyla (9 boyut tek tek tarandı, n=29) test edildi, HİÇBİRİ güvenilir sinyal vermedi (çoklu-karşılaştırma düzeltmesi sonrası). Bu spesifik yol tükendi — **n=29 bu ince taneli analiz için yetersiz.** İki olası ileri yön: (a) goldset'i büyütmek (insan-skorlu örneklem sayısını artırmak — bkz. §42/§1 held-out TODO'su, aynı kaynak sorunu), (b) tek-boyut mikro-ayarlamayı bırakıp quant motorunun "soundness"e katkısını bütünsel/karşılaştırmalı yeniden tasarlamak (büyük iş, ayrı plan gerektirir). Kullanıcı kararı bekliyor.
 - [ ] Ömer'e açık soru: `quantitative_validity.py`'deki severity skalası spec dosyasında yok, kim/ne zaman eklendi, bilinçli mi
