@@ -230,6 +230,12 @@ class CitationIntegritySummary(BaseModel):
     """§41: not_found_in_index içinde SAKLI kalan, aslında sağlayıcı-hatası
     kaynaklı alt-küme (ParsedReference.resolution_degraded=True sayısı). 0 ==
     "hiç servis hatası olmadı" DEMEK DEĞİL — yalnız Bu KOŞUMDA görülenleri sayar."""
+    semantic_scholar_recovered: int = 0
+    """2026-08-23: OpenAlex not_found_in_index dedikten SONRA Semantic Scholar
+    fallback'inin resolved'a YÜKSELTTİĞİ referans sayısı (engine/providers/
+    semantic_scholar.py). `resolved` sayacına ZATEN dahildir — bu sadece
+    KAYNAĞIN ne kadarının S2'den geldiğini gösteren ayrı, additive bir sayaç
+    (gözlemlenebilirlik — fabricated/retracted'a hiç dokunmaz, sadece bu)."""
 
 
 class EvidencePack(BaseModel):

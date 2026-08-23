@@ -1430,7 +1430,27 @@ Sınıf-dengeli doğruluk detayı: accept %85.3 (29/34), major_revision %100 (1/
 
 **Kanıt:** `eval/review/goldset61_live_rerun_2026-08-22.py`, `eval/review/goldset61_recover_summary_and_determinism_2026-08-22.py`, `eval/review/results/goldset61_live_reports_2026-08-22/*.json` (43 rapor), `eval/review/results/goldset61_live_rerun_2026-08-22_summary.{txt,json}`, `eval/review/results/goldset61_classifier_determinism_2026-08-22.json`, `eval/review/results/goldset61_2026-08-22_confusion_and_balanced_accuracy.json`.
 
+### 72. OpenAlex kapsam boşluğu için Semantic Scholar fallback eklendi — mimari doğru, ama key'siz pratikte etkisiz (kod hazır, key bekleniyor)
+
+**Kullanıcı sorusu:** "openalex dışındaki kaynakları eşleyemiyor bu sorun mu?" — evet, bilinen bir kapsam boşluğu (arXiv/OpenReview linkleri OpenAlex'te sistematik az çözülüyor, `PwxYoMvmvy` gibi makalelerde %89'a varan not_found_in_index oranı). Kullanıcı onayıyla S2 fallback planlandı, guardian'dan 2 tur geçti, uygulandı.
+
+**Uygulama:** `engine/providers/semantic_scholar.py` (yeni, minimal resolver — ScholarlyProvider Protocol'ünü TAM implement etmiyor, bilinçli dar kapsam), `review_citation_service.py`'de `resolve_all` içinde OpenAlex `not_found_in_index` derse S2 denenir (OpenAlex akışına dokunulmadı), fabricated/retracted tespiti için S2 ASLA kullanılmaz. `CitationIntegritySummary.semantic_scholar_recovered` yeni sayaç.
+
+**CANLI TESTTE BULUNAN GERÇEK REGRESYON (kullanıcı: "muhtemelen deme, kanıtla"):** 3 OpenReview makalesinde (before/after, `PwxYoMvmvy` %89 not_found dahil) `semantic_scholar_recovered: 0` çıktı — hiç işlemedi. Kanıtla bulundu (önce gözlemlenebilirlik eksikti — "denendi ama eşleşmedi" hiç loglanmıyordu, log satırları eklendi, sonra tek referansla canlı test edildi): S2'ye istek GERÇEKTEN gidiyor, **429 dönüyor**, ham S2 yanıtı: *"Too Many Requests... apply for a key for higher rate limits."* Mekanizma doğru (hata sessizce yutulmuyor, WARNING logu var, hiç çökmüyor) ama anonim kota bu iş yükü (makale başına 5-70+ istek) için yetersiz.
+
+**Guardian'ın kritik bulgusu:** bu haliyle commit edilirse her review'a **ölçülebilir gecikme ekliyor** (65 çözülmemiş referanslı makalede dakikalar, `elapsed_s` 387-451s ile doğrulandı) **karşılığında sıfır fayda** üretiyor — "çalışıyor ama etkisiz" değil, "arızalı dış çağrıyı koşulsuz prod'a sokma" (§3.4). Kapatma mekanizması yoktu.
+
+**Düzeltme:** `SEMANTIC_SCHOLAR_API_KEY` config alanı eklendi (boş varsayılan) — key yoksa `search_semantic_scholar` fonksiyonun EN BAŞINDA (rate-limiter'dan ve ağ çağrısından ÖNCE) dürüst hata verir, S2 TAMAMEN devre dışı kalır (yeni test: `transport.calls == 0` ile kanıtlandı). OpenAlex'in `if not cfg.OPENALEX_EMAIL: raise` deseniyle birebir simetrik — yeni icat değil. Bonus: `.env.example`'da zaten var olan ama hiç kullanılmayan `SEMANTIC_SCHOLAR_BASE_URL` gerçekten bağlandı. Guardian 3. tur: itiraz yok, moat etkisi nötr.
+
+**Kenan kararı (2026-08-23): ücretsiz S2 API key alacak.** Key geldiğinde: `.env`'e `SEMANTIC_SCHOLAR_API_KEY=<key>` eklenecek (local) + Render Dashboard → servis → Environment → yeni env var (prod). Sonra aynı 3 makale canlı testi TEKRAR çalıştırılıp `semantic_scholar_recovered`'ın 0'ın üstüne çıktığı doğrulanacak — **bu doğrulama HENÜZ yapılmadı, açık TODO.**
+
+**Doğrulanamayan (C-seviye, açıkça işaretli):** `x-api-key` header adı eğitim verimden — gerçek key ile ilk istekte doğrulanmalı. S2'nin key'li rate-limitinin ne olduğu da doğrulanamadı.
+
+**Kanıt:** `engine/providers/semantic_scholar.py`, `api/services/review_citation_service.py`, `api/config.py`, `api/models/review.py`, `tests/unit/test_semantic_scholar.py` (6 test), `tests/unit/test_review_citation.py` (5 yeni S2 testi), `.env.example` + `.env.production.example`, `eval/review/semantic_scholar_fallback_check_2026-08-23.py`, `eval/review/results/semantic_scholar_fallback_check_2026-08-23.json` (0-sonuç kanıtı). 44 test PASS.
+
 ## Henüz Yapılmayanlar (Sıradaki)
+
+- [ ] **YENİ, BEKLEYEN (§72):** Kenan S2 API key alacak — key gelince `.env` + Render'a eklenip aynı 3-makale canlı testi tekrar çalıştırılmalı, `semantic_scholar_recovered > 0` doğrulanmalı, `x-api-key` header adı gerçek istekle teyit edilmeli.
 
 - [ ] **YENİ (§71):** reject-sınıfı doğruluğu hâlâ zayıf (%12.5, 1/8) — motor "reject" demekten sistematik olarak kaçınıyor, kök neden araştırılmamış.
 - [ ] **YENİ (§71):** soundness↔insan-skoru korelasyonu hâlâ negatif/gürültülü (r=-0.31, n=16) — §47'de de çözülememişti, hâlâ açık.

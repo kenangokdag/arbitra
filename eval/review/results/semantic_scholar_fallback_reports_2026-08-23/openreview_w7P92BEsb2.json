@@ -1,0 +1,1288 @@
+{
+  "paper_id": "openreview:w7P92BEsb2",
+  "run_tag": "s2after",
+  "job_id": "820aba04-7534-4981-9279-895221befaa0",
+  "elapsed_s": 386.9,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "PIED: PHYSICS-INFORMED EXPERIMENTAL DESIGN FOR INVERSE PROBLEMS Apivich Hemachandra∗†, Gregory Kang Ruey Lau∗†‡, †Department of Computer Science, National University of Singapore, Singapore 117417",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "BACKGROUND",
+        "RESULTS",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 17061,
+      "reference_count": 5,
+      "parse_confidence": 0.685,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces PIED (Physics-Informed Experimental Design), a novel and compelling framework for optimizing experimental designs for inverse problems governed by partial differential equations (PDEs). The core contribution is a fully differentiable architecture that leverages Physics-Informed Neural Networks (PINNs) for both forward simulation and inverse problem solving. This approach cleverly bypasses the computational bottlenecks and lack of differentiability associated with traditional numerical solvers. The authors propose two efficient, gradient-based criteria for optimizing the design parameters—FIST (Few-step Inverse Solver Training) and MoTE (Model Training Estimate)—and enhance efficiency further through a meta-learned shared initialization for the PINNs. The framework's effectiveness is demonstrated through a comprehensive suite of experiments, including on challenging function-valued parameter problems and real-world experimental data. The work is a significant step forward for data-efficient scientific discovery in PDE-governed systems.",
+    "strengths": [
+      {
+        "category": "Novelty and Significance",
+        "points": [
+          "The central idea of a fully differentiable, end-to-end experimental design loop using PINNs is highly original and impactful. It provides an elegant solution to the long-standing challenge of optimizing continuous design parameters (e.g., sensor locations) for complex physical systems.",
+          "The framework directly addresses a critical, practical problem in many science and engineering fields: the high cost of data acquisition. By optimizing for the most informative experiments in a 'one-shot' deployment, PIED has the potential to significantly accelerate research and reduce experimental costs."
+        ]
+      },
+      {
+        "category": "Methodology",
+        "points": [
+          "The proposed criteria, FIST and MoTE, are clever and well-motivated approximations of the experimental design objective. They make the optimization problem tractable and efficiently solvable with gradient-based methods.",
+          "The use of first-order meta-learning (REPTILE) to learn a shared PINN initialization is a thoughtful and effective strategy. As demonstrated in Figures 2 and 3, this significantly speeds up training and amortizes computational cost, which is crucial for the framework's practicality."
+        ]
+      },
+      {
+        "category": "Empirical Evaluation",
+        "points": [
+          "The paper is supported by a strong and comprehensive set of experiments. The evaluation spans a diverse range of problems, from canonical PDEs (Wave, Navier-Stokes) to more complex scenarios involving function-valued parameters (Eikonal) and noisy, real-world data (Groundwater flow, Cell growth).",
+          "The results consistently show that PIED outperforms a range of relevant benchmarks (Table 1). The comparison against traditional numerical solvers in Figure 6 provides powerful evidence for the advantages of the PINN-based approach in terms of both accuracy and computational efficiency."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The paper is information-dense, which can make it challenging to follow for readers not deeply familiar with all sub-fields (PINNs, ED, NTK). The conceptual bridge from the main objective in Eq. (8) to the approximate criteria in Sec. 4.2 could be made more explicit and intuitive.",
+          "A substantial amount of important material is located in the appendix. For instance, the 'Tolerable Inverse Parameter' (TIP) criterion (Appendix F.3) is an interesting contribution in its own right, complete with a Bayesian interpretation. Relegating it to the appendix diminishes its visibility and impact."
+        ]
+      },
+      {
+        "category": "Assumptions and Limitations",
+        "points": [
+          "The MoTE criterion relies on the Neural Tangent Kernel (NTK) formalism, which assumes the model operates in a linearized regime. This is a strong assumption for neural networks, and while the authors acknowledge this and propose practical workarounds, a more detailed discussion in the main text about the potential failure modes and their implications would strengthen the paper."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The connection to the broader Bayesian Experimental Design (BED) literature is well-established for the TIP criterion in Appendix F.3.4. This is an excellent analysis. To help readers from the BED community better situate the work, I suggest integrating some of this discussion into the main paper, perhaps briefly mentioning how FIST and MoTE can be viewed as practical alternatives to computing the full Expected Information Gain (EIG).",
+        "evidence_ref": null
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The automated reference check was unable to resolve five citations listed in the appendix. The evidence pack confirms this is due to a documented, temporary service error with the external lookup provider (OpenAlex). This does not indicate any issue with the citations themselves (e.g., fabrication), and no action is required from the authors on this point.",
+        "evidence_ref": "ref[1], ref[2], ref[3], ref[4], ref[5] not_found_in_index"
+      },
+      {
+        "area": "experimental",
+        "comment": "The experimental validation is a major strength of the paper. The inclusion of real-world datasets (Groundwater flow, Cell growth) is particularly commendable, as it demonstrates the framework's robustness to noise and complexities not present in simulated data. The visualizations in Figures 4 and 5 are effective at illustrating how and why the method works.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "How sensitive are the FIST and MoTE methods to their respective hyperparameters, such as the number of partial training steps 'r' for FIST or the perturbation noise? A brief sensitivity analysis or discussion would add value.",
+      "The TIP criterion in Appendix F.3 is an interesting alternative, though Table 3 shows it is generally outperformed by FIST and MoTE. Could you elaborate on your intuition for why this is the case, beyond the 'stronger assumptions' mentioned? Is the performance gap due to computational challenges in approximating the Hessian, or are the underlying approximations less robust in practice?",
+      "The meta-learned shared initialization is a key component for efficiency. How does the final quality of the selected experimental design 'X' degrade if this component is omitted and all PINNs in the ED loop are trained from random initializations? Figure 2 shows faster convergence, but it would be useful to understand the impact on the ultimate ED performance."
+    ],
+    "overall_assessment": "This is a strong paper presenting a novel, well-motivated, and thoroughly evaluated framework for experimental design. The core idea of using a fully differentiable PINN-based pipeline is a significant contribution to the field. The methodology is sound, and the empirical results are convincing across a wide range of challenging problems. The primary areas for improvement relate to presentation—specifically, improving the clarity of some dense sections and better integrating key insights from the extensive appendix into the main text. These are addressable issues that do not detract from the core quality of the work. I recommend the paper for acceptance after minor revisions.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity info. [LLM'in kendi gerekçesi: The concept of a fully differentiable, PINN-based architecture for continuous experimental design is highly novel and represents a new direction for solving this class of problems.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The work addresses a critical and high-value problem in science and engineering: reducing the cost and improving the efficiency of physical experiments."
+      },
+      {
+        "key": "claims_supported",
+        "score": 4.42,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: Claims are strongly supported by a comprehensive and diverse set of experiments, including simulations, function-valued problems, and real-world data.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The overall methodology is sound. The score is slightly tempered because the MoTE criterion relies on the strong NTK/linearization assumption, though the authors are transparent about this.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is well-written but very dense. The structure could be improved by making some explanations more intuitive and better integrating key concepts from the appendix into the main body.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.0,
+        "rationale": "This work will be of high interest to researchers in machine learning for science, computational physics, and any domain dealing with expensive experiments for inverse problems."
+      },
+      {
+        "key": "contextualization",
+        "score": 8.0,
+        "rationale": "The paper is well-situated within the PINN literature. Its connection to the broader Bayesian Experimental Design literature could be made more explicit in the main text."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack found no fabricated or retracted citations. A small number of references could not be resolved by the automated checker, but the pack confirms this is due to a temporary external service error and is not evidence of a flaw in the paper.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missing seminal works. The related work section appears comprehensive and covers relevant prior art in PINNs and ED.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not contain any statistical checks, and therefore no inconsistencies were found.]"
+      }
+    ],
+    "final_score": 8.52,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 5,
+        "resolved": 0,
+        "not_found_in_index": 5,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 5
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Alen Alexanderian. Optimal experimental design for infinite-dimensional Bayesian inverse problems governed by PDEs: a review. Inverse Problems, 37(4):043001, March 2021. ISSN 0266-5611. Publisher: IOP Publishing. Alen Alexanderian, Ruanui Nicholson, and Noemi Petra. Optimal design of large-scale nonlinear bayesian inverse problems under model uncertainty. Inverse Problems, 40(9):095001, 2024. Maximilian Balandat, Brian Karrer, Daniel R. Jiang, Samuel Daulton, Benjamin Letham, An- drew Gordon Wilson, and Eytan Bakshy. BoTorch: A Framework for Efficient Monte-Carlo Bayesian Optimization. In Proc. NeurIPS, 2020. Toshiyuki Bandai and Teamrat A. Ghezzehei. Forward and inverse modeling of water flow in unsatu- rated soils with discontinuous hydraulic conductivities using physics-informed neural networks with domain decomposition. Hydrology and Earth System Sciences, 26(16):4469–4495, August 2022. ISSN 1027-5606. Publisher: Copernicus GmbH. Joakim Beck, Ben Mansour Dia, Luis FR Espath, Quan Long, and Raul Tempone. Fast Bayesian experimental design: Laplace-based importance sampling for the expected information gain. Computer Methods in Applied Mechanics and Engineering, 334:523–553, June 2018. ISSN 00457825. Mohamed Ishmael Belghazi, Aristide Baratin, Sai Rajeshwar, Sherjil Ozair, Yoshua Bengio, Aaron Courville, and Devon Hjelm. Mutual Information Neural Estimation. In Proc. ICML, pp. 531–540, July 2018. Lorenz T. Biegler, Omar Ghattas, Matthias Heinkenschloss, and Bart van Bloemen Waanders. Large-Scale PDE-Constrained Optimization: An Introduction. In Large-Scale PDE-Constrained Optimization, pp. 3–13, Berlin, Heidelberg, 2003. Springer. ISBN 978-3-642-55508-4. Sacha Binder. Wave equation simulations 1d/2d (équation de d’alembert). https://github. com/sachabinder/wave_equation_simulations, 2021. Mathieu Blondel, Quentin Berthet, Marco Cuturi, Roy Frostig, Stephan Hoyer, Felipe Llinares-López, Fabian Pedregosa, and Jean-Philippe Vert. Efficient and modular implicit differentiation. arXiv, 2021. Joseph Boussinesq. Recherches théoriques sur l’écoulement des nappes d’eau infiltrées dans le sol et sur le débit des sources. Journal de Mathématiques Pures et Appliquées, 10:5–78, 1904. James Bradbury, Roy Frostig, Peter Hawkins, Matthew James Johnson, Chris Leary, Dougal Maclau- rin, George Necula, Adam Paszke, Jake VanderPlas, Skye Wanderman-Milne, and Qiao Zhang. JAX: Composable transformations of Python+NumPy programs, 2018. Shengze Cai, Zhicheng Wang, Sifan Wang, Paris Perdikaris, and George Em Karniadakis. Physics- Informed Neural Networks for Heat Transfer Problems. Journal of Heat Transfer, 143(6):060801, June 2021. ISSN 0022-1481, 1528-8943. K. Chadan, P. C. Sabatier, and R. G. Newton. Inverse Problems in Quantum Scattering Theory. Springer Berlin Heidelberg, Berlin, Heidelberg, 1989. ISBN 978-3-642-83319-9 978-3-642-83317- 5. 11 Kathryn Chaloner and Isabella Verdinelli. Bayesian Experimental Design: A Review. Statistical Science, 10(3), August 1995. ISSN 0883-4237. Yuyao Chen, Lu Lu, George Em Karniadakis, and Luca Dal Negro. Physics-informed neural networks for inverse problems in nano-optics and metamaterials. Optics Express, 28(8):11618, April 2020. ISSN 1094-4087. Zhao Chen, Yang Liu, and Hao Sun. Physics-informed learning of governing equations from scarce data. Nature Communications, 12(1):6136, December 2021. ISSN 2041-1723. Zhiliang Chen, Gregory Kang Ruey Lau, Chuan-Sheng Foo, and Bryan Kian Hsiang Low. Duet: Optimizing training data mixtures via feedback from unseen evaluation tasks. arXiv preprint arXiv:2502.00270, 2025. Zhongxiang Dai, Gregory Kang Ruey Lau, Arun Verma, Yao Shu, Bryan Kian Hsiang Low, and Patrick Jaillet. Quantum Bayesian Optimization. In Proc. NeurIPS, 2023a. Zhongxiang Dai, Quoc Phong Nguyen, Sebastian Shenghong Tay, Daisuke Urano, Richalynn Leong, Bryan Kian Hsiang Low, and Patrick Jaillet. Batch Bayesian Optimization for Replicable Experi- mental Design. In Proc. NeurIPS, November 2023b. Adam Foster, Martin Jankowiak, Elias Bingham, Paul Horsfall, Yee Whye Teh, Thomas Rainforth, and Noah Goodman. Variational Bayesian Optimal Experimental Design. In Proc. NeurIPS, volume 32, 2019. Peter I. Frazier. A Tutorial on Bayesian Optimization. arXiv, 2018. Mattia Gazzola, Levi H. Dudte, A. G. McCormick, and Lakshminarayanan Mahadevan. Forward and inverse problems in the mechanics of soft filaments. Royal Society Open Science, 5(6), June 2018. Omar Ghattas and Karen Willcox. Learning physics-based models from data: perspectives from inverse problems and model reduction. Acta Numerica, 30:445–554, May 2021. ISSN 0962-4929, 1474-0508. Apivich Hemachandra, Zhongxiang Dai, Jasraj Singh, See-Kiong Ng, and Bryan Kian Hsiang Low. Training-free neural active learning with initialization-robustness guarantees. In Proc. ICML, pp. 12931––12971, July 2023. Desi R. Ivanova, Adam Foster, Steven Kleinegesse, Michael U. Gutmann, and Thomas Rainforth. Implicit Deep Adaptive Design: Policy-Based Experimental Design without Likelihoods. In Proc. NeurIPS, volume 34, pp. 25785–25798, 2021. Arthur Jacot, Franck Gabriel, and Clement Hongler. Neural Tangent Kernel: Convergence and Generalization in Neural Networks. In Proc. NeurIPS, volume 31, 2018. Ameya D. Jagtap, Zhiping Mao, Nikolaus Adams, and George Em Karniadakis. Physics-informed neural networks for inverse problems in supersonic flows. Journal of Computational Physics, 466: 111402, October 2022. ISSN 00219991. Wang Jin, Esha T. Shah, Catherine J. Penington, Scott W. McCue, Lisa K. Chopin, and Matthew J. Simpson. Reproducibility of scratch assays is affected by the initial degree of confluence: Experi- ments, modelling and model selection. Journal of Theoretical Biology, 390:136–145, February 2016. ISSN 0022-5193. Pang Wei Koh and Percy Liang. Understanding Black-box Predictions via Influence Functions. In Proc. ICML, pp. 1885–1894, July 2017. Andreas Krause, Ajit Singh, and Carlos Guestrin. Near-Optimal Sensor Placements in Gaussian Processes: Theory, Efficient Algorithms and Empirical Studies. The Journal of Machine Learning Research, 9:235–284, June 2008. ISSN 1532-4435. John H. Lagergren, John T. Nardini, Ruth E. Baker, Matthew J. Simpson, and Kevin B. Flores. Biologically-informed neural networks guide mechanistic modeling from sparse experimental data. PLoS Computational Biology, 16(12):e1008462, December 2020. ISSN 1553-734X. 12 Gregory Kang Ruey Lau, Apivich Hemachandra, See-Kiong Ng, and Bryan Kian Hsiang Low. PINNACLE: PINN Adaptive ColLocation and Experimental points selection. In Proc. ICLR, April 2024a. Gregory Kang Ruey Lau, Wenyang Hu, Liu Diwen, Chen Jizhuo, See-Kiong Ng, and Bryan Kian Hsiang Low. Dipper: Diversity in prompts for producing large language model ensem- bles in reasoning tasks. In NeurIPS 2024 Workshop on Foundation Model Interventions (MINT), 2024b. Jaehoon Lee, Yasaman Bahri, Roman Novak, Samuel S. Schoenholz, Jeffrey Pennington, and Jascha Sohl-Dickstein. Deep Neural Networks as Gaussian Processes. arXiv, March 2018. Jaehoon Lee, Lechao Xiao, Samuel S. Schoenholz, Yasaman Bahri, Roman Novak, Jascha Sohl- Dickstein, and Jeffrey Pennington. Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent. Journal of Statistical Mechanics: Theory and Experiment, 2019(12): 124002, December 2019. ISSN 1742-5468. Vincent Lim, Ellen Novoseller, Jeffrey Ichnowski, Huang Huang, and Ken Goldberg. Policy-Based Bayesian Experimental Design for Non-Differentiable Implicit Models. arXiv, March 2022. Xu Liu, Xiaoya Zhang, Wei Peng, Weien Zhou, and Wen Yao. A novel meta-learning initialization method for physics-informed neural networks. Neural Computing and Applications, 34:14511 – 14534, 2021. Quan Long, Marco Scavino, Raúl Tempone, and Suojin Wang. Fast estimation of expected information gains for Bayesian experimental designs based on Laplace approximations. Computer Methods in Applied Mechanics and Engineering, 259:24–39, June 2013. ISSN 0045-7825. Quan Long, Mohammad Motamed, and Raúl Tempone. Fast Bayesian optimal experimental design for seismic source inversion. Computer Methods in Applied Mechanics and Engineering, 291: 123–145, July 2015. ISSN 0045-7825. Jay I. Myung, Daniel R. Cavagnaro, and Mark A. Pitt. A tutorial on adaptive design optimization. Journal of Mathematical Psychology, 57(3):53–67, June 2013. ISSN 0022-2496. Quoc Phong Nguyen, Bryan Kian Hsiang Low, and Patrick Jaillet. An information-theoretic frame- work for unifying active learning problems. In Proc. AAAI, pp. 9126–9134, 2021. Alex Nichol, Joshua Achiam, and John Schulman. On First-Order Meta-Learning Algorithms. arXiv, October 2018. arXiv:1803.02999 [cs]. Tom Rainforth, Adam Foster, Desi R. Ivanova, and Freddie Bickford Smith. Modern Bayesian Experimental Design. arXiv, February 2023. Maziar Raissi, Paris Perdikaris, and George E. Karniadakis. Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations. Journal of Computational Physics, 378:686–707, February 2019. ISSN 0021-9991. Mohsen Razavy. An Introduction to Inverse Problems in Physics. World Scientific, July 2020. ISBN 9789811221668 9789811221675. James A. Sethian. A fast marching level set method for monotonically advancing fronts. Proceedings of the National Academy of Sciences, 93(4):1591–1595, February 1996. ISSN 0027-8424, 1091- 6490. Mohammad Afzal Shadab, Dingcheng Luo, Eric Hiatt, Yiran Shen, and Marc Andre Hesse. Investi- gating steady unconfined groundwater flow using Physics Informed Neural Networks. Advances in Water Resources, 177:104445, July 2023. ISSN 0309-1708. Jonathan D. Smith, Kamyar Azizzadenesheli, and Zachary E. Ross. EikoNet: Solving the Eikonal equation with Deep Neural Networks. IEEE Transactions on Geoscience and Remote Sensing, 59 (12):10685–10696, December 2021. ISSN 0196-2892, 1558-0644. 13 Masataka Tanaka and Huy Duong Bui (eds.). Inverse Problems in Engineering Mechanics: IUTAM Symposium Tokyo, 1992. Springer Berlin Heidelberg, Berlin, Heidelberg, 1993. ISBN 978-3-642- 52441-7 978-3-642-52439-4. John Taylor. Classical Mechanics. Information and Interdisciplinary Subjects Series. University Science Books, 2005. ISBN 9781891389221. Aad van der Vaart. Asymptotic Statistics. Asymptotic Statistics. Cambridge University Press, 2000. ISBN 9780521784504. Curtis R. Vogel. Computational Methods for Inverse Problems. Society for Industrial and Applied Mathematics, January 2002. ISBN 978-0-89871-550-7 978-0-89871-757-0. Umair bin Waheed, Ehsan Haghighat, Tariq Alkhalifah, Chao Song, and Qi Hao. PINNeik: Eikonal solution using physics-informed neural networks. Computers & Geosciences, 155:104833, October 2021. ISSN 0098-3004. Sifan Wang, Xinling Yu, and Paris Perdikaris. When and why PINNs fail to train: A neural tangent kernel perspective. Journal of Computational Physics, 449:110768, January 2022. ISSN 0021- 9991. Malcolm C. A. White, Hongjian Fang, Nori Nakata, and Yehuda Ben-Zion. PyKonal: A Python Package for Solving the Eikonal Equation in Spherical and Cartesian Coordinates Using the Fast Marching Method. Seismological Research Letters, 91(4):2378–2389, June 2020. ISSN 0895-0695. Chenxi Wu, Min Zhu, Qinyang Tan, Yadhu Kartha, and Lu Lu. A comprehensive study of non- adaptive and residual-based adaptive sampling for physics-informed neural networks. Computer Methods in Applied Mechanics and Engineering, 403:115671, 2023. ISSN 0045-7825. Zhaoxuan Wu, Yao Shu, and Bryan Kian Hsiang Low. DAVINZ: Data Valuation using Deep Neural Networks at Initialization. In Proc. ICML, pp. 24150–24176, June 2022. Xinyi Xu, Zhaoxuan Wu, Arun Verma, Chuan Sheng Foo, and Bryan Kian Hsiang Low. FAIR: Fair collaborative active learning with individual rationality for scientific discovery. In Proc. AISTATS, 2023. 14 A REPRODUCIBILITY STATEMENT The codes for our implementation, scripts for running experiments and the required dataset are attached in the supplementary materials of the paper submission. B NOTATIONS Table 2: List of notations used throughout the paper Symbol Meaning Example D PDE operator (1) B Boundary condition operator (1) X Input domain (1) ∂X Boundary of input domain (1) S Set of feasible observation inputs β PDE parameter (1) uβ Solution for (1) with PDE parameter β (2) β̂ Estimate of PDE parameter from inverse solver (2) θ NN parameter (4) ûθ NN with parameters θ (4) L PINN training loss (4) Lobs Observation loss for PINN (4) LPDE Collocation points loss for PINN (4) F Forward simulator (5) ũβi PINN, with NN parameter θi, which estimates uβi (5) OX Observation selector with input X (6) Ỹ Mock observation output from ũβi(X) (6) I Inverse solver (7) α ED criterion without inverse ensemble approximation (8) αi ED criterion computed based on outputs of thread i of framework (8) γ Parameterization for observation input (23) Xγ Observation input corresponding to parameter γ (23) Sγ Set of valid observation input parameterization (23) ∇x Derivative or Jacobian w.r.t. x ∇2 x Hessian w.r.t. x [a, b] Closed interval between a and b C RELATED WORKS Inverse problems. Inverse problem (IP) (Vogel, 2002; Ghattas & Willcox, 2021) is an commonly studied class of problem in many science and engineering disciplines such as classical mechanics (Tanaka & Bui, 1993; Gazzola et al., 2018), quantum mechanics (Chadan et al., 1989) or geophysics (Smith et al., 2021; Waheed et al., 2021). Many methods of solving IPs have been proposed, often involving minimizing the objective as stated in (2), possibly with addition of some regularization terms. One such method is by using the Newton-conjugate gradient method (Biegler et al., 2003; Ghattas & Willcox, 2021) to optimize the objective as stated in (2). However, the method relies on finding the optimal β through gradient update steps, which requires computing the gradient and Hessian of the objective function with respect to β. The computation of the gradient and Hessian is often done by reformulating the IP (which can be viewed as a constrained optimization problem) to instead be based on the Lagrangian, then using adjoint methods to compute the corresponding gradient or Hessian (Ghattas & Willcox, 2021). This typically results in gradient and Hessian computations requiring only some finite rounds of forward simulations instead. The computed Hessian can often also be used in Laplace’s approximation in order to obtain a posterior distribution p(β|X, Y ) for the inverse parameter (Long et al., 2013; Beck et al., 2018; Ghattas & Willcox, 2021). However, this method is still restrictive since it may involve careful analysis of the PDE that is involved in the IP in order to form the correct Lagrangian and compute the adjoint. Furthermore, one gradient computation would require one forward simulation of the system, which is prohibitive if the forward simulation step itself is expensive. 15 Physics-informed neural networks. In recent years, physics-informed neural networks (PINNs) have been proposed as another method used to both perform forward simulations of PDE-based problems (Raissi et al., 2019) and for solving IPs (Raissi et al., 2019). PINNs solve PDEs by parameterizing the PDE solution using a neural network (NN), then finding the NN parameter such that the resulting NN obeys the specified PDE and the IC/BCs. This is done so via collocation points, which are pseudo-training points for enforcing the PDE and IC/BC soft constraints. PINNs are difficult to train in many PDE instances, such as when the solution is known to have higher frequencies (Wang et al., 2022). As a result, many works have been proposed in improving the trianing of PINNs by rescaling the loss functions of PDEs (Wang et al., 2022), or through more careful selection of collocation points (Wu et al., 2023; Lau et al., 2024a). Experimental design. Typically, in solving IPs, the observational data will not be available right away, but instead has to be measured from some physical system. Due to the costs in making measurements of data, it is important that the observations made are carefully chosen to maximize the amount of information that can be obtained from the observations. Experimental design (ED) is a problem which attempts to find out what the best data to observe in order to gather the most information about the unknown quantity of interest (Rainforth et al., 2023). ED is closely related to data selection, active learning (Nguyen et al., 2021; Hemachandra et al., 2023; Lau et al., 2024b; Xu et al., 2023) and Bayesian optimization (Dai et al., 2023a;b; Chen et al., 2025), where the aim is to select input data so that we are able to recover the unknown function or the optimum of the unknown function. A certain variant often considered in ED is Bayesian experimental design (BED). In the BED framework, we assume a prior p(β) on the inverse parameter to compute. For a given design parameter d, the system observes some output y. p(β|d, y) = p(y|β, d) p(β) Eβ∼p(β) \u0002 p(y|β, d) \u0003. (10) Given the inference we can compute the expected information gain (EIG), which is sometimes also known as the Bayesian D-optimal criterion. EIG criterion is defined as the expected Kullback-Leibler divergence between the prior p(β) and the posterior p(β|d, y), averaged over the possible observations y. More formally, this can be written as EIG(d) = Ey∼p(y|d) \u0002 DKL p(β|d, y)∥p(β) \u0001\u0003 = H[p(β)] −Ey′∼p(y|d) \u0002 H[p(β|d, y = y′)] \u0003 (11) where the posterior is defined in (10). A naive approximation technique is to perform a nested Monte Carlo (NMC) approximation (Myung et al., 2013). EIG(d) ≈1 N N X i=1 log p(yi|βi,0, d) 1 M PM j=1 p(yi|βi,j, d) (12) where βi,0, βi,1, . . . , βi,j ∼p(β) and yi ∼p(y|βi,0, d). The estimate approaches the true EIG as N, M →∞. In practice, however, using the NMC estimator results in a biased estimtor for finite N and M, and results in slow convergence with N and M. To improve on the NMC estimator, various schemes have been proposed mainly to remove the need to perform two nested MC rounds, including variational methods (Foster et al., 2019) and Laplace approximation methods (Long et al., 2015; Beck et al., 2018). D EXAMPLES OF PDES CONSIDERED IN THIS PAPER In this section, we provide an extensive list of PDEs which are considered in our experimental setup, and the ED setup and dataset used in our experiments. We divide them into PDEs where our experiments are based on simulation data (generated either from some closed-form solution or some numerical simulators), and PDEs which are based on real data (collected from physical experiments). The latter provides an interesting use case for PIED since it is able to demonstrate its performance on realistic scenarios with real noisy data. 16 D.1 PDES WITH SIMULATION DATA Damped oscillator. The damped oscillator is one of the introductory second-order ordinary differ- ential equation (ODE) in classical mechanics (Taylor, 2005). We consider the example due to the existence of a closed-form solution and its nice interpretation under our ED framework. Imagine a mass-spring system which is laid horizontally. The spring has spring constant k and experiences a resistive force which is proportional to its current speed, where the constant of proportionality is µ. We let the attached mass have a mass of M. We also assume the case where there are no external driving forces on the system. By applying the relevant forces into Newton’s law of motion, the displacement of the mass x(t) can be expressed by the differential equation M d2x dt2 + µdx dt + kx = 0. (13) Given the IC of x(0) = x0 and dx dt (0) = v0, we can write the solution as (Taylor, 2005) x(t) =      Ae−γt cos( p ω2 0 −γ2t + ϕ) if γ < ω0, (Bt + C)e−ω0t if γ = ω0, De−(γ+√ γ2−ω2 0)t + Fe−(γ−√ γ2−ω2 0)t if γ > ω0, (14) where γ = µ/2M, ω0 = p k/M, and A, ϕ, B, C, D, F are constants which depends on x0 and v0. In our experiments, we assume we know the system follows the PDE as in (13), with some known value of x0 ∈[0, 1] and v0 ∈[−1, 1]. We set M = 1, and would like to compute the values for µ ∈[0, 4] and k ∈[0, 4]. In our IP, we are allowed to make three noisy observations at three timesteps t1, t2, t3 ∈[0, 20], which can be chosen arbitrarily. We note that while it is unrealistic for these measurements to be made arbitrarily, we do so in order to be able to construct a simple toy example which can be experimented with. The resulting true observation were computed using the closed form solution in (14), and has added noise with variance 10−3. Wave equation. For simplicity, we consider the 1D wave equation, which is given by ∂2u ∂t2 = v2 ∂2u ∂x2 (15) where v represents the speed of wave propagation, which may be a scalar or a function of x. In the inevrse problem setup, one may be required to recover the wave velocity v given measurements of u(x, t). In our experiments, we assume we have a system which follows the wave equation given by (15) over the domain x ∈[0, 6] and t ∈[0, 6]. We fix the IC u(x, 0), and assume the wave velocity in the form v(x) =        0 if x = 0, v1 if 0 < x < 4, v2 if 4 ≤x < 6, 0 if x = 6. (16) In this case, v1, v2 ∈[0.5, 2] are the PDE parameters to be recovered in the IP. In the ED problem, we restrict the points to be placed only at regular time intervals, i.e., following (25) where we restrict γ1, γ2, γ3 ∈[0, 6] and let t ∈{0, 0.2, 0.4, . . . , 6}. The true observations are numerically generated using code from Binder (2021), with outputs interpolated on continuous domain and truncated to the nearest 6 decimal places to simulate cases where measurements can only be made up to a finite precision. Examples of these possible solutions can be found in Fig. 7. Navier-Stokes equation. Navier-Stokes equation is a well-studied PDE which describes the dy- namics of a fluid. In our experiment, we consider the stream function of an incompressible 2D fluid, 17 (a) v1 = 1.34, v2 = 1.43 0 2 4 6 x 0 2 4 6 t 0.96 0.72 0.48 0.24 0.00 0.24 0.48 0.72 0.96 (b) v1 = 1.81, v2 = 1.12 0 2 4 6 x 0 2 4 6 t 1.25 1.00 0.75 0.50 0.25 0.00 0.25 0.50 0.75 1.00 (c) v1 = 0.61, v2 = 1.45 0 2 4 6 x 0 2 4 6 t 0.36 0.18 0.00 0.18 0.36 0.54 0.72 0.90 Figure 7: Examples of solutions for wave equation (15) with wavespeed in the form in (16). The blue points are example of possible set of observations which are made at fixed timesteps. which can be written as ∂u ∂t + ρ \u0012 u∂u ∂x + v ∂u ∂y \u0013 = −∂p ∂x + µ \u0012∂2u ∂x2 + ∂2u ∂y2 \u0013 , (17) ∂v ∂t + ρ \u0012 u∂v ∂x + v ∂v ∂y \u0013 = −∂p ∂y + µ \u0012∂2v ∂x2 + ∂2v ∂y2 \u0013 , (18) ∂u ∂x + ∂v ∂y = 0. (19) In our IP, we consider the steady state flow inside a pipe, where we let ∂tu = ∂tv = 0. Then, the velocities u(x, y), v(x, y) and the pressure p(x, y) are only dependent on the 2D spatial coordinates. We assume the viscosity µ is given and the goal is to recover the density ρ. In the ED problem, we are allowed to freely choose the spatial location to make measurements of u, v, p. The ground truth data is simulated using ANSYS Fluent. Eikonal equation. Consider the Eikonal problem setup, which is often use to reconstruct material composition of some region based on how waves propagated through the medium reacts. Its equation relates the wave speed v(x) at a point and the wave propagation time T(x) at a point with PDE given by (Smith et al., 2021) T(x) = ∇v(x) \u0001−1 with T(x0) = 0 (20) where x0 is where the wave propagates from. The goal of the IP is to recover the true function v. However, this involves conducting seismic activities at different set values of x0, and obtaining the corresponding reading for T(x) at specified values of x. In our experiments, we assume that we have a system which follows the equation specified in (20), and the goal is to recover the values of v(x) for the entire domain. We fix x0, then for each IP instance, we draw a random ground truth v(x) using a NN with a random initialization. For the ED problem, the aim is to find 30 random observations from the 2D input domain [0, 5] × [0, 5] to observe values of T(x). The observation inputs are only required to be within the input domain. The true observations are generated using PYKONAL package (White et al., 2020), with outputs interpolated on continuous domain and truncated to the nearest 3 decimal places to simulate cases where measurements can only be made up to a finite precision D.2 PDES WITH REAL DATA We now describe some of the PDEs we have conducted experiments with where real-life data are available for. Note that real-life experimental data is often scarce, and often the true PDE parameters are not readily available. To obtain some ground-truth values for the inverse problem, we attempt to use the reported values from the corresponding data source when we can. In the case where this is not possible, we resort to numerically computing the PDE parameters using the whole training set. 18 Groundwater flow. In our scenario, we consider the steady-state Dupuit-Boussinesq equation (Boussinesq, 1904), which is given by d dx \u0012 Khdh dx \u0013 = 0 (21) where K is the hydraulic conductivity. In our experiments, we use the data provided in (Shadab et al., 2023), which reports the flow profile of some liquid at various flow rates across a cell filled with 2mm beads. In this dataset, we treat the hydraulic conductivity K as an unknown quantity we would like to recover in our inverse problem. In the ED problem, the algorithms have to choose values of x to make the observations h(x). Cell growth. Scratch assay experiments can often be modelled via a reaction-diffusion PDE (Jin et al., 2016), which can be written as ∂ρ ∂t = c1 ∂2ρ ∂x2 + F[ρ] (22) where F[ρ] is some function of ρ and c1 is an unknown constant.",
+          "title": ", with outputs interpolated on continuous domain and truncated to the nearest 6 decimal places to simulate cases where measurements can only be made up to a finite precision",
+          "authors": [
+            "Beck et al.., 2018",
+            "Hemachandra et al.., 2023",
+            "Lau et al.., 2024b",
+            "Xu et al.., 2023) and Bayesian optimization (Dai et al.., 2023a"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 2,
+          "raw": "In our experiments, we use the scratch assay data collected by Jin et al. (2016), whose dynamics have also been studied in other subsequent papers Lagergren et al. (2020); Chen et al. (2021). Based on",
+          "title": ", whose dynamics have also been studied in other subsequent papers Lagergren et al",
+          "authors": [
+            "In our experiments, we use the scratch assay data collected by Jin et al.."
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 3,
+          "raw": "Chen et al. (2021), we will let F[ρ] = c2ρ+c3ρ2 in our case, where c2 and c3 are unknown. The data is collected at five timesteps every 12 hours for a total of 48 hours. We use the values obtained by",
+          "title": ", we will let F[ρ] = c2ρ+c3ρ2 in our case, where c2 and c3 are unknown",
+          "authors": [
+            "Chen et al.."
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 4,
+          "raw": "Chen et al. (2021) as the ground truth values for c1, c2, c3. In our ED problem, the IP with the initial population values ρ(x, t = 0) are given, and the algorithms choose the values of x to query the cell population at, where the corresponding values will be provided at each of the other four timesteps. E PARAMETERIZATION OF INPUT POINTS Due to operational constraints, the observation input X often cannot be set arbitrarily, but is instead restricted to some feasible set S ⊂X M. For example, the observations may be only be possible at specific time intervals, or must be placed in certain spatial configurations like a regular grid. Hence, unlike existing ED works, we allow for both freely-chosen observation inputs and constrained configurations which can be parameterized by some design parameter γ ∈Sγ ⊂Rd where d ≤Mdin. Specifically, we consider S of the form S = \b Xγ : γ ∈Sγ where Xγ = \b xγ,j M j=1. (23) In this form, finding the X which optimizes some criterion is then the same as performing optimization on γ instead, which can be seen as a continuous optimization problem. To better illustrate the input points parameterization method, we provide some examples of possible methods to constrain the input points and how they be expressed in the appropriate forms. Fig. 8 graphically demonstrate what some of these observation input constraints may look like. (a) Free point placement 0 2 4 x1 0 2 4 x2 (b) Regular time intervals 0 1 2 3 4 x 0 2 4 t (c) Regular grid (1D) 0 1 2 4 x Figure 8: Examples of observation input placements. 19 Points placed freely in input space. In this case, the points can be placed anywhere in X without restriction. To parameterize this, we define d = Mdin, and define Xγ = nγ1 γ2 · · · γdin \u0001 , γdin+1 γdin+2 · · · γ2din \u0001 , . . . , γMdin−din γMdin−din+1 · · · γMdin \u0001o (24) Points placed at regular time intervals. In this case, we assume the points are placed at chosen spatial locations, and makes measurements at fixed time intervals t1, t2, . . . , tf. This is realistic in the case where the PDE solution evolves over time, and so it makes sense to fix the location of the sensor but allow it to make readings throughout the evolution of the system over time. In this case, γ only needs to encode the spatial location where the sensors should be placed. Specifically, if there is one spatial dimension, then the parameterization for the sensors can be chosen as Xγ = n (x, t) : x ∈ \b γ1, γ2, . . . , γd and t ∈ \b t1, t2, . . . , tf o . (25) Points placed in a regular grid. In this case, the points are placed in a regular grid at regular intervals. This provides one way to add extra constraints for sensor configurations to reduce the dimension of the problem. For demonstration, in 1D problems, if we want to allow placement of s sensors in total, we can let d = 2 and parameterize the sensor placements as Xγ = \u001a γ1, γ1 + γ2 −γ1 s −2 , γ1 + 2 · γ2 −γ1 s −2 , . . . , γ2 \u001b . (26) F FURTHER DETAILS ABOUT THE EXPERIMENTAL DESIGN CRITERION We describe the criteria used further. Note that we adjust the notations to incorporate the parameteri- zation of input as discussed in App. E. F.1 FEW-STEP INVERSE SOLVER TRAINING CRITERION F.1.1 PSEUDOCODE FOR CRITERION COMPUTATION Algorithm 1 Criterion estimation by Few-step Inverse Solver Training 1: function α̂FIST,i(Xγ) 2: // Perturbation of NN and estimated PDE parameters 3: ¯θ ←θi + εθ where εθ ∼N(0, σ2) 4: ¯β ←βi + εβ where εβ ∼N(0, σ2) 5: Ỹγ ←ũβi(Xγ) 6: // Partial training stage 7: Initialize (θ(0), β(0)) 8: for j = 1, . . . , r do 9: // The training may be replaced with other gradient-based methods as well in practice 10: θ(j) ←θ(j−1) −η∇θL(θ(j−1), β̂(j−1); Xγ, Ỹγ) 11: β̂(j) ←β̂(j−1) −η∇βL(θ(j−1), β̂(j−1); Xγ, Ỹγ) 12: return −∥β̂(r) −βi∥2 Furthermore, a large value of r can also make the criterion not differentiable in practice due to the need to perform back-propagation over the gradient descent update steps. Fortunately, we find that in our experiments, using r ≤200 is usually sufficient given the correct perturbation noise level is set. F.2 MODEL TRAINING ESTIMATE CRITERION F.2.1 ASSUMPTIONS AND PROOF OF (9) In this section, we describe the approximation of training dynamics used in Model Training Estimate, which relies on approximation of NN training using NTKs (Jacot et al., 2018) and has been used 20 extensively in various active learning and data valuation methods (Wu et al., 2022; Hemachandra et al., 2023; Lau et al., 2024a). We consider PINNs in the linearized regime to demonstrate the validity of the approximation given in (9). The results will be an extension from that given in (Lee et al., 2019), and is an assumption that has been used in past PINN works (Lau et al., 2024a). For convenience, we will drop the subscript and write the learnable PDE parameter as β̂ and the NN parameters as θ. We first recall the assumptions for the linearized regime of NNs. Following past works on the NTK for NNs (Jacot et al., 2018; Lee et al., 2019) and PINNs (Lau et al., 2024a), we assume that ûθ(x) ≈ûθ(0)(x) + J(0) γ,θ(θ −θ(0)) (27) and D[ûθ, β̂](x) ≈D[ûθ(0), β̂(0)](x) + h J(0) p, β̂ J(0) p,θ i \u0014β̂ −β̂(0) θ −θ(0) \u0015 . (28) We briefly discuss the consequences of this approximation. The linearized regime only holds when the learned parameters are similar to the initial parameters, which based on past works will hold when the NN is wide enough or when the NN is near convergence. This is unlikely to hold in the real training of PINNs, except in the case where the initialized parameters are already close to the true converged parameters anyway. Nonetheless, in our work, we do not use the assumptions to make actual predictions on the PDE parameters in the IP, however only use it to predict the direction of descent for γ, which would only use the local values anyway. Furthermore, we can also perform some pre-training in order to get closer to the converged parameters first as well to make the assumptions more valid. Let β̂(t) and θ(t) be the learned PDE parameter and NN parameter respectively at step t of the GD training. We will write J(t) γ,θ = ∇θûθ(t)(Xγ), J(t) p,θ = ∇θD[ûθ(t), β̂(t)](Xp), and J(t) p, β̂ = ∇βD[ûθ(t), β̂(t)](Xp) (note that ∇βûθ(t)(Xγ) = 0). We can then write the GD training step as ∂ ∂t \u0014β̂(t) θ(t) \u0015 = −η \u0014 ∇βL(θ(t), β̂(t); Xγ, Y ) ∇θL(θ(t), β̂(t); Xγ, Y ) \u0015 (29) = −η \" 0 J(t) p,β J(t) γ,θ J(t) p,θ # | {z } J (t) γ \u0014 ûθ(t)(Xγ) −Ỹγ D[ûθ(t), β̂(t)](Xp) −f(Xp) \u0015 . (30) Under the linearized regime, we can see that, J(t) γ,θ ≈J(0) γ,θ, J(t) p, β̂ ≈J(0) p, β̂ and J(t) p,θ ≈J(0) p,θ. We can use these approximations to obtain ∂ ∂t \u0014β̂(t) −β̂(0) θ(t) −θ(0) \u0015 = ∂ ∂t \u0014β̂(t) θ(t) \u0015 (31) ≈−ηJ (0) γ J (0) γ ⊤\u0014β̂(t) −β̂(0) θ(t) −θ(0) \u0015 −ηJ (0) γ \u0014 ûθ(0)(Xγ) −Ỹγ D[ûθ(0), β̂(0)](Xp) −f(Xp) \u0015 (32) which can be solved to give \u0014β̂(t) −β̂(0) θ(t) −θ(0) \u0015 = −J (0) γ ⊤(J (0) γ J (0) γ ⊤)−1I −e−ηJ (0) γ J (0) γ ⊤t\u0001 \u0014 ûθ(0)(Xγ) −Ỹγ D[ûθ(0), β̂(0)](Xp) −f(Xp) \u0015 . (33) At convergence, i.e., when t →∞, we can reduce the results for β̂(∞) −β̂(0) as β̂(∞) −β̂(0) ≈ \" 0 J(0) p,β ⊤ # (J (0) γ J (0) γ ⊤)−1 \u0014 ûθ(0)(Xγ) −Ỹγ D[ûθ(0), β̂(0)](Xp) −f(Xp) \u0015 (34) as claimed in (9). 21 F.2.2 PSEUDOCODE FOR CRITERION COMPUTATION Algorithm 2 Criterion estimation by Model Training Estimate 1: function α̂MOTE,i(γ) 2: Ỹγ ←ũβi(Xγ) 3: if reuse forward PINN parameters then 4: θ(j) ←perturbed version of forward PINN parameters 5: β̂(j) ←perturbed version of βi 6: else 7: Initialize (θ(0), β(0)) ▷Can set θ(0) to θSI as well 8: for j = 1, . . . , r do 9: // The training may be replaced with other gradient-based methods as well in practice 10: θ(j) ←θ(j−1) −η∇θL(θ(j−1), β̂(j−1); Xγ, Ỹγ) 11: β̂(j) ←β̂(j−1) −η∇βL(θ(j−1), β̂(j−1); Xγ, Ỹγ) 12: // To prevent backpropagation over the GD training 13: Set ∇γθ(r) = 0 and ∇γ β̂(r) = 0 14: Perform estimation β̂(∞) = β̂(r) − \" 0 J(r) p,β ⊤ # (J (r) γ J (r) γ ⊤)−1 \u0014 ûθ(r)(Xγ) −Ỹγ D[ûθ(r), β̂(r)](Xp) −f(Xp) \u0015 (35) 15: return −∥β̂(∞) −βi∥2 Note that in Line 13 of Alg. 2, we set the gradients ∇γθ(r) and ∇γ β̂(r) to zero. This is done since when implementing the function, it will be possible to write θ(r) and β̂(r) as explicit functions in terms of θ, meaning that when performing back-propagation over the Model Training Estimate criteria, it will also consider these derivatives as well. This can cause memory issues due to the need of back-propagating over many GD steps. Therefore, by explicitly stating that the gradient is zero, it avoids problems during the back-propagation phase. In practice, this can be done via the stop_gradient function on JAX, for example. A speedup that can be applied on MoTE is to instead of performing initial pretraining to obtain the eNTK, we could reuse the NN parameters from the forward PINN in order to compute the eNTK instead. We find that this trick is useful since it gives performance almost as good as performing initial training in each criterion computation, while being more efficient since no additional training needs to be done. F.3 TOLERABLE INVERSE PARAMETER CRITERION F.3.1 MOTIVATION To demonstrate the flexibility of PIED, we present another possible method which aims to find the optimal X in (8) without approximating β̂i, by taking the opposite approach of choosing X to query noisy observations that would have the least harmful impact when training an inverse PINN already initialized with the right β̂i. Intuitively, given an inverse PINN already trained to the correct PDE parameter β̂i = βi, a bad choice of X would possibly cause the PDE parameter to drift to other incorrect β̂′ with further training, while a good choice would retain the correct β̂i. Specifically, during inverse PINN training, the observational data (X, Ỹi) influences the loss in (4) explicitly through Lobs, though also implictly through LPDE. To see this, note that (X, Ỹi) changes Lobs during training, which adjusts NN parameters θi via gradient descent optimization, including potentially drifting β̂i to a nearby value β̂′. We could approximate how this shift from β̂i to β̂′ changes the NN parameters from θi to θ̃i as LPDE(θ̃i(β′), β′) is minimized as θ̃i(β′) ≈θi − ∇2 θLPDE(θi, βi) \u0001−1∇θLPDE(θi, β′) −∇θLPDE(θi, βi) \u0001 , (36) 22 giving us an approximation of the overall impact of (X, Ỹi) on (4) via Lobs(θ̃i(β′); X, Ỹi), given by ℓX,i(β′) ≜Lobs θ̃i(β′); X, Ỹi \u0001 = ∥ûθ̃i(β′)(X) −Ỹi∥2. (37) Given a choice of X and its observation values Ỹi, we could characterize how likely the inverse solver would remain at βi or drift to a neighbouring β′ after training by considering the Hessian of ℓX,i(β) – a “larger” Hessian means a lower chance that β̂i will change as the inverse solver undergoes training to minimize loss, since it is harder for the gradient-based training to “leave” the narrow range of β. Hence, to optimize for X we could maximize the criterion α̂TIP,i(X) = log det ∇2 β′ ℓX,i(βi). (38) F.3.2 ASSUMPTIONS AND ROUGH PROOF OF (36) We demonstrate the validity of (36), which is adapted from the proof in van der Vaart (2000). For convenience, we will drop the subscript and consider the NN parameters θ and PDE parameters β. Suppose we fix a β, and let θ = arg minθ′ LPDE(θ′, β). Since (θ, β) is a minima of LPDE, we can see that ∇θLPDE(θ, β) = 0. Let θ̃(β′) = arg minθ′ LPDE(θ′, β′). Our goal is to approximate θ̃(β′) when β′ ≈β. Let ∆LPDE(θ′, β′) = LPDE(θ′, β′) −LPDE(θ′, β′) and ∆θ̃(β′) = θ̃(β′) −θ̃(β) = θ̃(β′) −θ. We can use this to write ∇θLPDE(θ̃(β′), β′) = ∇θLPDE(θ + ∆θ̃(β′), β′) (39) ≈∇θLPDE(θ, β′) + ∇2 θLPDE(θ, β′) \u0001 ∆θ̃(β′) (40) = ∇θLPDE(θ, β) + ∆LPDE(θ, β′) + ∇2 θLPDE(θ, β′) \u0001 ∆θ̃(β′) (41) = ∆LPDE(θ, β′) + ∇2 θLPDE(θ, β′) \u0001 ∆θ̃(β′) (42) where (40) arises from performing Taylor expansion on ∇θLPDE(θ̃(β′), β′) around θ. Since (θ̃(β′), β′) is a minima of LPDE, we know that ∇θLPDE(θ̃(β′), β′) = 0, and therefore we can solve for ∆θ̃(β′) to obtain ∆θ̃(β′) ≈− ∇2 θLPDE(θ, β′) \u0001−1∆LPDE(θ, β′) (43) which can be rewritten to match the form in (36). Some readers may question whether (36) is valid for NNs where the learned NN parameter may not be a global minima. We note that despite this, we are only interested in the curvature around a minima anyway, and so we can still inspect the change of that minima as the loss function changes regardless. Furthermore, this technique has been used for NNs in other applications as well, one notable instance being the influence function (Koh & Liang, 2017) which aims to study how the test performance of supervised learning tasks changes as certain training examples are upweighed. In the paper, they are able to design a scoring function based on the same mathematical tool and successfully interpret performances of NNs. In our work, we find that despite the assumptions on the global minima is not met, we are still able to achieve good empirical results as well. F.3.3 CHOICE OF LOSS FUNCTION USED IN (36) Note that in (36), we compute the Hessian w.r.t. the forward PINN loss. Some readers may wonder why the overall PINN loss from (4) is not used instead. This choice is due to two main reasons. First, it is more computationally efficient. Notice that the change in NN parameter in (36) depends on LPDE, and therefore are independent of the observations and hence independent of the design parameters γ. This leads to the optimizing of the final criterion to not require differentiating (36) with respect to γ, reducing the computational load during optimization. We find that doing so does not cause significant effect in the obtained design parameter γ∗. Second, this matches more closely to the inverse problem setup as described in Sec. 2. In the IP as described, the objective (2) is usually to find the β whose output matches that of Y . In TIP, the 23 tolerable parameters is the Hessian based on the objective (37), which can also be interpreted in a similar way as (2). Furthermore, through this interpretation, TIP also exhibits a stronger connection to Bayesian methods, as discussed in App. F.3.4. F.3.4 BAYESIAN INTERPRETATION OF TIP Interestingly, TIP can be seen as the application of the Laplace approximation on the posterior distribution of β after observing data (Xγ, Y ), assuming a uniform prior and Gaussian observation noise, and view the criterion score α̂TIP,i as the information gain of β̂i given observational data (Xγ, Ỹγ,i). Assume that the observed data is generated from the true underlying function with added Gaussian noise. Then, the likelihood function can be written as p(Y |β, Xγ) = N(Y |uβ(Xγ), σ2I) = M Y j=1 N(yj|uβ(xγ,j), σ2). (44) If we assume a uniform prior over B (i.e., assume p(β) = c for some constant c), then it is simple to show that p(β|Xγ, Y ) = p(Y |β, Xγ)/p(Y |Xγ), where p(Y |Xγ) can be treated as a constant. In this case, we can write the log posterior as log p(β|Xγ, Y ) = \" N X j=1 log N(yj|uβ(xγ,j), σ2) # −log p(Y |Xγ) (45) = N X j=1 \" 1 σ √ 2π −(uβ(xγ,j) −yj)2 2σ2 # −log p(Y |Xγ) (46) = −∥uβ(Xγ) −Y ∥2 2σ2 + constant. (47) To make (47) tractable, we can apply Laplace’s approximation on the posterior. To do so, we perform a Taylor expansion on log p(β|Xγ, Y ) around the MAP of the distribution. In this case, we would expect the MAP to be at the true PDE parameter β0, where ∂ ∂β log p(β|Xγ, Y ) = 0. Once expanded, this would give log p(β|Xγ, Y ) ≈log p(β0|Xγ, Y ) + (β −β0)⊤ \u0014 ∇2 β log p(β0|Xγ, Y ) \u0015 (β −β0) (48) = log p(β0|Xγ, Y ) − 1 2σ2 (β −β0)⊤ \u0014 ∇2 β ∥uβ0(Xγ) −Y ∥2 2σ2 \u0015 (β −β0). (49) Note that this can also be written as p(β|Xγ, Y ) ≈p(β0|Xγ, Y ) exp −(β −β0)⊤ \u0014 ∇2 β ∥uβ0(Xγ) −Y ∥2 2σ2 \u0015 (β −β0) ! (50) which confirms that the Taylor expansion approximates the posterior distribution as a Gaussian distribution with mean µLaplace = β0 and covariance matrix ΣLaplace = ∇2 β ∥uβ0(Xγ) −Y ∥2 2σ2 . Since the posterior is approximated as a multivariate Gaussian distribution, it is simple to approximate the entropy of β as distributed by p(β|Xγ, Y ) using the entropy of multivariate Gaussian distribution as H[β|Xγ, Y ] ≈1 2 log det ΣLaplace + M 2 log 2πe (51) = 1 2 log det ∇2 β∥uβ0(Xγ) −Y ∥2 + constant. (52) Finally, from (11), we can approximate the EIG as EIG(γ) = −EY ′∼p(Y |Xγ) \u0002 H[β|Xγ, Y = Y ′] \u0003 (53) = H[β] −Eβ0∼p(β),Y ′∼p(Y |β0,Xγ) \u0002 H[β|Xγ, Y = Y ′] \u0003 (54) ≈H[β] −1 2Eβ0∼p(β),Y ′∼p(Y |β0,Xγ) \u0014 log det ∇2 β∥uβ0(Xγ) −Y ′∥2 \u0015 + constant (55) 24 where (55) uses the approximation of entropy in (52). Note that H[β] is a constant independent of γ and therefore can be ignored. Note that in the derivation so far, we have assumed that we are able to compute the PDE solution uβ and be able to compute how the solution output changes w.r.t. β. This, fortunately, is made possible using PINNs. Specifically, in the likelihood distribution p(Y |β, Xγ) from (44) and as sampled from in the expectation in (55), we can replace the uβ with a NN ûθ̃(β) with parameter θ̃(β) as defined in (36). Similarly, inside the expectation term of (55), we can replace uβ0(Xγ) with ûθ̃(β0), and Y ′ with a noisy reading of ûθ̃(β0). Ultimately, ignoring additive constants, this gives EIG(γ) ≈−1 2Eβ0∼p(β),ε∼N(ε|0,σ2I) \" log det ∇2 β h ∥ûθ̃(β)(Xγ) −ûθ̃(β0)(Xγ) + ε∥2i β=β0 # (56) For simplicity, we can ignore the additive Gaussian noise in the approximation of Y , i.e., ignore the ε term, and the term inside the expectation is the same as that in (38). This analysis links TIP to some existing ED methods for IPs based on Laplace’s approximation (Beck et al., 2018; Alexanderian et al., 2024). Despite these links, our method remains novel in that through the use of PINNs, we can consider the Hessian of the PDE solution directly, allowing the resulting criterion to be differentiable w.r.t. γ. This is unlike past works which often require more careful analysis of the specific PDE involved, and relies on discretized simulations (and therefore are not differentiable w.r.t. the input points). We note that while previous works have proposed the use of the Hessian of the learned inverse posterior distribution (Beck et al., 2018; Alexanderian et al., 2024), our method is novel in that it considers the Hessian (and hence the sensitivity) of the PDE solution directly, rather than of a posterior distribution. This is due to the usage of PINNs and its differentiability in the ED process directly, which has not been done in past works. We comment about the assumptions required to arrive at the approximation in (56). • We assume that the data is generated with random Gaussian noise. This is a standard assumption as done in other IP and ED methods in the literature. • We assume that the posterior distribution is unimodal. Note that this assumption does not always hold. One example where this assumption does not hold would be in the case where multiple values of β may represent the same PDE parameter (e.g., β represents NN parameterization of an inverse function). In our experiments, we find that the performance of the method remains good regardless. Furthermore, we believe that the issue can be mitigated by considering the problem under some embedding space ϕ(β) where two embeddings are similar when their parameterizations represent similar functions. This is likely possible by adjusting our criterion to incorporate ϕ through Lagrange inversion theorem, however we will defer this point to a future work. Another case where this assumption may not hold is when there are some degeneracy in the inverse problem solution. In this case, the problem cannot be alleviated anyway unless more observations data are acquired (a simple way to think about this is when there is only one observation reading is allowed, and therefore a good PDE parameter solution will not be obtainable regardless of the ED method). • We assume that the unimodal distribution is maximal at β0. Given that the distribution is unimodal, this point would likely hold since the pseudo-observation from the NN is already obtained from using PDE parameter of β0. F.3.5 APPROXIMATION OF HESSIAN IN (36) Instead of computing the Hessian of LPDE directly, we can also employ a trick which avoids computing the Hessian directly, but instead approximates the Hessian based on the first-order derivatives. Suppose we define R(θ, β) = \u0014 |Xp|−1/2D[ûθ, β](Xp) −f(Xp) \u0001 |Xb|−1/2B[ûθ, β](Xb) −g(Xb) \u0001 \u0015 . (57) We can see that LPDE(θ, β) = 1 2R(θ, β)⊤R(θ, β). (58) 25 We can then write ∇θLPDE(θ, β) = ∇θR(θ, β)⊤R(θ, β) (59) and ∇2 θLPDE(θ, β) = ∇θR(θ, β)⊤∇θR(θ, β) + ∇2 θR(θ, β)⊤R(θ, β). (60) In the case that (θ, β) are obtained after PINN training has converged, we would have R(θ, β) ≈0, which means we can write ∇2 θLPDE(θ, β) ≈∇θR(θ, β)⊤∇θR(θ, β). (61) We therefore can approximate the Hessian as used in (36) using first-order derivatives instead. F.3.6 COMPARISON WITH OTHER BENCHMARKS Table 3 shows the results of TIP compared to our other methods. We see that while in some cases we are able to get comparable results to FIST or MoTE, it often will perform worse than these other methods. This is likely due to the stronger assumptions that are required for the method. Table 3: Results for the inverse problems using TIP criterion compared to our other proposed criteria. The table is interpreted similarly to Table 1. Dataset Finite-dimensional Function-valued Real dataset Wave (×10−1) Navier-Stokes (×10−2) Eikonal (×101) Groundwater (×101) Cell Growth (×100) FIST 3.87 (0.76) 2.10 (1.45) 0.74 (0.02) 1.93 (0.08) 2.62 (0.11) MoTE 3.81 (2.34) 1.18 (0.11) 0.76 (0.02) 2.00 (0.60) 2.83 (0.04) TIP 5.11 (0.01) 9.04 (2.04) 0.75 (0.01) 2.25 (0.26) 2.94 (0.23) G COMPLETE ALGORITHM FOR PIED We summarize PIED via a pseudocode presented in Alg. 3. The ED procedure consists of three main phases – learning of the shared PINN parameter initialization, the criterion generation phase which consists of performing forward simulations and consequently defining the criteria, and the criterion optimization phase which proceeds to perform constrained continuous optimization on the criterion. Note that in our framework, the forward simulation only has to be ran once per ED loop, and can all be ran in parallel using packages which allows for parallelization such as vmap on JAX. We also find that the forward simulation can be used without explicitly injecting artificial noise, while still giving observation inputs which work well for IPs involving noisy data. In the criterion optimization phase, we use projected gradient descent to ensure the resulting design parameter is in the bounded space. However, other constrained optimization algorithms could be used as well, e.g., L-BFGS-B. We repeat the optimization loop over many runs due to the potential non-convexity of the criteria, to obtain a better estimate of the optima. H DETAILS ABOUT THE EXPERIMENTAL SETUP H.1 GENERAL ED LOOP AND IP SETUP Our experiment consists of two phases. In the first phase, we perform the ED loop using PIED or with the other benchmarks. Here, we allow a fixed number of forward simulations using PINNs, which the ED methods can query from as many times as it wants. Each ED methods have time restrictions, where they are allowed to run either for a certain duration, or until they have completed some fixed number of iterations. After the ED methods have selected the optimal design parameters, the same design parameters are used to test on multiple instances of the IP (we run at least 10 of such instances depending on how much computation resources the specific problem requires). In each instance of the IP, we draw a random ground-truth PDE parameter, and generate the observations according to the model and the random ground-truth PDE parameter. The IP is solved using inverse PINNs to obtain a guess of the 26 Algorithm 3 PIED // Learning shared NN parameters 1: Randomly initialize θSI 2: for s rounds do 3: Randomly sample β′ 1, . . . , β′ k 4: for j = 1, . . . , k do 5: θ′ j ←NN parameter after training θSI with training loss LPDE(θ, β′ j) 6: θSI ←1 k Pk j=1 θ′ j ▷Used as initialization for all proceeding forward and inverse PINNs // Criterion generation phase 7: for i = 1, . . . , M do 8: Randomize PDE parameter βi 9: ũβi ←F(βi) ▷Forward simulation 10: if use FIST criterion then 11: Define α̂i to FIST criterion from Alg. 1 12: else if use MoTE criterion then 13: Define α̂i to MoTE criterion from Alg. 2 14: Define aggregated criterion α(Xγ) = 1 N PN i=1 α̂i(Xγ) // Criterion optimization phase 15: Initialize γbest ∈Sγ randomly 16: repeat 17: Initialize γ′ ∈Sγ randomly 18: for p training steps do ▷Gradient-based optimization 19: γ̃′ ←γ′ + η∇γα(Xγ′) ▷Gradient ascent since the criterion should be maximized 20: γ′ ←projSγ(γ̃′) ▷Perform projection s.t. γ′ ∈Sγ 21: if α(Xγ′) > α(Xγbest) then 22: γbest ←γ′ 23: until computational limit hit 24: return γbest Table 4: Architectures of used NNs Problem Depth Width Activation Output transformation Damped oscillator 6 8 tanh None 1D wave 3 16 sin None 2D Navier-Stokes 6 16 sin None 2D Eikonal (modelling uβ) 6 8 tanh (x, y) →y∥x −x0∥ 2D Eikonal (modelling β) 1 16 sin (x, y) →|y| + 0.2 Groundwater flow 2 8 tanh None Cell population 2 8 tanh None PDE parameter. For each instance, we can obtain an error score, which measures how different the PDE parameter estimate is from the ground-truth value. For each problem, we repeat the ED and IP loop five times, where in each time we obtain multiple values for the IP error. In our results, we report the distribution of all the error scores obtained through the percentile values of the error (i.e., p percent of all IP instances using a certain ED methods have errors of at most x), removing some of the extreme values (in the main paper, we remove the top and bottom ten percent, while in the Appendix we show the distribution via a boxplot removing the outliers). This is done since some PDE parameters result in IPs which are easier than others, and to demonstrate the performance of each ED methods across all possible PDE parameters. H.2 PINN AND PINN TRAINING HYPERPARAMETERS The architectures of the PINNs and other NNs used are listed in Table 4. Note that we only use multi-layer perceptrons in our experiments. The training process hyperparameters for the forward and inverse PINNs are listed in Table 5. 27 Table 5: Training hyperparameters Problem Training steps # PDE Col. Pts. # IC/BC Col. Pts. Optimizer Damped oscillator 30k 300 1 Adam (lr = 0.01) 1D wave 200k 15k 2k L-BFGS 2D Navier-Stokes 100k 2k 300 Adam (lr = 0.001) 2D Eikonal 50k 10k 1 Adam (lr = 0.001) Groundwater flow 50k 500 1 L-BFGS Cell population 50k 1k 100 Adam (lr = 0.001) H.3 SCORING METRIC To judge how well our ED methods perform, we will use the error L(β̂, β) of the PDE parameter β. When β has finite dimensions (i.e., represented as a scalar value or as a vector value), then the loss is simply the MSE loss, i.e., L(β̂, β) = β̂ −β 2 2. (62) For the case where β is a function, we select some number of test points {xT,i}Ntest i=1 and compute the MSE loss of the estimated function on those test points, i.e. L(β̂, β) = Ntest X i=1 β̂(xT,i) −β(xT,i) 2 2. (63) H.4 BENCHMARKS FOR THE SCORING CRITERION In this section we describe a few scoring criteria we use as a benchmark. We first describe the benchmarks which are based on methods of estimating the expected information gain (EIG). • Mutual Information Neural Estimator (MINE) (Belghazi et al., 2018). The estimator utilizes Donsker-Varadhan representation of the KL Divergence to show that we can provide a lower bound to the EIG as EIG(Xγ) ≥LDV(Xγ) (64) ≜E(y,β)∼p(β)p(Y |β,Xγ) \u0002 Tϕ(Y, β|Xγ) \u0003 −log E(Y,β)∼p(β)p(y|Xγ) \u0002 eTϕ(Y,β|Xγ)\u0003 (65) where Tϕ is a parametrized family of functions. Note that while the estimator LDV(Xγ) relies on sampling p(Y |β, Xγ) and p(Y |Xγ) di- rectly, this would require running many forward simulations for different β samples. Instead, to sample from these two distributions, we draw M random samples of β and approximate p(β) with a mixture of Dirac-delta distributions, i.e., p(β) ≈p̂(β) ≜1 M M X i=1 δ(β −βi) where β1, . . . , βM ∼p(β). (66) In this case, the forward simulation only needs to be ran for M samples of β and the distributions p(Y |β, Xγ) and p(Y |Xγ) can be efficiently approximated. • Variational Bayesian Optimal ED (VBOED) estimator (Foster et al., 2019). The original paper desicribes multiple estimators for the EIG, however we will use the variational marginal estimator. The estimator utilizes the fact that we can provide an upper bound to the EIG as EIG(Xγ) ≤Umarg(Xγ) ≜E(Y,β)∼p(β)p(Y |β,Xγ) \u0014 log p(Y |β, Xγ) qϕ(Y |Xγ) \u0015 (67) where qϕ is a variational family parametrized by ϕ. To compute the EIG, we find the ϕ which minimizes Umarg(Xγ). Instead of computing the upper bound exactly, we use an empirical estimation based on samples of (Y, β) generated from the PINNs with added noise. Similar 28 Table 6: Hyperparameters used for different criteria in PIED. Note that for MoTE, the case when r = ∞refers to when we use the forward PINN for the NTK regression step. Dataset FIST MoTE σ2 p r r Damped oscillator 0.5 50 ∞ 1D wave 0.5 200 0 2D Navier-Stokes 0.5 100 ∞ 2D Eikonal 0.01 200 0 Groundwater flow 0.01 100 ∞ Cell population 0.1 100 1000 to MINE, we approximate p(β) with a mixture of Dirac-delta distributions (66) such that only a limited number PINN forward simulations are required.",
+          "title": "as the ground truth values for c1, c2, c3",
+          "authors": [
+            "Chen et al.."
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 5,
+          "raw": "Note that while Foster et al. (2019) does propose a variational NMC (VNMC) estimator as well, this requires computing p(Y, β|Xγ) = p(β)p(Y |β, Xγ) for a randomly sampled β. It is not feasible to compute p(Y |β, Xγ) on the fly since this would require running a costly forward simulation for the randomly sampled β, and therefore the method is not included for this benchmark. We also use other benchmarks which are not based on the EIG, listed as follows. • Random. The design parameters are chosen randomly. • Grid. The design parameters are chosen such that the sensor readings are placed regularly in some fashion. For the 1D examples, the sensors are placed such that they all regularly spaced out. For the 2D examples, the sensors are placed such that they are shaped in a regular 2D grid with each sides having as equal number of sensors as possible. Note that no optimization is done, but instead the observation input configuration is fixed per problem. • Mutual information (MI) (Krause et al., 2008). The criterion considers the outputs YXγ of the chosen observation input Xγ and the outputs YXt of some test set Xt, and defines the score to be the mutual information between YXγ and YXt, i.e., αMI(Xγ) = MI(YXt\\Xγ; YXγ) = H[YXt] −H[YXt\\Xγ|YXγ]. (68) In our experiments, we approximate the observation outputs via a Gaussian pro- cess (GP) whose kernel is the covariance of the PDE solutions, i.e., K(x, x′) = Covβ∼p(β)[uβ(x), uβ(x′)], where we approximate the covariance using the forward simulations. By approximating the output using a GP, the entropies H[YXt\\Xγ] and H[YXt\\Xγ|YXγ] can be written directly in terms of the approximate kernel function. Also, since we do not perform discretization and treat the problem as a combinatorial optimization one due to the additional point constraints, we chose to let Xt \\ Xγ = Xt for simplicity. We also run the two criteria proposed as the benchmark, listed below. • Few-step Inverse Solver Training (Alg. 1). For each of the trial, we note the value of parameter perturbation σ2 p and training steps r used. • Model Training Estimate (Alg. 2). For each trial, we note how many initial training steps r are used, or if we just re-use the NN parameters from the forward PINN for the eNTK. In Table 6, we show the hyperparameters for the criteria we use for the main results. In the results, we add “+SI” suffix to indicate the benchmark where the shared NN initialization is used for all of the forward and inverse PINNs involved during ED and IP phases. MINE, VBOED, NMC and MI are optimized using Bayesian optimization (Frazier, 2018). H.5 IMPLEMENTATION AND HARDWARE All of the code were implemented based on the JAX library (Bradbury et al., 2018), which allows for NN training and auto-differentiation of many mathematical modules within. Criteria which are 29 optimized by Bayesian optimization are done so using BOTORCH (Balandat et al., 2020), while criteria optimized using gradient-based methods are done so using JAXOPT (Blondel et al., 2021). The damped oscillator, wave equation, Eikonal equation and groundwater experiments were conducted on a machine with AMD EPYC 7713 64-Core Processor and NVIDIA A100-SXM4-40GB GPU, while the remaining experiments were done on AMD EPYC 7763 64-Core Processor CPU and NVIDIA L40 GPU. I ADDITIONAL EXPERIMENTAL RESULTS I.1 ADDITIONAL RESULTS FROM EXPERIMENTS ON LEARNED NN INITIALIZATION In Fig. 9, we present examples of the learned NN initialization and also its performance for forward PINNs for the 2D Eikonal equation example. We see that this shows similar trends to the examples from before as shown in Fig. 2. In Fig. 10, we show the test error for an individual forward PINN when performing forward simulation for a value of β, when using and not using a learned NN initialization. We see that when using a learned NN initialization, the test loss typically is already lower than that from random initialization at the start, and also tends towards convergence much faster. Even when the test loss is higher at the start, it is able to catch up to the performance of the randomly initialized PINN under much fewer training steps. (a) Random Init. 0 2 4 0 2 4 0.00 0.15 0.30 0.45 0.60 0.75 0.90 1.05 1.20 (b) Learned Init. 0 2 4 0 2 4 0 1 2 3 4 5 6 7 8 9 (c) Train Loss 100 102 104 Training Steps 10 3 10 2 10 1 100 Train Loss Rand. Learned (d) Test MSE Error 100 102 104 Training Steps 100 101 102 Test Error Rand. Learned Figure 9: Results for learning a NN initialization for PINNs trained on 2D Eikonal equation case. The interpretation is the same for that in Fig. 2. (a) Damped Oscillator 100 102 104 Training Steps 0 2 4 6 8 Test MSE Loss 100 102 104 Training Steps 0 2 4 6 Test MSE Loss 100 102 104 Training Steps 0 2 4 6 Test MSE Loss (b) 2D Eikonal Equation 100 102 104 Training Steps 0 50 100 Test MSE Loss 100 102 104 Training Steps 0 50 100 150 Test MSE Loss 100 102 104 Training Steps 0 20 40 60 80 Test MSE Loss Figure 10: Examples of test error of forward PINNs for each problems for different values of β. Each plot represents the PINN training for one random random value of β. The dotted blue lines represent when the PINN is initialized with a random NN parameters, while the solid yellow lines represent when the PINN is initialized form the learned initialization. I.2 TEST ON DISTRIBUTION MISMATCH In Fig. 11, we present the results for the damped oscillator experiments for when the prior distribution during the ED process and for the tested IPs are different. In the distribution mismatch case, we use PDE parameter range µ, k ∈[0, 2] during the ED process, but use the values µ, k ∈[0, 4] for the true ground truth value in the IP process. From the results, we see that our benchmarks are still able to retain good performances over the benchmarks even when the prior distribution of the PDE parameters are misspecified. 30 (a) Distribution match Random Grid MI VBOED FIST (ours) MoTE (ours) ED Method 10 1 100 Expected Inv. Param. Error (b) Distribution mismatch Random Grid MI VBOED FIST (ours) MoTE (ours) ED Method 10 1 100 Expected Inv. Param. Error Figure 11: Results for the 1D damped oscillator example for distribution match and mismatch. In both cases, the thick blue line represents the performance of Random baseline, while the dashed line represents the best performing benchmark. J DISCUSSIONS ON GENERAL LIMITATIONS AND SOCIETAL IMPACTS In our experiments, we have mostly conducted experiments based on vanilla PINN architectures. We have not done verification of whether PIED works well for other more complex architectures such as physics-informed deep operators. Future work on this area would be interesting. The work also relies on the use of PINNs as the forward simulators and IP solvers, and are not applicable to other forward simulators or IP solvers. While PINNs are well-suited for both tasks, they also still pose practical problems such as difficulty in training for certain problems. The problem can be mitigated through more careful selection of collocation points (Wu et al., 2023; Lau et al., 2024a), which will be interesting to consider in future works to further boost the performance of PIED. We believe the work has minimal negative and significant positive societal impacts, since they can be used in many science and engineering applications where costs of data collection from experiments can be prohibitive. This means that the cost barrier in performing effective scientific experiments can be lowered allowing for further scientific discoveries. We note that our work could potentially be applied for a range of scientific research, which may include unethical or harmful research done by malicious actors. However, this risk applies to all tools that accelerate scientific progress, and we believe that existing policies and measures guarding against these risks are sufficient. 31",
+          "title": "does propose a variational NMC (VNMC) estimator as well, this requires computing p(Y, β|Xγ) = p(β)p(Y |β, Xγ) for a randomly sampled β",
+          "authors": [
+            "Note that while Foster et al.."
+          ],
+          "year": 2019,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:5",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "0c6f5281b17f90c69b9fb804f6db30f3469c516530ced12ce9130c794b3e7a0d",
+          "request_time": "2026-08-23T12:27:26.896347Z",
+          "status": "degraded",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "5/5 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-23T12:27:28.168220Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "9e52783426c35bcb3ab375b179ea372f04b4c1f0508ee1c11ad713681e4d2fa8",
+          "request_time": "2026-08-23T12:27:29.281942Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=unknown.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-23T12:33:27.071141Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "unknown",
+      "document_type_confidence": 0.2,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Başlıkta 'PHYSICS-INFORMED EXPERIMENTAL DESIGN' ve 'INVERSE PROBLEMS' ifadeleri, özet ve bölüm başlıkları (ABSTRACT, INTRODUCTION, BACKGROUND, RESULTS, CONCLUSION) bir araştırma makalesine işaret ediyor. Ancak 'journal_article' veya 'conference_paper' arasında ayrım yapmak için yeterli bilgi yok. Çalışma tasarımı için, başlık ve özet 'physics-informed' ve 'experimental design' gibi terimlerle birlikte 'PDE simulations' ve 'numerical simulations' ifadeleri, hesaplamalı modelleme yaklaşımını güçlü bir şekilde desteklemektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 82.55555555555556,
+      "recommended_decision": "accept",
+      "confidence": 0.7036363636363636,
+      "top_fatal_risks": [
+        "PINN'lerin Avantajlarının Tam Kullanımı İddiası ve Kanıt Eksikliği",
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "Ana Sonuçların Eksik Raporlanması"
+      ],
+      "one_sentence_diagnosis": "0 critical and 3 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 38.0,
+        "severity": "major",
+        "confidence": 0.9,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 75.0,
+        "severity": "major",
+        "confidence": 0.95,
+        "why_it_matters": "2 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "4 concern(s): The MoTE criterion relies on the Neural Tangent Kernel (NTK) formalism, which assumes the model operates in a linearized regime. While acknowledged, the paper lacks a detailed discussion in the main text about the potential failure modes of this strong assumption and their implications for the experimental design.; The 'Tolerable Inverse Parameter' (TIP) criterion, an interesting contribution with a Bayesian interpretation, is relegated to Appendix F.3. Its placement in the appendix diminishes its visibility and impact, especially given its potential relevance to the broader Bayesian Experimental Design literature.; The paper does not include a sensitivity analysis or discussion regarding the impact of hyperparameters (e.g., 'r' for FIST, perturbation noise for MoTE) on the performance of the FIST and MoTE methods. This omission makes it difficult to assess the robustness and practical applicability of these criteria. (+1 more)",
+        "key_objection": "The MoTE criterion relies on the Neural Tangent Kernel (NTK) formalism, which assumes the model operates in a linearized regime. While acknowledged, the paper lacks a detailed discussion in the main text about the potential failure modes of this strong assumption and their implications for the experimental design.",
+        "confidence": 0.5,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "1 concern(s): The MoTE criterion relies on the Neural Tangent Kernel (NTK) formalism, which assumes the model operates in a linearized regime. This is a strong assumption for neural networks. While the authors acknowledge this, a more detailed discussion in the main text about the potential failure modes and their implications for the validity of the statistical inferences or experimental design choices would strengthen the paper.",
+        "key_objection": "The MoTE criterion relies on the Neural Tangent Kernel (NTK) formalism, which assumes the model operates in a linearized regime. This is a strong assumption for neural networks. While the authors acknowledge this, a more detailed discussion in the main text about the potential failure modes and their implications for the validity of the statistical inferences or experimental design choices would strengthen the paper.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): The paper is information-dense, which can make it challenging to follow for readers not deeply familiar with all sub-fields (PINNs, ED, NTK). The conceptual bridge from the main objective in Eq. (8) to the approximate criteria in Sec. 4.2 could be made more explicit and intuitive.; A substantial amount of important material is located in the appendix. For instance, the 'Tolerable Inverse Parameter' (TIP) criterion (Appendix F.3) is an interesting contribution in its own right, complete with a Bayesian interpretation. Relegating it to the appendix diminishes its visibility and impact. Consider integrating some of this discussion into the main paper, perhaps briefly mentioning how FIST and MoTE can be viewed as practical alternatives to computing the full Expected Information Gain (EIG).; The MoTE criterion relies on the Neural Tangent Kernel (NTK) formalism, which assumes the model operates in a linearized regime. This is a strong assumption for neural networks, and while the authors acknowledge this and propose practical workarounds, a more detailed discussion in the main text about the potential failure modes and their implications would strengthen the paper. (+1 more)",
+        "key_objection": "The paper is information-dense, which can make it challenging to follow for readers not deeply familiar with all sub-fields (PINNs, ED, NTK). The conceptual bridge from the main objective in Eq. (8) to the approximate criteria in Sec. 4.2 could be made more explicit and intuitive.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "2 concern(s): The reviewer's statement 'As noted in the evidence pack, this is likely a temporary technical issue with the lookup service and not an indication of fabrication' is accurate. However, the reviewer then proceeds to request verification of these citations, implying a potential issue. The evidence pack explicitly states that the 'not_found_in_index' status for these references is due to a temporary OpenAlex service error and 'does NOT mean it is unavailable (temporary error)'. Therefore, the reviewer's request for verification, while framed as 'for completeness', contradicts the explicit instruction not to treat these as 'fabricated' or 'weak source review' based solely on this temporary error. The issue is not with the citations themselves, but with the reviewer's framing of the problem despite the provided evidence.; The reviewer's rationale for the 'citation_integrity' score of 7.0 is based on the inability to resolve 5 references. While the reviewer acknowledges the evidence pack's note about a 'temporary tool error', the score reduction still implies a deficiency in citation integrity. The evidence pack explicitly states that the 'not_found_in_index' status for these references is due to a temporary OpenAlex service error and 'does NOT mean it is unavailable (temporary error)'. Therefore, penalizing the paper's citation integrity based on a known external technical issue, rather than an actual problem with the citations themselves (e.g., fabrication, retraction), is not fully grounded in the provided evidence.",
+        "key_objection": "The reviewer's statement 'As noted in the evidence pack, this is likely a temporary technical issue with the lookup service and not an indication of fabrication' is accurate. However, the reviewer then proceeds to request verification of these citations, implying a potential issue. The evidence pack explicitly states that the 'not_found_in_index' status for these references is due to a temporary OpenAlex service error and 'does NOT mean it is unavailable (temporary error)'. Therefore, the reviewer's request for verification, while framed as 'for completeness', contradicts the explicit instruction not to treat these as 'fabricated' or 'weak source review' based solely on this temporary error. The issue is not with the citations themselves, but with the reviewer's framing of the problem despite the provided evidence.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "minor-revision",
+        "summary": "This paper introduces PIED (Physics-Informed Experimental Design), a novel and compelling framework for optimizing experimental designs for inverse problems governed by partial differential equations (PDEs). The core contribution is a fully differentiable architecture that leverages Physics-Informed Neural Networks (PINNs) for both forward simulation and inverse problem solving. This approach cleverly bypasses the computational bottlenecks and lack of differentiability associated with traditional numerical solvers. The authors propose two efficient, gradient-based criteria for optimizing the design parameters—FIST (Few-step Inverse Solver Training) and MoTE (Model Training Estimate)—and enhance efficiency further through a meta-learned shared initialization for the PINNs. The framework's effectiveness is demonstrated through a comprehensive suite of experiments, including on challenging function-valued parameter problems and real-world experimental data. The work is a significant step forward for data-efficient scientific discovery in PDE-governed systems.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Yenilikçi Deneysel Tasarım Yaklaşımı",
+        "summary": "Makale, ters problemler için fizik-bilgili deneysel tasarım (PIED) adında yeni bir çerçeve sunmaktadır. Bu çerçeve, mevcut yöntemlerin hesaplama darboğazlarını aşmak ve tek seferlik dağıtımlar için tasarım parametrelerinin sürekli optimizasyonunu sağlamak amacıyla PINN'leri kullanmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "This work presents Physics-Informed Experimental Design (PIED), the first ED framework that makes use of PINNs in a fully differentiable architecture to perform continuous optimization of design parameters for IPs for one-shot deployments."
+          }
+        ],
+        "reasoning_public": "Bu, araştırma alanına önemli bir metodolojik katkı sunmaktadır. Özellikle, PINN'lerin diferansiyellenebilir mimarisi sayesinde sürekli optimizasyon yeteneği, geleneksel yöntemlerin kısıtlamalarını aşmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Makalede, simülasyonlar ve gerçek dünya verileri kullanılarak yapılan deneylerdeki 'N' paralel iş parçacığı (farklı referans β değerleri) veya 'M' gözlem girdisi sayısı için örneklem büyüklüğü gerekçesi veya güç analizi raporlanmamıştır. Bu durum, elde edilen sonuçların genellenebilirliği ve istatistiksel gücü hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_2_components_of_the_ed_design_loop.a0",
+            "section": "3.2 COMPONENTS OF THE ED DESIGN LOOP",
+            "quote": "We consider N parallel threads, each representing different reference βi values. ... applies a “sieve” that queries all forward PINNs with the same M observation input X = {xj}M j=1 to produce the respective sets of noisy predicted observations"
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, örneklem büyüklüğünün uygun şekilde belirlenmesi veya gerekçelendirilmesi, çalışmanın istatistiksel gücünü ve sonuçların güvenilirliğini sağlamak için kritik öneme sahiptir. Yeterli güç olmadan, gerçek etkiler gözden kaçırılabilir veya yanıltıcı sonuçlar elde edilebilir. Özellikle 'N' ve 'M' gibi parametrelerin seçimi, PIED çerçevesinin performansını doğrudan etkileyecektir.",
+        "limitations": [
+          "Makalede belirtilen 'N' ve 'M' değerlerinin deneysel sonuçlar üzerindeki kesin etkisi, bu değerlerin nasıl belirlendiğine dair bilgi eksikliği nedeniyle tam olarak değerlendirilememektedir.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Ölçüm Araçlarının Açık Tanımı",
+        "summary": "Makale, PINN'lerin kayıp fonksiyonlarını (Lobs, LPDE) ve ED kriterini (α(X)) açıkça tanımlayarak, ters problem çözümü ve deneysel tasarım optimizasyonu için kullanılan ölçüm araçlarını şeffaf bir şekilde sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "physics_informed_neural_networks.a0",
+            "section": "Physics-informed neural networks.",
+            "quote": "L(θ, β; X, Y ) = ûθ(X) −Y 2 2 2|X| | {z } Lobs(θ;X,Y ) + D[ûθ, β](Xp) −f(Xp) 2 2 2|Xp| + B[ûθ, β](Xb) −g(Xb) 2 2 2|Xb| | {z } LPDE(θ,β) ,"
+          },
+          {
+            "anchor_id": "criterion_and_optimal_observation_input_selection.a0",
+            "section": "Criterion and optimal observation input selection.",
+            "quote": "α(X) = 1 N N X i=1 αi(X) = 1 N N X i=1 h − β̂i(X, Ỹi) −β 2i ."
+          }
+        ],
+        "reasoning_public": "Ölçüm araçlarının ve değişkenlerin operasyonelleştirilmesinin net bir şekilde tanımlanması, çalışmanın anlaşılabilirliğini ve tekrarlanabilirliğini artırır. Bu, okuyucuların metodolojiyi takip etmesini ve sonuçları yorumlamasını kolaylaştırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Gradient Tabanlı Optimizasyonun Uygun Kullanımı",
+        "summary": "Makale, PINN'lerin diferansiyellenebilir yapısından faydalanarak, tasarım parametrelerinin optimizasyonu için gradient tabanlı yöntemlerin kullanılmasını önermektedir. Bu, özellikle yüksek boyutlu problemler için Bayesian optimizasyon gibi alternatiflere göre daha verimli bir yaklaşım olarak sunulmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "criterion_and_optimal_observation_input_selection.a1",
+            "section": "Criterion and optimal observation input selection.",
+            "quote": "As our PINN inverse solver is differentiable, we can back-propagate through α directly to compute ∇Xα(X). This allows α to be optimized using gradient-based optimization methods, instead of methods such as Bayesian optimization which do not typically perform well on high-dimensional problems, or require combinatorial optimization over discretized observation inputs."
+          }
+        ],
+        "reasoning_public": "Gradient tabanlı optimizasyon yöntemlerinin seçimi, PINN'lerin temel bir avantajını (diferansiyellenebilirlik) doğrudan kullanır ve bu tür problemler için uygun ve verimli bir analiz planı sunar. Bu, karmaşık optimizasyon problemlerinde hesaplama maliyetini düşürmeye yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "İstatistiksel Tutarlılık Kontrolü Yapılamadı: Test İstatistiği Raporlama Eksikliği",
+        "summary": "Makalede, 'RESULTS' bölümünde sunulan deneysel sonuçlar için p-değerleri veya test istatistikleri (örneğin, t-değeri, F-değeri) raporlanmamıştır. Bu durum, istatistiksel tutarlılık kontrolünün yapılmasını engellemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_results.a0",
+            "section": "5 RESULTS",
+            "quote": "In this section, we present empirical results to demonstrate the performance of PIED on ED problems for a range of scenarios based on different PDE systems, both from noisy simulations from real physical experiments (details of the specific PDEs are in App. D). For scenarios usi"
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, p-değerleri ile birlikte ilgili test istatistiklerinin ve serbestlik derecelerinin raporlanması, okuyucuların sonuçların istatistiksel geçerliliğini bağımsız olarak değerlendirmesine olanak tanır. Bu bilgilerin eksikliği, raporlama kalitesini düşürür ve sonuçların güvenilirliğini sorgulatabilir.",
+        "limitations": [
+          "Makalede herhangi bir p-değeri veya test istatistiği raporlanmadığı için, p-value tutarlılık kontrolü yapılamamıştır. Bu bir raporlama-eksikliği uyarısıdır, yeniden hesap değildir."
+        ],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makalede, PIED'in mevcut ED yöntemlerinden 'önemli ölçüde daha iyi performans gösterdiği' belirtilmesine rağmen, bu performans farkının etki büyüklüğü veya güven aralıkları gibi belirsizlik ölçüleri raporlanmamıştır. Bu durum, sonuçların pratik önemini değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Through experiments based on noisy simulated data and even real world experimental data, we empirically show that given limited observation budget, PIED significantly outperforms existing ED methods in solving IPs, including for challenging settings where the PDE parameters are unknown functions rather than just finite-dimensional."
+          }
+        ],
+        "reasoning_public": "Sadece istatistiksel anlamlılık (p-değeri) değil, aynı zamanda etki büyüklüğü ve belirsizlik ölçüleri (güven aralıkları gibi) de nicel araştırmaların temel bileşenleridir. Bu ölçümler, bir etkinin büyüklüğünü ve hassasiyetini göstererek, sonuçların pratik önemini ve genellenebilirliğini daha iyi anlamamızı sağlar. Eksiklikleri, okuyucuların bulguların gerçek dünya uygulamaları için ne kadar önemli olduğunu değerlendirmesini engeller.",
+        "limitations": [
+          "Makalede herhangi bir etki büyüklüğü veya güven aralığı raporlanmadığı için, bu boyutun değerlendirilmesi sınırlıdır."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dilin Uygun Kullanımı",
+        "summary": "Makale, 'PIED significantly outperforms existing ED methods' gibi ifadelerle PIED'in performansını açıkça belirtirken, bu iddialar simülasyon tabanlı deneyler ve gerçek dünya verileriyle desteklenmektedir. Bu, nedensel dilin deneysel bağlamda uygun şekilde kullanıldığını göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "Through experiments based on noisy simulated data and even real world experimental data, we empirically show that given limited observation budget, PIED significantly outperforms existing ED methods in solving IPs, including for challenging settings where the PDE parameters are unknown functions rather than just finite-dimensional."
+          }
+        ],
+        "reasoning_public": "Deneysel tasarım ve simülasyonlar, belirli koşullar altında bir yöntemin diğerine göre üstünlüğünü göstermek için güçlü kanıtlar sunar. Makalenin bu tür iddiaları deneysel sonuçlarla desteklemesi, nedensel dilin disiplinli bir şekilde kullanıldığını gösterir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Kod Erişilebilirliği",
+        "summary": "Makale, projenin koduna GitHub üzerinden erişim sağlayarak tekrarlanabilirliği artırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "1_introduction.a0",
+            "section": "1 INTRODUCTION",
+            "quote": "1The code for the project can be found at https://github.com/apivich-h/pied."
+          }
+        ],
+        "reasoning_public": "Kodun açıkça paylaşılması, araştırmanın şeffaflığını ve tekrarlanabilirliğini önemli ölçüde artırır. Bu, diğer araştırmacıların bulguları doğrulamasına ve üzerine inşa etmesine olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reporting_quality",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Ana Sonuçların Eksik Raporlanması",
+        "summary": "Makale, PIED'in performansını gösteren ana sonuçları sunarken, bu sonuçlar için etki büyüklüğü ve belirsizlik ölçüleri (güven aralıkları) eksiktir. Ayrıca, istatistiksel karşılaştırmalar için p-değerleri veya test istatistikleri de raporlanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_results.a1",
+            "section": "5 RESULTS",
+            "quote": "In this section, we present empirical results to demonstrate the performance of PIED on ED problems for a range of scenarios based on different PDE systems, both from noisy simulations from real physical experiments (details of the specific PDEs are in App. D). For scenarios usi"
+          }
+        ],
+        "reasoning_public": "Yüksek kaliteli raporlama, ana sonuçların sadece istatistiksel anlamlılığını değil, aynı zamanda pratik önemini ve hassasiyetini de açıkça belirtmelidir. Etki büyüklükleri ve güven aralıkları, okuyucuların bulguların gerçek dünya bağlamında ne anlama geldiğini anlamaları için kritik öneme sahiptir. Bu bilgilerin eksikliği, raporlama kalitesini düşürür ve sonuçların tam olarak yorumlanmasını engeller.",
+        "limitations": [
+          "Makalede herhangi bir etki büyüklüğü, güven aralığı veya istatistiksel test sonucu raporlanmadığı için, raporlama kalitesi değerlendirmesi bu eksiklikler üzerinden yapılmıştır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "PINN Tabanlı Deneysel Tasarımda İlk Kapsamlı Çerçeve",
+        "summary": "Makale, fizik-bilgili sinir ağlarını (PINN'ler) kullanarak ters problemler için deneysel tasarım (ED) yapan ilk çerçeve olan PIED'i sunmaktadır. Bu, mevcut ED yöntemlerinin hesaplama darboğazlarını aşmayı ve tek seferlik dağıtımlar için tasarım parametrelerinin sürekli optimizasyonunu sağlamayı hedeflemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "This work presents Physics-Informed Experimental Design (PIED), the first ED framework that makes use of PINNs in a fully differentiable architecture to perform continuous optimization of design parameters for IPs for one-shot deployments."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "In this paper, we present Physics-Informed Experimental Design (PIED), the first ED framework that makes use of PINNs in a fully differentiable architecture to perform continuous optimization of design parameters for IPs for one-shot deployment."
+          }
+        ],
+        "reasoning_public": "PIED, PINN'lerin meshsiz çözümler, türevlenebilirlik ve amortize edilmiş eğitim gibi avantajlarını ED problemlerine tam olarak entegre eden ilk çerçeve olarak sunulmaktadır. Bu, alandaki önemli bir boşluğu doldurmakta ve yeni araştırma yolları açmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Hesaplama Verimliliği ve Meta-Öğrenme Yaklaşımları",
+        "summary": "PIED, paralel hesaplama ve PINN parametrelerinin meta-öğrenme tabanlı başlatılması yoluyla mevcut yöntemlerin hesaplama darboğazlarını aşmaktadır. Ayrıca, PINN eğitim dinamiklerini ED parametrelerini optimize etmede etkili bir şekilde dikkate alan yeni yöntemler önermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "PIED overcomes existing methods’ computational bottlenecks through parallelized computation and meta-learning of PINN parameter initialization, and proposes novel methods to effectively take into account PINN training dynamics in optimizing the ED parameters."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "We introduce the use of a learned initial NN parameter which are used for all PINNs in PIED (Sec. 4.1), based on first-order meta-learning methods, allowing for more efficient PINN training over multiple PDE parameters."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "We present various effective ED criteria based on novel techniques for quantifying the training dynamics of PINNs (Sec. 4.2)."
+          }
+        ],
+        "reasoning_public": "Makale, PINN'lerin hesaplama avantajlarını (paralelleştirme, meta-öğrenme ile başlatma) ED sürecine entegre ederek önemli bir verimlilik artışı sağlamaktadır. Bu, özellikle karmaşık PDE'ler içeren ters problemler için pratik uygulamaları kolaylaştırabilir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f2",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.7,
+        "title": "Tek Seferlik Dağıtım İçin Sürekli Optimizasyon",
+        "summary": "PIED, tek seferlik (one-shot) dağıtımlar için tasarım parametrelerinin sürekli optimizasyonunu gerçekleştiren tam türevlenebilir bir mimari sunmaktadır. Bu, sensör yerleşimlerinin veya diğer tasarım parametrelerinin denemeler arasında sık sık ayarlanamadığı pratik senaryolar için özellikle önemlidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "This work presents Physics-Informed Experimental Design (PIED, the first ED framework that makes use of PINNs in a fully differentiable architecture to perform continuous optimization of design parameters for IPs for one-shot deployments."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "Unlike past works, our work aims to optimize performance for one-shot deployment."
+          }
+        ],
+        "reasoning_public": "Mevcut ED yöntemlerinin çoğu sıralı ve sık tasarım parametresi ayarlamaları gerektirirken, PIED'in tek seferlik dağıtım odaklı yaklaşımı, maliyetli veya zaman kısıtlı deney ortamlarında önemli bir pratik avantaj sunmaktadır. Bu, makalenin özgün bir uygulama alanına odaklandığını göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Eksik Referans Bilgileri ve Doğrulanabilirlik Sorunları",
+        "summary": "Makalede kullanılan 5 referansın tamamı indekslerde bulunamamıştır. Bu durum, çalışmanın literatürdeki yerini değerlendirmeyi ve atıf yapılan iddiaların doğruluğunu kontrol etmeyi zorlaştırmaktadır. Her ne kadar bu durum doğrudan bir 'uydurma' atıf anlamına gelmese de, makalenin şeffaflığını ve doğrulanabilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik bir çalışmanın güvenilirliği ve literatürdeki konumu, atıf yapılan kaynakların kolayca erişilebilir ve doğrulanabilir olmasıyla doğrudan ilişkilidir. Referansların indekslerde bulunamaması, okuyucuların yazarın iddialarını destekleyen orijinal çalışmaları incelemesini engeller ve bu da makalenin bilimsel katkısının tam olarak değerlendirilmesini zorlaştırır. Bu durum, özellikle yeni bir çerçeve sunan bir çalışma için literatürle sağlam bir bağ kurma açısından önemlidir.",
+        "limitations": [
+          "Sağlanan kanıt paketi, referansların indekslerde bulunamamasının OpenAlex servis hatasından kaynaklandığını belirtmektedir. Bu durum, referansların gerçekten var olmadığı anlamına gelmemektedir, ancak mevcut haliyle doğrulanabilirlik sorununa işaret etmektedir."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0",
+          "literature_positioning.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "PINN'lerin Avantajlarının Tam Kullanımı İddiası ve Kanıt Eksikliği",
+        "summary": "Makale, PIED'in PINN'lerin avantajlarını tam olarak kullanan ilk ED çerçevesi olduğunu iddia etmektedir, ancak bu 'tam kullanım'ın ne anlama geldiği ve mevcut yöntemlerin neden bu avantajları tam olarak kullanamadığına dair yeterli kanıt veya açıklama sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "This work presents Physics-Informed Experimental Design (PIED), the first ED framework that makes use of PINNs in a fully differentiable architecture to perform continuous optimization of design parameters for IPs for one-shot de- ployments. PIED overcomes existing methods’ computational bottlenecks through parallelized computation and meta-learning of PINN parameter initialization, and proposes novel methods to effectively take into account PINN training dynamics in optimizing the ED parameters."
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "However, to our knowledge, there has not been an ED framework for IPs that fully utilizes these advantages from PINNs for ED problems."
+          }
+        ],
+        "reasoning_public": "Yazarlar, PIED'in PINN'lerin meshsiz çözümler, türevlenebilirlik ve amortize edilmiş eğitim gibi avantajlarını tam olarak kullanan ilk ED çerçevesi olduğunu belirtmektedir. Ancak, bu 'tam kullanım'ın mevcut yöntemlere kıyasla nasıl bir üstünlük sağladığı veya mevcut yöntemlerin bu avantajları neden tam olarak kullanamadığına dair detaylı bir analiz veya karşılaştırmalı kanıt sunulmamıştır. Bu durum, iddianın gücünü zayıflatmaktadır ve okuyucunun PIED'in yenilikçi yönünü tam olarak anlamasını engellemektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "PINN Eğitim Dinamiklerinin Etkin Kullanımı İddiası",
+        "summary": "Makale, PIED'in PINN eğitim dinamiklerini ED parametrelerini optimize etmede 'etkin bir şekilde' hesaba katan yeni yöntemler önerdiğini iddia etmektedir. Ancak, bu 'etkinlik'in mevcut yaklaşımlara göre nasıl bir iyileşme sağladığına dair nicel veya nitel bir karşılaştırma eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "and proposes novel methods to effectively take into account PINN training dynamics in optimizing the ED parameters."
+          },
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "• We present various effective ED criteria based on novel techniques for quantifying the training dynamics of PINNs (Sec. 4.2). These proposed criteria are differentiable w.r.t. the design parameters, and therefore can be optimized efficiently via gradient-based methods."
+          }
+        ],
+        "reasoning_public": "Yazarlar, PIED'in PINN eğitim dinamiklerini ED parametrelerini optimize etmede etkin bir şekilde hesaba katan yeni yöntemler önerdiğini belirtmektedir. Ancak, bu 'etkinlik'in ne anlama geldiği, mevcut yöntemlerin bu dinamikleri nasıl ele aldığı ve PIED'in yaklaşımının neden daha üstün olduğu konusunda daha fazla açıklama ve kanıt gerekmektedir. 'Etkin' kelimesi sübjektif kalmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Meta-Öğrenilmiş Başlatmanın Faydalarına Dair Güçlü Kanıt",
+        "summary": "Makale, meta-öğrenilmiş bir PINN başlatmasının eğitim süresini ve performansını önemli ölçüde iyileştirdiğini iddia etmekte ve bu iddiayı görsel ve nicel verilerle güçlü bir şekilde desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_shared_meta_learned_initialization_for_all_pinn_based_components.a0",
+            "section": "4.1 SHARED META-LEARNED INITIALIZATION FOR ALL PINN-BASED COMPONENTS",
+            "quote": "To demonstrate the benefits of learning a shared NN initialization for PINNs, we visualize various PDE solutions (green lines) for the 1D damped oscillator setting, along with the output of the PINN with random initialization and shared initialization (blue lines), in Fig. 2a and Fig. 2b respectively. Note how the PINN with the meta-learned, shared initialization share qualitatively similar structure to the PDE solutions uβ for different values of β, e.g., replicating the damping effect observed in the various solutions. In contrast, the random initialization in Fig. 2a is dissimilar to any of the PDE solutions. This advantage can also be observed quantitatively in Figs. 2c and 2d, where we plot the train and test loss for forward PINNs when initialized with θSI versus when initialized randomly. We can see that PINNs initialized with the shared θSI initialization have faster training convergence with lower train and test loss compared to those that are random initialized."
+          }
+        ],
+        "reasoning_public": "Yazarlar, meta-öğrenilmiş bir başlatmanın PINN eğitimini hızlandırdığı ve daha iyi performans sağladığı iddiasını, 1D sönümlü osilatör ve 2D Eikonal denklemi örnekleri üzerinden görsel (Şekil 2a, 2b, 3a, 3b, 3c) ve nicel (Şekil 2c, 2d) verilerle ikna edici bir şekilde desteklemektedir. Bu, makaledeki iddia-kanıt uyumunun güçlü bir örneğidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Tüm referansların indekslerde bulunamaması",
+        "summary": "Makaledeki tüm referanslar (toplam 5 adet) otomatik indeksleme sistemlerinde (OpenAlex) bulunamamıştır. Bu durum, makalenin referanslarının doğrulanabilirliğini ve erişilebilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayınların temel prensiplerinden biri, atıfta bulunulan kaynakların kolayca doğrulanabilir ve erişilebilir olmasıdır. Tüm referansların otomatik indeksleme sistemlerinde bulunamaması, okuyucuların ve hakemlerin atıfların geçerliliğini kontrol etmesini zorlaştırmaktadır. Bu durum, makalenin şeffaflığını ve güvenilirliğini azaltabilir.",
+        "limitations": [
+          "OpenAlex'in geçici servis hataları nedeniyle referansların bulunamamış olma ihtimali bulunmaktadır. Ancak, tüm referansların aynı anda bulunamaması, referans bilgilerinin eksik veya hatalı olma olasılığını artırmaktadır."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Kod Paylaşımı ve Tekrar Üretilebilirlik",
+        "summary": "Makale, projenin kodunun GitHub'da paylaşıldığını belirtmektedir, bu da tekrar üretilebilirliği artırır. Ancak, deneysel verilerin veya simülasyon detaylarının tam olarak nasıl elde edildiği ve tekrar üretilebilirliği sağlamak için yeterli detayda açıklanıp açıklanmadığı net değildir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a6",
+            "section": "Introduction",
+            "quote": "The code for the project can be found at https://github.com/apivich-h/pied."
+          },
+          {
+            "anchor_id": "abstract.a8",
+            "section": "ABSTRACT",
+            "quote": "Through experiments based on noisy simulated data and even real world experimental data, we empirically show that given limited observation budget, PIED significantly outperforms existing ED methods in solving IPs, including for challenging settings where the PDE parameters are unknown functions rather than just finite-dimensional."
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmalarda tekrar üretilebilirlik esastır. Kodun paylaşılması önemli bir adımdır, ancak deneylerin ve veri üretim süreçlerinin de yeterince detaylı açıklanması, başkalarının sonuçları bağımsız olarak doğrulayabilmesi için kritik öneme sahiptir. Özellikle 'noisy simulated data' ve 'real world experimental data' kullanıldığı belirtildiğinden, bu verilerin nasıl oluşturulduğu veya elde edildiği hakkında daha fazla bilgi, çalışmanın şeffaflığını ve güvenilirliğini artıracaktır.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Onay ve Rıza Beyanı Eksikliği",
+        "summary": "Makalede insan deneklerle yapılan bir çalışmaya dair herhangi bir etik onay veya rıza beyanı bulunmamaktadır. Ancak, makalenin konusu ve içeriği (fizik-bilgili deneysel tasarım ve ters problemler) göz önüne alındığında, insan deneklerle doğrudan bir etkileşim veya veri toplama söz konusu değildir. Bu nedenle, etik onay beyanının olmaması bir eksiklik olarak değerlendirilmemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayınlarda, insan deneklerle yapılan araştırmalar için etik kurul onayı ve katılımcılardan bilgilendirilmiş rıza alındığına dair beyanlar zorunludur. Bu makale, teorik ve hesaplamalı bir çalışma olup, insan deneklerle ilgili herhangi bir veri toplama veya deney yapma içermemektedir. Dolayısıyla, bu tür bir beyanın olmaması, çalışmanın doğası gereği beklenen bir durumdur ve bir eksiklik teşkil etmez.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Giriş ve Arka Plan Bölümleri Arasındaki Geçişte Tekrar",
+        "summary": "Makalenin giriş bölümü (Introduction) ve arka plan bölümü (Background) arasında bazı temel kavramların ve problem tanımının tekrarlandığı gözlemlenmiştir. Bu durum, okuyucunun aynı bilgiyi birden fazla kez okumasına neden olarak metnin akıcılığını azaltmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "This problem of recovering the unknown PDE parameters is a type of inverse problem (IP) (Vogel, 2002; Ghattas & Willcox, 2021), and have been studied in classical mechanics (Tanaka & Bui, 1993; Gazzola et al., 2018), quantum mechanics (Chadan et al., 1989) or geophysics (Smith et al., 2021; Waheed et al., 2021), and more."
+          },
+          {
+            "anchor_id": "background.a0",
+            "section": "BACKGROUND",
+            "quote": "For inverse problems (IPs), the operators D and B and functions f and g are known, and the task is to estimate the unknown PDE parameter of interest, β0, that cannot be observed directly."
+          },
+          {
+            "anchor_id": "introduction.a8",
+            "section": "INTRODUCTION",
+            "quote": "Experimental design (ED) methods aim to tackle the data scarcity problem by optimizing design parameters, such as sensor placement locations, to yield the most informative measurements for estimating the unknown inverse parameters (Razavy, 2020; Alexanderian, 2021)."
+          },
+          {
+            "anchor_id": "background.a1",
+            "section": "BACKGROUND",
+            "quote": "In the experimental design (ED) problem, the goal is therefore to find the observation input X ∈S which minimizes L(X) = Eβ,Y ∼p(β)p(Y |β) hβ̂(X, Y ) −β 2i, or the expected error of the estimated PDE parameter w.r.t. the possible true PDE parameters."
+          }
+        ],
+        "reasoning_public": "Giriş bölümü, okuyucuyu konuya hazırlarken, arka plan bölümü daha detaylı teknik bilgiler sunmalıdır. Aynı bilgilerin her iki bölümde de yer alması, metnin verimliliğini düşürür ve okuyucunun dikkatini dağıtabilir. Özellikle 'Inverse Problems' ve 'Experimental Design' tanımları her iki bölümde de benzer ifadelerle ele alınmıştır.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Şekil ve Tablo Referanslarının Metin İçindeki Konumu",
+        "summary": "Şekil 1'e yapılan referans (Fig. 1a ve Fig. 1b), metinde şeklin kendisinden önce gelmektedir. Bu durum, okuyucunun şekli görmeden önce referansı okumasına neden olabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experimental_design_loop.a0",
+            "section": "EXPERIMENTAL DESIGN LOOP",
+            "quote": "The process of solving the IP with PINNs is summarized in Fig. 1a. As presented in Sec. 2, the goal is to find the true PDE parameter β∗of the system based on (2) by conducting experiments at a limited number of observation input X to obtain observational data (X, Y ), where Y are noisy measurements of the observable function uβ∗."
+          },
+          {
+            "anchor_id": "experimental_design_loop.a1",
+            "section": "EXPERIMENTAL DESIGN LOOP",
+            "quote": "To achieve this, we propose our ED framework PIED, which is visualized in Fig. 1b."
+          }
+        ],
+        "reasoning_public": "Akademik yazımda, şekil ve tablolara yapılan referansların, ilgili görselin metinde ilk kez bahsedildiği yerden sonra gelmesi yaygın bir uygulamadır. Bu, okuyucunun metni takip ederken görseli bağlamında görmesini sağlar.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıksal Akış ve Anlaşılırlık",
+        "summary": "Makalenin genel yapısı ve bölümler arasındaki geçişler mantıklı ve anlaşılırdır. Konular adım adım ilerlemekte ve okuyucunun PIED çerçevesini kavramasına yardımcı olmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Giriş, arka plan, metodoloji (PIED çerçevesi ve verimli uygulamalar) ve sonuçlar bölümleri arasında net bir ilerleme vardır. Her bölüm, bir sonraki bölüm için gerekli temeli sağlamakta ve karmaşık kavramlar açıkça açıklanmaktadır. Özellikle 'Efficient Implementation of PIED' bölümü, önceki bölümlerde tanıtılan kavramların nasıl optimize edildiğini iyi bir şekilde açıklamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, BACKGROUND",
+        "instruction": "PIED'in PINN avantajlarını 'tam olarak' nasıl kullandığını ve mevcut yöntemlerin bu avantajları neden tam olarak kullanamadığını açıklayan daha detaylı bir karşılaştırmalı analiz ekleyin. Bu, özellikle 'fully differentiable architecture' ve 'continuous optimization' gibi kavramların mevcut yöntemlerdeki eksikliklerle nasıl ilişkilendiğini somut örneklerle açıklayabilir.",
+        "acceptance_check": "Makalede, PIED'in PINN avantajlarını 'tam olarak' kullanmasının ne anlama geldiği ve mevcut yöntemlerin bu konuda neden yetersiz kaldığına dair somut, teknik detaylar ve karşılaştırmalar içeren yeni bir paragraf veya alt bölüm bulunmalıdır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "Deneylerde kullanılan 'N' (paralel iş parçacığı sayısı) ve 'M' (gözlem girdisi sayısı) parametrelerinin seçimi için bir gerekçe sunulmalıdır. Bu gerekçe, bir güç analizi, hassasiyet analizi veya alan bilgisine dayalı bir rasyonel olabilir.",
+        "acceptance_check": "N ve M değerlerinin neden seçildiğini açıklayan yeni bir paragraf veya bölüm eklenmiş mi? Bu seçimin sonuçların güvenilirliği üzerindeki etkisi tartışılmış mı?",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "PIED'in diğer yöntemlere göre performans üstünlüğünü gösteren tüm karşılaştırmalı sonuçlar için etki büyüklüğü ölçüleri (örneğin, ortalama farklar, standartlaştırılmış farklar) ve güven aralıkları raporlanmalıdır. Bu, özellikle 'significantly outperforms' gibi iddiaların nicel olarak desteklenmesi için kritik öneme sahiptir.",
+        "acceptance_check": "Tüm performans karşılaştırmaları için etki büyüklüğü ve güven aralıkları eklenmiş mi? Bu ölçümler, sonuçların pratik önemini açıkça ortaya koyuyor mu?",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "Tüm ana sonuçlar için, özellikle PIED'in diğer yöntemlere göre performansını gösteren karşılaştırmalarda, etki büyüklüğü ölçüleri (örneğin, ortalama farklar, standartlaştırılmış farklar) ve güven aralıkları (CI) raporlanmalıdır. Ayrıca, istatistiksel karşılaştırmalar yapılıyorsa, ilgili test istatistikleri ve p-değerleri de eklenmelidir.",
+        "acceptance_check": "Ana sonuçlar bölümünde, tüm performans metrikleri için etki büyüklüğü ve güven aralıkları sunulmuş mu? İstatistiksel karşılaştırmalar için gerekli tüm istatistiksel bilgiler (test istatistiği, df, p-değeri) mevcut mu?",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Referans listesindeki her bir öğe için, OpenAlex gibi akademik indekslerde bulunabilirliğini sağlayacak şekilde tam ve doğru bibliyografik bilgileri (yazar, yıl, başlık, yayın yeri, DOI/URL) kontrol edin ve güncelleyin. Özellikle, referansların tam başlıklarını ve yayınlandıkları dergi/konferans bilgilerini ekleyin.",
+        "acceptance_check": "Tüm referansların OpenAlex veya benzeri saygın akademik indekslerde bulunabilir olduğunun doğrulanması.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, RESULTS",
+        "instruction": "PINN eğitim dinamiklerini hesaba katma yöntemlerinizin 'etkinliğini' destekleyecek daha somut kanıtlar veya karşılaştırmalar ekleyin. Bu, mevcut yöntemlerin bu dinamikleri nasıl göz ardı ettiğini veya daha az etkin kullandığını gösteren bir tartışma içerebilir.",
+        "acceptance_check": "Makalede, PIED'in PINN eğitim dinamiklerini hesaba katma yöntemlerinin 'etkinliğini' destekleyen nicel veya nitel karşılaştırmalı veriler veya argümanlar sunulmalıdır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RESULTS, APPENDIX",
+        "instruction": "Makalenin 'RESULTS' veya 'APPENDIX' bölümlerinde, kullanılan 'noisy simulated data' ve 'real world experimental data'nın nasıl oluşturulduğu veya elde edildiği, hangi parametrelerin kullanıldığı ve bu verilerin tekrar üretilebilirliğini sağlayacak detayların eklenmesi gerekmektedir. Eğer veri setleri kamuya açıksa, bunlara erişim linkleri de sağlanmalıdır.",
+        "acceptance_check": "Veri üretim süreçleri veya veri setlerine erişim bilgileri makaleye eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların tam künye bilgilerini (yazar, yıl, başlık, dergi/konferans adı, cilt, sayı, sayfa aralığı, DOI/URL) kontrol edin ve eksik veya hatalı bilgileri düzeltin. Özellikle 'not_found_in_index' olarak belirtilen referanslar için bu kontrol kritik öneme sahiptir.",
+        "acceptance_check": "Tüm referansların tam ve doğru künye bilgileri sağlanmış olmalı ve büyük akademik indekslerde (örneğin, OpenAlex, Semantic Scholar, Google Scholar) bulunabilir olmalıdır.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f4.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "Tüm karşılaştırmalı analizler ve performans değerlendirmeleri için, raporlanan p-değerleri ile birlikte ilgili test istatistikleri (örneğin, t-değeri, F-değeri) ve serbestlik dereceleri eklenmelidir. Bu, özellikle 'PIED significantly outperforms existing ED methods' gibi iddiaların desteklenmesi için önemlidir.",
+        "acceptance_check": "Her istatistiksel karşılaştırma için test istatistiği ve serbestlik derecesi raporlanmış mı? Raporlanan p-değerleri ile bu istatistikler arasında tutarlılık kontrolü yapılabilir mi?",
+        "linked_finding_ids": [
+          "quant.f4"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, BACKGROUND",
+        "instruction": "Giriş bölümündeki temel tanımları daha kısa ve öz tutarak, arka plan bölümünde bu kavramların teknik detaylarına ve formalizasyonuna odaklanın. Tekrarlayan ifadeleri birleştirin veya farklı açılardan ele alın.",
+        "acceptance_check": "Giriş ve arka plan bölümlerindeki 'Inverse Problems' ve 'Experimental Design' tanımlarının tekrar etmediği ve her bölümün kendi amacına uygun bilgi sunduğu doğrulanacaktır.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Eğer atıf yapılan bazı kaynaklar henüz yayınlanmamış veya kolayca erişilebilir değilse (örneğin, kişisel iletişim, taslaklar), bu durumu referans listesinde veya metin içinde açıkça belirtin ve mümkünse alternatif erişim yolları (örneğin, arXiv bağlantısı) sağlayın.",
+        "acceptance_check": "Erişilemeyen kaynaklar için açıklama ve/veya alternatif erişim bilgisi sağlanmış olmalıdır.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "EXPERIMENTAL DESIGN LOOP",
+        "instruction": "Şekil 1'e yapılan referansları, şeklin metinde ilk kez göründüğü paragrafın sonuna veya şekilden hemen sonraki bir cümleye taşıyın.",
+        "acceptance_check": "Şekil 1'e yapılan referansların, şeklin metinde göründüğü yerden sonra geldiği doğrulanacaktır.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "PINN'lerin Avantajlarının Tam Kullanımı İddiası ve Kanıt Eksikliği; Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; PINN Eğitim Dinamiklerinin Etkin Kullanımı İddiası; Kod Paylaşımı ve Tekrar Üretilebilirlik",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7",
+          "abstract.a8"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f1.a0",
+          "ethics_reproducibility.f0.a0",
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "PINN'lerin Avantajlarının Tam Kullanımı İddiası ve Kanıt Eksikliği; PINN Eğitim Dinamiklerinin Etkin Kullanımı İddiası; Kod Paylaşımı ve Tekrar Üretilebilirlik; Giriş ve Arka Plan Bölümleri Arasındaki Geçişte Tekrar",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f1.a0",
+          "ethics_reproducibility.f0.a0",
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "BACKGROUND",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Giriş ve Arka Plan Bölümleri Arasındaki Geçişte Tekrar",
+        "anchor_ids": [
+          "background.a0",
+          "background.a1"
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "RESULTS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1 INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "1_introduction.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.2 COMPONENTS OF THE ED DESIGN LOOP",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_2_components_of_the_ed_design_loop.a0"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "4.1 SHARED META-LEARNED INITIALIZATION FOR ALL PINN-BASED COMPONENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_1_shared_meta_learned_initialization_for_all_pinn_based_components.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "5 RESULTS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Ana Sonuçların Eksik Raporlanması; İstatistiksel Tutarlılık Kontrolü Yapılamadı: Test İstatistiği Raporlama Eksikliği",
+        "anchor_ids": [
+          "5_results.a0",
+          "5_results.a1"
+        ],
+        "action_item_ids": [
+          "quant.f4.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "Criterion and optimal observation input selection.",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "criterion_and_optimal_observation_input_selection.a0",
+          "criterion_and_optimal_observation_input_selection.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "EXPERIMENTAL DESIGN LOOP",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "experimental_design_loop.a0",
+          "experimental_design_loop.a1"
+        ],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "Physics-informed neural networks.",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "physics_informed_neural_networks.a0"
+        ],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "unknown",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

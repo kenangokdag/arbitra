@@ -119,6 +119,15 @@ class Settings(BaseSettings):
     CROSSREF_EMAIL: str = "dr.ofrencber@gaziantep.edu.tr"
     CROSSREF_TIMEOUT_SECONDS: float = 10.0
 
+    # 2026-08-23: Semantic Scholar (S2) — OpenAlex not_found_in_index derse
+    # fallback (engine/providers/semantic_scholar.py). Boşsa (key yok) S2
+    # HİÇ ÇAĞRILMAZ (dürüstçe atlanır, ağ çağrısı YAPILMAZ) — canlı testte
+    # kanıtlandı: key'siz anonim kota HEMEN 429 veriyor (ham S2 yanıtı:
+    # "apply for a key for higher rate limits"), boşuna gecikme eklemesin
+    # diye key yoksa mekanizma tamamen devre dışı kalır. Ücretsiz key:
+    # https://www.semanticscholar.org/product/api#api-key-form
+    SEMANTIC_SCHOLAR_API_KEY: str = ""
+
     LITELLM_TIMEOUT_SECONDS: int = 30
     LITELLM_CONFIG_PATH: str = "config/litellm_models.yaml"
     PRESENTER_TR_MODEL: str = "gemini-flash-tr"

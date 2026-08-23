@@ -1,0 +1,65 @@
+[
+  {
+    "paper_id": "openreview:w7P92BEsb2",
+    "human_verdict": "accept",
+    "before": {
+      "not_found_in_index": 5,
+      "resolved": 0,
+      "total": 5,
+      "semantic_scholar_recovered": 0,
+      "citation_integrity_score": 8.92,
+      "verdict": "accept"
+    },
+    "after": {
+      "not_found_in_index": 5,
+      "resolved": 0,
+      "total": 5,
+      "semantic_scholar_recovered": 0,
+      "citation_integrity_score": 8.92,
+      "verdict": "accept",
+      "elapsed_s": 386.9
+    }
+  },
+  {
+    "paper_id": "openreview:imT03YXlG2",
+    "human_verdict": "accept",
+    "before": {
+      "not_found_in_index": 32,
+      "resolved": 5,
+      "total": 37,
+      "semantic_scholar_recovered": 0,
+      "citation_integrity_score": 8.92,
+      "verdict": "accept"
+    },
+    "after": {
+      "not_found_in_index": 32,
+      "resolved": 5,
+      "total": 37,
+      "semantic_scholar_recovered": 0,
+      "citation_integrity_score": 8.92,
+      "verdict": "accept",
+      "elapsed_s": 450.8
+    }
+  },
+  {
+    "paper_id": "openreview:PwxYoMvmvy",
+    "human_verdict": "accept",
+    "before": {
+      "not_found_in_index": 65,
+      "resolved": 8,
+      "total": 73,
+      "semantic_scholar_recovered": 0,
+      "citation_integrity_score": 8.92,
+      "verdict": "accept"
+    },
+    "after": {
+      "not_found_in_index": 65,
+      "resolved": 8,
+      "total": 73,
+      "semantic_scholar_recovered": 0,
+      "citation_integrity_score": 8.92,
+      "verdict": "accept",
+      "elapsed_s": 437.2
+    }
+  }
+]

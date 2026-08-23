@@ -63,6 +63,11 @@ from api.services.openalex_polite import (
     fetch_work_by_doi,
     search_works_raw,
 )
+from engine.providers.semantic_scholar import (
+    SemanticScholarError,
+    SemanticScholarMatch,
+    search_semantic_scholar,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -177,6 +182,124 @@ def _has_author_surname_overlap(ref_authors: list[str], work: dict[str, Any]) ->
     if not overlap:
         return False
     return len(overlap) / len(ref_surnames) >= _SURNAME_OVERLAP_RATIO_THRESHOLD
+
+
+def _has_author_surname_overlap_plain(ref_authors: list[str], match_authors: list[str]) -> bool:
+    """`_has_author_surname_overlap`'in AYNI eşik/mantığı — S2'nin düz "Ad Soyad"
+    yazar listesi için (OpenAlex work dict'i DEĞİL, bkz. semantic_scholar.py
+    SemanticScholarMatch.authors). Aynı yanlış-tesadüf riski (2026-08-05 guardian
+    bulgusu) burada da geçerli — eşiksiz bırakılmaz."""
+    ref_surnames = {_surname_from_ref_author(a) for a in ref_authors if a}
+    ref_surnames.discard("")
+    if not ref_surnames:
+        return False
+    match_surnames = {_surname_from_work_author(a) for a in match_authors if a}
+    match_surnames.discard("")
+    overlap = ref_surnames & match_surnames
+    if not overlap:
+        return False
+    return len(overlap) / len(ref_surnames) >= _SURNAME_OVERLAP_RATIO_THRESHOLD
+
+
+async def _resolve_via_semantic_scholar(ref: ParsedReference) -> ParsedReference | None:
+    """OpenAlex not_found_in_index dedikten SONRA çağrılır (bkz. resolve_all).
+    Başlık yoksa aramaya gerek yok → None. S2 hata verirse (SemanticScholarError)
+    loglanır, None döner — çağıran ref'i OLDUĞU GİBİ (not_found_in_index) bırakır,
+    ASLA daha kötü olmaz. Eşleşme bulunursa resolved ParsedReference döner.
+
+    Fabricated/retracted tespiti YAPILMAZ (bilinçli dar kapsam, bkz.
+    semantic_scholar.py modül docstring) — sadece resolved YÜKSELTMESİ."""
+    if not ref.title or not _norm_title(ref.title):
+        logger.info(
+            "semantic_scholar SKIP (başlık yok/boş) index=%d raw=%r", ref.index, ref.raw[:80]
+        )
+        return None
+    query = ref.title
+    if ref.authors:
+        query = f"{ref.title} {ref.authors[0]}"
+
+    try:
+        matches = await search_semantic_scholar(query, limit=5)
+    except SemanticScholarError as exc:
+        # "not configured" (key yok) BEKLENEN bir durum — WARNING değil INFO
+        # (openalex.py:_map_error_status'un auth_missing ayrımıyla AYNI ruh).
+        # Diğer her şey (429/network/malformed) GERÇEK arıza — WARNING kalır.
+        if "not configured" in str(exc):
+            logger.info("semantic_scholar SKIP (key yok) index=%d", ref.index)
+        else:
+            logger.warning(
+                "semantic_scholar fallback failed index=%d title=%r err=%s",
+                ref.index,
+                ref.title,
+                exc,
+            )
+        return None
+
+    best: SemanticScholarMatch | None = None
+    best_ratio = 0.0
+    for m in matches:
+        r = _title_ratio(ref.title, m.title)
+        if r > best_ratio:
+            best_ratio, best = r, m
+
+    # 2026-08-23 (kullanıcı bulgusu: semantic_scholar_recovered hep 0 çıktı,
+    # "muhtemelen" denmeden kanıtla) — DENENDİ ama eşleşmedi durumu ÖNCEDEN
+    # hiç loglanmıyordu, sadece sert hata (SemanticScholarError) loglanıyordu.
+    # Bu INFO satırı olmadan "S2'ye istek gitti mi" logdan asla anlaşılamazdı.
+    if best is None or best_ratio < _TITLE_MATCH_THRESHOLD:
+        logger.info(
+            "semantic_scholar NO-MATCH index=%d n_candidates=%d best_ratio=%.2f title=%r",
+            ref.index,
+            len(matches),
+            best_ratio,
+            ref.title[:80],
+        )
+        return None
+    if not _year_ok(ref.year, best.year):
+        logger.info(
+            "semantic_scholar YEAR-MISMATCH index=%d ref_year=%s s2_year=%s ratio=%.2f",
+            ref.index,
+            ref.year,
+            best.year,
+            best_ratio,
+        )
+        return None
+    # Tek-yazarlı/yazar-yok referansta soyad örtüşmesi zaten boş küme →
+    # kontrol atlanır (OpenAlex yolundaki DOI-çözümüyle aynı gevşeklik, ama
+    # burada DOI YOK — bu yüzden başlık+yıl eşiği (_TITLE_MATCH_THRESHOLD=0.82,
+    # _YEAR_TOLERANCE=±1) TEK başına yeterli kanıt sayılır; yazar varsa EK
+    # doğrulama katmanı olarak kullanılır, yoksa reddedilmez.
+    if ref.authors and best.authors and not _has_author_surname_overlap_plain(
+        ref.authors, best.authors
+    ):
+        logger.info(
+            "semantic_scholar AUTHOR-MISMATCH index=%d ref_authors=%r s2_authors=%r ratio=%.2f",
+            ref.index,
+            ref.authors,
+            best.authors,
+            best_ratio,
+        )
+        return None
+    logger.info(
+        "semantic_scholar UPGRADED index=%d ratio=%.2f title=%r",
+        ref.index,
+        best_ratio,
+        ref.title[:80],
+    )
+
+    return ref.model_copy(
+        update={
+            "status": "resolved",
+            "evidence": (
+                f"OpenAlex'te bulunamadı; Semantic Scholar'da çözüldü "
+                f"(başlık benzerliği {best_ratio:.2f}"
+                + (f"; DOI: {best.doi}" if best.doi else "")
+                + f"). Eser: '{best.title}'. NOT: bu kaynak OpenAlex'in kapsam "
+                "boşluğunu (arXiv/OpenReview gibi linkler) kapatmak için "
+                "kullanıldı, fabricated/retracted tespiti İÇİN kullanılmadı."
+            ),
+        }
+    )
 
 
 def _cache_key(ref: ParsedReference) -> str | None:
@@ -489,9 +612,14 @@ async def _resolve_uncached(ref: ParsedReference, cfg: Settings) -> ParsedRefere
             update={
                 "status": "not_found_in_index",
                 "evidence": (
-                    "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme "
+                    # 2026-08-23 düzeltme (guardian bulgusu): önceden "OpenAlex/S2'de"
+                    # diyordu ama S2 bu fonksiyonda HİÇ çağrılmıyor (resolve_all'da,
+                    # AYRI bir adım olarak, sadece bu status not_found_in_index
+                    # kaldığında denenir) — kanıtsız iddia düzeltildi.
+                    "OpenAlex'te başlık+yazar+yıl ile yeterince güçlü eşleşme "
                     f"bulunamadı (en iyi benzerlik {best_ratio:.2f} < "
-                    f"{_TITLE_MATCH_THRESHOLD}); mevcut olmadığı anlamına gelmez."
+                    f"{_TITLE_MATCH_THRESHOLD}); mevcut olmadığı anlamına gelmez "
+                    "(Semantic Scholar fallback'i ayrıca denenir)."
                 ),
             }
         )
@@ -514,13 +642,28 @@ async def _resolve_uncached(ref: ParsedReference, cfg: Settings) -> ParsedRefere
 async def resolve_all(
     refs: list[ParsedReference], *, settings: Settings | None = None
 ) -> tuple[list[ParsedReference], CitationIntegritySummary]:
-    """Tüm referansları eşzamanlılık-sınırlı çöz + özet say (FE rozet)."""
+    """Tüm referansları eşzamanlılık-sınırlı çöz + özet say (FE rozet).
+
+    2026-08-23: OpenAlex not_found_in_index derse Semantic Scholar fallback'i
+    AYRI, kendi (çok daha temkinli) eşzamanlılık sınırıyla denenir — OpenAlex
+    akışı (_one içindeki resolve_reference çağrısı) HİÇ değiştirilmedi."""
     cfg = settings or get_settings()
     sem = asyncio.Semaphore(_CONCURRENCY)
+    # S2'nin gözlemlenen agresif rate-limiti (bkz. semantic_scholar.py modül
+    # docstring) yüzünden OpenAlex'in _CONCURRENCY=5'inden BAĞIMSIZ, çok daha
+    # dar bir eşzamanlılık — S2_RATE_LIMITER zaten global sıralıyor ama ek bir
+    # semaphore, aynı anda çok sayıda coroutine'in kuyrukta birikmesini
+    # (ve hepsinin timeout'a yakın beklemesini) önler.
+    s2_sem = asyncio.Semaphore(2)
 
     async def _one(r: ParsedReference) -> ParsedReference:
         async with sem:
-            return await resolve_reference(r, settings=cfg)
+            result = await resolve_reference(r, settings=cfg)
+        if result.status != "not_found_in_index":
+            return result
+        async with s2_sem:
+            upgraded = await _resolve_via_semantic_scholar(result)
+        return upgraded if upgraded is not None else result
 
     resolved = await asyncio.gather(*(_one(r) for r in refs))
     resolved_list = list(resolved)
@@ -529,6 +672,11 @@ async def resolve_all(
     for r in resolved_list:
         if r.status == "resolved":
             summary.resolved += 1
+            # _resolve_via_semantic_scholar'ın evidence metninde HEP bu işaretçi
+            # var (bkz. yukarısı) — OpenAlex'in kendi evidence metinleri bunu
+            # asla üretmez, güvenilir bir ayrım sinyali.
+            if "Semantic Scholar" in (r.evidence or ""):
+                summary.semantic_scholar_recovered += 1
         elif r.status == "not_found_in_index":
             summary.not_found_in_index += 1
         elif r.status == "fabricated":

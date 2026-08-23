@@ -1,0 +1,2751 @@
+{
+  "paper_id": "openreview:PwxYoMvmvy",
+  "run_tag": "s2after",
+  "job_id": "67ba6b55-9bdb-46a3-b16a-db82ba27abf7",
+  "elapsed_s": 437.2,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "Beyond Random Masking: When Dropout Meets Graph Convolutional Networks Yuankai Luo1,2 & Xiao-Ming Wu2 & Hao Zhu3,∗ 1Beihang University, Beijing, China",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "Abstract",
+        "Introduction",
+        "Related Work",
+        "Method",
+        "Conclusions",
+        "References"
+      ],
+      "word_count": 10088,
+      "reference_count": 73,
+      "parse_confidence": 0.678,
+      "parse_warnings": []
+    },
+    "summary": "This paper presents a comprehensive and insightful analysis of dropout in Graph Convolutional Networks (GCNs). The authors make a compelling case that dropout's primary role in GCNs is not preventing feature co-adaptation, as in standard NNs, but rather mitigating oversmoothing. This central claim is supported by a rigorous theoretical framework that introduces concepts like dimension-specific stochastic sub-graphs and degree-dependent regularization. The theoretical findings are validated through an exceptionally thorough set of experiments across 14 datasets, demonstrating that a simple GCN with dropout and batch normalization can achieve state-of-the-art results. The work is a significant contribution to our understanding of regularization in GNNs. While the scientific contribution is strong, the manuscript requires a major revision of its bibliography to address a large number of unresolvable citations before it can be published.",
+    "strengths": [
+      {
+        "category": "Novelty and Theoretical Contribution",
+        "points": [
+          "The paper offers a fundamental reframing of dropout's function in GCNs, shifting the focus from co-adaptation to oversmoothing. This is a novel and important conceptual contribution.",
+          "The theoretical analysis is rigorous, providing new insights into how dropout creates dimension-specific sub-graphs (Theorem 1), exerts a degree-dependent effect (Theorem 3), and influences generalization (Theorem 6).",
+          "The analysis of the synergistic interaction between dropout and batch normalization (Theorem 7), which establishes a lower bound on feature energy, is particularly insightful and explains empirical observations well."
+        ]
+      },
+      {
+        "category": "Empirical Validation",
+        "points": [
+          "The experimental evaluation is extensive and convincing, spanning 14 datasets for both node-level and graph-level tasks.",
+          "The results strongly support the theoretical claims. For instance, the consistent increase in Dirichlet energy with dropout (Table 2, Figure 4) provides clear evidence for its role in mitigating oversmoothing.",
+          "The paper demonstrates impressive practical impact by showing that a well-configured GCN can outperform more complex, recent state-of-the-art models on several key benchmarks (e.g., Cora, CiteSeer, Peptides-func)."
+        ]
+      },
+      {
+        "category": "Clarity and Impact",
+        "points": [
+          "The paper is well-structured and clearly articulates its main arguments, especially in the introduction and conclusion.",
+          "The findings have high value for the community, providing both a deeper theoretical understanding and practical guidance for improving GNN performance using standard, well-understood techniques."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Bibliographic Integrity",
+        "points": [
+          "The reference list has critical issues. An automated check revealed that a vast majority of the citations (65 out of 73) could not be resolved against major academic indices. While the evidence pack confirms no citations are fabricated or retracted, and a few non-resolutions were due to service errors, this high number is a significant concern. It suggests potential systematic problems with formatting, incomplete bibliographic data, or an over-reliance on non-archival sources. This is a mandatory issue to address as it undermines the paper's scholarly foundation."
+        ]
+      },
+      {
+        "category": "Presentation",
+        "points": [
+          "While generally clear, some theoretical sections are quite dense. The presentation could be improved by providing more high-level intuition before introducing the formal theorems and proofs, particularly for the generalization bound in Theorem 6, to improve accessibility."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The reference list requires a major overhaul. An automated check, confirmed by the evidence pack, found that 65 of 73 references could not be resolved against standard academic databases. This is a mandatory revision. Please meticulously check every single reference to ensure it is complete, correctly formatted with all necessary metadata (authors, year, venue, DOI), and points to a stable, citable version of the work (e.g., a published paper over a pre-print).",
+        "evidence_ref": "Citation Integrity Summary: 65/73 references unresolved."
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The derivation of the lower bound on feature energy in Theorem 7, which relies on the presence of Batch Normalization, is a key result. To further strengthen the argument, it would be helpful if the authors could briefly comment on the specific technical hurdles that prevent the derivation of a meaningful lower bound in the absence of BN. This would provide a clearer contrast and highlight the essential role BN plays in this mechanism.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The empirical results are impressive and show that a simple GCN can be a very strong baseline. This is an important message for the community. The performance gains on both node-level (Table 2) and graph-level (Tables 3 & 4) tasks convincingly demonstrate the broad applicability of the paper's insights.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Your analysis of degree-dependent regularization (Theorem 3, Corollary 4) is very insightful. Does this theory suggest that a degree-aware dropout strategy—for example, applying a lower dropout rate to low-degree nodes and a higher rate to high-degree nodes—could be a promising direction for future work? Have you considered any preliminary experiments along these lines?",
+      "In Section 4.4, you argue that dropout mitigates oversmoothing rather than co-adaptation. The evidence from Dirichlet energy is compelling. Could you elaborate on why the spectral norm of the weight matrices increases with dropout (Appendix A.5)? Is it purely an artifact of the gradient scaling, or does it reflect a learned preference for more discriminative features to counteract the information loss from dropout?",
+      "The generalization bound in Theorem 6 includes the fractional chromatic number χf(G) of the dependency graph. For practitioners, could you provide some intuition on how this value relates to common graph properties like density or diameter, and how it might vary across the benchmark datasets you used?"
+    ],
+    "overall_assessment": "This is a strong paper with a significant scientific contribution. It provides a novel and well-supported theoretical framework for understanding dropout in GCNs, backed by extensive and impressive empirical results. The central thesis—that dropout's main role is to combat oversmoothing—is convincing and has important practical implications. The work is well-written and its findings are of high value to the GNN community. However, the paper is not ready for publication in its current state due to the extremely poor condition of the bibliography. The sheer number of unresolvable references is a critical flaw that must be thoroughly addressed. A major revision is required to fix the bibliography completely. If the authors can successfully complete this mandatory revision, the paper would be an excellent candidate for acceptance.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity info. [LLM'in kendi gerekçesi: The paper provides a fundamental and novel reframing of the role of a widely used technique (dropout) in the context of GCNs. The theoretical concepts introduced are original.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.2,
+        "rationale": "Understanding regularization is critical for GNNs. The paper's findings are highly relevant and impactful, as demonstrated by the SOTA results achieved with a simple model, which could influence future research and practice."
+      },
+      {
+        "key": "claims_supported",
+        "score": 4.42,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: The claims are exceptionally well-supported by a combination of rigorous theoretical proofs and extensive, multi-faceted experiments across 14 datasets.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The theoretical framework appears sound, with proofs provided in the appendix. The experimental methodology is robust, using standard benchmarks and evaluation protocols.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is generally well-written, but the theoretical sections are dense. More intuition could be provided to make the concepts more accessible, but the core message is clear.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.5,
+        "rationale": "This work provides both deep theoretical insights and immediately useful practical advice. It has the potential to become a key reference for understanding regularization in GNNs."
+      },
+      {
+        "key": "contextualization",
+        "score": 6.0,
+        "rationale": "The related work section appears to cover relevant areas, but the large number of unresolvable citations severely hinders a reader's ability to verify the claims and situate the work within the existing literature."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: This score is based on the evidence pack, which shows that 65 out of 73 references (89%) could not be resolved. This is a critical flaw that requires a complete overhaul of the bibliography, even though no fabricated or retracted papers were found.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missing seminal or mandatory works. The literature review appears comprehensive for the topic.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The evidence pack did not report any statistical inconsistencies. The reported results appear consistent.]"
+      }
+    ],
+    "final_score": 8.39,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 73,
+        "resolved": 8,
+        "not_found_in_index": 65,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 4
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Alessandro Achille and Stefano Soatto. Information dropout: Learning optimal representations through noisy computation. IEEE transactions on pattern analysis and machine intelligence, 40 (12):2897–2905, 2018.",
+          "title": "Information dropout: Learning optimal representations through noisy computation",
+          "authors": [
+            "Alessandro Achille",
+            "Stefano Soatto"
+          ],
+          "year": 2018,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2683470288",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2683470288; 'Information Dropout: Learning Optimal Representations Through Noisy Computation').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Pierre Baldi and Peter J Sadowski. Understanding dropout. Advances in neural information pro- cessing systems, 26, 2013.",
+          "title": "Understanding dropout",
+          "authors": [
+            "Pierre Baldi",
+            "Peter J Sadowski"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.27 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Ali Behrouz and Farnoosh Hashemi. Graph mamba: Towards learning on graphs with state space models. In Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining, pp. 119–130, 2024.",
+          "title": "Graph mamba: Towards learning on graphs with state space models",
+          "authors": [
+            "Ali Behrouz",
+            "Farnoosh Hashemi"
+          ],
+          "year": 2024,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W4401857119",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W4401857119; 'Graph Mamba: Towards Learning on Graphs with State Space Models').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Xavier Bresson and Thomas Laurent. Residual gated graph convnets. arXiv preprint arXiv:1711.07553, 2017.",
+          "title": "Residual gated graph convnets",
+          "authors": [
+            "Xavier Bresson",
+            "Thomas Laurent"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Chen Cai and Yusu Wang. A note on over-smoothing for graph neural networks. arXiv preprint arXiv:2006.13318, 2020.",
+          "title": "A note on over-smoothing for graph neural networks",
+          "authors": [
+            "Chen Cai",
+            "Yusu Wang"
+          ],
+          "year": 2006,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.59 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Jinsong Chen, Kaiyuan Gao, Gaichao Li, and Kun He. Nagphormer: A tokenized graph transformer for node classification in large graphs. In The Eleventh International Conference on Learning Representations, 2022.",
+          "title": "Nagphormer: A tokenized graph transformer for node classification in large graphs",
+          "authors": [
+            "Jinsong Chen, Kaiyuan Gao, Gaichao Li",
+            "Kun He"
+          ],
+          "year": 2022,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.65 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Ming Chen, Zhewei Wei, Zengfeng Huang, Bolin Ding, and Yaliang Li. Simple and deep graph convolutional networks. In International conference on machine learning, pp. 1725–1735. PMLR, 2020.",
+          "title": "Simple and deep graph convolutional networks",
+          "authors": [
+            "Ming Chen, Zhewei Wei, Zengfeng Huang, Bolin Ding",
+            "Yaliang Li"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.61 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Zhengdao Chen, Soledad Villar, Lei Chen, and Joan Bruna. On the equivalence between graph isomorphism testing and function approximation with gnns. Advances in neural information processing systems, 32, 2019.",
+          "title": "On the equivalence between graph isomorphism testing and function approximation with gnns",
+          "authors": [
+            "Zhengdao Chen, Soledad Villar, Lei Chen",
+            "Joan Bruna"
+          ],
+          "year": 2019,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2947665307",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2947665307; 'On the equivalence between graph isomorphism testing and function approximation with GNNs').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Eli Chien, Jianhao Peng, Pan Li, and Olgica Milenkovic. Adaptive universal generalized pagerank graph neural network. In International Conference on Learning Representations, 2020.",
+          "title": "Adaptive universal generalized pagerank graph neural network",
+          "authors": [
+            "Eli Chien, Jianhao Peng, Pan Li",
+            "Olgica Milenkovic"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.47 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Weilin Cong, Morteza Ramezani, and Mehrdad Mahdavi. On provable benefits of depth in training graph convolutional networks. Advances in Neural Information Processing Systems, 34:9936– 9949, 2021.",
+          "title": "On provable benefits of depth in training graph convolutional networks",
+          "authors": [
+            "Weilin Cong, Morteza Ramezani",
+            "Mehrdad Mahdavi"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Nima Dehmamy, Albert-László Barabási, and Rose Yu. Understanding the representation power of graph neural networks in learning graph topology. Advances in Neural Information Processing Systems, 32, 2019.",
+          "title": "Understanding the representation power of graph neural networks in learning graph topology",
+          "authors": [
+            "Nima Dehmamy, Albert-László Barabási",
+            "Rose Yu"
+          ],
+          "year": 2019,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Chenhui Deng, Zichao Yue, and Zhiru Zhang. Polynormer: Polynomial-expressive graph trans- former in linear time. arXiv preprint arXiv:2403.01232, 2024.",
+          "title": "Polynormer: Polynomial-expressive graph trans- former in linear time",
+          "authors": [
+            "Chenhui Deng, Zichao Yue",
+            "Zhiru Zhang"
+          ],
+          "year": 2024,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Yuhui Ding, Antonio Orvieto, Bobby He, and Thomas Hofmann. Recurrent distance filtering for graph representation learning. In Forty-first International Conference on Machine Learning, 2024.",
+          "title": "Recurrent distance filtering for graph representation learning",
+          "authors": [
+            "Yuhui Ding, Antonio Orvieto, Bobby He",
+            "Thomas Hofmann"
+          ],
+          "year": 2024,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Simon S Du, Kangcheng Hou, Russ R Salakhutdinov, Barnabas Poczos, Ruosong Wang, and Keyulu Xu. Graph neural tangent kernel: Fusing graph neural networks with graph kernels. Advances in neural information processing systems, 32, 2019.",
+          "title": "Graph neural tangent kernel: Fusing graph neural networks with graph kernels",
+          "authors": [
+            "Simon S Du, Kangcheng Hou, Russ R Salakhutdinov, Barnabas Poczos, Ruosong Wang",
+            "Keyulu Xu"
+          ],
+          "year": 2019,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Vijay Prakash Dwivedi and Xavier Bresson. A generalization of transformer networks to graphs. arXiv preprint arXiv:2012.09699, 2020. 11 Vijay Prakash Dwivedi, Ladislav Rampášek, Mikhail Galkin, Ali Parviz, Guy Wolf, Anh Tuan Luu, and Dominique Beaini. Long range graph benchmark. arXiv preprint arXiv:2206.08164, 2022.",
+          "title": "A generalization of transformer networks to graphs",
+          "authors": [
+            "Vijay Prakash Dwivedi",
+            "Xavier Bresson"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Vijay Prakash Dwivedi, Chaitanya K Joshi, Anh Tuan Luu, Thomas Laurent, Yoshua Bengio, and Xavier Bresson. Benchmarking graph neural networks. Journal of Machine Learning Research, 24(43):1–48, 2023.",
+          "title": "Benchmarking graph neural networks",
+          "authors": [
+            "Xavier Bresson"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.62 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Pascal Esser, Leena Chennuru Vankadara, and Debarghya Ghoshdastidar. Learning theory can (sometimes) explain generalisation in graph neural networks. Advances in Neural Information Processing Systems, 34:27043–27056, 2021.",
+          "title": "Learning theory can (sometimes) explain generalisation in graph neural networks",
+          "authors": [
+            "Pascal Esser, Leena Chennuru Vankadara",
+            "Debarghya Ghoshdastidar"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.59 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Taoran Fang, Zhiqing Xiao, Chunping Wang, Jiarong Xu, Xuan Yang, and Yang Yang. Dropmes- sage: Unifying random dropping for graph neural networks. In Proceedings of the AAAI Confer- ence on Artificial Intelligence, volume 37, pp. 4267–4275, 2023.",
+          "title": "Dropmes- sage: Unifying random dropping for graph neural networks",
+          "authors": [
+            "Taoran Fang, Zhiqing Xiao, Chunping Wang, Jiarong Xu, Xuan Yang",
+            "Yang Yang"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.59 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Jiarui Feng, Yixin Chen, Fuhai Li, Anindya Sarkar, and Muhan Zhang. How powerful are k-hop message passing graph neural networks. Advances in Neural Information Processing Systems, 35: 4776–4790, 2022.",
+          "title": "How powerful are k-hop message passing graph neural networks",
+          "authors": [
+            "Jiarui Feng, Yixin Chen, Fuhai Li, Anindya Sarkar",
+            "Muhan Zhang"
+          ],
+          "year": 2022,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.55 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Wenzheng Feng, Jie Zhang, Yuxiao Dong, Yu Han, Huanbo Luan, Qian Xu, Qiang Yang, Evgeny Kharlamov, and Jie Tang. Graph random neural networks for semi-supervised learning on graphs. Advances in neural information processing systems, 33:22092–22103, 2020.",
+          "title": "Graph random neural networks for semi-supervised learning on graphs",
+          "authors": [
+            "Jie Tang"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Matthias Fey and Jan Eric Lenssen. Fast graph representation learning with pytorch geometric. arXiv preprint arXiv:1903.02428, 2019.",
+          "title": "Fast graph representation learning with pytorch geometric",
+          "authors": [
+            "Matthias Fey",
+            "Jan Eric Lenssen"
+          ],
+          "year": 1903,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.68 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Yarin Gal and Zoubin Ghahramani. Dropout as a bayesian approximation: Representing model uncertainty in deep learning. In international conference on machine learning, pp. 1050–1059. PMLR, 2016.",
+          "title": "Dropout as a bayesian approximation: Representing model uncertainty in deep learning",
+          "authors": [
+            "Yarin Gal",
+            "Zoubin Ghahramani"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Hongyang Gao and Shuiwang Ji. Graph u-nets. In international conference on machine learning, pp. 2083–2092.",
+          "title": "Graph u-nets",
+          "authors": [
+            "Hongyang Gao",
+            "Shuiwang Ji"
+          ],
+          "year": 2083,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "PMLR, 2019.",
+          "title": null,
+          "authors": [],
+          "year": 2019,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.2,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "Vikas Garg, Stefanie Jegelka, and Tommi Jaakkola. Generalization and representational limits of graph neural networks. In International Conference on Machine Learning, pp. 3419–3430. PMLR, 2020.",
+          "title": "Generalization and representational limits of graph neural networks",
+          "authors": [
+            "Vikas Garg, Stefanie Jegelka",
+            "Tommi Jaakkola"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.75 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "Johannes Gasteiger, Aleksandar Bojchevski, and Stephan Günnemann. Predict then propagate: Graph neural networks meet personalized pagerank. arXiv preprint arXiv:1810.05997, 2018.",
+          "title": "Predict then propagate: Graph neural networks meet personalized pagerank",
+          "authors": [
+            "Johannes Gasteiger, Aleksandar Bojchevski",
+            "Stephan Günnemann"
+          ],
+          "year": 2018,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 27,
+          "raw": "Johannes Gasteiger, Stefan Weißenberger, and Stephan Günnemann. Diffusion improves graph learning. Advances in neural information processing systems, 32, 2019.",
+          "title": "Diffusion improves graph learning",
+          "authors": [
+            "Johannes Gasteiger, Stefan Weißenberger",
+            "Stephan Günnemann"
+          ],
+          "year": 2019,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 28,
+          "raw": "Benjamin Gutteridge, Xiaowen Dong, Michael M Bronstein, and Francesco Di Giovanni. Drew: Dy- namically rewired message passing with delay. In International Conference on Machine Learning, pp. 12252–12267. PMLR, 2023.",
+          "title": "Drew: Dy- namically rewired message passing with delay",
+          "authors": [
+            "Benjamin Gutteridge, Xiaowen Dong, Michael M Bronstein",
+            "Francesco Di Giovanni"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.31 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 29,
+          "raw": "Will Hamilton, Zhitao Ying, and Jure Leskovec. Inductive representation learning on large graphs. Advances in neural information processing systems, 30, 2017.",
+          "title": "Inductive representation learning on large graphs",
+          "authors": [
+            "Will Hamilton, Zhitao Ying",
+            "Jure Leskovec"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.61 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 30,
+          "raw": "Xiaoxin He, Bryan Hooi, Thomas Laurent, Adam Perold, Yann LeCun, and Xavier Bresson. A generalization of vit/mlp-mixer to graphs. In International Conference on Machine Learning, pp. 12724–12745. PMLR, 2023.",
+          "title": "A generalization of vit/mlp-mixer to graphs",
+          "authors": [
+            "Xiaoxin He, Bryan Hooi, Thomas Laurent, Adam Perold, Yann LeCun",
+            "Xavier Bresson"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 31,
+          "raw": "Geoffrey E Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever, and Ruslan R Salakhutdinov. Improving neural networks by preventing co-adaptation of feature detectors. arxiv 2012. arXiv preprint arXiv:1207.0580, 2012.",
+          "title": "Improving neural networks by preventing co-adaptation of feature detectors",
+          "authors": [
+            "Geoffrey E Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever",
+            "Ruslan R Salakhutdinov"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 32,
+          "raw": "Weihua Hu, Matthias Fey, Marinka Zitnik, Yuxiao Dong, Hongyu Ren, Bowen Liu, Michele Catasta, and Jure Leskovec. Open graph benchmark: Datasets for machine learning on graphs. Advances in neural information processing systems, 33:22118–22133, 2020.",
+          "title": "Open graph benchmark: Datasets for machine learning on graphs",
+          "authors": [
+            "Jure Leskovec"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W3021975806",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W3021975806; 'Open Graph Benchmark: Datasets for Machine Learning on Graphs').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 33,
+          "raw": "Thomas N. Kipf and Max Welling. Semi-supervised classification with graph convolutional networks. In International Conference on Learning Representations, 2017.",
+          "title": "Semi-supervised classification with graph convolutional networks",
+          "authors": [
+            "Thomas N. Kipf",
+            "Max Welling"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 34,
+          "raw": "URL https: //openreview.net/forum?id=SJU4ayYgl. 12 Kezhi Kong, Jiuhai Chen, John Kirchenbauer, Renkun Ni, C. Bayan Bruss, and Tom Gold- stein. GOAT: A global transformer on large-scale graphs. In Andreas Krause, Emma Brun- skill, Kyunghyun Cho, Barbara Engelhardt, Sivan Sabato, and Jonathan Scarlett (eds.), Pro- ceedings of the 40th International Conference on Machine Learning, volume 202 of Proceed- ings of Machine Learning Research, pp. 17375–17390. PMLR, 23–29 Jul 2023.",
+          "title": "net/forum?id=SJU4ayYgl",
+          "authors": [
+            "URL https: //openreview"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 35,
+          "raw": "URL https: //proceedings.mlr.press/v202/kong23a.html. Devin Kreuzer, Dominique Beaini, Will Hamilton, Vincent Létourneau, and Prudencio Tossou. Re- thinking graph transformers with spectral attention. Advances in Neural Information Processing Systems, 34:21618–21629, 2021.",
+          "title": null,
+          "authors": [
+            "URL https: //proceedings"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 36,
+          "raw": "Yann LeCun, Yoshua Bengio, and Geoffrey Hinton. Deep learning. nature, 521(7553):436–444, 2015.",
+          "title": "Deep learning",
+          "authors": [
+            "Yann LeCun, Yoshua Bengio",
+            "Geoffrey Hinton"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 37,
+          "raw": "Qimai Li, Zhichao Han, and Xiao-Ming Wu. Deeper insights into graph convolutional networks for semi-supervised learning. In Proceedings of the AAAI conference on artificial intelligence, volume 32, 2018.",
+          "title": "Deeper insights into graph convolutional networks for semi-supervised learning",
+          "authors": [
+            "Qimai Li, Zhichao Han",
+            "Xiao-Ming Wu"
+          ],
+          "year": 2018,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.55 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 38,
+          "raw": "Renjie Liao, Raquel Urtasun, and Richard Zemel. A pac-bayesian approach to generalization bounds for graph neural networks. arXiv preprint arXiv:2012.07690, 2020.",
+          "title": "A pac-bayesian approach to generalization bounds for graph neural networks",
+          "authors": [
+            "Renjie Liao, Raquel Urtasun",
+            "Richard Zemel"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 1.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 39,
+          "raw": "Dongsheng Luo, Wei Cheng, Dongkuan Xu, Wenchao Yu, Bo Zong, Haifeng Chen, and Xiang Zhang. Parameterized explainer for graph neural network. Advances in neural information pro- cessing systems, 33:19620–19631, 2020.",
+          "title": "Parameterized explainer for graph neural network",
+          "authors": [
+            "Dongsheng Luo, Wei Cheng, Dongkuan Xu, Wenchao Yu, Bo Zong, Haifeng Chen",
+            "Xiang Zhang"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.74 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 40,
+          "raw": "Yuankai Luo, Qijiong Liu, Lei Shi, and Xiao-Ming Wu. Structure-aware semantic node identifiers for learning on graphs. arXiv preprint arXiv:2405.16435, 2024a.",
+          "title": "Structure-aware semantic node identifiers for learning on graphs",
+          "authors": [
+            "Yuankai Luo, Qijiong Liu, Lei Shi",
+            "Xiao-Ming Wu"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 41,
+          "raw": "Yuankai Luo, Lei Shi, and Xiao-Ming Wu. Classic GNNs are strong baselines: Reassessing GNNs for node classification. In The Thirty-eight Conference on Neural Information Processing Sys- tems Datasets and Benchmarks Track, 2024b.",
+          "title": "Classic GNNs are strong baselines: Reassessing GNNs for node classification",
+          "authors": [
+            "Yuankai Luo, Lei Shi",
+            "Xiao-Ming Wu"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "resolved",
+          "openalex_id": "W4399695510",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W4399695510; 'Classic GNNs are Strong Baselines: Reassessing GNNs for Node Classification').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 42,
+          "raw": "URL https://openreview.net/forum?id= xkljKdGe4E. Yuankai Luo, Lei Shi, and Xiao-Ming Wu. Unlocking the potential of classic gnns for graph-level tasks: Simple architectures meet excellence. arXiv preprint arXiv:2502.09263, 2025.",
+          "title": "Yuankai Luo, Lei Shi, and Xiao-Ming Wu",
+          "authors": [
+            "URL https://openreview.net/forum?id= xkljKdGe4E"
+          ],
+          "year": 2025,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 43,
+          "raw": "Shaogao Lv. Generalization bounds for graph convolutional neural networks via rademacher com- plexity. arXiv preprint arXiv:2102.10234, 2021.",
+          "title": "Generalization bounds for graph convolutional neural networks via rademacher com- plexity",
+          "authors": [
+            "Shaogao Lv"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 44,
+          "raw": "Liheng Ma, Chen Lin, Derek Lim, Adriana Romero-Soriano, Puneet K Dokania, Mark Coates, Philip Torr, and Ser-Nam Lim. Graph inductive biases in transformers without message passing. arXiv preprint arXiv:2305.17589, 2023.",
+          "title": "Graph inductive biases in transformers without message passing",
+          "authors": [
+            "Ser-Nam Lim"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 45,
+          "raw": "Liheng Ma, Soumyasundar Pal, Yitian Zhang, Jiaming Zhou, Yingxue Zhang, and Mark Coates. Ckgconv: General graph convolution with continuous kernels. arXiv preprint arXiv:2404.13604, 2024.",
+          "title": "Ckgconv: General graph convolution with continuous kernels",
+          "authors": [
+            "Liheng Ma, Soumyasundar Pal, Yitian Zhang, Jiaming Zhou, Yingxue Zhang",
+            "Mark Coates"
+          ],
+          "year": 2024,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.31 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 46,
+          "raw": "Haggai Maron, Heli Ben-Hamu, Nadav Shamir, and Yaron Lipman. Invariant and equivariant graph networks. arXiv preprint arXiv:1812.09902, 2018.",
+          "title": "Invariant and equivariant graph networks",
+          "authors": [
+            "Haggai Maron, Heli Ben-Hamu, Nadav Shamir",
+            "Yaron Lipman"
+          ],
+          "year": 2018,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 47,
+          "raw": "Péter Mernyei and Cătălina Cangea. Wiki-cs: A wikipedia-based benchmark for graph neural net- works. arXiv preprint arXiv:2007.02901, 2020.",
+          "title": "Wiki-cs: A wikipedia-based benchmark for graph neural net- works",
+          "authors": [
+            "Péter Mernyei",
+            "Cătălina Cangea"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 48,
+          "raw": "Pietro Morerio, Jacopo Cavazza, Riccardo Volpi, René Vidal, and Vittorio Murino. Curriculum dropout. In Proceedings of the IEEE International Conference on Computer Vision, pp. 3544– 3552, 2017.",
+          "title": "Curriculum dropout",
+          "authors": [
+            "Pietro Morerio, Jacopo Cavazza, Riccardo Volpi, René Vidal",
+            "Vittorio Murino"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 49,
+          "raw": "Nhat Khang Ngo, Truong Son Hy, and Risi Kondor. Multiresolution graph transformers and wavelet positional encoding for learning long-range and hierarchical structures. The Journal of Chemical Physics, 159(3), 2023.",
+          "title": "Multiresolution graph transformers and wavelet positional encoding for learning long-range and hierarchical structures",
+          "authors": [
+            "Nhat Khang Ngo, Truong Son Hy",
+            "Risi Kondor"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 50,
+          "raw": "Kenta Oono and Taiji Suzuki. Graph neural networks exponentially lose expressive power for node classification. arXiv preprint arXiv:1905.10947, 2019. 13 Ladislav Rampášek, Mikhail Galkin, Vijay Prakash Dwivedi, Anh Tuan Luu, Guy Wolf, and Do- minique Beaini. Recipe for a general, powerful, scalable graph transformer. arXiv preprint arXiv:2205.12454, 2022.",
+          "title": "Graph neural networks exponentially lose expressive power for node classification",
+          "authors": [
+            "Kenta Oono",
+            "Taiji Suzuki"
+          ],
+          "year": 1905,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 51,
+          "raw": "Yu Rong, Wenbing Huang, Tingyang Xu, and Junzhou Huang. Dropedge: Towards deep graph convolutional networks on node classification. In International Conference on Learning Repre- sentations, 2020. URL https://openreview.net/forum?id=Hkx1qkrKPr.",
+          "title": "Dropedge: Towards deep graph convolutional networks on node classification",
+          "authors": [
+            "Yu Rong, Wenbing Huang, Tingyang Xu",
+            "Junzhou Huang"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 52,
+          "raw": "Franco Scarselli, Ah Chung Tsoi, and Markus Hagenbuchner. The vapnik–chervonenkis dimension of graph and recursive neural networks. Neural Networks, 108:248–259, 2018.",
+          "title": "The vapnik–chervonenkis dimension of graph and recursive neural networks",
+          "authors": [
+            "Franco Scarselli, Ah Chung Tsoi",
+            "Markus Hagenbuchner"
+          ],
+          "year": 2018,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 53,
+          "raw": "Prithviraj Sen, Galileo Namata, Mustafa Bilgic, Lise Getoor, Brian Galligher, and Tina Eliassi-Rad. Collective classification in network data. AI magazine, 29(3):93–93, 2008.",
+          "title": "Collective classification in network data",
+          "authors": [
+            "Prithviraj Sen, Galileo Namata, Mustafa Bilgic, Lise Getoor, Brian Galligher",
+            "Tina Eliassi-Rad"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.40 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 54,
+          "raw": "Oleksandr Shchur, Maximilian Mumme, Aleksandar Bojchevski, and Stephan Günnemann. Pitfalls of graph neural network evaluation. arXiv preprint arXiv:1811.05868, 2018.",
+          "title": "Pitfalls of graph neural network evaluation",
+          "authors": [
+            "Oleksandr Shchur, Maximilian Mumme, Aleksandar Bojchevski",
+            "Stephan Günnemann"
+          ],
+          "year": 2018,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.64 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 55,
+          "raw": "Hamed Shirzad, Ameya Velingker, Balaji Venkatachalam, Danica J Sutherland, and Ali Kemal Sinop. Exphormer: Sparse transformers for graphs. arXiv preprint arXiv:2303.06147, 2023.",
+          "title": "Exphormer: Sparse transformers for graphs",
+          "authors": [
+            "Hamed Shirzad, Ameya Velingker, Balaji Venkatachalam, Danica J Sutherland",
+            "Ali Kemal Sinop"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.69 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 56,
+          "raw": "Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: a simple way to prevent neural networks from overfitting. The journal of machine learning research, 15(1):1929–1958, 2014.",
+          "title": "Dropout: a simple way to prevent neural networks from overfitting",
+          "authors": [
+            "Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever",
+            "Ruslan Salakhutdinov"
+          ],
+          "year": 1929,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 57,
+          "raw": "Jan Tönshoff, Martin Ritzert, Eran Rosenbluth, and Martin Grohe. Where did the gap go? reassess- ing the long-range graph benchmark. arXiv preprint arXiv:2309.00367, 2023.",
+          "title": "Where did the gap go? reassess- ing the long-range graph benchmark",
+          "authors": [
+            "Jan Tönshoff, Martin Ritzert, Eran Rosenbluth",
+            "Martin Grohe"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 58,
+          "raw": "Petar Veličković, Guillem Cucurull, Arantxa Casanova, Adriana Romero, Pietro Liò, and Yoshua Bengio. Graph attention networks. In International Conference on Learning Representations, 2018.",
+          "title": "Graph attention networks",
+          "authors": [
+            "Petar Veličković, Guillem Cucurull, Arantxa Casanova, Adriana Romero, Pietro Liò",
+            "Yoshua Bengio"
+          ],
+          "year": 2018,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.40 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 59,
+          "raw": "Saurabh Verma and Zhi-Li Zhang. Stability and generalization of graph convolutional neural net- works. In Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Dis- covery & Data Mining, pp. 1539–1548, 2019.",
+          "title": "Stability and generalization of graph convolutional neural net- works",
+          "authors": [
+            "Saurabh Verma",
+            "Zhi-Li Zhang"
+          ],
+          "year": 2019,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2963272802",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~0.99: W2963272802; 'Stability and Generalization of Graph Convolutional Neural Networks').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 60,
+          "raw": "Minh Vu and My T Thai. Pgm-explainer: Probabilistic graphical model explanations for graph neural networks. Advances in neural information processing systems, 33:12225–12235, 2020.",
+          "title": "Pgm-explainer: Probabilistic graphical model explanations for graph neural networks",
+          "authors": [
+            "Minh Vu",
+            "My T Thai"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.73 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 61,
+          "raw": "Stefan Wager, Sida Wang, and Percy S Liang. Dropout training as adaptive regularization. Advances in neural information processing systems, 26, 2013.",
+          "title": "Dropout training as adaptive regularization",
+          "authors": [
+            "Stefan Wager, Sida Wang",
+            "Percy S Liang"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.63 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 62,
+          "raw": "Li Wan, Matthew Zeiler, Sixin Zhang, Yann Le Cun, and Rob Fergus. Regularization of neural networks using dropconnect. In International conference on machine learning, pp. 1058–1066. PMLR, 2013.",
+          "title": "Regularization of neural networks using dropconnect",
+          "authors": [
+            "Li Wan, Matthew Zeiler, Sixin Zhang, Yann Le Cun",
+            "Rob Fergus"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 63,
+          "raw": "Felix Wu, Amauri Souza, Tianyi Zhang, Christopher Fifty, Tao Yu, and Kilian Weinberger. Sim- plifying graph convolutional networks. In International conference on machine learning, pp. 6861–6871. PMLR, 2019.",
+          "title": "Sim- plifying graph convolutional networks",
+          "authors": [
+            "Felix Wu, Amauri Souza, Tianyi Zhang, Christopher Fifty, Tao Yu",
+            "Kilian Weinberger"
+          ],
+          "year": 2019,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 64,
+          "raw": "Qitian Wu, Wentao Zhao, Zenan Li, David P Wipf, and Junchi Yan. Nodeformer: A scalable graph structure learning transformer for node classification. Advances in Neural Information Processing Systems, 35:27387–27401, 2022.",
+          "title": "Nodeformer: A scalable graph structure learning transformer for node classification",
+          "authors": [
+            "Qitian Wu, Wentao Zhao, Zenan Li, David P Wipf",
+            "Junchi Yan"
+          ],
+          "year": 2022,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.63 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 65,
+          "raw": "Qitian Wu, Wentao Zhao, Chenxiao Yang, Hengrui Zhang, Fan Nie, Haitian Jiang, Yatao Bian, and Junchi Yan. Simplifying and empowering transformers for large-graph representations. In Thirty-seventh Conference on Neural Information Processing Systems, 2023.",
+          "title": "Simplifying and empowering transformers for large-graph representations",
+          "authors": [
+            "Junchi Yan"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W4381568266",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~0.94: W4381568266; 'SGFormer: Simplifying and Empowering Transformers for Large-Graph Representations').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 66,
+          "raw": "URL https:// openreview.net/forum?id=R4xpvDTWkV. Keyulu Xu, Weihua Hu, Jure Leskovec, and Stefanie Jegelka. How powerful are graph neural networks? In International Conference on Learning Representations, 2018.",
+          "title": "net/forum?id=R4xpvDTWkV",
+          "authors": [
+            "URL https:// openreview"
+          ],
+          "year": 2018,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 67,
+          "raw": "Han Yang, Kaili Ma, and James Cheng. Rethinking graph regularization for graph neural networks. In Proceedings of the AAAI Conference on Artificial Intelligence, volume 35, pp. 4573–4581, 2021. 14 Zhitao Ying, Dylan Bourgeois, Jiaxuan You, Marinka Zitnik, and Jure Leskovec. Gnnexplainer: Generating explanations for graph neural networks. Advances in neural information processing systems, 32, 2019.",
+          "title": "Rethinking graph regularization for graph neural networks",
+          "authors": [
+            "Han Yang, Kaili Ma",
+            "James Cheng"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 68,
+          "raw": "Hao Yuan, Jiliang Tang, Xia Hu, and Shuiwang Ji. Xgnn: Towards model-level explanations of graph neural networks. In Proceedings of the 26th ACM SIGKDD international conference on knowledge discovery & data mining, pp. 430–438, 2020.",
+          "title": "Xgnn: Towards model-level explanations of graph neural networks",
+          "authors": [
+            "Hao Yuan, Jiliang Tang, Xia Hu",
+            "Shuiwang Ji"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.73 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 69,
+          "raw": "Hao Yuan, Haiyang Yu, Jie Wang, Kang Li, and Shuiwang Ji. On explainability of graph neural networks via subgraph explorations. In International conference on machine learning, pp. 12241– 12252. PMLR, 2021.",
+          "title": "On explainability of graph neural networks via subgraph explorations",
+          "authors": [
+            "Hao Yuan, Haiyang Yu, Jie Wang, Kang Li",
+            "Shuiwang Ji"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.59 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 70,
+          "raw": "Rui-Ray Zhang and Massih-Reza Amini. Generalization bounds for learning under graph- dependence: a survey. Mach. Learn., 113(7):3929–3959, April 2024.",
+          "title": "Generalization bounds for learning under graph- dependence: a survey",
+          "authors": [
+            "Rui-Ray Zhang",
+            "Massih-Reza Amini"
+          ],
+          "year": 2024,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.38 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 71,
+          "raw": "ISSN 0885-6125. doi: 10.1007/s10994-024-06536-9. URL https://doi.org/10.1007/s10994-024-06536-9. Shuai Zhang, Meng Wang, Sijia Liu, Pin-Yu Chen, and Jinjun Xiong. Fast learning of graph neural networks with guaranteed generalizability: one-hidden-layer case. In International Conference on Machine Learning, pp. 11268–11277. PMLR, 2020.",
+          "title": null,
+          "authors": [
+            "ISSN 0885-6125"
+          ],
+          "year": 2020,
+          "doi": "10.1007/s10994-024-06536-9",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4393863256",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4393863256; 'Generalization bounds for learning under graph-dependence: a survey').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 72,
+          "raw": "Lingxiao Zhao and Leman Akoglu. Pairnorm: Tackling oversmoothing in gnns. arXiv preprint arXiv:1909.12223, 2019.",
+          "title": "Pairnorm: Tackling oversmoothing in gnns",
+          "authors": [
+            "Lingxiao Zhao",
+            "Leman Akoglu"
+          ],
+          "year": 1909,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.56 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 73,
+          "raw": "A",
+          "title": null,
+          "authors": [],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.0,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:4",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "d99ca0d3ec3c7d8713a5dbda4ab4dfe7ab1381e5ff32d9427949a4dc2ae7e7bf",
+          "request_time": "2026-08-23T12:41:28.059115Z",
+          "status": "degraded",
+          "result_count": 8,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "4/73 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-23T12:41:28.972343Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "85484bc7dd5084823b525d4a6099148a5e948f5cb416b2e538bf829ddec841f6",
+          "request_time": "2026-08-23T12:41:29.830864Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-23T12:48:19.100877Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.8,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.9,
+      "rationale": "Belgenin başlığı, özetindeki 'theoretical analysis', 'extensive experiments' ifadeleri ve bölüm başlıkları (Method, Conclusions) bir araştırma makalesine işaret etmektedir. Çalışma tasarımı, 'Graph Convolutional Networks', 'dropout', 'stochastic subgraphs' gibi terimlerin kullanımı ve 'theoretical analysis' ile 'extensive experiments'in birleşimi nedeniyle hesaplamalı modelleme olarak sınıflandırılmıştır.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 84.4,
+      "recommended_decision": "accept",
+      "confidence": 0.5372413793103449,
+      "top_fatal_risks": [
+        "Genelleme Sınırlarının Yorumunda Aşırı İddia",
+        "Etki Büyüklüğü ve Güven Aralığı Raporlaması Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 2 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 38.0,
+        "severity": "major",
+        "confidence": 0.86,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "2 concern(s): The reference list contains a significant number of unresolved citations (65 out of 73). While the provided evidence indicates that some of these might be due to temporary service errors or weak matches rather than outright fabrication, the sheer volume suggests systematic issues with formatting, incomplete bibliographic data (e.g., missing DOIs, incorrect author names or years), or an over-reliance on non-archival pre-prints. This severely undermines the scholarly foundation of the paper and must be meticulously corrected to ensure all cited works are properly identifiable and citable.; While the paper is generally clear, some theoretical sections, particularly the generalization bound in Theorem 6, are quite dense. Providing more high-level intuition and context before introducing formal theorems and proofs would significantly improve accessibility for a broader audience.",
+        "key_objection": "The reference list contains a significant number of unresolved citations (65 out of 73). While the provided evidence indicates that some of these might be due to temporary service errors or weak matches rather than outright fabrication, the sheer volume suggests systematic issues with formatting, incomplete bibliographic data (e.g., missing DOIs, incorrect author names or years), or an over-reliance on non-archival pre-prints. This severely undermines the scholarly foundation of the paper and must be meticulously corrected to ensure all cited works are properly identifiable and citable.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The reference list has significant issues. A large number of citations (65 out of 73) could not be automatically resolved against major academic indices. While this does not necessarily mean the works don't exist, it strongly suggests systematic problems with formatting, incomplete bibliographic data (e.g., missing DOIs, incorrect author names or years), or an over-reliance on non-archival pre-prints. This is a critical issue that undermines the paper's scholarly foundation and must be corrected. Please meticulously check every single reference to ensure it is complete, correctly formatted with all necessary metadata (authors, year, venue, DOI), and points to a stable, citable version of the work. This is a mandatory revision for publication.; While generally clear, some theoretical sections are quite dense. The presentation could be improved by providing more high-level intuition before introducing the formal theorems and proofs, particularly for the generalization bound in Theorem 6. This would enhance accessibility for a broader audience.; The derivation of the lower bound on feature energy in Theorem 7, which relies on the presence of Batch Normalization, is a key result. To further strengthen the argument, it would be helpful if the authors could briefly comment on the specific technical hurdles that prevent the derivation of a meaningful lower bound in the absence of BN. This would provide a clearer contrast and highlight the essential role BN plays in this mechanism.",
+        "key_objection": "The reference list has significant issues. A large number of citations (65 out of 73) could not be automatically resolved against major academic indices. While this does not necessarily mean the works don't exist, it strongly suggests systematic problems with formatting, incomplete bibliographic data (e.g., missing DOIs, incorrect author names or years), or an over-reliance on non-archival pre-prints. This is a critical issue that undermines the paper's scholarly foundation and must be corrected. Please meticulously check every single reference to ensure it is complete, correctly formatted with all necessary metadata (authors, year, venue, DOI), and points to a stable, citable version of the work. This is a mandatory revision for publication.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): The claim that 'A vast majority of the citations (65 out of 73) could not be automatically resolved against major academic indices' is accurate. However, the subsequent interpretation that this 'suggests systematic problems with formatting, incomplete bibliographic data (e.g., missing DOIs, incorrect author names or years), or an over-reliance on non-archival pre-prints' is an inference. While plausible, the provided evidence package only confirms 'not_found_in_index' for 65 references and 'service error' for 4 of those, without explicitly detailing the *reason* for non-resolution (e.g., specific formatting errors, missing DOIs, or pre-print status). The evidence does not allow for a definitive statement on the *cause* of non-resolution for all 65 cases, only the fact of non-resolution.; The evidence package states that 4 of the 'not_found_in_index' cases were due to a 'service error' from the temporary provider (OpenAlex), meaning they are not definitive 'not_found' cases. The report should reflect this nuance, as these 4 references might be resolvable with a different search or provider, or upon retry. The current phrasing implies all 65 are definitively 'not_found_in_index' due to issues with the reference itself, which is not fully supported for these 4 cases.; Similar to the previous issue, the claim that '65 of 73 could not be resolved' is accurate. However, the conclusion that this 'points to a critical lack of care in the bibliography' is an interpretation. While the high number of unresolved references is concerning, the evidence package does not provide specific details for each of the 65 unresolved references to confirm 'lack of care' (e.g., specific formatting errors, missing DOIs, or pre-print status). For 4 of these, the non-resolution was due to a service error, not necessarily a problem with the reference itself. The statement should be more precise about what the evidence *directly* shows versus what it *suggests*. (+1 more)",
+        "key_objection": "The claim that 'A vast majority of the citations (65 out of 73) could not be automatically resolved against major academic indices' is accurate. However, the subsequent interpretation that this 'suggests systematic problems with formatting, incomplete bibliographic data (e.g., missing DOIs, incorrect author names or years), or an over-reliance on non-archival pre-prints' is an inference. While plausible, the provided evidence package only confirms 'not_found_in_index' for 65 references and 'service error' for 4 of those, without explicitly detailing the *reason* for non-resolution (e.g., specific formatting errors, missing DOIs, or pre-print status). The evidence does not allow for a definitive statement on the *cause* of non-resolution for all 65 cases, only the fact of non-resolution.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "literature_positioning.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "literature_positioning.f0",
+          "research_question_fit.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "major-revision",
+        "summary": "This paper presents a comprehensive and insightful analysis of dropout in Graph Convolutional Networks (GCNs). The authors make a compelling case that dropout's primary role in GCNs is not preventing feature co-adaptation, as in standard NNs, but rather mitigating oversmoothing. This central claim is supported by a rigorous theoretical framework that introduces concepts like dimension-specific stochastic sub-graphs and degree-dependent regularization. The theoretical findings are validated through an exceptionally thorough set of experiments across 14 datasets, demonstrating that a simple GCN with dropout and batch normalization can achieve state-of-the-art results. The work is a significant contribution to our understanding of regularization in GNNs. While the scientific contribution is strong, the manuscript requires a major revision of its bibliography to address a large number of unresolvable citations before it can be published.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik Analiz ve Deneysel Doğrulama",
+        "summary": "Çalışma, GCN'lerde dropout'un davranışına ilişkin kapsamlı bir teorik analiz sunmakta ve bu teorik bulguları hem düğüm düzeyinde hem de grafik düzeyinde görevler için geniş deneylerle doğrulamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "Abstract",
+            "quote": "This paper presents a comprehensive theoretical analysis of dropout in GCNs, revealing that its primary role differs fundamentally from standard neural networks - preventing oversmoothing rather than co-adaptation. ... Our theoretical findings are validated through extensive experiments on both node-level and graph-level tasks across 14 datasets."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "Introduction",
+            "quote": "Our theoretical framework not only provides deeper insights into the mechanics of dropout in graph-structured data but also yields practical implications for the design and training of GCNs. We validate our theoretical findings through extensive experiments on both node-level and graph-level tasks, demonstrating the practical relevance of our analysis."
+          }
+        ],
+        "reasoning_public": "Bu, teorik bir çalışmanın deneysel kanıtlarla desteklenmesi açısından güçlü bir yaklaşımdır ve bulguların güvenilirliğini artırır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Raporlaması Eksikliği",
+        "summary": "Çalışma, 14 farklı veri kümesi üzerinde deneyler yaptığını belirtse de, bu veri kümeleri için örneklem büyüklüğü gerekçesi veya istatistiksel güç analizi raporlanmamıştır. Bu durum, elde edilen deneysel sonuçların genellenebilirliği ve güvenilirliği hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "Abstract",
+            "quote": "Our theoretical findings are validated through extensive experiments on both node-level and graph-level tasks across 14 datasets."
+          },
+          {
+            "anchor_id": "4_experiments.a0",
+            "section": "4 Experiments",
+            "quote": "To validate our theoretical analysis, we conducted extensive experiments on a variety of datasets, considering both node-level and graph-level tasks."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, özellikle 'state-of-the-art' performans iddialarında, örneklem büyüklüğünün ve istatistiksel gücün gerekçelendirilmesi, bulguların sağlamlığını ve tekrarlanabilirliğini göstermek için kritik öneme sahiptir. Güç analizi yapılmaması, özellikle küçük etki büyüklüklerinin gözden kaçırılmasına veya anlamsız farklılıkların 'istatistiksel olarak anlamlı' olarak yorumlanmasına yol açabilir.",
+        "limitations": [
+          "Makalede güç analizi veya örneklem büyüklüğü gerekçesiyle ilgili herhangi bir bilgi bulunmadığından, bu konuda daha fazla yorum yapılamamaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Performans Metriklerinin Açık Tanımı",
+        "summary": "Çalışma, düğüm sınıflandırma görevleri için 'Accuracy' (doğruluk) metriğini kullanmakta ve bu metriğin ne anlama geldiği genel olarak kabul görmüş bir standarttır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a0",
+            "section": "Table 2",
+            "quote": "Metric Accuracy↑Accuracy↑Accuracy↑Accuracy↑Accuracy↑Accuracy↑Accuracy↑Accuracy↑Accuracy↑ Accuracy↑"
+          }
+        ],
+        "reasoning_public": "Kullanılan performans metrikleri (örneğin, doğruluk) alan yazında yaygın olarak kabul görmüş ve anlaşılır metriklerdir, bu da bulguların yorumlanmasını kolaylaştırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "İstatistiksel Test Seçimi ve Karşılaştırmalar",
+        "summary": "Çalışma, farklı GNN modellerinin ve dropout/BN'nin etkilerini karşılaştırmak için doğruluk metriklerini kullanmaktadır. Tablo 2'de ortalama ve standart sapma değerleri raporlanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a1",
+            "section": "Table 2",
+            "quote": "GCNII 85.19 ± 0.26 ... GCN w/o dp 83.18 ± 1.22"
+          }
+        ],
+        "reasoning_public": "Farklı modellerin performansını karşılaştırmak için doğruluk gibi yaygın metriklerin kullanılması ve birden fazla deneme üzerinden ortalama ve standart sapma raporlanması, sonuçların güvenilirliği hakkında bilgi sağlar. Ancak, istatistiksel anlamlılık testleri veya çoklu karşılaştırma düzeltmeleri hakkında bilgi verilmemiştir.",
+        "limitations": [
+          "Makalede istatistiksel anlamlılık testlerinin (örneğin, t-testi, ANOVA) veya çoklu karşılaştırma düzeltmelerinin (örneğin, Bonferroni, Holm) yapıldığına dair bir bilgi bulunmamaktadır. Bu durum, farklı modeller arasındaki performans farklarının istatistiksel olarak anlamlı olup olmadığını değerlendirmeyi zorlaştırmaktadır.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Metin ve Tablo Arasında Tutarlılık Eksikliği",
+        "summary": "Makalenin 'Abstract' bölümünde 'GCN with dropout and batch normalization outperforms state-of-the-art methods on several benchmarks' ifadesi yer alırken, Tablo 2'de 'GCN' ve 'GCN w/o dp' gibi ayrı girişler bulunmaktadır. 'GCN with dropout and batch normalization' için doğrudan bir giriş veya bu kombinasyonun performansını gösteren açık bir karşılaştırma eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "Abstract",
+            "quote": "Notably, GCN with dropout and batch normalization outperforms state-of-the-art methods on several benchmarks, demonstrating the practical impact of our theoretical insights."
+          },
+          {
+            "anchor_id": "table_2.a2",
+            "section": "Table 2",
+            "quote": "GCN 85.22 ± 0.66 ... GCN w/o dp 83.18 ± 1.22 ... GCN w/o BN 84.97 ± 0.73"
+          }
+        ],
+        "reasoning_public": "Ana iddiaların (örneğin, 'state-of-the-art' performans) doğrudan destekleyici verilerle (tablolar, figürler) açıkça eşleşmesi, raporlama kalitesi ve bulguların doğrulanabilirliği açısından önemlidir. Bu tutarsızlık, okuyucunun iddiayı doğrulamak için ek çıkarımlar yapmasını gerektirir.",
+        "limitations": [
+          "Makalede 'GCN with dropout and batch normalization' kombinasyonunun tam olarak hangi satıra karşılık geldiği açıkça belirtilmemiştir. 'GCN' satırının bu kombinasyonu temsil ettiği varsayılmıştır, ancak bu bir varsayımdır.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Güven Aralığı Raporlaması Eksikliği",
+        "summary": "Deneysel sonuçlar (Tablo 2), farklı modellerin ve dropout/BN'nin etkilerini doğruluk metrikleri ve standart sapmalarla sunmaktadır. Ancak, bu farkların etki büyüklükleri (örneğin, Cohen's d) veya güven aralıkları (CI) raporlanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a3",
+            "section": "Table 2",
+            "quote": "GCN 85.22 ± 0.66 ... GCN w/o dp 83.18 ± 1.22"
+          }
+        ],
+        "reasoning_public": "Sadece p-değerleri veya ortalama ve standart sapmalar, bir etkinin pratik önemini tam olarak yansıtmaz. Etki büyüklükleri, gözlemlenen farkların ne kadar büyük veya önemli olduğunu gösterirken, güven aralıkları bu tahminlerin belirsizliğini nicel olarak ifade eder. Bu bilgilerin eksikliği, bulguların pratik önemini değerlendirmeyi zorlaştırır.",
+        "limitations": [
+          "Makalede etki büyüklüğü veya güven aralığı hesaplamaları için gerekli tüm istatistiksel bilgiler (örneğin, örneklem büyüklüğü, tam test istatistikleri) doğrudan verilmemiştir, bu nedenle yeniden hesaplama yapılamamıştır.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Nedensel Dil Kullanımı",
+        "summary": "Çalışma, dropout'un GCN'lerdeki rolünü teorik olarak analiz etmekte ve 'neden' ve 'nasıl' sorularına odaklanmaktadır. 'Dropout'un oversmoothing'i önlediği' gibi ifadeler, teorik analiz ve deneysel doğrulamalarla desteklenmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "Abstract",
+            "quote": "revealing that its primary role differs fundamentally from standard neural networks - preventing oversmoothing rather than co-adaptation."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "Introduction",
+            "quote": "We demonstrate that dropout’s main contribution in GCNs is mitigating oversmoothing by maintaining feature diversity across nodes, rather than preventing co-adaptation as in standard neural networks."
+          }
+        ],
+        "reasoning_public": "Teorik analizler ve kontrollü deneyler, nedensel ilişkileri incelemek için uygun zemin sağlar. Makale, teorik çerçevesini ve deneysel bulgularını kullanarak nedensel iddialarını desteklemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod Erişilebilirliği",
+        "summary": "Çalışma, uygulanan kodun GitHub deposunda erişilebilir olduğunu belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_experiments.a1",
+            "section": "4 Experiments",
+            "quote": "Our code is available at https://github.com/LUOyk1999/dropout-theory."
+          }
+        ],
+        "reasoning_public": "Kodun açıkça erişilebilir olması, bulguların tekrarlanabilirliği ve doğrulanabilirliği açısından önemli bir güçlü yöndür.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Teorik Sınırların Yorumlanmasında Eksiklik",
+        "summary": "Teorem 5'te sunulan özellik enerjisi üst sınırı için bir alt sınırın eksikliği belirtilmiş, ancak bu eksikliğin bulguların yorumlanması üzerindeki potansiyel etkisi veya pratik çıkarımları yeterince açıklanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_4_role_of_dropout_in_oversmoothing.a0",
+            "section": "3.4 Role of Dropout in Oversmoothing",
+            "quote": "Note that this analysis only provides an upper bound; the absence of a lower bound in this derivation is due to limitations in bounding certain terms. We will later show that when considering batch normalization, we can establish the existence of a lower bound, providing a more complete characterization."
+          }
+        ],
+        "reasoning_public": "Teorik bir modelde bir sınırın (üst veya alt) eksikliği, modelin belirli koşullar altında davranışını tam olarak karakterize edemediği anlamına gelir. Bu eksikliğin, teorik iddiaların gücü veya deneysel bulguların yorumlanması üzerindeki etkisinin açıkça tartışılması, raporlama kalitesini artırır.",
+        "limitations": [
+          "Makalede bu eksikliğin tam olarak ne gibi sonuçlar doğurduğuna dair detaylı bir tartışma bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Dropout'un GCN'lerdeki Rolüne İlişkin Kapsamlı Teorik Analiz",
+        "summary": "Makale, dropout'un GCN'lerdeki birincil rolünün standart sinir ağlarından farklı olarak aşırı düzeltmeyi (oversmoothing) önlemek olduğunu ve bunun yapısal bir düzenlileştirme biçimi olduğunu kapsamlı bir teorik analizle ortaya koymaktadır. Bu, mevcut literatürdeki bir boşluğu doldurarak GCN'lerdeki dropout mekanizmasına dair yeni bir bakış açısı sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "Abstract",
+            "quote": "This paper presents a comprehensive theoretical analysis of dropout in GCNs, revealing that its primary role differs fundamentally from standard neural networks - preventing oversmoothing rather than co-adaptation."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "Introduction",
+            "quote": "While dropout was originally designed to prevent co-adaptation of features in standard neural networks, our analysis reveals that its primary mechanism in GCNs is fundamentally different. We demonstrate that dropout’s main contribution in GCNs is mitigating oversmoothing by maintaining feature diversity across nodes, rather than preventing co-adaptation as in standard neural networks. This finding represents a significant shift in our understanding of how regularization operates in graph neural networks."
+          }
+        ],
+        "reasoning_public": "Makale, dropout'un GCN'lerdeki işleyişine dair mevcut sınırlı teorik anlayışı önemli ölçüde genişletmektedir. Özellikle, dropout'un GCN'lerdeki temel rolünün aşırı düzeltmeyi azaltmak olduğunu ve boyut-spesifik stokastik alt-grafikler oluşturarak standart sinir ağlarında bulunmayan benzersiz bir yapısal düzenlileştirme sağladığını göstermektedir. Bu, alana önemli ve özgün bir teorik katkıdır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Dereceye Bağlı Düzenlileştirme ve Genelleme Sınırları",
+        "summary": "Makale, dropout etkilerinin GCN'lerde doğal olarak dereceye bağlı olduğunu ve düğümlerin topolojik önemini dikkate alan adaptif bir düzenlileştirme sağladığını göstermektedir. Ayrıca, grafiğe özgü dropout etkilerini hesaba katan yeni genelleme sınırları türetilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "Abstract",
+            "quote": "Our analysis shows that dropout effects are inherently degree-dependent, resulting in adaptive regularization that considers the topological importance of nodes. We provide new insights into dropout’s role in mitigating oversmoothing and derive novel generalization bounds that account for graph-specific dropout effects."
+          },
+          {
+            "anchor_id": "3_3_degree_dependent_nature_of_dropout_effects.a0",
+            "section": "3.3 Degree-Dependent Nature of Dropout Effects",
+            "quote": "The interaction between dropout and the graph structure leads to a form of degree-dependent regularization in GCNs. This means that the effect of dropout varies based on the connectivity of each node, creating an adaptive regularization scheme that considers the topological importance of nodes in the graph."
+          },
+          {
+            "anchor_id": "3_5_generalization_bounds_with_graph_specific_dropout_effects.a0",
+            "section": "3.5 Generalization Bounds with Graph-Specific Dropout Effects",
+            "quote": "The unique properties of dropout in GCNs, such as the creation of stochastic sub-graphs and degree-dependent effects, influence how these models generalize to unseen data. Our analysis provides novel generalization bounds that explicitly account for these graph-specific dropout effects, offering insights into how dropout interacts with graph structure to influence the model’s generalization capabilities."
+          }
+        ],
+        "reasoning_public": "Dropout'un GCN'lerdeki etkisinin düğüm derecesine bağlı olarak değiştiği ve bunun adaptif bir düzenlileştirme mekanizması oluşturduğu bulgusu, dropout'un GCN'lerdeki davranışına dair özgün bir içgörü sunmaktadır. Türetilen yeni genelleme sınırları da, grafiğe özgü özellikleri dikkate alarak mevcut teorik çerçeveleri genişletmektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f2",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Dropout ve Batch Normalization Etkileşiminin Analizi",
+        "summary": "Makale, dropout ve batch normalization'ın GCN'lerdeki sinerjik etkileşimini analiz ederek, genel düzenlileştirmeyi artıran bir mekanizmayı ortaya çıkarmaktadır. Bu, iki yaygın düzenlileştirme tekniğinin GCN bağlamındaki birleşik etkisine dair yeni bir anlayış sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "Abstract",
+            "quote": "Furthermore, we analyze the synergistic interaction between dropout and batch normalization in GCNs, uncovering a mechanism that enhances overall regularization."
+          },
+          {
+            "anchor_id": "3_6_interaction_of_dropout_and_batch_normalization_in_gcns.a0",
+            "section": "3.6 Interaction of Dropout and Batch Normalization in GCNs",
+            "quote": "Our analysis reveals how the combination of dropout and BN creates a synergistic regularization effect that is sensitive to both graph structure and feature distributions."
+          }
+        ],
+        "reasoning_public": "Dropout ve Batch Normalization'ın GCN'lerdeki etkileşimini ve bunun genel düzenlileştirme üzerindeki sinerjik etkilerini incelemek, bu alandaki mevcut literatüre özgün bir katkıdır. Bu analiz, bu tekniklerin birlikte nasıl çalıştığına dair daha derin bir teorik anlayış sağlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve İyi Tanımlanmış Araştırma Sorusu",
+        "summary": "Makale, GCN'lerde dropout'un rolünü ve davranışını kapsamlı bir şekilde inceleyerek net bir araştırma sorusu sunmaktadır. Çalışmanın tasarımı ve kapsamı bu soruyu cevaplamaya tamamen uygundur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "Abstract",
+            "quote": "This paper presents a comprehensive theoretical analysis of dropout in GCNs, revealing that its primary role differs fundamentally from standard neural networks - preventing oversmoothing rather than co-adaptation."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "Introduction",
+            "quote": "While dropout was originally designed to prevent co-adaptation of features in standard neural networks, our analysis reveals that its primary mechanism in GCNs is fundamentally different. We demonstrate that dropout’s main contribution in GCNs is mitigating oversmoothing by maintaining feature diversity across nodes, rather than preventing co-adaptation as in standard neural networks."
+          }
+        ],
+        "reasoning_public": "Makale, GCN'lerde dropout'un geleneksel sinir ağlarındaki rolünden farklı olarak aşırı düzeltmeyi (oversmoothing) önlemedeki birincil rolünü teorik olarak analiz etmeyi ve deneysel olarak doğrulamayı amaçlamaktadır. Bu, makalenin giriş ve özet bölümlerinde açıkça belirtilmiştir ve çalışmanın geri kalanı bu hedefe yönelik olarak yapılandırılmıştır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kapsamlı ve Tutarlı Teorik Çerçeve",
+        "summary": "Makale, GCN'lerde dropout'un davranışını açıklamak için kapsamlı ve tutarlı bir teorik çerçeve sunmaktadır. Bu çerçeve, dropout'un standart sinir ağlarındaki rolünden farklı olarak, GCN'lerde aşırı düzeltmeyi (oversmoothing) önleme ve yapısal düzenlileştirme sağlama gibi benzersiz mekanizmalarını detaylandırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a8",
+            "section": "Abstract",
+            "quote": "This paper presents a comprehensive theoretical analysis of dropout in GCNs, revealing that its primary role differs fundamentally from standard neural networks - preventing oversmoothing rather than co-adaptation."
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "Introduction",
+            "quote": "While dropout was originally designed to prevent co-adaptation of features in standard neural networks, our analysis reveals that its primary mechanism in GCNs is fundamentally different. We demonstrate that dropout’s main contribution in GCNs is mitigating oversmoothing by maintaining feature diversity across nodes, rather than preventing co-adaptation as in standard neural networks."
+          },
+          {
+            "anchor_id": "theoretical_framework.a0",
+            "section": "Theoretical Framework",
+            "quote": "In this section, we develop a rigorous mathematical framework to analyze the behavior of dropout in Graph Convolutional Networks (GCNs). We begin by establishing notations and definitions, then formalize the GCN model with dropout, and finally introduce key concepts that will be central to our analysis."
+          }
+        ],
+        "reasoning_public": "Makale, dropout'un GCN'lerdeki etkilerini matematiksel olarak modelleyerek, boyut-spesifik stokastik alt-graflar oluşturduğunu, dereceye bağlı düzenlileştirme sağladığını ve genelleme sınırlarını etkilediğini göstermektedir. Ayrıca, dropout ve batch normalization arasındaki sinerjistik etkileşimi de teorik olarak incelemektedir. Bu detaylı teorik analiz, makalenin temel iddiasını güçlü bir şekilde desteklemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Teorik Sınırların Kapsamındaki Sınırlılıklar",
+        "summary": "Makale, GCN'lerde dropout ile özellik enerjisi için bir üst sınır sunarken, ilgili bir alt sınırın türetilememesinin nedenlerini 'belirli terimleri sınırlamadaki kısıtlamalar' olarak belirtmektedir. Bu durum, teorik çerçevenin tam bir karakterizasyonunu engellemektedir, ancak batch normalization ile birlikte alt sınırın gösterilebildiği belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_4_role_of_dropout_in_oversmoothing.a1",
+            "section": "3.4 Role of Dropout in Oversmoothing",
+            "quote": "The derived bound demonstrates how dropout affects feature energy through the interplay of network depth (l), graph structure (through degmax and Ã), and weight properties (∥W (i)∥2 2). Note that this analysis only provides an upper bound; the absence of a lower bound in this derivation is due to limitations in bounding certain terms. We will later show that when considering batch normalization, we can establish the existence of a lower bound, providing a more complete characterization."
+          }
+        ],
+        "reasoning_public": "Theorem 5'te sunulan özellik enerjisi üst sınırı, dropout'un GCN'lerdeki etkisini anlamak için önemli bir adımdır. Ancak, bir alt sınırın eksikliği, dropout'un tek başına özellik enerjisi üzerindeki etkisinin tam resmini vermemektedir. Bu durum, teorik çerçevenin kapsamını bir miktar sınırlamaktadır. Yazarın bu sınırlılığı açıkça belirtmesi olumlu olsa da, bu eksiklik teorik analizin gücünü azaltmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yüksek Oranda Çözülemeyen Referanslar",
+        "summary": "Makaledeki referansların büyük bir kısmı (73 referanstan 65'i) OpenAlex veya Semantic Scholar gibi akademik indekslerde doğrudan çözülememiştir. Bu durum, makalenin atıfta bulunduğu bazı çalışmaların doğrulanabilirliğini ve literatürdeki konumunu takip etmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda referansların kolayca doğrulanabilir olması, çalışmanın şeffaflığı ve güvenilirliği açısından kritik öneme sahiptir. Yüksek oranda çözülemeyen referanslar, okuyucuların ve hakemlerin atıf yapılan kaynaklara erişimini ve makalenin literatürdeki yerini değerlendirmesini engelleyebilir. Bu durum, özellikle yeni veya niş yayın platformlarından kaynaklanan atıflar için anlaşılabilir olsa da, genel olarak literatür taramasının ve referans formatlamasının iyileştirilmesi gerektiğini düşündürmektedir.",
+        "limitations": [
+          "OpenAlex/Semantic Scholar indekslerinin kapsam sınırlamaları nedeniyle bazı geçerli referansların 'bulunamayan' olarak işaretlenmiş olabileceği göz önünde bulundurulmuştur. Bu durum, referansların kendiliğinden hatalı olduğu anlamına gelmez, ancak doğrulanabilirliklerini azaltır."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0",
+          "literature_positioning.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genelleme Sınırlarının Yorumunda Aşırı İddia",
+        "summary": "Makale, Teorem 6'da sunulan genelleme sınırının, GCN'lerin MLPlere kıyasla doğal bir regülarizasyon kazandığını ve daha iyi stabiliteye sahip olduğunu iddia etmektedir. Ancak, bu iddia doğrudan Teorem 6'dan veya sunulan kanıtlardan net bir şekilde çıkarılamamaktadır. Teorem 6, χf(G) teriminin GCN'ler için 1'den büyük olduğunu ve bunun stabiliteyi etkilediğini belirtse de, bu durumun MLPlere kıyasla 'daha iyi stabilite' veya 'doğal regülarizasyon' anlamına geldiği matematiksel olarak gösterilmemiştir. χf(G) teriminin büyüklüğü ile stabilite arasındaki ilişki, 'daha iyi' veya 'doğal' gibi nitel ifadelerle desteklenmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_5_generalization_bounds_with_graph_specific_dropout_effects.a1",
+            "section": "3.5 Generalization Bounds with Graph-Specific Dropout Effects",
+            "quote": "Second, the graph structure fundamentally influences stability through χ f (G). Since χ f (G) > 1 for GCNs due to message passing (versus χf (G) = 1 for MLPs), GCNs gain natural regularization from their graph structure. This effect strengthens with graph connectivity since larger χf (G) leads to better stability. ... This theoretical insight aligns with empirical observations that GNNs often benefit more from dropout than MLPs, as the graph structure provides additional stability through χf (G) while allowing effective information flow via message passing."
+          }
+        ],
+        "reasoning_public": "Akademik makalelerde, teorik sonuçlardan yapılan çıkarımların ve iddiaların, sunulan matematiksel kanıtlarla tam olarak uyumlu olması esastır. Bu durumda, genelleme sınırının yorumlanmasında kullanılan 'doğal regülarizasyon' ve 'daha iyi stabilite' gibi ifadeler, Teorem 6'nın matematiksel formülasyonundan doğrudan ve kesin olarak çıkarılamayan nitel iddialardır. Bu tür aşırı genellemeler, okuyucuyu yanıltabilir ve teorik katkının gerçek kapsamını belirsizleştirebilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Deneysel Sonuçların Yorumunda Kısmi Destek",
+        "summary": "Makale, teorik bulgularının kapsamlı deneylerle doğrulandığını iddia etmektedir. Özellikle, 'GCN with dropout and batch normalization outperforms state-of-the-art methods on several benchmarks' ifadesi, teorik içgörülerin pratik etkisini vurgulamaktadır. Ancak, Tablo 2'deki sonuçlar incelendiğinde, GCN'nin dropout ve BN ile birlikte bazı durumlarda en iyi performansı gösterdiği görülse de, bu durum 'state-of-the-art' (son teknoloji) yöntemlerin tamamını tutarlı bir şekilde geride bıraktığı anlamına gelmemektedir. Örneğin, bazı veri setlerinde GCNII, GPRGNN veya Polynormer gibi diğer yöntemler daha iyi veya benzer performans sergilemektedir. Bu durum, 'outperforms state-of-the-art methods' iddiasının kısmen doğru olduğunu, ancak genelleştirilmiş bir üstünlük olarak sunulmasının aşırı olabileceğini göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a9",
+            "section": "Abstract",
+            "quote": "Notably, GCN with dropout and batch normalization outperforms state-of-the-art methods on several benchmarks, demonstrating the practical impact of our theoretical insights."
+          },
+          {
+            "anchor_id": "introduction.a5",
+            "section": "Introduction",
+            "quote": "Furthermore, we validate our theoretical findings through extensive experiments, demonstrating that GCNs incorporating our insights on dropout and batch normalization outperform several state-of-the-art methods on benchmark datasets."
+          },
+          {
+            "anchor_id": "table_2_node_classification_results.a0",
+            "section": "Table 2: Node classification results (%)",
+            "quote": "GCN\n85.22 ± 0.66\n73.24 ± 0.63\n81.08 ± 1.16\n93.15 ± 0.34\n95.03 ± 0.24\n94.41 ± 0.13\n97.07 ± 0.04\n80.14 ± 0.52\n73.13 ± 0.27\n81.87 ± 0.41"
+          }
+        ],
+        "reasoning_public": "Deneysel sonuçların yorumlanmasında, iddiaların sunulan verilerle tam olarak desteklenmesi önemlidir. 'State-of-the-art' gibi güçlü ifadeler kullanılırken, bu iddiaların tüm ilgili karşılaştırmalı verilerle tutarlı bir şekilde doğrulanması beklenir. Kısmi üstünlük durumunda, bu durumun daha dikkatli bir dille ifade edilmesi, makalenin güvenilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik Çerçeve ve Deneysel Doğrulama Arasındaki Güçlü Uyum",
+        "summary": "Makale, dropout'un GCN'lerdeki rolüne ilişkin teorik analizlerini, özellikle oversmoothing'i azaltma ve dereceye bağlı regülarizasyon mekanizmaları gibi konularda, kapsamlı deneylerle başarılı bir şekilde doğrulamıştır. Örneğin, 'Our theoretical findings are validated through extensive experiments on both node-level and graph-level tasks across 14 datasets' ifadesi, teorik içgörülerin pratik geçerliliğini güçlü bir şekilde desteklemektedir. Deneysel bölüm, farklı GNN mimarileri ve çeşitli veri setleri üzerinde yapılan karşılaştırmalı analizlerle teorik iddiaları desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a10",
+            "section": "Abstract",
+            "quote": "Our theoretical findings are validated through extensive experiments on both node-level and graph-level tasks across 14 datasets."
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "Introduction",
+            "quote": "We validate our theoretical findings through extensive experiments on both node-level and graph-level tasks, demonstrating the practical relevance of our analysis."
+          },
+          {
+            "anchor_id": "4_experiments.a2",
+            "section": "4 Experiments",
+            "quote": "To validate our theoretical analysis, we conducted extensive experiments on a variety of datasets, considering both node-level and graph-level tasks."
+          }
+        ],
+        "reasoning_public": "Teorik bir makalede, sunulan teorik çerçevenin deneysel kanıtlarla desteklenmesi, çalışmanın güvenilirliği ve etkisi açısından kritik öneme sahiptir. Bu makale, teorik bulgularını geniş bir deneysel yelpazede test ederek, teorik iddialarının pratik geçerliliğini başarılı bir şekilde göstermiştir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Oranda Çözülemeyen Referanslar",
+        "summary": "Makaledeki referansların büyük bir kısmı (73 referanstan 65'i) otomatik indeksleme sistemleri (OpenAlex/Semantic Scholar) tarafından başlık, yazar ve yıl bilgileriyle eşleştirilememiştir. Bu durum, makalenin referanslarının doğrulanabilirliğini ve erişilebilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayınlarda referansların kolayca doğrulanabilir olması, araştırmanın şeffaflığı ve güvenilirliği açısından kritik öneme sahiptir. Yüksek oranda çözülemeyen referanslar, okuyucuların atıf yapılan kaynaklara ulaşmasını zorlaştırabilir ve makaledeki iddiaların dayanaklarını kontrol etme yeteneğini kısıtlayabilir. Bu durum, özellikle hakemler ve diğer araştırmacılar için ek bir yük oluşturur.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle bazı niş veya yeni yayınların indekslenmemiş olabileceği göz önünde bulundurulmuştur. Ancak bu kadar yüksek bir oranın sadece bu durumdan kaynaklanması olası değildir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0",
+          "citation_integrity.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Raporlama Kılavuzlarına Uyum Eksikliği",
+        "summary": "Makale, deneysel çalışmalar için yaygın olarak kabul gören raporlama kılavuzlarına (örneğin, makine öğrenimi alanında kullanılanlar) atıfta bulunmamakta veya bunlara uyduğunu belirtmemektedir. Bu durum, çalışmanın tekrarlanabilirliğini ve şeffaflığını olumsuz etkileyebilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, özellikle deneysel sonuçlar içeren makalelerde, belirli raporlama kılavuzlarına uyum, çalışmanın şeffaflığını, tekrarlanabilirliğini ve güvenilirliğini artırır. Makine öğrenimi ve yapay zeka alanında da bu tür kılavuzlar (örneğin, ML Reproducibility Checklist) bulunmaktadır. Makalede bu tür bir uyumun belirtilmemesi, okuyucuların deney kurulumu, veri işleme adımları ve sonuçların yorumlanması hakkında tam bir resim elde etmesini zorlaştırabilir.",
+        "limitations": [
+          "Makine öğrenimi alanında henüz evrensel olarak kabul görmüş tek bir raporlama kılavuzu bulunmamaktadır, bu nedenle spesifik bir kılavuzun eksikliği doğrudan bir hata olarak değerlendirilemez. Ancak, şeffaflık ve tekrarlanabilirlik beklentisi yüksektir."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Deneysel Detayların Kısmi Sağlanması",
+        "summary": "Makale, deneysel kurulum ve kullanılan veri setleri hakkında temel bilgileri (örneğin, veri seti isimleri, düğüm ve kenar sayıları) sağlamaktadır. Ayrıca, kodun GitHub deposunda mevcut olduğunu belirterek tekrarlanabilirliğe katkıda bulunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "Experiments",
+            "quote": "For node-level tasks, we used 10 datasets: Cora, CiteSeer, PubMed (Sen et al., 2008), ogbn-arxiv, ogbn-products (Hu et al., 2020), Amazon-Computer, Amazon-Photo, Coauthor-CS, Coauthor-Physics (Shchur et al., 2018), and WikiCS (Mernyei & Cangea, 2020). ... Our code is available at https://github.com/LUOyk1999/dropout-theory."
+          },
+          {
+            "anchor_id": "experiments.a1",
+            "section": "Experiments",
+            "quote": "Table 2: Node classification results (%). The baseline results are taken from Deng et al. (2024); Wu et al. (2023). The top 1st, 2nd and 3rd results are highlighted. ”dp” denotes dropout. # nodes # edges"
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmaların tekrarlanabilirliği için veri setleri ve temel istatistikler hakkında bilgi sağlamak önemlidir. Ayrıca, kodun açık kaynak olarak sunulması, diğer araştırmacıların çalışmayı doğrulamasına ve üzerine inşa etmesine olanak tanır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Kod Paylaşımı Beyanı Eksikliği",
+        "summary": "Makale, deneysel sonuçların tekrar üretilebilirliğini sağlamak için kodun erişilebilirliğini açıkça belirtmemektedir. Yalnızca bir GitHub bağlantısı verilmiş, ancak bu bağlantının içeriği veya kalıcılığı hakkında ek bilgi bulunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a2",
+            "section": "Experiments",
+            "quote": "Our code is available at https://github.com/LUOyk1999/dropout-theory."
+          }
+        ],
+        "reasoning_public": "Akademik araştırmalarda tekrar üretilebilirlik, bulguların doğrulanması ve bilimin ilerlemesi için temel bir gerekliliktir. Kodun açıkça paylaşılması ve bu paylaşımın detaylarının belirtilmesi, araştırmanın şeffaflığını ve güvenilirliğini artırır. Mevcut durumda, verilen bağlantının içeriği veya kalıcılığı hakkında net bir beyan olmaması, tekrar üretilebilirlik konusunda belirsizlik yaratmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Onay ve Rıza Beyanının Gerekli Olmaması",
+        "summary": "Makale, insan deneklerle yapılan bir çalışma içermediği veya hassas veri kullanmadığı için etik onay veya katılımcı rızası beyanına ihtiyaç duymamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Araştırma konusu ve kullanılan veri setleri (grafik veri setleri gibi) göz önüne alındığında, insan deneklerle ilgili etik kaygılar veya hassas kişisel verilerin kullanımı söz konusu değildir. Bu nedenle, etik onay veya katılımcı rızası beyanının olmaması beklenen bir durumdur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f2",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Veri Seti Kullanımı ve Kaynak Gösterimi",
+        "summary": "Makale, kullanılan veri setlerini açıkça belirtmiş ve ilgili kaynaklara atıfta bulunmuştur, bu da veri kullanımının şeffaflığını artırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "datasets_and_setup.a0",
+            "section": "Datasets and Setup",
+            "quote": "For node-level tasks, we used 10 datasets: Cora, CiteSeer, PubMed (Sen et al., 2008), ogbn-arxiv, ogbn-products (Hu et al., 2020), Amazon-Computer, Amazon-Photo, Coauthor-CS, Coauthor-Physics (Shchur et al., 2018), and WikiCS (Mernyei & Cangea, 2020)."
+          }
+        ],
+        "reasoning_public": "Kullanılan veri setlerinin (Cora, CiteSeer, PubMed, ogbn-arxiv, ogbn-products, Amazon-Computer, Amazon-Photo, Coauthor-CS, Coauthor-Physics, WikiCS) açıkça listelenmesi ve orijinal kaynaklarına atıfta bulunulması, araştırmanın veri şeffaflığı açısından olumlu bir adımdır. Bu durum, diğer araştırmacıların aynı veri setlerini kullanarak sonuçları doğrulamasına veya karşılaştırmasına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Giriş Bölümünde Tekrarlayan İfadeler",
+        "summary": "Giriş bölümünde, makalenin temel katkılarını ve bulgularını özetleyen ifadeler birden fazla kez tekrarlanmıştır. Bu durum, okuyucunun dikkatini dağıtabilir ve metnin akıcılığını azaltabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a7",
+            "section": "Introduction",
+            "quote": "While dropout was originally designed to prevent co-adaptation of features in standard neural net-works, our analysis reveals that its primary mechanism in GCNs is fundamentally different. We demonstrate that dropout’s main contribution in GCNs is mitigating oversmoothing by maintaining feature diversity across nodes, rather than preventing co-adaptation as in standard neural networks. This finding represents a significant shift in our understanding of how regularization operates in graph neural networks. Specifically, we demonstrate that: ... Our theoretical framework not only provides deeper insights into the mechanics of dropout in graph-structured data but also yields practical implications for the design and training of GCNs. We vali-date our theoretical findings through extensive experiments on both node-level and graph-level tasks, demonstrating the practical relevance of our analysis. This work bridges a critical gap in the theoret-ical understanding of regularization in GCNs and paves the way for more principled approaches to leveraging dropout in graph representation learning. Furthermore, we validate our theoretical find-ings through extensive experiments, demonstrating that GCNs incorporating our insights on dropout and batch normalization outperform several state-of-the-art methods on benchmark datasets. This practical success underscores the importance of our theoretical contributions and their potential to advance the field of graph representation learning."
+          }
+        ],
+        "reasoning_public": "Akademik makalelerde giriş bölümü, çalışmanın amacını, yöntemini ve ana bulgularını kısa ve öz bir şekilde sunmalıdır. Tekrarlayan ifadeler, metnin gereksiz yere uzamasına ve okuyucunun ana mesajı kavramasını zorlaştırmasına neden olabilir. Bu durum, makalenin genel okunabilirliğini ve profesyonelliğini olumsuz etkiler.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıksal Akış ve Bölümleme",
+        "summary": "Makalenin bölüm başlıkları ve içerikleri arasında güçlü bir mantıksal akış bulunmaktadır. Giriş, ilgili çalışmalar, yöntem ve sonuçlar bölümleri birbirini tutarlı bir şekilde takip etmektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "İyi yapılandırılmış bir makale, okuyucunun karmaşık fikirleri kolayca takip etmesini sağlar. Mantıklı bir bölümleme ve akış, çalışmanın anlaşılırlığını artırır ve sunulan argümanların gücünü pekiştirir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik Çerçeve Bölümünün Netliği",
+        "summary": "Teorik Çerçeve bölümü, notasyonların ve tanımların net bir şekilde sunulmasıyla başlayarak, dropout'un GCN'lerdeki davranışını adım adım açıklamaktadır. Bu yapı, karmaşık matematiksel kavramların anlaşılmasını kolaylaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "theoretical_framework.a1",
+            "section": "Theoretical Framework",
+            "quote": "In this section, we develop a rigorous mathematical framework to analyze the behavior of dropout in Graph Convolutional Networks (GCNs). We begin by establishing notations and definitions, then formalize the GCN model with dropout, and finally introduce key concepts that will be central to our analysis."
+          }
+        ],
+        "reasoning_public": "Teorik ağırlıklı makalelerde, matematiksel temellerin ve kavramların açıkça tanımlanması kritik öneme sahiptir. Bu bölümdeki yapı, okuyucunun teorik analizleri ve türetmeleri rahatlıkla takip etmesine olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Hedef Kitleye Uygun Kapsam ve Düzey",
+        "summary": "Makale, Graph Convolutional Networks (GCN'ler) ve dropout mekanizması üzerine kapsamlı bir teorik analiz sunarak, bu alandaki mevcut bilgi boşluğunu doldurmaktadır. Sunulan teorik çerçeve, deneysel bulgularla desteklenmekte ve hem teorik hem de pratik katkılar içermektedir. Bu yaklaşım, makalenin akademik bir konferans veya dergi için uygun olduğunu göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a11",
+            "section": "Abstract",
+            "quote": "This paper presents a comprehensive theoretical analysis of dropout in GCNs, revealing that its primary role differs fundamentally from standard neural networks - preventing oversmoothing rather than co-adaptation."
+          },
+          {
+            "anchor_id": "introduction.a8",
+            "section": "Introduction",
+            "quote": "Our theoretical framework not only provides deeper insights into the mechanics of dropout in graph-structured data but also yields practical implications for the design and training of GCNs. We validate our theoretical findings through extensive experiments on both node-level and graph-level tasks, demonstrating the practical relevance of our analysis."
+          }
+        ],
+        "reasoning_public": "Makale, GCN'lerde dropout'un rolünü derinlemesine inceleyerek, standart sinir ağlarından farklı olarak aşırı düzeltmeyi (oversmoothing) önlediğini ve boyut-spesifik stokastik alt-graflar oluşturduğunu ortaya koymaktadır. Bu, alandaki temel bir mekanizmanın daha iyi anlaşılmasına yönelik önemli bir teorik katkıdır. Ayrıca, genelleme sınırları ve batch normalizasyon ile etkileşimi gibi konulara değinilmesi, çalışmanın teorik derinliğini artırmaktadır. Deneysel doğrulama, teorik bulguların pratik geçerliliğini desteklemektedir. Bu tür bir teorik derinlik ve deneysel doğrulama kombinasyonu, genellikle yüksek etkili akademik yayınlar için aranan bir özelliktir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "References",
+        "instruction": "Tüm referansların DOI (Digital Object Identifier) veya tam ve doğru yayın bilgilerini (dergi adı, konferans adı, cilt, sayı, sayfa aralığı vb.) ekleyerek referans listesini güncelleyin. Özellikle 'not_found_in_index' olarak işaretlenen 65 referans için bu kontrolü yapın.",
+        "acceptance_check": "Referans listesindeki her bir girişin, otomatik indeksleme sistemleri tarafından kolayca çözülebilir ve doğrulanabilir hale getirilmesi.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3.5 Generalization Bounds with Graph-Specific Dropout Effects",
+        "instruction": "Teorem 6'dan yapılan çıkarımların ve iddiaların, sunulan matematiksel kanıtlarla daha sıkı bir şekilde hizalanması gerekmektedir. 'Doğal regülarizasyon' ve 'daha iyi stabilite' gibi nitel ifadeler yerine, χf(G) teriminin stabiliteye katkısını daha kesin ve ölçülebilir terimlerle açıklayın. Gerekirse, bu iddiaları destekleyecek ek teorik analizler veya karşılaştırmalı kanıtlar sunun.",
+        "acceptance_check": "İddiaların matematiksel kanıtlarla doğrudan desteklendiği ve nitel ifadelerin daha kesin terimlerle değiştirildiği veya ek kanıtlarla desteklendiği doğrulanacaktır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Experiments",
+        "instruction": "Yazarlar, kod deposunun içeriğini (örneğin, hangi modellerin, veri işleme adımlarının ve deney ayarlarının dahil olduğu) ve kalıcılığını (örneğin, arşivlenmiş bir sürümün olup olmadığı) açıklayan bir beyan eklemelidir. Ayrıca, kodun nasıl kullanılacağına dair temel talimatlar veya bir README dosyasına atıf yapılmalıdır.",
+        "acceptance_check": "Makalede kod deposunun içeriği ve kalıcılığı hakkında açıklayıcı bir cümle veya paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "References",
+        "instruction": "Çözülemeyen referansların her biri için DOI, arXiv ID veya tam yayın bilgileri (konferans/dergi adı, cilt, sayı, sayfa aralığı) gibi daha spesifik tanımlayıcılar ekleyerek referans listesini güncelleyin. Özellikle 'not_found_in_index' olarak işaretlenen referanslar için bu adımı uygulayın.",
+        "acceptance_check": "Referans listesindeki çözülemeyen öğelerin en az %80'i için DOI veya benzeri benzersiz tanımlayıcılar eklenmiş olmalı ve bu referanslar akademik indekslerde doğrulanabilir hale gelmelidir.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4.1 Datasets and Setup",
+        "instruction": "Deneysel bölüme, kullanılan her bir veri kümesi için örneklem büyüklüğünün (düğüm/kenar sayısı) ve bu örneklem büyüklüklerinin seçilme gerekçelerinin eklenmesi. Mümkünse, elde edilen etki büyüklükleri göz önüne alınarak bir güç analizi veya hassasiyet gerekçesi sunulması.",
+        "acceptance_check": "Her veri kümesi için örneklem büyüklüğü gerekçesi ve/veya güç analizi sonuçları açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4 Experiments",
+        "instruction": "Deneysel sonuçlar bölümüne, farklı modeller ve koşullar arasındaki performans farkları için etki büyüklüğü ölçümleri (örneğin, Cohen's d veya yüzde farkı) ve bu farklar için güven aralıkları eklenmelidir.",
+        "acceptance_check": "Tablo veya metinde etki büyüklüğü ve güven aralığı değerleri açıkça raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Experiments",
+        "instruction": "Makalede kullanılan deneysel metodoloji ve sonuçların raporlanmasında hangi kılavuzlara (varsa) uyulduğunu belirtin. Eğer belirli bir kılavuz takip edilmediyse, tekrarlanabilirliği artırmak için deney kurulumu, veri ön işleme, model parametreleri ve değerlendirme metrikleri hakkında daha detaylı bilgi sağlayın.",
+        "acceptance_check": "Makalede, deneysel bölümün başında veya sonunda, raporlama kılavuzlarına uyum hakkında bir açıklama veya tekrarlanabilirliği artırıcı ek detaylar eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "Introduction",
+        "instruction": "Giriş bölümündeki ana katkıları ve bulguları özetleyen paragrafları birleştirerek veya yeniden ifade ederek tekrarlardan kaçının. Her bir ana bulgunun veya katkının yalnızca bir kez, net ve öz bir şekilde sunulduğundan emin olun.",
+        "acceptance_check": "Giriş bölümü, makalenin ana katkılarını ve bulgularını tekrarlamadan, akıcı bir şekilde sunmaktadır.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "References",
+        "instruction": "Referans listesinde 'PMLR, 2019.', 'URL https: //proceedings.mlr.press/v202/kong23a.html.' ve 'A' gibi eksik veya anlamsız görünen girişleri düzeltin veya kaldırın. Bu tür girişler referans bütünlüğünü zedelemektedir.",
+        "acceptance_check": "Referans listesinde eksik veya anlamsız girişlerin bulunmaması.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Abstract, Introduction, Experiments",
+        "instruction": "Deneysel sonuçların yorumunu, Tablo 2'deki verilerle daha yakından hizalayın. 'Outperforms state-of-the-art methods' gibi ifadeleri, 'shows competitive or superior performance on several benchmarks' veya 'outperforms some state-of-the-art methods on specific benchmarks' gibi daha ölçülü ifadelerle değiştirin. Hangi durumlarda üstünlük sağlandığını ve hangi durumlarda diğer yöntemlerin daha iyi olduğunu açıkça belirtin.",
+        "acceptance_check": "İddiaların deneysel verilerle tam olarak desteklendiği ve genelleştirilmiş üstünlük iddialarının daha ölçülü bir dille ifade edildiği doğrulanacaktır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "References",
+        "instruction": "Referans listesindeki 'PMLR, 2019.', 'URL https: //proceedings.mlr.press/v202/kong23a.html.', 'Yuankai Luo, Lei Shi, and Xiao-Ming Wu', 'net/forum?id=R4xpvDTWkV', 'net/forum?id=SJU4ayYgl' ve 'A' gibi eksik veya hatalı formatlanmış girdileri düzeltin. Bu girdiler, referansın içeriğini veya kaynağını net bir şekilde belirtmemektedir.",
+        "acceptance_check": "Tüm referans girdileri, yazar, yıl, başlık ve yayın yeri gibi temel bilgileri içerecek şekilde doğru ve eksiksiz formatlanmış olmalıdır.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f4.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Table 2",
+        "instruction": "Tablo 2'ye 'GCN with dropout and batch normalization' kombinasyonunun performansını açıkça gösteren bir satır eklenmeli veya mevcut 'GCN' satırının bu kombinasyonu temsil ettiği belirtilmelidir. Ayrıca, 'state-of-the-art' iddialarının hangi kıyaslamalara göre yapıldığı netleştirilmelidir.",
+        "acceptance_check": "Tablo 2'de 'GCN with dropout and batch normalization' için açık bir giriş veya açıklama bulunmalı ve 'state-of-the-art' karşılaştırmaları netleştirilmeli.",
+        "linked_finding_ids": [
+          "quant.f4"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "3.4 Role of Dropout in Oversmoothing",
+        "instruction": "Teorem 5'in tartışıldığı bölümde, alt sınırın eksikliğinin teorik çıkarımlar veya deneysel gözlemler üzerindeki potansiyel etkileri daha ayrıntılı olarak açıklanmalıdır. Örneğin, bu durumun modelin belirli senaryolarda ne kadar iyi çalıştığına dair belirsizlik yaratıp yaratmadığı belirtilmelidir.",
+        "acceptance_check": "Alt sınır eksikliğinin teorik ve pratik etkileri hakkında daha fazla açıklama eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f1.a0",
+        "priority": "P2",
+        "effort": "high",
+        "expected_gain": "medium",
+        "target_section": "3.4 Role of Dropout in Oversmoothing",
+        "instruction": "Teorik çerçevenin gücünü artırmak için, mümkünse, sadece dropout'un kullanıldığı senaryo için de özellik enerjisi üzerinde bir alt sınır türetilmesi veya bu sınırlamaların daha detaylı açıklanması faydalı olacaktır.",
+        "acceptance_check": "Makalede tek başına dropout için özellik enerjisi alt sınırı sunulmuş veya mevcut sınırlamalar daha ayrıntılı gerekçelerle açıklanmış olmalı.",
+        "linked_finding_ids": [
+          "theoretical_framing.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "Abstract",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Deneysel Sonuçların Yorumunda Kısmi Destek",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a10",
+          "abstract.a11",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7",
+          "abstract.a8",
+          "abstract.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "quant.f1.a0",
+          "quant.f4.a0"
+        ]
+      },
+      {
+        "section": "Introduction",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Deneysel Sonuçların Yorumunda Kısmi Destek; Giriş Bölümünde Tekrarlayan İfadeler",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "Related Work",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Method",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Conclusions",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "References",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.3 Degree-Dependent Nature of Dropout Effects",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_3_degree_dependent_nature_of_dropout_effects.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.4 Role of Dropout in Oversmoothing",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Teorik Sınırların Yorumlanmasında Eksiklik; Teorik Sınırların Kapsamındaki Sınırlılıklar",
+        "anchor_ids": [
+          "3_4_role_of_dropout_in_oversmoothing.a0",
+          "3_4_role_of_dropout_in_oversmoothing.a1"
+        ],
+        "action_item_ids": [
+          "quant.f8.a0",
+          "theoretical_framing.f1.a0"
+        ]
+      },
+      {
+        "section": "3.5 Generalization Bounds with Graph-Specific Dropout Effects",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleme Sınırlarının Yorumunda Aşırı İddia",
+        "anchor_ids": [
+          "3_5_generalization_bounds_with_graph_specific_dropout_effects.a0",
+          "3_5_generalization_bounds_with_graph_specific_dropout_effects.a1"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ]
+      },
+      {
+        "section": "3.6 Interaction of Dropout and Batch Normalization in GCNs",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_6_interaction_of_dropout_and_batch_normalization_in_gcns.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4 Experiments",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_experiments.a0",
+          "4_experiments.a1",
+          "4_experiments.a2"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "Datasets and Setup",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "datasets_and_setup.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Experiments",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Kod Paylaşımı Beyanı Eksikliği",
+        "anchor_ids": [
+          "experiments.a0",
+          "experiments.a1",
+          "experiments.a2"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ]
+      },
+      {
+        "section": "Table 2",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Güven Aralığı Raporlaması Eksikliği",
+        "anchor_ids": [
+          "table_2.a0",
+          "table_2.a1",
+          "table_2.a2",
+          "table_2.a3"
+        ],
+        "action_item_ids": [
+          "quant.f4.a0",
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "Table 2: Node classification results (%)",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Deneysel Sonuçların Yorumunda Kısmi Destek",
+        "anchor_ids": [
+          "table_2_node_classification_results.a0"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "Theoretical Framework",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "theoretical_framework.a0",
+          "theoretical_framework.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

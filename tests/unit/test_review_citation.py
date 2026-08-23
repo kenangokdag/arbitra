@@ -390,7 +390,15 @@ async def test_resolve_all_counts_provider_errors(
     async def _boom(doi: str, *, settings: Any = None) -> Any:
         raise rcs.OpenAlexError("fail")
 
+    async def _s2_empty(query: str, *, limit: int = 5, settings: Any = None) -> list[Any]:
+        return []
+
     monkeypatch.setattr(rcs, "fetch_work_by_doi", _boom)
+    # 2026-08-23: not_found_in_index artık S2 fallback'ini TETİKLER (bkz.
+    # resolve_all) — bu test dosyasının kuralı "gerçek ağ çağrısı YOK" (L9),
+    # S2'yi de mock'lamak gerekiyor (boş sonuç = OpenAlex-hatası SONRASI S2 de
+    # bulamadı, sayaçlar değişmez).
+    monkeypatch.setattr(rcs, "search_semantic_scholar", _s2_empty)
 
     refs = [
         ParsedReference(index=0, raw="a", title="T", year=2020, doi="10.1/e1"),
@@ -615,3 +623,200 @@ async def test_coverage_no_topic_returns_empty(
     meta = ManuscriptMeta(title=None, abstract=None)
     gaps = await find_coverage_gaps(meta, [])
     assert gaps == []
+
+
+# --- Semantic Scholar fallback (2026-08-23) ---------------------------------
+# Kullanıcı onaylı plan: OpenAlex not_found_in_index derse S2 dene, OpenAlex
+# akışına dokunma, S2 asla fabricated için kullanılmaz, S2 arızası SESSİZCE
+# (ref not_found_in_index'te kalır) yutulur ama loglanır. Ağ MOCK'lanır
+# (search_semantic_scholar monkeypatch — gerçek S2 çağrısı YOK, dosya kuralı L9).
+
+
+def _s2_match(
+    *, title: str, year: int, authors: list[str], doi: str | None = None
+) -> Any:
+    from engine.providers.semantic_scholar import SemanticScholarMatch
+
+    return SemanticScholarMatch(
+        title=title, year=year, authors=authors, doi=doi, paper_id="s2-1"
+    )
+
+
+async def _not_found_via_openalex_error(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Yardımcı: OpenAlex'i hatalı yap → resolve_all'un her referansı S2'ye
+    düşürmesini garanti eder (title+year varsa)."""
+    import api.services.review_citation_service as rcs
+
+    async def _boom(doi: str, *, settings: Any = None) -> Any:
+        raise rcs.OpenAlexError("fail")
+
+    monkeypatch.setattr(rcs, "fetch_work_by_doi", _boom)
+
+
+async def test_semantic_scholar_upgrades_not_found_to_resolved(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """OpenAlex bulamadı ama S2 güçlü bir başlık+yıl+yazar eşleşmesi buldu →
+    resolved'a yükseltilir, evidence provenance'ı açıkça belirtir, sayaç artar."""
+    import api.services.review_citation_service as rcs
+
+    await _not_found_via_openalex_error(monkeypatch)
+
+    async def _s2_found(query: str, *, limit: int = 5, settings: Any = None) -> list[Any]:
+        return [
+            _s2_match(
+                title="Attention Is All You Need",
+                year=2017,
+                authors=["Ashish Vaswani", "Noam Shazeer"],
+                doi="10.5555/example",
+            )
+        ]
+
+    monkeypatch.setattr(rcs, "search_semantic_scholar", _s2_found)
+
+    refs = [
+        ParsedReference(
+            index=0,
+            raw="x",
+            title="Attention Is All You Need",
+            authors=["Vaswani, A."],
+            year=2017,
+            doi="10.1/missing",
+        )
+    ]
+    out_refs, summary = await rcs.resolve_all(refs)
+    assert out_refs[0].status == "resolved"
+    assert "Semantic Scholar" in (out_refs[0].evidence or "")
+    assert summary.resolved == 1
+    assert summary.not_found_in_index == 0
+    assert summary.semantic_scholar_recovered == 1
+
+
+async def test_semantic_scholar_no_match_stays_not_found(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """S2 de bulamazsa (ya da zayıf eşleşme) → not_found_in_index'te KALIR,
+    daha kötü olmaz (best-effort, regresyon yok)."""
+    import api.services.review_citation_service as rcs
+
+    await _not_found_via_openalex_error(monkeypatch)
+
+    async def _s2_empty(query: str, *, limit: int = 5, settings: Any = None) -> list[Any]:
+        return []
+
+    monkeypatch.setattr(rcs, "search_semantic_scholar", _s2_empty)
+
+    refs = [
+        ParsedReference(index=0, raw="x", title="Some Obscure Paper", year=2020, doi="10.1/x")
+    ]
+    out_refs, summary = await rcs.resolve_all(refs)
+    assert out_refs[0].status == "not_found_in_index"
+    assert summary.not_found_in_index == 1
+    assert summary.semantic_scholar_recovered == 0
+
+
+async def test_semantic_scholar_error_does_not_crash_stays_not_found(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """S2 arızası (ağ/429/timeout) hiçbir istisna sızdırmaz — referans OLDUĞU
+    GİBİ not_found_in_index kalır (sessiz-güvenli-degrade, çağırana crash yok)."""
+    import api.services.review_citation_service as rcs
+    from engine.providers.semantic_scholar import SemanticScholarError
+
+    await _not_found_via_openalex_error(monkeypatch)
+
+    async def _s2_boom(query: str, *, limit: int = 5, settings: Any = None) -> list[Any]:
+        raise SemanticScholarError("rate_limited (429)")
+
+    monkeypatch.setattr(rcs, "search_semantic_scholar", _s2_boom)
+
+    refs = [
+        ParsedReference(index=0, raw="x", title="Some Paper", year=2020, doi="10.1/x")
+    ]
+    out_refs, summary = await rcs.resolve_all(refs)  # crash ATMAMALI
+    assert out_refs[0].status == "not_found_in_index"
+    assert summary.semantic_scholar_recovered == 0
+
+
+async def test_semantic_scholar_author_mismatch_rejected(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Başlık benzese bile yazar soyadı hiç örtüşmüyorsa REDDEDİLİR — 2026-08-05
+    guardian bulgusunun (eşiksiz soyad-örtüşmesi yanlış-eşleşme riski) AYNISI
+    S2 için de geçerli, düzeltilmiş halinin regresyonu test edilir."""
+    import api.services.review_citation_service as rcs
+
+    await _not_found_via_openalex_error(monkeypatch)
+
+    async def _s2_wrong_author(
+        query: str, *, limit: int = 5, settings: Any = None
+    ) -> list[Any]:
+        return [
+            _s2_match(
+                title="Attention Is All You Need",
+                year=2017,
+                authors=["Someone Completely Different"],
+            )
+        ]
+
+    monkeypatch.setattr(rcs, "search_semantic_scholar", _s2_wrong_author)
+
+    refs = [
+        ParsedReference(
+            index=0,
+            raw="x",
+            title="Attention Is All You Need",
+            authors=["Vaswani, A."],
+            year=2017,
+            doi="10.1/x",
+        )
+    ]
+    out_refs, _summary = await rcs.resolve_all(refs)
+    assert out_refs[0].status == "not_found_in_index"
+
+
+async def test_semantic_scholar_never_touches_fabricated(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """resolve_all'da fabricated sonucu S2'ye HİÇ gitmez (kod yolu:
+    `if result.status != "not_found_in_index": return result`) — S2
+    çağrılırsa test patlar (mock hiç çağrılmamalı)."""
+    import api.services.review_citation_service as rcs
+
+    # Bilinen-doğru fabricated fixture'ı (test_common_surname_coincidence_
+    # stays_fabricated ile AYNI desen — kanıtlanmış davranış, tahmin değil):
+    # alakasız başlık/yıl/yazar + DOI başka bir esere çözülüyor.
+    other = _work(
+        wid="W777",
+        title="Photosynthesis In Deep Sea Algae",
+        year=1995,
+        authors=["Sarah Kim", "John Roberts", "Maria Fernandez", "Wei Zhang", "Anna Novak"],
+    )
+    transport = _RouteTransport(
+        [(lambda r: "/works/doi:" in str(r.url), 200, other)]
+    )
+    _inject_transport(transport, monkeypatch)
+
+    async def _s2_should_not_be_called(
+        query: str, *, limit: int = 5, settings: Any = None
+    ) -> list[Any]:
+        raise AssertionError("S2 fabricated sonucu için ÇAĞRILMAMALI")
+
+    monkeypatch.setattr(rcs, "search_semantic_scholar", _s2_should_not_be_called)
+
+    refs = [
+        ParsedReference(
+            index=5,
+            raw="Kim, D., Patel, R., Nguyen, T., Silva, F., & Ivanov, S. 2021",
+            title="A Comprehensive Review Of Quantum Gravity",
+            authors=["Kim, D.", "Patel, R.", "Nguyen, T.", "Silva, F.", "Ivanov, S."],
+            year=2021,
+            doi="10.1234/fake.doi",
+        )
+    ]
+    out_refs, summary = await rcs.resolve_all(refs)
+    assert out_refs[0].status == "fabricated", out_refs[0].evidence
+    assert summary.fabricated == 1
+    assert summary.semantic_scholar_recovered == 0
