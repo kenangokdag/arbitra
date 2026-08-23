@@ -140,18 +140,29 @@ _REVIEW_PIPELINE_MODES = frozenset(
 #
 # SONUÇ (2026-08-21, canlı 3-run doğrulama, deneme.pdf, backend temiz restart
 # sonrası — eval/review/results/temperature_zero_academic_modes_log.jsonl):
-# TAM BAŞARI. verdict, overall_readiness_score, final_score, toplam bulgu
-# sayısı, severity dağılımı VE 10 boyutun TAMAMI 3 run'da BİT-BİREBİR AYNI
-# çıktı (önceki turlarda coverage_completeness/statistical_consistency en
-# gürültülü olanlardı — şimdi ikisi de 3/3 sabit). Kullanıcının kabul
-# kriteri (verdict+major-count birebir) sadece karşılanmadı, AŞILDI (tüm
-# alanlar). n=3 hâlâ küçük örneklem — "her zaman" garantisi verilemez, ama
-# bu artık güçlü, doğrudan kanıt. AÇIK KALAN SORU (guardian, 2026-08-21):
-# manuscript_classifier'ın deterministik olması, YANLIŞ sınıflandırmayı da
-# artık HER SEFERİNDE aynı şekilde sabitliyor (document_type→rubric seçimi
-# rubric_registry.py:355'te confidence-eşiksiz) — bu goldset'e (61 makale,
-# Spearman) karşı DOĞRULANMADI, sadece tek-makale determinism kanıtlandı.
-# Kalibrasyon/doğruluk iddiası DEĞİL, sadece tutarlılık iddiası.
+# verdict, overall_readiness_score, final_score, toplam bulgu sayısı, severity
+# dağılımı VE 10 boyutun TAMAMI 3 run'da BİT-BİREBİR AYNI çıktı (önceki
+# turlarda coverage_completeness/statistical_consistency en gürültülü
+# olanlardı — o run'da ikisi de 3/3 sabitti). n=1 makale, n=3 run.
+#
+# DÜZELTME (2026-08-22, 61-goldset canlı yeniden-koşum —
+# eval/review/results/goldset61_classifier_determinism_2026-08-22.json):
+# yukarıdaki "TAM BAŞARI" tek makaleye özgüydü, GENEL bir garanti DEĞİL.
+# 61-goldset'in 6 makalelik alt-kümesi 2. kez canlı koşulunca (4 geçerli
+# kıyaslama, 2'si zaten rate-limit'ten düşmüştü): document_type/study_design
+# 4/4 (%100) aynı kaldı, AMA verdict sadece 3/4 (%75) aynı kaldı — 1 makalede
+# (peerj:20153) major_revision→accept DEĞİŞTİ. Doğru çerçeveleme: bu
+# düzeltme run-to-run varyansı BÜYÜK ÖLÇÜDE azalttı (33/33/31 findings → tek
+# makalede 3/3 tam eşleşme; 61-goldset'te classifier'ın document_type/
+# study_design çıktısı 4/4 sabit), ama MUTLAK/HER-ZAMAN determinism GARANTİSİ
+# vermiyor — verdict gibi zincirleme sonuçlar hâlâ ARADA SIRADA değişebilir.
+#
+# Kalibrasyon (61-goldset, n=43/61 — 18'i rate-limit'ten analiz edilemedi):
+# tam isabet %67→%72.1, tolerans %74→%79.1, sınıf-dengeli doğruluk
+# %49.2→%65.9 — genel olarak OLUMLU ama n küçüldüğü için (61→43) kesinlik
+# iddia edilemez; reject-sınıfı doğruluğu hâlâ zayıf (%12.5) ve soundness
+# korelasyonu hâlâ negatif/gürültülü (r=-0.31) — ÇÖZÜLMEDİ, bu turun kapsamı
+# dışında. Detay: PDF_PIPELINE_CALISMA_GUNLUGU.md §71.
 _ACADEMIC_ASSESSMENT_MODES = frozenset(
     {
         "manuscript_classifier",

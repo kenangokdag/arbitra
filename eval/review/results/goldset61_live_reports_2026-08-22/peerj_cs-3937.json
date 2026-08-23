@@ -1,0 +1,2520 @@
+{
+  "paper_id": "peerj:cs-3937",
+  "run_tag": "main",
+  "job_id": "7ca5a2d1-6065-4ae8-89b9-2f56a3f031e6",
+  "elapsed_s": 490.8,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "Artiﬁcial intelligence-supported health counseling scale (AI-HCS): a reliability and validity study Ali Göde",
+      "abstract": null,
+      "language": "tr",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "MATERIALS AND METHODS",
+        "RESULTS",
+        "DISCUSSION",
+        "CONCLUSIONS",
+        "REFERENCES"
+      ],
+      "word_count": 11559,
+      "reference_count": 62,
+      "parse_confidence": 0.722,
+      "parse_warnings": []
+    },
+    "summary": "This manuscript presents the development and validation of the Artificial Intelligence-Supported Health Counseling Scale (AI-HCS), a new 24-item, four-factor instrument. The study's core methodology, employing separate large samples for exploratory (EFA) and confirmatory (CFA) factor analyses, is a significant strength. The resulting scale shows promise in addressing an important gap in the literature. However, the manuscript requires major revision before it can be considered for publication. The primary concerns are severe issues with citation integrity that compromise the verifiability of the literature review, and the need for a more nuanced discussion of the scale's conceptual underpinnings and the limitations of the sample.",
+    "strengths": [
+      {
+        "category": "Methodological Rigor",
+        "points": [
+          "The two-stage validation process, using separate large samples for EFA (N=592) and CFA (N=663), provides a robust foundation for the scale's structure.",
+          "The reporting of psychometric properties is comprehensive, including multiple fit indices for the CFA, measures of convergent and discriminant validity (CR, AVE, Fornell-Larcker), and dual reliability coefficients (Cronbach's Alpha and McDonald's Omega).",
+          "The scale development process is transparent and follows established best practices, from item pool generation and expert review to statistical refinement.",
+          "The author's transparent acknowledgment of the study's sample limitations is commendable and provides important context for future research."
+        ]
+      },
+      {
+        "category": "Importance and Originality",
+        "points": [
+          "The study addresses a timely and significant gap by developing a multidimensional scale specifically for AI-supported health counseling, moving beyond general technology acceptance models.",
+          "The resulting AI-HCS instrument is a potentially valuable and practical tool for researchers, policymakers, and technology developers seeking to understand and improve user engagement with AI health systems.",
+          "The identification of four distinct factors (Usage and Trust, Privacy Perception, Supportiveness Perception, Medical Competence) provides a nuanced framework for assessing user attitudes."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Referencing and Verifiability",
+        "points": [
+          "A significant portion of the reference list (20 out of 62 citations) could not be resolved through standard digital indexes, which severely hinders verifiability and undermines the scholarly foundation of the work.",
+          "Three DOIs in the reference list are malformed or incorrect, preventing direct access to the cited work.",
+          "A year mismatch was identified for reference [11] (manuscript: 2023, published record: 2020). These issues, taken together, represent a major deficiency that must be corrected.",
+          "These issues are not minor and detract substantially from the scholarly quality and replicability of the literature review."
+        ]
+      },
+      {
+        "category": "Sample Characteristics",
+        "points": [
+          "The author correctly identifies that the sample is predominantly young (majority 18-24 years old) and from a single country (Turkey). This is a major limitation that significantly constrains the generalizability of the findings, as perceptions of AI may differ substantially across age groups and cultural contexts."
+        ]
+      },
+      {
+        "category": "Conceptual Nuance",
+        "points": [
+          "The 'Usage and Trust' factor combines a behavioral intention ('Usage') with a psychological state ('Trust'). While empirically supported by the EFA, these are often treated as distinct constructs in acceptance models. The lack of justification for this combined factor weakens the paper's theoretical grounding."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The reference list requires a complete and careful overhaul. This is a major revision point. Specifically, 20 references could not be resolved via standard indexes, 3 DOIs are malformed (e.g., ref[43], ref[57], ref[62]), and at least one citation has a year mismatch (ref[11]). Please review the entire reference list to ensure every entry is complete, correct, and includes a valid DOI or stable URL to ensure verifiability.",
+        "evidence_ref": "Citation Integrity Summary: 20 not_found_in_index; 3 malformed DOIs; 1 year mismatch (ref[11])"
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The CFA results are strong and support the four-factor model. However, the inter-factor correlation between 'Usage and Trust' and 'Privacy Perception' is quite high (r = 0.724). While the Fornell-Larcker criterion for discriminant validity is met, this value is high enough to warrant discussion. It is essential to add a reflection on the theoretical implications of this strong relationship in the context of AI-HC.",
+        "evidence_ref": "Table 4"
+      },
+      {
+        "area": "experimental",
+        "comment": "The acknowledgment of the sample's limitations (young, single-country) is appropriate. In the revision, this point should be framed not just as a limitation but as a critical boundary condition for the current findings, emphasizing the urgent need for cross-cultural and cross-generational validation studies.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "To enhance the impact and address concerns about contextualization, the introduction and discussion must more explicitly contrast the AI-HCS with existing, less specific scales. For example, directly state how the 'Medical Competence' factor addresses the perceived clinical accuracy of AI outputs in a way that general TAM/UTAUT scales do not. This will make the unique contribution more salient.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you please conduct a thorough review of the reference list to provide valid DOIs or stable URLs for the 20 references that could not be automatically resolved, correct the 3 malformed DOIs (e.g., for references [43], [57], [62]), and fix the year for reference [11]?",
+      "The correlation between 'Usage and Trust' and 'Privacy Perception' is high (0.724). While discriminant validity is technically met, could you elaborate in the discussion on the theoretical reasons why these two constructs might be so strongly linked for users of AI health counseling systems?",
+      "The 'Usage and Trust' factor combines two concepts that are often separated in technology acceptance literature. Could you add a clear justification in the discussion for why they emerged as a single, coherent factor in this specific context, strengthening the theoretical basis of your model?"
+    ],
+    "overall_assessment": "This study has a strong methodological core and addresses a topic of high importance, presenting a potentially valuable new measurement tool. However, it is not ready for publication in its current form. The manuscript is undermined by major, foundational issues in citation integrity that compromise verifiability. Substantial work is required to overhaul the reference list. Additionally, the paper must provide a more robust theoretical discussion to justify the conceptualization of its factors and more strongly acknowledge the significant limitations of its sample. A major revision is necessary to address these critical points.",
+    "verdict": "major_revision",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 6.67,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity major. [LLM'in kendi gerekçesi: The paper develops a novel, multidimensional scale for a specific, under-researched area, moving beyond generic models.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The topic is of high and growing importance. The developed scale is a valuable asset for future research and practical application in AI healthcare."
+      },
+      {
+        "key": "claims_supported",
+        "score": 4.42,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity major. [LLM'in kendi gerekçesi: While the psychometric claims are well-supported by the data, the broader claims in the literature review are undermined by significant citation issues that hinder verifiability.]"
+      },
+      {
+        "key": "soundness",
+        "score": 7.75,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity major. [LLM'in kendi gerekçesi: The two-stage validation is a major strength, but this is offset by a significant sample limitation (homogeneity) and conceptual weaknesses in the factor structure that require further discussion.]"
+      },
+      {
+        "key": "clarity",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The manuscript is well-structured and clearly written, with the methodology and results being easy to follow. However, it requires more clarity on key conceptual distinctions.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.0,
+        "rationale": "The AI-HCS provides a tangible, valuable tool that can be immediately used by the research community, assuming it is properly validated and contextualized."
+      },
+      {
+        "key": "contextualization",
+        "score": 7.0,
+        "rationale": "The paper identifies a gap, but needs to more sharply and explicitly differentiate its contribution from existing technology acceptance models."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the evidence pack, 20 of 62 references are not resolvable through standard indexes, and 3 DOIs are malformed. This represents a major impediment to verifiability.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 5.14,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: The evidence pack did not identify any seminal or mandatory works that were omitted from the literature review.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity info. [LLM'in kendi gerekçesi: The evidence pack did not report any inconsistencies in the statistical results presented in the manuscript.]"
+      }
+    ],
+    "final_score": 7.7,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 62,
+        "resolved": 42,
+        "not_found_in_index": 20,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Adigwe OP, Onavbavba G, Sanyaolu SE. 2024. Exploring the matrix: knowledge, perceptions and prospects of artiﬁcial intelligence and machine learning in Nigerian healthcare. Frontiers in Artiﬁcial Intelligence 6:1–10 DOI 10.3389/frai.2023.1293297.",
+          "title": null,
+          "authors": [
+            "Adigwe OP, Onavbavba G, Sanyaolu SE"
+          ],
+          "year": 2024,
+          "doi": "10.3389/frai.2023.1293297",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4391033789",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4391033789; 'Exploring the matrix: knowledge, perceptions and prospects of artificial intelligence and machine learning in Nigerian healthcare').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Adus S, Macklin J, Pinto A. 2023. Exploring patient perspectives on how they can and should be engaged in the development of artiﬁcial intelligence (AI) applications in health care. BMC Health Services Research 23(1):1–14 DOI 10.1186/s12913-023-10098-2.",
+          "title": "Exploring patient perspectives on how they can and should be engaged in the development of artiﬁcial intelligence (AI) applications in health care",
+          "authors": [
+            "Adus S, Macklin J, Pinto A. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.1186/s12913-023-10098-2",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4387957120",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4387957120; 'Exploring patient perspectives on how they can and should be engaged in the development of artificial intelligence (AI) applications in health care').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Aldossari M. 2023. Participants’ perceptions of privacy and data sharing regarding health-related data using artiﬁcial intelligence. Asian Journal of Science and Applied Technology 12(2):6–12 DOI 10.51983/ajsat-2023.12.2.3973.",
+          "title": "Participants’ perceptions of privacy and data sharing regarding health-related data using artiﬁcial intelligence",
+          "authors": [
+            "Aldossari M. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.51983/ajsat-2023.12.2.3973",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4390982268",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4390982268; 'Participants’ Perceptions of Privacy and Data Sharing Regarding Health-Related Data Using Artificial Intelligence').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Alvarado R. 2023. What kind of trust does AI deserve, if any? AI and Ethics 3(4):1169–1183 DOI 10.1007/s43681-022-00224-x.",
+          "title": "What kind of trust does AI deserve, if any? AI and Ethics 3(4):1169–1183 DOI 10.1007/s43681-022-00224-x.",
+          "authors": [
+            "Alvarado R. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.1007/s43681-022-00224-x",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4309334973",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4309334973; 'What kind of trust does AI deserve, if any?').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Arigbabu AT, Olaniyi OO, Adigwe CS, Adebiyi OO, Ajayi SA. 2024. Data governance in AI— enabled healthcare systems: a case of the project nightingale. Asian Journal of Research in Computer Science 17(5):85–107 DOI 10.9734/ajrcos/2024/v17i5441.",
+          "title": null,
+          "authors": [
+            "Arigbabu AT, Olaniyi OO, Adigwe CS, Adebiyi OO, Ajayi SA"
+          ],
+          "year": 2024,
+          "doi": "10.9734/ajrcos/2024/v17i5441",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4392591995",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4392591995; 'Data Governance in AI - Enabled Healthcare Systems: A Case of the Project Nightingale').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Armansyah M. 2024. The inﬂuence of human-AI interaction in the decision-making process in the health sector: a study at Dr. M. Djamil General Hospital, Padang, Indonesia. Arkus 10(2):548–553 DOI 10.37275/arkus.v10i2.542.",
+          "title": "The inﬂuence of human-AI interaction in the decision-making process in the health sector: a study at Dr",
+          "authors": [
+            "Armansyah M. 2024"
+          ],
+          "year": 2024,
+          "doi": "10.37275/arkus.v10i2.542",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4392814708",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4392814708; 'The Influence of Human-AI Interaction in the Decision-Making Process in the Health Sector: A Study at Dr. M. Djamil General Hospital, Padang, Indonesia').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Beets B, Newman TP, Howell EL, Bao L, Yang S. 2023. Surveying public perceptions of artiﬁcial intelligence in health care in the United States: systematic review. Journal of Medical Internet Research 25:1–12 DOI 10.2196/40337.",
+          "title": "Surveying public perceptions of artiﬁcial intelligence in health care in the United States: systematic review",
+          "authors": [
+            "Beets B, Newman TP, Howell EL, Bao L, Yang S. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.2196/40337",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4362522403",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4362522403; 'Surveying Public Perceptions of Artificial Intelligence in Health Care in the United States: Systematic Review').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Boateng GO, Neilands TB, Frongillo EA, Melgar-Quiñonez HR, Young SL. 2018. Best practices for developing and validating scales for health, social, and behavioral research: a primer. Frontiers in Public Health 6:1–18 DOI 10.3389/fpubh.2018.00149.",
+          "title": null,
+          "authors": [
+            "Boateng GO, Neilands TB, Frongillo EA, Melgar-Quiñonez HR, Young SL"
+          ],
+          "year": 2018,
+          "doi": "10.3389/fpubh.2018.00149",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2801702920",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2801702920; 'Best Practices for Developing and Validating Scales for Health, Social, and Behavioral Research: A Primer').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Çokluk Ö, Şekercioğlu G, Büyüköztürk Ş. 2012. Sosyal bilimler için çok değişkenli istatistik SPSS ve LİSREL uygulamaları. Ankara: Pegem Akademi Yayıncılık. 22/26",
+          "title": "Sosyal bilimler için çok değişkenli istatistik SPSS ve LİSREL uygulamaları",
+          "authors": [
+            "Çokluk Ö, Şekercioğlu G, Büyüköztürk Ş. 2012"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Coşkun R, Altunışık R, Bayraktaroğlu S, Yıldırım E. 2017. Sosyal bilimlerde araştırma yöntemleri SPSS uygulamalı. Sakarya: Sakarya Kitabevi.",
+          "title": "Sosyal bilimlerde araştırma yöntemleri SPSS uygulamalı",
+          "authors": [
+            "Coşkun R, Altunışık R, Bayraktaroğlu S, Yıldırım E. 2017"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Deveci Z, Karayurt Ö, Bilik O, Eyigör S. 2023. Development of the breast cancer related lymphedema self-care scale. Clinical Nursing Research 32(1):221–232 DOI 10.1177/1054773820947980.",
+          "title": "Development of the breast cancer related lymphedema self-care scale",
+          "authors": [
+            "Deveci Z, Karayurt Ö, Bilik O, Eyigör S. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.1177/1054773820947980",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3048164610",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3048164610; başlık benzerliği 1.00). YIL FARKI: kaynakçada 2023, OpenAlex'te 2020 — muhtemelen online-first/baskı tarihi farkı; yazarın kontrol etmesi önerilir (uydurma atıf iddiası DEĞİLDİR, düzeltme önerisidir).",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "DeVellis RF. 2017. Scale development: theory and applications. Thousand Oaks, US: SAGE Publications.",
+          "title": null,
+          "authors": [
+            "DeVellis RF"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Erlin A, Putri H, AndesﬁR, Sabarrudin. 2024. AI beneﬁts in mental health counseling. BICC Proceedings 2:170–175 DOI 10.30983/bicc.v1i1.92.",
+          "title": null,
+          "authors": [
+            "Erlin A, Putri H, AndesﬁR, Sabarrudin"
+          ],
+          "year": 2024,
+          "doi": "10.30983/bicc.v1i1.92",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4399842084",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4399842084; 'AI Benefits in Mental Health Counseling').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Fiske A, Henningsen P, Buyx A. 2019. Your robot therapist will see you now: ethical implications of embodied artiﬁcial intelligence in psychiatry, psychology, and psychotherapy. Journal of Medical Internet Research 21(5):1–12 DOI 10.2196/13216.",
+          "title": "Your robot therapist will see you now: ethical implications of embodied artiﬁcial intelligence in psychiatry, psychology, and psychotherapy",
+          "authors": [
+            "Fiske A, Henningsen P, Buyx A. 2019"
+          ],
+          "year": 2019,
+          "doi": "10.2196/13216",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2916945592",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2916945592; 'Your Robot Therapist Will See You Now: Ethical Implications of Embodied Artificial Intelligence in Psychiatry, Psychology, and Psychotherapy').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Fulmer R. 2019. Artiﬁcial intelligence and counseling: four levels of implementation. Theory & Psychology 29(6):807–819 DOI 10.1177/0959354319853045. Gould DJ, Dowsey MM, Glanville-Hearst M, Spelman T, Bailey JA, Choong PFM, Bunzli S. 2023. Patients’ views on AI for risk prediction in shared decision-making for knee replacement surgery: qualitative interview study. Journal of Medical Internet Research 25(2):1–16 DOI 10.2196/43632.",
+          "title": "Artiﬁcial intelligence and counseling: four levels of implementation",
+          "authors": [
+            "Fulmer R. 2019"
+          ],
+          "year": 2019,
+          "doi": "10.1177/0959354319853045",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2949130577",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2949130577; 'Artificial intelligence and counseling: Four levels of implementation').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Grove SK, Burns N, Gray J. 2012. The practice of nursing research: appraisal, synthesis, and generation of evidence. Missouri: Elsevier Health Sciences.",
+          "title": "The practice of nursing research: appraisal, synthesis, and generation of evidence",
+          "authors": [
+            "Grove SK, Burns N, Gray J. 2012"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Gürbüz S. 2021. AMOS ile yapısal eşitlik modellemesi. Ankara: Seçkin Yayıncılık.",
+          "title": "AMOS ile yapısal eşitlik modellemesi",
+          "authors": [
+            "Gürbüz S. 2021"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.40 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Hair JF, Black WC, Babin BJ, Anderson RE. 2014. Multivariate data analysis. London: Pearson Education.",
+          "title": null,
+          "authors": [
+            "Hair JF, Black WC, Babin BJ, Anderson RE"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Harada Y, Katsukura S, Kawamura R, Shimizu T. 2021. Efﬁcacy of artiﬁcial-intelligence-driven differential-diagnosis list on the diagnostic accuracy of physicians: an open-label randomized controlled study. International Journal of Environmental Research and Public Health 18(4):1–10 DOI 10.3390/ijerph18042086.",
+          "title": "Efﬁcacy of artiﬁcial-intelligence-driven differential-diagnosis list on the diagnostic accuracy of physicians: an open-label randomized controlled study",
+          "authors": [
+            "Harada Y, Katsukura S, Kawamura R, Shimizu T. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.3390/ijerph18042086",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3133179228",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3133179228; 'Efficacy of Artificial-Intelligence-Driven Differential-Diagnosis List on the Diagnostic Accuracy of Physicians: An Open-Label Randomized Controlled Study').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Hatherley JJ. 2020. Limits of trust in medical AI. Journal of Medical Ethics 46(7):478–481 DOI 10.1136/medethics-2019-105935.",
+          "title": null,
+          "authors": [
+            "Hatherley JJ"
+          ],
+          "year": 2020,
+          "doi": "10.1136/medethics-2019-105935",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W3013872196",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3013872196; 'Limits of trust in medical AI').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Hayes AF, Coutts JJ. 2020. Use omega rather than Cronbach’s alpha for estimating reliability. But…. Communication Methods and Measures 14(1):1–24 DOI 10.1080/19312458.2020.1718629.",
+          "title": null,
+          "authors": [
+            "Hayes AF, Coutts JJ"
+          ],
+          "year": 2020,
+          "doi": "10.1080/19312458.2020.1718629",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W3005886336",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3005886336; 'Use Omega Rather than Cronbach’s Alpha for Estimating Reliability. But…').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "He X, Zheng X, Ding H. 2023. Existing barriers faced by and future design recommendations for direct-to-consumer health care artiﬁcial intelligence apps: scoping review. Journal of Medical Internet Research 25(5 Pt. 2):1–22 DOI 10.2196/50342.",
+          "title": "Existing barriers faced by and future design recommendations for direct-to-consumer health care artiﬁcial intelligence apps: scoping review",
+          "authors": [
+            "He X, Zheng X, Ding H. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.2196/50342",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4389891828",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4389891828; 'Existing Barriers Faced by and Future Design Recommendations for Direct-to-Consumer Health Care Artificial Intelligence Apps: Scoping Review').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Holden RJ, Karsh B-T. 2010. The technology acceptance model: its past and its future in health care. Journal of Biomedical Informatics 43(1):159–172 DOI 10.1016/j.jbi.2009.07.002.",
+          "title": null,
+          "authors": [
+            "Holden RJ, Karsh B-T"
+          ],
+          "year": 2010,
+          "doi": "10.1016/j.jbi.2009.07.002",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2059146912",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2059146912; 'The Technology Acceptance Model: Its past and its future in health care').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "Hooper D, Coughlan J, Mullen MR. 2008. Structural equation modelling: guidelines for determining model ﬁt. Electronic Journal of Business Research Methods 6:53–60. Available at https://academic-publishing.org/index.php/ejbrm/article/view/1224.",
+          "title": null,
+          "authors": [
+            "Hooper D, Coughlan J, Mullen MR"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "Hsieh H-L, Kuo Y-M, Wang S-R, Chuang B-K, Tsai C-H. 2016. A study of personal health record user’s behavioral model based on the PMT and UTAUT integrative perspective. International Journal of Environmental Research and Public Health 14(1):1–14 DOI 10.3390/ijerph14010008.",
+          "title": null,
+          "authors": [
+            "Hsieh H-L, Kuo Y-M, Wang S-R, Chuang B-K, Tsai C-H"
+          ],
+          "year": 2016,
+          "doi": "10.3390/ijerph14010008",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2566860659",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2566860659; 'A Study of Personal Health Record User’s Behavioral Model Based on the PMT and UTAUT Integrative Perspective').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "Kalaycı Ş. 2017. SPSS Uygulamalı Çok Değişkenli İstatistik Teknikleri. Ankara: Dinamik Akademi Yayınları. 23/26",
+          "title": "SPSS Uygulamalı Çok Değişkenli İstatistik Teknikleri",
+          "authors": [
+            "Kalaycı Ş. 2017"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.30 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 27,
+          "raw": "Karagöz Y. 2019. SPSS—AMOS—META Uygulamalı İstatistiksel Analizler. Ankara: Nobel Akademik Yayıncılık.",
+          "title": "SPSS—AMOS—META Uygulamalı İstatistiksel Analizler",
+          "authors": [
+            "Karagöz Y. 2019"
+          ],
+          "year": 2019,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.28 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 28,
+          "raw": "Kim B, Ryan K, Kim JP. 2025. Assessing the impact of information on patient attitudes toward artiﬁcial intelligence-based clinical decision support (AI/CDS): a pilot web-based SMART vignette study. Journal of Medical Ethics 51(8):541–549 DOI 10.1136/jme-2024-110080.",
+          "title": null,
+          "authors": [
+            "Kim B, Ryan K, Kim JP"
+          ],
+          "year": 2025,
+          "doi": "10.1136/jme-2024-110080",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4405385301",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4405385301; 'Assessing the impact of information on patient attitudes toward artificial intelligence-based clinical decision support (AI/CDS): a pilot web-based SMART vignette study').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 29,
+          "raw": "Kim K, Shin S, Kim S, Lee E. 2023. The relation between ehealth literacy and health-related behaviors: systematic review and meta-analysis. Journal of Medical Internet Research 25(2):1–15 DOI 10.2196/40778.",
+          "title": "The relation between ehealth literacy and health-related behaviors: systematic review and meta-analysis",
+          "authors": [
+            "Kim K, Shin S, Kim S, Lee E. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.2196/40778",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4312694242",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4312694242; 'The Relation Between eHealth Literacy and Health-Related Behaviors: Systematic Review and Meta-analysis').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 30,
+          "raw": "Kline RB. 2016. Principles and practices of structural equation modelling. New York: The Guilford Press.",
+          "title": null,
+          "authors": [
+            "Kline RB"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 31,
+          "raw": "Larsson I, Svedberg P, Nygren JM, Petersson L. 2025. Healthcare leaders’ perceptions of the contribution of artiﬁcial intelligence to person-centred care: an interview study. Scandinavian Journal of Public Health 53(Suppl. 1):72–80 DOI 10.1177/14034948241307112.",
+          "title": "Healthcare leaders’ perceptions of the contribution of artiﬁcial intelligence to person-centred care: an interview study",
+          "authors": [
+            "Larsson I, Svedberg P, Nygren JM, Petersson L. 2025"
+          ],
+          "year": 2025,
+          "doi": "10.1177/14034948241307112",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4408128959",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4408128959; 'Healthcare leaders’ perceptions of the contribution of artificial intelligence to person-centred care: An interview study').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 32,
+          "raw": "Lim WM. 2024. A typology of validity: content, face, convergent, discriminant, nomological and predictive validity. Journal of Trade Science 12(3):155–179 DOI 10.1108/JTS-03-2024-0016.",
+          "title": null,
+          "authors": [
+            "Lim WM"
+          ],
+          "year": 2024,
+          "doi": "10.1108/JTS-03-2024-0016",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4400649468",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4400649468; 'A typology of validity: content, face, convergent, discriminant, nomological and predictive validity').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 33,
+          "raw": "Meydan CH, Şeşen H. 2015. Yapısal eşitlik modellemesi—AMOS uygulamaları. Ankara: Dertay Yayıncılık.",
+          "title": "Yapısal eşitlik modellemesi—AMOS uygulamaları",
+          "authors": [
+            "Meydan CH, Şeşen H. 2015"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.32 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 34,
+          "raw": "Möllmann NR, Mirbabaie M, Stieglitz S. 2021. Is it alright to use artiﬁcial intelligence in digital health? A systematic literature review on ethical considerations. Health Informatics Journal 27(4):1–17 DOI 10.1177/14604582211052391.",
+          "title": "Is it alright to use artiﬁcial intelligence in digital health? A systematic literature review on ethical considerations",
+          "authors": [
+            "Möllmann NR, Mirbabaie M, Stieglitz S. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.1177/14604582211052391",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4200584325",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4200584325; 'Is it alright to use artificial intelligence in digital health? A systematic literature review on ethical considerations').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 35,
+          "raw": "Munro BH. 2005. Statistical methods for health care research. Pennsylvania, US: Lippincott Williams & Wilkins.",
+          "title": null,
+          "authors": [
+            "Munro BH"
+          ],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 36,
+          "raw": "Nadarzynski T, Bayley J, Llewellyn C, Kidsley S, Graham CA. 2020. Acceptability of artiﬁcial intelligence (AI)-enabled chatbots, video consultations and live webchats as online platforms for sexual health advice. BMJ Sexual & Reproductive Health 46(3):210–217 DOI 10.1136/bmjsrh-2018-200271.",
+          "title": null,
+          "authors": [
+            "Nadarzynski T, Bayley J, Llewellyn C, Kidsley S, Graham CA"
+          ],
+          "year": 2020,
+          "doi": "10.1136/bmjsrh-2018-200271",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W3002223964",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3002223964; 'Acceptability of artificial intelligence (AI)-enabled chatbots, video consultations and live webchats as online platforms for sexual health advice').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 37,
+          "raw": "Netemeyer R, Bearden W, Sharma S. 2003. Scaling procedures. Thousand Oaks, US: SAGE Publications DOI 10.4135/9781412985772.",
+          "title": "Scaling procedures",
+          "authors": [
+            "Netemeyer R, Bearden W, Sharma S. 2003"
+          ],
+          "year": 2003,
+          "doi": "10.4135/9781412985772",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4252534912",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4252534912; 'Scaling Procedures').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 38,
+          "raw": "Özdamar K. 2017. Ölçek ve Test Geliştirme Yapısal Eşitlik Modellemesi IBM SPSS, IBM SPSS AMOS ve MINITAB Uygulamalı. Eskişehir: Nisan Kitabevi.",
+          "title": "Ölçek ve Test Geliştirme Yapısal Eşitlik Modellemesi IBM SPSS, IBM SPSS AMOS ve MINITAB Uygulamalı",
+          "authors": [
+            "Özdamar K. 2017"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.36 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 39,
+          "raw": "Potinteu AE, Renftle D, Said N. 2023. What predicts AI usage? Investigating the main drivers of AI use intention over different contexts. PsyArXiv 1–58 DOI 10.31234/osf.io/jvdpe.",
+          "title": "What predicts AI usage? Investigating the main drivers of AI use intention over different contexts",
+          "authors": [
+            "Potinteu AE, Renftle D, Said N. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.31234/osf.io/jvdpe",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4376280336",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4376280336; 'What Predicts AI Usage? Investigating the Main Drivers of AI Use Intention over Different Contexts').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 40,
+          "raw": "Princi E, Krämer NC. 2020. Out of control—privacy calculus and the effect of perceived control and moral considerations on the usage of IoT healthcare devices. Frontiers in Psychology 11:1–15. Available at https://osf.io/preprints/psyarxiv/jvdpe_v1.",
+          "title": null,
+          "authors": [
+            "Princi E, Krämer NC"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 41,
+          "raw": "Quazi F, Mohammed AS, Gorrepati N. 2024. Transforming treatment and diagnosis in healthcare through AI. International Journal of Global Innovations and Solutions 1–15. Available at https:// ijgis.pubpub.org/pub/7b0mqgbn/release/1.",
+          "title": "Transforming treatment and diagnosis in healthcare through AI",
+          "authors": [
+            "Quazi F, Mohammed AS, Gorrepati N. 2024"
+          ],
+          "year": 2024,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 42,
+          "raw": "Rathore FA, Rathore MA. 2023. The emerging role of artiﬁcial intelligence in healthcare. Journal of the Pakistan Medical Association 73(7):1368–1369 DOI 10.47391/JPMA.23-48. Ronquillo CE, Peltonen L, Pruinelli L, Chu CH, Bakken S, Beduschi A, Cato K, Hardiker N, Junger A, Michalowski M, Nyrup R, Rahimi S, Reed DN, Salakoski T, Salanterä S, Walton N,",
+          "title": null,
+          "authors": [
+            "Rathore FA, Rathore MA"
+          ],
+          "year": 2023,
+          "doi": "10.47391/JPMA.23-48",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4381952038",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4381952038; 'The Emerging Role of Artificial Intelligence in Healthcare').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 43,
+          "raw": "Weber P, Wiegand T, Topaz M. 2021. Artiﬁcial intelligence in nursing: priorities and opportunities from an international invitational think-tank of the nursing and artiﬁcial intelligence leadership collaborative. Journal of Advanced Nursing 77(9):3707–3717 DOI 10.1111/jan.14855. 24/26",
+          "title": "Artiﬁcial intelligence in nursing: priorities and opportunities from an international invitational think-tank of the nursing and artiﬁcial intelligence leadership collaborative",
+          "authors": [
+            "Weber P, Wiegand T, Topaz M. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.1111/jan.14855.24/26",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Verilen DOI (10.1111/jan.14855.24/26) OpenAlex'te bulunamadı; mevcut olmadığı anlamına gelmez (niş/indekssiz olabilir).",
+          "resolution_degraded": false
+        },
+        {
+          "index": 44,
+          "raw": "Rose A, Peters N, Shea JA, Armstrong K. 2004. Development and testing of the health care system distrust scale. Journal of General Internal Medicine 19(1):57–63 DOI 10.1111/J.1525-1497.2004.21146.X.",
+          "title": "Development and testing of the health care system distrust scale",
+          "authors": [
+            "Rose A, Peters N, Shea JA, Armstrong K. 2004"
+          ],
+          "year": 2004,
+          "doi": "10.1111/J.1525-1497.2004.21146.X",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W1980225934",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W1980225934; 'Development and testing of the health care system distrust scale').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 45,
+          "raw": "Santos P, Nazaré I. 2025. The doctor and patient of tomorrow: exploring the intersection of artiﬁcial intelligence, preventive medicine, and ethical challenges in future healthcare. Frontiers in Digital Health 7:01–07 DOI 10.3389/fdgth.2025.1588479.",
+          "title": "The doctor and patient of tomorrow: exploring the intersection of artiﬁcial intelligence, preventive medicine, and ethical challenges in future healthcare",
+          "authors": [
+            "Santos P, Nazaré I. 2025"
+          ],
+          "year": 2025,
+          "doi": "10.3389/fdgth.2025.1588479",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4409112957",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4409112957; 'The doctor and patient of tomorrow: exploring the intersection of artificial intelligence, preventive medicine, and ethical challenges in future healthcare').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 46,
+          "raw": "Sauerbrei A, Kerasidou A, Lucivero F, Hallowell N. 2023. The impact of artiﬁcial intelligence on the person-centred, doctor-patient relationship: some problems and solutions. BMC Medical Informatics and Decision Making 23(1):1–14 DOI 10.1186/s12911-023-02162-y.",
+          "title": "The impact of artiﬁcial intelligence on the person-centred, doctor-patient relationship: some problems and solutions",
+          "authors": [
+            "Sauerbrei A, Kerasidou A, Lucivero F, Hallowell N. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.1186/s12911-023-02162-y",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4366587927",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4366587927; 'The impact of artificial intelligence on the person-centred, doctor-patient relationship: some problems and solutions').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 47,
+          "raw": "Scott IA, Carter SM, Coiera E. 2021. Exploring stakeholder attitudes towards AI in clinical practice. BMJ Health & Care Informatics 28(1):1–7 DOI 10.1136/bmjhci-2021-100450.",
+          "title": "Exploring stakeholder attitudes towards AI in clinical practice",
+          "authors": [
+            "Scott IA, Carter SM, Coiera E. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.1136/bmjhci-2021-100450",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4200394808",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4200394808; 'Exploring stakeholder attitudes towards AI in clinical practice').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 48,
+          "raw": "Secinaro S, Calandra D, Secinaro A, Muthurangu V, Biancone P. 2021. The role of artiﬁcial intelligence in healthcare: a structured literature review. BMC Medical Informatics and Decision Making 21(1):1–23 DOI 10.1186/s12911-021-01488-9. Şencan H. 2005. Sosyal ve davranışsal ölçümlerde güvenilirlik ve geçerlilik. Ankara: Seçkin Yayınevi.",
+          "title": "The role of artiﬁcial intelligence in healthcare: a structured literature review",
+          "authors": [
+            "Secinaro S, Calandra D, Secinaro A, Muthurangu V, Biancone P. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.1186/s12911-021-01488-9",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3148271110",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3148271110; 'The role of artificial intelligence in healthcare: a structured literature review').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 49,
+          "raw": "Shan Y, Ji M, Xie W, Lam K-Y, Chow C-Y. 2022. Public trust in artiﬁcial intelligence applications in mental health care: topic modeling analysis. JMIR Human Factors 9(4):1–12 DOI 10.2196/38799.",
+          "title": null,
+          "authors": [
+            "Shan Y, Ji M, Xie W, Lam K-Y, Chow C-Y"
+          ],
+          "year": 2022,
+          "doi": "10.2196/38799",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4310700278",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4310700278; 'Public Trust in Artificial Intelligence Applications in Mental Health Care: Topic Modeling Analysis').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 50,
+          "raw": "Shaw J, Rudzicz F, Jamieson T, Goldfarb A. 2019. Artiﬁcial intelligence and the implementation challenge. Journal of Medical Internet Research 21(7):1–11 DOI 10.2196/13659. Şimşek OF. 2007. Yapisal esitlik modellemesine giris: temel ilkeler ve LISREL uygulamalari. Ankara: Ekinoks.",
+          "title": "Artiﬁcial intelligence and the implementation challenge",
+          "authors": [
+            "Shaw J, Rudzicz F, Jamieson T, Goldfarb A. 2019"
+          ],
+          "year": 2019,
+          "doi": "10.2196/13659",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2947151330",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2947151330; 'Artificial Intelligence and the Implementation Challenge').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 51,
+          "raw": "Stanley JC, Dorton SL. 2023. Exploring trust with the AI incident database. Proceedings of the Human Factors and Ergonomics Society Annual Meeting 67(1):489–494 DOI 10.1177/21695067231198084.",
+          "title": null,
+          "authors": [
+            "Stanley JC, Dorton SL"
+          ],
+          "year": 2023,
+          "doi": "10.1177/21695067231198084",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4387939864",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4387939864; 'Exploring Trust With the AI Incident Database').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 52,
+          "raw": "Steerling E, Svedberg P, Nilsen P, Siira E, Nygren J. 2025. Inﬂuences on trust in the use of AI-based triage—an interview study with primary healthcare professionals and patients in Sweden. Frontiers in Digital Health 7:1–11 DOI 10.3389/fdgth.2025.1565080.",
+          "title": "Inﬂuences on trust in the use of AI-based triage—an interview study with primary healthcare professionals and patients in Sweden",
+          "authors": [
+            "Steerling E, Svedberg P, Nilsen P, Siira E, Nygren J. 2025"
+          ],
+          "year": 2025,
+          "doi": "10.3389/fdgth.2025.1565080",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4410521357",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4410521357; 'Influences on trust in the use of AI-based triage—an interview study with primary healthcare professionals and patients in Sweden').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 53,
+          "raw": "Stroud AM, Minteer SA, Zhu X, Ridgeway JL, Miller JE, Barry BA. 2025. Patient information needs for transparent and trustworthy cardiovascular artiﬁcial intelligence: a qualitative study. PLOS Digital Health 4(4):1–20 DOI 10.1371/journal.pdig.0000826.",
+          "title": null,
+          "authors": [
+            "Stroud AM, Minteer SA, Zhu X, Ridgeway JL, Miller JE, Barry BA"
+          ],
+          "year": 2025,
+          "doi": "10.1371/journal.pdig.0000826",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4409629746",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4409629746; 'Patient information needs for transparent and trustworthy cardiovascular artificial intelligence: A qualitative study').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 54,
+          "raw": "Syed W, Al-Rawi MBA. 2024. Community pharmacists awareness, perceptions, and opinions of artiﬁcial intelligence: a cross-sectional study in Riyadh, Saudi Arabia. Technology and Health Care 32(1):481–493 DOI 10.3233/THC-230784.",
+          "title": null,
+          "authors": [
+            "Syed W, Al-Rawi MBA"
+          ],
+          "year": 2024,
+          "doi": "10.3233/THC-230784",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4386563518",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4386563518; 'Community pharmacists awareness, perceptions, and opinions of artificial intelligence: A cross-sectional study in Riyadh, Saudi Arabia').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 55,
+          "raw": "Tabachnick BG, Fidell LS. 2013. Using multivariate statistics. Boston: Pearson. Taitingfong R, Bloss CS, Triplett C, Cakici J, Garrison N, Cole S, Stoner JA, Ohno-Machado L. 2020. A systematic literature review of Native American and Paciﬁc Islanders’ perspectives on health data privacy in the United States. Journal of the American Medical Informatics Association 27(12):1987–1998 DOI 10.1093/jamia/ocaa235. Terwee CB, Bot SDM, de Boer MR, van der Windt DAWM, Knol DL, Dekker J, Bouter LM, de",
+          "title": null,
+          "authors": [
+            "Tabachnick BG, Fidell LS"
+          ],
+          "year": 2013,
+          "doi": "10.1093/jamia/ocaa235",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W3093291855",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3093291855; 'A systematic literature review of Native American and Pacific Islanders’ perspectives on health data privacy in the United States').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 56,
+          "raw": "Vet HCW. 2007. Quality criteria were proposed for measurement properties of health status questionnaires. Journal of Clinical Epidemiology 60(1):34–42 DOI 10.1016/j.jclinepi.2006.03.012.",
+          "title": null,
+          "authors": [
+            "Vet HCW"
+          ],
+          "year": 2007,
+          "doi": "10.1016/j.jclinepi.2006.03.012",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2115988342",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2115988342; 'Quality criteria were proposed for measurement properties of health status questionnaires').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 57,
+          "raw": "Venkatesh V, Davis FD. 2000. A theoretical extension of the technology acceptance model: four longitudinal ﬁeld studies. Management Science 46(2):186–204 DOI 10.1287/mnsc.46.2.186.11926. 25/26",
+          "title": null,
+          "authors": [
+            "Venkatesh V, Davis FD"
+          ],
+          "year": 2000,
+          "doi": "10.1287/mnsc.46.2.186.11926.25/26",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Verilen DOI (10.1287/mnsc.46.2.186.11926.25/26) OpenAlex'te bulunamadı; mevcut olmadığı anlamına gelmez (niş/indekssiz olabilir).",
+          "resolution_degraded": false
+        },
+        {
+          "index": 58,
+          "raw": "Wang J, Wang X. 2019. Structural equation modeling: applications using Mplus. New Jersey: John Wiley & Sons.",
+          "title": "Structural equation modeling: applications using Mplus",
+          "authors": [
+            "Wang J, Wang X. 2019"
+          ],
+          "year": 2019,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 59,
+          "raw": "Williamson SM, Prybutok V. 2024. Balancing privacy and progress: a review of privacy challenges, systemic oversight, and patient perceptions in AI-driven healthcare. Applied Sciences 14(2):1–47 DOI 10.3390/app14020675.",
+          "title": "Balancing privacy and progress: a review of privacy challenges, systemic oversight, and patient perceptions in AI-driven healthcare",
+          "authors": [
+            "Williamson SM, Prybutok V. 2024"
+          ],
+          "year": 2024,
+          "doi": "10.3390/app14020675",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4390829176",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4390829176; 'Balancing Privacy and Progress: A Review of Privacy Challenges, Systemic Oversight, and Patient Perceptions in AI-Driven Healthcare').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 60,
+          "raw": "Yaşlıoğlu MM. 2017. Sosyal bilimlerde faktör analizi ve geçerlilik: Keşfedici ve doğrulayıcı faktör analizlerinin kullanılması. İstanbul Üniversitesi İşletme Fakültesi Dergisi 46:74–85. Available at https://izlik.org/JA83ZA74BA.",
+          "title": null,
+          "authors": [
+            "Yaşlıoğlu MM"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 61,
+          "raw": "You F, Lin P, Huang C, Wu J, Kabasawa Y, Chen C, Huang H. 2025. Artiﬁcial intelligence with counseling on the treatment outcomes and quality of life in periodontitis patients. Journal of Periodontology 96(7):781–793 DOI 10.1002/JPER.24-0082.",
+          "title": "Artiﬁcial intelligence with counseling on the treatment outcomes and quality of life in periodontitis patients",
+          "authors": [
+            "You F, Lin P, Huang C, Wu J, Kabasawa Y, Chen C, Huang H. 2025"
+          ],
+          "year": 2025,
+          "doi": "10.1002/JPER.24-0082",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4404443253",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4404443253; 'Artificial intelligence with counseling on the treatment outcomes and quality of life in periodontitis patients').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 62,
+          "raw": "Young AT, Amara D, Bhattacharya A, Wei ML. 2021. Patient and general public attitudes towards clinical artiﬁcial intelligence: a mixed methods systematic review. The Lancet Digital Health 3(9):e599–e611 DOI 10.1016/S2589-7500(21)00132-1. 26/26",
+          "title": null,
+          "authors": [
+            "Young AT, Amara D, Bhattacharya A, Wei ML"
+          ],
+          "year": 2021,
+          "doi": "10.1016/S2589-7500(21)00132-1.26/26",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Verilen DOI (10.1016/s2589-7500(21)00132-1.26/26) OpenAlex'te bulunamadı; mevcut olmadığı anlamına gelmez (niş/indekssiz olabilir).",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "82113cdae74000a764c73dad57dfa3e88b10669f448d0ad3c937bd186e76237f",
+          "request_time": "2026-08-22T17:24:45.591968Z",
+          "status": "ok",
+          "result_count": 42,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:24:46.504561Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "52a1df96b9f5f02abc08bcbd892ad54c7f9364b466ea576fba796d14573c890e",
+          "request_time": "2026-08-22T17:24:47.515134Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.quantitative.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:32:10.156256Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.9,
+      "study_design": "quantitative",
+      "study_design_confidence": 0.9,
+      "rationale": "Başlık, özet ve bölüm başlıkları (ABSTRACT, INTRODUCTION, MATERIALS AND METHODS, RESULTS, DISCUSSION, CONCLUSIONS, REFERENCES) tipik bir dergi makalesi yapısını göstermektedir. Çalışma, ölçek geliştirme ve psikometrik özelliklerin incelenmesi için faktör analizi, güvenilirlik katsayıları gibi nicel yöntemler kullandığını belirtmektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 77.6,
+      "recommended_decision": "major_revision",
+      "confidence": 0.7080000000000001,
+      "top_fatal_risks": [
+        "Genç ve Eğitimli Örneklem Üzerinden Yapılan Genellemeler",
+        "Özgün Katkı ve Mevcut Literatürle Farklılaşma Yetersizliği",
+        "Örneklem Büyüklüğü Gerekçesi Yetersiz",
+        "Etki Büyüklüğü Raporlamasında Eksiklik",
+        "Teorik Çerçevenin Yetersiz Entegrasyonu ve Uygulaması"
+      ],
+      "one_sentence_diagnosis": "0 critical and 5 major issue(s) detected; recommended decision: major_revision."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 63.0,
+        "severity": "major",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity major."
+      },
+      {
+        "dimension": "literature",
+        "score": 46.0,
+        "severity": "major",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "methodology",
+        "score": 75.0,
+        "severity": "major",
+        "confidence": 0.9,
+        "why_it_matters": "3 finding(s); worst severity major."
+      },
+      {
+        "dimension": "evidence",
+        "score": 38.0,
+        "severity": "major",
+        "confidence": 0.875,
+        "why_it_matters": "4 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "ethics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "6 concern(s): A substantial number of references (20 out of 62) could not be resolved through standard digital indexes, hindering verifiability. Many appear to be books or non-DOI articles. This significantly impacts the scholarly quality and replicability of the literature review. (Evidence: Citation Integrity Summary: 20 not_found_in_index); Several DOIs in the reference list are malformed or incorrect, preventing direct access to the cited work. For example, references [43], [57], and [62] have malformed DOIs. (Evidence: 3 malformed DOIs (e.g., ref[43], ref[57], ref[62])); There is a year mismatch for reference [11] between the manuscript (2023) and the published record (2020). This should be corrected for accuracy. (Evidence: 1 year mismatch (ref[11])) (+3 more)",
+        "key_objection": "A substantial number of references (20 out of 62) could not be resolved through standard digital indexes, hindering verifiability. Many appear to be books or non-DOI articles. This significantly impacts the scholarly quality and replicability of the literature review. (Evidence: Citation Integrity Summary: 20 not_found_in_index)",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "revision-required",
+        "summary": "3 concern(s): A significant number of references (20 out of 62) could not be resolved through standard digital indexes, and several DOIs are malformed (e.g., ref[43], ref[57], ref[62]). This hinders verifiability and replicability of the literature review, which is a foundational aspect of methodological soundness.; The inter-factor correlation between 'Usage and Trust' and 'Privacy Perception' is reported as quite high (r = 0.724). While the Fornell-Larcker criterion for discriminant validity is stated as met, this value is approaching a threshold where discriminant validity might be questioned in some contexts. A brief discussion on the theoretical implications of this strong relationship would strengthen the paper.; The factor 'Usage and Trust' combines behavioral intention ('Usage') with a psychological state ('Trust'). While empirically supported by the EFA, these are often treated as distinct constructs in technology acceptance models. A brief justification for this combined factor in the discussion would enhance the theoretical grounding of the scale.",
+        "key_objection": "A significant number of references (20 out of 62) could not be resolved through standard digital indexes, and several DOIs are malformed (e.g., ref[43], ref[57], ref[62]). This hinders verifiability and replicability of the literature review, which is a foundational aspect of methodological soundness.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "6 concern(s): A significant number of references (20 out of 62) could not be automatically resolved through standard digital indexes. This hinders verifiability and scholarly quality. Please review the entire reference list to ensure all entries are complete, correct, and include a DOI or stable URL where possible. For example, reference [9], [10], [12], [16], [17], [18], [24], [26], [27], [30], [33], [35], [38], [40], [41], [55], [58], [60] were not found in standard indexes.; Several DOIs in the reference list are malformed or incorrect, preventing direct access to the cited work. Please correct these DOIs. For example, references [43], [57], and [62] have malformed DOIs.; There is a year mismatch for reference [11] between the manuscript (2023) and the published record (2020). Please verify and correct the publication year. (+3 more)",
+        "key_objection": "A significant number of references (20 out of 62) could not be automatically resolved through standard digital indexes. This hinders verifiability and scholarly quality. Please review the entire reference list to ensure all entries are complete, correct, and include a DOI or stable URL where possible. For example, reference [9], [10], [12], [16], [17], [18], [24], [26], [27], [30], [33], [35], [38], [40], [41], [55], [58], [60] were not found in standard indexes.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): The claim that 'Many of these appear to be books or non-DOI articles' is not explicitly supported by the 'Citation Integrity Summary' or the 'Referanslar' section. While 20 citations were not found, the specific breakdown of how many are books versus non-DOI articles is not provided.; The 'Citation Integrity Summary' states '3 malformed DOIs (e.g., ref[43], ref[57], ref[62])', which supports the claim of malformed DOIs. However, the phrase 'Several DOIs' is vague. The exact number (3) should be stated for precision.; The claim 'A substantial number of citations were not resolvable' is supported by '20 not_found_in_index'. The claim 'several DOIs appear to be incorrectly formatted' is supported by '3 malformed DOIs (e.g., ref[43], ref[57], ref[62])'. The claim 'reference [11] has a year mismatch between the manuscript (2023) and the published record (2020)' is supported by '1 year mismatch (ref[11])'. All parts of this statement are grounded. (+1 more)",
+        "key_objection": "The claim that 'Many of these appear to be books or non-DOI articles' is not explicitly supported by the 'Citation Integrity Summary' or the 'Referanslar' section. While 20 citations were not found, the specific breakdown of how many are books versus non-DOI articles is not provided.",
+        "confidence": 0.75,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "citation_integrity.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "literature_positioning.f2",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1",
+          "theoretical_framing.f2"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "literature_positioning.f2",
+          "research_question_fit.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1",
+          "theoretical_framing.f2"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "major-revision",
+        "summary": "This manuscript presents the development and validation of the Artificial Intelligence-Supported Health Counseling Scale (AI-HCS), a new 24-item, four-factor instrument. The study's core methodology, employing separate large samples for exploratory (EFA) and confirmatory (CFA) factor analyses, is a significant strength. The resulting scale shows promise in addressing an important gap in the literature. However, the manuscript requires major revision before it can be considered for publication. The primary concerns are severe issues with citation integrity that compromise the verifiability of the literature review, and the need for a more nuanced discussion of the scale's conceptual underpinnings and the limitations of the sample.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Araştırma Tasarımı ve Amacı Uyumlu",
+        "summary": "Çalışma, ölçek geliştirme için metodolojik bir tasarım kullanmış ve bu tasarım, ölçeğin psikometrik özelliklerini değerlendirme amacı ile uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "This study aims to develop a valid and reliable scale for assessing individuals’ attitudes towards, perceptions of, and tendencies to engage in artiﬁcial intelligence-supported health counseling (AI-HC) and to examine its psychometric properties."
+          },
+          {
+            "anchor_id": "materials_and_methods.a0",
+            "section": "MATERIALS AND METHODS",
+            "quote": "This methodological study aims to develop a scale to measure people’s perceptions and attitudes towards AI-HC."
+          }
+        ],
+        "reasoning_public": "Ölçek geliştirme çalışmaları için metodolojik tasarım, geçerlilik ve güvenilirlik analizlerinin sistematik bir şekilde yapılmasını sağlar. Bu, çalışmanın temel amacına uygun bir yaklaşımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü Gerekçesi Yetersiz",
+        "summary": "Örneklem büyüklüğü için genel literatür referansları verilmiş olsa da, spesifik olarak bu çalışma için bir güç analizi veya hassasiyet gerekçesi sunulmamıştır. Bu durum, belirlenen örneklem büyüklüğünün (EFA için 592, CFA için 663) faktör analizi sonuçlarının istatistiksel gücünü ne ölçüde garanti ettiğini belirsiz bırakmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "materials_and_methods.a1",
+            "section": "MATERIALS AND METHODS",
+            "quote": "Regarding the sample size, it is generally recommended that it should be ﬁve to ten times the total number of scale items, particularly for factor analyses. This enables the validity and reliability of the developed scale to be analysed in a robust manner. In light of the standards recommended in the literature, this sample size provides a sufﬁciently robust foundation (Şencan, 2005; Grove, Burns & Gray, 2012; Tabachnick & Fidell, 2013; Hair et al., 2014)."
+          }
+        ],
+        "reasoning_public": "Faktör analizi gibi karmaşık istatistiksel yöntemler için örneklem büyüklüğü, modelin doğru bir şekilde tanımlanması ve parametrelerin güvenilir bir şekilde tahmin edilmesi açısından kritiktir. Genel kurallara atıfta bulunmak yerine, çalışmanın spesifik koşulları (madde sayısı, beklenen etki büyüklüğü vb.) dikkate alınarak yapılan bir güç analizi veya hassasiyet gerekçesi, örneklem büyüklüğünün yeterliliğini daha sağlam bir şekilde desteklerdi.",
+        "limitations": [
+          "Makalede güç analizi veya hassasiyet gerekçesi bulunmadığından, örneklem büyüklüğünün istatistiksel gücünü nicel olarak değerlendirmek mümkün değildir."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ölçüm Araçları ve Operasyonelleştirme Açık",
+        "summary": "AI-HCS'nin geliştirilme süreci, madde havuzu oluşturma, uzman görüşü alma, EFA ve CFA aşamalarıyla detaylı bir şekilde açıklanmıştır. Ölçeğin boyutları ve her bir boyutun neyi ölçtüğü net bir şekilde tanımlanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "materials_and_methods.a2",
+            "section": "MATERIALS AND METHODS",
+            "quote": "The AI-HCS was developed as the primary data collection tool for the study and was utilised. The scale development process followed a structured multi-stage procedure to ensure methodological transparency and theoretical rigor. First, an extensive literature review was conducted to identify relevant constructs related to AI-supported health counseling, including technology acceptance, trust in AI, privacy concerns, and human–AI interaction in healthcare. Based on this review, an initial item pool of 55 items was generated. In the second stage, content validity was established through expert evaluation. A panel consisting of one measurement and evaluation specialist and ﬁve domain experts in health sciences reviewed the items in terms of conceptual relevance, clarity, and representativeness. Based on their feedback, items that were redundant, ambiguous, or not directly aligned with the AI-HC context were revised or removed, resulting in a 32-item draft scale. In the third stage, the reﬁned item set was subjected to EFA to examine the underlying factor structure and to further eliminate items with low factor loadings or cross-loadings. Finally, CFA was conducted on an independent sample to validate the factor structure obtained from EFA. This sequential process ensured that the ﬁnal scale structure was both theoretically grounded and empirically supported."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "To further ensure conceptual clarity, each dimension of AI-HC evaluated in this study is deﬁned as theoretically distinct yet complementary. “Usage and trust” refers to the extent to which individuals are willing to engage with AI-based health counseling systems and the degree of conﬁdence they place in the information provided. “Privacy perception” captures individuals’ concerns and evaluations regarding the protection and security of personal health data within AI systems. “Supportiveness perception” reﬂects the extent to which AI systems are perceived as facilitating understanding, guiding decision-making, and enhancing the counseling process. In contrast, “medical competence” represents the perceived clinical accuracy, reliability, and adequacy of AI-generated health recommendations."
+          }
+        ],
+        "reasoning_public": "Ölçek geliştirme çalışmalarında, ölçüm araçlarının nasıl oluşturulduğu ve değişkenlerin nasıl operasyonelleştirildiği şeffaf bir şekilde sunulmalıdır. Bu çalışma, bu gerekliliği yerine getirerek ölçeğin geçerliliğine dair güçlü bir temel sunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "İstatistiksel Test Seçimi ve Varsayım Kontrolleri Açık",
+        "summary": "Faktör analizi için KMO ve Bartlett testleri gibi uygun varsayım kontrolleri yapılmış ve raporlanmıştır. EFA ve CFA için kullanılan istatistiksel yöntemler (örn. temel bileşenler analizi, Varimax rotasyonu) ve uyum indeksleri açıkça belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "data_analysis.a0",
+            "section": "Data analysis",
+            "quote": "First, EFA was applied to determine the scale’s factor structure. Prior to this, the Kaiser–Meyer–Olkin (KMO) sample adequacy test and Bartlett’s sphericity test were performed to assess the suitability of the data for factor analysis. Within the scope of EFA, the varimax rotation technique was used alongside the principal component analysis method."
+          },
+          {
+            "anchor_id": "data_analysis.a1",
+            "section": "Data analysis",
+            "quote": "Subsequently, CFA was performed to evaluate the validity of the factor structure obtained using EFA. This analysis examined the level of ﬁt of the model with the data using various ﬁt indices. The basic ﬁt criteria considered included chi-square to degrees of freedom (χ²/df), goodness of ﬁt index (GFI), adjusted goodness of ﬁt index (AGFI), comparative ﬁt index (CFI), normalised ﬁt index (NFI), Tucker–Lewis index (TLI), root mean square residual (RMR) and root mean square error of approximation (RMSEA)."
+          }
+        ],
+        "reasoning_public": "İstatistiksel analizlerin geçerliliği, kullanılan testlerin veri tipine uygunluğu ve varsayımların karşılanıp karşılanmadığının kontrol edilmesiyle sağlanır. Çalışma, bu adımları şeffaf bir şekilde raporlamıştır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Raporlanan İstatistiksel Değerler Tutarlı",
+        "summary": "KMO değeri (0.955) ve Bartlett's sphericity test sonucu (X2 = 9,135.15; p < 0.001) metinde belirtildiği gibi tutarlıdır. CFA uyum indeksleri de (χ²/df = 2.957, GFI = 0.918, AGFI = 0.900, CFI = 0.945, NFI = 0.938, TLI = 0.919, RMSEA = 0.054, RMR = 0.045) metin içinde verilen kabul edilebilir aralıklarla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "structural_validity.a0",
+            "section": "Structural validity",
+            "quote": "The KMO value obtained was 0.955, indicating an “excellent” level of sample adequacy for factor analysis. The result of Bartlett’s sphericity test was found to be signiﬁcant (X2 = 9,135.15; p < 0.001), indicating that there is a meaningful relationship structure among the data suitable for factor analysis (Kalaycı, 2017)."
+          },
+          {
+            "anchor_id": "results.a0",
+            "section": "Results",
+            "quote": "In CFA, ﬁt indices (χ²/df = 2.957, goodness of ﬁt index (GFI) = 0.918, adjusted goodness of ﬁt index (AGFI) = 0.900, comparative ﬁt index (CFI) = 0.945, normalised ﬁt index (NFI) = 0.938, Tucker–Lewis index (TLI) = 0.919, root mean square error of approximation (RMSEA) = 0.054, root mean square residual (RMR) = 0.045) supported the model’s ﬁt to the data."
+          }
+        ],
+        "reasoning_public": "Raporlanan istatistiksel değerlerin metin içinde ve tablolar arasında tutarlı olması, çalışmanın güvenilirliğini artırır ve okuyucunun bulguları doğru bir şekilde anlamasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü Raporlamasında Eksiklik",
+        "summary": "Çalışma, EFA'da açıklanan toplam varyansı (%66.01) ve CFA'da uyum indekslerini raporlamış olsa da, faktör yükleri, kompozit güvenilirlik (CR) ve ortalama açıklanan varyans (AVE) değerleri gibi etki büyüklüğü ölçütleri metinde sadece 'kabul edilebilir seviyelerde' olarak belirtilmiş, ancak sayısal değerleri sunulmamıştır. Bu durum, ölçeğin her bir boyutunun ve maddesinin gücünü ve önemini tam olarak değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a1",
+            "section": "Results",
+            "quote": "The four factors demonstrated convergent and discriminant validity, with CR and AVE values at acceptable levels, and inter-factor correlations supported discriminant validity."
+          },
+          {
+            "anchor_id": "results.a2",
+            "section": "Results",
+            "quote": "EFA yielded a four-factor, 24-item structure (Usage and Trust, Privacy Perception, Supportiveness Perception, and Medical Competence). The Kaiser–Meyer–Olkin (KMO) value was 0.955, and the total variance explained was 66.01%."
+          }
+        ],
+        "reasoning_public": "Ölçek geliştirme çalışmalarında, faktör yükleri, CR ve AVE gibi etki büyüklüğü ölçütlerinin sayısal olarak raporlanması, ölçeğin yapısal geçerliliği ve güvenilirliği hakkında daha detaylı bilgi sağlar. Bu değerler, ölçeğin maddelerinin ilgili faktörleri ne kadar iyi temsil ettiğini ve faktörlerin ne kadar varyansı açıkladığını gösterir. Sadece 'kabul edilebilir' ifadesi, okuyucunun bu kritik bilgileri bağımsız olarak değerlendirmesini engeller.",
+        "limitations": [
+          "CR, AVE ve faktör yükleri sayısal olarak raporlanmadığı için, bu değerlerin 'kabul edilebilir' seviyede olup olmadığını bağımsız olarak doğrulamak mümkün değildir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Belirsizlik Ölçüleri (Güven Aralıkları) Eksik",
+        "summary": "Çalışma, Cronbach's Alpha ve McDonald's Omega katsayılarını raporlamış olsa da, bu güvenilirlik ölçütleri için güven aralıkları (CI) sunulmamıştır. Ayrıca, CFA uyum indeksleri için de güven aralıkları belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a3",
+            "section": "Results",
+            "quote": "Cronbach’s Alpha and McDonald’s Omega coefﬁcients ranged from 0.79 to 0.94 across all subscales, indicating high internal consistency."
+          },
+          {
+            "anchor_id": "results.a4",
+            "section": "Results",
+            "quote": "In CFA, ﬁt indices (χ²/df = 2.957, goodness of ﬁt index (GFI) = 0.918, adjusted goodness of ﬁt index (AGFI) = 0.900, comparative ﬁt index (CFI) = 0.945, normalised ﬁt index (NFI) = 0.938, Tucker–Lewis index (TLI) = 0.919, root mean square error of approximation (RMSEA) = 0.054, root mean square residual (RMR) = 0.045) supported the model’s ﬁt to the data."
+          }
+        ],
+        "reasoning_public": "Güvenilirlik katsayıları ve model uyum indeksleri gibi istatistiksel tahminler için güven aralıklarının raporlanması, bu tahminlerin hassasiyeti hakkında bilgi sağlar. Sadece nokta tahminleri sunmak, okuyucunun bu değerlerin ne kadar değişken olabileceğini anlamasını engeller ve bulguların genellenebilirliği hakkında belirsizlik yaratır.",
+        "limitations": [
+          "Güven aralıkları raporlanmadığı için, belirtilen katsayıların ve indekslerin hassasiyetini değerlendirmek mümkün değildir."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Veri Erişilebilirliği Sağlanmış",
+        "summary": "Çalışma, veri setinin Zenodo platformunda erişilebilir olduğunu belirtmiş ve ilgili DOI linkini sağlamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "data_availability.a0",
+            "section": "Data Availability",
+            "quote": "The data is available in the Supplemental Files. The dataset is available at Zenodo: - GÖDE, A. (2026). Artiﬁcial Intelligence-Supported Health Counseling Scale (AI- HCS): A Reliability and Validity Study [Data set]. Zenodo. https://doi.org/10.5281/zenodo. 18850091."
+          }
+        ],
+        "reasoning_public": "Veri erişilebilirliği, bilimsel araştırmaların şeffaflığı ve tekrarlanabilirliği için kritik öneme sahiptir. Bu uygulama, çalışmanın bulgularının bağımsız olarak doğrulanmasına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Özgün Katkı ve Mevcut Literatürle Farklılaşma Yetersizliği",
+        "summary": "Makale, yapay zeka destekli sağlık danışmanlığına yönelik multidisipliner bir ölçek geliştirme iddiasında bulunsa da, mevcut literatürdeki benzer ölçeklerden veya teorik çerçevelerden somut ve ayırt edici farklarını yeterince açıklayamamaktadır. Bu durum, çalışmanın alana yaptığı özgün katkıyı belirsizleştirmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "However, existing studies are generally limited to e-health applications. Moreover, they often focus on speciﬁc constructs such as usage intention or trust perception, and thus fall short of developing a more comprehensive approach (Princi & Krämer, 2020; Beets et al., 2023; Kim, Ryan & Kim, 2025). While the TAM and related frameworks primarily emphasize perceived usefulness, ease of use, and behavioral intention, these constructs alone are insufﬁcient to capture individuals’ engagement with AI-supported health counseling. Unlike general information technologies, AI-HC involves sensitive, high-risk health-related decisions, where users simultaneously evaluate not only usability and intention, but also trust in AI-generated recommendations, concerns about data privacy, and perceptions of the medical competence of AI systems. Therefore, extending beyond traditional acceptance models is necessary to adequately conceptualize and measure individuals’ attitudes and tendencies toward AI-supported health counseling."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Although many measurement tools have been developed to address constructs such as digital health literacy, privacy awareness, and technology acceptance, the lack of a valid and reliable tool that examines the phenomenon of AI-HC from a multidimensional perspective stands out as an important gap in the literature. Existing scales primarily focus on user intentions or are adapted based on the perspectives of healthcare professionals. In this regard, the experiences of patients or individuals interacting with AI-based counseling systems are often neglected (Princi & Krämer, 2020; Beets et al., 2023; Williamson & Prybutok, 2024; Santos & Nazaré, 2025; Kim, Ryan & Kim, 2025)."
+          }
+        ],
+        "reasoning_public": "Bir ölçek geliştirme çalışmasının temel amacı, mevcut araçların yetersiz kaldığı bir boşluğu doldurmak veya daha üstün bir ölçüm aracı sunmaktır. Makale, mevcut ölçeklerin tek boyutlu olduğunu veya belirli odaklara sahip olduğunu belirtse de, kendi geliştirdiği ölçeğin bu eksiklikleri nasıl giderdiğini veya hangi yeni boyutları entegre ettiğini net bir şekilde ortaya koyamamaktadır. Özellikle 'Usage and Trust', 'Privacy Perception', 'Supportiveness Perception' ve 'Medical Competence' gibi boyutların, mevcut teknoloji kabul modelleri (TAM, UTAUT) veya yapay zeka güveni/mahremiyet ölçekleri tarafından zaten ele alınıp alınmadığına dair derinlemesine bir karşılaştırma eksikliği bulunmaktadır. Bu durum, çalışmanın 'boşluğu doldurma' iddiasını zayıflatmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "contribution_originality.f0.a0",
+          "contribution_originality.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Teorik Çerçeve ile Ölçek Boyutları Arasındaki Bağlantının Zayıflığı",
+        "summary": "Makale, ölçek geliştirme sürecinde teknoloji kabul modelleri (TAM, UTAUT) ve yapay zeka güveni gibi teorik çerçevelerden yararlandığını belirtse de, nihai 4 boyutlu yapının (Usage and Trust, Privacy Perception, Supportiveness Perception, Medical Competence) bu teorik çerçevelerle olan doğrudan bağlantısını ve bu çerçevelere yaptığı katkıyı yeterince açıklamamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "Based on the literature, it can be concluded that people’s perceptions and intentions are crucial determinants in the process of adopting technological innovations. Especially from the perspective of theoretical approaches such as the Technology Acceptance Model (TAM) and the Uniﬁed Theory of Acceptance and Use of Technology (UTAUT), attitudes toward technological systems, along with perceived usefulness, ease of use, and behavioral intention, shape user behaviors (Venkatesh & Davis, 2000; Holden & Karsh, 2010)."
+          },
+          {
+            "anchor_id": "materials_and_methods.a3",
+            "section": "MATERIALS AND METHODS",
+            "quote": "The item generation and reﬁnement process was guided by established theoretical frameworks rather than being purely data-driven. Speciﬁcally, the initial item pool was informed by the literature on technology acceptance, trust in artiﬁcial intelligence, privacy calculus, and human–AI collaboration in healthcare contexts."
+          }
+        ],
+        "reasoning_public": "Ölçek geliştirme çalışmalarında, geliştirilen ölçeğin teorik bir temele oturması ve mevcut teorileri nasıl genişlettiği veya test ettiği önemlidir. Makale, TAM ve UTAUT gibi modellerin yetersiz kaldığını iddia etse de, kendi boyutlarının bu modellerin hangi eksiklerini giderdiğini veya hangi yeni teorik içgörüleri sunduğunu detaylandırmamıştır. Bu durum, ölçeğin sadece ampirik bir yapı olmaktan öteye geçerek teorik alana nasıl katkı sağladığını belirsiz bırakmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "contribution_originality.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Araştırma Sorusu Netliği ve Kapsam Uyumu",
+        "summary": "Çalışmanın temel amacı, yapay zeka destekli sağlık danışmanlığına (AI-HC) yönelik tutumları, algıları ve eğilimleri değerlendirmek için geçerli ve güvenilir bir ölçek geliştirmek ve psikometrik özelliklerini incelemektir. Bu amaç, makalenin metodolojisi ve sonuçlarıyla tam bir uyum içindedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Background: This study aims to develop a valid and reliable scale for assessing individuals’ attitudes towards, perceptions of, and tendencies to engage in artiﬁcial intelligence-supported health counseling (AI-HC) and to examine its psychometric properties."
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "This study aims to ﬁll this gap by developing a multidimensional scale to assess individuals’ perceptions, attitudes, and tendencies toward AI-HC. The “artiﬁcial intelligence-supported health counseling scale (AI-HCS)” developed in this study is intended to explain individuals’ behaviors in using these systems and to contribute to the patient-centered design of AI applications in healthcare services. Accordingly, the aim of the study is to develop the AI-HCS and to evaluate its psychometric properties by conducting validity (content, construct, and criterion validity) and reliability (internal consistency) analyses."
+          }
+        ],
+        "reasoning_public": "Makalenin araştırma sorusu, geliştirilen ölçeğin amacını ve kapsamını açıkça belirtmektedir. Çalışmanın tasarımı (iki aşamalı veri toplama, EFA ve CFA kullanımı) ve sunulan sonuçlar (faktör yapısı, güvenilirlik ve geçerlilik analizleri) doğrudan bu araştırma sorusunu yanıtlamaya yöneliktir. Bu netlik, okuyucunun çalışmanın hedeflerini ve elde edilen bulguların bağlamını kolayca anlamasını sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Teorik Çerçevenin Yetersiz Entegrasyonu ve Uygulaması",
+        "summary": "Makale, ölçek geliştirme sürecinde teorik çerçevelerden (TAM, UTAUT) bahsediyor ancak bu çerçevelerin ölçek maddelerinin oluşturulması ve boyutlandırılması üzerindeki doğrudan etkisini yeterince açıklayamıyor. Mevcut teorilerin neden yetersiz kaldığına dair argüman güçlü olsa da, yeni ölçeğin bu teorilerle nasıl bir ilişki kurduğu veya onları nasıl genişlettiği belirsiz kalıyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "Based on the literature, it can be concluded that people’s perceptions and intentions are crucial determinants in the process of adopting technological innovations. Especially from the perspective of theoretical approaches such as the Technology Acceptance Model (TAM) and the Uniﬁed Theory of Acceptance and Use of Technology (UTAUT), attitudes toward technological systems, along with perceived usefulness, ease of use, and behavioral intention, shape user behaviors (Venkatesh & Davis, 2000; Holden & Karsh, 2010). In this context, an examination of existing models in the healthcare ﬁeld shows that various measurement tools have been developed for the use of e-health systems, mobile applications, and online health platforms (Hsieh et al., 2016). However, existing studies are generally limited to e-health applications. Moreover, they often focus on speciﬁc constructs such as usage intention or trust perception, and thus fall short of developing a more comprehensive approach (Princi & Krämer, 2020; Beets et al., 2023; Kim, Ryan & Kim, 2025). While the TAM and related frameworks primarily emphasize perceived usefulness, ease of use, and behavioral intention, these constructs alone are insufﬁcient to capture individuals’ engagement with AI-supported health counseling. Unlike general information technologies, AI-HC involves sensitive, high-risk health-related decisions, where users simultaneously evaluate not only usability and intention, but also trust in AI-generated recommendations, concerns about data privacy, and perceptions of the medical competence of AI systems. Therefore, extending beyond traditional acceptance models is necessary to adequately conceptualize and measure individuals’ attitudes and tendencies toward AI-supported health counseling."
+          },
+          {
+            "anchor_id": "materials_and_methods.a4",
+            "section": "MATERIALS AND METHODS",
+            "quote": "The item generation and reﬁnement process was guided by established theoretical frameworks rather than being purely data-driven. Speciﬁcally, the initial item pool was informed by the literature on technology acceptance, trust in artiﬁcial intelligence, privacy calculus, and human–AI collaboration in healthcare contexts. Expert evaluations focused not only on statistical considerations but also on conceptual relevance, clarity, and theoretical alignment of each item with the proposed dimensions. EFA was subsequently employed as a conﬁrmatory step to empirically reﬁne the scale structure, ensuring that the ﬁnal item set was both theoretically grounded and psychometrically robust."
+          }
+        ],
+        "reasoning_public": "Bir ölçek geliştirme çalışmasında, geliştirilen ölçeğin teorik temellerinin net bir şekilde ortaya konulması ve ölçek maddelerinin bu teorik çerçevelerle nasıl ilişkilendirildiğinin açıklanması esastır. Bu, ölçeğin yapısal geçerliliğini ve ölçtüğü yapının teorik tutarlılığını güçlendirir. Makalede bu bağlantı zayıf kalmıştır, bu da ölçeğin teorik katkısını ve gelecekteki araştırmalarda nasıl konumlandırılacağını belirsizleştirmektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f0.a0",
+          "theoretical_framing.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Tanımlanan Boyutların Teorik Ayrışmasının Yetersiz Açıklanması",
+        "summary": "Makale, AI-HC'nin çok boyutlu bir fenomen olduğunu ve her bir boyutun teorik olarak farklı ancak tamamlayıcı olduğunu belirtse de, 'Kullanım ve Güven' boyutunun neden tek bir boyut olarak ele alındığı veya diğer boyutlarla (Gizlilik Algısı, Destekleyicilik Algısı, Tıbbi Yeterlilik) teorik olarak nasıl ayrıştığı yeterince açıklanmamıştır. Özellikle 'güven' kavramı, diğer boyutlarla güçlü bir şekilde ilişkili olabilecek karmaşık bir yapıdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "AI-HC refers to a hybrid interaction process in which individuals engage with AI-based systems to obtain health-related information, guidance, and preliminary evaluations before or alongside professional medical consultation. Unlike general technology use or digital information seeking, AI-HC involves simultaneous evaluations of multiple interrelated dimensions, including the perceived usability of the system, trust in AI-generated health information, concerns regarding data privacy and security, perceived supportiveness in the decision-making process, and perceptions of the medical competence of AI systems. Due to the sensitive, high-stakes, and ethically complex nature of health-related decisions, individuals’ engagement with AI-HC cannot be adequately captured by single-dimensional constructs such as usage intention or perceived usefulness alone. Therefore, AI-HC represents a fundamentally multidimensional phenomenon that requires an integrative measurement approach extending beyond traditional technology acceptance frameworks. To further ensure conceptual clarity, each dimension of AI-HC evaluated in this study is deﬁned as theoretically distinct yet complementary. “Usage and trust” refers to the extent to which individuals are willing to engage with AI-based health counseling systems and the degree of conﬁdence they place in the information provided. “Privacy perception” captures individuals’ concerns and evaluations regarding the protection and security of personal health data within AI systems. “Supportiveness perception” reﬂects the extent to which AI systems are perceived as facilitating understanding, guiding decision-making, and enhancing the counseling process. In contrast, “medical competence” represents the perceived clinical accuracy, reliability, and adequacy of AI-generated health recommendations. While these dimensions may be interrelated in real-world use, each captures a distinct evaluative aspect of individuals’ interaction with AI-supported health counseling systems."
+          }
+        ],
+        "reasoning_public": "Ölçek geliştirme çalışmalarında, her bir boyutun teorik olarak neden ayrı bir yapı olarak ele alındığının ve diğer boyutlardan nasıl ayrıştığının net bir şekilde tanımlanması önemlidir. Bu, ölçeğin yapısal geçerliliğini ve ölçtüğü kavramların netliğini artırır. 'Kullanım ve Güven' gibi birleşik bir boyutun, özellikle 'güven'in diğer algılarla (gizlilik, yeterlilik) iç içe geçebileceği bir bağlamda, teorik ayrışmasının daha detaylı açıklanması gerekmektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f2",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ölçek Geliştirme Sürecinde Teorik Rehberlik",
+        "summary": "Makale, ölçek geliştirme sürecinde Lim (2024), DeVellis (2017), Boateng et al. (2018) ve Netemeyer, Bearden & Sharma (2003) gibi yazarların önerdiği sistematik yaklaşımları temel aldığını açıkça belirtmiştir. Bu, çalışmanın metodolojik olarak sağlam bir teorik temele oturduğunu göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "materials_and_methods.a5",
+            "section": "MATERIALS AND METHODS",
+            "quote": "The multi-stage scale development principles proposed by Lim (2024), DeVellis (2017), Boateng et al. (2018) and Netemeyer, Bearden & Sharma (2003) were used as basic guidelines throughout the research."
+          }
+        ],
+        "reasoning_public": "Ölçek geliştirme çalışmalarında, kabul görmüş metodolojik kılavuzlara uyulması, geliştirilen ölçeğin geçerliliği ve güvenilirliği için kritik öneme sahiptir. Makalenin bu kılavuzları referans göstermesi, çalışmanın titizliğini ve teorik olarak bilgilendirilmiş bir süreç izlediğini ortaya koymaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Türkçe Kaynakların Yüksek Oranda Çözülememesi",
+        "summary": "Makalede kullanılan Türkçe kaynakların önemli bir kısmı (10 adet) OpenAlex veya Semantic Scholar gibi akademik indekslerde çözülememiştir. Bu durum, çalışmanın literatürdeki konumunun uluslararası düzeyde doğrulanabilirliğini ve erişilebilirliğini kısıtlamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda kullanılan referansların uluslararası indekslerde bulunabilirliği, çalışmanın şeffaflığı, doğrulanabilirliği ve literatürdeki etkileşimi açısından önemlidir. Çözülemeyen kaynakların yüksek oranı, özellikle metodolojik referanslar söz konusu olduğunda, okuyucuların yazarın dayandığı temel bilgilere ulaşmasını zorlaştırabilir.",
+        "limitations": [
+          "OpenAlex/Semantic Scholar indekslerinin Türkçe kaynakları kapsama oranının bilinmemesi, bu durumun makalenin kendisinden mi yoksa indekslerin kapsamından mı kaynaklandığını tam olarak ayırt etmeyi zorlaştırmaktadır."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Bazı Referanslarda Yıl Farklılıkları ve DOI Çözümleme Sorunları",
+        "summary": "Bazı referanslarda (örn. [11] ve [57], [62]) kaynakçada belirtilen yıl ile OpenAlex'te çözülen yıl arasında farklılıklar bulunmakta veya DOI'ler tam olarak çözülememektedir. Bu durum, referansların kesinliğini ve erişilebilirliğini hafif düzeyde etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Referansların doğru ve tutarlı olması, akademik bütünlük ve okuyucuların kaynaklara kolayca erişebilmesi için önemlidir. Yıl farklılıkları veya hatalı DOI'ler, okuyucuların doğru kaynağa ulaşmasını engelleyebilir.",
+        "limitations": [
+          "Yıl farklılıkları genellikle 'online-first' veya baskı tarihi farklılıklarından kaynaklanabilir ve her zaman bir hata anlamına gelmeyebilir."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f1.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f2",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kapsamlı ve Güncel Literatür Taraması",
+        "summary": "Makale, yapay zeka destekli sağlık danışmanlığı alanındaki güncel ve ilgili literatürü başarılı bir şekilde taramış ve çalışmasını bu literatür içinde iyi konumlandırmıştır. Özellikle 2023-2025 yıllarına ait çok sayıda güncel referans kullanılmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "Artiﬁcial intelligence (AI) systems are enabling changes in many ﬁelds today. These changes and transformations have also begun to play an active role in the ﬁeld of healthcare services. They are evident in many areas of healthcare, from clinical decision support to patient monitoring, from public health initiatives to personalized health counseling (Secinaro et al., 2021). In addition, there has been a signiﬁcant increase in individuals’ behaviors toward seeking health-related information in digital environments. This shift, accompanied by a growing tendency to use digital health platforms, has led to an increasing importance of such platforms (Kim et al., 2023; Rathore & Rathore, 2023)."
+          },
+          {
+            "anchor_id": "introduction.a8",
+            "section": "INTRODUCTION",
+            "quote": "Although many measurement tools have been developed to address constructs such as digital health literacy, privacy awareness, and technology acceptance, the lack of a valid and reliable tool that examines the phenomenon of AI-HC from a multidimensional perspective stands out as an important gap in the literature. Existing scales primarily focus on user intentions or are adapted based on the perspectives of healthcare professionals. In this regard, the experiences of patients or individuals interacting with AI-based counseling systems are often neglected (Princi & Krämer, 2020; Beets et al., 2023; Williamson & Prybutok, 2024; Santos & Nazaré, 2025; Kim, Ryan & Kim, 2025)."
+          }
+        ],
+        "reasoning_public": "Çalışmanın güncel literatüre dayanması, alanındaki en son gelişmeleri takip ettiğini ve mevcut bilgi birikimine katkıda bulunduğunu gösterir. Bu, çalışmanın alaka düzeyini ve potansiyel etkisini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genç ve Eğitimli Örneklem Üzerinden Yapılan Genellemeler",
+        "summary": "Çalışma, AI-HCS'nin geçerliliğini ve güvenilirliğini genç ve yüksek eğitimli bir örneklem üzerinde değerlendirmiş olmasına rağmen, sonuçları genel popülasyona veya farklı demografik özelliklere sahip gruplara genelleme eğilimindedir. Bu durum, ölçeğin farklı popülasyonlardaki uygulanabilirliği hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "The developed artiﬁcial intelligence-supported health counseling scale (AI-HCS) is a valid and reliable tool for measuring critical factors inﬂuencing the adoption of AI-HC."
+          },
+          {
+            "anchor_id": "results.a5",
+            "section": "RESULTS",
+            "quote": "Upon examination of the age distribution, it was determined that 60.5% of participants in the EFA group and 58.5% of those in the CFA group fell within the 18–24 age range. ... With respect to educational attainment, a higher proportion of university graduates were observed in both data sets (EFA: 71.8%; CFA: 69.2%)."
+          }
+        ],
+        "reasoning_public": "Makale, geliştirilen ölçeğin 'AI-HC'nin benimsenmesini etkileyen kritik faktörleri ölçmek için geçerli ve güvenilir bir araç' olduğunu belirtirken, örneklemin demografik özelliklerinin (çoğunlukla 18-24 yaş arası, üniversite mezunu) bu genellemeyi desteklemediği görülmektedir. Bu, ölçeğin farklı yaş grupları veya eğitim seviyelerindeki bireyler için ne kadar geçerli ve güvenilir olduğu konusunda önemli bir sınırlılıktır ve bulguların dış geçerliliğini zayıflatır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "AI-HC Tanımının Kapsamı ve Ölçek Maddeleri Arasındaki Uyum",
+        "summary": "Makale, AI-HC'yi 'bireylerin sağlıkla ilgili bilgi, rehberlik ve ön değerlendirmeler almak için yapay zeka tabanlı sistemlerle etkileşime girdiği hibrit bir süreç' olarak tanımlamaktadır. Ancak, ölçek maddelerinin bu geniş tanımın tüm boyutlarını (örn. ön değerlendirme, profesyonel danışmanlık öncesi/yanı sıra kullanım) yeterince kapsayıp kapsamadığı tam olarak açıklanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a9",
+            "section": "INTRODUCTION",
+            "quote": "AI-HC refers to a hybrid interaction process in which individuals engage with AI-based systems to obtain health-related information, guidance, and preliminary evaluations before or alongside professional medical consultation."
+          },
+          {
+            "anchor_id": "results.a6",
+            "section": "RESULTS",
+            "quote": "The most commonly used source for obtaining health information among participants was “doctor,” with a rate of 49.2% in the EFA dataset and 49.5% in the CFA dataset. This is followed by the internet (EFA: 33.4%; CFA: 29.2%) and AI-based applications (EFA: 17.4%; CFA: 21.3%)."
+          }
+        ],
+        "reasoning_public": "AI-HC'nin tanımı oldukça kapsamlıdır ve 'profesyonel tıbbi danışmanlık öncesi veya yanı sıra' kullanımı içerir. Ölçek maddelerinin bu 'hibrit etkileşim' ve 'ön değerlendirme' gibi unsurları ne ölçüde yansıttığı, özellikle de 'doktor'un en sık tercih edilen bilgi kaynağı olduğu bulgusuyla birlikte, daha net bir şekilde ortaya konulmalıdır. Ölçek maddelerinin bu karmaşık etkileşimi ne kadar iyi yakaladığına dair kanıtlar daha detaylı sunulmalıdır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Psikometrik Analizlerin Kapsamlı Sunumu",
+        "summary": "Makale, ölçeğin yapısal geçerliliği ve güvenilirliği için EFA ve CFA sonuçlarını, çeşitli uyum indeksleri ve güvenilirlik katsayıları ile detaylı bir şekilde sunmaktadır. Bu, geliştirilen ölçeğin psikometrik özelliklerine dair güçlü kanıtlar sağlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a7",
+            "section": "RESULTS",
+            "quote": "EFA yielded a four-factor, 24-item structure (Usage and Trust, Privacy Perception, Supportiveness Perception, and Medical Competence). The Kaiser–Meyer–Olkin (KMO) value was 0.955, and the total variance explained was 66.01%. In CFA, ﬁt indices (χ²/df = 2.957, goodness of ﬁt index (GFI) = 0.918, adjusted goodness of ﬁt index (AGFI) = 0.900, comparative ﬁt index (CFI) = 0.945, normalised ﬁt index (NFI) = 0.938, Tucker–Lewis index (TLI) = 0.919, root mean square error of approximation (RMSEA) = 0.054, root mean square residual (RMR) = 0.045) supported the model’s ﬁt to the data. The four factors demonstrated convergent and discriminant validity, with CR and AVE values at acceptable levels, and inter-factor correlations supported discriminant validity. Cronbach’s Alpha and McDonald’s Omega coefﬁcients ranged from 0.79 to 0.94 across all subscales, indicating high internal consistency."
+          }
+        ],
+        "reasoning_public": "Çalışma, ölçek geliştirme sürecinde önerilen metodolojik adımları titizlikle takip etmiş ve elde edilen psikometrik verileri (KMO, Bartlett, faktör yükleri, uyum indeksleri, Cronbach's Alpha, McDonald's Omega, CR, AVE) şeffaf bir şekilde sunmuştur. Bu durum, ölçeğin geçerli ve güvenilir olduğu iddiasını güçlü bir şekilde desteklemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Çözülemeyen Referansların Yüksek Oranı",
+        "summary": "Makalede yer alan 62 referanstan 20'si (%32) otomatik sistemler tarafından OpenAlex veya Semantic Scholar indekslerinde çözülememiştir. Bu durum, makalenin referanslarının doğrulanabilirliğini ve şeffaflığını olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayınlarda referansların kolayca doğrulanabilir olması, okuyucuların atıf yapılan kaynaklara erişimini ve makaledeki iddiaların temelini incelemesini sağlar. Çözülemeyen referansların yüksek oranı, makalenin şeffaflığını azaltır ve okuyucuların kaynakları kontrol etmesini zorlaştırır. Bu durum, özellikle Türkçe kaynaklar veya niş yayınlar için anlaşılabilir olsa da, genel olarak doğrulanabilirlik açısından bir zayıflık teşkil eder.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin (OpenAlex, Semantic Scholar) kapsam sınırlamaları nedeniyle bazı geçerli referansların bulunamamış olabileceği ihtimali bulunmaktadır. Özellikle Türkçe yayınlar veya niş konferans bildirileri bu durumdan etkilenebilir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "citation_integrity.f1",
+        "dimension": "citation_integrity",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Referans Yılı Tutarsızlığı",
+        "summary": "Bir referansın (Referans [11]) kaynakçada belirtilen yayın yılı ile OpenAlex'te çözülen yayın yılı arasında bir tutarsızlık tespit edilmiştir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Referans yıllarındaki tutarsızlıklar, okuyucuların doğru kaynağa ulaşmasını zorlaştırabilir ve makalenin güncelliği veya atıf doğruluğu hakkında şüphe uyandırabilir. Bu tür küçük tutarsızlıklar genellikle online-first yayınlar veya farklı baskı tarihleri nedeniyle ortaya çıkabilir, ancak yine de düzeltilmesi önerilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "citation_integrity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Metodolojik Çalışma İçin Raporlama Kılavuzu Belirtilmemiş",
+        "summary": "Makale, bir ölçek geliştirme çalışması olmasına rağmen, metodolojik çalışmalar için önerilen spesifik bir raporlama kılavuzuna (örneğin, COSMIN veya STROBE-MR) uyduğunu belirtmemiştir. Bu durum, çalışmanın şeffaflığını ve tekrarlanabilirliğini etkileyebilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "materials_and_methods.a6",
+            "section": "MATERIALS AND METHODS",
+            "quote": "This methodological study aims to develop a scale to measure people’s perceptions and attitudes towards AI-HC. The scale development process was planned in two main stages throughout the study, taking into account the systematic approaches recommended for scale development: . identiﬁcation of scale items and ensuring content validity, . conducting psychometric analyses (structural validity, reliability analyses and criterion validity). The multi-stage scale development principles proposed by Lim (2024), DeVellis (2017), Boateng et al. (2018) and Netemeyer, Bearden & Sharma (2003) were used as basic guidelines throughout the research."
+          }
+        ],
+        "reasoning_public": "Ölçek geliştirme ve psikometrik değerlendirme çalışmaları, metodolojilerinin ve bulgularının şeffaflığını ve eksiksizliğini sağlamak için belirli raporlama kılavuzlarına uymalıdır. COSMIN (COnsensus-based Standards for the selection of health Measurement INstruments) gibi kılavuzlar, bu tür çalışmaların kalitesini değerlendirmek için uluslararası kabul görmüş standartlar sunar. Makalenin bu tür bir kılavuza atıfta bulunmaması veya uyumunu belirtmemesi, metodolojik raporlamada bir eksiklik olarak değerlendirilebilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Onay ve Veri Erişimi Şeffaflığı",
+        "summary": "Makale, etik kurul onayını ve veri erişilebilirliğini açıkça belirtmiştir. Bu, çalışmanın şeffaflığı ve etik standartlara uygunluğu açısından olumlu bir özelliktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "ethical_aspects_of_the_research.a0",
+            "section": "Ethical aspects of the research",
+            "quote": "This research was conducted in full compliance with the principles of scientiﬁc research and publication ethics. Ethical committee approval was obtained from the Scientiﬁc Research and Publication Ethics Committee of the Faculty of Social Sciences and Humanities at Hatay Mustafa Kemal University, with decision no. 02 dated 13/05/2025. Approval number: 2025/02."
+          },
+          {
+            "anchor_id": "data_availability.a1",
+            "section": "Data Availability",
+            "quote": "The data is available in the Supplemental Files. The dataset is available at Zenodo: - GÖDE, A. (2026). Artiﬁcial Intelligence-Supported Health Counseling Scale (AI-HCS): A Reliability and Validity Study [Data set]. Zenodo. https://doi.org/10.5281/zenodo.18850091."
+          }
+        ],
+        "reasoning_public": "Etik kurul onayı ve veri erişilebilirliğinin açıkça belirtilmesi, akademik yayıncılıkta şeffaflık ve tekrarlanabilirlik için önemli standartlardır. Bu durum, çalışmanın güvenilirliğini ve etik ilkelerle uyumunu güçlendirmektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Onay ve Helsinki Deklarasyonu Uyumu",
+        "summary": "Çalışma için etik kurul onayı alınmış ve Helsinki Deklarasyonu prensiplerine uygun olarak yürütülmüştür. Katılımcılardan elektronik ortamda bilgilendirilmiş onam alınmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "ethical_aspects_of_the_research.a1",
+            "section": "Ethical aspects of the research",
+            "quote": "This research was conducted in full compliance with the principles of scientiﬁc research and publication ethics. Ethical committee approval was obtained from the Scientiﬁc Research and Publication Ethics Committee of the Faculty of Social Sciences and Humanities at Hatay Mustafa Kemal University, with decision no. 02 dated 13/05/2025. Participants were asked to provide written informed consent electronically prior to taking part in the survey, via the consent form included at the beginning of the questionnaire. Ethical principles were upheld throughout the research process, and the study was conducted in accordance with the provisions of the Helsinki Declaration."
+          }
+        ],
+        "reasoning_public": "Etik onay ve uluslararası etik standartlara uyum, insan denekli araştırmaların güvenilirliği ve kabul edilebilirliği için temel gerekliliklerdir. Bu durum, çalışmanın etik prensiplere uygun olarak tasarlandığını ve yürütüldüğünü göstermektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Veri Paylaşımı ve Tekrar Üretilebilirlik",
+        "summary": "Çalışmanın veri seti Zenodo platformunda DOI ile paylaşılmıştır, bu da araştırmanın şeffaflığını ve tekrar üretilebilirliğini artırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "data_availability.a2",
+            "section": "Data Availability",
+            "quote": "The data is available in the Supplemental Files. The dataset is available at Zenodo: - GÖDE, A. (2026). Artiﬁcial Intelligence-Supported Health Counseling Scale (AI-HCS): A Reliability and Validity Study [Data set]. Zenodo. https://doi.org/10.5281/zenodo.18850091."
+          }
+        ],
+        "reasoning_public": "Veri setlerinin açık erişim platformlarında paylaşılması, diğer araştırmacıların bulguları doğrulamasına, analizleri tekrar etmesine ve gelecekteki çalışmalara temel oluşturmasına olanak tanır. Bu, bilimsel şeffaflık ve tekrar üretilebilirlik açısından önemli bir güçlüktür.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıklı Bölüm Akışı ve Anlaşılır Dil",
+        "summary": "Makale, standart akademik yayın formatına uygun, mantıklı bir bölüm akışına sahiptir. Dil kullanımı genel olarak anlaşılır ve nettir, bu da okuyucunun içeriği kolayca takip etmesini sağlar.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makalenin 'ABSTRACT', 'INTRODUCTION', 'MATERIALS AND METHODS', 'RESULTS', 'DISCUSSION', 'CONCLUSIONS', 'REFERENCES' gibi standart bölümleri, metodolojik bir çalışma için beklenen sıralamayı ve içeriği sunmaktadır. Bu yapı, araştırmanın amacından sonuçlarına kadar tutarlı bir anlatım sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Bazı Cümlelerde Tekrarlar ve Uzunluk",
+        "summary": "Makalenin bazı bölümlerinde, özellikle giriş ve yöntemler kısımlarında, benzer fikirlerin farklı cümlelerle tekrar edildiği veya cümlelerin gereğinden uzun olduğu gözlemlenmiştir. Bu durum, okuma akıcılığını hafifçe etkileyebilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a10",
+            "section": "INTRODUCTION",
+            "quote": "AI-HC encompasses multidimensional interactions in which individuals can consult AI about health symptoms, have test results evaluated, or explore treatment alternatives before consulting a healthcare professional. In addition, this technological shift is expected to reshape people’s habits of obtaining health information and using health applications (Young et al., 2021; Scott, Carter & Coiera, 2021; Adigwe, Onavbavba & Sanyaolu, 2024). ... AI-HC refers to a hybrid interaction process in which individuals engage with AI-based systems to obtain health-related information, guidance, and preliminary evaluations before or alongside professional medical consultation."
+          }
+        ],
+        "reasoning_public": "Bazı cümleler, aynı fikri farklı kelimelerle ifade ederek gereksiz yere uzatılmış veya tekrarlanmıştır. Bu durum, metnin daha özlü ve akıcı olmasını engelleyebilir. Örneğin, 'AI-HC encompasses multidimensional interactions in which individuals can consult AI about health symptoms, have test results evaluated, or explore treatment alternatives before consulting a healthcare professional. In addition, this technological shift is expected to reshape people’s habits of obtaining health information and using health applications' cümlesi, bir sonraki paragrafta benzer bir şekilde 'AI-HC refers to a hybrid interaction process in which individuals engage with AI-based systems to obtain health-related information, guidance, and preliminary evaluations before or alongside professional medical consultation.' şeklinde tekrar edilmektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makalenin Konusu ve Kapsamı Derginin Alanına Uygun",
+        "summary": "Makale, yapay zeka destekli sağlık danışmanlığı ölçeğinin geliştirilmesi ve psikometrik özelliklerinin incelenmesi üzerine odaklanmaktadır. Bu konu, PeerJ Computer Science dergisinin 'Human-Computer Interaction', 'Artificial Intelligence' ve 'Emerging Technologies' gibi belirtilen konu alanlarıyla doğrudan örtüşmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "This study aims to develop a valid and reliable scale for assessing individuals’ attitudes towards, perceptions of, and tendencies to engage in artiﬁcial intelligence-supported health counseling (AI-HC) and to examine its psychometric properties."
+          },
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "Subjects Human-Computer Interaction, Artiﬁcial Intelligence, Emerging Technologies, Social Computing"
+          }
+        ],
+        "reasoning_public": "Makalenin ana konusu ve metodolojisi, hedef derginin yayın kapsamı ve ilgi alanlarıyla tam uyum içindedir. Bu durum, makalenin ilgili akademik topluluğa ulaşması ve derginin okuyucu kitlesi tarafından takdir edilmesi açısından olumlu bir göstergedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f1",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Metodolojik Yaklaşım Derginin Bilimsel Düzeyine Uygun",
+        "summary": "Makalede kullanılan metodolojik tasarım (ölçek geliştirme, EFA ve CFA analizleri) ve istatistiksel yöntemler, bilgisayar bilimleri ve ilgili alanlardaki bilimsel dergilerin beklediği titizlik ve derinlik düzeyindedir. Bu, çalışmanın bilimsel geçerliliğini ve derginin standartlarına uygunluğunu desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "materials_and_methods.a7",
+            "section": "MATERIALS AND METHODS",
+            "quote": "The research was conducted using a methodological design with a two-stage data collection process. The initial item pool consisted of 55 items, which was reduced to 32 items based on expert opinions. In the ﬁrst stage, exploratory factor analysis (EFA) was performed with 592 participants, and in the second stage, conﬁrmatory factor analysis (CFA) was conducted with 663 participants."
+          },
+          {
+            "anchor_id": "data_analysis.a2",
+            "section": "DATA ANALYSIS",
+            "quote": "The data collected in the study were analysed using the Statistical Package for the Social Sciences (SPSS) version 26.0 and the Analysis of Moment Structures (AMOS) version 24.0 software packages. Detailed statistical methods were employed to evaluate the psychometric properties of the scale in terms of validity and reliability."
+          }
+        ],
+        "reasoning_public": "Makale, ölçek geliştirme sürecini detaylı ve sistematik bir şekilde açıklamış, EFA ve CFA gibi ileri istatistiksel analizleri kullanmıştır. Bu tür metodolojik çalışmalar, bilgisayar bilimleri ve insan-bilgisayar etkileşimi alanlarında yayın yapan dergiler için uygun ve değerli kabul edilir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "contribution_originality.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION",
+        "instruction": "Geliştirilen ölçeğin, mevcut literatürdeki benzer ölçeklerden (örn. teknoloji kabul, yapay zeka güveni, sağlık bilişimi mahremiyet ölçekleri) hangi somut yönleriyle farklılaştığını ve bu farklılaşmanın neden önemli olduğunu açıklayan ayrıntılı bir bölüm ekleyin. Her bir boyutun (Usage and Trust, Privacy Perception, Supportiveness Perception, Medical Competence) mevcut literatürdeki karşılıklarından ne şekilde ayrıştığını veya onları nasıl entegre ettiğini belirtin.",
+        "acceptance_check": "Makalede, AI-HCS'nin mevcut ölçeklere göre üstünlüğünü veya özgünlüğünü açıkça gösteren, karşılaştırmalı bir analiz veya tartışma bölümü bulunmalıdır.",
+        "linked_finding_ids": [
+          "contribution_originality.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "Her bir faktör için kompozit güvenilirlik (CR) ve ortalama açıklanan varyans (AVE) değerleri ile birlikte faktör yükleri sayısal olarak raporlanmalıdır. Bu değerler, ölçeğin yapısal geçerliliği ve güvenilirliği hakkında daha somut kanıtlar sunacaktır.",
+        "acceptance_check": "CR, AVE ve faktör yükleri için sayısal değerler içeren bir tablo veya metin bölümü eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, MATERIALS AND METHODS",
+        "instruction": "Giriş ve Yöntemler bölümlerinde, mevcut teorik çerçevelerin (TAM, UTAUT vb.) AI-HCS'nin boyutlarını ve maddelerini nasıl doğrudan etkilediğini veya bu teorilerden nasıl ayrıştığını daha açık bir şekilde açıklayın. Geliştirilen dört boyutun (Kullanım ve Güven, Gizlilik Algısı, Destekleyicilik Algısı, Tıbbi Yeterlilik) bu teorik çerçevelerle ilişkisini veya onlara yaptığı katkıyı detaylandırın.",
+        "acceptance_check": "Makalede, geliştirilen ölçeğin boyutlarının ve maddelerinin mevcut teorik çerçevelerle ilişkisi veya onlardan ayrışan yönleri net bir şekilde açıklanmış olmalı ve bu açıklama ölçeğin teorik temelini güçlendirmelidir.",
+        "linked_finding_ids": [
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Çözülemeyen referansların her biri için DOI veya URL gibi doğrudan erişim bağlantıları eklenmeli, eğer yoksa, kaynakların tam künye bilgileri (yayıncı, şehir vb.) kontrol edilerek eksiksiz hale getirilmelidir. Özellikle Türkçe kaynaklar için ulusal indekslerdeki kayıtlar belirtilebilir.",
+        "acceptance_check": "Tüm referansların DOI veya URL ile erişilebilir olması veya tam künye bilgilerinin eksiksiz sağlanması.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "DISCUSSION, CONCLUSIONS",
+        "instruction": "Sonuçlar bölümünde ve tartışmada, örneklemin demografik özelliklerinin (yaş, eğitim seviyesi) bulguların genellenebilirliği üzerindeki sınırlılıkları açıkça belirtilmelidir. Ölçeğin farklı popülasyonlarda ek doğrulama çalışmalarına ihtiyaç duyduğu vurgulanmalıdır.",
+        "acceptance_check": "Tartışma ve sonuç bölümlerine, örneklem sınırlılıkları ve genellenebilirlik üzerindeki etkileri hakkında net ifadeler eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "contribution_originality.f0.a1",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Ölçeğin 'multidisipliner' olma iddiasını desteklemek için, her bir boyutun hangi disiplinlerden (örn. psikoloji, sosyoloji, bilişim etiği, tıp etiği) beslendiğini ve bu entegrasyonun neden önemli olduğunu daha detaylı açıklayın.",
+        "acceptance_check": "Multidisipliner yaklaşımın teorik temelleri ve her bir boyutun disipliner kökenleri netleştirilmelidir.",
+        "linked_finding_ids": [
+          "contribution_originality.f0"
+        ]
+      },
+      {
+        "action_id": "contribution_originality.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Geliştirilen dört boyutun (Usage and Trust, Privacy Perception, Supportiveness Perception, Medical Competence) her birinin, bahsedilen teorik çerçevelerle (TAM, UTAUT, AI güveni, mahremiyet hesaplaması) nasıl bir ilişki içinde olduğunu ve bu çerçevelere hangi yeni kavramsal katkıları sunduğunu açıklayın. Örneğin, 'Medical Competence' boyutunun, geleneksel teknoloji kabul modellerinde bulunmayan hangi kritik unsuru yakaladığını belirtin.",
+        "acceptance_check": "Ölçek boyutları ile teorik çerçeveler arasındaki bağlantıların ve teorik katkıların açıkça ifade edildiği bir paragraf eklenmelidir.",
+        "linked_finding_ids": [
+          "contribution_originality.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Çözülemeyen Türkçe kaynakların (özellikle metodoloji ile ilgili olanlar) DOI'lerini veya uluslararası indekslerdeki karşılıklarını ekleyerek referans listesini güncelleyin. Eğer bu mümkün değilse, bu kaynakların içeriğini özetleyerek veya alternatif, uluslararası indekslerde bulunan eşdeğer kaynaklarla değiştirerek çalışmanın doğrulanabilirliğini artırın.",
+        "acceptance_check": "Referans listesindeki 'not_found_in_index' etiketli kaynakların sayısının azalması ve/veya bu kaynakların makale içinde kullanım yerlerinin açıklığa kavuşturulması.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "MATERIALS AND METHODS",
+        "instruction": "Örneklem büyüklüğünün belirlenmesi için spesifik bir güç analizi veya hassasiyet gerekçesi eklenmelidir. Bu, çalışmanın faktör yapısını güvenilir bir şekilde ortaya koyma yeteneğini daha iyi açıklayacaktır.",
+        "acceptance_check": "Örneklem büyüklüğü gerekçesi olarak genel referanslar yerine, bu çalışmanın spesifik koşullarına (örneğin, madde sayısı, beklenen faktör yükleri) dayalı bir güç analizi veya hassasiyet analizi raporu eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "MATERIALS AND METHODS",
+        "instruction": "Yazarlar, metodolojik bir çalışma olarak, ölçek geliştirme ve psikometrik değerlendirme için uygun bir raporlama kılavuzuna (örneğin, COSMIN veya STROBE-MR) uyduklarını belirtmeli ve bu kılavuzun kontrol listesini tamamladıklarını ek bilgi olarak sunmalıdırlar. Makale metninde bu kılavuza uyumun nasıl sağlandığına dair kısa bir açıklama yapılabilir.",
+        "acceptance_check": "Makalede uygun bir raporlama kılavuzuna atıf yapıldığı ve uyumun belirtildiği bir cümle veya paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f0.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "MATERIALS AND METHODS",
+        "instruction": "Ölçek maddelerinin oluşturulması sürecinde, hangi teorik çerçevelerden hangi maddelerin türetildiğini veya hangi teorik boşlukları doldurmak üzere tasarlandığını örneklerle açıklayın. Bu, ölçeğin teorik temellerini somutlaştıracaktır.",
+        "acceptance_check": "Ölçek maddelerinin teorik kökenleri veya teorik boşlukları doldurma amaçları, ilgili teorik çerçevelere atıfta bulunularak somut örneklerle açıklanmış olmalıdır.",
+        "linked_finding_ids": [
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "REFERENCES",
+        "instruction": "Referans [11] için (Development of the breast cancer related lymphedema self-care scale) kaynakçada belirtilen 2023 yılının, OpenAlex'te görünen 2020 yılı ile tutarlılığı kontrol edilmeli ve doğru yayın yılı ile güncellenmelidir.",
+        "acceptance_check": "Referans [11]'in yayın yılının doğru ve tutarlı olması.",
+        "linked_finding_ids": [
+          "citation_integrity.f1"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "CONCLUSIONS",
+        "instruction": "Gelecek araştırmalar için, ölçeğin farklı demografik özelliklere sahip (örn. daha yaşlı, daha düşük eğitim seviyeli) popülasyonlarda test edilmesi gerektiği önerilmelidir.",
+        "acceptance_check": "Gelecek araştırmalar için öneriler kısmına bu yönde bir madde eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "MATERIALS AND METHODS",
+        "instruction": "Ölçek maddelerinin, AI-HC'nin makalede verilen multidimensional tanımını (özellikle 'ön değerlendirme' ve 'profesyonel danışmanlık öncesi/yanı sıra' kullanım) nasıl yansıttığına dair daha fazla açıklama ve örnek sunulmalıdır. Bu, ölçeğin kapsamının tanımıyla uyumunu güçlendirecektir.",
+        "acceptance_check": "Ölçek geliştirme sürecinde, maddelerin AI-HC tanımının farklı yönlerini nasıl temsil ettiğine dair ek bir paragraf veya tablo eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "REFERENCES",
+        "instruction": "Yıl farklılığı olan referansları (örn. [11]) kontrol ederek kaynakçadaki bilgiyi güncelleyin. DOI'si çözülemeyen referansların (örn. [57], [62]) DOI'lerini veya URL'lerini doğrulayın ve gerekirse düzeltin.",
+        "acceptance_check": "Referans listesindeki yıl farklılıklarının giderilmesi ve çözülemeyen DOI'lerin düzeltilmesi.",
+        "linked_finding_ids": [
+          "literature_positioning.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RESULTS",
+        "instruction": "Cronbach's Alpha ve McDonald's Omega katsayıları ile CFA uyum indeksleri için güven aralıkları (CI) raporlanmalıdır. Bu, tahminlerin hassasiyeti hakkında ek bilgi sağlayacaktır.",
+        "acceptance_check": "Raporlanan tüm güvenilirlik katsayıları ve model uyum indeksleri için güven aralıkları eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "'Kullanım ve Güven' boyutunun neden tek bir yapı olarak ele alındığını ve 'güven' kavramının diğer boyutlardan (Gizlilik Algısı, Destekleyicilik Algısı, Tıbbi Yeterlilik) teorik olarak nasıl ayrıştığını daha detaylı açıklayın. Bu boyutların birbirleriyle olan ilişkilerini ve ayrışmalarını destekleyen literatürden ek argümanlar sunun.",
+        "acceptance_check": "Ölçeğin boyutları arasındaki teorik ayrışmalar ve ilişkiler, özellikle 'Kullanım ve Güven' boyutu için, literatürden destekleyici argümanlarla daha net bir şekilde açıklanmış olmalıdır.",
+        "linked_finding_ids": [
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, MATERIALS AND METHODS",
+        "instruction": "Giriş ve yöntemler bölümlerindeki cümleleri gözden geçirerek tekrarları azaltın ve daha özlü ifadeler kullanın. Uzun cümleleri daha kısa ve net ifadelere ayırarak okuma akıcılığını artırın.",
+        "acceptance_check": "Metindeki tekrar eden ifadelerin ve gereksiz uzun cümlelerin %50 oranında azaltılması.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genç ve Eğitimli Örneklem Üzerinden Yapılan Genellemeler",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Özgün Katkı ve Mevcut Literatürle Farklılaşma Yetersizliği; Teorik Çerçevenin Yetersiz Entegrasyonu ve Uygulaması; AI-HC Tanımının Kapsamı ve Ölçek Maddeleri Arasındaki Uyum; Teorik Çerçeve ile Ölçek Boyutları Arasındaki Bağlantının Zayıflığı; Tanımlanan Boyutların Teorik Ayrışmasının Yetersiz Açıklanması",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a10",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8",
+          "introduction.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "contribution_originality.f0.a0",
+          "contribution_originality.f0.a1",
+          "contribution_originality.f1.a0",
+          "theoretical_framing.f0.a0",
+          "theoretical_framing.f0.a1",
+          "theoretical_framing.f1.a0",
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "MATERIALS AND METHODS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Örneklem Büyüklüğü Gerekçesi Yetersiz; Teorik Çerçevenin Yetersiz Entegrasyonu ve Uygulaması; Teorik Çerçeve ile Ölçek Boyutları Arasındaki Bağlantının Zayıflığı; Metodolojik Çalışma İçin Raporlama Kılavuzu Belirtilmemiş",
+        "anchor_ids": [
+          "materials_and_methods.a0",
+          "materials_and_methods.a1",
+          "materials_and_methods.a2",
+          "materials_and_methods.a3",
+          "materials_and_methods.a4",
+          "materials_and_methods.a5",
+          "materials_and_methods.a6",
+          "materials_and_methods.a7"
+        ],
+        "action_item_ids": [
+          "contribution_originality.f1.a0",
+          "quant.f1.a0",
+          "reporting_guideline_compliance.f0.a0",
+          "theoretical_framing.f0.a0",
+          "theoretical_framing.f0.a1"
+        ]
+      },
+      {
+        "section": "RESULTS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genç ve Eğitimli Örneklem Üzerinden Yapılan Genellemeler; Etki Büyüklüğü Raporlamasında Eksiklik; AI-HC Tanımının Kapsamı ve Ölçek Maddeleri Arasındaki Uyum; Belirsizlik Ölçüleri (Güven Aralıkları) Eksik",
+        "anchor_ids": [
+          "results.a0",
+          "results.a1",
+          "results.a2",
+          "results.a3",
+          "results.a4",
+          "results.a5",
+          "results.a6",
+          "results.a7"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "claim_evidence_alignment.f1.a0",
+          "quant.f5.a0",
+          "quant.f6.a0"
+        ]
+      },
+      {
+        "section": "DISCUSSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSIONS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Data analysis",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "data_analysis.a0",
+          "data_analysis.a1",
+          "data_analysis.a2"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Data Availability",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "data_availability.a0",
+          "data_availability.a1",
+          "data_availability.a2"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Ethical aspects of the research",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "ethical_aspects_of_the_research.a0",
+          "ethical_aspects_of_the_research.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Structural validity",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "structural_validity.a0"
+        ],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "quantitative",
+  "verdict": "major_revision"
+}

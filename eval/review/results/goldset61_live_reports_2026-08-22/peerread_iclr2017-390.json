@@ -1,0 +1,1630 @@
+{
+  "paper_id": "peerread:iclr2017-390",
+  "run_tag": "main",
+  "job_id": "f7f20893-91fa-422f-9c49-3f95d0d8df32",
+  "elapsed_s": 455.8,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "METACONTROL FOR ADAPTIVE IMAGINATION-BASED OPTIMIZATION Jessica B. Hamrick UC Berkeley & DeepMind",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "DISCUSSION",
+        "REFERENCES"
+      ],
+      "word_count": 11645,
+      "reference_count": 11,
+      "parse_confidence": 0.665,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces a compelling framework for adaptive computation in reinforcement learning, termed 'metacontrol for adaptive imagination-based optimization'. The core idea is a metacontroller that learns to decide how many optimization steps to perform and which internal model ('expert') to consult, effectively balancing task performance against computational cost. The experimental validation on a challenging physics-based task is thorough and convincingly demonstrates that the metacontroller can adapt its computational effort to task difficulty, outperforming fixed-policy agents. The work is original, well-motivated by cognitive science, and clearly presented. The primary weakness is a significant issue with the discoverability of the references, which requires correction. Overall, this is a strong contribution that merits publication.",
+    "strengths": [
+      {
+        "category": "Originality and Conceptual Contribution",
+        "points": [
+          "The metacontroller framework is a novel and elegant approach to the important problem of bounded rationality and computational efficiency in machine learning.",
+          "The concept of learning *how* to use a set of models (both how long to 'ponder' and which model to use) is a significant step beyond simply building better models.",
+          "The grounding of the approach in cognitive science and human metareasoning provides a strong conceptual foundation."
+        ]
+      },
+      {
+        "category": "Experimental Rigor and Analysis",
+        "points": [
+          "The 'spaceship' task provides a non-trivial testbed with tunable difficulty, allowing for a clear demonstration of the system's adaptive capabilities.",
+          "The systematic comparison against reactive and fixed-iteration agents provides a strong baseline and effectively highlights the benefits of the metacontroller.",
+          "Figure 4 is a particularly strong piece of evidence, clearly showing the learned policy's ability to allocate more computation to more difficult episodes."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The paper is exceptionally well-written, with the model, architecture, and training process explained clearly and without unnecessary jargon.",
+          "The figures are well-designed and effectively communicate the core concepts and results (e.g., Figure 1 provides an excellent overview of the architecture).",
+          "The extensive appendices provide a high level of detail, which is commendable and crucial for reproducibility.",
+          "The Discussion section is a highlight, effectively outlining promising future directions (e.g., connections to MCTS, augmenting model-free methods) and showcasing the broad applicability of the framework."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Referencing and Citation Integrity",
+        "points": [
+          "The reference list has significant discoverability issues. As per the evidence pack, 10 out of 11 references could not be automatically resolved by standard indexing services due to missing DOIs or incomplete metadata. This critically hinders the ability for readers to easily find and verify the cited works."
+        ]
+      },
+      {
+        "category": "Experimental Limitations",
+        "points": [
+          "The authors honestly report that the performance gains with multiple experts were mixed and did not substantially improve upon the single-expert metacontroller. While the provided explanation (related to the entropy term in REINFORCE) is plausible, it highlights a current limitation in the training strategy for more complex scenarios."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The manuscript's engagement with the literature is conceptually sound, but the reference list requires a major technical overhaul. As noted in the evidence pack, the vast majority of citations (10/11) could not be automatically resolved, hindering discoverability. You must ensure all references are complete with full metadata and, where possible, include DOIs or stable URLs (like arXiv links) to make them verifiable.",
+        "evidence_ref": "evidence_pack: Atıf bütünlüğü özeti: toplam=11, çözülen=1, bulunamayan=10"
+      },
+      {
+        "area": "experimental",
+        "comment": "The discussion of the two-expert metacontroller's performance (Section 3.3) is transparent. However, the conclusion that it 'did not yield much of an improvement' could be strengthened. You could either frame this more explicitly as a negative result (which is valuable in itself) or expand on the proposed solution. For instance, discussing how an annealing schedule for the entropy regularization parameter (λ) might address the issue would provide a more concrete path forward for future work.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The Discussion section is a highlight, effectively outlining promising future directions. The proposed connections to MCTS (where experts act as rollout policies) and the augmentation of model-free methods like DQN are particularly insightful and showcase the broad applicability of the metacontroller framework.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "The discussion on the mixed performance of the two-expert metacontroller (Sec 3.3) points to the entropy regularization term as a potential cause. Have you considered or experimented with alternative exploration strategies or an annealing schedule for the entropy weight (λ) to mitigate this issue and potentially unlock the benefits of having multiple experts?",
+      "The 'spaceship' task is an excellent proof-of-concept. Could you elaborate on the potential challenges in scaling this metacontroller framework to problems with much larger state/action spaces or a significantly larger and more heterogeneous pool of experts (e.g., >10)?"
+    ],
+    "overall_assessment": "This paper presents a high-quality, original, and important contribution to the field of reinforcement learning. The metacontroller framework for adaptively managing computational resources is a powerful idea, and the experiments provide strong evidence for its efficacy. The manuscript is clear, thorough, and a pleasure to read. The only required correction is technical but critical: the reference list must be fixed to adhere to modern standards of discoverability. Given that this is a straightforward correction, the paper is recommended for acceptance. The weaker results in the multi-expert case are a minor scientific point that is reported honestly and does not detract from the core contribution.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity info. [LLM'in kendi gerekçesi: The concept of a learned metacontroller that manages an imagination loop is a highly original and significant contribution to adaptive computation in RL.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.5,
+        "rationale": "The work addresses the critical and practical problem of computational efficiency in complex learning systems, which is of broad interest."
+      },
+      {
+        "key": "claims_supported",
+        "score": 5.59,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: The main claims are strongly supported by rigorous experiments. The score is slightly tempered by the mixed results in the multi-expert scenario, which the authors acknowledge.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The methodology, model architecture, and experimental design are sound and well-conceived.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is exceptionally clear, well-structured, and easy to follow. The detailed appendices further enhance its clarity and reproducibility.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.5,
+        "rationale": "The framework, insights, and provided dataset will be highly valuable to researchers in RL, cognitive modeling, and efficient AI."
+      },
+      {
+        "key": "contextualization",
+        "score": 7.0,
+        "rationale": "The paper does a good job of positioning the work conceptually, but the poor technical quality of the reference list (as noted in the evidence pack) hinders its practical contextualization."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the evidence pack, 10 out of 11 references could not be automatically resolved. This indicates significant discoverability issues that hinder verification and must be corrected.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missing seminal or mandatory citations in the field.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not report any statistical inconsistencies. I am assuming the analyses are correct, as no automated checks were provided to suggest otherwise.]"
+      }
+    ],
+    "final_score": 8.39,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 11,
+        "resolved": 1,
+        "not_found_in_index": 10,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Martı́n Abadi, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen, Craig Citro, Greg S. Corrado, Andy Davis, Jeffrey Dean, Matthieu Devin, et al. TensorFlow: Large-scale machine learning on heteroge- neous systems, 2015. URL http://tensorflow.org/.",
+          "title": null,
+          "authors": [],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.2,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Software available from tensorﬂow.org. Peter Battaglia, Razvan Pascanu, Matthew Lai, Danilo Jimenez Rezende, and Koray Kavukcuoglu. Interaction networks for learning about objects, relations and physics. Advances in Neural Information Processing Systems, 2016.",
+          "title": null,
+          "authors": [
+            "Software available from tensorﬂow"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Alex Graves. Adaptive computation time for recurrent neural networks. arXiv:1603.08983, 2016. 17 True sim. MLP IN Dataset # Ponder Steps αc αc αEIN αEMLP αc αEIN one planet 0 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 one planet 1 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 one planet 2 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 one planet 3 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 one planet 4 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 one planet 5 1e-03 1e-03 3e-03 5e-04 5e-04 1e-03 one planet 6 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 one planet 7 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 one planet 8 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 one planet 9 5e-04 1e-03 3e-03 5e-04 5e-04 1e-03 one planet 10 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 two planets 0 1e-03 1e-03 3e-03 1e-03 3e-03 3e-03 two planets 1 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 two planets 2 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 two planets 3 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 two planets 4 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 two planets 5 1e-03 1e-03 1e-03 1e-03 1e-03 1e-03 two planets 6 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 two planets 7 5e-04 1e-03 3e-03 5e-04 5e-04 1e-03 two planets 8 1e-03 1e-03 3e-03 5e-04 5e-04 1e-03 two planets 9 1e-03 1e-03 3e-03 5e-04 3e-03 3e-03 two planets 10 5e-04 1e-03 3e-03 1e-03 5e-04 1e-03 three planets 0 1e-03 1e-03 3e-03 1e-03 1e-03 3e-03 three planets 1 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 three planets 2 1e-03 5e-04 3e-03 1e-03 1e-03 1e-03 three planets 3 1e-03 1e-03 1e-03 5e-04 1e-03 1e-03 three planets 4 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 three planets 5 1e-03 1e-03 1e-03 5e-04 5e-04 1e-03 three planets 6 1e-03 5e-04 3e-03 5e-04 1e-03 1e-03 three planets 7 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 three planets 8 1e-03 1e-03 3e-03 1e-03 5e-04 1e-03 three planets 9 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 three planets 10 1e-03 5e-04 3e-03 1e-03 1e-03 1e-03 four planets 0 1e-03 5e-04 3e-03 5e-04 1e-03 1e-03 four planets 1 1e-03 5e-04 3e-03 1e-03 1e-03 1e-03 four planets 2 1e-03 5e-04 3e-03 1e-03 1e-03 1e-03 four planets 3 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 four planets 4 1e-03 5e-04 3e-03 1e-03 1e-03 1e-03 four planets 5 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 four planets 6 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 four planets 7 5e-04 1e-03 1e-03 1e-03 1e-03 1e-03 four planets 8 5e-04 1e-03 3e-03 1e-03 1e-03 1e-03 four planets 9 1e-03 1e-03 3e-03 1e-03 5e-04 1e-03 four planets 10 1e-03 1e-03 3e-03 1e-03 5e-04 1e-03 ﬁve planets 0 1e-03 1e-03 3e-03 5e-04 1e-03 3e-03 ﬁve planets 1 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 ﬁve planets 2 5e-04 1e-03 3e-03 5e-04 1e-03 1e-03 ﬁve planets 3 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 ﬁve planets 4 5e-04 1e-03 3e-03 5e-04 1e-03 1e-03 ﬁve planets 5 1e-03 5e-04 3e-03 1e-03 1e-03 1e-03 ﬁve planets 6 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 ﬁve planets 7 1e-03 1e-03 3e-03 1e-03 1e-03 3e-03 ﬁve planets 8 5e-04 1e-03 3e-03 1e-03 1e-03 3e-03 ﬁve planets 9 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 ﬁve planets 10 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 Table 1: Hyperparameter values for the iterative controller. αc refers to the learning rate for the controller and memory, while αEIN refers to the learning rate for the IN expert, and αEMLP refers to the learning rate for the MLP expert. 18 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 Cost of best iterative controller 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 Cost of managed controller True simulation expert Interaction network expert Figure 7: Cost of the best iterative controller compared to the managed controller. Each point represents the total cost of the best iterative agent under a particular value of τ (x-axis) versus the total cost achieved by the metacontroller trained with the same value of τ (y-axis). The best iterative agent was chosen by computing the cost for all the different number of ponder steps, and then choosing the whichever number of ponder stpes yielded the lowest cost (i.e., ﬁnding the minimum of the curves in Figure 3, top row). In almost all cases, the managed controller achieves a lower loss than the iterative controller: for the metacontroller with the IN expert, the cost is 11% lower than the iterative controller on average, and for the metacontroller with the true simulation expert, it is 15% lower on average. Nicholas Hay, Stuart J. Russell, David Tolpin, and Solomon Eyal Shimony. Selecting computations: Theory and applications. Proceedings of the 28th Conference on Uncertainty in Artiﬁcial Intelligence, 2012.",
+          "title": "Adaptive computation time for recurrent neural networks",
+          "authors": [
+            "Alex Graves"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.61 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Nicolas Heess, Gregory Wayne, David Silver, Tim Lillicrap, Tom Erez, and Yuval Tassa. Learning continuous control policies by stochastic value gradients. Advances in Neural Information Processing Systems, 2015.",
+          "title": "Learning continuous control policies by stochastic value gradients",
+          "authors": [
+            "Nicolas Heess, Gregory Wayne, David Silver, Tim Lillicrap, Tom Erez",
+            "Yuval Tassa"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.29 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Diederik Kingma and Jimmy Ba. Adam: A method for stochastic optimization. arXiv:1412.6980, 2014.",
+          "title": "Adam: A method for stochastic optimization",
+          "authors": [
+            "Diederik Kingma",
+            "Jimmy Ba"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W1522301498",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W1522301498; 'Adam: A Method for Stochastic Optimization').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Volodymyr Mnih, Adrià Puigdomènech Badia, Mehdi Mirza, Alex Graves, Timothy P. Lillicrap, Tim Harley, David Silver, and Koray Kavukcuoglu. Asynchronous methods for deep reinforcement learning. Proceedings of the 33rd International Conference on Machine Learning, 2016.",
+          "title": "Asynchronous methods for deep reinforcement learning",
+          "authors": [
+            "Koray Kavukcuoglu"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.66 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Razvan Pascanu, Tomas Mikolov, and Yoshua Bengio. On the difﬁculty of training recurrent neural networks. Proceedings of the 27st International Conference on Machine Learning, pp. 1310–1318, 2013.",
+          "title": "On the difﬁculty of training recurrent neural networks",
+          "authors": [
+            "Razvan Pascanu, Tomas Mikolov",
+            "Yoshua Bengio"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Stuart Russell and Eric Wefald. Principles of metareasoning. Artiﬁcial Intelligence, 49(1):361 – 395, 1991.",
+          "title": "Principles of metareasoning",
+          "authors": [
+            "Stuart Russell",
+            "Eric Wefald"
+          ],
+          "year": 1991,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.72 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Aäron van den Oord, Nal Kalchbrenner, Oriol Vinyals, Lasse Espeholt, Alex Graves, and Koray Kavukcuoglu. Conditional image generation with PixelCNN decoders. arXiv:1606.05328, 2016.",
+          "title": "Conditional image generation with PixelCNN decoders",
+          "authors": [
+            "Aäron van den Oord, Nal Kalchbrenner, Oriol Vinyals, Lasse Espeholt, Alex Graves",
+            "Koray Kavukcuoglu"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Ronald J. Williams. Simple statistical gradient-following algorithms for connectionist reinforcement learning. Machine Learning, 8(3-4):229–256, 1992.",
+          "title": "Simple statistical gradient-following algorithms for connectionist reinforcement learning",
+          "authors": [
+            "Ronald J. Williams"
+          ],
+          "year": 1992,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Ronald J. Williams and Jing Peng. Function optimization using connectionist reinforcement learning algo- rithms. Connection Science, 3(3):241–268, 1991. 19 True sim. MLP IN τ αc αm αc αm αEIN αEMLP αc αm αEIN 0.00000 5e-04 5e-04 5e-04 1e-03 3e-03 1e-03 5e-04 1e-04 1e-03 0.00004 1e-03 1e-04 1e-03 5e-05 3e-03 5e-04 1e-03 1e-03 1e-03 0.00006 5e-04 5e-05 1e-03 5e-04 3e-03 1e-03 5e-04 5e-05 1e-03 0.00011 1e-03 1e-04 1e-03 1e-04 3e-03 1e-03 5e-04 5e-04 1e-03 0.00017 5e-04 1e-04 1e-03 1e-03 3e-03 1e-03 1e-03 5e-05 1e-03 0.00028 1e-03 1e-03 1e-03 1e-03 3e-03 1e-03 5e-04 5e-05 1e-03 0.00045 1e-03 1e-03 5e-04 1e-04 3e-03 1e-03 1e-03 5e-05 1e-03 0.00073 1e-03 1e-04 1e-03 1e-04 3e-03 1e-03 1e-03 5e-05 1e-03 0.00119 1e-03 5e-05 1e-03 1e-04 5e-04 1e-03 5e-04 5e-04 1e-03 0.00193 1e-03 5e-05 1e-03 5e-05 3e-03 5e-04 1e-03 5e-05 1e-03 0.00314 1e-03 1e-04 1e-03 1e-04 3e-03 5e-04 1e-03 1e-04 1e-03 0.00510 1e-03 5e-05 1e-03 5e-05 3e-03 1e-03 1e-03 5e-05 1e-03 0.00828 1e-03 5e-04 1e-03 5e-04 3e-03 5e-04 1e-03 1e-03 1e-03 0.01344 1e-03 5e-05 1e-03 5e-05 3e-03 5e-04 5e-04 5e-05 1e-03 0.02182 1e-03 1e-04 1e-03 1e-04 3e-03 5e-04 1e-03 1e-04 1e-03 0.03543 1e-03 1e-04 1e-03 1e-04 3e-03 1e-03 1e-03 1e-04 1e-03 0.05754 1e-03 5e-04 1e-03 5e-04 3e-03 5e-04 1e-03 1e-04 1e-03 0.09343 1e-03 5e-05 1e-03 5e-05 3e-03 1e-03 1e-03 1e-04 1e-03 0.15171 1e-03 1e-04 1e-03 5e-04 3e-03 5e-04 1e-03 1e-04 1e-03 0.24634 1e-03 5e-05 1e-03 1e-03 3e-03 1e-03 1e-03 1e-03 1e-03 0.40000 1e-03 1e-03 1e-03 1e-03 3e-03 5e-04 1e-03 1e-03 1e-03 Table 2: Hyperparameter values for the metacontroller with a single expert. τ refers to the ponder cost, αc refers to the learning rate for the controller and memory, αm refers to the learning rate for the manager, αEIN refers to the learning rate for the IN expert, and αEMLP refers to the learning rate for the MLP expert. 20 IN + MLP τIN τMLP αc αm αEIN αEMLP 0.00000 0.00000 1e-03 5e-05 1e-03 1e-03 0.00000 0.00121 1e-03 5e-04 1e-03 1e-03 0.00000 0.00663 1e-03 1e-03 1e-03 1e-03 0.00000 0.03641 1e-03 5e-05 1e-03 1e-03 0.00000 0.20000 1e-03 5e-05 1e-03 1e-03 0.00000 0.30000 5e-04 1e-04 1e-03 1e-03 0.00000 0.40000 5e-04 5e-05 1e-03 1e-03 0.00121 0.00000 1e-03 1e-04 1e-03 1e-03 0.00121 0.00121 1e-03 5e-05 1e-03 1e-03 0.00121 0.00663 1e-03 1e-03 1e-03 1e-03 0.00121 0.03641 1e-03 1e-04 1e-03 1e-03 0.00121 0.20000 1e-03 5e-04 1e-03 1e-03 0.00121 0.30000 5e-04 5e-05 1e-03 1e-03 0.00121 0.40000 1e-03 1e-04 1e-03 1e-03 0.00663 0.00000 1e-03 1e-03 1e-03 1e-03 0.00663 0.00121 5e-04 5e-05 1e-03 1e-03 0.00663 0.00663 5e-04 1e-04 1e-03 1e-03 0.00663 0.03641 1e-03 1e-04 1e-03 1e-03 0.00663 0.20000 5e-04 5e-04 1e-03 1e-03 0.00663 0.30000 5e-04 1e-03 1e-03 1e-03 0.00663 0.40000 5e-04 1e-04 1e-03 1e-03 0.03641 0.00000 1e-03 5e-04 1e-03 1e-03 0.03641 0.00121 1e-03 5e-04 1e-03 1e-03 0.03641 0.00663 1e-03 1e-03 1e-03 1e-03 0.03641 0.03641 1e-03 5e-04 1e-03 1e-03 0.03641 0.20000 1e-03 1e-04 1e-03 1e-03 0.03641 0.30000 1e-03 5e-05 1e-03 1e-03 0.03641 0.40000 1e-03 1e-04 1e-03 1e-03 0.20000 0.00000 1e-03 5e-04 1e-03 1e-03 0.20000 0.00121 1e-03 5e-04 1e-03 1e-03 0.20000 0.00663 1e-03 5e-04 1e-03 1e-03 0.20000 0.03641 1e-03 1e-04 1e-03 1e-03 0.20000 0.20000 5e-04 1e-03 1e-03 1e-03 0.20000 0.30000 1e-03 5e-05 1e-03 1e-03 0.20000 0.40000 1e-03 5e-04 1e-03 1e-03 0.30000 0.00000 5e-04 1e-04 1e-03 1e-03 0.30000 0.00121 5e-04 1e-03 1e-03 1e-03 0.30000 0.00663 1e-03 1e-03 1e-03 1e-03 0.30000 0.03641 1e-03 5e-04 1e-03 1e-03 0.30000 0.20000 1e-03 1e-03 1e-03 1e-03 0.30000 0.30000 1e-03 1e-04 1e-03 1e-03 0.30000 0.40000 1e-03 5e-05 1e-03 1e-03 0.40000 0.00000 1e-03 1e-03 1e-03 1e-03 0.40000 0.00121 5e-04 1e-03 1e-03 1e-03 0.40000 0.00663 1e-03 5e-04 1e-03 1e-03 0.40000 0.03641 5e-04 1e-04 1e-03 1e-03 0.40000 0.20000 1e-03 1e-03 1e-03 1e-03 0.40000 0.30000 5e-04 1e-03 1e-03 1e-03 0.40000 0.40000 5e-04 5e-04 1e-03 1e-03 Table 3: Hyperparameter values for the metacontroller with two experts. τIN refers to the ponder cost for the interaction network expert, τMLP refers to the ponder cost for the MLP expert, αc refers to the learning rate for the controller and memory, αm refers to the learning rate for the manager, αEIN refers to the learning rate for the IN expert, and αEMLP refers to the learning rate for the MLP expert. 21",
+          "title": "Function optimization using connectionist reinforcement learning algo- rithms",
+          "authors": [
+            "Ronald J. Williams",
+            "Jing Peng"
+          ],
+          "year": 1991,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "353ae37a7ea8402532b48bb1fcd29c3deffad921f72fb5f679a589d266a3307e",
+          "request_time": "2026-08-22T17:52:40.654918Z",
+          "status": "ok",
+          "result_count": 1,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:52:41.457992Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "29976c21352ba29ecca156ac455b20ed8aca52ddff5a835c82acdd23555ea70b",
+          "request_time": "2026-08-22T17:52:42.371392Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:00:00.854397Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin başlığı, yazarların kurumsal bağlantıları (UC Berkeley & DeepMind) ve 'ABSTRACT', 'INTRODUCTION', 'DISCUSSION', 'REFERENCES' gibi standart bölüm başlıkları bir dergi makalesine işaret etmektedir. Çalışma, 'metacontroller' ve 'imagined internal simulations' gibi kavramlarla yeni bir optimizasyon yöntemi önermekte ve bu da hesaplamalı modellemeye dayalı bir çalışma tasarımını düşündürmektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 82.7,
+      "recommended_decision": "accept",
+      "confidence": 0.54625,
+      "top_fatal_risks": [
+        "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Eksikliği",
+        "Veri ve Kod Erişilebilirliğinde Kısmi Eksiklik"
+      ],
+      "one_sentence_diagnosis": "0 critical and 2 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.225,
+        "why_it_matters": "4 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.8400000000000001,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.75,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.82,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The reference list has significant formatting issues that prevent automated systems from resolving most citations. Specifically, 10 out of 11 references could not be automatically resolved by the provided evidence pack, indicating a critical lack of discoverability and verifiability. This needs to be corrected by ensuring all references are complete and include DOIs or stable URLs where possible.; The paper honestly reports that the performance gains with multiple experts were mixed and did not substantially improve upon the single-expert metacontroller. While the explanation regarding the entropy term in REINFORCE is plausible, the discussion could be strengthened by either explicitly framing this as a negative result (which is valuable) or by expanding on potential solutions, such as discussing how an annealing schedule for the entropy regularization parameter (λ) might address the issue. This would provide a more concrete path forward for future work.; The paper does not adequately address the potential challenges in scaling this metacontroller framework to problems with much larger state/action spaces or a significantly larger and more heterogeneous pool of experts (e.g., >10). While the 'spaceship' task is an excellent proof-of-concept, a discussion on scalability limitations and potential solutions would enhance the paper's practical implications.",
+        "key_objection": "The reference list has significant formatting issues that prevent automated systems from resolving most citations. Specifically, 10 out of 11 references could not be automatically resolved by the provided evidence pack, indicating a critical lack of discoverability and verifiability. This needs to be corrected by ensuring all references are complete and include DOIs or stable URLs where possible.",
+        "confidence": 0.6666666666666666,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "2 concern(s): The reference list has significant formatting issues that prevent automated systems from resolving most citations. This hinders discoverability and the ability for readers to easily find and verify the cited works. Specifically, 10 out of 11 references could not be automatically resolved by the system. Please ensure all references are complete, include full author lists, publication venues, years, and, where possible, DOIs or stable URLs (like arXiv links) to make them discoverable and verifiable. (e.g., references [1-4, 6-11] as per the evidence pack).; The discussion regarding the mixed performance of the two-expert metacontroller could be strengthened. While the honest reporting is appreciated, consider either framing this more explicitly as a valuable negative result or expanding on potential solutions. For instance, discussing how an annealing schedule for the entropy regularization parameter (λ) might address the issue would provide a more concrete path forward for future work.",
+        "key_objection": "The reference list has significant formatting issues that prevent automated systems from resolving most citations. This hinders discoverability and the ability for readers to easily find and verify the cited works. Specifically, 10 out of 11 references could not be automatically resolved by the system. Please ensure all references are complete, include full author lists, publication venues, years, and, where possible, DOIs or stable URLs (like arXiv links) to make them discoverable and verifiable. (e.g., references [1-4, 6-11] as per the evidence pack).",
+        "confidence": 0.5,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "3 concern(s): The statement 'most citations' is accurate, as 10 out of 11 references were not found in the index. However, the statement implies that the formatting issues *prevent* resolution, which is a strong claim. The evidence pack states 'not_found_in_index — kanıt: Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.' for several, and 'OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı' for others. This indicates a lack of discoverability rather than a definitive prevention of resolution. The phrasing should reflect that the references are difficult to resolve, not necessarily impossible due to formatting alone.; The claim 'The vast majority of citations are not formatted in a machine-readable way' is supported by the fact that 10 out of 11 references were not found in the index. The recommendation to include DOIs or stable URLs is also appropriate given the 'not_found_in_index' status.; The numerical claim '10 out of 11 references could not be automatically resolved' is directly supported by the 'Atıf bütünlüğü özeti' which states 'toplam=11, çözülen=1, bulunamayan=10'. The conclusion about 'significant formatting or discoverability issues' is a reasonable inference from this data.",
+        "key_objection": "The statement 'most citations' is accurate, as 10 out of 11 references were not found in the index. However, the statement implies that the formatting issues *prevent* resolution, which is a strong claim. The evidence pack states 'not_found_in_index — kanıt: Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.' for several, and 'OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı' for others. This indicates a lack of discoverability rather than a definitive prevention of resolution. The phrasing should reflect that the references are difficult to resolve, not necessarily impossible due to formatting alone.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "citation_integrity.f1",
+          "literature_positioning.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "literature_positioning.f0",
+          "research_question_fit.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper introduces a compelling framework for adaptive computation in reinforcement learning, termed 'metacontrol for adaptive imagination-based optimization'. The core idea is a metacontroller that learns to decide how many optimization steps to perform and which internal model ('expert') to consult, effectively balancing task performance against computational cost. The experimental validation on a challenging physics-based task is thorough and convincingly demonstrates that the metacontroller can adapt its computational effort to task difficulty, outperforming fixed-policy agents. The work is original, well-motivated by cognitive science, and clearly presented. The primary weakness is a significant issue with the discoverability of the references, which requires correction. Overall, this is a strong contribution that merits publication.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Tasarımın Açık Tanımı",
+        "summary": "Makale, önerilen metacontroller ajanının performansını değerlendirmek için açıkça tanımlanmış deneysel bir tasarım kullanmaktadır. Bu tasarım, farklı gezegen sayılarına sahip fizik tabanlı görevler üzerinde reaktif, yinelemeli ve metacontroller ajanlarının karşılaştırılmasını içerir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "To evaluate our metacontroller agent, we measured its ability to learn to solve a class of physics-based tasks that are surprisingly challenging. Each episode consisted of a scene which contained a spaceship and multiple planets (Figure 1b-c). The spaceship’s goal was to rendezvous with its mothership near the center of the system in exactly 11 time steps, but it only had enough fuel to ﬁre its thrusters once. ... We trained the reactive, iterative, and metacontroller agents on ﬁve versions of the spaceship task involving different numbers of planets."
+          }
+        ],
+        "reasoning_public": "Deneysel tasarımın net bir şekilde tanımlanması, çalışmanın iç geçerliliğini artırır ve okuyucuların metodolojiyi anlamasını kolaylaştırır. Bu, araştırmanın şeffaflığı ve tekrarlanabilirliği için önemlidir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Gerekçesi Eksikliği",
+        "summary": "Makalede, deneylerde kullanılan örneklem büyüklüğü (örneğin, her bir görev versiyonu için kaç bölüm veya deneme yapıldığı) veya bu örneklem büyüklüğünün seçimine ilişkin bir gerekçe (güç analizi veya hassasiyet rasyoneli) belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a1",
+            "section": "EXPERIMENTS",
+            "quote": "We trained the reactive, iterative, and metacontroller agents on ﬁve versions of the spaceship task involving different numbers of planets."
+          }
+        ],
+        "reasoning_public": "Örneklem büyüklüğünün gerekçelendirilmemesi, elde edilen sonuçların istatistiksel gücü ve genellenebilirliği hakkında belirsizlik yaratır. Yeterli güce sahip olmayan bir çalışma, gerçek etkileri tespit edememe riski taşırken, aşırı büyük bir örneklem gereksiz kaynak tüketimine yol açabilir. Bu eksiklik, bulguların güvenilirliğini ve yorumlanabilirliğini etkiler.",
+        "limitations": [
+          "Makalede, deneylerin tam olarak nasıl yürütüldüğüne dair detaylı bilgi eksikliği nedeniyle, örneklem büyüklüğünün tam olarak ne anlama geldiğini (örneğin, 'beş versiyon' ifadesinin her bir versiyon için kaç deneme içerdiği) kesin olarak belirlemek mümkün değildir.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Değişken Operasyonelleştirmenin Açıklığı",
+        "summary": "Makale, temel değişkenlerin (performans kaybı, hesaplama maliyeti, toplam maliyet, ponder adımları) operasyonel tanımlarını ve ölçüm yöntemlerini açıkça belirtmektedir. Özellikle performans kaybı (LP) ve toplam maliyet (LT) formülleriyle detaylandırılmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "model.a0",
+            "section": "MODEL",
+            "quote": "The performance loss LP is the (negative) utility of executing the control in the world, and is related to the optimal solution c∗∈C as follows: LP (x∗, x, c) = L(x∗, f(x, c)). ... If each optimizer has an associated computational cost τk, then N and k also exactly determine the computational resource loss of the optimization run, LR(N, k) = PN−1 n=1 τkn. The total loss is then the sum of LP and LR, each of which are functions of N and k, LT (x∗, x, N, k) = LP (x∗, x, c(N, k, x, x∗)) + LR(N, k) = L(x∗, f(x, πC(x∗, x, hN−1))) + N−1 X n=1 τkn"
+          }
+        ],
+        "reasoning_public": "Değişkenlerin açıkça operasyonelleştirilmesi, çalışmanın tekrarlanabilirliğini ve bulguların yorumlanabilirliğini artırır. Okuyucuların, araştırmacıların neyi ölçtüğünü ve nasıl ölçtüğünü anlamasına olanak tanır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Varsayım Testlerinin Eksikliği",
+        "summary": "Makalede, kullanılan istatistiksel analizler (örneğin, ortalama kayıpların karşılaştırılması) için temel varsayımların (örneğin, veri dağılımı, varyans homojenliği) test edildiğine dair herhangi bir bilgi bulunmamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "İstatistiksel testlerin varsayımlarının karşılanıp karşılanmadığının belirtilmemesi, sonuçların geçerliliği hakkında şüphe uyandırır. Varsayımların ihlali, yanlış sonuçlara veya yanlış yorumlamalara yol açabilir. Özellikle ortalama karşılaştırmaları gibi analizlerde bu varsayımlar kritik öneme sahiptir.",
+        "limitations": [
+          "Makalede kullanılan spesifik istatistiksel testler açıkça belirtilmediği için, hangi varsayımların test edilmesi gerektiği konusunda kesin bir liste sunmak zordur. Ancak, ortalama kayıpların karşılaştırılması gibi genel analizler için standart varsayımlar geçerlidir."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Metin ve Şekil Arasındaki Tutarlılık Eksikliği (Güven Aralığı Gösterimi)",
+        "summary": "Şekil 3'te metacontroller için hata çubukları %2.5 ve %97.5 güven aralıklarını gösterirken, metinde bu aralıkların nasıl hesaplandığına dair detaylı bilgi verilmemiştir. Ayrıca, bu aralıkların 'güven aralığı' olarak adlandırılması, geleneksel %95 güven aralığı tanımından farklı bir kullanım olabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a2",
+            "section": "EXPERIMENTS",
+            "quote": "The error bars (for the metacontroller) indicate 2.5% and 97.5% conﬁdence intervals."
+          },
+          {
+            "anchor_id": "figure_3_caption.a0",
+            "section": "Figure 3 Caption",
+            "quote": "The error bars (for the metacontroller) indicate 2.5% and 97.5% conﬁdence intervals."
+          }
+        ],
+        "reasoning_public": "Metin ve şekiller arasındaki tutarlılık, raporlama kalitesi için önemlidir. Güven aralıklarının nasıl hesaplandığının ve neyi temsil ettiğinin açıkça belirtilmesi, okuyucuların bulguları doğru bir şekilde yorumlamasını sağlar. %2.5 ve %97.5 aralıklarının 'güven aralığı' olarak adlandırılması, geleneksel istatistiksel terminolojiyle çelişebilir ve yanlış anlaşılmalara yol açabilir.",
+        "limitations": [
+          "Makalede, bu 'güven aralıklarının' tam olarak nasıl türetildiğine dair ek bilgi (örneğin, bootstrap, parametrik olmayan yöntemler) bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Etki Büyüklüğü Raporlamasında Eksiklikler",
+        "summary": "Makale, metacontroller'ın yinelemeli ajanlara göre maliyet avantajını yüzde olarak belirtse de (örneğin, %11 ve %15 daha düşük maliyet), bu etki büyüklükleri için belirsizlik ölçüleri (güven aralıkları) raporlanmamıştır. Ayrıca, diğer karşılaştırmalar için (örneğin, farklı uzmanların performans farkları) etki büyüklükleri genellikle nicel olarak sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "metacontroller_with_one_expert.a0",
+            "section": "METACONTROLLER WITH ONE EXPERT",
+            "quote": "The total costs of the IN and true simulation metacontrollers’ are 11% and 15% lower (median) than the best achievable costs of their corresponding iterative agents, respectively, across the range of τ values we tested (see Figure 7 in the Appendix for details)."
+          }
+        ],
+        "reasoning_public": "Etki büyüklüklerinin belirsizlik ölçüleriyle birlikte raporlanması, bulguların pratik önemini ve genellenebilirliğini değerlendirmek için kritik öneme sahiptir. Sadece yüzde değişimleri belirtmek, bu değişimlerin istatistiksel olarak ne kadar güvenilir olduğunu göstermez. Bu eksiklik, okuyucuların sonuçların gerçek dünya üzerindeki etkisini tam olarak anlamasını engeller.",
+        "limitations": [
+          "Makalede, bu yüzde değişimlerin hesaplandığı temel veriler veya istatistiksel testler hakkında yeterli detay bulunmadığından, güven aralıklarını yeniden hesaplamak mümkün değildir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Eksikliği",
+        "summary": "Makalede, deneyler sırasında ortaya çıkabilecek eksik verilerin (örneğin, başarısız denemeler, veri toplama hataları) veya aykırı değerlerin nasıl ele alındığına dair herhangi bir bilgi bulunmamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Eksik veri ve aykırı değerler, analiz sonuçlarını önemli ölçüde etkileyebilir. Bu tür durumların nasıl yönetildiğinin şeffaf bir şekilde açıklanması, çalışmanın güvenilirliğini ve tekrarlanabilirliğini artırır. Bu stratejilerin eksikliği, bulguların sağlamlığı hakkında belirsizlik yaratır.",
+        "limitations": [
+          "Makalede, eksik veri veya aykırı değerlerin varlığına dair herhangi bir belirti bulunmadığından, bu durumların gerçekten oluşup oluşmadığını doğrulamak mümkün değildir."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Nedensel Dilin Uygun Kullanımı",
+        "summary": "Makale, deneysel bir tasarım kullandığı için (farklı ajan türleri ve görev koşulları üzerinde kontrollü karşılaştırmalar), 'metacontroller'ın performansı 'artırdığı' veya 'maliyetleri düşürdüğü' gibi nedensel ifadeleri kullanmakta haklıdır. Bu ifadeler, kontrollü deneylerin doğası gereği uygun görülmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "This allowed the metacontroller to achieve a lower overall cost (task loss plus computational cost) than more traditional ﬁxed policy approaches. These results demonstrate that our approach is a powerful framework for using rich forward models for efﬁcient model-based reinforcement learning."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalar, değişkenler arasındaki nedensel ilişkileri incelemek için tasarlanmıştır. Bu nedenle, kontrollü deneylerden elde edilen bulguları açıklarken nedensel dilin kullanılması uygundur ve çalışmanın amacına hizmet eder.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Veri ve Kod Erişilebilirliğinde Kısmi Eksiklik",
+        "summary": "Makale, 'spaceship dataset' için bir GitHub bağlantısı sağlamaktadır, bu da veri erişilebilirliği açısından olumlu bir adımdır. Ancak, deneyleri tam olarak tekrarlamak için gerekli olan kodun (metacontroller uygulaması, eğitim prosedürleri vb.) erişilebilirliğine dair açık bir beyan veya bağlantı bulunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a3",
+            "section": "EXPERIMENTS",
+            "quote": "1Available from: https://www.github.com/deepmind/spaceship dataset"
+          }
+        ],
+        "reasoning_public": "Araştırmanın tekrarlanabilirliği, bilimsel şeffaflık ve güvenilirlik için temel bir gerekliliktir. Sadece veri setinin değil, aynı zamanda analiz ve modelleme kodlarının da erişilebilir olması, diğer araştırmacıların bulguları doğrulamasına ve üzerine inşa etmesine olanak tanır. Kodun eksikliği, çalışmanın tam olarak tekrarlanmasını engeller.",
+        "limitations": [
+          "Verilen GitHub bağlantısının sadece veri setini mi yoksa ilgili kodları da mı içerdiğini bağlantıya erişmeden kesin olarak belirlemek mümkün değildir. Ancak, metinde 'Available from: ... dataset' ifadesi sadece veri setine işaret etmektedir."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Ana Sonuçların Belirsizlik Ölçüleriyle Sunulmasında Eksiklik",
+        "summary": "Makale, ana sonuçları (örneğin, farklı ajanların performans kayıpları, metacontroller'ın maliyet avantajları) genellikle ortalama değerler veya yüzde değişimler olarak sunmaktadır. Ancak, bu sonuçların çoğu için güven aralıkları veya diğer belirsizlik ölçüleri eksiktir, bu da okuyucuların bulguların kesinliğini değerlendirmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "reactive_and_iterative_agents.a0",
+            "section": "REACTIVE AND ITERATIVE AGENTS",
+            "quote": "With the ﬁve planets dataset, it was only able to achieve a performance loss of 0.583 on average... In contrast, the iterative agent with the true simulation expert performed much better, reaching ceiling performance on the datasets with one and two planets, and achieving a performance loss of 0.0683 on the ﬁve planets dataset."
+          }
+        ],
+        "reasoning_public": "Ana sonuçların sadece nokta tahminleri olarak sunulması, bu tahminlerin ne kadar güvenilir veya değişken olduğunu göstermez. Güven aralıkları, bir etkinin gerçek değerinin hangi aralıkta olabileceğine dair önemli bilgi sağlar ve bulguların sağlamlığını değerlendirmek için kritik öneme sahiptir. Bu eksiklik, raporlama kalitesini düşürür.",
+        "limitations": [
+          "Makalede, bu sonuçların güven aralıklarını hesaplamak için gerekli olan varyans veya standart sapma gibi ek istatistiksel bilgiler bulunmamaktadır.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.0,
+        "title": "Metacontroller Yaklaşımının Özgünlüğü ve Katkısı",
+        "summary": "Makale, makine öğrenimi sistemlerinde hesaplama bütçesini optimize etmek için uyarlanabilir, hayal gücüne dayalı bir metacontroller yaklaşımı sunarak önemli bir özgün katkı sağlamaktadır. Bu yaklaşım, mevcut sabit politika yöntemlerine kıyasla daha verimli ve esnek bir çözüm sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Rather than learning a single, ﬁxed policy for solving all instances of a task, we introduce a metacontroller which learns to opti- mize a sequence of “imagined” internal simulations over predictive models of the world in order to construct a more informed, and more economical, solution."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "Our work’s key contribution is a framework for learning to optimize via a metacontroller which man- ages an adaptive, imagination-based optimization loop. This represents a hybrid RL system where a model-free metacontroller constructs its decisions using an actor policy to manage model-free and model-based experts."
+          }
+        ],
+        "reasoning_public": "Çalışma, geleneksel sabit hesaplama dizileri yerine, bir metacontroller aracılığıyla hangi hesaplamaların ve ne kadar yapılacağını seçen bir alternatif sunmaktadır. Bu, özellikle sınırlı hesaplama bütçesine sahip ajanlar için 'tek beden herkese uyar' yaklaşımının getirdiği verimsizlikleri gidermeyi amaçlamaktadır. Metacontroller'ın, görev zorluğuna göre hesaplama miktarını adapte etmesi ve uzmanları güvenilirlik ve maliyetlerine göre seçmesi, mevcut literatürdeki boşluğu dolduran özgün bir yaklaşımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.0,
+        "title": "Bilişsel Bilim ve Sinirbilimden İlham Alan Yaklaşım",
+        "summary": "Makale, insanların iç modellerini kontrol etmek ve hesaplama kaynaklarını tahsis etmek için kullandıkları meta-düzey akıl yürütme üzerine yapılan bilişsel bilim ve sinirbilim araştırmalarından ilham alarak, bu alandaki disiplinlerarası bir katkı sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "We draw inspiration from research in cognitive science and neuroscience which has studied how people use a meta-level of reasoning in order to control the use of their internal models and alloca- tion of their computational resources."
+          }
+        ],
+        "reasoning_public": "Çalışma, bilişsel bilim ve sinirbilimdeki insan meta-düzey akıl yürütme ve kaynak tahsisi araştırmalarından ilham alarak, bu prensipleri yapay zeka sistemlerine aktarma çabasıyla özgün bir bakış açısı sunmaktadır. Bu, sadece teknik bir yenilik değil, aynı zamanda farklı araştırma alanları arasında köprü kuran bir yaklaşımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f2",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.0,
+        "title": "Mevcut Çalışmalarla İlişkilendirme ve Farklılaştırma",
+        "summary": "Makale, kendi yaklaşımını klasik yapay zeka araştırmaları (sınırlı rasyonel metareasoning) ve yakın zamanda yapılan derin öğrenme çalışmaları (koşullu hesaplama, adaptif hesaplama süresi) ile açıkça ilişkilendirerek ve farklılaştırarak özgünlüğünü vurgulamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Our imagination-based optimization approach is related to classic artiﬁcial intelligence research on bounded-rational metareasoning (Horvitz, 1988; Russell & Wefald, 1991; Hay et al., 2012), which formulates a meta-level MDP for selecting computations to perform, where the computations have a known cost. We also build on classic work by Schmidhuber (1990a;b), which used an RL controller with a recurrent neural network (RNN) world model to evaluate and improve upon candidate controls online."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "Our work is also related to recent notions of “conditional computation” (Bengio, 2013; Bengio et al., 2015), which adaptively modiﬁes network structure online, and “adaptive computation time” (Graves, 2016) which allows for variable numbers of internal “pondering” iterations to optimize computational cost."
+          }
+        ],
+        "reasoning_public": "Makale, kendi çalışmasını ilgili literatürle (Horvitz, 1988; Russell & Wefald, 1991; Hay et al., 2012; Schmidhuber, 1990a;b; Bengio, 2013; Graves, 2016) net bir şekilde konumlandırarak, hem klasik hem de modern yaklaşımlardan nasıl ilham aldığını ve aynı zamanda kendi özgün katkısının ne olduğunu açıkça belirtmektedir. Bu, çalışmanın literatürdeki yerini sağlamlaştırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve İyi Tanımlanmış Araştırma Sorusu",
+        "summary": "Makale, metacontroller kullanarak adaptif, hayal gücüne dayalı optimizasyonun nasıl gerçekleştirilebileceği ve bunun geleneksel yaklaşımlara göre avantajları üzerine net bir araştırma sorusu sunmaktadır. Çalışmanın tasarımı ve deneyleri bu soruyu doğrudan ele almaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "Rather than learning a single, ﬁxed policy for solving all instances of a task, we introduce a metacontroller which learns to optimize a sequence of “imagined” internal simulations over predictive models of the world in order to construct a more informed, and more economical, solution."
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "Our work’s key contribution is a framework for learning to optimize via a metacontroller which manages an adaptive, imagination-based optimization loop."
+          }
+        ],
+        "reasoning_public": "Makalenin giriş bölümü, 'tek boyutlu' yaklaşımların sınırlılıklarını vurgulayarak ve metacontroller'ın bu sınırlılıkları nasıl aşabileceğini açıklayarak araştırma sorusunu etkili bir şekilde ortaya koymaktadır. Metacontroller'ın adaptif hesaplama ve uzman seçimi yetenekleri, çalışmanın temel odak noktasıdır ve deneyler bu yetenekleri doğrulamak üzere tasarlanmıştır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Güçlü Teorik Çerçeve ve Tutarlı Entegrasyon",
+        "summary": "Makale, metacontrol kavramını bilişsel bilim ve sinirbilimdeki ilgili araştırmalardan ilham alarak sağlam bir teorik çerçeveye oturtmaktadır. Bu çerçeve, önerilen yöntemin temelini oluşturmakta ve problem tanımı ile çözüm yaklaşımıyla tutarlı bir şekilde entegre edilmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "We draw inspiration from research in cognitive science and neuroscience which has studied how people use a meta-level of reasoning in order to control the use of their internal models and allocation of their computational resources. Evidence suggests that humans rely on rich generative models of the world for planning (Gläscher et al., 2010), control (Wolpert & Kawato, 1998), and reasoning (Hegarty, 2004; Johnson-Laird, 2010; Battaglia et al., 2013), that they adapt the amount of computation they perform with their model to the demands of the task (Hamrick et al., 2015), and that they trade off between multiple strategies of varying quality (Lee et al., 2014; Lieder et al., 2014; Lieder & Grifﬁths, in revision; Kool et al., in press)."
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "Our imagination-based optimization approach is related to classic artiﬁcial intelligence research on bounded-rational metareasoning (Horvitz, 1988; Russell & Wefald, 1991; Hay et al., 2012), which formulates a meta-level MDP for selecting computations to perform, where the computations have a known cost."
+          }
+        ],
+        "reasoning_public": "Makale, metacontrol'ün insanlarda iç modellerin kontrolü ve hesaplama kaynaklarının tahsisi ile nasıl ilişkili olduğunu açıklayarak, çalışmanın motivasyonunu ve teorik dayanağını güçlendirmektedir. Bu, sadece bir süs olmaktan öte, yöntemin neden bu şekilde tasarlandığını anlamak için kritik bir bağlam sunar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Metacontroller'ın RL Problemi Olarak Formülasyonu",
+        "summary": "Makale, toplam maliyeti (görev kaybı ve hesaplama maliyeti) optimize etme problemini bir takviyeli öğrenme (RL) problemi olarak yeniden formüle ederek, teorik çerçeveyi pratik bir çözümle başarılı bir şekilde birleştirmektedir. Bu formülasyon, metacontroller'ın tasarımını doğrudan yönlendirmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "model.a1",
+            "section": "MODEL",
+            "quote": "To optimize LT we recast it as an RL problem where the objective is to jointly optimize task perfor-mance and computational cost. As shown in Figure 1a, the metacontroller agent aM is comprised of a controller πC, a pool of experts {E1, . . . , EK}, a manager πM, and a memory µ."
+          }
+        ],
+        "reasoning_public": "LT'yi (toplam maliyet) optimize etmenin zorlukları (özyinelemeli bağımlılık ve türevlenemezlik) açıkça belirtildikten sonra, problemin bir RL problemi olarak ele alınması, teorik bir soyutlamadan ziyade, somut bir çözüm yolunu işaret etmektedir. Bu, teorik çerçevenin sadece bir açıklama değil, aynı zamanda yöntemin temelini oluşturan işlevsel bir bileşen olduğunu göstermektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Referansların Yüksek Oranda Çözülememesi",
+        "summary": "Makaledeki referansların büyük bir kısmı (11 referanstan 10'u) otomatik indeksleme sistemleri tarafından çözülememiştir. Bu durum, makalenin atıfta bulunduğu bazı çalışmaların doğrulanabilirliğini ve erişilebilirliğini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmaların doğrulanabilirliği ve şeffaflığı için atıfların kolayca erişilebilir ve doğrulanabilir olması önemlidir. Referansların indeks sistemlerinde bulunamaması, okuyucuların ve hakemlerin atıf yapılan kaynakları kontrol etmesini ve makalenin literatürdeki konumunu tam olarak anlamasını engelleyebilir. Bu durum, özellikle makalenin temel aldığı veya karşılaştırdığı çalışmaların incelenmesi gerektiğinde bir engel teşkil eder.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle bazı geçerli referanslar bulunamayabilir. Bu durum, referansların kendiliğinden hatalı olduğu anlamına gelmez, ancak doğrulanabilirlik açısından bir zorluk yaratır."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Çoklu Uzman Metacontroller'ın Sınırlı İyileşmesi Hakkındaki İddianın Kanıtı",
+        "summary": "Makale, çoklu uzman metacontroller'ın tek uzmanlı versiyona göre önemli bir iyileşme sağlamadığını belirtiyor, ancak bu durumun nedenleri ve gelecekteki araştırmalar için çıkarımları yeterince derinlemesine açıklanmıyor. Özellikle, 'entropy term'in etkisine dair daha fazla analiz faydalı olacaktır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_3_metacontroller_with_two_experts.a0",
+            "section": "3.3 METACONTROLLER WITH TWO EXPERTS",
+            "quote": "However, the metacontroller has more difﬁculty ﬁnding an optimal balance between the two experts on a step-by-step basis: the addition of a second expert did not yield much of an improvement over the single-expert metacontroller, with only 9% of the different versions (trained with different τ val- ues for the two experts) achieving a lower loss than the best iterative controller. We believe the mixed performance of the metacontroller with multiple experts is partially due to an entropy term which we used to encourage the manager’s policy to be non-deterministic (see Appendix B.4)."
+          }
+        ],
+        "reasoning_public": "Yazarlar, çoklu uzman metacontroller'ın performansının beklendiği kadar iyi olmadığını kabul ediyor. Ancak, bu sınırlı iyileşmenin temel nedenleri (örneğin, 'entropy term'in tam etkisi) ve bu bulgunun modelin genel uygulanabilirliği üzerindeki etkileri daha detaylı tartışılabilirdi. Bu durum, okuyucunun modelin sınırlarını ve gelecekteki geliştirme alanlarını tam olarak anlamasını zorlaştırıyor.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metacontroller'ın Adaptif Davranışının Güçlü Kanıtı",
+        "summary": "Makale, metacontroller'ın görevin zorluğuna göre hesaplama miktarını adaptif olarak ayarlayabildiğini ve farklı uzmanları maliyet ve güvenilirliklerine göre seçebildiğini gösteren güçlü deneysel kanıtlar sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "The metacontroller learned to adapt the amount of computation it performed to the difﬁculty of the task, and learned how to choose which experts to consult by factoring in both their reliability and indi- vidual computational resource costs."
+          },
+          {
+            "anchor_id": "3_2_metacontroller_with_one_expert.a0",
+            "section": "3.2 METACONTROLLER WITH ONE EXPERT",
+            "quote": "The metacontroller does not simply choose an average number of ponder steps to take per episode: it actually tailors this choice to the difﬁculty of each episode. Figure 4 shows how the number of ponder steps the IN metacontroller chooses in each episode depends on that episode’s difﬁculty, as measured by the episode’s loss under the reactive agent."
+          }
+        ],
+        "reasoning_public": "Yazarlar, metacontroller'ın hem tek uzmanlı hem de çok uzmanlı senaryolarda adaptif davranışını destekleyen net ve tutarlı deneysel sonuçlar sunmuştur. Özellikle, görevin zorluğuna göre ponder adımlarının ayarlanması ve uzman seçimindeki maliyet-güvenilirlik dengesi, modelin temel iddialarını güçlü bir şekilde desteklemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Oranda Çözülemeyen Referanslar",
+        "summary": "Makaledeki referansların büyük bir kısmı (11 referanstan 10'u) otomatik indekslerde (OpenAlex/Semantic Scholar) çözülememiştir. Bu durum, makaledeki iddiaların dayandığı literatürün doğrulanabilirliğini ve erişilebilirliğini olumsuz etkileyebilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda referansların kolayca doğrulanabilir olması, okuyucuların ve hakemlerin makaledeki iddiaların temelini oluşturan önceki çalışmaları incelemesi için kritik öneme sahiptir. Referansların indekslerde bulunamaması, bu doğrulanabilirlik sürecini zorlaştırır ve makalenin şeffaflığını azaltır. Özellikle 'TensorFlow' gibi yaygın bir yazılım kütüphanesine yapılan atıfta bile DOI veya çözülebilir bir başlık olmaması, referans listesinin oluşturulmasında dikkat eksikliği olduğunu düşündürmektedir.",
+        "limitations": [
+          "Otomatik indekslerin kapsam sınırlamaları nedeniyle bazı geçerli referanslar bulunamamış olabilir. Bu bulgu, referansların kendisinin geçersiz olduğu anlamına gelmez, ancak doğrulanabilirliklerinin düşük olduğunu gösterir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0",
+          "citation_integrity.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "citation_integrity.f1",
+        "dimension": "citation_integrity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Bir Referansın Başarılı Şekilde Çözülmesi",
+        "summary": "Makaledeki referanslardan biri ('Adam: A method for stochastic optimization') otomatik indekslerde başarıyla çözülmüştür.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Referansların doğru ve eksiksiz bir şekilde listelenmesi, akademik şeffaflık ve doğrulanabilirlik açısından önemlidir. Bu referansın başarılı bir şekilde çözülmesi, referans listesinin bir kısmının bu standartlara uygun olduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Belirli Raporlama Kılavuzlarına Atıfta Bulunulmaması",
+        "summary": "Makale, metodoloji ve sonuçların sunumu açısından genel olarak net olsa da, makine öğrenimi veya yapay zeka araştırmaları için özel olarak tasarlanmış herhangi bir raporlama kılavuzuna (örneğin, ML-RPT, AI-RPT) atıfta bulunmamaktadır. Bu durum, çalışmanın belirli standartlara göre kapsamlı bir şekilde raporlandığına dair güvenceyi azaltmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makine öğrenimi ve yapay zeka alanlarında, deneylerin ve modellerin şeffaflığını ve tekrarlanabilirliğini artırmak amacıyla çeşitli raporlama kılavuzları geliştirilmiştir. Bu kılavuzlara uyum, okuyucuların çalışmayı daha iyi anlamasına, değerlendirmesine ve yeniden üretmesine yardımcı olur. Makalede bu tür bir kılavuza atıfta bulunulmaması, potansiyel olarak önemli detayların gözden kaçırılmasına veya standartlaştırılmış bir formatta sunulmamasına yol açabilir.",
+        "limitations": [
+          "Makine öğrenimi alanında henüz evrensel olarak kabul görmüş tek bir raporlama kılavuzu bulunmamaktadır, bu da yazarların hangi kılavuzu seçeceği konusunda belirsizlik yaratabilir."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metodoloji ve Deneysel Kurulumun Detaylı Açıklaması",
+        "summary": "Makale, metodoloji ve deneysel kurulumu (model mimarileri, eğitim prosedürleri, hiperparametreler ve değerlendirme metrikleri dahil) oldukça detaylı bir şekilde açıklamaktadır. Bu, çalışmanın tekrarlanabilirliği ve anlaşılması açısından güçlü bir yön teşkil etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_3_neural_network_implementation.a0",
+            "section": "2.3 NEURAL NETWORK IMPLEMENTATION",
+            "quote": "We use standard deep learning building blocks, e.g., multi-layer perceptrons (MLPs), RNNs, etc., to implement the controller, experts, manager, and memory, because they are effective at approximating complex functions via gradient-based and reinforcement learning, but other approaches could be used as well. In particular, we constructed our implementation to be able to make control decisions in complex dynamical systems, such as controlling the movement of a spaceship (Figure 1b-c), though we note that our approach is not limited to such physical reasoning tasks. Here we used mean-squared error (MSE) for our L and Adam (Kingma & Ba, 2014) as the training optimizer."
+          },
+          {
+            "anchor_id": "3_experiments.a0",
+            "section": "3 EXPERIMENTS",
+            "quote": "We trained the reactive, iterative, and metacontroller agents on ﬁve versions of the spaceship task involving different numbers of planets.1 The iterative agent was trained to take anywhere from zero (i.e., the reactive agent) to ten ponder steps. The metacontroller was allowed to take a maximum of ten ponder steps. We considered three different experts which were all differentiable: an MLP expert which used an MLP to predict the ﬁnal location of the spaceship, an IN expert which used an interaction network (Battaglia et al., 2016) to predict the full trajectory of the spaceship, and a true simulation expert which was the same as the world model."
+          }
+        ],
+        "reasoning_public": "Makine öğrenimi araştırmalarında, metodolojinin ve deneysel kurulumun şeffaf ve eksiksiz bir şekilde raporlanması, sonuçların doğrulanabilirliği ve çalışmanın bilimsel değeri için kritik öneme sahiptir. Yazarın bu detaylara verdiği önem, çalışmanın kalitesini artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f2",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Veri Seti ve Kod Erişilebilirliği",
+        "summary": "Makale, kullanılan veri setinin GitHub üzerinden erişilebilir olduğunu belirtmektedir. Bu, çalışmanın tekrarlanabilirliğini ve şeffaflığını artıran önemli bir olumlu özelliktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_experiments.a1",
+            "section": "3 EXPERIMENTS",
+            "quote": "Available from: https://www.github.com/deepmind/spaceship dataset"
+          }
+        ],
+        "reasoning_public": "Açık bilim ve tekrarlanabilirlik ilkeleri doğrultusunda, araştırmacıların kullandıkları veri setlerini ve kodları erişilebilir kılmaları teşvik edilmektedir. Bu, diğer araştırmacıların sonuçları doğrulamasına, üzerine inşa etmesine ve çalışmanın etkisini artırmasına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Kod ve Veri Paylaşımı Beyanının Eksikliği",
+        "summary": "Makale, çalışmada kullanılan kod veya verilerin erişilebilirliği hakkında net bir beyan içermemektedir. Bu durum, araştırmanın tekrar üretilebilirliğini ve şeffaflığını olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmaların tekrar üretilebilirliği, bulguların doğrulanması ve gelecekteki çalışmalar için temel oluşturması açısından kritik öneme sahiptir. Kod ve veri paylaşımına ilişkin açık bir beyanın olmaması, diğer araştırmacıların sonuçları bağımsız olarak yeniden üretmesini veya üzerine inşa etmesini zorlaştırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Veri Seti Erişilebilirliği Beyanı",
+        "summary": "Makale, 'spaceship dataset' adlı veri setinin GitHub üzerinden erişilebilir olduğunu belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a4",
+            "section": "EXPERIMENTS",
+            "quote": "Available from: https://www.github.com/deepmind/spaceship dataset"
+          }
+        ],
+        "reasoning_public": "Veri setlerinin açıkça belirtilmesi ve erişilebilir kılınması, araştırmanın şeffaflığını ve tekrar üretilebilirliğini artırır. Bu, diğer araştırmacıların çalışmayı doğrulamasına ve genişletmesine olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f2",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Onay ve İnsan Denek Beyanının Yokluğu",
+        "summary": "Makale, insan deneklerle yapılan bir çalışma içermediği için etik onay veya rıza beyanına ihtiyaç duymamaktadır. Bu tür bir çalışmanın olmaması, etik inceleme gerekliliğini ortadan kaldırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makine öğrenimi ve optimizasyon üzerine yapılan bu tür teorik ve deneysel çalışmalar genellikle insan denek katılımı gerektirmez. Bu nedenle, etik onay veya rıza beyanının olmaması beklenen bir durumdur ve bir eksiklik olarak değerlendirilmez.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Bölüm Başlıkları ve Akışında Detay Eksikliği",
+        "summary": "Makalenin ana bölümleri (ABSTRACT, INTRODUCTION, DISCUSSION, REFERENCES) genel bir akış sağlasa da, 'MODEL' ve 'EXPERIMENTS' gibi kritik bölümlerin alt başlıkları ana gövdede belirtilmemiş, bu da okuyucunun makalenin yapısını ve argüman akışını takip etmesini zorlaştırıyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "g_vde_metni.a0",
+            "section": "Gövde metni",
+            "quote": "2 MODEL\n2.1 OPTIMIZING PERFORMANCE\n2.2 OPTIMIZING COMPUTATIONAL COST\n2.3 NEURAL NETWORK IMPLEMENTATION\n3 EXPERIMENTS\n3.1 REACTIVE AND ITERATIVE AGENTS\n3.2 METACONTROLLER WITH ONE EXPERT\n3.3 METACONTROLLER WITH TWO EXPERTS"
+          }
+        ],
+        "reasoning_public": "Makalenin ana argümanlarını ve metodolojisini anlamak için okuyucunun belirli bölümlere hızlıca erişebilmesi ve bu bölümlerin kendi içindeki mantıksal akışı görebilmesi önemlidir. Alt başlıkların eksikliği, okuyucunun metin içinde kaybolmasına ve ana noktaları kaçırmasına neden olabilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Giriş Bölümünde Genel Akışın Netliği",
+        "summary": "Giriş bölümü, çalışmanın motivasyonunu ve temel katkısını net bir şekilde ortaya koymaktadır. Metacontroller yaklaşımının neden önemli olduğunu ve önceki çalışmalarla ilişkisini iyi bir şekilde açıklamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "While there have been signiﬁcant recent advances in deep reinforcement learning (Mnih et al., 2015; Silver et al., 2016) and control (Lillicrap et al., 2015; Levine et al., 2016), most efforts train a network that performs a ﬁxed sequence of computations. Here we introduce an alternative in which an agent uses a metacontroller to choose which, and how many, computations to perform."
+          },
+          {
+            "anchor_id": "introduction.a8",
+            "section": "INTRODUCTION",
+            "quote": "Our work’s key contribution is a framework for learning to optimize via a metacontroller which man-ages an adaptive, imagination-based optimization loop."
+          }
+        ],
+        "reasoning_public": "Güçlü bir giriş bölümü, okuyucunun makalenin amacını ve önemini hızlıca kavramasını sağlar. Bu makalede giriş, konuyu bağlama oturtma ve ana fikri sunma konusunda başarılıdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Şekil ve Metin Entegrasyonu",
+        "summary": "Şekil 1, metacontroller mimarisini ve görevini görsel olarak başarılı bir şekilde açıklamaktadır. Metin içinde bu şekle yapılan atıflar ve açıklamalar, görselin anlaşılmasına katkıda bulunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "model.a2",
+            "section": "MODEL",
+            "quote": "As shown in Figure 1a, the metacontroller agent aM is comprised of a controller πC, a pool of experts {E1, . . . , EK}, a manager πM, and a memory µ."
+          },
+          {
+            "anchor_id": "experiments.a5",
+            "section": "EXPERIMENTS",
+            "quote": "Each episode consisted of a scene which contained a spaceship and multiple planets (Figure 1b-c)."
+          }
+        ],
+        "reasoning_public": "Görsel materyallerin metinle uyumlu ve açıklayıcı olması, karmaşık sistemlerin veya kavramların okuyucu tarafından daha kolay anlaşılmasını sağlar. Bu makalede şekil ve metin entegrasyonu iyi bir şekilde yapılmıştır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale, DeepMind ve UC Berkeley'nin Araştırma Alanlarıyla Uyumlu",
+        "summary": "Makale, DeepMind ve UC Berkeley'nin yapay zeka ve makine öğrenimi alanlarındaki araştırma odaklarıyla güçlü bir uyum sergilemektedir. Bu durum, makalenin bu tür kurumların desteklediği konferanslar veya dergiler için uygun olduğunu göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "Jessica B. Hamrick UC Berkeley & DeepMind\nAndrew J. Ballard DeepMind\nRazvan Pascanu DeepMind\nOriol Vinyals DeepMind\nNicolas Heess DeepMind\nPeter W. Battaglia DeepMind"
+          },
+          {
+            "anchor_id": "introduction.a9",
+            "section": "INTRODUCTION",
+            "quote": "While there have been signiﬁcant recent advances in deep reinforcement learning (Mnih et al., 2015; Silver et al., 2016) and control (Lillicrap et al., 2015; Levine et al., 2016), most efforts train a network that performs a ﬁxed sequence of computations. Here we introduce an alternative in which an agent uses a metacontroller to choose which, and how many, computations to perform."
+          }
+        ],
+        "reasoning_public": "Makalenin yazarları DeepMind ve UC Berkeley'den olup, konu (metacontrol, adaptif optimizasyon, derin pekiştirmeli öğrenme) bu kurumların temel araştırma alanlarıyla örtüşmektedir. Bu tür kurumların yayınları genellikle yüksek profilli yapay zeka ve makine öğrenimi konferansları veya dergilerinde yer alır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f1",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Konu ve Yöntemler Makine Öğrenimi Konferansları İçin Uygun",
+        "summary": "Makale, derin pekiştirmeli öğrenme, metacontrol ve adaptif optimizasyon gibi güncel ve önemli makine öğrenimi konularını ele almaktadır. Kullanılan yöntemler (RNN'ler, LSTM'ler, etkileşim ağları) ve deneysel kurulum (fizik tabanlı simülasyonlar) makine öğrenimi alanındaki konferans ve dergilerin tipik kapsamına girmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "The metacontroller component is a model-free reinforcement learning agent, which decides both how many iterations of the optimization procedure to run, as well as which model to consult on each iteration."
+          },
+          {
+            "anchor_id": "introduction.a10",
+            "section": "INTRODUCTION",
+            "quote": "Our work’s key contribution is a framework for learning to optimize via a metacontroller which manages an adaptive, imagination-based optimization loop. This represents a hybrid RL system where a model-free metacontroller constructs its decisions using an actor policy to manage model-free and model-based experts."
+          },
+          {
+            "anchor_id": "2_3_neural_network_implementation.a1",
+            "section": "2.3 NEURAL NETWORK IMPLEMENTATION",
+            "quote": "We use standard deep learning building blocks, e.g., multi-layer perceptrons (MLPs), RNNs, etc., to implement the controller, experts, manager, and memory, because they are effective at approximating complex functions via gradient-based and reinforcement learning, but other approaches could be used as well."
+          }
+        ],
+        "reasoning_public": "Makale, makine öğrenimi topluluğunun ilgisini çeken 'metacontrol', 'adaptif optimizasyon', 'derin pekiştirmeli öğrenme' gibi anahtar kavramları kullanmakta ve bu alandaki güncel tartışmalara katkıda bulunmaktadır. Deneysel bölümdeki karmaşık dinamik sistemler üzerindeki uygulamalar, bu tür platformlarda sıkça görülen zorlu problemlerin çözümüne odaklanmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Deneylerde kullanılan her bir koşul için (örneğin, farklı gezegen sayıları ve ajan türleri için) kaç deneme veya bölümün yürütüldüğünü açıkça belirtin. Ayrıca, bu örneklem büyüklüğünün seçimine ilişkin bir gerekçe (örneğin, güç analizi sonuçları veya belirli bir hassasiyet seviyesine ulaşma hedefi) ekleyin.",
+        "acceptance_check": "Örneklem büyüklüğü ve gerekçesi, her bir deneysel koşul için açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Deneyler sırasında eksik veri veya aykırı değerlerin ortaya çıkıp çıkmadığını ve eğer çıktıysa, bunların nasıl tespit edildiğini ve ele alındığını (örneğin, dışlama, imputasyon, dönüştürme) açıklayın.",
+        "acceptance_check": "Eksik veri ve aykırı değer işleme stratejileri, metodoloji bölümünde açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Deneylerde kullanılan tüm kodları (metacontroller uygulaması, eğitim prosedürleri, analiz betikleri vb.) açık kaynak bir depoda (örneğin, GitHub) erişilebilir hale getirin ve makalede bu depoya bir bağlantı sağlayın.",
+        "acceptance_check": "Tüm ilgili kodlara erişim sağlayan bir bağlantı makalede mevcut olmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Referans listesindeki her bir öğe için DOI, ISBN veya tam yayın bilgileri (konferans/dergi adı, cilt, sayı, sayfa aralığı) gibi benzersiz tanımlayıcıları ekleyin. Özellikle 'not_found_in_index' olarak işaretlenen referanslar için bu bilgilerin eksiksiz olduğundan emin olun.",
+        "acceptance_check": "Tüm referanslar için DOI veya tam yayın bilgileri eklenmiş olmalı ve otomatik indekslerde çözülebilirlik oranı önemli ölçüde artırılmalıdır.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "3.3 METACONTROLLER WITH TWO EXPERTS",
+        "instruction": "Çoklu uzman metacontroller'ın sınırlı performans iyileşmesinin nedenleri üzerine daha derinlemesine bir analiz ekleyin. Özellikle, 'entropy term'in etkisini ve bunun sonuçlarını daha ayrıntılı açıklayın. Bu sınırlamanın modelin genel uygulanabilirliği üzerindeki etkilerini ve gelecekteki araştırmalar için potansiyel yönleri tartışın.",
+        "acceptance_check": "Çoklu uzman modelinin sınırlamaları ve nedenleri hakkında daha kapsamlı bir açıklama ve gelecekteki araştırma yönleri eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "DISCUSSION",
+        "instruction": "Makaleye, kullanılan kod ve verilerin (örneğin, bir GitHub deposu veya veri arşivi aracılığıyla) nasıl erişilebileceğini belirten bir bölüm ekleyin. Eğer kod veya veri paylaşılamıyorsa, bunun nedenlerini açıklayın.",
+        "acceptance_check": "Makalede kod ve veri paylaşımına ilişkin açık bir beyan bulunmalıdır.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Çözülemeyen referanslar için DOI, URL veya tam yayın bilgileri gibi daha eksiksiz ve güncel bilgiler sağlayın. Özellikle 'not_found_in_index' olarak işaretlenen referansların her biri için bu bilgileri kontrol edin ve güncelleyin.",
+        "acceptance_check": "Tüm referansların OpenAlex veya Semantic Scholar gibi akademik indekslerde çözülebilir olması veya tam ve doğru yayın bilgilerinin sağlanması.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Kullanılan istatistiksel analizler için (örneğin, ortalama kayıpların karşılaştırılması) ilgili varsayımların (normal dağılım, varyans homojenliği vb.) nasıl test edildiğini ve sonuçlarını açıklayın. Varsayımların ihlal edildiği durumlarda uygulanan düzeltmeleri veya alternatif analizleri belirtin.",
+        "acceptance_check": "Varsayım testleri ve sonuçları, analiz planı bölümünde veya ilgili deney bölümünde açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Raporlanan tüm etki büyüklükleri (örneğin, yüzde değişimler, performans farkları) için güven aralıklarını veya diğer uygun belirsizlik ölçülerini ekleyin. Özellikle '11% ve 15% daha düşük maliyet' ifadeleri için güven aralıkları belirtilmelidir.",
+        "acceptance_check": "Tüm ana etki büyüklükleri, ilgili belirsizlik ölçüleriyle birlikte raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Tüm ana sonuçlar (ortalama performans kayıpları, maliyet avantajları vb.) için güven aralıklarını veya standart hataları raporlayın. Özellikle metinde belirtilen sayısal değerlerin yanına bu belirsizlik ölçülerini ekleyin.",
+        "acceptance_check": "Tüm ana sayısal sonuçlar, ilgili belirsizlik ölçüleriyle birlikte raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "MODEL, EXPERIMENTS",
+        "instruction": "Makalenin ana gövdesinde 'MODEL' ve 'EXPERIMENTS' gibi ana bölümlerin alt başlıklarını açıkça belirtin. Bu, okuyucunun makalenin yapısını daha kolay anlamasına ve belirli bilgilere daha hızlı ulaşmasına yardımcı olacaktır.",
+        "acceptance_check": "Makale metninde 'MODEL' ve 'EXPERIMENTS' bölümlerinin altında yer alan alt başlıkların (örn. '2.1 OPTIMIZING PERFORMANCE') görünür olması.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Eğer bazı referanslar (örneğin, arXiv ön baskıları veya workshop bildirileri) indekslerde doğal olarak bulunamıyorsa, bu durumun okuyucuya açıklanması ve mümkünse doğrudan erişim bağlantılarının (URL) sağlanması faydalı olacaktır.",
+        "acceptance_check": "İndekslenemeyen referanslar için açıklama veya doğrudan bağlantı sağlanmış olmalı.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f4.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Şekil 3'teki hata çubuklarının neyi temsil ettiğini (örneğin, %95 güven aralığı mı, yoksa belirli bir dağılımın %2.5 ve %97.5 persentilleri mi) metinde daha açık bir şekilde belirtin. Eğer bunlar geleneksel güven aralıkları değilse, terminolojiyi düzeltin veya hesaplama yöntemini detaylandırın.",
+        "acceptance_check": "Hata çubuklarının anlamı ve hesaplama yöntemi metinde açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f4"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Makine öğrenimi veya yapay zeka araştırmaları için geçerli bir raporlama kılavuzunu (örneğin, ML-RPT, AI-RPT) belirleyin ve makalenin bu kılavuzun temel öğelerine uygunluğunu değerlendirin. Uygunluk durumunda, bu bilgiyi 'Giriş' veya 'Metodoloji' bölümüne ekleyin.",
+        "acceptance_check": "Makalede, belirli bir raporlama kılavuzuna atıfta bulunulduğu ve çalışmanın bu kılavuzun temel prensiplerine uygun olarak raporlandığına dair bir ifade eklendi.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a10",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8",
+          "introduction.a9"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "DISCUSSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "2.3 NEURAL NETWORK IMPLEMENTATION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_3_neural_network_implementation.a0",
+          "2_3_neural_network_implementation.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3 EXPERIMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_experiments.a0",
+          "3_experiments.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.2 METACONTROLLER WITH ONE EXPERT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_2_metacontroller_with_one_expert.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.3 METACONTROLLER WITH TWO EXPERTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Çoklu Uzman Metacontroller'ın Sınırlı İyileşmesi Hakkındaki İddianın Kanıtı",
+        "anchor_ids": [
+          "3_3_metacontroller_with_two_experts.a0"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Veri ve Kod Erişilebilirliğinde Kısmi Eksiklik",
+        "anchor_ids": [
+          "experiments.a0",
+          "experiments.a1",
+          "experiments.a2",
+          "experiments.a3",
+          "experiments.a4",
+          "experiments.a5"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f4.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "Figure 3 Caption",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "figure_3_caption.a0"
+        ],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ]
+      },
+      {
+        "section": "Gövde metni",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Bölüm Başlıkları ve Akışında Detay Eksikliği",
+        "anchor_ids": [
+          "g_vde_metni.a0"
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "METACONTROLLER WITH ONE EXPERT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü Raporlamasında Eksiklikler",
+        "anchor_ids": [
+          "metacontroller_with_one_expert.a0"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "MODEL",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "model.a0",
+          "model.a1",
+          "model.a2"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "REACTIVE AND ITERATIVE AGENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Ana Sonuçların Belirsizlik Ölçüleriyle Sunulmasında Eksiklik",
+        "anchor_ids": [
+          "reactive_and_iterative_agents.a0"
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

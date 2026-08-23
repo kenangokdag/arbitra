@@ -1,0 +1,1908 @@
+{
+  "paper_id": "peerread:iclr2017-351",
+  "run_tag": "main",
+  "job_id": "07cf4aa8-94ab-4177-a5c2-9417540cb7ec",
+  "elapsed_s": 472.3,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "DIET NETWORKS: THIN PARAMETERS FOR FAT GENOMICS Adriana Romero∗, Pierre Luc Carrier∗, Akram Erraqabi, Tristan Sylvain,",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "METHOD",
+        "RESULTS",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 5841,
+      "reference_count": 24,
+      "parse_confidence": 0.705,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces 'Diet Networks,' a novel neural network parameterization designed to address the challenge of high-dimensional data where the number of features vastly exceeds the number of samples (N ≪ Nd). This is a common problem in genomics, particularly with SNP data. The core idea is to use a secondary 'parameter prediction network' to generate the weights for the first, very large ('fat') layer of a primary classifier. This secondary network takes a low-dimensional embedding of each feature as input, effectively treating the weight generation for each feature as a sub-task in a multi-task learning framework. The authors demonstrate on the 1000 Genomes ancestry prediction task that their method significantly reduces the number of model parameters while also achieving a lower misclassification error compared to standard MLP and PCA-based baselines.",
+    "strengths": [
+      {
+        "category": "Novelty and Importance",
+        "points": [
+          "The application of a parameter-prediction architecture to the specific problem of 'fat genomics' is both novel and highly relevant. It directly tackles a well-known bottleneck in applying deep learning to precision medicine.",
+          "The conceptual framing of the problem—viewing the input features themselves as tasks for which parameters must be generated—is an insightful way to leverage meta-learning ideas for dimensionality reduction."
+        ]
+      },
+      {
+        "category": "Technical Soundness and Experimental Rigor",
+        "points": [
+          "The experimental evaluation is thorough. The use of the 1000 Genomes dataset is appropriate and challenging. The comparison against both a standard deep learning baseline (Basic MLP) and a domain-standard method (PCA) provides a strong benchmark.",
+          "The exploration of multiple feature embedding strategies (random projection, histograms, SNP2Vec, end-to-end) adds depth to the analysis and demonstrates the robustness of the framework.",
+          "The results are compelling, showing a dramatic reduction in parameters alongside an improvement in performance, which strongly supports the paper's central claims.",
+          "The finding that including a reconstruction loss (γ > 0) consistently improves model performance is a valuable practical insight."
+        ]
+      },
+      {
+        "category": "Clarity and Reproducibility",
+        "points": [
+          "The paper is well-written and clearly structured. The core architectural idea is explained effectively, aided by the helpful diagrams in Figure 1.",
+          "The authors' commitment to reproducibility by providing a link to their code is commendable and adds significant value to the community."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Bibliographic Hygiene",
+        "points": [
+          "A significant number of references in the bibliography could not be automatically resolved against standard academic indexes. The evidence pack confirms that 15 out of 24 references were not found. This suggests issues with formatting, incomplete entries, or reliance on non-archival sources. This needs to be corrected for the final version to ensure proper citation linking and archival quality."
+        ]
+      },
+      {
+        "category": "Analysis of Results",
+        "points": [
+          "The paper notes that the end-to-end learned embedding performed worse than the basic model, attributing it to a harder optimization problem. While plausible, this is a key finding that could benefit from more detailed discussion. It suggests that the pre-computation of embeddings is a critical component for success with the current approach.",
+          "The best-performing model uses the 'per class histogram' embedding, which is relatively simple. A deeper analysis of why this specific embedding works so well compared to, for instance, the unsupervised SNP2Vec embedding, would strengthen the paper's conclusions."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The paper does a good job of situating the work within the context of parameter-prediction networks (Hypernetworks, etc.) and genomic analysis. However, the reference list requires significant cleaning. A large portion of the citations could not be programmatically verified, which can hinder discoverability and credit attribution. Please review all references for completeness and accuracy, ensuring they point to stable, archival versions where possible (e.g., using DOIs for journal articles and conference papers).",
+        "evidence_ref": "Evidence pack indicates 15 out of 24 references were not found in standard indexes (e.g., ref[1], ref[2], ref[3], ref[4], etc.). No fabricated or retracted papers were detected."
+      },
+      {
+        "area": "experimental",
+        "comment": "The experimental results are clear and powerful. The reported reduction in both parameter count and error rate is the strongest argument for the method. The finding that a reconstruction loss consistently helps is also a valuable practical insight. The underperformance of the 'Raw end2end' model is an important negative result that warrants the brief but honest discussion it receives.",
+        "evidence_ref": null
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The proposed model architecture is sound and well-motivated by the problem statement. The mathematical formulation is clear. The idea of transposing the data matrix conceptually to treat features as examples for the parameter prediction network is a very clear and effective way to think about the model.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "The success of the 'per class histogram' embedding is striking. This embedding seems to incorporate label information (class proportions). Do you believe the success of this approach implies that for this type of problem, feature embeddings should be 'semi-supervised' rather than purely unsupervised (like SNP2Vec) or learned end-to-end?",
+      "Could you elaborate on the optimization difficulties encountered with the end-to-end model? Was its training unstable, or did it simply converge to a poorer local minimum? Exploring this could provide valuable insights for future work on similar architectures.",
+      "The parameter reduction is impressive. Have you considered the inference-time trade-offs? Does the overhead of running the parameter prediction network to generate the weights for the main network have a noticeable impact on classification speed compared to a standard, pre-trained network?"
+    ],
+    "overall_assessment": "This is a strong paper presenting a valuable contribution to an important field. The 'Diet Network' approach is an elegant and effective solution to the 'fat data' problem common in genomics. The method is supported by a well-designed and convincing set of experiments that clearly demonstrate its dual benefits: massive parameter reduction and improved classification accuracy. The primary weakness is a matter of bibliographic hygiene, which is easily correctable. The paper is well-written, the ideas are clearly communicated, and the work has high potential for impact. I recommend acceptance after minor revisions to address the citation issues and perhaps slightly expand the discussion on the choice of embeddings.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity info. [LLM'in kendi gerekçesi: The application of parameter-generating networks to this specific high-dimensional genomics problem is highly original.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The work addresses a critical and practical bottleneck in applying deep learning to genomic data and precision medicine."
+      },
+      {
+        "key": "claims_supported",
+        "score": 5.59,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: The main claims of parameter reduction and improved accuracy are qualitatively supported by the experimental design. However, specific quantitative figures could not be independently verified as they were not present in the evidence pack.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The methodology is sound, and the experimental design is rigorous, using cross-validation and appropriate baselines.]"
+      },
+      {
+        "key": "clarity",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is generally very clear, well-structured, and effectively illustrated, making a complex topic accessible.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.0,
+        "rationale": "The method is of high interest to both ML and computational biology communities. The provision of code significantly enhances its value."
+      },
+      {
+        "key": "contextualization",
+        "score": 8.0,
+        "rationale": "The paper effectively places the work within the existing literature on both parameter prediction and genomic analysis."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the evidence pack, 15 of 24 references could not be resolved. While no malice (fabrication/retraction) is detected, this high rate indicates poor bibliographic hygiene that needs correction.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any obvious missing seminal works, suggesting the literature review is adequate.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not contain any statistical checks or findings of inconsistency. I cannot verify this independently, so I assume no issues were found.]"
+      }
+    ],
+    "final_score": 8.57,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 24,
+        "resolved": 9,
+        "not_found_in_index": 15,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Babak Alipanahi, Andrew Delong, Matthew T Weirauch, and Brendan J Frey. Predicting the se- quence speciﬁcities of dna-and rna-binding proteins by deep learning. Nature biotechnology, 2015.",
+          "title": "Predicting the se- quence speciﬁcities of dna-and rna-binding proteins by deep learning",
+          "authors": [
+            "Babak Alipanahi, Andrew Delong, Matthew T Weirauch",
+            "Brendan J Frey"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Marcin Andrychowicz, Misha Denil, Sergio Gomez, Matthew W. Hoffman, David Pfau, Tom Schaul, and Nando de Freitas. Learning to learn by gradient descent by gradient descent. Techni- cal report, Google DeepMind, 2016. 8 Y. Bengio, S. Bengio, and J. Cloutier. Learning a synaptic learning rule. 1991 Neural Networks for Computing Conference, Snowbird, 1991.",
+          "title": "Learning to learn by gradient descent by gradient descent",
+          "authors": [
+            "Nando de Freitas"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Luca Bertinetto, João F. Henriques, Jack Valmadre, Philip H. S. Torr, and Andrea Vedaldi. Learning feed-forward one-shot learners. CoRR, abs/1606.05233, 2016.",
+          "title": "Learning feed-forward one-shot learners",
+          "authors": [
+            "Luca Bertinetto, João F. Henriques, Jack Valmadre, Philip H. S. Torr",
+            "Andrea Vedaldi"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Ella Bingham and Heikki Mannila. Random projection in dimensionality reduction: Applications to image and text data. In Proceedings of the Seventh ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, KDD ’01, pp. 245–250. ACM, 2001. doi: 10.1145/ 502512.502546. Bert De Brabandere, Xu Jia, Tinne Tuytelaars, and Luc Van Gool. Dynamic ﬁlter networks. CoRR, abs/1605.09673, 2016.",
+          "title": "Random projection in dimensionality reduction: Applications to image and text data",
+          "authors": [
+            "Ella Bingham",
+            "Heikki Mannila"
+          ],
+          "year": 2001,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Yifei Chen, Yi Li, Rajiv Narayan, Aravind Subramanian, and Xiaohui Xie. Gene expression infer- ence with deep learning. Bioinformatics, 2016. doi: 10.1093/bioinformatics/btw074.",
+          "title": "Gene expression infer- ence with deep learning",
+          "authors": [
+            "Yifei Chen, Yi Li, Rajiv Narayan, Aravind Subramanian",
+            "Xiaohui Xie"
+          ],
+          "year": 2016,
+          "doi": "10.1093/bioinformatics/btw074",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2264017649",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2264017649; 'Gene expression inference with deep learning').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "The 1000 Genomes Project Consortium. A global reference for human genetic variation. Nature, 2015. doi: 10.1038/nature15393.",
+          "title": "A global reference for human genetic variation",
+          "authors": [
+            "The 1000 Genomes Project Consortium"
+          ],
+          "year": 2015,
+          "doi": "10.1038/nature15393",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2104549677",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2104549677; 'A global reference for human genetic variation').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Misha Denil, Babak Shakibi, Laurent Dinh, Marc’Aurelio Ranzato, and Nando de Freitas. Predicting parameters in deep learning. arXiv:1306.0543, 2013.",
+          "title": "Predicting parameters in deep learning",
+          "authors": [
+            "Misha Denil, Babak Shakibi, Laurent Dinh, Marc’Aurelio Ranzato",
+            "Nando de Freitas"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Faustino Gomez and Juergen Schmidhuber. Evolving modular fast-weight networks for control. In Proceedings of the Fifteenth International Conference on Artiﬁcial Neural Networks: ICANN-05, pp. 383–389, 2005.",
+          "title": "Evolving modular fast-weight networks for control",
+          "authors": [
+            "Faustino Gomez",
+            "Juergen Schmidhuber"
+          ],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "David Ha, Andrew Dai, and Quoc V. Le. Hypernetworks. CoRR, abs/1609.09106, 2016.",
+          "title": "Hypernetworks",
+          "authors": [
+            "David Ha, Andrew Dai",
+            "Quoc V. Le"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.74 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Ryan J Haasl, Catherine A McCarty, and Bret A Payseur. Genetic ancestry inference using support vector machines, and the active emergence of a unique american population. European Journal of Human Genetics, 2013. doi: 10.1038/ejhg.2012.258.",
+          "title": "Genetic ancestry inference using support vector machines, and the active emergence of a unique american population",
+          "authors": [
+            "Ryan J Haasl, Catherine A McCarty",
+            "Bret A Payseur"
+          ],
+          "year": 2013,
+          "doi": "10.1038/ejhg.2012.258",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2054982067",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2054982067; 'Genetic ancestry inference using support vector machines, and the active emergence of a unique American population').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "David R Kelley, Jasper Snoek, and John Rinn. Basset: Learning the regulatory code of the accessible genome with deep convolutional neural networks. bioRxiv, 2016. doi: 10.1101/028399. URL http://biorxiv.org/content/early/2016/02/18/028399.",
+          "title": "Basset: Learning the regulatory code of the accessible genome with deep convolutional neural networks",
+          "authors": [
+            "David R Kelley, Jasper Snoek",
+            "John Rinn"
+          ],
+          "year": 2016,
+          "doi": "10.1101/028399",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2950988695",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2950988695; 'Basset: Learning the regulatory code of the accessible genome with deep convolutional neural networks').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Lasagne. Lasagne. https://github.com/Lasagne/Lasagne, 2016.",
+          "title": null,
+          "authors": [
+            "Lasagne"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Michael K. K. Leung, Andrew Delong, Babak Alipanahi, and Brendan J. Frey. Machine Learning in Genomic Medicine: A Review of Computational Problems and Data Sets. Proceedings of the IEEE, 104(1):176–197, January 2016.",
+          "title": "Machine Learning in Genomic Medicine: A Review of Computational Problems and Data Sets",
+          "authors": [
+            "Michael K. K. Leung, Andrew Delong, Babak Alipanahi",
+            "Brendan J. Frey"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "ISSN 0018-9219. doi: 10.1109/jproc.2015.2494198. URL http://dx.doi.org/10.1109/jproc.2015.2494198. T. Mikolov, I. Sutskever, K. Chen, G.S. Corrado, and J. Dean. Distributed representations of words and phrases and their compositionality. In NIPS’2013, pp. 3111–3119. 2013.",
+          "title": null,
+          "authors": [
+            "ISSN 0018-9219"
+          ],
+          "year": 2015,
+          "doi": "10.1109/jproc.2015.2494198",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2221443338",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2221443338; 'Machine Learning in Genomic Medicine: A Review of Computational Problems and Data Sets').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Larsson Omberg, Jacqueline Salit, Neil Hackett, Jennifer Fuller, Rebecca Matthew, Lotﬁ Chouchane, Juan L Rodriguez-Flores, Carlos Bustamante, Ronald G Crystal, and Jason G Mezey. Inferring genome-wide patterns of admixture in qataris using ﬁfty-ﬁve ancestral populations. BMC Genetics, 2012. doi: 10.1186/1471-2156-13-49.",
+          "title": "Inferring genome-wide patterns of admixture in qataris using ﬁfty-ﬁve ancestral populations",
+          "authors": [
+            "Jason G Mezey"
+          ],
+          "year": 2012,
+          "doi": "10.1186/1471-2156-13-49",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2013153890",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2013153890; 'Inferring genome-wide patterns of admixture in Qataris using fifty-five ancestral populations').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Alkes L Price, Nick J Patterson, Robert M Plenge, Michael E Weinblatt, Nancy A Shadick, and D Reich. Principal components analysis corrects for stratiﬁcation in genome-wide association studies. Nature Genetics, 2006. doi: 10.1038/ng1847.",
+          "title": "Principal components analysis corrects for stratiﬁcation in genome-wide association studies",
+          "authors": [
+            "D Reich"
+          ],
+          "year": 2006,
+          "doi": "10.1038/ng1847",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2157752701",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2157752701; 'Principal components analysis corrects for stratification in genome-wide association studies').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Jürgen Schmidhuber. Learning to control fast-weight memories: An alternative to dynamic recurrent networks. Neural Comput., 4(1):131–139, 1992.",
+          "title": "Learning to control fast-weight memories: An alternative to dynamic recurrent networks",
+          "authors": [
+            "Jürgen Schmidhuber"
+          ],
+          "year": 1992,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Sara Sheehan and Yun S Song. Deep learning for population genetic inference. PLoS Comput Biol, 2016. doi: 10.1371/journal.pcbi.1004845.",
+          "title": "Deep learning for population genetic inference",
+          "authors": [
+            "Sara Sheehan",
+            "Yun S Song"
+          ],
+          "year": 2016,
+          "doi": "10.1371/journal.pcbi.1004845",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2952978770",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2952978770; 'Deep Learning for Population Genetic Inference').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Ritambhara Singh, Jack Lanchantin, Gabriel Robins, and Yanjun Qi. Deepchrome: deep-learning for predicting gene expression from histone modiﬁcations. Bioinformatics, 2016. doi: 10.1093/ bioinformatics/btw427. 9 Kenneth O. Stanley, David B. D’Ambrosio, and Jason Gauci. A hypercube-based encoding for evolving large-scale neural networks. Artif. Life, 15(2):185–212, April 2009.",
+          "title": "Deepchrome: deep-learning for predicting gene expression from histone modiﬁcations",
+          "authors": [
+            "Ritambhara Singh, Jack Lanchantin, Gabriel Robins",
+            "Yanjun Qi"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Theano Development Team. Theano: A Python framework for fast computation of mathematical expressions. arXiv e-prints, abs/1605.02688, May 2016.",
+          "title": "Theano: A Python framework for fast computation of mathematical expressions",
+          "authors": [
+            "Theano Development Team"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "URL http://arxiv.org/abs/ 1605.02688. T. Tieleman and G. Hinton. Lecture 6.5—RmsProp: Divide the gradient by a running average of its recent magnitude. COURSERA: Neural Networks for Machine Learning, 2012.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/ 1605"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Pascal Vincent, Hugo Larochelle, Yoshua Bengio, and Pierre-Antoine Manzagol. Extracting and composing robust features with denoising autoencoders. In Andrew McCallum and Sam Roweis (eds.), Proceedings of the 25th Annual International Conference on Machine Learning (ICML 2008), pp. 1096–1103. Omnipress, 2008.",
+          "title": "Extracting and composing robust features with denoising autoencoders",
+          "authors": [
+            "Pascal Vincent, Hugo Larochelle, Yoshua Bengio",
+            "Pierre-Antoine Manzagol"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.47 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Jian Zhou and Olga Troyanskaya. Predicting effects of noncoding variants with deep learningbased sequence model. Nature Methods, 2015. doi: 10.1038/nmeth.3547.",
+          "title": "Predicting effects of noncoding variants with deep learningbased sequence model",
+          "authors": [
+            "Jian Zhou",
+            "Olga Troyanskaya"
+          ],
+          "year": 2015,
+          "doi": "10.1038/nmeth.3547",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2198606573",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2198606573; 'Predicting effects of noncoding variants with deep learning–based sequence model').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "A THE 1000 GENOMES PROJECT LEGENDS A.1 POPULATION ETHNICITY LEGEND ACB: African Caribbeans in Barbados ASW: Americans of African Ancestry in SW USA BEB: Bengali from Bangladesh CDX: Chinese Dai in Xishuangbanna CEU: Utah Residents (CEPH) with Northern and Western Ancestry CHB: Han Chinese in Bejing CHS: Southern Han Chinese CLM: Colombians from Medellin ESN: Esan in Nigeria FIN: Finnish in Finland GBR: British in England and Scotland GIH: Gujarati Indian from Houston GWD: Gambian in Western Divisions in the Gambia IBS: Iberian Population in Spain ITU: Indian Telugu from the UK JPT: Japanese in Tokyo KHV: Kinh in Ho Chi Minh City LWK: Luhya in Webuye MSL: Mende in Sierra Leone MXL: Mexican Ancestry from Los Angeles PEL: Peruvians from Lima PJL: Punjabi from Lahore PUR: Puerto Ricans STU: Sri Lankan Tamil from the UK TSI: Toscani in Italia YRI: Yoruba in Ibadan A.2 GEOGPRAHICAL REGION LEGEND AFR: African AMR: Ad Mixed American EAS: East Asian EUR: European SAS: South Asian 10 B OBTAINING THE 1000 GENOMES DATA SNP data for the 1000G dataset was downloaded from ftp://ftp.1000genomes.ebi.ac. uk:21/vol1/ftp/release/20130502/supporting/hd_genotype_chip/ −ALL. wgs . n h g r i c o r i e l l a f f y 6 .20140825. genotypes has ped . vcf . gz −a f f y s a m p l e s .20141118. panel Representative commands: With PLINK v1.90b2n 64-bit https://www.cog-genomics.org/plink2 # c o n vert v c f to p l i n k format ( bed ) , and only keeping common markers ( minor a l l e l e frequency > 0.05 in combined sample ) > p l i n k −−vcf $path /ALL. wgs . n h g r i c o r i e l l a f f y 6 .20140825. genotypes has ped . vcf . gz −−maf 0.05 −−out $path / a f f y 6 b i a l l e l i c s n p s m a f 0 0 5 a u t −−not−chr X Y MT −−make−bed # produce a pruned s u b s e t of markers t h a t are in approximate l i n k a g e e q u i l i b r i u m with each other > p l i n k −−b f i l e $path / a f f y 6 b i a l l e l i c s n p s m a f 0 0 5 a u t −−indep− p a i r w i s e 50 5 0.5 −−out $path / a f f y 6 b i a l l e l i c s n p s m a f 0 0 5 a u t # exclude markers to get pruned s u b s e t > p l i n k −−b f i l e $path / a f f y 6 b i a l l e l i c s n p s m a f 0 0 5 a u t −−exclude $path / a f f y 6 b i a l l e l i c s n p s m a f 0 0 5 a u t . prune . out −−recode A −− out $path / a f f y 6 b i a l l e l i c s n p s m a f 0 0 5 t h i n n e d a u t A For information on how to download this pre-processed dataset directly, please email Adriana Romero or Pierre Luc Carrier. C PCA COMPONENTS AND MISCLASSIFICATION ERROR In this section, we analyze the inﬂuence of increasing the number of PCs used to perform classiﬁca- tion. Figure 4 depicts the obtained results when considering 100, 200, 400, 800 and 1000 PCs. As shown in the ﬁgure, the best validation error comes with PC200. Further increasing the number of PCs improves the training error but does not generalize well on the validation set. Figure 4: PCA: Train and validation misclassiﬁcation error for different numbers of PCs. 11",
+          "title": null,
+          "authors": [],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.0,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ffbda0b77d3ab85db5060381d1ea0a1644ac3054a5b36397a7a0b5be99c5c6",
+          "request_time": "2026-08-22T17:52:26.853831Z",
+          "status": "ok",
+          "result_count": 9,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:52:28.388117Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "980c2fdbbf7dd3bf96edb3408bd09114fd40898940add26c0e1dfb2008f28117",
+          "request_time": "2026-08-22T17:52:29.498380Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:00:00.125313Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin başlık formatı (yazar listesi, kurumlar, e-postalar), bölüm başlıkları (ABSTRACT, INTRODUCTION, METHOD, RESULTS, CONCLUSION, REFERENCES) ve kelime sayısı bir dergi makalesine işaret etmektedir. Çalışma tasarımı, 'DIET NETWORKS' ve 'FAT GENOMICS' gibi anahtar kelimeler ile 'deep learning' ve 'genomic data' ifadeleri, hesaplamalı modelleme üzerine bir çalışma olduğunu düşündürmektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 85.7,
+      "recommended_decision": "accept",
+      "confidence": 0.606896551724138,
+      "top_fatal_risks": [
+        "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi"
+      ],
+      "one_sentence_diagnosis": "0 critical and 1 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.875,
+        "why_it_matters": "4 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.8400000000000001,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.875,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "4 concern(s): A significant number of references (15 out of 24) could not be automatically resolved against standard academic indexes. This indicates issues with formatting, incomplete entries, or reliance on non-archival sources. This needs to be corrected to ensure proper citation linking and archival quality. (e.g., ref[1], ref[2], ref[3], ref[4], etc.); The paper notes that the end-to-end learned embedding performed worse than the basic model, attributing it to a harder optimization problem. While plausible, this is a key finding that could benefit from more detailed discussion. It suggests that the pre-computation of embeddings is a critical component for success with the current approach. Further elaboration on the optimization difficulties (e.g., instability, convergence to poorer local minima) would provide valuable insights.; The best-performing model uses the 'per class histogram' embedding, which is relatively simple. A deeper analysis of why this specific embedding works so well compared to, for instance, the unsupervised SNP2Vec embedding, would strengthen the paper's conclusions. Specifically, does its success imply that for this type of problem, feature embeddings should be 'semi-supervised' rather than purely unsupervised or learned end-to-end? (+1 more)",
+        "key_objection": "A significant number of references (15 out of 24) could not be automatically resolved against standard academic indexes. This indicates issues with formatting, incomplete entries, or reliance on non-archival sources. This needs to be corrected to ensure proper citation linking and archival quality. (e.g., ref[1], ref[2], ref[3], ref[4], etc.)",
+        "confidence": 0.75,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "quant.f0",
+          "quant.f1",
+          "quant.f4",
+          "quant.f5",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): A significant number of references in the bibliography could not be automatically resolved against standard academic indexes. This suggests issues with formatting, incomplete entries, or reliance on non-archival sources. While this does not detract from the technical contribution, it needs to be corrected for the final version to ensure proper citation linking and archival quality. Please review all references for completeness and accuracy, ensuring they point to stable, archival versions where possible (e.g., using DOIs for journal articles and conference papers). (Evidence pack indicates 15 out of 24 references were not found in standard indexes, e.g., ref[1], ref[2], ref[3], ref[4], etc.); The paper notes that the end-to-end learned embedding performed worse than the basic model, attributing it to a harder optimization problem. While plausible, this is a key finding that could benefit from more detailed discussion. It suggests that the pre-computation of embeddings is a critical component for success with the current approach. Could you elaborate on the optimization difficulties encountered with the end-to-end model? Was its training unstable, or did it simply converge to a poorer local minimum? Exploring this could provide valuable insights for future work on similar architectures.; The best-performing model uses the 'per class histogram' embedding, which is relatively simple. A deeper analysis of why this specific embedding works so well compared to, for instance, the unsupervised SNP2Vec embedding, would strengthen the paper's conclusions. The success of the 'per class histogram' embedding is striking. This embedding seems to incorporate label information (class proportions). Do you believe the success of this approach implies that for this type of problem, feature embeddings should be 'semi-supervised' rather than purely unsupervised (like SNP2Vec) or learned end-to-end? (+1 more)",
+        "key_objection": "A significant number of references in the bibliography could not be automatically resolved against standard academic indexes. This suggests issues with formatting, incomplete entries, or reliance on non-archival sources. While this does not detract from the technical contribution, it needs to be corrected for the final version to ensure proper citation linking and archival quality. Please review all references for completeness and accuracy, ensuring they point to stable, archival versions where possible (e.g., using DOIs for journal articles and conference papers). (Evidence pack indicates 15 out of 24 references were not found in standard indexes, e.g., ref[1], ref[2], ref[3], ref[4], etc.)",
+        "confidence": 0.75,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "revision-required",
+        "summary": "8 concern(s): The statement 'A significant number of references in the bibliography could not be automatically resolved against standard academic indexes' is grounded. The evidence pack shows 15 out of 24 references were not found in standard indexes.; The claim '15 out of 24 references were not found in standard indexes' is directly supported by the 'Atıf bütünlüğü özeti' in the evidence pack. The claim 'No fabricated or retracted papers were detected' is also directly supported by the 'Atıf bütünlüğü özeti'.; This statement makes a factual claim about parameter reduction and performance improvement. The evidence pack does not contain specific statistical findings to verify these exact numbers (31.5M to 15.8k parameters, 7.76% to 7.44% error). Therefore, this claim is ungrounded. (+5 more)",
+        "key_objection": "The statement 'A significant number of references in the bibliography could not be automatically resolved against standard academic indexes' is grounded. The evidence pack shows 15 out of 24 references were not found in standard indexes.",
+        "confidence": 0.625,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "minor-revision",
+        "summary": "This paper introduces 'Diet Networks,' a novel neural network parameterization designed to address the challenge of high-dimensional data where the number of features vastly exceeds the number of samples (N ≪ Nd). This is a common problem in genomics, particularly with SNP data. The core idea is to use a secondary 'parameter prediction network' to generate the weights for the first, very large ('fat') layer of a primary classifier. This secondary network takes a low-dimensional embedding of each feature as input, effectively treating the weight generation for each feature as a sub-task in a multi-task learning framework. The authors demonstrate on the 1000 Genomes ancestry prediction task that their method significantly reduces the number of model parameters while also achieving a lower misclassification error compared to standard MLP and PCA-based baselines.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Araştırma Tasarımı ve Amacı Açıkça Belirtilmiş",
+        "summary": "Makale, yüksek boyutlu genomik verilerle derin öğrenme modellerinin parametre sayısını azaltmaya yönelik yeni bir ağ parametrizasyonu olan Diet Networks'ü önermektedir. Tasarım, bu yeni yaklaşımın performansını mevcut yöntemlerle karşılaştıran deneysel bir değerlendirme üzerine kuruludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We propose a novel neural network parametrization which considerably reduces the number of free parameters. It is based on the idea that we can ﬁrst learn or provide a distributed representation for each input feature (e.g. for each position in the genome where variations are observed in data), and then learn (with another neural network called the parameter prediction network) how to map a feature’s distributed representation (based on the feature’s identity not its value) to the vector of parameters speciﬁc to that feature in the classiﬁer neural network (the weights which link the value of the feature to each of the hidden units)."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "This paper proposes a novel approach, called Diet Networks, to reparametrize neural networks to considerably reduce their number of free parameters when the input is very high-dimensional and orders of magnitude larger than the number of training examples."
+          }
+        ],
+        "reasoning_public": "Araştırma sorusu ve önerilen metodoloji arasındaki uyum, çalışmanın temelini sağlamlaştırmaktadır. Bu, okuyucunun çalışmanın amacını ve kapsamını net bir şekilde anlamasına yardımcı olur.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü Gerekçesi ve Güç Analizi Eksikliği",
+        "summary": "Çalışma, 1000 Genomes projesinden 3,450 birey ve 315,345 genetik varyant içeren bir veri setini kullanmaktadır. Ancak, bu örneklem büyüklüğünün seçimi için herhangi bir gerekçe, güç analizi veya hassasiyet analizi sunulmamıştır. Özellikle 'N ≪ Nd' (örneklem sayısı özellik sayısından çok daha küçük) durumu vurgulanmasına rağmen, bu dengesizliğin potansiyel etkileri veya bu durumla başa çıkmak için örneklem büyüklüğünün yeterliliği tartışılmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "method.a0",
+            "section": "METHOD",
+            "quote": "Let X ∈RN×Nd be a matrix of data, with N samples and Nd features, where N ≪Nd (e. g. N being approximately 100 times smaller than Nd)."
+          },
+          {
+            "anchor_id": "data_the_1000_genomes_project.a0",
+            "section": "DATA: THE 1000 GENOMES PROJECT",
+            "quote": "In this dataset, we included 315,345 genetic variants with frequencies of at least 5% in 3,450 individuals sampled worldwide from 26 populations, interrogated using microarray genotyping technology: the Genome-Wide Human SNP Array 6.0 by Affymetrix."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, örneklem büyüklüğünün istatistiksel olarak anlamlı ve güvenilir sonuçlar elde etmek için yeterli olup olmadığını belirlemek kritik öneme sahiptir. Güç analizi veya benzeri bir gerekçe olmaksızın, elde edilen sonuçların genellenebilirliği ve istatistiksel gücü sorgulanabilir hale gelir. Özellikle yüksek boyutlu verilerle çalışırken, örneklem büyüklüğü ve özellik sayısı arasındaki ilişki daha da önem kazanır.",
+        "limitations": [
+          "Veri setinin doğası (genomik veri) ve mevcut örneklem büyüklüğü kısıtlamaları hakkında ek bilgiye sahip değiliz. Bu, güç analizi yapmanın pratikliğini etkileyebilir.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Varsayım Testleri ve Çoklu Karşılaştırma Riski Hakkında Bilgi Eksikliği",
+        "summary": "Makale, derin öğrenme modelleri ve PCA tabanlı yaklaşımlar arasında karşılaştırmalar yapmaktadır. Ancak, kullanılan istatistiksel testlerin veya modellerin altında yatan varsayımların (örneğin, veri dağılımı, bağımsızlık) test edilip edilmediği veya bu varsayımların ihlali durumunda ne gibi önlemler alındığı belirtilmemiştir. Ayrıca, birden fazla model ve gömme stratejisi arasında yapılan karşılaştırmalar için çoklu karşılaştırma düzeltmelerinin uygulanıp uygulanmadığına dair bir bilgi yoktur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a0",
+            "section": "RESULTS",
+            "quote": "Table 1 summarizes the results obtained for each model. First, we observe that, for most of Diet Network architectures, training with an reconstruction term in the loss (γ > 0) reduces the misclassiﬁcation error and provides a lower standard deviation over the folds, suggesting more robustness to variations in the learnt feature embedding."
+          },
+          {
+            "anchor_id": "results.a1",
+            "section": "RESULTS",
+            "quote": "We also compared the performance of our model to the principal component analysis (PCA) approach, commonly used in the genomics domain, to select subgroups of individuals in order to perform more homogeneous analysis."
+          }
+        ],
+        "reasoning_public": "İstatistiksel analizlerde varsayımların karşılanması, sonuçların geçerliliği için önemlidir. Varsayımların ihlali, yanlış çıkarımlara yol açabilir. Benzer şekilde, çoklu karşılaştırmalar, Tip I hata oranını artırarak yanlış pozitif sonuçlara yol açabilir. Bu risklerin ele alınması, çalışmanın güvenilirliğini artırır.",
+        "limitations": [
+          "Derin öğrenme modelleri için geleneksel istatistiksel varsayım testleri her zaman doğrudan uygulanamayabilir. Ancak, modelin sağlamlığına ilişkin ek analizler (örneğin, farklı başlangıç ağırlıklarıyla birden fazla çalıştırma) faydalı olabilir.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f2.a0",
+          "quant.f2.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metin ve Tablo Arasında Tutarlı Sonuç Raporlaması",
+        "summary": "Makale, Tablo 1'de farklı modellerin ortalama yanlış sınıflandırma hatalarını ve standart sapmalarını açıkça sunmaktadır. Metin içinde de bu sonuçlara atıfta bulunularak tutarlılık sağlanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a2",
+            "section": "RESULTS",
+            "quote": "Table 1 summarizes the results obtained for each model."
+          },
+          {
+            "anchor_id": "results.a3",
+            "section": "RESULTS",
+            "quote": "Using the SNP2Vec embedding, trained to exploit the similarities and co-occurences between the SNPs, in conjunction with the Diet Networks framework obtains slightly better results than the model using a random projection."
+          },
+          {
+            "anchor_id": "results.a4",
+            "section": "RESULTS",
+            "quote": "Despite its simplicity, the per class histogram encoding (when used with a reconstruction criterion) yielded the best results."
+          }
+        ],
+        "reasoning_public": "Sonuçların metin, tablo ve şekiller arasında tutarlı bir şekilde raporlanması, okuyucunun bulguları doğru bir şekilde anlaması ve yorumlaması için temel bir gerekliliktir. Bu, çalışmanın şeffaflığını ve güvenilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçüleri Raporlanmış",
+        "summary": "Makale, farklı modeller için yanlış sınıflandırma hatası (%) ve standart sapma (belirsizlik ölçüsü) değerlerini Tablo 1'de açıkça raporlamıştır. Ayrıca, parametre sayısındaki azalma gibi etki büyüklüğü göstergeleri de sunulmuştur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Model & Embedding | Mean Misclassif. Error. (%) | # of free parameters\nBasic | 8.31 ± 1.83 | 31.5M\n..."
+          },
+          {
+            "anchor_id": "method.a1",
+            "section": "METHOD",
+            "quote": "Following our previous example, where Nd = 300K and N 1h = 100, using an auxiliary network with previously-obtained feature embeddings of dimensionality Nf = 500 would reduce the number of free parameters of the basic network by a factor of 600 (from 30M to 50K)."
+          }
+        ],
+        "reasoning_public": "Etki büyüklüğü ve belirsizlik ölçülerinin raporlanması, okuyucunun bulguların pratik önemini ve güvenilirliğini değerlendirmesine olanak tanır. Sadece istatistiksel anlamlılığa odaklanmak yerine, etki büyüklüğü, sonuçların gerçek dünyadaki etkileri hakkında daha kapsamlı bir anlayış sağlar.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "causal_language_discipline",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Nedensel Dil Kullanımında Potansiyel Aşırılık",
+        "summary": "Makale, 'Improving the ability of deep learning to handle such datasets could have an important impact in medical research, more speciﬁcally in precision medicine' gibi ifadelerle potansiyel faydaları vurgulamaktadır. Ayrıca, 'identifying an individual’s ancestry heritage based on SNP data is a very important task to help detect biological causation' ve 'The increased power of deep learning methods to identify the genetic basis of common diseases could lead to better patient risk prediction and will improve our overall understanding of disease etiology' gibi ifadelerle nedensel çıkarımlara yönelik bir dil kullanmaktadır. Ancak, mevcut çalışma bir nedensel çıkarım çalışması olmaktan ziyade, bir metodoloji geliştirme ve karşılaştırma çalışmasıdır. Gözlemsel veri (1000 Genomes) kullanılması ve nedensel çıkarım için özel bir tasarım veya strateji sunulmaması, bu tür ifadelerin dikkatli kullanılmasını gerektirir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Improving the ability of deep learning to handle such datasets could have an important impact in medical research, more speciﬁcally in precision medicine, where high-dimensional data regarding a particular patient is used to make predictions of interest."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "Applying deep learning to human genetic variation holds the promise of identifying individuals at risk for medical conditions."
+          },
+          {
+            "anchor_id": "conclusion.a0",
+            "section": "CONCLUSION",
+            "quote": "Most importantly, ancestry-aware approaches in pre- cision genomics will reduce the hidden risks of genetic testing, by preventing spurious diagnosis and ineffective treatment."
+          },
+          {
+            "anchor_id": "conclusion.a1",
+            "section": "CONCLUSION",
+            "quote": "The increased power of deep learning methods to identify the genetic basis of common diseases could lead to better patient risk prediction and will improve our overall understanding of disease etiology."
+          }
+        ],
+        "reasoning_public": "Gözlemsel verilerle yapılan çalışmalarda nedensel dilin aşırı kullanımı, okuyucuyu yanlış çıkarımlara yönlendirebilir. Bir metodolojinin 'potansiyel' etkileri ile 'nedensel' etkileri arasında net bir ayrım yapmak önemlidir. Nedensel iddialar, uygun deneysel tasarımlar veya güçlü nedensel çıkarım yöntemleri (örneğin, randomize kontrollü çalışmalar, enstrümantal değişkenler) ile desteklenmelidir.",
+        "limitations": [
+          "Makalenin genel amacı, yeni bir metodolojinin potansiyelini vurgulamak olabilir. Ancak, bu potansiyelin ifade ediliş biçimi, nedensel çıkarım disiplini açısından gözden geçirilmelidir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod Erişilebilirliği Sağlanmış",
+        "summary": "Makale, deneyleri yeniden üretmek için kullanılan kodun GitHub deposuna bir bağlantı sağlamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a5",
+            "section": "RESULTS",
+            "quote": "2The code to reproduce the experiments can be found here: https://github.com/adri-romsor/DietNetworks"
+          }
+        ],
+        "reasoning_public": "Kodun erişilebilir olması, araştırmanın şeffaflığını ve yeniden üretilebilirliğini önemli ölçüde artırır. Bu, diğer araştırmacıların bulguları doğrulamasına, metodolojiyi anlamasına ve üzerine inşa etmesine olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reporting_quality",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Bazı Sonuçların 'Significant' veya 'Non-significant' Diliyle Aşırı Vurgulanması",
+        "summary": "Makale genel olarak etki büyüklüklerini ve belirsizlik ölçülerini raporlasa da, bazı yerlerde 'significantly reduce' veya 'does not appear to reduce' gibi ifadeler kullanılmıştır. Bu ifadeler, istatistiksel anlamlılık testlerinin sonuçlarına dayanıyorsa, ilgili p-değerleri veya güven aralıkları ile desteklenmelidir. Aksi takdirde, bu tür ifadeler, sadece gözlemlenen farklara dayanıyorsa yanıltıcı olabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "We show experimentally on a population stratiﬁcation task of interest to medical studies that the proposed approach can signiﬁcantly reduce both the number of parameters and the error rate of the classiﬁer."
+          },
+          {
+            "anchor_id": "results.a6",
+            "section": "RESULTS",
+            "quote": "The addition of the reconstruction criterion does not appear to reduce the number of errors made by the model but it does appear to reduce the variance of the results, as observed on the other models."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, 'anlamlı' veya 'anlamsız' gibi terimlerin kullanımı, istatistiksel anlamlılık testlerinin sonuçlarına dayanmalıdır ve bu testlerin çıktıları (p-değerleri, güven aralıkları) ile birlikte sunulmalıdır. Aksi takdirde, bu terimler öznel yorumlara yol açabilir ve bulguların bilimsel kesinliğini azaltabilir.",
+        "limitations": [
+          "Makale, derin öğrenme bağlamında istatistiksel anlamlılık testlerine odaklanmaktan ziyade, performans metriklerine (yanlış sınıflandırma hatası) odaklanmaktadır. Bu nedenle, geleneksel p-değeri raporlaması her zaman uygun olmayabilir. Ancak, ifadelerin kesinliği yine de önemlidir."
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Parametre Azaltma ve Genomik Veri Uygulaması",
+        "summary": "Makale, yüksek boyutlu genomik verilerde derin öğrenme modellerinin parametre sayısını önemli ölçüde azaltan ve aşırı uyumu önleyen Diet Networks adlı yeni bir parametreleme yaklaşımı sunmaktadır. Bu yaklaşım, parametre tahmin ağları ve özellik gömme tekniklerini kullanarak mevcut yöntemlerden ayrışmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "We propose a novel neural network parametrization which considerably reduces the number of free parameters. It is based on the idea that we can ﬁrst learn or provide a distributed representation for each input feature (e.g. for each position in the genome where variations are observed in data), and then learn (with another neural network called the parameter prediction network) how to map a feature’s distributed representation (based on the feature’s identity not its value) to the vector of parameters speciﬁc to that feature in the classiﬁer neural network (the weights which link the value of the feature to each of the hidden units)."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "This paper proposes a novel approach, called Diet Networks, to reparametrize neural networks to considerably reduce their num- ber of free parameters when the input is very high-dimensional and orders of magnitude larger than the number of training examples."
+          },
+          {
+            "anchor_id": "conclusion.a2",
+            "section": "CONCLUSION",
+            "quote": "In this paper, we proposed Diet Networks, a novel network parametrization, which considerably reduces the number of free parameters in the fat layers of a model when the input is very high dimensional. We showed how using the parameter prediction networks, yielded better generalization in terms of misclassiﬁcation error."
+          }
+        ],
+        "reasoning_public": "Yazarlar, Diet Networks'ün özellikle genomik veriler gibi örnek sayısının özellik sayısından çok daha az olduğu durumlarda derin öğrenmenin uygulanabilirliğini artırdığını göstermektedir. Bu, hassas tıp ve genetik araştırmalar için önemli bir ilerlemedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Literatürdeki Benzer Yaklaşımlardan Farklılaşma",
+        "summary": "Makale, parametre tahmin ağları fikrinin makine öğrenimi literatüründe köklü olduğunu kabul etmekle birlikte, Diet Networks'ün temel amacının model kapasitesini artırmak yerine parametre sayısını azaltmak olduğunu vurgulayarak mevcut çalışmalardan ayrışmaktadır. Özellikle genomik verilerdeki özelliklerin çoklu görev öğrenimi olarak ele alınması, özgün bir katkı sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "The idea of having two networks interacting with each other and with one producing parameters for the other is well rooted in the machine learning literature (Bengio et al., 1991; Schmidhuber, 1992; Gomez & Schmidhuber, 2005; Stanley et al., 2009; Denil et al., 2013; Andrychowicz et al., 2016). Recent efforts in the same direction include works such as (Bertinetto et al., 2016; Brabandere et al., 2016; Ha et al., 2016) that use a network to predict the parameters of a Convolutional Neural Network (CNN)."
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "Compared to other approaches that attempt to learn model parameters using a parameter prediction network, our main goal is to reduce the large number of parameters required by the model, by considering the input features themselves as sub-tasks in a multi-task view of the learning problem, as opposed to constructing a model with even higher capacity, as seen, e.g. in (Ha et al., 2016)."
+          }
+        ],
+        "reasoning_public": "Yazarlar, Ha et al. (2016) gibi hiper ağlar üzerine yapılan çalışmaların aksine, kendi yaklaşımlarının temel hedefinin modelin kapasitesini artırmak değil, yüksek boyutlu girişlerdeki parametre sayısını azaltmak olduğunu açıkça belirtmektedir. Bu ayrım, Diet Networks'ün özgün değerini ortaya koymaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f2",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "SNP Verileri Üzerine Derin Öğrenme Uygulaması",
+        "summary": "Makale, SNP verilerine dayalı soy tahmini problemine derin öğrenme yaklaşımını uygulayan ilk çalışmalardan biri olduğunu iddia etmektedir. Bu, genomik alanda derin öğrenme uygulamaları için yeni bir yol açmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "To the best of our knowledge, deep learning has never been used so far to tackle the problem of ancestry prediction based on SNP data."
+          }
+        ],
+        "reasoning_public": "Yazarlar, SNP verilerine dayalı soy tahmini için derin öğrenmenin daha önce kullanılmadığını belirtmektedir. Bu, çalışmanın bu özel uygulama alanındaki özgünlüğünü ve potansiyel etkisini vurgulamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve Uyumlu Araştırma Sorusu",
+        "summary": "Makale, genomik verilerle derin öğrenme modellerinde parametre sayısını azaltmaya yönelik net bir araştırma sorusu sunmakta ve bu soruyu yanıtlamak için uygun bir metodoloji ve deney tasarımı kullanmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "We propose a novel neural network parametrization which considerably reduces the number of free parameters."
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "This paper proposes a novel approach, called Diet Networks, to reparametrize neural networks to considerably reduce their number of free parameters when the input is very high-dimensional and orders of magnitude larger than the number of training examples."
+          }
+        ],
+        "reasoning_public": "Makale, yüksek boyutlu genomik verilerle çalışırken derin öğrenme modellerinde ortaya çıkan aşırı parametre sayısını azaltma sorununu açıkça tanımlamaktadır. Önerilen 'Diet Networks' yaklaşımı, bu sorunu çözmek için tasarlanmıştır ve popülasyon tabakalaşması tahmini görevi üzerinden deneysel olarak değerlendirilmiştir. Bu, araştırma sorusunun hem net hem de çalışmanın kapsamıyla uyumlu olduğunu göstermektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve Tutarlı Teorik Çerçeve",
+        "summary": "Makale, yüksek boyutlu genomik verilerde derin öğrenme modellerinin parametre sayısını azaltma ihtiyacını açıkça ortaya koyan sağlam bir teorik çerçeve sunmaktadır. Önerilen 'Diet Networks' yaklaşımı, bu ihtiyaca yönelik yenilikçi bir çözüm olarak konumlandırılmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "Learning tasks such as those involving genomic data often poses a serious challenge: the number of input features can be orders of magnitude larger than the number of training examples, making it difﬁcult to avoid overﬁtting, even when using the known regularization techniques. ... We propose a novel neural network parametrization which considerably reduces the number of free parameters."
+          },
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "This paper proposes a novel approach, called Diet Networks, to reparametrize neural networks to considerably reduce their num-ber of free parameters when the input is very high-dimensional and orders of magnitude larger than the number of training examples."
+          },
+          {
+            "anchor_id": "introduction.a8",
+            "section": "INTRODUCTION",
+            "quote": "The idea of having two networks interacting with each other and with one producing parameters for the other is well rooted in the machine learning literature (Bengio et al., 1991; Schmidhuber, 1992; Gomez & Schmidhuber, 2005; Stanley et al., 2009; Denil et al., 2013; Andrychowicz et al., 2016)."
+          }
+        ],
+        "reasoning_public": "Makale, genomik verilerin yüksek boyutluluğu ve örneklem sayısının azlığı arasındaki dengesizliğin derin öğrenme modellerinde aşırı uyuma yol açtığı temel sorununu vurgulayarak başlar. Bu, 'Diet Networks' adı verilen yeni bir parametrizasyon yaklaşımının geliştirilmesi için güçlü bir motivasyon sağlar. Teorik çerçeve, problem tanımı, önerilen çözümün temel prensipleri (parametre tahmin ağları ve özellik gömme) ve literatürdeki ilgili çalışmalarla (hiper ağlar gibi) karşılaştırmalarla tutarlı bir şekilde sunulmuştur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yüksek Oranda Çözülemeyen Referanslar",
+        "summary": "Makaledeki referansların önemli bir kısmı (24 referanstan 15'i) OpenAlex veya Semantic Scholar gibi akademik indekslerde başlık, yazar ve yıl bilgileriyle doğrudan çözülememiştir. Bu durum, çalışmanın literatürdeki konumunun ve atıf ağının doğrulanabilirliğini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda referansların kolayca doğrulanabilir olması, çalışmanın şeffaflığı ve literatürdeki yerinin anlaşılması açısından önemlidir. Yüksek oranda çözülemeyen referanslar, okuyucuların atıf yapılan kaynaklara erişimini ve makalenin dayandığı temelleri incelemesini güçleştirebilir. Bu durum, özellikle makalenin 'literature_positioning' boyutunda bir zayıflık olarak değerlendirilebilir, çünkü çalışmanın ilgili literatürle olan bağlantılarını tam olarak ortaya koymayı engeller.",
+        "limitations": [
+          "OpenAlex/Semantic Scholar indekslerinin kapsam sınırlamaları nedeniyle bazı geçerli referanslar da 'bulunamayan' olarak işaretlenmiş olabilir. Ancak bu kadar yüksek bir oranın (24'te 15) sadece indeks kapsamından kaynaklanması olası değildir."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "İlgili Literatüre Başarılı Konumlandırma",
+        "summary": "Makale, Diet Networks yaklaşımını, parametre tahmini yapan diğer ağlar (Hypernetworks, Bertinetto et al., Brabandere et al.) ve genomik veri analizi için derin öğrenme uygulamaları (Kelley et al., Zhou & Troyanskaya, Alipanahi et al.) gibi ilgili literatürdeki çalışmalarla açıkça karşılaştırarak kendi konumunu başarılı bir şekilde belirlemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a9",
+            "section": "INTRODUCTION",
+            "quote": "The idea of having two networks interacting with each other and with one producing parameters for the other is well rooted in the machine learning literature (Bengio et al., 1991; Schmidhuber, 1992; Gomez & Schmidhuber, 2005; Stanley et al., 2009; Denil et al., 2013; Andrychowicz et al., 2016). Recent efforts in the same direction include works such as (Bertinetto et al., 2016; Brabandere et al., 2016; Ha et al., 2016) that use a network to predict the parameters of a Convolutional Neural Network (CNN). ... Compared to other approaches that attempt to learn model parameters using a parameter prediction network, our main goal is to reduce the large number of parameters required by the model, by considering the input features themselves as sub-tasks in a multi-task view of the learning problem, as opposed to constructing a model with even higher capacity, as seen, e.g. in (Ha et al., 2016)."
+          },
+          {
+            "anchor_id": "introduction.a10",
+            "section": "INTRODUCTION",
+            "quote": "Learning tasks involving genomic data and already tackled by deep learning include: using Convolutional Neural Networks (CNNs) to learn the functional activity of DNA sequences (Basset package, Kelley et al. (2016), predicting effects of noncoding DNA (DeepSEA, Zhou & Troyanskaya (2015)), investigating the regulatory role of RNA binding proteins in alternative splicing (Alipanahi et al., 2015), inferring gene expression patterns (Chen et al., 2016; Singh et al., 2016) and population genetic parameters (Sheehan & Song, 2016) among others (see Leung et al. (2016) for a detailed example)."
+          }
+        ],
+        "reasoning_public": "Çalışma, önerilen Diet Networks yaklaşımının literatürdeki benzer yöntemlerden nasıl ayrıştığını ve özellikle parametre sayısını azaltma hedefini vurgulayarak kendi özgün katkısını net bir şekilde ortaya koymuştur. Bu, okuyucunun çalışmanın yeniliğini ve önemini anlamasına yardımcı olur.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi",
+        "summary": "Makale, Diet Networks'ün 'genelleyici' yetenekleri hakkında güçlü iddialarda bulunurken, bu iddiaları destekleyen deneysel kanıtlar tek bir spesifik görev (popülasyon tabakalaşması) ve tek bir veri seti (1000 Genomes) ile sınırlıdır. Bu durum, yöntemin genel uygulanabilirliği ve performansı hakkında yapılan çıkarımların kapsamını aşmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "conclusion.a3",
+            "section": "CONCLUSION",
+            "quote": "We showed how using the parameter prediction networks, yielded better generalization in terms of misclassiﬁcation error."
+          },
+          {
+            "anchor_id": "conclusion.a4",
+            "section": "CONCLUSION",
+            "quote": "This work demonstrated the potential of deep learning models to tackle domain-speciﬁc tasks where there is a mismatch between the number of samples and their high dimensionality."
+          }
+        ],
+        "reasoning_public": "Makale, Diet Networks'ün 'daha iyi genelleme' sağladığını ve 'derin öğrenme modellerinin alan spesifik görevleri ele alma potansiyelini' gösterdiğini iddia etmektedir. Ancak, bu iddialar yalnızca popülasyon tabakalaşması görevi üzerindeki performansla desteklenmektedir. Genomik verilerdeki diğer öğrenme görevleri veya farklı veri setleri üzerindeki performans gösterilmemiştir. Bu, yöntemin genel geçerliliği hakkında yapılan çıkarımların aşırı genelleme riski taşıdığını göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "SNPtoVec Geliştirme İddiasının Yetersiz Açıklanması",
+        "summary": "Makale, Mikolov et al. (2013) çalışmasındaki kelime gömme yönteminin SNP'lere doğrudan uygulanamayacağını belirtirken, kendi 'SNPtoVec' yöntemlerinin nasıl 'benzerlikleri ve birlikte oluşumları' kullandığını yeterince detaylandırmamaktadır. Bu, okuyucunun yöntemin temelini ve yeniliğini tam olarak anlamasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "feature_embeddings.a0",
+            "section": "FEATURE EMBEDDINGS",
+            "quote": "SNPs do not have a similarly well-deﬁned positional context (SNPs close together in our ordering might very well be independent) so our embedding is instead built by training a denoising autoencoder (DAE) (Vincent et al., 2008) on the matrix X. Thus, the DAE learns to recover the values of missing SNPs by leveraging their similarities and cooccurences with other SNPs."
+          }
+        ],
+        "reasoning_public": "Yazarlar, Mikolov et al. (2013) yönteminin SNP'ler için uygun olmadığını belirtip kendi SNPtoVec yaklaşımlarını bir denoising autoencoder (DAE) kullanarak açıkladılar. Ancak, DAE'nin 'benzerlikleri ve birlikte oluşumları' nasıl öğrendiği ve bu öğrenmenin SNPtoVec'in etkinliğine nasıl katkıda bulunduğu daha ayrıntılı açıklanmalıdır. Mevcut açıklama, bu iddiayı tam olarak desteklemek için yeterli teknik derinlikten yoksundur.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Parametre Azaltma İddiasının Güçlü Kanıtlarla Desteklenmesi",
+        "summary": "Makale, Diet Networks'ün parametre sayısını önemli ölçüde azalttığı iddiasını, Table 1'deki nicel verilerle ve Section 2.1'deki teorik hesaplamalarla güçlü bir şekilde desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "We propose a novel neural network parametrization which considerably reduces the number of free parameters."
+          },
+          {
+            "anchor_id": "method.a2",
+            "section": "METHOD",
+            "quote": "Thus, the fat hidden layer of our basic architecture would have Nf × N 1h free parameters (assuming a single layer MLP in the auxiliary network), instead of Nd ×N 1h. Following our previous example, where Nd = 300K and N 1h = 100, using an auxiliary network with previously-obtained feature embeddings of dimensionality Nf = 500 would reduce the number of free parameters of the basic network by a factor of 600 (from 30M to 50K)."
+          },
+          {
+            "anchor_id": "results.a7",
+            "section": "RESULTS",
+            "quote": "Table 1 summarizes the results obtained for each model. ... # of free parameters: Basic 31.5M, Per class histograms with reconstruction 15.8k"
+          }
+        ],
+        "reasoning_public": "Yazarlar, Diet Networks'ün temel hedeflerinden biri olan parametre sayısını azaltma iddiasını, hem teorik olarak (Nd x N1h'den Nf x N1h'ye düşüş) hem de deneysel olarak (Tablo 1'de 'Basic' modelin 31.5M parametresine karşılık 'Per class histograms with reconstruction' modelinin 15.8k parametresi) açıkça göstermektedir. Bu, makalenin ana katkılarından birini güçlü bir şekilde kanıtlamaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Sayıda Çözümlenemeyen Referans",
+        "summary": "Makaledeki referansların önemli bir kısmı (24 referanstan 15'i) otomatik indeksleme sistemleri (OpenAlex/Semantic Scholar) tarafından başlık, yazar ve yıl bilgileriyle eşleştirilememiştir. Bu durum, makaledeki iddiaların doğrulanabilirliğini ve literatürdeki yerini tespit etmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayınlarda referansların kolayca erişilebilir ve doğrulanabilir olması, araştırmanın şeffaflığı ve güvenilirliği açısından kritik öneme sahiptir. Çözümlenemeyen referansların yüksek oranı, okuyucuların atıf yapılan kaynaklara ulaşmasını ve makaledeki argümanların dayanaklarını kontrol etmesini engellemektedir. Bu durum, makalenin akademik standartlara uygunluğunu ve literatürle etkileşimini olumsuz etkileyebilir.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle bazı geçerli referanslar 'bulunamayan' olarak işaretlenmiş olabilir. Bu durum, referansların kendiliğinden hatalı olduğu anlamına gelmez, ancak doğrulanabilirliklerini azaltır."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0",
+          "citation_integrity.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Raporlama Kılavuzlarına Atıfta Bulunulmaması",
+        "summary": "Makale, genetik ve makine öğrenimi alanlarında yaygın olarak kullanılan belirli raporlama kılavuzlarına (örn. TRIPOD, STARD, ARRIVE, CONSORT) uyup uymadığına dair herhangi bir bilgi sunmamaktadır. Bu durum, çalışmanın şeffaflığını ve tekrarlanabilirliğini azaltabilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, özellikle deneysel veya gözlemsel araştırmalarda, ilgili raporlama kılavuzlarına uyum, çalışmanın kalitesini, şeffaflığını ve tekrarlanabilirliğini artırmak için kritik öneme sahiptir. Bu kılavuzlar, metodoloji, sonuçlar ve tartışma bölümlerinde nelerin raporlanması gerektiği konusunda standartlar belirler. Makalede bu tür bir uyumun belirtilmemesi, okuyucuların çalışmanın belirli yönlerini değerlendirmesini zorlaştırabilir.",
+        "limitations": [
+          "Makalenin belirli bir raporlama kılavuzuna uyması gerekip gerekmediği konusunda kesin bir kanıt bulunmamaktadır, ancak bu tür bir açıklama akademik şeffaflık için faydalıdır."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Detayların Yeterli Sunumu",
+        "summary": "Makale, deneylerin tekrarlanabilirliğini sağlamak için model mimarisi, eğitim parametreleri ve veri setleri hakkında yeterli detay sunmaktadır. Özellikle, 'Model Architecture' bölümünde gizli katman birimleri, optimizasyon algoritması ve düzenlileştirme teknikleri açıkça belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_model_architecture.a0",
+            "section": "4.1 MODEL ARCHITECTURE",
+            "quote": "We designed a basic architecture with 2 hidden layers followed by a softmax layer to perform ancestry prediction. We trained this architecture with and without the assistance of the auxiliary network. Similarly, the auxiliary networks were build by stacking a hidden layer on top of one of the feature embeddings described in Section 2.2. In the reported experiments, all hidden layers have 100 units. All models were trained by means of stochastic gradient descent with adaptive learning rate (Tieleman & Hinton, 2012), both for γ = 0 and γ = 10, using dropout, limiting the norm of the weights to 1 and/or applying weight decay to reduce overﬁtting."
+          },
+          {
+            "anchor_id": "4_2_results.a0",
+            "section": "4.2 RESULTS",
+            "quote": "Given the relatively small amount of samples in the 1000 Genomes data, we report results obtained by 5-fold cross validation of the model. We split the data into 5 folds of equal size. A single fold is retained for test, whereas three of the remaining folds are used as training data and the ﬁnal fold is used as validation data. We repeated the process 5 times (one per fold) and report the means and standard deviations of results on the different test sets."
+          },
+          {
+            "anchor_id": "3_data_the_1000_genomes_project.a0",
+            "section": "3 DATA: THE 1000 GENOMES PROJECT",
+            "quote": "In this dataset, we included 315,345 genetic variants with frequencies of at least 5% in 3,450 individuals sampled worldwide from 26 populations, interrogated using microarray genotyping technology: the Genome-Wide Human SNP Array 6.0 by Affymetrix."
+          }
+        ],
+        "reasoning_public": "Makine öğrenimi araştırmalarında, deneysel detayların eksiksiz raporlanması, sonuçların doğrulanabilirliği ve gelecekteki çalışmalar için temel oluşturması açısından hayati öneme sahiptir. Bu makale, model mimarisi, eğitim süreci ve kullanılan veri setleri hakkında yeterli bilgi sağlayarak bu gereksinimi karşılamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Kod Paylaşımı Belirtilmiş Ancak Veri Paylaşımı Eksik",
+        "summary": "Makale, deneyleri yeniden üretmek için kodun GitHub deposunda mevcut olduğunu belirtiyor, ancak kullanılan '1000 Genomes' veri setinin tam olarak nasıl erişileceği veya işleneceği konusunda detaylı bilgi vermiyor. Veri setinin genel bir bağlantısı verilmiş olsa da, makalede kullanılan spesifik alt kümenin veya işleme adımlarının tam olarak açıklanmaması, sonuçların bağımsız olarak doğrulanmasını zorlaştırabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "The code to reproduce the experiments can be found here: https://github.com/adri-romsor/DietNetworks"
+          },
+          {
+            "anchor_id": "data_the_1000_genomes_project.a1",
+            "section": "DATA: THE 1000 GENOMES PROJECT",
+            "quote": "The 1000 Genomes project is the ﬁrst project to sequence the genomes of a large number of people in populations worldwide, yielding the largest public catalog of human genetic variants to date Con- sortium (2015). This allowed large-scale comparison of DNA sequences from populations, thanks to the presence of genetic variation. Individuals of the 1000 Genomes project are samples taken from 26 populations over the world, which are grouped into 5 geographical regions. Figure 2(a) shows a histogram derived from the 1000 Genomes data, depicting the frequency of individuals per pop- ulation (ethnicity). Analogously, Figure 2(b) depicts the frequency of individuals per geographical region. In this dataset, we included 315,345 genetic variants with frequencies of at least 5% in 3,450 individ- uals sampled worldwide from 26 populations, interrogated using microarray genotyping technology: the Genome-Wide Human SNP Array 6.0 by Affymetrix. The mutated state is established by com- parison to the Genome Reference Consortium human genome (build 37). Since individuals have 2 copies of each genomic position, a sampled individual can have 0, 1 or 2 copies of a genetic mu- tation, hereafter referred to as an individual genotype. We excluded SNPs positioned on the sex chromosomes and only included SNPs in approximate linkage equilibrium with each other, such that genotypes at neighboring positions are only weakly correlated (r2 < 0.5)."
+          }
+        ],
+        "reasoning_public": "Tekrar üretilebilirlik, bilimsel araştırmanın temel bir ilkesidir. Kodun paylaşılması önemli bir adımdır, ancak veri işleme adımları ve kullanılan veri setinin spesifik versiyonu hakkında net bilgi eksikliği, başkalarının aynı sonuçları elde etmesini engelleyebilir. Özellikle genetik verilerde, veri setinin belirli bir alt kümesi veya işleme yöntemi sonuçları önemli ölçüde etkileyebilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Onay ve Rıza Beyanı Eksikliği",
+        "summary": "Makale, insan genetik verileri (1000 Genomes Projesi) kullandığını belirtmesine rağmen, bu verilerin toplanması ve kullanılması için etik onay veya katılımcı rızası hakkında herhangi bir beyan içermemektedir. Ancak, 1000 Genomes Projesi'nin kendisi etik onay ve rıza süreçlerini içeren iyi bilinen bir kamu veri setidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "data_the_1000_genomes_project.a2",
+            "section": "DATA: THE 1000 GENOMES PROJECT",
+            "quote": "The 1000 Genomes project is the ﬁrst project to sequence the genomes of a large number of people in populations worldwide, yielding the largest public catalog of human genetic variants to date Con- sortium (2015)."
+          }
+        ],
+        "reasoning_public": "İnsan genetik verilerini içeren araştırmalarda etik onay ve katılımcı rızası beyanı standart bir uygulamadır. Bu tür bir beyanın eksikliği, makalenin etik standartlara uygunluğu konusunda belirsizlik yaratabilir. Ancak, 1000 Genomes Projesi'nin doğası gereği bu tür onayların zaten mevcut olduğu varsayılabilir.",
+        "limitations": [
+          "1000 Genomes Projesi'nin kamuya açık ve önceden etik onaylı bir veri seti olduğu bilgisi, bu bulgunun önemini azaltmaktadır. Makalenin kendisinin ek bir etik onay alması gerekmeyebilir, ancak bu durumun belirtilmesi şeffaflığı artıracaktır."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Giriş Bölümünde Literatür Taramasının Dağınıklığı",
+        "summary": "Giriş bölümü, Diet Networks'ün motivasyonunu ve ilgili literatürü sunarken, literatür taraması bazen dağınık ve akışı bozan bir şekilde sunulmuştur. Özellikle, derin öğrenmenin genomik verilerdeki uygulamaları ve parametre tahmini ağları üzerine yapılan çalışmalar art arda sıralanmış ancak aralarındaki bağlantı ve bu çalışmaların Diet Networks'e nasıl zemin hazırladığı yeterince açık değildir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a11",
+            "section": "INTRODUCTION",
+            "quote": "Learning tasks involving genomic data and already tackled by deep learning include: using Convolutional Neural Networks (CNNs) to learn the functional activity of DNA sequences (Basset package, Kelley et al. (2016), predicting effects of noncoding DNA (DeepSEA, Zhou & Troyanskaya (2015)), investigating the regulatory role of RNA binding proteins in alternative splicing (Alipanahi et al., 2015), inferring gene expression patterns (Chen et al., 2016; Singh et al., 2016) and population genetic parameters (Sheehan & Song, 2016) among others (see Leung et al. (2016) for a detailed example). Noticeably, most of these techniques are based on sequence data where convolutional or recurrent networks are appropriate. When the full DNA sequence is unavailable, such as when data is acquired through genotyping, other methods need to be used. All this work shows that deep learning can be used to tackle genomic-related tasks, paving the road towards a better understanding of the biological impact of DNA variation."
+          },
+          {
+            "anchor_id": "introduction.a12",
+            "section": "INTRODUCTION",
+            "quote": "The idea of having two networks interacting with each other and with one producing parameters for the other is well rooted in the machine learning literature (Bengio et al., 1991; Schmidhuber, 1992; Gomez & Schmidhuber, 2005; Stanley et al., 2009; Denil et al., 2013; Andrychowicz et al., 2016). Recent efforts in the same direction include works such as (Bertinetto et al., 2016; Brabandere et al., 2016; Ha et al., 2016) that use a network to predict the parameters of a Convolutional Neural Network (CNN)."
+          }
+        ],
+        "reasoning_public": "Giriş bölümü, okuyucuyu makalenin ana fikrine hazırlamalı ve ilgili literatürü mantıksal bir akış içinde sunmalıdır. Mevcut durumda, farklı literatür parçaları arasında net bir geçiş veya bağlantı olmaması, okuyucunun konuyu bütünsel olarak kavramasını zorlaştırmaktadır. Bu durum, makalenin ana katkısının ve literatürdeki yerinin daha net anlaşılmasına engel olabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yöntem Bölümünde Şekil Referanslarının Eksikliği",
+        "summary": "Yöntem bölümünde modelin matematiksel formülasyonları ve bileşenleri açıklanırken, bu açıklamaları destekleyen Şekil 1'e yapılan referanslar bazen eksik veya gecikmeli kalmaktadır. Örneğin, 'fat hidden layer' ve 'fat reconstruction layer' gibi kavramlar tanıtılırken, bu katmanların Şekil 1'deki karşılıklarına hemen atıfta bulunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "method.a3",
+            "section": "METHOD",
+            "quote": "The number of parameters of the ﬁrst hidden layer of the architecture grows linearly with the dimensionality of the input data: h(1)i = f1(xiWe + be), (2) where We and be are the layer’s parameters. Using fat data such as the one described in Section 1, leads to a parameter explosion in this layer, hereafter referred to as fat hidden layer. To give the reader an intuition, consider the case of having an input with Nd = 300K, and a hidden layer with N 1h = 100, the number of parameters of such a layer would be 30M. The same happens to the number of parameters of the optional reconstruction layer, hereafter referred to as fat reconstruction layer."
+          },
+          {
+            "anchor_id": "method.a4",
+            "section": "METHOD",
+            "quote": "In order to mitigate this effect, we introduce an auxiliary network to predict the fat layers’ pa-rameters. The auxiliary network takes as input the transposed data matrix XT, extracts a feature embedding and learns a function of this embedding, to be used as parameters of a fat layer: (We)j: = φ(ej), (3) where ej represents the embedding of a feature in XT, φ is a non-linear function and (We)j: is the j-th row of We. This means that each feature is associated with the vector of values it takes in the dataset (e.g. across the patients). Other representations could be used, e.g., derived from other datasets in which those features interact. Figure 1(b) shows a prediction network which is an auxiliary network that predicts the parameters of the fat hidden layer of our basic network. Following the same spirit, Figure 1(c) highlights the interaction between a second prediction network that predicts the fat reconstruction layer parameters and the basic network. The architectures of both auxiliary networks may share the initial feature embedding."
+          }
+        ],
+        "reasoning_public": "Şekiller, karmaşık kavramların görselleştirilmesi ve anlaşılması için kritik öneme sahiptir. Metin içinde ilgili şekillere zamanında ve doğru referanslar verilmemesi, okuyucunun metin ile görsel materyal arasında bağlantı kurmasını zorlaştırabilir ve anlamayı geciktirebilir. Bu durum, özellikle teknik bir makalede, okuyucunun model mimarisini tam olarak kavramasını engelleyebilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve Mantıklı Bölüm Akışı",
+        "summary": "Makale, soyutlamadan sonuca kadar net ve mantıklı bir bölüm akışına sahiptir. Giriş, yöntem, sonuçlar ve sonuç bölümleri, okuyucuyu konuya adım adım dahil ederek makalenin ana fikrini ve katkılarını başarılı bir şekilde sunmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "İyi yapılandırılmış bir makale, okuyucunun karmaşık fikirleri kolayca takip etmesini sağlar. Bu makaledeki bölüm düzeni, araştırmanın mantıksal ilerleyişini yansıtmakta ve okuyucunun ana argümanı anlamasına yardımcı olmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "writing_structure.f3",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Açık ve Anlaşılır Dil Kullanımı",
+        "summary": "Makale boyunca kullanılan dil açık, anlaşılır ve teknik jargonun gerektiği yerlerde iyi açıklanmıştır. Bu durum, derin öğrenme ve genomik alanlarına aşina olmayan okuyucuların bile temel kavramları kavramasına yardımcı olmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yazımda açıklık, bilginin etkili bir şekilde aktarılması için esastır. Makalenin dili, karmaşık konuları erişilebilir kılmakta ve geniş bir okuyucu kitlesi için anlaşılırlığı artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çalışma Alanı ve Yaklaşım Uygunluğu",
+        "summary": "Makale, derin öğrenme tekniklerini genomik veri analizi gibi yüksek boyutlu biyomedikal problemlere uygulama konusundaki güncel araştırmalarla uyumlu bir yaklaşım sunmaktadır. Bu, makalenin yapay zeka ve makine öğrenimi konferansları veya biyoinformatik dergileri gibi ilgili yayın mekanlarına uygun olduğunu göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "Improving the ability of deep learning to handle such datasets could have an important impact in medical research, more speciﬁcally in precision medicine, where high-dimensional data regarding a particular patient is used to make predictions of interest."
+          },
+          {
+            "anchor_id": "introduction.a13",
+            "section": "INTRODUCTION",
+            "quote": "This paper proposes a novel approach, called Diet Networks, to reparametrize neural networks to considerably reduce their number of free parameters when the input is very high-dimensional and orders of magnitude larger than the number of training examples."
+          }
+        ],
+        "reasoning_public": "Makale, genomik verilerdeki yüksek boyutluluk ve örnek sayısı arasındaki dengesizliği ele almak için 'Diet Networks' adını verdiği yeni bir sinir ağı parametrizasyonu önermektedir. Bu yaklaşım, derin öğrenmenin biyomedikal araştırmalardaki potansiyelini vurgulamakta ve bu alandaki mevcut zorluklara yenilikçi bir çözüm sunmaktadır. Bu tür konular, makine öğrenimi ve biyoinformatik alanlarındaki konferans ve dergilerin ilgi alanına girmektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f1",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Deneysel Doğrulama ve Veri Seti Kullanımı",
+        "summary": "Makale, önerilen yöntemi genetik soy tahmini gibi biyomedikal açıdan önemli bir görevde, yaygın olarak kabul görmüş 1000 Genom Projesi veri setini kullanarak deneysel olarak doğrulamaktadır. Bu, çalışmanın pratik uygulamalara ve gerçek dünya verilerine odaklandığını gösterir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a14",
+            "section": "INTRODUCTION",
+            "quote": "We evaluate our method on a publicly available dataset for ancestry prediction, the 1000 Genomes dataset1, that best represents the human population diversity."
+          },
+          {
+            "anchor_id": "conclusion.a5",
+            "section": "CONCLUSION",
+            "quote": "We validated our approach on the publicly available 1000 genomes dataset, addressing the relevant task of ancestry prediction based on SNP data."
+          }
+        ],
+        "reasoning_public": "Çalışma, '1000 Genomes dataset' gibi halka açık ve biyomedikal alanda önemli kabul edilen bir veri setini kullanarak yönteminin etkinliğini göstermektedir. Bu, makalenin deneysel geçerliliğini artırır ve ilgili bilimsel topluluklar için cazip hale getirir. Genetik soy tahmini gibi spesifik bir uygulama alanı seçimi, makalenin belirli bir araştırma alanına odaklandığını ve bu alandaki uzmanlar için uygun olduğunu gösterir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "CONCLUSION",
+        "instruction": "Sonuç bölümündeki 'daha iyi genelleme' ve 'derin öğrenme modellerinin potansiyeli' gibi genelleyici ifadeler, mevcut deneysel kanıtların kapsamına uygun olarak daha dikkatli ve sınırlı bir dille yeniden ifade edilmelidir. İddialar, yalnızca popülasyon tabakalaşması görevi ve 1000 Genomes veri seti bağlamında geçerli olduğu belirtilmelidir.",
+        "acceptance_check": "Genelleyici ifadelerin, makalede sunulan spesifik deneysel kanıtların sınırları içinde olacak şekilde revize edildiği doğrulanacaktır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "METHOD",
+        "instruction": "Örneklem büyüklüğünün seçimi için bir gerekçe sunulmalı veya bu büyüklüğün çalışmanın hedefleri için neden yeterli olduğu açıklanmalıdır. Eğer mümkünse, bir güç analizi veya hassasiyet analizi yapılmalı ve sonuçları raporlanmalıdır.",
+        "acceptance_check": "Örneklem büyüklüğü gerekçesi veya güç analizi sonuçları metne eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Çözümlenemeyen referansların her biri için DOI (Digital Object Identifier) veya tam URL gibi daha spesifik tanımlayıcılar eklenmelidir. Özellikle 'not_found_in_index' olarak işaretlenen referanslar için bu adım önemlidir.",
+        "acceptance_check": "Tüm referanslar için DOI veya tam URL sağlanmış olmalı ve otomatik indeksleme sistemleri tarafından çözülebilirlik oranı artırılmalıdır.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a1",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, CONCLUSION",
+        "instruction": "Giriş veya Sonuç bölümlerinde, yöntemin gelecekteki çalışmalarda farklı genomik görevler veya veri setleri üzerinde test edilmesi gerektiği açıkça belirtilerek, mevcut çalışmanın sınırlılıkları vurgulanmalıdır.",
+        "acceptance_check": "Çalışmanın sınırlılıklarını ve gelecekteki araştırma yönlerini belirten bir açıklamanın eklendiği doğrulanacaktır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "DATA: THE 1000 GENOMES PROJECT",
+        "instruction": "Makalede kullanılan 1000 Genomes veri setinin spesifik versiyonu (örneğin, faz numarası, sürüm tarihi) ve veri işleme adımları (filtreleme kriterleri, dışlanan SNP'ler, kullanılan araçlar) hakkında daha fazla detay eklenmelidir. Bu bilgiler, araştırmacıların aynı veri setini hazırlamasını ve sonuçları doğrulamak için kullanmasını sağlayacaktır.",
+        "acceptance_check": "Veri setinin tam adı, sürümü ve makalede belirtilen filtreleme adımlarının açıkça listelendiği bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Çözülemeyen referansların (özellikle [1], [2], [3], [4], [7], [8], [9], [13], [17], [19], [20], [21], [22], [24]) tam ve doğru künye bilgilerini (DOI, yayınlandığı konferans/dergi, cilt, sayı, sayfa aralığı vb.) ekleyerek referans listesini güncelleyin. Özellikle 'not_found_in_index' olarak işaretlenen referanslar için bu kontrol kritik öneme sahiptir.",
+        "acceptance_check": "Tüm referansların tam künye bilgileri eklenmiş ve OpenAlex/Semantic Scholar gibi indekslerde çözülebilir hale getirilmiş olması.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f2.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "METHOD",
+        "instruction": "Kullanılan istatistiksel modellerin varsayımlarının nasıl ele alındığına dair bilgi eklenmelidir (örneğin, varsayım testleri yapıldı mı, ihlaller durumunda ne yapıldı?).",
+        "acceptance_check": "Varsayım testleri veya varsayım ihlallerine yönelik stratejiler metinde açıklanmış mı?",
+        "linked_finding_ids": [
+          "quant.f2"
+        ]
+      },
+      {
+        "action_id": "quant.f2.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RESULTS",
+        "instruction": "Farklı modeller ve gömme stratejileri arasındaki karşılaştırmalar için çoklu karşılaştırma düzeltmelerinin (örneğin, Bonferroni, Holm, Benjamini-Hochberg) uygulanıp uygulanmadığı belirtilmelidir. Uygulanmadıysa, bunun nedenleri açıklanmalıdır.",
+        "acceptance_check": "Çoklu karşılaştırma düzeltmeleri hakkında bilgi eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f2"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "ABSTRACT, INTRODUCTION, CONCLUSION",
+        "instruction": "Nedensel çıkarım ima eden ifadeler, çalışmanın metodolojik sınırları göz önünde bulundurularak daha dikkatli bir dille yeniden formüle edilmelidir. 'Could lead to', 'will improve' gibi ifadeler yerine 'may contribute to', 'could potentially enhance' gibi daha ihtiyatlı ifadeler kullanılabilir.",
+        "acceptance_check": "Nedensel dilin daha ihtiyatlı ve çalışmanın tasarımına uygun hale getirildiği kontrol edildi mi?",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION",
+        "instruction": "Makalenin, ilgili raporlama kılavuzlarına (örneğin, genetik çalışmalar için STROBE veya TRIPOD, makine öğrenimi deneyleri için özel kılavuzlar) uyup uymadığını belirtin. Eğer uyuluyorsa, hangi kılavuzlara uyulduğunu ve bu uyumun nasıl sağlandığını açıklayın. Eğer uyulmuyorsa, bunun nedenlerini açıklayın veya gelecekteki revizyonlarda uyum sağlamayı düşünün.",
+        "acceptance_check": "Makalede, kullanılan raporlama kılavuzlarına dair açık bir ifade veya bölüm eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümündeki literatür taramasını yeniden yapılandırın. Derin öğrenmenin genomik verilerdeki uygulamaları ile parametre tahmini ağları arasındaki bağlantıyı ve bu iki alanın Diet Networks'ün gelişimine nasıl katkıda bulunduğunu daha açık bir şekilde ifade edin. Her bir literatür grubunun Diet Networks'ün hangi yönüne ilham verdiğini veya hangi boşluğu doldurduğunu belirtin.",
+        "acceptance_check": "Giriş bölümü, ilgili literatür parçaları arasında net geçişler ve bağlantılar içermeli, Diet Networks'ün motivasyonunu ve yeniliğini daha iyi vurgulamalıdır.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Eğer bazı referanslar arXiv, workshop bildirileri veya İngilizce dışı yayınlar gibi indekslerde daha az yer alan kaynaklarsa, bu durum referans listesinde veya ilgili atıfın yanında belirtilerek okuyucuya bilgi verilmelidir.",
+        "acceptance_check": "İndekslenme zorluğu olan referanslar için ek açıklama eklenmiş olmalıdır.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "FEATURE EMBEDDINGS",
+        "instruction": "SNPtoVec bölümünde, denoising autoencoder'ın SNP'ler arasındaki 'benzerlikleri ve birlikte oluşumları' nasıl yakaladığına dair daha fazla teknik detay veya sezgisel açıklama eklenmelidir. Örneğin, DAE'nin mimarisi, eğitim süreci ve bu 'benzerliklerin' DAE'nin gizli temsilinde nasıl kodlandığına dair kısa bir açıklama faydalı olacaktır.",
+        "acceptance_check": "SNPtoVec yönteminin 'benzerlikleri ve birlikte oluşumları' nasıl kullandığına dair ek teknik veya sezgisel açıklamaların eklendiği doğrulanacaktır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "ABSTRACT, RESULTS",
+        "instruction": "'Significantly reduce' veya 'does not appear to reduce' gibi ifadelerin kullanıldığı yerlerde, bu iddiaları destekleyen istatistiksel test sonuçları (p-değerleri, güven aralıkları) eklenmeli veya bu ifadeler daha nötr bir dille (örneğin, 'considerably reduces', 'shows no clear reduction') değiştirilmelidir.",
+        "acceptance_check": "İlgili ifadelerin istatistiksel kanıtlarla desteklendiği veya daha nötr bir dille ifade edildiği kontrol edildi mi?",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "METHOD",
+        "instruction": "Yöntem bölümünde model bileşenleri açıklanırken, ilgili şekil referanslarını (özellikle Şekil 1'e) daha erken ve daha sık ekleyin. Örneğin, 'fat hidden layer' veya 'fat reconstruction layer' gibi terimler ilk kez kullanıldığında, okuyucuyu doğrudan Şekil 1'deki ilgili kısma yönlendirin.",
+        "acceptance_check": "Yöntem bölümündeki her önemli model bileşeni veya kavramı tanıtıldığında, ilgili şekil referansı hemen yanında veya ilk cümlede yer almalıdır.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Nedensel Dil Kullanımında Potansiyel Aşırılık",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f7.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Nedensel Dil Kullanımında Potansiyel Aşırılık; Giriş Bölümünde Literatür Taramasının Dağınıklığı",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a10",
+          "introduction.a11",
+          "introduction.a12",
+          "introduction.a13",
+          "introduction.a14",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8",
+          "introduction.a9"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "METHOD",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yöntem Bölümünde Şekil Referanslarının Eksikliği",
+        "anchor_ids": [
+          "method.a0",
+          "method.a1",
+          "method.a2",
+          "method.a3",
+          "method.a4"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "RESULTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Varsayım Testleri ve Çoklu Karşılaştırma Riski Hakkında Bilgi Eksikliği",
+        "anchor_ids": [
+          "results.a0",
+          "results.a1",
+          "results.a2",
+          "results.a3",
+          "results.a4",
+          "results.a5",
+          "results.a6",
+          "results.a7"
+        ],
+        "action_item_ids": [
+          "quant.f2.a0",
+          "quant.f2.a1",
+          "quant.f7.a0"
+        ]
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi; Nedensel Dil Kullanımında Potansiyel Aşırılık",
+        "anchor_ids": [
+          "conclusion.a0",
+          "conclusion.a1",
+          "conclusion.a2",
+          "conclusion.a3",
+          "conclusion.a4",
+          "conclusion.a5"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "3 DATA: THE 1000 GENOMES PROJECT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_data_the_1000_genomes_project.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4.1 MODEL ARCHITECTURE",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_1_model_architecture.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4.2 RESULTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_2_results.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "DATA: THE 1000 GENOMES PROJECT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Kod Paylaşımı Belirtilmiş Ancak Veri Paylaşımı Eksik",
+        "anchor_ids": [
+          "data_the_1000_genomes_project.a0",
+          "data_the_1000_genomes_project.a1",
+          "data_the_1000_genomes_project.a2"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0",
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Kod Paylaşımı Belirtilmiş Ancak Veri Paylaşımı Eksik",
+        "anchor_ids": [
+          "experiments.a0"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ]
+      },
+      {
+        "section": "FEATURE EMBEDDINGS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "SNPtoVec Geliştirme İddiasının Yetersiz Açıklanması",
+        "anchor_ids": [
+          "feature_embeddings.a0"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_1.a0"
+        ],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

@@ -1,0 +1,2224 @@
+{
+  "paper_id": "peerread:iclr2017-415",
+  "run_tag": "main",
+  "job_id": "48def965-5422-4e58-8723-136bed5439c9",
+  "elapsed_s": 461.6,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "REGULARIZING CNNS WITH LOCALLY CONSTRAINED DECORRELATIONS Pau Rodrı́guez†, Jordi Gonzàlez†,‡, Guillem Cucurull†, Josep M. Gonfaus‡, Xavier Roca†,‡ †Computer Vision Center - Univ. Autònoma de Barcelona (UAB), 08193 Bellaterra, Catalonia Spain",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "DISCUSSION",
+        "ACKNOWLEDGEMENTS",
+        "REFERENCES"
+      ],
+      "word_count": 4947,
+      "reference_count": 29,
+      "parse_confidence": 0.676,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces OrthoReg, a novel regularization technique for Convolutional Neural Networks (CNNs) that enforces local orthogonality on weight vectors. The core idea is to penalize positive correlations while ignoring negative ones, which the authors argue is a limitation of previous decorrelation methods. The method is mathematically derived and implemented as an efficient, weight-based regularizer. The authors provide compelling experimental evidence, from proof-of-concept visualizations to state-of-the-art results on CIFAR-10, CIFAR-100, and SVHN. The work is well-motivated and the proposed method is effective. However, the manuscript requires mandatory and thorough corrections to its bibliography, as automated checks could not verify any of the 29 provided references. Assuming these bibliographic issues are fully addressed, the paper stands as a strong contribution.",
+    "strengths": [
+      {
+        "category": "Novelty and Originality",
+        "points": [
+          "The central hypothesis that regularizing negatively correlated features is counterproductive is a novel and insightful contribution to the field of network regularization.",
+          "The proposed 'local loss' function (Eq. 7), which selectively penalizes feature vectors based on their angle, is an elegant and clever implementation of this hypothesis."
+        ]
+      },
+      {
+        "category": "Technical Soundness",
+        "points": [
+          "The mathematical formulation of OrthoReg is clear, well-explained, and logically progresses from the standard cosine similarity to the proposed local loss.",
+          "The 2D toy dataset experiment (Figure 2) provides a very effective and intuitive visualization of why local regularization is more stable and effective than global regularization.",
+          "The computational efficiency of operating on weights instead of activations is well-argued and supported by the FLOPs comparison in Table 1, making it a practical method for modern deep networks."
+        ]
+      },
+      {
+        "category": "Experimental Evaluation",
+        "points": [
+          "The paper demonstrates the effectiveness of OrthoReg across multiple strong, contemporary baselines, including 110-layer ResNets and Wide ResNets.",
+          "The results reported on CIFAR-10, CIFAR-100, and SVHN show consistent improvements over already highly optimized state-of-the-art models, which is a significant achievement.",
+          "The inclusion of verification experiments on MNIST, testing compatibility with other regularizers like Dropout and initialization schemes like LSUV, strengthens the paper's claims."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Citation Integrity",
+        "points": [
+          "The bibliographic information is in a critical state requiring mandatory correction. Automated checks failed to resolve any of the 29 references against major academic indices. This prevents verification of the paper's claimed context and foundations."
+        ]
+      },
+      {
+        "category": "Clarity and Reproducibility",
+        "points": [
+          "The comparison of results in Table 3 can be confusing as it mixes models trained with and without data augmentation. A clearer separation would make the claimed improvements easier to interpret.",
+          "While the choice of the hyperparameter γ is mentioned to be via grid search, more details on the search range and sensitivity would improve reproducibility."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The most significant issue requiring correction is the state of the bibliography. I was unable to programmatically verify any of the 29 listed references. While this does not automatically mean the references are fabricated, it represents a critical failure in scholarly practice that must be rectified. The authors must meticulously review, correct, and format every single reference to ensure it is accurate, complete (including DOIs where available), and points to the correct publication. Without a verifiable set of references, the paper cannot be properly situated within the literature.",
+        "evidence_ref": "citation_integrity_summary: 29/29 not_found_in_index"
+      },
+      {
+        "area": "experimental",
+        "comment": "In Table 3, the 'Augmented' column is a good start, but the overall presentation makes direct, fair comparisons difficult. For example, your OrthoReg on Wide ResNet v2 (with augmentation) is shown to outperform the baseline Wide ResNet v2. However, it is listed alongside models like All-CNN (without augmentation). To strengthen your claims, I suggest restructuring this table to more clearly group models by their data augmentation strategy, creating true 'apples-to-apples' comparisons.",
+        "evidence_ref": null
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The paper empirically finds λ=10 to be an effective value for the local loss function. Figure 5a supports this, but the discussion is brief. It would be beneficial to provide more intuition. Is this value stable across different datasets and architectures? Is there a theoretical reason why the 'knee' of the performance curve appears around this value, or is it an artifact of numerical precision?",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "Table 1 effectively demonstrates the computational advantage of OrthoReg over activation-based decorrelation (DeCov) in terms of FLOPs. This is a strong selling point. To provide an even more practical measure of its cost, could you report the wall-clock time overhead? For example, stating the percentage increase in training time per epoch for the Wide ResNet experiment would give readers a very clear understanding of the trade-off.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "The paper states that λ=10 was found to work well empirically. What is the sensitivity of the model to this hyperparameter? Is the performance gain robust across a range of λ values, or does it require precise tuning?",
+      "The discussion section briefly mentions that the choice of activation function could affect the regularizer. Have you performed any preliminary experiments with activations other than ReLU (e.g., ELUs, Swish)? Does OrthoReg's effectiveness change with non-ReLU activations?",
+      "The authors state that 'negatively correlated features are useful'. The mechanism proposed avoids penalizing them. Is there a scenario where one might want to actively *encourage* negative correlation, and could the OrthoReg framework be adapted for such a purpose (e.g., by flipping the sign of γ for certain angle ranges)?"
+    ],
+    "overall_assessment": "The paper presents OrthoReg, a well-motivated and novel regularization method that demonstrates strong empirical performance. The core idea of focusing regularization on positive correlations while ignoring negative ones is insightful, and the experiments convincingly show its value on top of state-of-the-art models. The work is a valuable contribution. The primary issue requiring mandatory correction before publication is the state of the bibliography; not a single reference could be programmatically verified based on the provided information. The authors must provide a complete and accurate reference list. Once this critical issue is corrected, along with the minor points about experimental clarity and hyperparameter discussion, the paper is recommended for acceptance.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity info. [LLM'in kendi gerekçesi: The concept of 'local' orthogonality that ignores negative correlations is a clever and novel refinement of existing decorrelation techniques.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.0,
+        "rationale": "Regularization is a fundamental topic in deep learning. A computationally cheap method that improves strong, state-of-the-art models is of significant interest to the community."
+      },
+      {
+        "key": "claims_supported",
+        "score": 4.42,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: The claims are largely supported by solid experiments. The score is slightly reduced because the clarity of SOTA comparisons in Table 3 could be improved.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The mathematical derivation is clear and the experimental design, from toy examples to large-scale tests, is sound.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is generally well-written, but clarity could be improved in the presentation of experimental results (Table 3) and the discussion of hyperparameter choices.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.5,
+        "rationale": "If the method is as effective and efficient as presented, it has high potential for adoption by researchers and practitioners."
+      },
+      {
+        "key": "contextualization",
+        "score": 3.0,
+        "rationale": "The paper fails to properly situate itself within the literature in a verifiable manner due to the poor state of its references. This is a major weakness that must be corrected."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the provided evidence pack, 0 out of 29 references could be automatically resolved. This score reflects the inability to verify, not a direct finding of fabrication, but it is a critical flaw that requires mandatory correction.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the provided evidence pack, no obviously missing seminal works were detected in the paper's domain.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the provided evidence pack, no statistical inconsistencies were detected in the manuscript.]"
+      }
+    ],
+    "final_score": 7.72,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 29,
+        "resolved": 0,
+        "not_found_in_index": 29,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Yebo Bao, Hui Jiang, Lirong Dai, and Cong Liu. Incoherent training of deep neural networks to de-correlate bottleneck features for speech recognition. In 2013 IEEE ICASSP, pp. 6980–6984. IEEE, 2013.",
+          "title": "Incoherent training of deep neural networks to de-correlate bottleneck features for speech recognition",
+          "authors": [
+            "Yebo Bao, Hui Jiang, Lirong Dai",
+            "Cong Liu"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.34 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Yoshua Bengio and James S Bergstra. Slow, decorrelated features for pretraining complex cell-like networks. In NIPS, pp. 99–107, 2009.",
+          "title": "Slow, decorrelated features for pretraining complex cell-like networks",
+          "authors": [
+            "Yoshua Bengio",
+            "James S Bergstra"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Mircea I Chelaru and Valentin Dragoi. Negative correlations in visual cortical networks. Cerebral Cortex, 26(1):246–256, 2016.",
+          "title": "Negative correlations in visual cortical networks",
+          "authors": [
+            "Mircea I Chelaru",
+            "Valentin Dragoi"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.63 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Djork-Arn Clevert, Thomas Unterthiner, and Sepp Hochreiter. Fast and accurate deep network learning by exponential linear units (ELUs). ICLR, 2016.",
+          "title": "Fast and accurate deep network learning by exponential linear units (ELUs)",
+          "authors": [
+            "Djork-Arn Clevert, Thomas Unterthiner",
+            "Sepp Hochreiter"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.38 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Michael Cogswell, Faruk Ahmed, Ross Girshick, Larry Zitnick, and Dhruv Batra. Reducing over- ﬁtting in deep networks by decorrelating representations. ICLR, 2016.",
+          "title": "Reducing over- ﬁtting in deep networks by decorrelating representations",
+          "authors": [
+            "Michael Cogswell, Faruk Ahmed, Ross Girshick, Larry Zitnick",
+            "Dhruv Batra"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Xavier Glorot and Yoshua Bengio. Understanding the difﬁculty of training deep feedforward neural networks. In AISTATS, 2010.",
+          "title": "Understanding the difﬁculty of training deep feedforward neural networks",
+          "authors": [
+            "Xavier Glorot",
+            "Yoshua Bengio"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Ian Goodfellow, David Warde-Farley, Mehdi Mirza, Aaron Courville, and Yoshua Bengio. Maxout networks. In ICML, pp. 1319–1327, 2013.",
+          "title": "Maxout networks",
+          "authors": [
+            "Ian Goodfellow, David Warde-Farley, Mehdi Mirza, Aaron Courville",
+            "Yoshua Bengio"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.29 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Benjamin Graham. Fractional max-pooling. arXiv preprint arXiv:1412.6071, 2014.",
+          "title": "Fractional max-pooling",
+          "authors": [
+            "Benjamin Graham"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.26 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recog- nition. arXiv preprint arXiv:1512.03385, 2015a.",
+          "title": "Deep residual learning for image recog- nition",
+          "authors": [
+            "Kaiming He, Xiangyu Zhang, Shaoqing Ren",
+            "Jian Sun"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Delving deep into rectiﬁers: Surpassing human-level performance on imagenet classiﬁcation. In ICCV, pp. 1026–1034, 2015b.",
+          "title": "Delving deep into rectiﬁers: Surpassing human-level performance on imagenet classiﬁcation",
+          "authors": [
+            "Kaiming He, Xiangyu Zhang, Shaoqing Ren",
+            "Jian Sun"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Gao Huang, Yu Sun, Zhuang Liu, Daniel Sedra, and Kilian Weinberger. Deep networks with stochas- tic depth. arXiv preprint arXiv:1603.09382, 2016.",
+          "title": "Deep networks with stochas- tic depth",
+          "authors": [
+            "Gao Huang, Yu Sun, Zhuang Liu, Daniel Sedra",
+            "Kilian Weinberger"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Sergey Ioffe and Christian Szegedy. Batch normalization: Accelerating deep network training by reducing internal covariate shift. In ICML, pp. 448–456, 2015.",
+          "title": "Batch normalization: Accelerating deep network training by reducing internal covariate shift",
+          "authors": [
+            "Sergey Ioffe",
+            "Christian Szegedy"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton. ImageNet Classiﬁcation with Deep Con- volutional Neural Networks. In NIPS, pp. 1106–1114, 2012.",
+          "title": "ImageNet Classiﬁcation with Deep Con- volutional Neural Networks",
+          "authors": [
+            "Alex Krizhevsky, Ilya Sutskever",
+            "Geoffrey E. Hinton"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.78 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.",
+          "title": "Gradient-based learning applied to document recognition",
+          "authors": [
+            "Yann LeCun, Léon Bottou, Yoshua Bengio",
+            "Patrick Haffner"
+          ],
+          "year": 1998,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Chen-Yu Lee, Saining Xie, Patrick W. Gallagher, Zhengyou Zhang, and Zhuowen Tu. Deeply- supervised nets. In Guy Lebanon and S. V. N. Vishwanathan (eds.), AISTATS, volume 38 of JMLR Proceedings. JMLR.org, 2015.",
+          "title": "Deeply- supervised nets",
+          "authors": [
+            "Chen-Yu Lee, Saining Xie, Patrick W. Gallagher, Zhengyou Zhang",
+            "Zhuowen Tu"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.32 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Hongyang Li, Wanli Ouyang, and Xiaogang Wang. Multi-bias non-linear activation in deep neural networks. arXiv preprint arXiv:1604.00676, 2016.",
+          "title": "Multi-bias non-linear activation in deep neural networks",
+          "authors": [
+            "Hongyang Li, Wanli Ouyang",
+            "Xiaogang Wang"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.65 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Min Lin, Qiang Chen, and Shuicheng Yan. Network in network. arXiv preprint arXiv:1312.4400, March 2014.",
+          "title": "Network in network",
+          "authors": [
+            "Min Lin, Qiang Chen",
+            "Shuicheng Yan"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Dmytro Mishkin and Jiri Matas. All you need is a good init. ICLR, 2016. 10 Yuval Netzer, Tao Wang, Adam Coates, Alessandro Bissacco, Bo Wu, and Andrew Y Ng. Reading digits in natural images with unsupervised feature learning. 2011.",
+          "title": "All you need is a good init",
+          "authors": [
+            "Dmytro Mishkin",
+            "Jiri Matas"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.32 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Steven J. Nowlan and Geoffrey E. Hinton. Simplifying neural networks by soft weight-sharing. Neural computation, 4(4):473–493, 1992.",
+          "title": "Simplifying neural networks by soft weight-sharing",
+          "authors": [
+            "Steven J. Nowlan",
+            "Geoffrey E. Hinton"
+          ],
+          "year": 1992,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Olga Russakovsky, Jia Deng, Hao Su, Jonathan Krause, Sanjeev Satheesh, Sean Ma, Zhiheng Huang, Andrej Karpathy, Aditya Khosla, Michael Bernstein, et al. Imagenet large scale visual recognition challenge. IJCV, 115(3):211–252, 2015.",
+          "title": null,
+          "authors": [],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.2,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Andrew M. Saxe, James L. McClelland, and Surya Ganguli. Exact solutions to the nonlinear dy- namics of learning in deep linear neural networks. arXiv:1312.6120, December 2013.",
+          "title": "Exact solutions to the nonlinear dy- namics of learning in deep linear neural networks",
+          "authors": [
+            "Andrew M. Saxe, James L. McClelland",
+            "Surya Ganguli"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Jost T. Springenberg, Alexey Dosovitskiy, Thomas Brox, and Martin Riedmiller. Striving for sim- plicity: The all convolutional net. In ICLR (workshop track), 2015.",
+          "title": "Striving for sim- plicity: The all convolutional net",
+          "authors": [
+            "Jost T. Springenberg, Alexey Dosovitskiy, Thomas Brox",
+            "Martin Riedmiller"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Nitish Srivastava, Geoffrey E. Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: A simple way to prevent neural networks from overﬁtting. JMLR, 15(1):1929–1958, 2014.",
+          "title": "Dropout: A simple way to prevent neural networks from overﬁtting",
+          "authors": [
+            "Nitish Srivastava, Geoffrey E. Hinton, Alex Krizhevsky, Ilya Sutskever",
+            "Ruslan Salakhutdinov"
+          ],
+          "year": 1929,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "Rupesh K. Srivastava, Klaus Greff, and Jürgen Schmidhuber. Training very deep networks. In NIPS, pp. 2368–2376, 2015.",
+          "title": "Training very deep networks",
+          "authors": [
+            "Rupesh K. Srivastava, Klaus Greff",
+            "Jürgen Schmidhuber"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.58 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Du- mitru Erhan, Vincent Vanhoucke, and Andrew Rabinovich. Going deeper with convolutions. In CVPR, pp. 1–9, 2015.",
+          "title": "Going deeper with convolutions",
+          "authors": [
+            "Andrew Rabinovich"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "Li Wan, Matthew D Zeiler, Sixin Zhang, Yann L Cun, and Rob Fergus. Regularization of neural networks using dropconnect. In ICML, pp. 1058–1066, 2013.",
+          "title": "Regularization of neural networks using dropconnect",
+          "authors": [
+            "Li Wan, Matthew D Zeiler, Sixin Zhang, Yann L Cun",
+            "Rob Fergus"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 27,
+          "raw": "Sergey Zagoruyko and Nikos Komodakis. Wide residual networks. In BMVC, May 2016.",
+          "title": "Wide residual networks",
+          "authors": [
+            "Sergey Zagoruyko",
+            "Nikos Komodakis"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 28,
+          "raw": "Sergey Zagoruyko and Nikos Komodakis. Wide residual networks. arXiv preprint arXiv:1605.07146, November 2016.",
+          "title": "Wide residual networks",
+          "authors": [
+            "Sergey Zagoruyko",
+            "Nikos Komodakis"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 29,
+          "raw": "Matthew D. Zeiler and Rob Fergus. Visualizing and understanding convolutional networks. In ECCV, pp. 818–833. 2014. 11",
+          "title": "Visualizing and understanding convolutional networks",
+          "authors": [
+            "Matthew D. Zeiler",
+            "Rob Fergus"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "908353eb107910fb3357231742f84fc96ce36f1fb984bc33037ce3230b66ac31",
+          "request_time": "2026-08-22T17:38:44.628599Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:38:45.555548Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "8ad0fb56862fa56716b09598ff86dc405febffa994ef782b96c519292d112fb5",
+          "request_time": "2026-08-22T17:38:46.614822Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:46:04.252472Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin başlığı, özet ve bölüm başlıkları (ABSTRACT, INTRODUCTION, DISCUSSION, REFERENCES) tipik bir araştırma makalesine işaret etmektedir. Kelime sayısı ve referans sayısı da bu tür için uygundur. Çalışma, 'CNN'ler', 'derin öğrenme', 'özellik dekorrelasyonu' gibi terimler ve 'yeni bir düzenleme tekniği sunuyoruz' ifadesiyle yeni bir algoritma veya model geliştirmeye odaklandığını göstermektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 81.7,
+      "recommended_decision": "accept",
+      "confidence": 0.68,
+      "top_fatal_risks": [
+        "Genel İddiaların Kapsamlı Kanıtlarla Desteklenmemesi",
+        "Etki Büyüklüğü ve Güven Aralıklarının Yetersiz Raporlanması"
+      ],
+      "one_sentence_diagnosis": "0 critical and 2 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 38.0,
+        "severity": "major",
+        "confidence": 0.9166666666666666,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 66.0,
+        "severity": "moderate",
+        "confidence": 0.82,
+        "why_it_matters": "5 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "5 concern(s): None of the 29 references provided in the manuscript could be programmatically verified against major academic indices (OpenAlex/S2). This is a critical failure in bibliographic integrity, preventing proper contextualization and evaluation of the work. The authors must meticulously review, correct, and format every single reference to ensure accuracy, completeness (including DOIs where available), and verifiability.; The comparison of results in Table 3 mixes models trained with and without data augmentation, making direct 'apples-to-apples' comparisons difficult. This obscures the true impact of OrthoReg. The table should be restructured to clearly separate models by their data augmentation strategy.; While Figure 5a supports the empirical choice of λ=10, the discussion regarding its sensitivity and theoretical justification is brief. More details are needed on whether this value is stable across different datasets and architectures, and if there's a theoretical basis for its optimal performance, or if it's an artifact of numerical precision. This impacts reproducibility and generalizability. (+2 more)",
+        "key_objection": "None of the 29 references provided in the manuscript could be programmatically verified against major academic indices (OpenAlex/S2). This is a critical failure in bibliographic integrity, preventing proper contextualization and evaluation of the work. The authors must meticulously review, correct, and format every single reference to ensure accuracy, completeness (including DOIs where available), and verifiability.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): None of the 29 references could be programmatically verified against major academic indices. This is a critical issue for scholarly integrity and reproducibility, as it prevents proper contextualization and verification of the paper's foundations. The authors must meticulously review, correct, and format every single reference to ensure accuracy, completeness (including DOIs where available), and resolvability.; The comparison of results in Table 3 mixes models trained with and without data augmentation, making direct, fair comparisons difficult. A clearer separation or grouping of models by their data augmentation strategy would improve the interpretability of claimed improvements.; While Figure 5a supports the empirical finding that λ=10 is an effective value for the local loss function, the discussion regarding its sensitivity and stability across different datasets and architectures is brief. More details on the search range, sensitivity analysis, and potential theoretical reasons for this optimal value would enhance reproducibility and understanding. (+1 more)",
+        "key_objection": "None of the 29 references could be programmatically verified against major academic indices. This is a critical issue for scholarly integrity and reproducibility, as it prevents proper contextualization and verification of the paper's foundations. The authors must meticulously review, correct, and format every single reference to ensure accuracy, completeness (including DOIs where available), and resolvability.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): None of the 29 references could be programmatically verified against major academic indices. This is a critical issue that prevents proper contextualization and verification of the paper's foundations. The authors must meticulously review, correct, and format every single reference to ensure accuracy, completeness (including DOIs where available), and correct linkage to publications.; The comparison of results in Table 3 is confusing due to the mixing of models trained with and without data augmentation. To facilitate clearer and fairer comparisons, please restructure this table to group models by their data augmentation strategy.; While Figure 5a supports the empirical finding that λ=10 is effective, the discussion regarding this hyperparameter is brief. Please provide more intuition on why this value is effective, its stability across different datasets and architectures, and whether there's a theoretical reason for the observed performance curve 'knee' around this value. (+1 more)",
+        "key_objection": "None of the 29 references could be programmatically verified against major academic indices. This is a critical issue that prevents proper contextualization and verification of the paper's foundations. The authors must meticulously review, correct, and format every single reference to ensure accuracy, completeness (including DOIs where available), and correct linkage to publications.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "reject-leaning",
+        "summary": "5 concern(s): The summary states that 'none of the references could be programmatically verified'. This is consistent with the evidence package which shows 29/29 references as 'not_found_in_index'.; The statement 'Automated checks failed to resolve any of the 29 references against major academic indices' is directly supported by the 'citation_integrity_summary' showing 'toplam=29, çözülen=0, bulunamayan=29'.; The comment 'I was unable to programmatically verify any of the 29 listed references' is directly supported by the 'citation_integrity_summary' showing 'toplam=29, çözülen=0, bulunamayan=29'. (+2 more)",
+        "key_objection": "The summary states that 'none of the references could be programmatically verified'. This is consistent with the evidence package which shows 29/29 references as 'not_found_in_index'.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "literature_positioning.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "literature_positioning.f0",
+          "research_question_fit.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper introduces OrthoReg, a novel regularization technique for Convolutional Neural Networks (CNNs) that enforces local orthogonality on weight vectors. The core idea is to penalize positive correlations while ignoring negative ones, which the authors argue is a limitation of previous decorrelation methods. The method is mathematically derived and implemented as an efficient, weight-based regularizer. The authors provide compelling experimental evidence, from proof-of-concept visualizations to state-of-the-art results on CIFAR-10, CIFAR-100, and SVHN. The work is well-motivated and the proposed method is effective. However, the manuscript requires mandatory and thorough corrections to its bibliography, as automated checks could not verify any of the 29 provided references. Assuming these bibliographic issues are fully addressed, the paper stands as a strong contribution.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Deneysel Tasarımın Açıkça Belirtilmesi",
+        "summary": "Makale, önerilen OrthoReg yönteminin performansını değerlendirmek için bir dizi kontrollü deney tasarlamıştır. Bu deneyler, farklı veri kümeleri (MNIST, CIFAR-10, CIFAR-100, SVHN) ve farklı ağ mimarileri (MLP, ResNet, Wide ResNet) üzerinde karşılaştırmalı analizler içermektedir. Bu yaklaşım, araştırma sorusuna doğrudan yanıt vermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_experiments.a0",
+            "section": "3 EXPERIMENTS",
+            "quote": "In this section we provide a set of experiments that verify that (i) training with the proposed regularization increases the performance of naive unregularized models, (ii) negatively correlated feature weights are useful, and (iii) the proposed regularization improves the performance of state-of-the-art models."
+          }
+        ],
+        "reasoning_public": "Derin öğrenme yöntemlerinin değerlendirilmesinde deneysel tasarım, farklı koşullar altında yöntemin etkinliğini göstermek için kritik öneme sahiptir. Makale, bu gerekliliği yerine getirerek, önerilen yöntemin çeşitli senaryolardaki performansını tutarlı bir şekilde sunmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Gerekçesinin Eksikliği",
+        "summary": "Makale, deneylerde kullanılan veri kümelerinin (MNIST, CIFAR-10, CIFAR-100, SVHN) standart olduğunu belirtmekle birlikte, bu veri kümelerinin örneklem büyüklüğünün veya deneylerin istatistiksel gücünün neden yeterli olduğuna dair herhangi bir gerekçe sunmamaktadır. Özellikle, farklı ağ mimarileri ve hiperparametre ayarları için yapılan karşılaştırmalarda, elde edilen performans farklarının istatistiksel olarak anlamlı olup olmadığını değerlendirmek için yeterli bilgi sağlanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_verification_experiments.a0",
+            "section": "3.1 VERIFICATION EXPERIMENTS",
+            "quote": "As a sanity check, we ﬁrst train a three-hidden-layer Multi-Layer Perceptron (MLP) with ReLU non-liniarities on the MNIST dataset (LeCun et al. (1998)). Our code is based in the train-a-digit-classifier example included in torch/demos1, which uses an upsampled version of the dataset (32×32). The only pre-processing applied to the data is a global standardization. The model is trained with SGD and a batch size of 200 during 200 epochs. No momentum neither weight decay was applied."
+          },
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a0",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "We show that the proposed OrthoReg can help to improve the performance of state-of-the-art models such as deep residual networks (He et al. (2015a)). In order to show the regularization is suitable for deep CNNs, we successfuly regularize a 110-layer ResNet3 on CIFAR-10, decreasing its error from 6.55% to 6.29% without data augmentation."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, elde edilen sonuçların genellenebilirliği ve güvenilirliği için örneklem büyüklüğünün ve istatistiksel gücün gerekçelendirilmesi esastır. Özellikle derin öğrenme modellerinde, küçük performans farklarının bile pratik önemi olabilir, ancak bu farkların şans eseri olup olmadığını anlamak için istatistiksel güç analizi veya benzeri bir gerekçe sunulmalıdır. Bu eksiklik, sonuçların sağlamlığına dair belirsizlik yaratmaktadır.",
+        "limitations": [
+          "Makalede güç analizi veya örneklem büyüklüğü gerekçesiyle ilgili herhangi bir bilgi bulunmamaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Performans Ölçütlerinin Açıkça Tanımlanması",
+        "summary": "Makale, önerilen yöntemin etkinliğini değerlendirmek için hata oranı (error rate) gibi standart ve yaygın olarak kabul görmüş performans ölçütlerini kullanmaktadır. Bu ölçütler, derin öğrenme alanında model performansını karşılaştırmak için açık ve anlaşılırdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "In particular, we show that the models regularized with OrthoReg have higher accuracy bounds even when batch normalization and dropout are present."
+          },
+          {
+            "anchor_id": "3_1_verification_experiments.a1",
+            "section": "3.1 VERIFICATION EXPERIMENTS",
+            "quote": "Figure 4a shows that the model effectively achieves the best error rate for the highest gamma value (γ = 1), thus proving the advantages of the regularization."
+          }
+        ],
+        "reasoning_public": "Performans ölçütlerinin açıkça tanımlanması ve alanın standartlarına uygun olması, sonuçların yorumlanabilirliği ve karşılaştırılabilirliği açısından önemlidir. Makale bu konuda iyi bir iş çıkarmıştır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Hiperparametre Seçiminde Çoklu Karşılaştırma Riski ve Varsayım Testlerinin Eksikliği",
+        "summary": "Makale, γ ve λ hiperparametrelerinin seçimi için grid search kullanıldığını belirtmektedir. Ancak, bu hiperparametrelerin farklı kombinasyonlarının test edilmesi sırasında ortaya çıkabilecek çoklu karşılaştırma riskleri ele alınmamıştır. Ayrıca, kullanılan istatistiksel modellerin (örneğin, hata oranlarındaki farkların anlamlılığı) altında yatan varsayımların (örneğin, normal dağılım) test edilip edilmediği belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a1",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "The regularization coefﬁcient γ was chosen using grid search although similar values were found for all the experiments, specially if regularization gradients are normalized before adding them to the weights."
+          },
+          {
+            "anchor_id": "3_1_verification_experiments.a2",
+            "section": "3.1 VERIFICATION EXPERIMENTS",
+            "quote": "Figure 5a depicts the sensitivity of the model to λ. As expected, the best value is found when lambda corresponds to Orthogonality (λ ≃10)."
+          }
+        ],
+        "reasoning_public": "Hiperparametre optimizasyonu sırasında yapılan çok sayıda deneme, şans eseri iyi sonuçlar elde etme olasılığını artırır. Bu nedenle, çoklu karşılaştırma düzeltmeleri veya çapraz doğrulama gibi yöntemlerle bu riskin azaltılması önemlidir. Ayrıca, istatistiksel testlerin geçerliliği, altında yatan varsayımların karşılanmasına bağlıdır. Bu varsayımların test edilmemesi, sonuçların güvenilirliğini sorgulatabilir.",
+        "limitations": [
+          "Makalede çoklu karşılaştırma düzeltmeleri veya istatistiksel test varsayımlarının kontrol edildiğine dair bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f3.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Metin ve Tablo Arasındaki Tutarlılıkta Küçük Eksiklikler",
+        "summary": "Makale genel olarak metin, tablo ve figürler arasında iyi bir tutarlılık sergilemektedir. Ancak, bazı yerlerde raporlanan değerlerin (örneğin, hata oranları) metin içinde yuvarlanmış haliyle, tablolarda ise daha hassas haliyle verilmesi gibi küçük tutarsızlıklar gözlemlenmiştir. Örneğin, 'decreasing its error from 6.55% to 6.29%' ifadesi ile Tablo 3'teki '6.29 ± 0.19' değeri arasında küçük bir sunum farkı bulunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a2",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "In order to show the regularization is suitable for deep CNNs, we successfuly regularize a 110-layer ResNet3 on CIFAR-10, decreasing its error from 6.55% to 6.29% without data augmentation."
+          },
+          {
+            "anchor_id": "table_3.a0",
+            "section": "Table 3",
+            "quote": "OrthoReg on 110-Layer ResNet* 6.29 ± 0.19"
+          }
+        ],
+        "reasoning_public": "Metin, tablo ve figürler arasındaki tam tutarlılık, okuyucunun bilgiyi doğru ve hızlı bir şekilde anlaması için önemlidir. Küçük tutarsızlıklar, makalenin genel güvenilirliğini etkilemese de, raporlama kalitesini düşürebilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Güven Aralıklarının Yetersiz Raporlanması",
+        "summary": "Makale, hata oranlarındaki iyileşmeleri yüzde olarak belirtse de, bu iyileşmelerin etki büyüklüğü olarak yorumlanması için yeterli istatistiksel ölçütler (örneğin Cohen's d, eta squared) sunmamaktadır. Ayrıca, birçok sonuç için güven aralıkları (CI) raporlanmamıştır. Örneğin, 'decreasing its error from 6.55% to 6.29%' ifadesinde bir fark belirtilse de, bu farkın güven aralığı verilmemiştir. Tablo 3'te bazı değerler için standart sapma verilmiş olsa da, bu her zaman güven aralığı olarak yorumlanamaz ve tüm sonuçlar için mevcut değildir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a3",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "In order to show the regularization is suitable for deep CNNs, we successfuly regularize a 110-layer ResNet3 on CIFAR-10, decreasing its error from 6.55% to 6.29% without data augmentation."
+          },
+          {
+            "anchor_id": "table_3.a1",
+            "section": "Table 3",
+            "quote": "OrthoReg on 110-Layer ResNet* 6.29 ± 0.19"
+          }
+        ],
+        "reasoning_public": "Etki büyüklüğü, elde edilen sonuçların pratik önemini anlamak için kritik öneme sahiptir. Sadece istatistiksel anlamlılık değil, aynı zamanda etkinin büyüklüğü de raporlanmalıdır. Güven aralıkları ise, tahminlerin belirsizliğini gösterir ve sonuçların genellenebilirliği hakkında önemli bilgi sağlar. Bu eksiklikler, okuyucunun sonuçların gerçek dünya üzerindeki etkisini ve güvenilirliğini tam olarak değerlendirmesini zorlaştırmaktadır.",
+        "limitations": [
+          "Makalede etki büyüklüğü ölçütleri ve güven aralıkları (standart sapma dışında) eksiktir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin İlgisizliği",
+        "summary": "Bu makale, derin öğrenme modellerinin düzenlileştirilmesi üzerine odaklandığından, geleneksel nicel araştırmalardaki 'eksik veri' veya 'aykırı değer' işleme stratejileri doğrudan uygulanabilir değildir. Kullanılan veri kümeleri (MNIST, CIFAR-10, vb.) genellikle temiz ve eksiksiz kabul edilir. Bu nedenle, bu boyut için özel bir bulguya gerek yoktur.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Derin öğrenme alanındaki standart veri kümeleri genellikle önceden işlenmiş ve eksiksizdir. Bu nedenle, eksik veri veya aykırı değer işleme stratejileri bu tür çalışmalarda genellikle bir sorun teşkil etmez.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Kullanımında Disiplin",
+        "summary": "Makale, önerilen OrthoReg yönteminin 'overfitting'i azalttığını ve 'performansı artırdığını' belirtirken, bu ifadeler deneysel bir bağlamda ve kontrollü karşılaştırmalarla desteklenmektedir. Bu nedenle, nedensel dil kullanımı, yapılan deneylerin doğası gereği uygun ve disiplinlidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "As a result, imposing locality constraints in feature decorrelation removes interferences between negatively correlated feature weights, allowing the regularizer to reach higher decorrelation bounds, and reducing the overﬁtting more efﬁciently."
+          },
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a4",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "We show that the proposed OrthoReg can help to improve the performance of state-of-the-art models such as deep residual networks (He et al. (2015a))."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalarda, bağımsız değişkenin bağımlı değişken üzerindeki etkisini açıklamak için nedensel dil kullanmak uygundur. Makale, bu ilkeye bağlı kalarak, sonuçlarını doğru bir şekilde yorumlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Tekrar Üretilebilirlik İçin Kod ve Veri Erişilebilirliğinin Kısmi Eksikliği",
+        "summary": "Makale, bazı deneyler için kullanılan kod tabanlarına (örneğin, torch/demos, torch-residual-networks, wide-residual-networks) referanslar vermektedir. Ancak, OrthoReg'in kendi implementasyonu veya deneylerde kullanılan tam kod ve veri setlerinin (işlenmiş halleriyle) doğrudan erişilebilirliği hakkında açık bir beyan bulunmamaktadır. Bu durum, çalışmanın tam olarak tekrar üretilebilirliğini zorlaştırabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_verification_experiments.a3",
+            "section": "3.1 VERIFICATION EXPERIMENTS",
+            "quote": "Our code is based in the train-a-digit-classifier example included in torch/demos1"
+          },
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a5",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "We successfuly regularize a 110-layer ResNet3 on CIFAR-10, decreasing its error from 6.55% to 6.29% without data augmentation."
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmaların tekrar üretilebilirliği, bulguların doğrulanması ve bilimin ilerlemesi için temel bir gerekliliktir. Kod ve veri setlerinin açıkça paylaşılması, bu tekrar üretilebilirliği büyük ölçüde artırır.",
+        "limitations": [
+          "OrthoReg'in kendi implementasyon kodu ve tüm deney kodları doğrudan erişilebilir değildir."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0",
+          "quant.f8.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Raporlama Biçiminde Küçük Tutarsızlıklar",
+        "summary": "Makale genel olarak iyi bir raporlama kalitesine sahiptir. Ancak, bazı yerlerde 'significant/non-significant' gibi terimlerin kullanımından kaçınılsa da, performans iyileşmelerinin 'en iyi' veya 'daha iyi' olduğu ifadeleri, istatistiksel anlamlılık testleri veya güven aralıkları olmadan kullanıldığında, okuyucuda yanıltıcı bir izlenim yaratabilir. Örneğin, 'OrthoReg leads to much better results' ifadesi, nicel bir karşılaştırma olsa da, istatistiksel bir testle desteklenmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a0",
+            "section": "Table 2",
+            "quote": "OrthoReg leads to much better results when no other improvements such as Dropout and LSUV are present but it can still make small accuracy increments when these two techniques are present."
+          },
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a6",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "As it can be seen in Figure 6, regularizing with OrthoReg yields the best test error rates compared to the baselines."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, sonuçların yorumlanmasında dikkatli bir dil kullanmak önemlidir. İstatistiksel anlamlılık testleri veya güven aralıkları olmadan 'en iyi' veya 'daha iyi' gibi ifadeler kullanmak, bulguların sağlamlığı hakkında yanlış bir algı yaratabilir.",
+        "limitations": [
+          "Bazı 'en iyi' veya 'daha iyi' iddiaları, istatistiksel anlamlılık testleri veya güven aralıkları ile desteklenmemiştir."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yeni Düzenleme Tekniği: OrthoReg",
+        "summary": "Makale, yerel olarak kısıtlanmış dekorrelasyonlar kullanarak evrişimli sinir ağlarını düzenlemek için OrthoReg adlı yeni bir teknik sunmaktadır. Bu teknik, özellikle negatif korelasyonlu özellik ağırlıkları arasındaki etkileşimleri ortadan kaldırarak daha yüksek dekorrelasyon sınırlarına ulaşmayı ve aşırı uyumu daha etkili bir şekilde azaltmayı hedeflemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we show that regularizing negatively correlated features is an obstacle for effective decorrelation and present OrthoReg, a novel regularization technique that locally enforces feature orthogonality."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "In this work we hypothesize that regularizing negatively correlated features is an obstacle for achieving better results and we introduce OrhoReg, a novel regularization technique that addresses the performance margin issue by only regularizing positively correlated feature weights."
+          },
+          {
+            "anchor_id": "2_2_negative_correlations.a0",
+            "section": "2.2 NEGATIVE CORRELATIONS",
+            "quote": "As a result of incorporating the squashing function on the cosine similarity, negatively correlated feature weights will not be regularized. This is different from all previous approaches and the loss presented in eq. 2, where all pairs of weight vectors inﬂuence each other."
+          }
+        ],
+        "reasoning_public": "Makale, mevcut düzenleme stratejilerinin model kapasitesini tam olarak kullanmadığı veya hesaplama maliyeti nedeniyle büyük ölçekli görüntü tanıma alanında nadiren kullanıldığı bir boşluğu doldurmaktadır. OrthoReg'in, ağırlıklar üzerinde doğrudan çalışması ve negatif korelasyonları göz ardı etmesi, onu önceki yaklaşımlardan ayırır ve özgün bir katkı sunar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Mevcut Düzenleyicilerle Uyumluluk ve Performans İyileştirmesi",
+        "summary": "OrthoReg'in, Batch Normalization ve Dropout gibi yaygın olarak kullanılan diğer düzenleme teknikleriyle birlikte bile performansı artırdığı gösterilmiştir. Bu, tekniğin mevcut derin öğrenme uygulamalarına entegrasyon potansiyelini ve genel uygulanabilirliğini vurgulamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "In particular, we show that the models regularized with OrthoReg have higher accuracy bounds even when batch normalization and dropout are present."
+          },
+          {
+            "anchor_id": "3_1_verification_experiments.a4",
+            "section": "3.1 VERIFICATION EXPERIMENTS",
+            "quote": "To demonstrate the proposed regularization can help even when other regularizations are present, we trained a CNN with (i) dropout (c32-c64-l512-d0.5-l10)2 or (ii) LSUV initialization (Mishkin & Matas (2016)). In Table 2, we show that best results are obtained when orthogonal regularization is present."
+          },
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a7",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "We found that, although the regularized models were already using weight decay, dropout, and batch normalization, best error rates were always achieved with OrthoReg."
+          }
+        ],
+        "reasoning_public": "Birçok yeni düzenleme tekniği, diğer güçlü düzenleyicilerin varlığında marjinal faydalar sunarken, OrthoReg'in bu tür senaryolarda bile tutarlı iyileştirmeler sağlaması, pratik değerini ve özgünlüğünü artırır. Bu, tekniğin sadece teorik bir yenilik olmaktan öte, gerçek dünya uygulamalarında da etkili olabileceğini gösterir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f2",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Hesaplama Verimliliği ve Tam Evrişimli Ağlara Uygunluk",
+        "summary": "Makale, OrthoReg'in ağırlıklar üzerinde doğrudan işlem yapması nedeniyle hesaplama açısından verimli olduğunu ve özellikle ağırlık uzayının özellik haritası uzayına kıyasla sabit olduğu tam evrişimli sinir ağları için uygun olduğunu belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "Moreover, since our regularization is directly performed on the weights, it is especially suitable for fully convolutional neural networks, where the weight space is constant compared to the feature map space."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "Moreover, OrhoReg is computationally efﬁcient since it only regularizes the feature weights, which makes it very suitable for the latest CNN models."
+          },
+          {
+            "anchor_id": "2_dealing_with_weight_redundancies.a0",
+            "section": "2 DEALING WITH WEIGHT REDUNDANCIES",
+            "quote": "In this paper, we will focus on the weights correlation rather than activation independence since it still is an open problem in many neural network models and it can be addressed without introduc-ing too much overhead, see Table 1."
+          }
+        ],
+        "reasoning_public": "Derin öğrenme modellerinin artan karmaşıklığı göz önüne alındığında, hesaplama verimliliği önemli bir özgünlük ve katkı faktörüdür. OrthoReg'in bu özelliği, büyük ölçekli modellerde pratik kullanımını destekler ve mevcut yöntemlere göre bir avantaj sunar.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net Araştırma Sorusu ve Uyumlu Tasarım",
+        "summary": "Makale, negatif korelasyonlu özelliklerin düzenlenmesinin etkin dekorrelasyon için bir engel olduğu hipotezini açıkça ortaya koymakta ve bu sorunu ele alan OrthoReg adlı yeni bir düzenleme tekniği sunmaktadır. Çalışmanın tasarımı ve deneyleri bu hipotezi doğrulamaya ve önerilen tekniğin etkinliğini göstermeye odaklanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we show that regularizing negatively correlated features is an obstacle for effective decorrelation and present OrthoReg, a novel regularization technique that locally enforces feature orthogonality."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "In this work we hypothesize that regularizing negatively correlated features is an obstacle for achieving better results and we introduce OrhoReg, a novel regularization technique that addresses the performance margin issue by only regularizing positively correlated feature weights."
+          }
+        ],
+        "reasoning_public": "Makale, giriş bölümünde temel bir hipotez sunarak ve bu hipotezi desteklemek için tasarlanmış bir yöntem (OrthoReg) ve deneyler dizisi sunarak araştırma sorusunu net bir şekilde tanımlamıştır. Bu netlik, okuyucunun çalışmanın amacını ve kapsamını kolayca anlamasını sağlar.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Teorik Çerçevenin Derinliği ve Kapsamı",
+        "summary": "Makale, özellik dekorrelasyonunun ve ortogonalliğin önemini vurgulayarak teorik bir temel sunmaktadır. Ancak, bu kavramların sinir ağlarındaki davranışsal ve bilişsel etkileşimleri üzerine daha derinlemesine bir tartışma, özellikle 'negatif korelasyonların faydaları' gibi iddiaların arkasındaki teorik mekanizmaları daha iyi açıklayabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_negative_correlations.a1",
+            "section": "2.2 NEGATIVE CORRELATIONS",
+            "quote": "However, negative correlations are related to inhibitory connections, competitive learning, and self-organization. In fact, there is evidence that negative correlations can help a neural population to increase the signal-to-noise ratio (Chelaru & Dragoi (2016)) in the V1."
+          },
+          {
+            "anchor_id": "discussion.a0",
+            "section": "DISCUSSION",
+            "quote": "We showed that imposing locality constraints in feature decorrelation removes interferences between negatively correlated feature weights, allowing regularizers to reach higher decorrelation bounds, and reducing the overﬁtting more effectively."
+          }
+        ],
+        "reasoning_public": "Makale, OrthoReg'in etkinliğini deneysel olarak göstermekte başarılıdır, ancak 'negatif korelasyonların faydalı olduğu' ve 'yerel ortogonalliğin bu faydaları koruduğu' gibi temel iddiaların altında yatan teorik gerekçeler daha detaylı açıklanabilir. Örneğin, V1'deki sinyal-gürültü oranı artışı gibi biyolojik referanslar verilse de, bunun yapay sinir ağlarındaki karşılığı ve mekanizması daha net bir şekilde ortaya konulabilir. Bu durum, okuyucunun önerilen yöntemin neden işe yaradığını daha iyi anlamasını sağlayacaktır.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yöntemin Teorik Temellerinin Açık Sunumu",
+        "summary": "Makale, önerilen OrthoReg yönteminin matematiksel formülasyonunu ve türevlerini açık ve anlaşılır bir şekilde sunarak, teorik çerçevesini sağlam bir şekilde oluşturmuştur. Özellikle, kosinüs benzerliği ve Frobenius normu ile ilişkisi net bir şekilde açıklanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_1_orthogonal_weight_regularization.a0",
+            "section": "2.1 ORTHOGONAL WEIGHT REGULARIZATION",
+            "quote": "In this paper, we propose to use the cosine similarity between feature detectors to express how strong is their relationship. Note that the cosine similarity is equivalent to the Pearson correlation for mean-centered normalized vectors, but we will use the term correlation for the sake of clarity."
+          },
+          {
+            "anchor_id": "2_1_orthogonal_weight_regularization.a1",
+            "section": "2.1 ORTHOGONAL WEIGHT REGULARIZATION",
+            "quote": "C(θ) = 1/2 Σi=1 to n Σj=1,j≠i cos^2(θi, θj) = 1/2 Σi=1 to n Σj=1,j≠i (⟨θi, θj⟩ / (||θi||||θj||))^2"
+          },
+          {
+            "anchor_id": "algorithm_1_orthogonal_regularization_step.a0",
+            "section": "Algorithm 1 Orthogonal Regularization Step.",
+            "quote": "for each layer l to regularize do ... ∆Θl = −α(∇JΘl + γ∇Θl_1) end for"
+          }
+        ],
+        "reasoning_public": "Yöntemin temelini oluşturan ortogonal ağırlık düzenlemesinin matematiksel denklemleri (Denklem 1-6) ve algoritması (Algoritma 1) detaylı bir şekilde verilmiştir. Bu, okuyucunun yöntemin nasıl çalıştığını ve teorik olarak neyi başarmayı hedeflediğini anlamasını kolaylaştırmaktadır. Ayrıca, kosinüs benzerliğinin Pearson korelasyonu ile ilişkisi gibi açıklamalar, kavramsal netliği artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Referansların Yüksek Oranda İndekslenememesi",
+        "summary": "Makaledeki referansların tamamı (29/29) otomatik indeksleme sistemleri (OpenAlex/Semantic Scholar) tarafından doğrudan bulunamamıştır. Bu durum, makalenin literatürdeki konumunun ve atıf ağının doğrulanabilirliğini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayınların doğrulanabilirliği ve erişilebilirliği, literatürdeki konumlandırmanın temelini oluşturur. Referansların büyük çoğunluğunun otomatik indeksleme sistemlerinde bulunamaması, okuyucuların ve hakemlerin atıf yapılan eserlere kolayca erişmesini ve makalenin iddialarını destekleyen literatürü değerlendirmesini engeller. Bu durum, makalenin bilimsel topluluk içindeki görünürlüğünü ve etkileşimini olumsuz etkileyebilir.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle, bulunamayan referansların gerçekten mevcut olmadığı veya makalenin literatür konumlandırmasının hatalı olduğu anlamına gelmez. Ancak, bu durum doğrulanabilirliği azaltır."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0",
+          "literature_positioning.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genel İddiaların Kapsamlı Kanıtlarla Desteklenmemesi",
+        "summary": "Makale, OrthoReg'in 'state-of-the-art' CNN'lerde aşırı öğrenmeyi azalttığı ve daha yüksek doğruluk sınırlarına ulaştığı gibi genel iddialarda bulunurken, bu iddiaları desteklemek için sunulan deneysel kanıtlar belirli veri setleri (CIFAR-10, CIFAR-100, SVHN) ve model türleri (ResNet, Wide ResNet) ile sınırlıdır. Bu, iddiaların genelliği ile kanıtların özgüllüğü arasında bir uyumsuzluk yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "As a result, we are able to reduce the overﬁtting of state-of-the-art CNNs on CIFAR-10, CIFAR-100, and SVHN."
+          },
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "In particular, we show that the models regularized with OrthoReg have higher accuracy bounds even when batch normalization and dropout are present."
+          },
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a8",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "We show that the proposed OrthoReg can help to improve the performance of state-of-the-art models such as deep residual networks (He et al. (2015a))."
+          }
+        ],
+        "reasoning_public": "Makale, OrthoReg'in 'state-of-the-art' CNN'lerde aşırı öğrenmeyi azalttığını ve daha yüksek doğruluk sınırlarına ulaştığını iddia etmektedir. Ancak, bu iddiaları desteklemek için sunulan deneysel kanıtlar sadece CIFAR-10, CIFAR-100 ve SVHN veri setleri ile ResNet ve Wide ResNet modelleri üzerindeki sonuçlara dayanmaktadır. Bu, 'state-of-the-art' ve 'daha yüksek doğruluk sınırları' gibi geniş ifadelerin, daha geniş bir model ve veri seti yelpazesinde doğrulanmadığı anlamına gelir. Özellikle, daha büyük ve karmaşık veri setleri (örneğin ImageNet) veya farklı mimariler (örneğin Transformer tabanlı modeller) üzerindeki performans hakkında kanıt sunulmamıştır. Bu durum, okuyucunun yöntemin genel uygulanabilirliği ve etkinliği hakkında yanlış bir izlenim edinmesine neden olabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Negatif Korelasyonların Faydasına Dair İddianın Sınırlı Kanıtı",
+        "summary": "Makale, negatif korelasyonların faydalı olduğu ve bunların düzenlenmesinin performansı düşürdüğü hipotezini öne sürmektedir. Bu hipotez, MNIST veri seti üzerinde yapılan bir MLP deneyi ile desteklenmektedir. Ancak, bu iddia, daha karmaşık ve 'state-of-the-art' modeller (örneğin ResNet'ler) ve veri setleri (CIFAR-10/100, SVHN) üzerindeki sonuçlarla doğrudan ve ayrıntılı olarak gösterilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_negative_correlations.a2",
+            "section": "2.2 NEGATIVE CORRELATIONS",
+            "quote": "In this work we hypothesize that regularizing negatively correlated features is an obstacle for achiev- ing better results and we introduce OrhoReg, a novel regularization technique that addresses the performance margin issue by only regularizing positively correlated feature weights."
+          },
+          {
+            "anchor_id": "3_1_verification_experiments.a5",
+            "section": "3.1 VERIFICATION EXPERIMENTS",
+            "quote": "Negative Correlations. Figure 5b highlights the difference between regularizing with the global or the local regularizer. Although both regularizations reach better error rates than the unregularized counterpart, the local regularization is better than the global. This conﬁrms the hypothesis that negative correlations are useful and thus, performance decreases when we reduce them."
+          }
+        ],
+        "reasoning_public": "Makale, negatif korelasyonların faydalı olduğu ve bunların düzenlenmesinin performansı düşürdüğü hipotezini ortaya koymaktadır. Bu hipotez, Figure 5b'deki MNIST veri seti üzerinde bir MLP ile yapılan deneyle desteklenmektedir. Bu deney, yerel düzenlemenin (negatif korelasyonları düzenlemeyen) küresel düzenlemeden (negatif korelasyonları düzenleyen) daha iyi sonuç verdiğini göstermektedir. Ancak, bu önemli bulgunun, makalenin ana odak noktası olan daha büyük ve karmaşık CNN modelleri (ResNet, Wide ResNet) ve veri setleri (CIFAR-10, CIFAR-100, SVHN) üzerindeki etkileri ayrıntılı olarak incelenmemiştir. Bu durum, hipotezin genel geçerliliği hakkında soru işaretleri yaratmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "claim_evidence_alignment.f1.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Hesaplama Verimliliği İddiasının Desteklenmesi",
+        "summary": "Makale, OrthoReg'in hesaplama açısından verimli olduğunu iddia etmekte ve bu iddiayı, ağırlık düzenlemesinin aktivasyon düzenlemesinden daha hızlı olduğunu gösteren bir tablo (Tablo 1) ile desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "Moreover, Or- thoReg is computationally efﬁcient since it only regularizes the feature weights, which makes it very suitable for the latest CNN models."
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Table 1: Count of the Flops for the models used in this paper: the 3-hidden-layer MLP and the 110- layer ResNet we use later in the experiments section when not regularized, using DeCov (Cogswell et al. (2016)) and using OrthoReg. Batch size is set to 128, the same we use to train the ResNet. Regularizing weights is orders of magnitude faster than regularizing activations."
+          }
+        ],
+        "reasoning_public": "Makale, OrthoReg'in hesaplama açısından verimli olduğunu belirtmektedir. Bu iddia, Tablo 1'de sunulan FLOPs (Floating Point Operations) sayıları ile desteklenmektedir. Tablo, OrthoReg'in, DeCov gibi aktivasyon tabanlı düzenleyicilere kıyasla önemli ölçüde daha az hesaplama maliyeti gerektirdiğini açıkça göstermektedir. Bu, makalenin iddiasını somut verilerle destekleyen güçlü bir kanıttır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Oranda Çözümlenemeyen Atıflar",
+        "summary": "Makaledeki 29 atfın tamamı otomatik indeksleme sistemleri (OpenAlex/Semantic Scholar) tarafından çözümlenememiştir. Bu durum, makalede atıf yapılan çalışmaların doğrulanabilirliğini ve erişilebilirliğini olumsuz etkileyebilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda atıfların kolayca doğrulanabilir olması, araştırmanın şeffaflığı ve güvenilirliği açısından kritik öneme sahiptir. Atıfların büyük bir kısmının otomatik sistemler tarafından bulunamaması, okuyucuların ve hakemlerin referans verilen kaynaklara ulaşmasını zorlaştırır ve makalenin bilimsel dayanaklarını sorgulatabilir. Özellikle makalenin 'not_found_in_index' olarak işaretlenmiş referanslarının yüksek oranı, bu sorunun ciddiyetini artırmaktadır.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle bazı niş veya yeni yayınların bulunamaması normaldir. Ancak bu makaledeki oranın yüksek olması dikkat çekicidir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Deney Detaylarında Şeffaflık Eksikliği",
+        "summary": "Makale, deneylerin tekrarlanabilirliğini sağlamak için gerekli olan bazı önemli detayları eksik bırakmaktadır. Özellikle, kullanılan hiperparametrelerin (örneğin, öğrenme oranı programları, optimizasyon algoritmasının spesifik varyantları) ve deney kurulumlarının (örneğin, donanım, yazılım versiyonları) tam olarak belirtilmemesi, sonuçların bağımsız olarak doğrulanmasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_verification_experiments.a6",
+            "section": "3.1 VERIFICATION EXPERIMENTS",
+            "quote": "The model is trained with SGD and a batch size of 200 during 200 epochs. No momentum neither weight decay was applied."
+          },
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a9",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "The regularization coefﬁcient γ was chosen using grid search although similar values were found for all the experiments, specially if regularization gradients are normalized before adding them to the weights."
+          }
+        ],
+        "reasoning_public": "Derin öğrenme araştırmalarında, deneylerin tekrarlanabilirliği temel bir gerekliliktir. Hiperparametreler ve yazılım/donanım detayları gibi unsurların eksik raporlanması, diğer araştırmacıların aynı sonuçları elde etmesini veya yöntemleri kendi çalışmalarına uyarlamasını engeller. Bu durum, bilimsel ilerlemeyi yavaşlatabilir ve makalenin bulgularına olan güveni azaltabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Kod Erişilebilirliği Beyanının Eksikliği",
+        "summary": "Makale, 'Our code is based in the train-a-digit-classifier example included in torch/demos' gibi ifadelerle kod tabanına atıfta bulunsa da, kendi geliştirdikleri OrthoReg uygulamasının veya deneylerde kullanılan tam kodun açıkça erişilebilir olup olmadığına dair net bir beyan içermemektedir. Bu durum, tekrarlanabilirliği ve şeffaflığı bir miktar azaltmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_verification_experiments.a7",
+            "section": "3.1 VERIFICATION EXPERIMENTS",
+            "quote": "Our code is based in the train-a-digit-classifier example included in torch/demos1, which uses an upsampled version of the dataset (32×32)."
+          }
+        ],
+        "reasoning_public": "Modern derin öğrenme araştırmalarında, yayımlanan çalışmaların kodlarının açık kaynak olarak sunulması veya en azından erişilebilir olduğunun belirtilmesi iyi bir uygulamadır. Bu, diğer araştırmacıların yöntemleri doğrulamasına, genişletmesine ve üzerine inşa etmesine olanak tanır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f2",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Karşılaştırmalı Tabloların Net Sunumu",
+        "summary": "Makale, CIFAR-10, CIFAR-100 ve SVHN veri kümelerindeki performans karşılaştırmalarını detaylı ve anlaşılır tablolar (Tablo 3 ve Tablo 4) halinde sunarak, farklı modellerin ve yöntemlerin başarılarını açıkça ortaya koymaktadır. Bu, okuyucuların sonuçları kolayca değerlendirmesine olanak tanır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_3_regularization_on_svhn.a0",
+            "section": "3.3 REGULARIZATION ON SVHN",
+            "quote": "Table 4: Comparison with other CNNs on SVHN. Wide Resnets regularized with OrthoReg show better performance."
+          },
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a10",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "Table 3: Comparison with other CNNs on CIFAR-10 and CIFAR-100 (Test error %). Orthogonally regularized residual networks achieve the best results to the best of our knowldege. Only single-crop results are reported for fairness of comparison. *Median over 5 runs as reported by Zagoruyko & Komodakis (November 2016)."
+          }
+        ],
+        "reasoning_public": "Karşılaştırmalı tablolar, bir yöntemin literatürdeki konumunu ve katkısını net bir şekilde göstermek için kritik öneme sahiptir. Bu makalede sunulan tablolar, farklı modellerin performans metriklerini (hata oranları) ve deney koşullarını (veri artırımı gibi) bir araya getirerek şeffaflığı artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Kod ve Veri Paylaşımının Kısmi Açıklığı",
+        "summary": "Makale, deneylerde kullanılan bazı kod tabanlarına ve veri setlerine atıfta bulunsa da, çalışmanın tam olarak yeniden üretilebilirliğini sağlayacak kapsamlı bir kod veya veri deposu bağlantısı sunmamaktadır. Özellikle, 'Our code is based in the train-a-digit-classifier example included in torch/demos' ifadesi genel bir referans olup, makalede yapılan spesifik değişiklikleri veya kullanılan tam sürümü belirtmemektedir. Benzer şekilde, 'https://github.com/gcr/torch-residual-networks' ve 'https://github.com/szagoruyko/wide-residual-networks' gibi bağlantılar dış kaynaklara işaret etse de, yazarların kendi OrthoReg uygulamalarının veya deney kurulumlarının tam kodunu içermemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "Our code is based in the train-a-digit-classifier example included in torch/demos1, which uses an upsampled version of the dataset (32×32)."
+          },
+          {
+            "anchor_id": "regularization_on_cifar_10_and_cifar_100.a0",
+            "section": "REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "We successfuly regularize a 110-layer ResNet3 on CIFAR-10, decreasing its error from 6.55% to 6.29% without data augmentation."
+          },
+          {
+            "anchor_id": "regularization_on_cifar_10_and_cifar_100.a1",
+            "section": "REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "The experiment is based on a torch implementation of the 28-layer and 10th width factor wide deep residual model, for which the median error rate on CIFAR-10 is 3.89% and 18.85% on CIFAR-1004."
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmaların şeffaflığı ve yeniden üretilebilirliği için, kullanılan tüm kodların ve verilerin erişilebilir olması esastır. Kısmi veya genel referanslar, diğer araştırmacıların sonuçları doğrulamalarını veya üzerine inşa etmelerini zorlaştırır. Bu durum, makalenin bulgularının bağımsız olarak doğrulanabilirliğini azaltır.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0",
+          "ethics_reproducibility.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Onay ve Rıza Beyanının Gerekli Olmaması",
+        "summary": "Makale, insan deneklerle yapılan bir çalışma içermediği veya hassas veri kullanmadığı için etik onay veya katılımcı rızası beyanına ihtiyaç duymamaktadır. Bu tür bir beyanın eksikliği, makalenin doğası gereği bir sorun teşkil etmemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makine öğrenimi ve bilgisayar görüşü alanındaki teorik ve deneysel çalışmaların çoğu, insan deneklerle doğrudan etkileşime girmediği veya kişisel veri kullanmadığı için etik kurul onayı gerektirmez. Bu nedenle, makalede bu tür bir beyanın bulunmaması beklenen bir durumdur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Bölüm Başlıklarında Tutarsızlık",
+        "summary": "Makalede bölüm başlıkları arasında tutarsızlık bulunmaktadır. Bazı ana bölümler numaralandırılmışken (örn. '1 INTRODUCTION', '2 DEALING WITH WEIGHT REDUNDANCIES', '3 EXPERIMENTS'), 'ABSTRACT', 'DISCUSSION', 'ACKNOWLEDGEMENTS', 'REFERENCES' gibi diğer ana bölümler numaralandırılmamıştır. Bu durum, makalenin genel yapısının takibini zorlaştırabilir ve profesyonel görünümünü azaltabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "1 INTRODUCTION"
+          },
+          {
+            "anchor_id": "discussion.a1",
+            "section": "DISCUSSION",
+            "quote": "DISCUSSION"
+          }
+        ],
+        "reasoning_public": "Tutarlı bir bölüm numaralandırma şeması, okuyucunun makalenin yapısını ve bölümler arasındaki hiyerarşiyi daha kolay anlamasına yardımcı olur. Tutarsızlık, okuyucunun makale içinde gezinirken kafa karışıklığı yaşamasına neden olabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Giriş Bölümünde Aşırı Atıf Yoğunluğu",
+        "summary": "Giriş bölümünün ilk paragrafında, özellikle ilk cümlede, birden fazla atıfın art arda kullanılması metnin akıcılığını olumsuz etkilemektedir. Örneğin, 'Neural networks perform really well in numerous tasks even when initialized randomly and trained with Stochastic Gradient Descent (SGD) (see Krizhevsky et al. (2012)).' cümlesi, ana fikri sunmadan önce atıfla başlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "Neural networks perform really well in numerous tasks even when initialized randomly and trained with Stochastic Gradient Descent (SGD) (see Krizhevsky et al. (2012)). Deeper models, like Googlenet (Szegedy et al. (2015)) and Deep Residual Networks (Szegedy et al. (2015); He et al. (2015a)) are released each year, providing impressive results and even surpassing human performances in well-known datasets such as the Imagenet (Russakovsky et al. (2015))."
+          }
+        ],
+        "reasoning_public": "Giriş bölümü, okuyucuyu konuya dahil etmeli ve makalenin ana fikrini sunmalıdır. Aşırı atıf yoğunluğu, özellikle cümlenin başında, okuyucunun metni takip etmesini zorlaştırabilir ve akademik bir makaleden ziyade bir literatür taraması izlenimi yaratabilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıksal Akış ve Bölümleme",
+        "summary": "Makale, girişten başlayarak problem tanımı, önerilen yöntem (OrthoReg), deneysel doğrulama ve tartışma bölümleriyle mantıklı bir akış sergilemektedir. Her bölüm, bir önceki bölümün üzerine inşa edilerek okuyucuyu konuya adım adım dahil etmektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "İyi yapılandırılmış bir makale, okuyucunun karmaşık fikirleri ve argümanları kolayca takip etmesini sağlar. Mantıksal bölümleme ve akış, makalenin anlaşılırlığını ve ikna ediciliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Uygun Konferans Kapsamı ve Teknik Derinlik",
+        "summary": "Makale, derin öğrenme ve sinir ağı düzenlileştirme teknikleri alanındaki güncel araştırmalarla uyumlu, teknik olarak sağlam bir çalışma sunmaktadır. Sunulan yöntem (OrthoReg) ve deneysel sonuçlar, ICLR gibi önde gelen yapay zeka konferanslarının ilgi alanına girmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a8",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we show that regularizing negatively correlated features is an obstacle for effective decorrelation and present OrthoReg, a novel regularization technique that locally enforces feature orthogonality."
+          },
+          {
+            "anchor_id": "3_2_regularization_on_cifar_10_and_cifar_100.a11",
+            "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+            "quote": "As it can be seen the regularized model surpasses the state of the art, with a 5.1% relative error improvement on CIFAR-10, and a 1.5% relative error improvement on CIFAR-100."
+          }
+        ],
+        "reasoning_public": "Makale, derin öğrenme modellerinde aşırı öğrenmeyi azaltmaya yönelik yeni bir düzenlileştirme tekniği olan OrthoReg'i tanıtmaktadır. Bu teknik, özellik dekorrelasyonunu yerel kısıtlamalarla ele alarak, mevcut yöntemlerin sınırlılıklarını gidermeyi amaçlamaktadır. Deneysel sonuçlar, CIFAR-10, CIFAR-100 ve SVHN gibi standart veri kümelerinde son teknoloji modellerin performansını artırdığını göstermektedir. Bu tür yenilikçi yöntemler ve kapsamlı deneysel doğrulamalar, ICLR gibi konferansların teknik derinlik ve yenilik beklentilerini karşılamaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, INTRODUCTION, DISCUSSION",
+        "instruction": "Makaledeki genel iddiaların kapsamını, sunulan deneysel kanıtların sınırlarını yansıtacak şekilde daraltın. Örneğin, 'state-of-the-art CNN'ler' yerine 'belirli ResNet ve Wide ResNet mimarileri' gibi daha spesifik ifadeler kullanın.",
+        "acceptance_check": "Genel iddiaların, makalede sunulan kanıtların kapsamını aşmadığı doğrulanacaktır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların DOI (Digital Object Identifier) bilgilerini ekleyin. Eğer DOI mevcut değilse, referansların tam künye bilgilerini (yayınlandığı dergi/konferans, cilt, sayı, sayfa aralığı vb.) kontrol edin ve eksik veya hatalı bilgileri düzeltin. Özellikle 'not_found_in_index' olarak işaretlenmiş referanslar için bu kontrolü titizlikle yapın.",
+        "acceptance_check": "Tüm referanslar için DOI bilgisi eklenmiş veya tam künye bilgileri doğrulanmış ve güncellenmiş olmalı. Otomatik indeksleme sistemleri tarafından çözümlenebilirlik oranının artırılması hedeflenmelidir.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a1",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "DISCUSSION, EXPERIMENTS",
+        "instruction": "Eğer iddiaların genelliği korunmak isteniyorsa, daha geniş bir model ve veri seti yelpazesinde ek deneyler yaparak kanıtları genişletin veya bu sınırlamaları 'Tartışma' bölümünde açıkça belirtin.",
+        "acceptance_check": "Ek deneyler sunulacak veya mevcut kanıtların sınırlamaları açıkça ifade edilecektir.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS, DISCUSSION",
+        "instruction": "Negatif korelasyonların faydasına dair hipotezi, makalede kullanılan 'state-of-the-art' CNN modelleri ve veri setleri üzerinde de ayrıntılı olarak test edin ve sonuçları sunun. Bu, hipotezin genel geçerliliğini güçlendirecektir.",
+        "acceptance_check": "Hipotezin daha karmaşık modeller ve veri setleri üzerindeki deneysel doğrulaması eklenecektir.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION",
+        "instruction": "Yazarların OrthoReg uygulaması ve tüm deney kurulumları için kullanılan kodları içeren bir GitHub deposu veya benzeri bir platforma bağlantı eklenmelidir. Bu depo, makalede belirtilen tüm deneylerin (MNIST, CIFAR-10, CIFAR-100, SVHN) yeniden üretilmesini sağlayacak şekilde eksiksiz olmalıdır.",
+        "acceptance_check": "Makalede, tüm deneylerin yeniden üretilebilirliğini sağlayan, sürüm kontrollü ve iyi belgelenmiş bir kod deposuna doğrudan bir bağlantı bulunmalıdır.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Referans listesindeki her bir yayın için DOI (Digital Object Identifier) veya diğer kalıcı tanımlayıcıları (örneğin, arXiv ID) ekleyin. Bu, referansların otomatik sistemler tarafından daha kolay bulunmasını ve doğrulanmasını sağlayacaktır.",
+        "acceptance_check": "Tüm referanslar için DOI veya arXiv ID gibi kalıcı tanımlayıcılar eklenmiş olmalı ve bu tanımlayıcılar aracılığıyla yayınlara erişim sağlanabilmelidir.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Deneylerde kullanılan veri kümelerinin örneklem büyüklüğünün, elde edilen sonuçların istatistiksel gücü açısından neden yeterli olduğunu açıklayın. Özellikle, farklı modeller arasındaki performans farklarının istatistiksel olarak anlamlı olup olmadığını değerlendirmek için bir güç analizi veya benzeri bir gerekçe sunun.",
+        "acceptance_check": "Makalede, kullanılan veri kümelerinin istatistiksel gücüne dair açık bir gerekçe veya güç analizi sonuçları yer almalıdır.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Raporlanan tüm performans iyileştirmeleri için uygun etki büyüklüğü ölçütlerini (örneğin, hata oranlarındaki yüzde değişimi yerine Cohen's d veya benzeri bir ölçüt) hesaplayın ve sunun.",
+        "acceptance_check": "Tüm ana sonuçlar için etki büyüklüğü ölçütleri raporlanmalıdır.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Tüm ana sonuçlar ve karşılaştırmalar için güven aralıklarını (örneğin, hata oranları, farklar) raporlayın. Tablo 3'teki standart sapmaların yanı sıra, güven aralıklarını da ekleyin.",
+        "acceptance_check": "Tüm ana sonuçlar için güven aralıkları (CI) raporlanmalıdır.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ACKNOWLEDGEMENTS",
+        "instruction": "OrthoReg'in implementasyon kodunu ve deneylerde kullanılan tüm kodları (hiperparametre ayarları dahil) açık bir depoda (örneğin GitHub) paylaşın ve makalede bu depoya bir bağlantı ekleyin.",
+        "acceptance_check": "Makalede, OrthoReg implementasyonunun ve tüm deney kodlarının bulunduğu bir kod deposuna (örn. GitHub) bağlantı sağlanmalıdır.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Deney kurulumu bölümüne, kullanılan tüm hiperparametrelerin (öğrenme oranı, öğrenme oranı programı, optimizasyon algoritmasının spesifik varyantları, momentum, ağırlık bozunumu vb.) ve deneylerin yapıldığı donanım/yazılım ortamının (GPU modeli, kütüphane versiyonları) detaylı bir listesini ekleyin.",
+        "acceptance_check": "Tüm deneyler için kullanılan hiperparametreler ve ortam detayları açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "2.2 NEGATIVE CORRELATIONS, DISCUSSION",
+        "instruction": "Negatif korelasyonların yapay sinir ağlarındaki rolü ve OrthoReg'in bu korelasyonları nasıl yöneterek performansı artırdığına dair teorik açıklamaları genişletin. Biyolojik referansların ötesinde, bu mekanizmaların derin öğrenme bağlamındaki matematiksel veya hesaplamalı karşılıklarını daha açık bir şekilde belirtin.",
+        "acceptance_check": "Negatif korelasyonların faydalarına dair teorik argümanların, yapay sinir ağları bağlamında daha detaylı ve ikna edici bir şekilde sunulması.",
+        "linked_finding_ids": [
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Tüm makale",
+        "instruction": "Tüm ana bölümler için tutarlı bir numaralandırma şeması uygulayın. Ya tüm ana bölümleri numaralandırın ya da hiçbirini numaralandırmayın, ancak mevcut karışık durumu düzeltin.",
+        "acceptance_check": "Tüm ana bölümlerin (ABSTRACT, INTRODUCTION, DEALING WITH WEIGHT REDUNDANCIES, EXPERIMENTS, DISCUSSION, ACKNOWLEDGEMENTS, REFERENCES) tutarlı bir şekilde numaralandırıldığından veya numaralandırılmadığından emin olun.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "DISCUSSION",
+        "instruction": "Eğer ek deneyler mümkün değilse, bu hipotezin doğrulanmasının şu an için sadece MLP ve MNIST veri seti ile sınırlı olduğunu 'Tartışma' bölümünde açıkça belirtin.",
+        "acceptance_check": "Hipotezin kanıtlarının sınırlılıkları açıkça ifade edilecektir.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Kullanılan veri setlerinin (MNIST, CIFAR-10, CIFAR-100, SVHN) spesifik sürümleri veya erişim yöntemleri hakkında daha fazla detay verilmelidir, özellikle eğer standart olmayan bir ön işleme veya veri artırma kullanıldıysa.",
+        "acceptance_check": "Veri setlerinin erişilebilirliği ve kullanılan ön işleme adımları net bir şekilde açıklanmalıdır.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Eğer bazı referanslar niş veya yeni yayınlar ise, bu referansların tam künye bilgilerini (yayınlandığı konferans/dergi, cilt, sayı, sayfa aralığı vb.) eksiksiz ve standart bir formatta sağlayın. Bu, manuel doğrulama için gerekli bilgiyi sunar.",
+        "acceptance_check": "Bulunamayan referanslar için eksiksiz ve standart formatta künye bilgileri sağlanmış olmalıdır.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Hiperparametre seçimi sırasında uygulanan grid search yönteminin, çoklu karşılaştırma riskini nasıl ele aldığını açıklayın (örneğin, çapraz doğrulama stratejisi).",
+        "acceptance_check": "Hiperparametre optimizasyonunda çoklu karşılaştırma riskini azaltmaya yönelik bir stratejinin (örn. çapraz doğrulama) açıkça belirtilmesi.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Elde edilen performans farklarının istatistiksel anlamlılığını değerlendirmek için kullanılan testlerin varsayımlarının (örneğin, normal dağılım, varyans homojenliği) test edilip edilmediğini belirtin.",
+        "acceptance_check": "İstatistiksel test varsayımlarının kontrol edildiğine dair bir açıklama veya bu varsayımların neden geçerli kabul edildiğine dair bir gerekçe sunulması.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f4.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+        "instruction": "Metin içinde raporlanan sayısal değerlerin, ilgili tablo ve figürlerdeki değerlerle tam olarak eşleştiğinden emin olun. Yuvarlama farklılıklarını en aza indirin veya açıklayın.",
+        "acceptance_check": "Metin ve tablolar arasındaki sayısal değerlerin tam tutarlılığı sağlanmalıdır.",
+        "linked_finding_ids": [
+          "quant.f4"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "ACKNOWLEDGEMENTS",
+        "instruction": "Deneylerde kullanılan veri setlerinin (eğer özel bir işleme tabi tutulduysa, işlenmiş halleriyle) erişilebilirliğini sağlayın veya bu veri setlerine nasıl erişilebileceğini açıkça belirtin.",
+        "acceptance_check": "Veri setlerinin erişilebilirliği veya erişim yöntemleri açıkça belirtilmelidir.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Performans karşılaştırmalarında 'en iyi' veya 'daha iyi' gibi ifadeler kullanırken, bu iddiaları destekleyecek istatistiksel anlamlılık testleri veya güven aralıkları gibi nicel kanıtları ekleyin. Alternatif olarak, bu ifadeleri daha temkinli bir dille değiştirin.",
+        "acceptance_check": "Performans karşılaştırmalarında kullanılan dilin, sunulan istatistiksel kanıtlarla uyumlu olması sağlanmalıdır.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "ACKNOWLEDGEMENTS",
+        "instruction": "Makalenin sonunda veya bir dipnotta, OrthoReg uygulamasının ve deneylerde kullanılan kodun bir GitHub deposu veya benzeri bir platform üzerinden erişilebilir olup olmadığını belirtin. Eğer erişilebilir değilse, bunun nedenini açıklayın.",
+        "acceptance_check": "Kod erişilebilirliği hakkında net bir beyan eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f1"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümündeki atıfları, özellikle ilk paragraflarda, ana fikirleri destekleyecek şekilde daha doğal bir akışla entegre edin. Mümkünse, cümleleri atıflarla başlatmaktan kaçının ve atıfları cümlenin sonuna veya ilgili bilginin hemen arkasına yerleştirin.",
+        "acceptance_check": "Giriş bölümündeki atıfların metin akışını bozmadığından ve daha organik bir şekilde entegre edildiğinden emin olun.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genel İddiaların Kapsamlı Kanıtlarla Desteklenmemesi",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7",
+          "abstract.a8"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Bölüm Başlıklarında Tutarsızlık",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5"
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0",
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "DISCUSSION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Teorik Çerçevenin Derinliği ve Kapsamı; Bölüm Başlıklarında Tutarsızlık",
+        "anchor_ids": [
+          "discussion.a0",
+          "discussion.a1"
+        ],
+        "action_item_ids": [
+          "theoretical_framing.f0.a0",
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "ACKNOWLEDGEMENTS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "2 DEALING WITH WEIGHT REDUNDANCIES",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_dealing_with_weight_redundancies.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "2.1 ORTHOGONAL WEIGHT REGULARIZATION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_1_orthogonal_weight_regularization.a0",
+          "2_1_orthogonal_weight_regularization.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "2.2 NEGATIVE CORRELATIONS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Negatif Korelasyonların Faydasına Dair İddianın Sınırlı Kanıtı; Teorik Çerçevenin Derinliği ve Kapsamı",
+        "anchor_ids": [
+          "2_2_negative_correlations.a0",
+          "2_2_negative_correlations.a1",
+          "2_2_negative_correlations.a2"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "claim_evidence_alignment.f1.a1",
+          "theoretical_framing.f0.a0"
+        ]
+      },
+      {
+        "section": "3 EXPERIMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_experiments.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.1 VERIFICATION EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Negatif Korelasyonların Faydasına Dair İddianın Sınırlı Kanıtı; Hiperparametre Seçiminde Çoklu Karşılaştırma Riski ve Varsayım Testlerinin Eksikliği; Tekrar Üretilebilirlik İçin Kod ve Veri Erişilebilirliğinin Kısmi Eksikliği; Deney Detaylarında Şeffaflık Eksikliği",
+        "anchor_ids": [
+          "3_1_verification_experiments.a0",
+          "3_1_verification_experiments.a1",
+          "3_1_verification_experiments.a2",
+          "3_1_verification_experiments.a3",
+          "3_1_verification_experiments.a4",
+          "3_1_verification_experiments.a5",
+          "3_1_verification_experiments.a6",
+          "3_1_verification_experiments.a7"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "claim_evidence_alignment.f1.a1",
+          "quant.f1.a0",
+          "quant.f3.a0",
+          "quant.f3.a1",
+          "quant.f8.a0",
+          "quant.f8.a1",
+          "reporting_guideline_compliance.f0.a0",
+          "reporting_guideline_compliance.f1.a0"
+        ]
+      },
+      {
+        "section": "3.2 REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genel İddiaların Kapsamlı Kanıtlarla Desteklenmemesi; Etki Büyüklüğü ve Güven Aralıklarının Yetersiz Raporlanması; Hiperparametre Seçiminde Çoklu Karşılaştırma Riski ve Varsayım Testlerinin Eksikliği; Tekrar Üretilebilirlik İçin Kod ve Veri Erişilebilirliğinin Kısmi Eksikliği; Deney Detaylarında Şeffaflık Eksikliği",
+        "anchor_ids": [
+          "3_2_regularization_on_cifar_10_and_cifar_100.a0",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a1",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a10",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a11",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a2",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a3",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a4",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a5",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a6",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a7",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a8",
+          "3_2_regularization_on_cifar_10_and_cifar_100.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "quant.f1.a0",
+          "quant.f3.a0",
+          "quant.f3.a1",
+          "quant.f4.a0",
+          "quant.f5.a0",
+          "quant.f5.a1",
+          "quant.f8.a0",
+          "quant.f8.a1",
+          "quant.f9.a0",
+          "reporting_guideline_compliance.f0.a0"
+        ]
+      },
+      {
+        "section": "3.3 REGULARIZATION ON SVHN",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_3_regularization_on_svhn.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Algorithm 1 Orthogonal Regularization Step.",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "algorithm_1_orthogonal_regularization_step.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Kod ve Veri Paylaşımının Kısmi Açıklığı",
+        "anchor_ids": [
+          "experiments.a0"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0",
+          "ethics_reproducibility.f0.a1"
+        ]
+      },
+      {
+        "section": "REGULARIZATION ON CIFAR-10 AND CIFAR-100",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Kod ve Veri Paylaşımının Kısmi Açıklığı",
+        "anchor_ids": [
+          "regularization_on_cifar_10_and_cifar_100.a0",
+          "regularization_on_cifar_10_and_cifar_100.a1"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0",
+          "ethics_reproducibility.f0.a1"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_1.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Table 2",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_2.a0"
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "Table 3",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Güven Aralıklarının Yetersiz Raporlanması",
+        "anchor_ids": [
+          "table_3.a0",
+          "table_3.a1"
+        ],
+        "action_item_ids": [
+          "quant.f4.a0",
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

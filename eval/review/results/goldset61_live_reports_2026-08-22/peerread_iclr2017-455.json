@@ -1,0 +1,2017 @@
+{
+  "paper_id": "peerread:iclr2017-455",
+  "run_tag": "main",
+  "job_id": "c09bfc47-136e-43cc-924e-980b517d4bcb",
+  "elapsed_s": 489.1,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "ENERGY-BASED GENERATIVE ADVERSARIAL NET- WORKS Junbo Zhao, Michael Mathieu and Yann LeCun Department of Computer Science, New York University",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RELATED WORK",
+        "REFERENCES"
+      ],
+      "word_count": 6707,
+      "reference_count": 22,
+      "parse_confidence": 0.688,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces Energy-based Generative Adversarial Networks (EBGANs), a novel framework that recasts the GAN discriminator as an energy function rather than a probabilistic classifier. The core idea is to train the discriminator to assign low energy to data points on the real data manifold and high energy elsewhere. The generator, in turn, learns to produce samples with minimal energy. The authors instantiate this framework by using an auto-encoder as the discriminator, where the reconstruction error serves as the energy. The paper provides theoretical justification for this approach, proving that the generator's distribution converges to the data distribution at equilibrium. Empirically, it demonstrates through extensive experiments on MNIST, LSUN, CelebA, and ImageNet that EBGANs exhibit greater training stability than traditional GANs and can generate high-resolution (up to 256x256) images without requiring a multi-scale architecture.",
+    "strengths": [
+      {
+        "category": "Conceptual Novelty and Importance",
+        "points": [
+          "The reframing of GANs within an energy-based modeling framework is a significant conceptual leap. It generalizes the GAN objective and provides greater flexibility in the choice of discriminator architecture and loss functions, moving beyond the standard binary classifier.",
+          "The specific instantiation of the discriminator as an auto-encoder is elegant and well-motivated. It connects two major families of unsupervised learning models (GANs and auto-encoders) in a principled way.",
+          "The work addresses a critical and widely-recognized problem in GAN research: training instability. The proposed method offers a practical solution that is shown to be more robust across a wide range of hyperparameters."
+        ]
+      },
+      {
+        "category": "Technical and Empirical Soundness",
+        "points": [
+          "The paper provides a formal proof (Theorem 1 & 2) that, under a hinge loss, the EBGAN framework has a Nash equilibrium where the generator distribution matches the data distribution. This adds significant theoretical rigor to the proposed model.",
+          "The empirical evaluation is comprehensive and convincing. The large-scale grid search on MNIST provides strong quantitative evidence for the claim of improved stability compared to standard GANs.",
+          "The qualitative results are impressive, particularly the generation of 128x128 and 256x256 images on the complex ImageNet dataset using a single-scale generator. This was a notable achievement at the time of writing and strongly supports the paper's claims about the model's scalability."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Bibliographic Integrity",
+        "points": [
+          "The reference list is in a poor state. As confirmed by the evidence pack, a vast majority of the citations (20 out of 22) could not be automatically resolved against major academic indices. This indicates that the bibliographic entries are likely incomplete or malformed (e.g., missing DOIs, incorrect venue/year, inconsistent author names). This is a critical issue for a scholarly work that must be corrected before publication."
+        ]
+      },
+      {
+        "category": "Clarity on Hyperparameters",
+        "points": [
+          "The margin 'm' is presented as a crucial hyperparameter. While Appendix E provides helpful practical tips, the main body of the paper would benefit from a more direct discussion of the model's sensitivity to this parameter. Its tuning appears non-trivial, which could be a practical limitation of the method."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The most urgent issue to address is the quality of the bibliography. The evidence pack indicates that 20 out of 22 references could not be resolved, including foundational papers like Goodfellow et al. (2014) and Radford et al. (2015). This requires a meticulous review and correction of every entry to include full, accurate, and resolvable information (e.g., DOIs for journal articles, stable arXiv links for preprints, full conference proceedings details).",
+        "evidence_ref": "ref[1-6, 8-16, 18-22] not_found_in_index"
+      },
+      {
+        "area": "experimental",
+        "comment": "The description of the semi-supervised learning training procedure (Section 4.2) is split between the main text and Appendix D. For improved clarity, the authors should consider integrating the rationale for key decisions, such as turning off the generator training after 60,000 steps, more directly into the main text.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "The margin 'm' is clearly a critical hyperparameter. Beyond the helpful tips in the appendix, have you investigated its effect on mode collapse vs. sample quality? A more quantitative analysis (e.g., using the inception score vs. 'm') would be very insightful.",
+      "The Pulling-away Term (PT) is introduced to improve sample diversity. How does this method compare, in terms of both performance and computational overhead, to the 'minibatch discrimination' technique from Salimans et al. (2016), which you cite as having a similar philosophy? A brief discussion would help contextualize this contribution.",
+      "Could you please undertake a thorough revision of the reference list to ensure every entry is complete and correct, providing DOIs or other persistent identifiers where available, to fix the resolution issues identified in the evidence pack?"
+    ],
+    "overall_assessment": "This is an excellent paper presenting a significant and influential contribution to the field of generative models. The core idea of an Energy-Based GAN is novel, theoretically sound, and empirically powerful. The authors convincingly demonstrate that their approach leads to more stable training and is capable of producing high-resolution images, addressing key challenges in the field. The scientific contribution is exceptionally strong. The manuscript is accepted for publication based on its scientific merit. This acceptance is conditional upon a mandatory and thorough revision of the bibliography. As noted by all reviewers and confirmed by the evidence pack, the reference list is in a poor state and requires meticulous correction before the final version can be published. Addressing the minor points of clarification raised in the questions would also strengthen the final manuscript.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity info. [LLM'in kendi gerekçesi: The paper introduces a fundamentally new and elegant way to conceptualize and build GANs, bridging them with energy-based models. This is a highly original contribution.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The work addresses the critical problem of GAN training instability and scalability. The proposed framework has opened up new research directions in generative modeling."
+      },
+      {
+        "key": "claims_supported",
+        "score": 4.51,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: The main claims of improved stability and high-resolution generation are well-supported by extensive experiments (grid search, ImageNet results). The evidence is strong.]"
+      },
+      {
+        "key": "soundness",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The methodology is sound, combining theoretical proofs with robust empirical validation. The experimental design, particularly the grid search, is rigorous.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is generally well-written and clear. However, some key details (e.g., on the margin hyperparameter and semi-supervised training) are split into the appendix and could be integrated more smoothly.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.0,
+        "rationale": "This paper is highly valuable to the machine learning community, offering both a new theoretical perspective and a practical, more stable method for training generative models."
+      },
+      {
+        "key": "contextualization",
+        "score": 8.5,
+        "rationale": "The paper does a good job of positioning the work relative to prior art in GANs, energy-based models, and auto-encoders. The connections are clearly drawn."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: This score is based directly on the evidence pack, which found that 20 out of 22 references could not be resolved. This indicates severe issues with the bibliographic data that must be corrected for publication.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missing seminal or mandatory works. The paper appears to cover the relevant literature of its time adequately.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack reported no statistical inconsistencies. The paper does not rely on complex statistical tests that would be flagged by statcheck.]"
+      }
+    ],
+    "final_score": 8.43,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 22,
+        "resolved": 2,
+        "not_found_in_index": 20,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Carreira-Perpinan, Miguel A and Hinton, Geoffrey. On contrastive divergence learning. In AISTATS, volume 10, pp. 33–40. Citeseer, 2005. 9 Denton, Emily L, Chintala, Soumith, Fergus, Rob, et al. Deep generative image models using a laplacian pyramid of adversarial networks. In Advances in neural information processing systems, pp. 1486–1494, 2015.",
+          "title": "On contrastive divergence learning",
+          "authors": [
+            "Carreira-Perpinan, Miguel A",
+            "Hinton, Geoffrey"
+          ],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Goodfellow, Ian, Pouget-Abadie, Jean, Mirza, Mehdi, Xu, Bing, Warde-Farley, David, Ozair, Sherjil, Courville, Aaron, and Bengio, Yoshua. Generative adversarial nets. In Advances in Neural Information Processing Systems, pp. 2672–2680, 2014.",
+          "title": "Generative adversarial nets",
+          "authors": [
+            "Bengio, Yoshua"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.81 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Im, Daniel Jiwoong, Kim, Chris Dongjoo, Jiang, Hui, and Memisevic, Roland. Generating images with recur- rent adversarial networks. arXiv preprint arXiv:1602.05110, 2016.",
+          "title": "Generating images with recur- rent adversarial networks",
+          "authors": [
+            "Im, Daniel Jiwoong, Kim, Chris Dongjoo, Jiang, Hui",
+            "Memisevic, Roland"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Ioffe, Sergey and Szegedy, Christian. Batch normalization: Accelerating deep network training by reducing internal covariate shift. arXiv preprint arXiv:1502.03167, 2015.",
+          "title": "Batch normalization: Accelerating deep network training by reducing internal covariate shift",
+          "authors": [
+            "Ioffe, Sergey",
+            "Szegedy, Christian"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Kavukcuoglu, Koray, Sermanet, Pierre, Boureau, Y-Lan, Gregor, Karol, Mathieu, Michaël, and Cun, Yann L. Learning convolutional feature hierarchies for visual recognition. In Advances in neural information pro- cessing systems, pp. 1090–1098, 2010.",
+          "title": "In Advances in neural information pro- cessing systems, pp",
+          "authors": [
+            "Cun, Yann L. Learning convolutional feature hierarchies for visual recognition"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.35 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Kim, Taesup and Bengio, Yoshua. Deep directed generative models with energy-based probability estimation. arXiv preprint arXiv:1606.03439, 2016.",
+          "title": "Deep directed generative models with energy-based probability estimation",
+          "authors": [
+            "Kim, Taesup",
+            "Bengio, Yoshua"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Kingma, Diederik and Ba, Jimmy. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.",
+          "title": "Adam: A method for stochastic optimization",
+          "authors": [
+            "Kingma, Diederik",
+            "Ba, Jimmy"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W1522301498",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W1522301498; 'Adam: A Method for Stochastic Optimization').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "LeCun, Yann, Chopra, Sumit, and Hadsell, Raia. A tutorial on energy-based learning. 2006.",
+          "title": "A tutorial on energy-based learning",
+          "authors": [
+            "LeCun, Yann, Chopra, Sumit",
+            "Hadsell, Raia"
+          ],
+          "year": 2006,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Liu, Ziwei, Luo, Ping, Wang, Xiaogang, and Tang, Xiaoou. Deep learning face attributes in the wild. In Proceedings of the IEEE International Conference on Computer Vision, pp. 3730–3738, 2015.",
+          "title": "Deep learning face attributes in the wild",
+          "authors": [
+            "Liu, Ziwei, Luo, Ping, Wang, Xiaogang",
+            "Tang, Xiaoou"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "MarcAurelio Ranzato, Christopher Poultney and Chopra, Sumit. Efﬁcient learning of sparse representations with an energy-based model. 2007.",
+          "title": "Efﬁcient learning of sparse representations with an energy-based model",
+          "authors": [
+            "MarcAurelio Ranzato, Christopher Poultney",
+            "Chopra, Sumit"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Mathieu, Michael, Couprie, Camille, and LeCun, Yann. Deep multi-scale video prediction beyond mean square error. arXiv preprint arXiv:1511.05440, 2015.",
+          "title": "Deep multi-scale video prediction beyond mean square error",
+          "authors": [
+            "Mathieu, Michael, Couprie, Camille",
+            "LeCun, Yann"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Pezeshki, Mohammad, Fan, Linxi, Brakel, Philemon, Courville, Aaron, and Bengio, Yoshua. Deconstructing the ladder network architecture. arXiv preprint arXiv:1511.06430, 2015.",
+          "title": "Deconstructing the ladder network architecture",
+          "authors": [
+            "Pezeshki, Mohammad, Fan, Linxi, Brakel, Philemon, Courville, Aaron",
+            "Bengio, Yoshua"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.40 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Radford, Alec, Metz, Luke, and Chintala, Soumith. Unsupervised representation learning with deep convolu- tional generative adversarial networks. arXiv preprint arXiv:1511.06434, 2015.",
+          "title": "Unsupervised representation learning with deep convolu- tional generative adversarial networks",
+          "authors": [
+            "Radford, Alec, Metz, Luke",
+            "Chintala, Soumith"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.70 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Ranzato, Marc’Aurelio, Boureau, Y-Lan, Chopra, Sumit, and LeCun, Yann. A uniﬁed energy-based framework for unsupervised learning. In Proc. Conference on AI and Statistics (AI-Stats), 2007.",
+          "title": "A uniﬁed energy-based framework for unsupervised learning",
+          "authors": [
+            "Ranzato, Marc’Aurelio, Boureau, Y-Lan, Chopra, Sumit",
+            "LeCun, Yann"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Rasmus, Antti, Berglund, Mathias, Honkala, Mikko, Valpola, Harri, and Raiko, Tapani. Semi-supervised learning with ladder networks. In Advances in Neural Information Processing Systems, pp. 3546–3554, 2015.",
+          "title": "Semi-supervised learning with ladder networks",
+          "authors": [
+            "Rasmus, Antti, Berglund, Mathias, Honkala, Mikko, Valpola, Harri",
+            "Raiko, Tapani"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Rifai, Salah, Vincent, Pascal, Muller, Xavier, Glorot, Xavier, and Bengio, Yoshua. Contractive auto-encoders: Explicit invariance during feature extraction. In Proceedings of the 28th international conference on machine learning (ICML-11), pp. 833–840, 2011.",
+          "title": "Contractive auto-encoders: Explicit invariance during feature extraction",
+          "authors": [
+            "Rifai, Salah, Vincent, Pascal, Muller, Xavier, Glorot, Xavier",
+            "Bengio, Yoshua"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Russakovsky, Olga, Deng, Jia, Su, Hao, Krause, Jonathan, Satheesh, Sanjeev, Ma, Sean, Huang, Zhiheng, Karpathy, Andrej, Khosla, Aditya, Bernstein, Michael, Berg, Alexander C., and Fei-Fei, Li. ImageNet Large Scale Visual Recognition Challenge. International Journal of Computer Vision (IJCV), 115(3):211–252, 2015. doi: 10.1007/s11263-015-0816-y.",
+          "title": "ImageNet Large Scale Visual Recognition Challenge",
+          "authors": [
+            "Fei-Fei, Li"
+          ],
+          "year": 2015,
+          "doi": "10.1007/s11263-015-0816-y",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2117539524",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2117539524; 'ImageNet Large Scale Visual Recognition Challenge').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Salimans, Tim, Goodfellow, Ian, Zaremba, Wojciech, Cheung, Vicki, Radford, Alec, and Chen, Xi. Improved techniques for training gans. arXiv preprint arXiv:1606.03498, 2016.",
+          "title": "Improved techniques for training gans",
+          "authors": [
+            "Salimans, Tim, Goodfellow, Ian, Zaremba, Wojciech, Cheung, Vicki, Radford, Alec",
+            "Chen, Xi"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Vincent, Pascal, Larochelle, Hugo, Lajoie, Isabelle, Bengio, Yoshua, and Manzagol, Pierre-Antoine. Stacked denoising autoencoders: Learning useful representations in a deep network with a local denoising criterion. Journal of Machine Learning Research, 11(Dec):3371–3408, 2010.",
+          "title": "Stacked denoising autoencoders: Learning useful representations in a deep network with a local denoising criterion",
+          "authors": [
+            "Vincent, Pascal, Larochelle, Hugo, Lajoie, Isabelle, Bengio, Yoshua",
+            "Manzagol, Pierre-Antoine"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Vinyals, Oriol, Blundell, Charles, Lillicrap, Timothy, Kavukcuoglu, Koray, and Wierstra, Daan. Matching networks for one shot learning. arXiv preprint arXiv:1606.04080, 2016.",
+          "title": "Matching networks for one shot learning",
+          "authors": [
+            "Vinyals, Oriol, Blundell, Charles, Lillicrap, Timothy, Kavukcuoglu, Koray",
+            "Wierstra, Daan"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Yu, Fisher, Seff, Ari, Zhang, Yinda, Song, Shuran, Funkhouser, Thomas, and Xiao, Jianxiong. Lsun: Con- struction of a large-scale image dataset using deep learning with humans in the loop. arXiv preprint arXiv:1506.03365, 2015.",
+          "title": "Lsun: Con- struction of a large-scale image dataset using deep learning with humans in the loop",
+          "authors": [
+            "Yu, Fisher, Seff, Ari, Zhang, Yinda, Song, Shuran, Funkhouser, Thomas",
+            "Xiao, Jianxiong"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Zhao, Junbo, Mathieu, Michael, Goroshin, Ross, and Lecun, Yann. Stacked what-where auto-encoders. arXiv preprint arXiv:1506.02351, 2015. 10 A APPENDIX: TECHNICAL POINTS OF SECTION 2.2 Lemma 1. Let a, b ≥0, ϕ(y) = ay + b [m −y]+. The minimum of ϕ on [0, +∞) exists and is reached in m if a < b, and it is reached in 0 otherwise (the minimum may not be unique). Proof. The function ϕ is deﬁned on [0, +∞), its derivative is deﬁned on [0, +∞)\\{m} and ϕ′(y) = a −b if y ∈[0, m) and ϕ′(y) = a if y ∈(m, +∞). So when a < b, the function is decreasing on [0, m) and increasing on (m, +∞). Since it is continuous, it has a minimum in m. It may not be unique if a = 0 or a −b = 0. On the other hand, if a ≥b the function ϕ is increasing on [0, +∞), so 0 is a minimum. Lemma 2. If p and q are probability densities, then R x 1p(x)<q(x)dx = 0 if and only if R x 1p(x)̸=q(x)dx = 0. Proof. Let’s assume that R x 1p(x)<q(x)dx = 0. Then Z x 1p(x)>q(x)(p(x) −q(x))dx (15) = Z x (1 −1p(x)≤q(x))(p(x) −q(x))dx (16) = Z x p(x)dx − Z x q(x)dx + Z x 1p(x)≤q(x)(p(x) −q(x))dx (17) = 1 −1 + Z x 1p(x)<q(x) + 1p(x)=q(x) \u0001 (p(x) −q(x))dx (18) = Z x 1p(x)<q(x)(p(x) −q(x))dx + Z x 1p(x)=q(x)(p(x) −q(x))dx (19) = 0 + 0 = 0 (20) So R x 1p(x)>q(x)(p(x) −q(x))dx = 0 and since the term in the integral is always non-negative, 1p(x)>q(x)(p(x) −q(x)) = 0 for almost all x. And p(x) −q(x) = 0 implies 1p(x)>q(x) = 0, so 1p(x)>q(x) = 0 almost everywhere. Therefore R x 1p(x)>q(x)dx = 0 which completes the proof, given the hypothesis. Proof of theorem 2 The sufﬁcient conditions are obvious. The necessary condition on G∗comes from theorem 1, and the necessary condition on D∗(x) ≤m is from the proof of theorem 1. Let us now assume that D∗(x) is not constant almost everywhere and ﬁnd a contradiction. If it is not, then there exists a constant C and a set S of non-zero measure such that ∀x ∈S, D∗(x) ≤C and ∀x ̸∈S, D∗(X) > C. In addition we can choose S such that there exists a subset S′ ⊂S of non-zero measure such that pdata(x) > 0 on S′ (because of the assumption in the footnote). We can build a generator G0 such that pG0(x) ≤pdata(x) over S and pG0(x) < pdata(x) over S′. We compute U(G∗, D∗) −U(G0, D∗) = Z x (pdata −pG0)D∗(x)dx (21) = Z x (pdata −pG0)(D∗(x) −C)dx (22) = Z S (pdata −pG0)(D∗(x) −C)dx + Z RN\\S (pdata −pG0)(D∗(x) −C)dx (23) > 0 (24) which violates equation 4. 11 B APPENDIX: MORE INTERPRETATIONS ABOUT GANS AND ENERGY-BASED LEARNING TWO INTERPRETATIONS OF GANS GANs can be interpreted in two complementary ways. In the ﬁrst interpretation, the key component is the generator, and the discriminator plays the role of a trainable objective function. Let us imagine that the data lies on a manifold. Until the generator produces samples that are recognized as being on the manifold, it gets a gradient indicating how to modify its output so it could approach the manifold. In such scenario, the discriminator acts to punish the generator when it produces samples that are outside the manifold. This can be understood as a way to train the generator with a set of possible desired outputs (e.g. the manifold) instead of a single desired output as in traditional supervised learning. For the second interpretation, the key component is the discriminator, and the generator is merely trained to produce contrastive samples. We show that by iteratively and interactively feeding con- trastive samples, the generator enhances the semi-supervised learning performance of the discrimi- nator (e.g. Ladder Network), in section 4.2. C APPENDIX: EXPERIMENT SETTINGS MORE DETAILS ABOUT THE GRID SEARCH For training both EBGANs and GANs for the grid search, we use the following setting: • Batch normalization (Ioffe & Szegedy, 2015) is applied after each weight layer, except for the generator output layer and the discriminator input layer (Radford et al., 2015). • Training images are scaled into range [-1,1]. Correspondingly the generator output layer is fol- lowed by a Tanh function. • ReLU is used as the non-linearity function. • Initialization: the weights in D from N(0, 0.002) and in G from N(0, 0.02). The bias are initial- ized to be 0. We evaluate the models from the grid search by calculating a modiﬁed version of the inception score, I′ = ExKL(p(y)||p(y|x)), where x denotes a generated sample and y is the label predicted by a MNIST classiﬁer that is trained off-line using the entire MNIST training set. Two main changes were made upon its original form: (i)-we swap the order of the distribution pair; (ii)-we omit the e(·) operation. The modiﬁed score condenses the histogram in ﬁgure 2 and ﬁgure 3. It is also worth noting that although we inherit the name “inception score” from Salimans et al. (2016), the evaluation isn’t related to the “inception” model trained on ImageNet dataset. The classiﬁer is a regular 3-layer ConvNet trained on MNIST. The generations showed in ﬁgure 4 are the best GAN or EBGAN (obtaining the best I′ score) from the grid search. Their conﬁgurations are: • ﬁgure 4(a): nLayerG=5, nLayerD=2, sizeG=1600, sizeD=1024, dropoutD=0, optimD=SGD, optimG=SGD, lr=0.01. • ﬁgure 4(b): nLayerG=5, nLayerD=2, sizeG=800, sizeD=1024, dropoutD=0, optimD=ADAM, optimG=ADAM, lr=0.001, margin=10. • ﬁgure 4(c): same as (b), with λP T = 0.1. LSUN & CELEBA We use a deep convolutional generator analogous to DCGAN’s and a deep convolutional auto- encoder for the discriminator. The auto-encoder is composed of strided convolution modules in the feedforward pathway and fractional-strided convolution modules in the feedback pathway. We leave the usage of upsampling or switches-unpooling (Zhao et al., 2015) to future research. We also followed the guidance suggested by Radford et al. (2015) for training EBGANs. The conﬁguration of the deep auto-encoder is: 12 • Encoder: (64)4c2s-(128)4c2s-(256)4c2s • Decoder: (128)4c2s-(64)4c2s-(3)4c2s where “(64)4c2s” denotes a convolution/deconvolution layer with 64 output feature maps and kernel size 4 with stride 2. The margin m is set to 80 for LSUN and 20 for CelebA. IMAGENET We built deeper models in both 128×128 and 256×256 experiments, in a similar fashion to section 4.3, • 128 × 128 model: – Generator: (1024)4c-(512)4c2s-(256)4c2s-(128)4c2s- (64)4c2s-(64)4c2s-(3)3c – Noise #planes: 100-64-32-16-8-4 – Encoder: (64)4c2s-(128)4c2s-(256)4c2s-(512)4c2s – Decoder: (256)4c2s-(128)4c2s-(64)4c2s-(3)4c2s – Margin: 40 • 256 × 256 model: – Generator: (2048)4c-(1024)4c2s-(512)4c2s-(256)4c2s-(128)4c2s- (64)4c2s-(64)4c2s-(3)3c – Noise #planes: 100-64-32-16-8-4-2 – Encoder: (64)4c2s-(128)4c2s-(256)4c2s-(512)4c2s – Decoder: (256)4c2s-(128)4c2s-(64)4c2s-(3)4c2s – Margin: 80 Note that we feed noise into every layer of the generator where each noise component is initialized into a 4D tensor and concatenated with current feature maps in the feature space. Such strategy is also employed by Salimans et al. (2016). D APPENDIX: SEMI-SUPERVISED LEARNING EXPERIMENT SETTING BASELINE MODEL As stated in section 4.2, we chose a bottom-layer-cost Ladder Network as our base- line model. Speciﬁcally, we utilize an identical architecture as reported in both papers (Rasmus et al., 2015; Pezeshki et al., 2015); namely a fully-connected network of size 784-1000-500-250-250-250, with batch normalization and ReLU following each linear layer. To obtain a strong baseline, we tuned the weight of the reconstruction cost with values from the set { 5000 784 , 2000 784 , 1000 784 , 500 784}, while ﬁxing the weight on the classiﬁcation cost to 1. In the meantime, we also tuned the learning rate with values {0.002, 0.001, 0.0005, 0.0002, 0.0001}. We adopted Adam as the optimizer with β1 being set to 0.5. The minibatch size was set to 100. All the experiments are ﬁnished by 120,000 steps. We use the same learning rate decay mechanism as in the published papers – starting from the two-thirds of total steps (i.e., from step #80,000) to linearly decay the learning rate to 0. The result reported in section 4.2 was done by the best tuned setting: λL2 = 1000 784 , lr = 0.0002. EBGAN-LN MODEL We place the same Ladder Network architecture into our EBGAN framework and train this EBGAN- LN model the same way as we train the EBGAN auto-encoder model. For technical details, we started training the EBGAN-LN model from the margin value 16 and gradually decay it to 0 within the ﬁrst 60,000 steps. By the time, we found that the reconstruction error of the real image had already been low and reached the limitation of the architecture (Ladder Network itself); besides the generated images exhibit good quality (shown in ﬁgure 10). Thereafter we turned off training the generator but kept training the discriminator for another 120,000 steps. We set the initial learning rates to be 0.0005 for discriminator and 0.00025 for generator. The other setting is kept consistent with the best baseline LN model. The learning rate decay started at step #120,000 (also two-thirds of the total steps). 13 OTHER DETAILS • Notice that we used the 28×28 version (unpadded) of the MNIST dataset in the EBGAN-LN experiment. For the EBGAN auto-encoder grid search experiments, we used the zero-padded version, i.e., size 32×32. No phenomenal difference has been found due to the zero-padding. • We generally took the ℓ2 norm of the discrepancy between input and reconstruction for the loss term in the EBGAN auto-encoder model as formally written in section 2.1. However, for the EBGAN-LN experiment, we followed the original implementation of Ladder Network using a vanilla form of ℓ2 loss. • Borrowed from Salimans et al. (2016), the batch normalization is adopted without the learned parameter γ but merely with a bias term β. It still remains unknown whether such trick could affect learning in some non-ignorable way, so this might have made our baseline model not a strict reproduction of the published models by Rasmus et al. (2015) and Pezeshki et al. (2015). E APPENDIX: TIPS FOR SETTING A GOOD ENERGY MARGIN VALUE It is crucial to set a proper energy margin value m in the framework of EBGAN, from both theoretical and experimental perspective. Hereby we provide a few tips: • Delving into the formulation of the discriminator loss made by equation 1, we suggest a numerical balance between its two terms which concern real and fake sample respectively. The second term is apparently bounded by [0, m] (assuming the energy function D(x) is non-negative). It is desirable to make the ﬁrst term bounded in a similar range. In theory, the upper bound of the ﬁrst term is essentially determined by (i)-the capacity of D; (ii)-the complexity of the dataset. • In practice, for the EBGAN auto-encoder model, one can run D (the auto-encoder) alone on the real sample dataset and monitor the loss. When it converges, the consequential loss implies a rough limit on how well such setting of D is capable to ﬁt the dataset. This usually suggests a good start for a hyper-parameter searching on m. • m being overly large results in a training instability/difﬁculty, while m being too small is prone to the mode-dropping problem. This property of m is depicted in ﬁgure 9. • One successful technique, as we introduced in appendix D, is to start from a large m and gradually decayed it to 0 along training proceeds. Unlike the feature matching semi- supervised learning technique proposed by Salimans et al. (2016), we show in ﬁgure 10 that not only does the EBGAN-LN model achieve a good semi-supervised learning perfor- mance, it also produces satisfactory generations. Abstracting away from the practical experimental tips, the theoretical understanding of EBGAN in section 2.2 also provides some insight for setting a feasible m. For instance, as implied by Theorem 2, setting a large m results in a broader range of γ to which D∗(x) may converge. Instability may come after an overly large γ because it generates two strong gradients pointing to opposite directions, from loss 1, which would demand more ﬁnicky optimization setting. F APPENDIX: MORE GENERATION LSUN AUGMENTED VERSION TRAINING For LSUN bedroom dataset, aside from the experiment on the whole images, we also train an EBGAN auto-encoder model based on dataset augmentation by cropping patches. All the patches are of size 64 × 64 and cropped from 96 × 96 original images. The generation is shown in ﬁgure 11. COMPARISON OF EBGANS AND EBGAN-PTS To further demonstrate how the pull-away term (PT) may inﬂuence EBGAN auto-encoder model training, we chose both the whole-image and augmented-patch version of the LSUN bedroom dataset, together with the CelebA dataset to make some further experimentation. The compari- son of EBGAN and EBGAN-PT generation are showed in ﬁgure 12, ﬁgure 13 and ﬁgure 14. Note 14 Figure 9: Generation from the EBGAN auto-encoder model trained with different m settings. From top to bottom, m is set to 1, 2, 4, 6, 8, 12, 16, 32 respectively. The rest setting is nLayerG=5, nLayerD=2, sizeG=1600, sizeD=1024, dropoutD=0, optimD=ADAM, optimG=ADAM, lr=0.001. Figure 10: Generation from the EBGAN-LN model. The displayed generations are obtained by an identical experimental setting described in appendix D, with different random seeds. As we mentioned before, we used the unpadded version of the MNIST dataset (size 28×28) in the EBGAN- LN experiments. that all comparison pairs adopt identical architectural and hyper-parameter setting as in section 4.3. The cost weight on the PT is set to 0.1. 15 Figure 11: Generation from augmented-patch version of the LSUN bedroom dataset. Left(a): DC- GAN generation. Right(b): EBGAN-PT generation. Figure 12: Generation from whole-image version of the LSUN bedroom dataset. Left(a): EBGAN. Right(b): EBGAN-PT. 16 Figure 13: Generation from augmented-patch version of the LSUN bedroom dataset. Left(a): EBGAN. Right(b): EBGAN-PT. Figure 14: Generation from the CelebA dataset. Left(a): EBGAN. Right(b): EBGAN-PT. 17",
+          "title": ", the evaluation isn’t related to the “inception” model trained on ImageNet dataset",
+          "authors": [],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.5,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.36 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [
+        {
+          "ref_index": 2,
+          "claim": "The histograms evidently show that EBGANs are more reliably trained. 2This form of the “inception score” is only used to better analyze the grid search in the scope of this work, but not to compare with any other published work. 5 Table 1: Grid search specs Settings Description EBGANs GANs nLayerG number of layers in G [2, 3, 4, 5] [2, 3, 4, 5] nLayerD number of layers in D [2, 3, 4, 5] [2, 3, 4, 5] sizeG number of neurons in G [400, 800, 1600, 3200] [400, 800, 1600, 3200] sizeD number of neurons in D [128, 256, 512, 1024] [128, 256, 512, 1024] dropoutD if to use dropout in D [true, false] [true, false] optimD to use Adam or SGD for D adam [adam, sgd] optimG to use Adam or SGD for G adam [adam, sgd] lr learning rate 0.001 [0.01, 0.001, 0.0001] #experiments: - 512 6144 Digits generated from the conﬁgurations presenting the best inception score are shown in ﬁgure 4.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        },
+        {
+          "ref_index": 2,
+          "claim": "The histograms evidently show that EBGANs are more reliably trained. 2This form of the “inception score” is only used to better analyze the grid search in the scope of this work, but not to compare with any other published work. 5 Table 1: Grid search specs Settings Description EBGANs GANs nLayerG number of layers in G [2, 3, 4, 5] [2, 3, 4, 5] nLayerD number of layers in D [2, 3, 4, 5] [2, 3, 4, 5] sizeG number of neurons in G [400, 800, 1600, 3200] [400, 800, 1600, 3200] sizeD number of neurons in D [128, 256, 512, 1024] [128, 256, 512, 1024] dropoutD if to use dropout in D [true, false] [true, false] optimD to use Adam or SGD for D adam [adam, sgd] optimG to use Adam or SGD for G adam [adam, sgd] lr learning rate 0.001 [0.01, 0.001, 0.0001] #experiments: - 512 6144 Digits generated from the conﬁgurations presenting the best inception score are shown in ﬁgure 4.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        },
+        {
+          "ref_index": 2,
+          "claim": "The histograms evidently show that EBGANs are more reliably trained. 2This form of the “inception score” is only used to better analyze the grid search in the scope of this work, but not to compare with any other published work. 5 Table 1: Grid search specs Settings Description EBGANs GANs nLayerG number of layers in G [2, 3, 4, 5] [2, 3, 4, 5] nLayerD number of layers in D [2, 3, 4, 5] [2, 3, 4, 5] sizeG number of neurons in G [400, 800, 1600, 3200] [400, 800, 1600, 3200] sizeD number of neurons in D [128, 256, 512, 1024] [128, 256, 512, 1024] dropoutD if to use dropout in D [true, false] [true, false] optimD to use Adam or SGD for D adam [adam, sgd] optimG to use Adam or SGD for G adam [adam, sgd] lr learning rate 0.001 [0.01, 0.001, 0.0001] #experiments: - 512 6144 Digits generated from the conﬁgurations presenting the best inception score are shown in ﬁgure 4.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        },
+        {
+          "ref_index": 2,
+          "claim": "The histograms evidently show that EBGANs are more reliably trained. 2This form of the “inception score” is only used to better analyze the grid search in the scope of this work, but not to compare with any other published work. 5 Table 1: Grid search specs Settings Description EBGANs GANs nLayerG number of layers in G [2, 3, 4, 5] [2, 3, 4, 5] nLayerD number of layers in D [2, 3, 4, 5] [2, 3, 4, 5] sizeG number of neurons in G [400, 800, 1600, 3200] [400, 800, 1600, 3200] sizeD number of neurons in D [128, 256, 512, 1024] [128, 256, 512, 1024] dropoutD if to use dropout in D [true, false] [true, false] optimD to use Adam or SGD for D adam [adam, sgd] optimG to use Adam or SGD for G adam [adam, sgd] lr learning rate 0.001 [0.01, 0.001, 0.0001] #experiments: - 512 6144 Digits generated from the conﬁgurations presenting the best inception score are shown in ﬁgure 4.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        }
+      ],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "559d39d32a0aa0406e336a1cc714c422f3dfc9b8f296500de073877680a29c53",
+          "request_time": "2026-08-22T18:08:34.553365Z",
+          "status": "ok",
+          "result_count": 2,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "0adeccadd739af05a00037c8163eb9522c7168a1be0a4be2eb22015d16438b55",
+          "request_time": "2026-08-22T18:08:35.382057Z",
+          "status": "ok",
+          "result_count": 4,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "c2aeaf75f234130aebbc021ab92256794e1e59c856a690522fab7325fd8f9d65",
+          "request_time": "2026-08-22T18:08:36.293675Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:16:09.969936Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belge başlığı, yazarların üniversite ve araştırma kurumu bağlantıları, kısa bölüm başlıkları (ABSTRACT, INTRODUCTION, RELATED WORK, REFERENCES) ve referans sayısı bir dergi makalesine işaret etmektedir. İçerik, 'Energy-based Generative Adversarial Network' modelini tanıtması ve 'auto-encoder architecture' gibi terimler, hesaplamalı modelleme çalışması olduğunu göstermektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 81.5,
+      "recommended_decision": "accept",
+      "confidence": 0.6779310344827586,
+      "top_fatal_risks": [
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "Tekrar Üretilebilirlik Bilgilerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 2 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "evidence",
+        "score": 39.0,
+        "severity": "major",
+        "confidence": 0.78,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 63.0,
+        "severity": "major",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): The reference list is in a poor state. A vast majority of the citations (20 out of 22) could not be automatically resolved against major academic indices. This indicates that the bibliographic entries are likely incomplete or malformed (e.g., missing DOIs, incorrect venue/year, inconsistent author names). This is a critical issue for a scholarly work, as it hinders discoverability and proper credit attribution. For example, foundational papers like Goodfellow et al. (2014) and Radford et al. (2015) are listed as unresolvable, which points to systemic formatting issues. This requires a meticulous review and correction of every entry to include full, accurate, and resolvable information (e.g., DOIs for journal articles, stable arXiv links for preprints, full conference proceedings details).; The margin 'm' is presented as a crucial hyperparameter, and Appendix E provides helpful practical tips for setting it. However, the main body of the paper would benefit from a more direct discussion of the model's sensitivity to this parameter. Its role is central to the loss function, and its tuning appears non-trivial, which could be a practical limitation of the method. Beyond the helpful tips in the appendix, a more quantitative analysis (e.g., using the inception score vs. 'm') would be very insightful to understand its effect on mode collapse vs. sample quality.; The description of the training procedure for semi-supervised learning is split between the main text and Appendix D, and could be presented more cohesively. For instance, the rationale for turning off the generator training after 60,000 steps could be clarified in the main text. (+1 more)",
+        "key_objection": "The reference list is in a poor state. A vast majority of the citations (20 out of 22) could not be automatically resolved against major academic indices. This indicates that the bibliographic entries are likely incomplete or malformed (e.g., missing DOIs, incorrect venue/year, inconsistent author names). This is a critical issue for a scholarly work, as it hinders discoverability and proper credit attribution. For example, foundational papers like Goodfellow et al. (2014) and Radford et al. (2015) are listed as unresolvable, which points to systemic formatting issues. This requires a meticulous review and correction of every entry to include full, accurate, and resolvable information (e.g., DOIs for journal articles, stable arXiv links for preprints, full conference proceedings details).",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): The reference list is in a poor state. A vast majority of the citations (20 out of 22) could not be automatically resolved against major academic indices. This indicates that the bibliographic entries are likely incomplete or malformed (e.g., missing DOIs, incorrect venue/year, inconsistent author names). This is a critical issue for a scholarly work, as it hinders discoverability and proper credit attribution. For example, foundational papers like Goodfellow et al. (2014) and Radford et al. (2015) are listed as unresolvable, which points to systemic formatting issues.; The margin 'm' is presented as a crucial hyperparameter, and Appendix E provides helpful practical tips for setting it. However, the main body of the paper would benefit from a more direct discussion of the model's sensitivity to this parameter. Its role is central to the loss function, and its tuning appears non-trivial, which could be a practical limitation of the method. A more quantitative analysis (e.g., using the inception score vs. 'm') would be very insightful.; The description of the training procedure for semi-supervised learning is split between the main text and Appendix D, and could be presented more cohesively. For instance, the rationale for turning off the generator training after 60,000 steps could be clarified in the main text. (+1 more)",
+        "key_objection": "The reference list is in a poor state. A vast majority of the citations (20 out of 22) could not be automatically resolved against major academic indices. This indicates that the bibliographic entries are likely incomplete or malformed (e.g., missing DOIs, incorrect venue/year, inconsistent author names). This is a critical issue for a scholarly work, as it hinders discoverability and proper credit attribution. For example, foundational papers like Goodfellow et al. (2014) and Radford et al. (2015) are listed as unresolvable, which points to systemic formatting issues.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "4 concern(s): The reference list requires a thorough revision. The evidence pack indicates that 20 out of 22 references could not be automatically resolved against major academic indices, suggesting incomplete or malformed entries (e.g., missing DOIs, incorrect venue/year, inconsistent author names). This significantly hinders discoverability and proper credit attribution. Please ensure all entries are complete, accurate, and include persistent identifiers where available.; While Appendix E provides helpful practical tips for setting the margin 'm', the main body of the paper would benefit from a more direct discussion of the model's sensitivity to this crucial hyperparameter. Its role is central to the loss function, and its tuning appears non-trivial, which could be a practical limitation. Consider integrating a brief discussion on its impact on mode collapse vs. sample quality, perhaps with a quantitative analysis (e.g., using inception score vs. 'm') if feasible.; The description of the semi-supervised learning training procedure (Section 4.2) is currently split between the main text and Appendix D. For improved clarity and cohesiveness, please consider integrating the rationale for decisions like turning off the generator training after 60,000 steps more directly into the main text. (+1 more)",
+        "key_objection": "The reference list requires a thorough revision. The evidence pack indicates that 20 out of 22 references could not be automatically resolved against major academic indices, suggesting incomplete or malformed entries (e.g., missing DOIs, incorrect venue/year, inconsistent author names). This significantly hinders discoverability and proper credit attribution. Please ensure all entries are complete, accurate, and include persistent identifiers where available.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): The claim that 20 out of 22 citations could not be resolved is directly supported by the evidence package, which states 'toplam=22, çözülen=2, bulunamayan=20'.; The evidence package indicates that reference [2] 'Generative adversarial nets' (Goodfellow et al. 2014) and reference [13] 'Unsupervised representation learning with deep convolu- tional generative adversarial networks' (Radford et al. 2015) are 'not_found_in_index'. This supports the claim that these foundational papers are listed as unresolvable.; The evidence package explicitly states 'toplam=22, çözülen=2, bulunamayan=20', which directly supports this claim. (+1 more)",
+        "key_objection": "The claim that 20 out of 22 citations could not be resolved is directly supported by the evidence package, which states 'toplam=22, çözülen=2, bulunamayan=20'.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "citation_integrity.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper introduces Energy-based Generative Adversarial Networks (EBGANs), a novel framework that recasts the GAN discriminator as an energy function rather than a probabilistic classifier. The core idea is to train the discriminator to assign low energy to data points on the real data manifold and high energy elsewhere. The generator, in turn, learns to produce samples with minimal energy. The authors instantiate this framework by using an auto-encoder as the discriminator, where the reconstruction error serves as the energy. The paper provides theoretical justification for this approach, proving that the generator's distribution converges to the data distribution at equilibrium. Empirically, it demonstrates through extensive experiments on MNIST, LSUN, CelebA, and ImageNet that EBGANs exhibit greater training stability than traditional GANs and can generate high-resolution (up to 256x256) images without requiring a multi-scale architecture.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik ve Deneysel Tasarımın Açıklığı",
+        "summary": "Makale, EBGAN modelinin teorik çerçevesini ve deneysel uygulamalarını net bir şekilde ortaya koymaktadır. Araştırma sorusu (EBGAN'ların GAN'lara göre istikrarı ve performansı) sunulan tasarımlarla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We introduce the “Energy-based Generative Adversarial Network” model (EBGAN) which views the discriminator as an energy function that attributes low energies to the regions near the data manifold and higher energies to other regions."
+          },
+          {
+            "anchor_id": "1_3_energy_based_generative_adversarial_networks.a0",
+            "section": "1.3 ENERGY-BASED GENERATIVE ADVERSARIAL NETWORKS",
+            "quote": "In this work, we propose to view the discriminator as an energy function (or a contrast function) without explicit probabilistic interpretation."
+          },
+          {
+            "anchor_id": "4_experiments.a0",
+            "section": "4 EXPERIMENTS",
+            "quote": "In this section, we study the training stability of EBGANs over GANs on a simple task of MNIST digit generation with fully-connected networks. We run an exhaustive grid search over a set of architectural choices and hyper-parameters for both frameworks."
+          }
+        ],
+        "reasoning_public": "Makale, enerji tabanlı modellerin ve GAN'ların temel prensiplerini açıklayarak EBGAN'ların nasıl birleştiğini detaylandırmaktadır. Teorik analiz (Bölüm 2.2) ve deneysel kurulumlar (Bölüm 4) iyi tanımlanmıştır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Makalede, deneysel çalışmalarda kullanılan veri setlerinin (MNIST, LSUN, CelebA, ImageNet) büyüklükleri belirtilmekle birlikte, bu veri setlerinin veya grid search deneylerinin örneklem büyüklüğünün istatistiksel gücünü veya hassasiyetini gerekçelendiren herhangi bir güç analizi veya hassasiyet rasyoneli sunulmamıştır. Özellikle grid search deneylerinde (512 ve 6144 deney) bu kadar çok denemenin neden yapıldığına dair bir açıklama bulunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_exhaustive_grid_search_on_mnist.a0",
+            "section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+            "quote": "The number of experiments for GANs and EBGANs are both 512 in every subplot. The histograms evidently show that EBGANs are more reliably trained."
+          },
+          {
+            "anchor_id": "table_1_grid_search_specs.a0",
+            "section": "Table 1: Grid search specs",
+            "quote": "#experiments: - 512 6144"
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, özellikle karşılaştırmalı çalışmalarda, elde edilen sonuçların genellenebilirliği ve güvenilirliği için yeterli istatistiksel güce sahip örneklem büyüklükleri kullanılması esastır. Güç analizi, belirli bir etki büyüklüğünü tespit etmek için gereken minimum örneklem büyüklüğünü belirler. Bu tür bir gerekçelendirme olmadan, gözlemlenen farklılıkların gerçek etkileri yansıtıp yansıtmadığı veya şans eseri ortaya çıkıp çıkmadığı belirsiz kalır. Makalede, 'daha güvenilir bir şekilde eğitildiği' gibi ifadeler kullanılmasına rağmen, bu güvenilirliğin istatistiksel olarak nasıl garanti edildiği açıklanmamıştır.",
+        "limitations": [
+          "Makalede güç analizi veya örneklem büyüklüğü gerekçelendirmesi için yeterli bilgi bulunmadığından, bu konuda daha fazla yorum yapılamamaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Inception Score Modifikasyonunun Geçerliliği",
+        "summary": "MNIST grid search deneylerinde kullanılan Inception Score'un modifiye edilmiş bir versiyonu (I') kullanılmıştır. Bu modifikasyonun orijinal Inception Score ile karşılaştırılabilirliği ve geçerliliği tam olarak açıklanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_exhaustive_grid_search_on_mnist.a1",
+            "section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+            "quote": "Some slight modiﬁcation of the formulation were made to make ﬁgure 2 visu- ally more approachable while maintaining the score’s original meaning, I′ = ExKL(p(y)||p(y|x))2 (more details in appendix C). Brieﬂy, higher I′ score implies better generation quality."
+          },
+          {
+            "anchor_id": "4_1_exhaustive_grid_search_on_mnist.a2",
+            "section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+            "quote": "2This form of the “inception score” is only used to better analyze the grid search in the scope of this work, but not to compare with any other published work."
+          }
+        ],
+        "reasoning_public": "Ölçüm araçlarının geçerliliği, özellikle standart metriklerin modifiye edildiği durumlarda kritik öneme sahiptir. Modifiye edilmiş bir metriğin, orijinal metriğin ölçtüğü şeyi hala ölçtüğünden veya karşılaştırmaların adil olduğundan emin olmak için detaylı bir gerekçelendirme ve potansiyel etkilerin tartışılması gereklidir. Makalede, bu modifikasyonun 'skorun orijinal anlamını koruduğu' belirtilse de, bu iddiayı destekleyecek ek bilgi veya analiz sunulmamıştır.",
+        "limitations": [
+          "Ek C'ye erişim olmadan modifikasyonun detayları hakkında daha fazla yorum yapılamamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Varsayım Testlerinin Eksikliği",
+        "summary": "Makalede, kullanılan istatistiksel analizler veya modelleme yaklaşımları için temel varsayımların (örneğin, veri dağılımları, bağımsızlık) test edildiğine dair herhangi bir bilgi bulunmamaktadır. Özellikle teorik analizde (Bölüm 2.2) 'non-parametric setting' varsayımı yapılmasına rağmen, deneysel bölümlerde bu varsayımların nasıl ele alındığı belirsizdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_optimality_of_the_solution.a0",
+            "section": "2.2 OPTIMALITY OF THE SOLUTION",
+            "quote": "This section is done in a non-parametric setting, i.e. we assume that D and G have inﬁnite capacity."
+          }
+        ],
+        "reasoning_public": "İstatistiksel testlerin ve modellerin geçerliliği, temel varsayımlarının karşılanmasına bağlıdır. Bu varsayımların test edilmemesi veya ele alınmaması, elde edilen sonuçların güvenilirliğini ve yorumlanabilirliğini zayıflatabilir. Özellikle derin öğrenme modellerinde, veri dağılımları ve modelin davranışına ilişkin varsayımların anlaşılması önemlidir.",
+        "limitations": [
+          "Makalede varsayım testleri hakkında bilgi bulunmadığından, bu konuda daha fazla yorum yapılamamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik Analizdeki İstatistiksel Tutarlılık",
+        "summary": "Makalenin teorik analiz bölümü (Bölüm 2.2), Nash dengesi ve olasılık yoğunlukları arasındaki ilişkiyi matematiksel olarak tutarlı bir şekilde sunmaktadır. Teoremler ve ispatlar, verilen denklemlerle uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_optimality_of_the_solution.a1",
+            "section": "2.2 OPTIMALITY OF THE SOLUTION",
+            "quote": "Theorem 1. If (D∗, G∗) is a Nash equilibrium of the system, then pG∗= pdata almost everywhere, and V (D∗, G∗) = m."
+          },
+          {
+            "anchor_id": "2_2_optimality_of_the_solution.a2",
+            "section": "2.2 OPTIMALITY OF THE SOLUTION",
+            "quote": "Proof. First we observe that V (G∗, D) = ... (denklemler 5-10)"
+          }
+        ],
+        "reasoning_public": "Teorik bir çalışmada, matematiksel ispatların ve denklemlerin iç tutarlılığı, argümanların sağlamlığı için kritik öneme sahiptir. Bu bölümde sunulan ispatlar, mantıksal olarak birbirini takip etmekte ve sonuçları desteklemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "MNIST grid search sonuçlarında (Şekil 2 ve 3) ve yarı denetimli öğrenme sonuçlarında (Tablo 2) EBGAN'ların GAN'lara veya Ladder Network'e göre performans iyileşmeleri raporlanmıştır. Ancak, bu iyileşmelerin etki büyüklükleri (örneğin Cohen's d, eta squared) veya güven aralıkları (CI) sunulmamıştır. Tablo 2'de hata oranları için standart sapmalar verilse de, bu iyileşmelerin istatistiksel anlamlılığı ve pratik önemi hakkında daha fazla bilgi sağlayacak güven aralıkları eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_exhaustive_grid_search_on_mnist.a3",
+            "section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+            "quote": "The histograms evidently show that EBGANs are more reliably trained."
+          },
+          {
+            "anchor_id": "table_2_the_comparison_of_ln_bottom_layer_cost_model_and_its_ebgan_extension_on_pi_mnist_semi_supervised_task_note_the_results_are_error_rate_in_and_averaged_over_15_different_random_seeds.a0",
+            "section": "Table 2: The comparison of LN bottom-layer-cost model and its EBGAN extension on PI-MNIST semi-supervised task. Note the results are error rate (in %) and averaged over 15 different random seeds.",
+            "quote": "Relative percentage improvement 23.5% 20.2% 14.4%"
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, sadece istatistiksel anlamlılığa odaklanmak yerine, gözlemlenen etkilerin büyüklüğünü ve pratik önemini değerlendirmek esastır. Etki büyüklüğü ölçüleri, farklı çalışmalar arasında karşılaştırma yapmayı ve sonuçların genellenebilirliğini anlamayı sağlar. Güven aralıkları ise, tahmin edilen parametrelerin belirsizliğini gösterir ve sonuçların sağlamlığı hakkında daha kapsamlı bilgi sunar. Bu bilgilerin eksikliği, okuyucunun sonuçların gerçek dünya üzerindeki etkisini tam olarak değerlendirmesini engeller.",
+        "limitations": [
+          "Makalede etki büyüklüğü veya güven aralıkları için yeterli bilgi bulunmadığından, bu konuda daha fazla yorum yapılamamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "causal_language_discipline",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Nedensel Dil Kullanımında Dikkat",
+        "summary": "Makalede, EBGAN'ların 'daha istikrarlı davranış sergilediği' veya 'daha güvenilir bir şekilde eğitildiği' gibi ifadeler kullanılmıştır. Bu ifadeler, gözlemsel veya karşılaştırmalı deneylerden elde edilen sonuçlar için nedensel bir dil tonu taşıyabilir. Özellikle 'daha güvenilir' ifadesi, istatistiksel güvenilirlik kavramıyla karıştırılabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "We show that this form of EBGAN exhibits more stable behavior than regular GANs during training."
+          },
+          {
+            "anchor_id": "4_1_exhaustive_grid_search_on_mnist.a4",
+            "section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+            "quote": "The histograms evidently show that EBGANs are more reliably trained."
+          }
+        ],
+        "reasoning_public": "Gözlemsel veya karşılaştırmalı çalışmalarda, nedensel dil kullanmaktan kaçınmak önemlidir, çünkü bu tür çalışmalar genellikle nedensel ilişkileri doğrudan kanıtlamak için tasarlanmamıştır. 'Daha istikrarlı' veya 'daha güvenilir' gibi ifadeler, okuyucuda doğrudan bir nedensel etki izlenimi yaratabilir. Bu tür ifadelerin, gözlemlenen korelasyonları veya farklılıkları daha dikkatli bir şekilde yansıtacak şekilde yumuşatılması veya istatistiksel olarak gerekçelendirilmesi gerekmektedir.",
+        "limitations": [
+          "Bu bulgu, dilbilimsel bir yorumlamaya dayanmaktadır ve istatistiksel bir hesaplama değildir."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Tekrar Üretilebilirlik Bilgilerinin Eksikliği",
+        "summary": "Makalede, deneylerin tekrar üretilebilirliğini sağlamak için gerekli olan veri setlerine veya kodlara erişim hakkında herhangi bir bilgi (örneğin, GitHub deposu bağlantısı) sunulmamıştır. Ayrıca, ön kayıt veya protokol uyumu hakkında da bilgi bulunmamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmaların temel prensiplerinden biri tekrar üretilebilirliktir. Araştırmacıların, sunulan sonuçları bağımsız olarak doğrulayabilmeleri için kullanılan veri setlerine, kodlara ve deney kurulum detaylarına erişim sağlanması kritik öneme sahiptir. Bu bilgilerin eksikliği, makalede sunulan bulguların doğrulanmasını ve üzerine inşa edilmesini zorlaştırmaktadır.",
+        "limitations": [
+          "Makalede tekrar üretilebilirlik bilgileri hakkında herhangi bir referans bulunmadığından, bu konuda daha fazla yorum yapılamamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Ana Sonuçların Raporlama Kalitesi",
+        "summary": "Makale, EBGAN'ların GAN'lara göre daha istikrarlı olduğunu ve yüksek çözünürlüklü görüntüler üretebildiğini iddia etmektedir. Ancak, bu iddiaları destekleyen ana sonuçlar (örneğin, Şekil 2 ve Tablo 2), etki büyüklükleri ve güven aralıkları gibi belirsizlik ölçüleriyle birlikte sunulmamıştır. 'Significant/non-significant' gibi aşırı bir dil kullanılmasa da, sonuçların pratik önemi tam olarak vurgulanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "We show that this form of EBGAN exhibits more stable behavior than regular GANs during training."
+          },
+          {
+            "anchor_id": "4_1_exhaustive_grid_search_on_mnist.a5",
+            "section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+            "quote": "The histograms evidently show that EBGANs are more reliably trained."
+          },
+          {
+            "anchor_id": "table_2_the_comparison_of_ln_bottom_layer_cost_model_and_its_ebgan_extension_on_pi_mnist_semi_supervised_task.a0",
+            "section": "Table 2: The comparison of LN bottom-layer-cost model and its EBGAN extension on PI-MNIST semi-supervised task.",
+            "quote": "Relative percentage improvement 23.5% 20.2% 14.4%"
+          }
+        ],
+        "reasoning_public": "Yüksek kaliteli raporlama, ana sonuçların sadece yönünü değil, aynı zamanda büyüklüğünü ve belirsizliğini de açıkça belirtmeyi gerektirir. Etki büyüklükleri ve güven aralıkları, okuyucunun sonuçların pratik önemini ve genellenebilirliğini daha iyi anlamasına yardımcı olur. Bu bilgilerin eksikliği, bulguların tam etkisini değerlendirmeyi zorlaştırır.",
+        "limitations": [
+          "Makalede etki büyüklüğü veya güven aralıkları için yeterli bilgi bulunmadığından, bu konuda daha fazla yorum yapılamamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Enerji Tabanlı Üretken Çekişmeli Ağlar (EBGAN) Çerçevesinin Tanıtımı",
+        "summary": "Makale, ayırıcıyı bir enerji fonksiyonu olarak ele alan ve mevcut GAN modellerine kıyasla daha istikrarlı eğitim ve esneklik sağlayan yeni bir EBGAN çerçevesi sunmaktadır. Bu yaklaşım, özellikle ayırıcının bir oto-kodlayıcı mimarisi olarak kullanıldığı durumda, yeniden yapılandırma hatasını enerji olarak tanımlayarak öne çıkmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "We introduce the “Energy-based Generative Adversarial Network” model (EBGAN) which views the discriminator as an energy function that attributes low energies to the regions near the data manifold and higher energies to other regions. ... We show that this form of EBGAN exhibits more stable behavior than regular GANs during training."
+          },
+          {
+            "anchor_id": "1_3_energy_based_generative_adversarial_networks.a1",
+            "section": "1.3 ENERGY-BASED GENERATIVE ADVERSARIAL NETWORKS",
+            "quote": "In this work, we propose to view the discriminator as an energy function (or a contrast function) without explicit probabilistic interpretation. ... We experimentally demonstrate this concept, in the setting where the discriminator is an auto-encoder architecture, and the energy is the reconstruction error."
+          },
+          {
+            "anchor_id": "our_main_contributions_are_summarized_as_follows.a0",
+            "section": "Our main contributions are summarized as follows:",
+            "quote": "• An energy-based formulation for generative adversarial training.\n• An EBGAN framework with the discriminator using an auto-encoder architecture in which the energy is the reconstruction error."
+          }
+        ],
+        "reasoning_public": "Bu çalışma, Üretken Çekişmeli Ağlar (GAN'lar) alanına önemli bir kavramsal yenilik getirmektedir. Ayırıcının olasılıksal bir sınıflandırıcı yerine bir enerji fonksiyonu olarak yorumlanması, modelin esnekliğini artırırken, oto-kodlayıcı tabanlı ayırıcı kullanımıyla eğitim istikrarını iyileştirme potansiyeli sunmaktadır. Bu, GAN'ların temel mekanizmalarına dair farklı bir bakış açısı sağlayarak alanın gelişimine katkıda bulunmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Teorik Analiz ve Deneysel Doğrulama",
+        "summary": "Makale, önerilen EBGAN çerçevesinin Nash dengesine ulaştığında üreticinin veri dağılımına eşleştiğini gösteren teorik bir analiz sunmaktadır. Ayrıca, MNIST, LSUN, CelebA ve ImageNet gibi çeşitli veri kümeleri üzerinde kapsamlı deneysel sonuçlarla modelin performansını ve istikrarını doğrulamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_optimality_of_the_solution.a3",
+            "section": "2.2 OPTIMALITY OF THE SOLUTION",
+            "quote": "We show that if the system reaches a Nash equilibrium, then the generator G produces samples that are indistinguishable from the distribution of the dataset."
+          },
+          {
+            "anchor_id": "our_main_contributions_are_summarized_as_follows.a1",
+            "section": "Our main contributions are summarized as follows:",
+            "quote": "• A proof that under a simple hinge loss, when the system reaches convergence, the generator of EBGAN produces points that follow the underlying data distribution.\n• A set of systematic experiments to explore hyper-parameters and architectural choices that produce good result for both EBGANs and probabilistic GANs.\n• A demonstration that EBGAN framework can be used to generate reasonable-looking high-resolution images from the ImageNet dataset at 256×256 pixel resolution, without a multi-scale approach."
+          },
+          {
+            "anchor_id": "4_experiments.a1",
+            "section": "4 EXPERIMENTS",
+            "quote": "In this section, we study the training stability of EBGANs over GANs on a simple task of MNIST digit generation with fully-connected networks. ... We apply the EBGAN framework with deep convolutional architecture to generate 64 × 64 RGB images, a more realistic task, using the LSUN bedroom dataset ... Finally, we trained EBGANs to generate high-resolution images on ImageNet."
+          }
+        ],
+        "reasoning_public": "Teorik temel, önerilen modelin sağlamlığını desteklemektedir. Deneysel bölüm, modelin farklı karmaşıklıktaki görevlerde ve veri kümelerinde uygulanabilirliğini ve etkinliğini göstererek, teorik katkıyı pratik sonuçlarla pekiştirmektedir. Özellikle yüksek çözünürlüklü görüntü üretimi ve yarı denetimli öğrenme alanlarındaki başarılar, EBGAN'ın potansiyelini ortaya koymaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f2",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Oto-kodlayıcı Tabanlı Ayırıcı ve İtici Düzenleyici (Repelling Regularizer) Kullanımı",
+        "summary": "Makale, ayırıcı olarak bir oto-kodlayıcı mimarisi kullanmanın avantajlarını vurgulamakta ve bu yaklaşımın geleneksel ikili sınıflandırıcıya göre daha zengin hedef bilgisi sağladığını belirtmektedir. Ayrıca, üretilen örneklerin tek bir moda kümelenmesini önlemek için 'itici düzenleyici' (repelling regularizer) adı verilen yeni bir teknik önermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_3_using_auto_encoders.a0",
+            "section": "2.3 USING AUTO-ENCODERS",
+            "quote": "In our experiments, the discriminator D is structured as an auto-encoder: D(x) = ||Dec(Enc(x)) −x||. ... Rather than using a single bit of target information to train the model, the reconstruction-based output offers a diverse targets for the discriminator."
+          },
+          {
+            "anchor_id": "2_4_repelling_regularizer.a0",
+            "section": "2.4 REPELLING REGULARIZER",
+            "quote": "We propose a “repelling regularizer” which ﬁts well into the EBGAN auto-encoder model, purposely keeping the model from producing samples that are clustered in one or only few modes of pdata."
+          }
+        ],
+        "reasoning_public": "Ayırıcının oto-kodlayıcı olarak kullanılması, modelin veri manifoldunu daha etkili bir şekilde öğrenmesine olanak tanır ve eğitim sürecine daha fazla esneklik katar. İtici düzenleyici ise, üretken modellerde sıkça karşılaşılan mod çökmesi (mode collapse) sorununu ele alarak üretilen örneklerin çeşitliliğini artırmayı hedefler. Bu iki yenilik, EBGAN çerçevesinin pratik uygulanabilirliğini ve performansını artıran özgün katkılardır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve İyi Tanımlanmış Araştırma Sorusu",
+        "summary": "Makale, enerji tabanlı üretken çekişmeli ağlar (EBGAN) modelini tanıtarak ve bunun geleneksel GAN'lara göre avantajlarını göstererek net bir araştırma sorusu sunmaktadır. Çalışmanın tasarımı ve kapsamı bu soruyu cevaplamak için uygun ve yeterlidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "We introduce the “Energy-based Generative Adversarial Network” model (EBGAN) which views the discriminator as an energy function that attributes low energies to the regions near the data manifold and higher energies to other regions. ... We show that this form of EBGAN exhibits more stable behavior than regular GANs during training. We also show that a single-scale architecture can be trained to generate high-resolution images."
+          },
+          {
+            "anchor_id": "1_3_energy_based_generative_adversarial_networks.a2",
+            "section": "1.3 ENERGY-BASED GENERATIVE ADVERSARIAL NETWORKS",
+            "quote": "In this work, we propose to view the discriminator as an energy function (or a contrast function) without explicit probabilistic interpretation. ... Our main contributions are summarized as follows: • An energy-based formulation for generative adversarial training. ... • A demonstration that EBGAN framework can be used to generate reasonable-looking high-resolution images from the ImageNet dataset at 256×256 pixel resolution, without a multi-scale approach."
+          }
+        ],
+        "reasoning_public": "Makale, 'Energy-based Generative Adversarial Network' (EBGAN) modelini tanıtma ve bu modelin geleneksel GAN'lara kıyasla daha istikrarlı davranış sergilediğini ve yüksek çözünürlüklü görüntüler üretebildiğini gösterme amacını açıkça belirtmektedir. Bu, çalışmanın ana araştırma sorusunu net bir şekilde ortaya koymaktadır. Deneysel kurulumlar ve teorik analizler bu soruyu ele almak için doğrudan tasarlanmıştır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Enerji Tabanlı Model Çerçevesinin Başarılı Entegrasyonu",
+        "summary": "Makale, Generative Adversarial Networks (GANs) kavramını enerji tabanlı modelleme çerçevesine başarılı bir şekilde entegre ederek, diskriminatörü bir enerji fonksiyonu olarak yeniden yorumlamaktadır. Bu yaklaşım, teorik temelleri güçlendirmekte ve yeni bir bakış açısı sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "We introduce the “Energy-based Generative Adversarial Network” model (EBGAN) which views the discriminator as an energy function that attributes low energies to the regions near the data manifold and higher energies to other regions."
+          },
+          {
+            "anchor_id": "1_3_energy_based_generative_adversarial_networks.a3",
+            "section": "1.3 ENERGY-BASED GENERATIVE ADVERSARIAL NETWORKS",
+            "quote": "In this work, we propose to view the discriminator as an energy function (or a contrast function) without explicit probabilistic interpretation. The energy function computed by the discriminator can be viewed as a trainable cost function for the generator."
+          }
+        ],
+        "reasoning_public": "Makale, GAN'ların temel prensiplerini enerji tabanlı modellerin genel çerçevesiyle ilişkilendirerek, diskriminatörün veri manifolduna düşük enerji, diğer bölgelere yüksek enerji atayan bir fonksiyon olarak ele alınmasını sağlamıştır. Bu, modelin davranışını ve esnekliğini açıklamak için güçlü bir teorik zemin oluşturmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Teorik Analiz ve Nash Dengesi Kanıtı",
+        "summary": "Makale, önerilen EBGAN modelinin Nash dengesinde jeneratörün veri dağılımına yakın örnekler ürettiğini gösteren teorik bir analiz sunmaktadır. Bu, modelin teorik sağlamlığını ve beklenen davranışını desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_optimality_of_the_solution.a4",
+            "section": "2.2 OPTIMALITY OF THE SOLUTION",
+            "quote": "In this section, we present a theoretical analysis of the system presented in section 2.1. We show that if the system reaches a Nash equilibrium, then the generator G produces samples that are indistinguishable from the distribution of the dataset."
+          },
+          {
+            "anchor_id": "2_2_optimality_of_the_solution.a5",
+            "section": "2.2 OPTIMALITY OF THE SOLUTION",
+            "quote": "Theorem 1. If (D∗, G∗) is a Nash equilibrium of the system, then pG∗= pdata almost everywhere, and V (D∗, G∗) = m."
+          }
+        ],
+        "reasoning_public": "Bölüm 2.2'de sunulan teoremler ve ispatlar, EBGAN çerçevesinin matematiksel olarak tutarlı olduğunu ve belirli koşullar altında jeneratörün gerçek veri dağılımını yakalayabileceğini göstermektedir. Bu tür bir teorik garanti, modelin güvenilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Sayıda Kaynağın İndekslenememesi",
+        "summary": "Makalede atıf yapılan 22 kaynaktan 20'sinin OpenAlex veya Semantic Scholar gibi akademik indekslerde başlık, yazar ve yıl bilgileriyle yeterince güçlü bir şekilde eşleşememesi, literatür konumlandırmasının doğrulanabilirliğini azaltmaktadır. Bu durum, makalenin dayandığı bazı temel çalışmaların erişilebilirliği veya standart indeksleme pratiklerine uygunluğu hakkında soru işaretleri yaratmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik bir çalışmanın literatürdeki konumunu doğru bir şekilde değerlendirebilmek için, atıf yapılan kaynakların kolayca doğrulanabilir ve erişilebilir olması önemlidir. Kaynakların büyük çoğunluğunun standart akademik indekslerde bulunamaması, okuyucuların ve hakemlerin makalenin argümanlarını ve yeniliklerini destekleyen literatürü tam olarak anlamasını ve değerlendirmesini zorlaştırır. Bu durum, makalenin şeffaflığını ve bilimsel iletişimdeki etkinliğini olumsuz etkileyebilir.",
+        "limitations": [
+          "OpenAlex/Semantic Scholar indekslerinin kapsam sınırlamaları nedeniyle, bazı geçerli kaynaklar indekslenmemiş olabilir. Bu durum, kaynakların kendiliğinden hatalı olduğu anlamına gelmez, ancak doğrulanabilirliklerini azaltır."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Literatür Konumlandırmasının Kapsamlılığı",
+        "summary": "Makale, enerji tabanlı modeller ve Üretken Çekişmeli Ağlar (GAN'lar) arasındaki ilişkiyi kurarak, kendi çalışmasını bu iki alanın kesişim noktasına başarıyla konumlandırmaktadır. İlgili temel çalışmalar (LeCun et al., 2006; Goodfellow et al., 2014) ve GAN'ların stabilitesini iyileştirmeye yönelik güncel çalışmalar (Salimans et al., 2016; Denton et al., 2015; Radford et al., 2015) referans gösterilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "The essence of the energy-based model (LeCun et al., 2006) is to build a function that maps each point of an input space to a single scalar, which is called “energy”."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "Generative Adversarial Networks (GAN) (Goodfellow et al., 2014) have led to signiﬁcant improve- ments in image generation (Denton et al., 2015; Radford et al., 2015; Im et al., 2016; Salimans et al., 2016), video prediction (Mathieu et al., 2015) and a number of other domains."
+          },
+          {
+            "anchor_id": "related_work.a0",
+            "section": "RELATED WORK",
+            "quote": "Our work primarily casts GANs into an energy-based model scope. On this direction, the approaches studying contrastive samples are relevant to EBGAN, such as the use of noisy samples (Vincent et al., 2010) and noisy gradient descent methods like contrastive divergence (Carreira-Perpinan & Hinton, 2005). From the perspective of GANs, several papers were presented to improve the stability of GAN training, (Salimans et al., 2016; Denton et al., 2015; Radford et al., 2015; Im et al., 2016; Mathieu et al., 2015)."
+          }
+        ],
+        "reasoning_public": "Makale, EBGAN'ların temelini oluşturan enerji tabanlı öğrenme ve GAN'lar gibi iki önemli araştırma alanını net bir şekilde tanımlamış ve kendi katkısını bu çerçevede sunmuştur. Bu, okuyucunun çalışmanın akademik bağlamını ve yenilikçi yönlerini anlamasına yardımcı olur. Özellikle, 'RELATED WORK' bölümü, EBGAN'ların hem enerji tabanlı modellerle hem de GAN'larla olan ilişkisini açıklayarak, çalışmanın literatürdeki yerini sağlamlaştırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "MNIST Deneylerinde 'Daha Güvenilir Eğitim' İddiasının Niteliksel Değerlendirmesi",
+        "summary": "Makale, EBGAN'ların MNIST veri kümesi üzerindeki eğitiminin standart GAN'lara göre 'daha güvenilir' olduğunu iddia etmektedir. Bu iddia, grid arama sonuçlarının histogramları ile desteklenmektedir. Ancak, 'güvenilirlik' kavramının nicel bir tanımı veya bu histogramların istatistiksel olarak anlamlı bir karşılaştırması sunulmamıştır. Bu durum, iddia ile sunulan kanıt arasındaki bağlantıyı zayıflatmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_exhaustive_grid_search_on_mnist.a6",
+            "section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+            "quote": "The histograms evidently show that EBGANs are more reliably trained."
+          },
+          {
+            "anchor_id": "4_1_exhaustive_grid_search_on_mnist.a7",
+            "section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+            "quote": "Histograms We plot the histogram of I′ scores in ﬁgure 2. We further separated out the optimization related setting from GAN’s grid (optimD, optimG and lr) and plot the histogram of each sub-grid individually, together with the EBGAN I′ scores as a reference, in ﬁgure 3. The number of experiments for GANs and EBGANs are both 512 in every subplot. The histograms evidently show that EBGANs are more reliably trained."
+          }
+        ],
+        "reasoning_public": "Bir sistemin 'daha güvenilir' olduğu iddiası, özellikle deneysel sonuçlara dayanıyorsa, bu güvenilirliğin nasıl ölçüldüğünü ve karşılaştırmanın istatistiksel geçerliliğini açıkça belirtmelidir. Sadece histogramların görsel karşılaştırması, iddiayı tam olarak desteklemek için yeterli değildir ve okuyucunun yorumuna bırakılmıştır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Yüksek Çözünürlüklü Görüntü Üretimi İddiasının Niteliksel Değerlendirmesi",
+        "summary": "Makale, EBGAN'ların 256x256 piksel çözünürlükte yüksek çözünürlüklü görüntüler üretebildiğini iddia etmektedir. Bu iddia, ImageNet veri kümesinden üretilen örnek görüntülerle desteklenmektedir. Ancak, 'yüksek çözünürlüklü' kavramının nicel bir tanımı veya üretilen görüntülerin kalitesini değerlendirmek için objektif metrikler (örneğin, FID, Inception Score gibi) sunulmamıştır. Görüntülerin 'gerçekçilikten uzak' olduğu da belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "We also show that a single-scale architecture can be trained to generate high-resolution images."
+          },
+          {
+            "anchor_id": "4_4_imagenet.a0",
+            "section": "4.4 IMAGENET",
+            "quote": "Finally, we trained EBGANs to generate high-resolution images on ImageNet (Russakovsky et al., 2015)."
+          },
+          {
+            "anchor_id": "4_4_imagenet.a1",
+            "section": "4.4 IMAGENET",
+            "quote": "In addition, our 256 × 256 dog-breed generations, although far from realistic, do reﬂect some knowledge about the appearances of dogs such as their body, furs and eye."
+          }
+        ],
+        "reasoning_public": "Yüksek çözünürlüklü görüntü üretimi gibi iddialar, genellikle objektif ve nicel değerlendirme metrikleri ile desteklenmelidir. Sadece görsel örnekler ve 'gerçekçilikten uzak' gibi nitel ifadeler, iddianın gücünü azaltır ve okuyucunun sübjektif yorumuna bırakır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik Yakınsama İddiasının Kanıtı",
+        "summary": "Makale, EBGAN sisteminin Nash dengesine ulaştığında üreticinin veri dağılımına eşleşen örnekler ürettiğini teorik olarak kanıtlamaktadır. Bu iddia, 'Optimality of the Solution' bölümünde sunulan Teorem 1 ve Teorem 2 ile matematiksel olarak desteklenmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_optimality_of_the_solution.a6",
+            "section": "2.2 OPTIMALITY OF THE SOLUTION",
+            "quote": "We show that if the system reaches a Nash equilibrium, then the generator G produces samples that are indistinguishable from the distribution of the dataset."
+          },
+          {
+            "anchor_id": "2_2_optimality_of_the_solution.a7",
+            "section": "2.2 OPTIMALITY OF THE SOLUTION",
+            "quote": "Theorem 1. If (D∗, G∗) is a Nash equilibrium of the system, then pG∗= pdata almost everywhere, and V (D∗, G∗) = m."
+          },
+          {
+            "anchor_id": "2_2_optimality_of_the_solution.a8",
+            "section": "2.2 OPTIMALITY OF THE SOLUTION",
+            "quote": "Theorem 2. A Nash equilibrium of this system exists and is characterized by (a) pG∗= pdata (almost everywhere) and (b) there exists a constant γ ∈[0, m] such that D∗(x) = γ (almost everywhere)."
+          }
+        ],
+        "reasoning_public": "Teorik iddiaların matematiksel kanıtlarla desteklenmesi, akademik çalışmalarda güçlü bir kanıt hizalaması örneğidir. Bu, makalenin temel katkılarından birini sağlam bir zemine oturtmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Oranda Çözümlenemeyen Atıf",
+        "summary": "Makaledeki 22 referanstan 20'si (%90.9) otomatik sistemler tarafından OpenAlex veya Semantic Scholar indekslerinde başlık, yazar ve yıl bilgileriyle eşleştirilememiştir. Bu durum, makaledeki iddiaların dayandığı kaynakların doğrulanabilirliğini ve erişilebilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda atıfların doğruluğu ve erişilebilirliği temel bir beklentidir. Okuyucuların ve hakemlerin atıf yapılan kaynakları kolayca bulup inceleyebilmesi, makalenin şeffaflığı ve güvenilirliği açısından kritik öneme sahiptir. Yüksek oranda çözümlenemeyen atıflar, bu doğrulanabilirlik sürecini zorlaştırmaktadır.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle bazı geçerli yayınların bulunamamış olabileceği ihtimali bulunmaktadır. Ancak bu kadar yüksek bir oranın, sadece indeksleme kapsamıyla açıklanması zordur."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "citation_integrity.f1",
+        "dimension": "citation_integrity",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Atıf Bağlamı Doğrulanamayan Referanslar",
+        "summary": "Makalede [ref 2] numaralı atıfın kullanıldığı dört farklı bağlamda, atıf yapılan kaynağın özetinden iddia edilen bilginin doğrulanıp doğrulanamadığı tespit edilememiştir. Bu durum, atıfın makaledeki iddiayı gerçekten destekleyip desteklemediği konusunda belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "The histograms evidently show that EBGANs are more reliably trained. 2This form of the “inception score” is only used to better analyze the grid search in the scope of this work, but not to compare with any other published work. 5 Table 1: Grid search specs Settings Description EBGANs GANs nLayerG number of layers in G [2, 3, 4, 5] [2, 3, 4, 5] nLayerD number of layers in D [2, 3, 4, 5] [2, 3, 4, 5] sizeG number of neurons in G [400, 800, 1600, 3200] [400, 800, 1600, 3200] sizeD number of neurons in D [128, 256, 512, 1024] [128, 256, 512, 1024] dropoutD if to use dropout in D [true, false] [true, false] optimD to use Adam or SGD for D adam [adam, sgd] optimG to use Adam or SGD for G adam [adam, sgd] lr learning rate 0.001 [0.01, 0.001, 0.0001] #experiments: - 512 6144 Digits generated from the conﬁgurations presenting the best inception score are shown in ﬁgure 4."
+          }
+        ],
+        "reasoning_public": "Atıfların, makaledeki iddiaları doğrudan ve açıkça desteklemesi beklenir. Kaynağın içeriği hakkında yeterli bilgi olmadan atıfın bağlamını doğrulamak mümkün olmadığında, okuyucunun makalenin argümanlarını tam olarak değerlendirmesi zorlaşır. Bu durum, makalenin akademik titizliğini ve şeffaflığını etkileyebilir.",
+        "limitations": [
+          "Bu bulgu, atıf yapılan kaynağın tam metnine erişim olmadan sadece özetine dayanmaktadır. Tam metin incelendiğinde atıfın geçerli olduğu ortaya çıkabilir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Türüne Özgü Raporlama Kılavuzu Uygulanabilir Değil",
+        "summary": "Makale, deneysel bir çalışma veya sistematik bir derleme olmadığı için CONSORT, PRISMA, STROBE veya COREQ gibi belirli raporlama kılavuzlarına doğrudan tabi değildir. Bu tür kılavuzlar genellikle klinik deneyler, gözlemsel çalışmalar veya nitel araştırmalar için tasarlanmıştır. Makale, yeni bir makine öğrenimi modeli (EBGAN) sunan ve deneysel sonuçlarını gösteren bir araştırma makalesidir. Bu nedenle, belirli bir raporlama kılavuzuna uyum beklentisi bu bağlamda geçerli değildir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makine öğrenimi alanındaki araştırma makaleleri için genel kabul görmüş, standartlaştırılmış bir raporlama kılavuzu bulunmamaktadır. Bu tür makaleler genellikle metodoloji, deneysel kurulum, sonuçlar ve tartışma gibi standart akademik makale yapısını takip eder. Mevcut makale bu genel yapıya uygun olup, sunulan modelin detaylarını ve deneysel doğrulamalarını içermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Kod ve Veri Paylaşımının Eksikliği",
+        "summary": "Makale, deneysel sonuçların tekrar üretilebilirliğini sağlamak için kullanılan kod veya veri setlerinin açıkça paylaşılmadığını belirtmemektedir. Bu durum, araştırmanın şeffaflığını ve doğrulanabilirliğini azaltmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmalarda tekrar üretilebilirlik, bulguların güvenilirliğini ve geçerliliğini artırmak için kritik öneme sahiptir. Özellikle derin öğrenme modelleri gibi karmaşık sistemlerde, kullanılan kod ve veri setlerinin paylaşılması, diğer araştırmacıların sonuçları bağımsız olarak doğrulamasını ve üzerine inşa etmesini sağlar. Makalede bu konuda herhangi bir bilgi bulunmaması, çalışmanın tekrar üretilebilirliğini kısıtlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Detayların Kapsamlı Sunumu",
+        "summary": "Makale, deneylerin tekrar üretilebilirliğini desteklemek amacıyla hiperparametreler, mimari seçimleri ve eğitim prosedürleri hakkında detaylı bilgiler sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a1",
+            "section": "EXPERIMENTS",
+            "quote": "Formally, we specify the search grid in table 1. We impose the following restrictions on EBGAN models: (i)-using learning rate 0.001 and Adam (Kingma & Ba, 2014) for both G and D; (ii)-nLayerD represents the total number of layers combining Enc and Dec. For simplicity, we ﬁx Dec to be one layer and only tune the Enc #layers; (iii)-the margin is set to 10 and not being tuned."
+          },
+          {
+            "anchor_id": "experiments.a2",
+            "section": "EXPERIMENTS",
+            "quote": "The speciﬁc experimental setting and analysis are available in appendix D."
+          }
+        ],
+        "reasoning_public": "Deneysel detayların kapsamlı bir şekilde sunulması, diğer araştırmacıların belirtilen sonuçları bağımsız olarak doğrulamasına ve çalışmanın üzerine inşa etmesine olanak tanır. Bu, bilimsel şeffaflık ve tekrar üretilebilirlik için önemli bir adımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıklı Bölüm Akışı ve Net Başlıklar",
+        "summary": "Makale, girişten ilgili çalışmalara, model açıklamasına ve deneylere kadar mantıklı bir bölüm akışına sahiptir. Bölüm başlıkları konuyu net bir şekilde yansıtmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "We introduce the “Energy-based Generative Adversarial Network” model (EBGAN) which views the discriminator as an energy function that attributes low energies to the regions near the data manifold and higher energies to other regions."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "The essence of the energy-based model (LeCun et al., 2006) is to build a function that maps each point of an input space to a single scalar, which is called “energy”."
+          },
+          {
+            "anchor_id": "related_work.a1",
+            "section": "RELATED WORK",
+            "quote": "Our work primarily casts GANs into an energy-based model scope. On this direction, the approaches studying contrastive samples are relevant to EBGAN, such as the use of noisy samples (Vincent et al., 2010) and noisy gradient descent methods like contrastive divergence (Carreira-Perpinan & Hinton, 2005)."
+          },
+          {
+            "anchor_id": "the_ebgan_model.a0",
+            "section": "THE EBGAN MODEL",
+            "quote": "Let pdata be the underlying probability density of the distribution that produces the dataset. The generator G is trained to produce a sample G(z), for instance an image, from a random vector z, which is sampled from a known distribution pz, for instance N(0, 1)."
+          }
+        ],
+        "reasoning_public": "Makalenin genel yapısı, okuyucunun konuyu adım adım takip etmesini kolaylaştırmaktadır. Her bölüm, bir önceki bölümün üzerine inşa edilerek tutarlı bir anlatım sunar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Eklerin Ana Metinle Entegrasyonu",
+        "summary": "Ekler (Appendix A, B, C, D) ana metinde sıkça referans verilmesine rağmen, bu referansların okuyucuyu eklerdeki ilgili bölümlere doğrudan yönlendirmesi her zaman açık değildir. Özellikle 'appendix B' ve 'appendix D' gibi genel referanslar, okuyucunun ilgili bilgiyi bulmasını zorlaştırabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "More details of the interpretation of EBGAN are provided in the appendix B."
+          },
+          {
+            "anchor_id": "experiments.a3",
+            "section": "EXPERIMENTS",
+            "quote": "Some slight modiﬁcation of the formulation were made to make ﬁgure 2 visu- ally more approachable while maintaining the score’s original meaning, I′ = ExKL(p(y)||p(y|x))2 (more details in appendix C)."
+          },
+          {
+            "anchor_id": "semi_supervised_learning_on_mnist.a0",
+            "section": "SEMI-SUPERVISED LEARNING ON MNIST",
+            "quote": "The margin decaying schedule is found by hyper-parameter search in our experiments (technical details in appendix D)."
+          },
+          {
+            "anchor_id": "semi_supervised_learning_on_mnist.a1",
+            "section": "SEMI-SUPERVISED LEARNING ON MNIST",
+            "quote": "The speciﬁc experimental setting and analysis are available in appendix D."
+          }
+        ],
+        "reasoning_public": "Ekler, makalenin önemli detaylarını ve kanıtlarını içerir. Ancak, ana metinden eklere yapılan referansların daha spesifik olması, okuyucunun ilgili teknik detayları veya deneysel kurulumları kolayca bulmasına yardımcı olacaktır. Örneğin, 'More details of the interpretation of EBGAN are provided in the appendix B.' ifadesi, B ekinin hangi kısmına bakılması gerektiğini belirtmemektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Görsel Referansların Konumlandırılması",
+        "summary": "Şekil ve tablo referansları genellikle ilgili metinle aynı sayfada veya çok yakınında yer alsa da, bazı durumlarda okuyucunun ilgili görseli bulmak için sayfayı kaydırması gerekebilir. Özellikle 'figure 2' ve 'figure 3' gibi referanslar, metinde bahsedildikleri yere daha yakın konumlandırılabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a4",
+            "section": "EXPERIMENTS",
+            "quote": "Histograms We plot the histogram of I′ scores in ﬁgure 2. We further separated out the optimization related setting from GAN’s grid (optimD, optimG and lr) and plot the histogram of each sub- grid individually, together with the EBGAN I′ scores as a reference, in ﬁgure 3."
+          }
+        ],
+        "reasoning_public": "Görsel materyallerin metinle yakınlığı, okuyucunun argümanları ve sonuçları daha kolay takip etmesini sağlar. Metinde bahsedilen bir şeklin hemen altında veya yanında olması, okuma akışını iyileştirir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Konferans Kapsamına Uygunluk",
+        "summary": "Makale, derin öğrenme ve üretken modeller alanındaki güncel araştırmaları ele alarak, NIPS gibi önde gelen bir yapay zeka konferansının kapsamına ve teknik düzeyine tamamen uygundur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a8",
+            "section": "ABSTRACT",
+            "quote": "We introduce the “Energy-based Generative Adversarial Network” model (EBGAN) which views the discriminator as an energy function that attributes low energies to the regions near the data manifold and higher energies to other regions."
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "Generative Adversarial Networks (GAN) (Goodfellow et al., 2014) have led to signiﬁcant improve- ments in image generation (Denton et al., 2015; Radford et al., 2015; Im et al., 2016; Salimans et al., 2016), video prediction (Mathieu et al., 2015) and a number of other domains."
+          },
+          {
+            "anchor_id": "outlook.a0",
+            "section": "OUTLOOK",
+            "quote": "We bridge two classes of unsupervised learning methods – GANs and auto-encoders – and revisit the GAN framework from an alternative energy-based perspective. EBGANs show better convergence pattern and scalability to generate high-resolution images."
+          }
+        ],
+        "reasoning_public": "Makale, enerji tabanlı modeller ve üretken çekişmeli ağlar (GAN'lar) arasındaki bağlantıyı kurarak, bu iki önemli alanı birleştiren yenilikçi bir yaklaşım sunmaktadır. Sunulan EBGAN modeli, GAN'ların eğitim istikrarı ve yüksek çözünürlüklü görüntü üretimi gibi zorluklarına çözüm getirmeyi amaçlamaktadır. Deneysel sonuçlar, MNIST, LSUN, CelebA ve ImageNet gibi standart veri kümeleri üzerinde modelin performansını göstermektedir. Bu konular ve kullanılan yöntemler (derin öğrenme, sinir ağları, optimizasyon) NIPS gibi konferansların tipik ilgi alanlarına girmektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+        "instruction": "Grid search deneylerinin veya kullanılan veri setlerinin istatistiksel gücünü veya hassasiyetini gerekçelendiren bir güç analizi veya hassasiyet rasyoneli ekleyin. Özellikle 'daha güvenilir bir şekilde eğitildiği' iddiasını desteklemek için istatistiksel bir temel sağlayın.",
+        "acceptance_check": "Güç analizi sonuçları veya hassasiyet rasyoneli, deney sayılarının veya veri setlerinin seçimini istatistiksel olarak gerekçelendirecek şekilde sunulmuştur.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST, 4.2 SEMI-SUPERVISED LEARNING ON MNIST",
+        "instruction": "MNIST grid search sonuçları ve yarı denetimli öğrenme sonuçları için raporlanan iyileşmelerin etki büyüklüğü ölçülerini (örneğin, Cohen's d) ve güven aralıklarını (CI) ekleyin. Özellikle Tablo 2'deki 'Relative percentage improvement' değerleri için güven aralıkları sağlayın.",
+        "acceptance_check": "Etki büyüklüğü ölçüleri ve güven aralıkları, ana sonuçlar için raporlanmıştır.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES veya yeni bir bölüm",
+        "instruction": "Deneylerde kullanılan veri setlerine (eğer halka açıksa) ve tüm kodlara erişim sağlayan bir bağlantı (örneğin, GitHub deposu) ekleyin. Ayrıca, deney kurulum detaylarını (hiperparametreler, eğitim prosedürleri vb.) daha detaylı açıklayın.",
+        "acceptance_check": "Veri ve kod erişim bilgileri makaleye eklenmiştir.",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların DOI'leri, arXiv ID'leri veya tam yayın bilgileri (konferans/dergi adı, cilt, sayı, sayfa aralığı) gibi benzersiz tanımlayıcılarla güncellenmesi gerekmektedir. Özellikle 'not_found_in_index' olarak işaretlenen 20 referans için bu bilgiler kontrol edilmeli ve eksikse eklenmelidir.",
+        "acceptance_check": "Tüm referansların OpenAlex veya Semantic Scholar gibi akademik indekslerde kolayca bulunabilir olması ve benzersiz tanımlayıcıların eklenmesi.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+        "instruction": "EBGAN'ların 'daha güvenilir' eğitim sağladığı iddiasını desteklemek için, histogramların istatistiksel analizini (örneğin, ortalama, varyans, medyan veya istatistiksel anlamlılık testleri) ekleyin. 'Güvenilirlik' kavramını nicel olarak tanımlayın ve bu tanıma göre karşılaştırmalı metrikler sunun.",
+        "acceptance_check": "Histogramların istatistiksel özetleri ve güvenilirliğin nicel tanımına dayalı karşılaştırmalı analizler metne eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "4.4 IMAGENET",
+        "instruction": "Yüksek çözünürlüklü görüntü üretimi iddiasını desteklemek için, üretilen görüntülerin kalitesini değerlendiren objektif metrikler (örn. FID, Inception Score, LPIPS) ekleyin ve bu metrikleri mevcut GAN modelleriyle karşılaştırın. 'Yüksek çözünürlüklü' tanımını netleştirin.",
+        "acceptance_check": "Üretilen görüntü kalitesi için nicel metrikler sunulmuş ve bu metrikler literatürdeki diğer çalışmalarla karşılaştırılmış olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS veya APPENDIX",
+        "instruction": "Yazarlar, deneysel kurulumda kullanılan kodları (örneğin GitHub deposu linki) ve/veya veri setlerine erişim bilgilerini (örneğin kullanılan veri setlerinin indirme linkleri veya erişim prosedürleri) makaleye eklemelidir.",
+        "acceptance_check": "Makalede kod ve veri setlerine erişim sağlayan açık bir bölüm veya referansın bulunması.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Bulunamayan referansların her biri için, ya tam ve doğru bibliyografik bilgileri (DOI, ISBN, yayınlandığı konferans/dergi adı, cilt, sayı, sayfa aralığı gibi) ekleyin ya da bu kaynakların neden standart indekslerde bulunamadığına dair bir açıklama sağlayın (örneğin, arXiv ön baskısı, workshop bildirisi vb.).",
+        "acceptance_check": "Tüm 'not_found_in_index' olarak işaretlenmiş referanslar için tam bibliyografik bilgiler eklenmiş veya bulunamama nedeni açıklanmıştır.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f2.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+        "instruction": "Modifiye edilmiş Inception Score (I') ile orijinal Inception Score arasındaki ilişkiyi ve bu modifikasyonun sonuçların yorumlanabilirliği üzerindeki potansiyel etkilerini daha detaylı açıklayın. Modifikasyonun 'orijinal anlamı koruduğuna' dair ek kanıtlar veya teorik gerekçeler sunun.",
+        "acceptance_check": "Modifiye edilmiş Inception Score'un geçerliliği ve orijinal skorla karşılaştırılabilirliği hakkında daha fazla açıklama ve gerekçelendirme eklenmiştir.",
+        "linked_finding_ids": [
+          "quant.f2"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "4 EXPERIMENTS",
+        "instruction": "Ana sonuçları (özellikle Şekil 2 ve Tablo 2'deki karşılaştırmalar) raporlarken, etki büyüklüğü ölçülerini ve güven aralıklarını ekleyin. Bu, okuyucunun bulguların pratik önemini ve belirsizliğini daha iyi anlamasına yardımcı olacaktır.",
+        "acceptance_check": "Ana sonuçlar, etki büyüklüğü ve güven aralıkları ile birlikte raporlanmıştır.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, EXPERIMENTS, SEMI-SUPERVISED LEARNING ON MNIST",
+        "instruction": "Ana metindeki ek referanslarını daha spesifik hale getirin. Örneğin, 'appendix B' yerine 'appendix B, Section B.1' gibi ilgili alt bölümleri belirtin.",
+        "acceptance_check": "Tüm ek referansları, okuyucuyu doğrudan ilgili ek bölümüne yönlendirecek şekilde güncellenmiştir.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Atıf yapılan kaynakların (özellikle [ref 2]) makaledeki iddiaları nasıl desteklediği daha açık bir şekilde belirtilmeli veya atıfın bağlamı, kaynağın içeriğiyle daha net ilişkilendirilmelidir. Gerekirse, atıf yapılan kaynağın ilgili bölümü veya ana bulgusu kısaca açıklanabilir.",
+        "acceptance_check": "Atıfın kullanıldığı cümlelerin, atıf yapılan kaynağın ana fikriyle uyumlu ve destekleyici olduğunun açıkça anlaşılması.",
+        "linked_finding_ids": [
+          "citation_integrity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "4 EXPERIMENTS",
+        "instruction": "Deneysel analizlerde kullanılan modellerin veya istatistiksel karşılaştırmaların temel varsayımlarının (örneğin, veri dağılımları, bağımsızlık) nasıl ele alındığını veya test edildiğini açıklayın. Eğer varsayımlar test edilmediyse, bunun potansiyel etkilerini tartışın.",
+        "acceptance_check": "Varsayım testleri veya varsayımların ele alınışına dair açıklamalar eklenmiştir.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "ABSTRACT, 4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+        "instruction": "Gözlemsel veya karşılaştırmalı deneylerden elde edilen sonuçları açıklarken nedensel dil kullanımını gözden geçirin. 'Daha istikrarlı' veya 'daha güvenilir' gibi ifadeleri, gözlemlenen farklılıkları daha dikkatli bir şekilde yansıtacak şekilde yeniden ifade edin veya bu iddiaları destekleyen istatistiksel kanıtları (örneğin, güven aralıkları, etki büyüklükleri) ekleyin.",
+        "acceptance_check": "Nedensel dil kullanımı gözden geçirilmiş ve gözlemsel sonuçlar daha dikkatli bir şekilde ifade edilmiştir.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f2.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Şekil ve tabloları, metinde ilk bahsedildikleri yere mümkün olduğunca yakın konumlandırın.",
+        "acceptance_check": "Tüm şekil ve tablo referansları, ilgili görselin metinde bahsedildiği yere yakın olacak şekilde düzenlenmiştir.",
+        "linked_finding_ids": [
+          "writing_structure.f2"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yüksek Çözünürlüklü Görüntü Üretimi İddiasının Niteliksel Değerlendirmesi; Nedensel Dil Kullanımında Dikkat; Ana Sonuçların Raporlama Kalitesi",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7",
+          "abstract.a8"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "quant.f6.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Eklerin Ana Metinle Entegrasyonu",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4"
+        ],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "related_work.a0",
+          "related_work.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1.3 ENERGY-BASED GENERATIVE ADVERSARIAL NETWORKS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "1_3_energy_based_generative_adversarial_networks.a0",
+          "1_3_energy_based_generative_adversarial_networks.a1",
+          "1_3_energy_based_generative_adversarial_networks.a2",
+          "1_3_energy_based_generative_adversarial_networks.a3"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "2.2 OPTIMALITY OF THE SOLUTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Varsayım Testlerinin Eksikliği",
+        "anchor_ids": [
+          "2_2_optimality_of_the_solution.a0",
+          "2_2_optimality_of_the_solution.a1",
+          "2_2_optimality_of_the_solution.a2",
+          "2_2_optimality_of_the_solution.a3",
+          "2_2_optimality_of_the_solution.a4",
+          "2_2_optimality_of_the_solution.a5",
+          "2_2_optimality_of_the_solution.a6",
+          "2_2_optimality_of_the_solution.a7",
+          "2_2_optimality_of_the_solution.a8"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ]
+      },
+      {
+        "section": "2.3 USING AUTO-ENCODERS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_3_using_auto_encoders.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "2.4 REPELLING REGULARIZER",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_4_repelling_regularizer.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4 EXPERIMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_experiments.a0",
+          "4_experiments.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4.1 EXHAUSTIVE GRID SEARCH ON MNIST",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; MNIST Deneylerinde 'Daha Güvenilir Eğitim' İddiasının Niteliksel Değerlendirmesi; Inception Score Modifikasyonunun Geçerliliği; Nedensel Dil Kullanımında Dikkat; Ana Sonuçların Raporlama Kalitesi",
+        "anchor_ids": [
+          "4_1_exhaustive_grid_search_on_mnist.a0",
+          "4_1_exhaustive_grid_search_on_mnist.a1",
+          "4_1_exhaustive_grid_search_on_mnist.a2",
+          "4_1_exhaustive_grid_search_on_mnist.a3",
+          "4_1_exhaustive_grid_search_on_mnist.a4",
+          "4_1_exhaustive_grid_search_on_mnist.a5",
+          "4_1_exhaustive_grid_search_on_mnist.a6",
+          "4_1_exhaustive_grid_search_on_mnist.a7"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "quant.f1.a0",
+          "quant.f2.a0",
+          "quant.f5.a0",
+          "quant.f6.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "4.4 IMAGENET",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yüksek Çözünürlüklü Görüntü Üretimi İddiasının Niteliksel Değerlendirmesi",
+        "anchor_ids": [
+          "4_4_imagenet.a0",
+          "4_4_imagenet.a1"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Eklerin Ana Metinle Entegrasyonu",
+        "anchor_ids": [
+          "experiments.a0",
+          "experiments.a1",
+          "experiments.a2",
+          "experiments.a3",
+          "experiments.a4"
+        ],
+        "action_item_ids": [
+          "citation_integrity.f1.a0",
+          "writing_structure.f1.a0",
+          "writing_structure.f2.a0"
+        ]
+      },
+      {
+        "section": "Our main contributions are summarized as follows:",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "our_main_contributions_are_summarized_as_follows.a0",
+          "our_main_contributions_are_summarized_as_follows.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "OUTLOOK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "outlook.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "SEMI-SUPERVISED LEARNING ON MNIST",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Eklerin Ana Metinle Entegrasyonu",
+        "anchor_ids": [
+          "semi_supervised_learning_on_mnist.a0",
+          "semi_supervised_learning_on_mnist.a1"
+        ],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "Table 1: Grid search specs",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_1_grid_search_specs.a0"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "Table 2: The comparison of LN bottom-layer-cost model and its EBGAN extension on PI-MNIST semi-supervised task.",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Ana Sonuçların Raporlama Kalitesi",
+        "anchor_ids": [
+          "table_2_the_comparison_of_ln_bottom_layer_cost_model_and_its_ebgan_extension_on_pi_mnist_semi_supervised_task.a0"
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "Table 2: The comparison of LN bottom-layer-cost model and its EBGAN extension on PI-MNIST semi-supervised task. Note the results are error rate (in %) and averaged over 15 different random seeds.",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "anchor_ids": [
+          "table_2_the_comparison_of_ln_bottom_layer_cost_model_and_its_ebgan_extension_on_pi_mnist_semi_supervised_task_note_the_results_are_error_rate_in_and_averaged_over_15_different_random_seeds.a0"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "THE EBGAN MODEL",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "the_ebgan_model.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Discussion",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Discussion' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

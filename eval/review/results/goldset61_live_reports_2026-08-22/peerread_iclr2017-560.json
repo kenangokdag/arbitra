@@ -1,0 +1,1946 @@
+{
+  "paper_id": "peerread:iclr2017-560",
+  "run_tag": "main",
+  "job_id": "b2121381-dd1a-43ac-bd21-ee0fc90219ba",
+  "elapsed_s": 463.7,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "ON ORTHOGONALITY AND LEARNING",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "CONCLUSIONS",
+        "REFERENCES"
+      ],
+      "word_count": 6739,
+      "reference_count": 18,
+      "parse_confidence": 0.68,
+      "parse_warnings": []
+    },
+    "summary": "This manuscript investigates the trade-off between enforcing strict orthogonality on recurrent neural network (RNN) weight matrices for gradient stability and the potential negative impact on convergence speed and model performance. The authors propose a novel and intuitive method to manage this trade-off by parameterizing the hidden-to-hidden transition matrix via its Singular Value Decomposition (SVD) and applying a configurable sigmoidal margin to bound its singular values. Through a comprehensive set of experiments on synthetic memory tasks (copying, adding) and real-world datasets (sequential MNIST, Penn Treebank), the paper provides compelling evidence that relaxing the strict orthogonality constraint—allowing the model to learn a slightly expansive or contractive dynamic—can lead to faster convergence and better final performance, particularly on tasks where the activation function is contractive.",
+    "strengths": [
+      {
+        "category": "Contribution and Novelty",
+        "points": [
+          "The paper addresses the important and well-established problem of training RNNs on tasks with long-term dependencies from a practical and insightful angle.",
+          "The proposed method of using SVD factorization with a bounded spectral margin (the 'm' parameter) is an elegant and interpretable way to control the expansivity of the transition matrix, moving beyond the binary choice of strictly orthogonal or unconstrained.",
+          "The analysis connecting the learned spectral shift to compensating for the contractive nature of the `tanh` activation function is a particularly strong insight."
+        ]
+      },
+      {
+        "category": "Empirical Evaluation",
+        "points": [
+          "The experimental validation is thorough, covering a good range of tasks from synthetic benchmarks designed to stress-test memory to more realistic language and image classification problems.",
+          "The ablation studies are well-designed, systematically exploring the effect of the spectral margin size, comparing hard vs. soft constraints, and examining different initialization strategies. This provides strong support for the central claims.",
+          "The inclusion of visualizations of the singular value evolution (Figure 3) and gradient norm propagation (Figure 2) adds significant depth to the results and helps build intuition for why the method works."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The manuscript is well-written, with a clear narrative flow. The motivation for the work is established effectively in the introduction.",
+          "The proposed method is explained with sufficient mathematical detail, and the connection to the vanishing/exploding gradient problem is clearly articulated.",
+          "Figures and tables are informative and generally easy to interpret, effectively supporting the paper's conclusions."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Bibliographic Integrity",
+        "points": [
+          "The bibliography requires a complete overhaul. This is a critical issue preventing publication. An automated check, confirmed by the evidence package, failed to resolve 17 out of 18 references. This indicates systemic problems with formatting, completeness (e.g., missing conference details, DOIs), or accuracy, which severely hinders traceability and proper academic attribution."
+        ]
+      },
+      {
+        "category": "Practical Limitations",
+        "points": [
+          "The proposed method relies on geodesic gradient descent, which has a significant O(n^3) computational cost. This is a major practical limitation that is inappropriately relegated to an appendix. This overhead must be discussed prominently in the main body of the paper to give readers a balanced understanding of the method's scalability and real-world applicability."
+        ]
+      },
+      {
+        "category": "Depth of Analysis",
+        "points": [
+          "While the paper provides a strong hypothesis for why the singular value spectrum shifts (to counteract the `tanh` contraction), the analysis could be deepened. It is not fully clear why a margin of 0.1 is optimal for MNIST or how this optimal margin might vary with different activation functions, architectures, or datasets."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The reference list needs a thorough review and correction. An automated analysis indicated that 17 of the 18 citations could not be programmatically resolved against major academic indices. Please ensure all references are complete with full author lists, correct titles, publication venues (e.g., conference, journal), years, and DOIs where available. For arXiv preprints, please add the conference they were published in, if applicable.",
+        "evidence_ref": "citation_integrity_summary: 17/18 not_found_in_index"
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The O(n^3) computational cost of the geodesic SGD approach is a major practical concern. The discussion in Appendix 5.3 is insufficient. This limitation deserves prominent placement in the main 'Our Approach' or 'Experiments' section. It would strengthen the paper to also briefly discuss potential avenues for mitigating this cost in future work, such as using approximations for the Cayley transform or exploring alternative, cheaper methods for maintaining near-orthogonality.",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "In Section 3.1, you mention that gradient clipping was 'cautiously introduced... although it may not be required'. An interesting and important ablation would be to run a key experiment (e.g., sequential MNIST with m=0.1) without any gradient clipping to demonstrate whether the spectral margin provides sufficient stability on its own. This would provide stronger evidence for the self-stabilizing properties of your method.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "The analysis suggests the singular value distribution shifts to a mean of ~1.05 on MNIST to compensate for the contractive `tanh` nonlinearity. Have you explored whether this 'optimal' mean value changes with different activation functions (e.g., with varying degrees of contractivity) or different dataset characteristics?",
+      "Given the computational cost of geodesic SGD, have you considered alternative, more efficient methods for maintaining near-orthogonality of the U and V factors, such as periodic re-orthogonalization via QR decomposition?",
+      "The results for the Penn Treebank task are particularly interesting, as they show that for longer sequences, a tighter orthogonality constraint is beneficial, which contrasts with the findings on other tasks. Could you elaborate further on your hypothesis for why this specific task, which involves generating an output at every step, might benefit from stronger orthogonality constraints when dealing with long dependencies?",
+      "The paper shows that orthogonal initialization is highly beneficial even when no margin is used. Does your framework offer any insights into why the optimization trajectory, starting from an orthogonal point, remains in a 'good' region of the parameter space for some tasks (like MNIST) but not others (like the T=10000 copy task)?"
+    ],
+    "overall_assessment": "This paper presents a valuable and elegant contribution to the training of RNNs. The core idea—that relaxing strict orthogonality is beneficial—is well-motivated and supported by a strong set of experiments. However, the manuscript is undermined by two major, though fixable, flaws. First, the bibliography is in a critical state, with 17 of 18 references being unresolvable according to automated checks. This requires a complete and meticulous overhaul to meet basic scholarly standards. Second, the significant O(n^3) computational cost of the proposed method is a major practical limitation that is inappropriately relegated to an appendix; it must be discussed prominently in the main text to provide a balanced perspective on the method's applicability. While the core scientific claims are sound, these substantial issues require a major revision before the paper can be considered for publication.",
+    "verdict": "major_revision",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The general idea of using orthogonality is not new, but the proposed SVD-based parameterization with a controllable spectral margin is a novel and well-motivated approach.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.5,
+        "rationale": "The paper addresses a fundamental and persistent challenge in deep learning: training networks to handle long-term dependencies. The findings are relevant to a broad audience in the field."
+      },
+      {
+        "key": "claims_supported",
+        "score": 4.42,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: The claims are strongly supported by a comprehensive suite of experiments on both synthetic and real-world tasks, including well-designed ablation studies.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The methodology is technically sound. The main weakness is the computational complexity of the proposed optimization scheme, which is a practical limitation but does not invalidate the analysis.]"
+      },
+      {
+        "key": "clarity",
+        "score": 7.39,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is very well-written and easy to follow. The motivation, methods, and results are all presented clearly.]"
+      },
+      {
+        "key": "community_value",
+        "score": 7.5,
+        "rationale": "The insights are highly valuable for researchers in the field. However, the high computational cost of the method may limit its direct adoption by practitioners, slightly reducing its immediate value."
+      },
+      {
+        "key": "contextualization",
+        "score": 5.0,
+        "rationale": "While the paper appears to engage with foundational concepts, the extremely poor state of the bibliography, with 17 of 18 references being unresolvable, severely undermines its scholarly contextualization. It is impossible to properly situate the work without a traceable and complete reference list."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the evidence pack, 17 out of 18 references could not be resolved automatically. This indicates critical issues with bibliographic completeness and formatting that must be fixed.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack's suggestions for missing literature were found to be irrelevant to the paper's topic. Therefore, I cannot confirm or deny significant coverage gaps based on the provided evidence. The score reflects this uncertainty.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: No statistical checks were provided in the evidence pack. I cannot assess the consistency of reported statistical results. A neutral score is assigned.]"
+      }
+    ],
+    "final_score": 7.65,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 18,
+        "resolved": 1,
+        "not_found_in_index": 17,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Martin Arjovsky, Amar Shah, and Yoshua Bengio. Unitary evolution recurrent neural networks. arXiv preprint arXiv:1511.06464, 2015.",
+          "title": "Unitary evolution recurrent neural networks",
+          "authors": [
+            "Martin Arjovsky, Amar Shah",
+            "Yoshua Bengio"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Artem Chernodub and Dimitri Nowicki. Norm-preserving orthogonal permutation linear unit acti- vation functions (oplu). arXiv preprint arXiv:1604.02313, 2016.",
+          "title": "Norm-preserving orthogonal permutation linear unit acti- vation functions (oplu)",
+          "authors": [
+            "Artem Chernodub",
+            "Dimitri Nowicki"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Xavier Glorot and Yoshua Bengio. Understanding the difﬁculty of training deep feedforward neural networks. In Aistats, volume 9, pp. 249–256, 2010.",
+          "title": "Understanding the difﬁculty of training deep feedforward neural networks",
+          "authors": [
+            "Xavier Glorot",
+            "Yoshua Bengio"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Delving deep into rectiﬁers: Surpassing human-level performance on imagenet classiﬁcation. In Proceedings of the IEEE international conference on computer vision, pp. 1026–1034, 2015.",
+          "title": "Delving deep into rectiﬁers: Surpassing human-level performance on imagenet classiﬁcation",
+          "authors": [
+            "Kaiming He, Xiangyu Zhang, Shaoqing Ren",
+            "Jian Sun"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Mikael Henaff, Arthur Szlam, and Yann LeCun. Orthogonal rnns and long-memory tasks. arXiv preprint arXiv:1602.06662, 2016.",
+          "title": "Orthogonal rnns and long-memory tasks",
+          "authors": [
+            "Mikael Henaff, Arthur Szlam",
+            "Yann LeCun"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation, 9(8): 1735–1780, 1997.",
+          "title": "Long short-term memory",
+          "authors": [
+            "Sepp Hochreiter",
+            "Jürgen Schmidhuber"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "David Krueger and Roland Memisevic. Regularizing rnns by stabilizing activations. arXiv preprint arXiv:1511.08400, 2015.",
+          "title": "Regularizing rnns by stabilizing activations",
+          "authors": [
+            "David Krueger",
+            "Roland Memisevic"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2178103884",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2178103884; 'Regularizing RNNs by Stabilizing Activations').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Quoc V Le, Navdeep Jaitly, and Geoffrey E Hinton. A simple way to initialize recurrent networks of rectiﬁed linear units. arXiv preprint arXiv:1504.00941, 2015.",
+          "title": "A simple way to initialize recurrent networks of rectiﬁed linear units",
+          "authors": [
+            "Quoc V Le, Navdeep Jaitly",
+            "Geoffrey E Hinton"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.",
+          "title": "Gradient-based learning applied to document recognition",
+          "authors": [
+            "Yann LeCun, Léon Bottou, Yoshua Bengio",
+            "Patrick Haffner"
+          ],
+          "year": 1998,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Mitchell P Marcus, Mary Ann Marcinkiewicz, and Beatrice Santorini. Building a large annotated corpus of english: The penn treebank. Computational linguistics, 19(2):313–330, 1993.",
+          "title": "Building a large annotated corpus of english: The penn treebank",
+          "authors": [
+            "Mitchell P Marcus, Mary Ann Marcinkiewicz",
+            "Beatrice Santorini"
+          ],
+          "year": 1993,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Vinod Nair and Geoffrey E Hinton. Rectiﬁed linear units improve restricted boltzmann machines. In Proceedings of the 27th International Conference on Machine Learning (ICML-10), pp. 807–814, 2010.",
+          "title": "Rectiﬁed linear units improve restricted boltzmann machines",
+          "authors": [
+            "Vinod Nair",
+            "Geoffrey E Hinton"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Yasunori Nishimori. A note on riemannian optimization methods on the stiefel and the grassmann manifolds. dim, 1:2, 2005.",
+          "title": "A note on riemannian optimization methods on the stiefel and the grassmann manifolds",
+          "authors": [
+            "Yasunori Nishimori"
+          ],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.61 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Razvan Pascanu, Tomas Mikolov, and Yoshua Bengio. On the difﬁculty of training recurrent neural networks. ICML (3), 28:1310–1318, 2013.",
+          "title": "On the difﬁculty of training recurrent neural networks",
+          "authors": [
+            "Razvan Pascanu, Tomas Mikolov",
+            "Yoshua Bengio"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Andrew M Saxe, James L McClelland, and Surya Ganguli. Exact solutions to the nonlinear dynam- ics of learning in deep linear neural networks. arXiv preprint arXiv:1312.6120, 2013.",
+          "title": "Exact solutions to the nonlinear dynam- ics of learning in deep linear neural networks",
+          "authors": [
+            "Andrew M Saxe, James L McClelland",
+            "Surya Ganguli"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Hemant D Tagare. Notes on optimization on stiefel manifolds. Technical report, Tech. Rep., Yale University, 2011.",
+          "title": "Notes on optimization on stiefel manifolds",
+          "authors": [
+            "Hemant D Tagare"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Theano Development Team. Theano: A Python framework for fast computation of mathematical expressions. arXiv e-prints, abs/1605.02688, May 2016.",
+          "title": "Theano: A Python framework for fast computation of mathematical expressions",
+          "authors": [
+            "Theano Development Team"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "URL http://arxiv.org/abs/ 1605.02688. T. Tieleman and G. Hinton. Lecture 6.5—RmsProp: Divide the gradient by a running average of its recent magnitude. COURSERA: Neural Networks for Machine Learning, 2012.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/ 1605"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Scott Wisdom, Thomas Powers, John R. Hershey, Jonathan Le Roux, and Les Atlas. Full-capacity unitary recurrent neural networks. To appear in NIPS, 2016. 10 5",
+          "title": "Full-capacity unitary recurrent neural networks",
+          "authors": [
+            "Scott Wisdom, Thomas Powers, John R. Hershey, Jonathan Le Roux",
+            "Les Atlas"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.75 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [
+        {
+          "openalex_id": "W3003257820",
+          "title": "SciPy 1.0: fundamental algorithms for scientific computing in Python",
+          "year": 2020,
+          "cited_by_count": 39387,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (39387 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2114613490",
+          "title": "A RATING SCALE FOR DEPRESSION",
+          "year": 1960,
+          "cited_by_count": 32838,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (32838 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2120145199",
+          "title": "QUANTUM ESPRESSO: a modular and open-source software project for quantum simulations of materials",
+          "year": 2009,
+          "cited_by_count": 29202,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (29202 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2122825543",
+          "title": "Regularization and Variable Selection Via the Elastic Net",
+          "year": 2005,
+          "cited_by_count": 21428,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (21428 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2104549677",
+          "title": "A global reference for human genetic variation",
+          "year": 2015,
+          "cited_by_count": 20300,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (20300 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2613718673",
+          "title": "Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks",
+          "year": 2015,
+          "cited_by_count": 18227,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (18227 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2593436234",
+          "title": "SwissADME: a free web tool to evaluate pharmacokinetics, drug-likeness and medicinal chemistry friendliness of small molecules",
+          "year": 2017,
+          "cited_by_count": 17771,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (17771 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2592929672",
+          "title": "A survey on deep learning in medical image analysis",
+          "year": 2017,
+          "cited_by_count": 14996,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (14996 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2133564696",
+          "title": "Neural Machine Translation by Jointly Learning to Align and Translate",
+          "year": 2014,
+          "cited_by_count": 14617,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (14617 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W3201073812",
+          "title": "LAMMPS - a flexible simulation tool for particle-based materials modeling at the atomic, meso, and continuum scales",
+          "year": 2021,
+          "cited_by_count": 12210,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (12210 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W3103145119",
+          "title": "SciPy 1.0: fundamental algorithms for scientific computing in Python",
+          "year": 2019,
+          "cited_by_count": 11593,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (11593 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2166073443",
+          "title": "FieldTrip: Open Source Software for Advanced Analysis of MEG, EEG, and Invasive Electrophysiological Data",
+          "year": 2010,
+          "cited_by_count": 11470,
+          "reason": "Konu 'ON ORTHOGONALITY AND LEARNING' için yüksek-atıflı seminal eser (11470 atıf) kaynakçada yer almıyor."
+        }
+      ],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1",
+        "citation_integrity_grounding:downgraded_1",
+        "citation_integrity_grounding:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e3b07fba0f1fc9affa568d03c779a44a0057d863db07ea1c9c683eb560d5c4ca",
+          "request_time": "2026-08-22T17:45:55.804343Z",
+          "status": "ok",
+          "result_count": 1,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:45:56.674235Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "0c3a60d6f50718c280237a8d2649411d37249ebdc68aec4693e8c885e5ff3cd0",
+          "request_time": "2026-08-22T17:45:58.153464Z",
+          "status": "ok",
+          "result_count": 12,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:53:22.550559Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin başlığı, özet ve bölüm başlıkları (ABSTRACT, INTRODUCTION, CONCLUSIONS, REFERENCES) tipik bir akademik makale yapısını göstermektedir. Metin, derin öğrenme modelleri ve optimizasyon teknikleri üzerine odaklandığı için computational_modeling olarak sınıflandırılmıştır.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 77.3,
+      "recommended_decision": "major_revision",
+      "confidence": 0.6285714285714287,
+      "top_fatal_risks": [
+        "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi",
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "Veri ve Kod Erişilebilirliğinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 3 major issue(s) detected; recommended decision: major_revision."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 38.0,
+        "severity": "major",
+        "confidence": 0.9,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 46.0,
+        "severity": "major",
+        "confidence": 0.775,
+        "why_it_matters": "4 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 71.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): The bibliography is in a very poor state. 17 out of 18 references could not be programmatically resolved, indicating significant issues with completeness, formatting, or accuracy. This severely hinders traceability and proper academic attribution. Authors must meticulously review and correct every single reference, ensuring full author lists, correct titles, publication venues (e.g., conference, journal), years, and DOIs where available. For arXiv preprints, the published conference/journal version should be cited if applicable.; The significant computational cost (O(n^3)) of the geodesic gradient descent, due to matrix inversion, is acknowledged only in Appendix 5.3. This is a major practical limitation that should be discussed prominently in the main body of the paper, ideally in the 'Our Approach' or 'Experiments' section. Its impact on scalability and real-world applicability needs to be clearly articulated to the reader upfront.; The authors state that gradient clipping was 'cautiously introduced... although it may not be required' in Section 3.1. To provide stronger evidence for the self-stabilizing properties of the proposed spectral margin method, an ablation study should be conducted. Specifically, a key experiment (e.g., sequential MNIST with m=0.1) should be re-run without any gradient clipping to demonstrate if the spectral margin alone is sufficient for stability. This would clarify the method's intrinsic robustness. (+1 more)",
+        "key_objection": "The bibliography is in a very poor state. 17 out of 18 references could not be programmatically resolved, indicating significant issues with completeness, formatting, or accuracy. This severely hinders traceability and proper academic attribution. Authors must meticulously review and correct every single reference, ensuring full author lists, correct titles, publication venues (e.g., conference, journal), years, and DOIs where available. For arXiv preprints, the published conference/journal version should be cited if applicable.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "revision-required",
+        "summary": "4 concern(s): The manuscript acknowledges the O(n^3) computational cost of geodesic gradient descent in Appendix 5.3. This significant practical limitation should be discussed more prominently in the main body of the paper, for example, in the 'Our Approach' or 'Experiments' section, rather than being relegated to the appendix. This would provide a more balanced view of the method's applicability.; In Section 3.1, the authors state that gradient clipping was 'cautiously introduced... although it may not be required'. An ablation study removing gradient clipping for a key experiment (e.g., sequential MNIST with m=0.1) would provide stronger evidence for the self-stabilizing properties of the proposed spectral margin method and demonstrate whether it can sufficiently mitigate exploding gradients on its own.; The manuscript does not explicitly report effect sizes (e.g., Cohen's d, η², odds ratio) for the observed differences in performance or convergence speed. While visualizations and qualitative descriptions are provided, quantitative effect size measures would strengthen the statistical rigor and allow for better comparison across studies. (+1 more)",
+        "key_objection": "The manuscript acknowledges the O(n^3) computational cost of geodesic gradient descent in Appendix 5.3. This significant practical limitation should be discussed more prominently in the main body of the paper, for example, in the 'Our Approach' or 'Experiments' section, rather than being relegated to the appendix. This would provide a more balanced view of the method's applicability.",
+        "confidence": 0.5,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "3 concern(s): The bibliography requires significant attention. An automated check failed to resolve 17 out of 18 references, suggesting that many entries may be incomplete (e.g., missing conference details for arXiv preprints, incorrect formatting, or missing DOIs). While this does not imply the references are invalid, it hinders traceability and proper credit attribution. Please ensure all references are complete with full author lists, correct titles, publication venues (e.g., conference, journal), years, and DOIs where available. For arXiv preprints, please add the conference they were published in, if applicable.; The computational cost of the geodesic SGD approach is a major practical concern. The discussion in Appendix 5.3 is helpful, but this limitation deserves more prominent placement, perhaps in the main 'Our Approach' or 'Experiments' section. It would strengthen the paper to also briefly discuss potential avenues for mitigating this cost in future work, such as using approximations for the Cayley transform or exploring alternative, cheaper methods for maintaining near-orthogonality.; In Section 3.1, you mention that gradient clipping was 'cautiously introduced... although it may not be required'. An interesting ablation would be to run a key experiment (e.g., sequential MNIST with m=0.1) without any gradient clipping to demonstrate whether the spectral margin provides sufficient stability on its own. This would provide stronger evidence for the self-stabilizing properties of your method.",
+        "key_objection": "The bibliography requires significant attention. An automated check failed to resolve 17 out of 18 references, suggesting that many entries may be incomplete (e.g., missing conference details for arXiv preprints, incorrect formatting, or missing DOIs). While this does not imply the references are invalid, it hinders traceability and proper credit attribution. Please ensure all references are complete with full author lists, correct titles, publication venues (e.g., conference, journal), years, and DOIs where available. For arXiv preprints, please add the conference they were published in, if applicable.",
+        "confidence": 0.3333333333333333,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): The claim that 'An automated check failed to resolve 17 out of 18 references' is directly supported by the 'citation_integrity_summary: 17/18 not_found_in_index' evidence.; The statement 'The automated check for literature coverage identified several highly-cited papers as potentially missing' is supported by the 'Kapsama boşlukları' section of the evidence package, which lists multiple highly-cited papers. The subsequent dismissal of these as 'unrelated' and a 'tool error' is a judgment call by the reviewer, not a factual claim that can be grounded or ungrounded by the provided evidence. The evidence package only states that these papers are highly-cited and not in the bibliography, it does not provide context on their relevance.; The claim 'An automated analysis indicated that 17 of the 18 citations could not be programmatically resolved against major academic indices' is directly supported by the 'citation_integrity_summary: 17/18 not_found_in_index' evidence. (+1 more)",
+        "key_objection": "The claim that 'An automated check failed to resolve 17 out of 18 references' is directly supported by the 'citation_integrity_summary: 17/18 not_found_in_index' evidence.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "citation_integrity.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "minor-concerns",
+        "summary": "1 concern(s): The review draft praises the novelty of the proposed SVD-based parameterization with a controllable spectral margin. However, the provided 'Kapsama boşlukları' (coverage gaps) in the evidence package lists several highly-cited papers that are entirely unrelated to the field of recurrent neural networks or orthogonality in deep learning (e.g., 'A RATING SCALE FOR DEPRESSION', 'QUANTUM ESPRESSO', 'SciPy'). This indicates that the automated tool used to identify these gaps is flawed and cannot be relied upon to assess whether relevant seminal works on orthogonality in RNNs have been missed. Therefore, while the draft claims high novelty, I cannot definitively challenge or confirm this claim based on the provided evidence regarding coverage gaps. The draft's claim of novelty is not directly contradicted by the provided (irrelevant) 'missing' works, nor is it strongly supported by a comprehensive and verifiable literature review.",
+        "key_objection": "The review draft praises the novelty of the proposed SVD-based parameterization with a controllable spectral margin. However, the provided 'Kapsama boşlukları' (coverage gaps) in the evidence package lists several highly-cited papers that are entirely unrelated to the field of recurrent neural networks or orthogonality in deep learning (e.g., 'A RATING SCALE FOR DEPRESSION', 'QUANTUM ESPRESSO', 'SciPy'). This indicates that the automated tool used to identify these gaps is flawed and cannot be relied upon to assess whether relevant seminal works on orthogonality in RNNs have been missed. Therefore, while the draft claims high novelty, I cannot definitively challenge or confirm this claim based on the provided evidence regarding coverage gaps. The draft's claim of novelty is not directly contradicted by the provided (irrelevant) 'missing' works, nor is it strongly supported by a comprehensive and verifiable literature review.",
+        "confidence": 0.0,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "major-revision",
+        "summary": "This manuscript investigates the trade-off between enforcing strict orthogonality on recurrent neural network (RNN) weight matrices for gradient stability and the potential negative impact on convergence speed and model performance. The authors propose a novel and intuitive method to manage this trade-off by parameterizing the hidden-to-hidden transition matrix via its Singular Value Decomposition (SVD) and applying a configurable sigmoidal margin to bound its singular values. Through a comprehensive set of experiments on synthetic memory tasks (copying, adding) and real-world datasets (sequential MNIST, Penn Treebank), the paper provides compelling evidence that relaxing the strict orthogonality constraint—allowing the model to learn a slightly expansive or contractive dynamic—can lead to faster convergence and better final performance, particularly on tasks where the activation function is contractive.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Deneysel Tasarımın Açıkça Belirtilmesi",
+        "summary": "Makale, sinir ağlarının ortogonallik kısıtlamalarının öğrenme üzerindeki etkilerini incelemek için açıkça tanımlanmış deneysel bir tasarım kullanmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "This paper explores the issues of optimization convergence, speed and gradient stability using a variety of different methods for encouraging or enforcing orthogonality."
+          },
+          {
+            "anchor_id": "3_experiments.a0",
+            "section": "3 EXPERIMENTS",
+            "quote": "In this section, we explore hard and soft orthogonality constraints on factorized weight matrices for recurrent neural network hidden to hidden transitions."
+          }
+        ],
+        "reasoning_public": "Çalışma, farklı ortogonallik kısıtlamaları ve parametrelemeler altında sinir ağı performansını ve yakınsama hızını karşılaştıran kontrollü deneyler yürütmektedir. Bu, araştırma sorusuna doğrudan yanıt veren bir yaklaşımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Gerekçelendirmesinin Eksikliği",
+        "summary": "Makalede kullanılan sentetik ve gerçek veri kümeleri için örneklem büyüklüklerinin (örneğin, sekans uzunlukları, minibatch boyutları) seçimi açıklanmış olsa da, bu seçimlerin istatistiksel güç veya hassasiyet açısından neden uygun olduğuna dair bir gerekçe sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_loosening_hard_orthogonality_constraints.a0",
+            "section": "3.1 LOOSENING HARD ORTHOGONALITY CONSTRAINTS",
+            "quote": "In all experiments, we employed RMSprop (Tieleman & Hinton, 2012) when not using geodesic gradient descent. We used minibatches of size 50 and for generated data (the copy and adding tasks), we assumed an epoch length of 100 minibatches."
+          },
+          {
+            "anchor_id": "3_1_1_convergence_on_synthetic_memory_tasks.a0",
+            "section": "3.1.1 CONVERGENCE ON SYNTHETIC MEMORY TASKS",
+            "quote": "For different sequence lengths T of the copy and adding tasks, we trained a factorized RNN with 128 hidden units and various spectral margins m."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, örneklem büyüklüğünün belirlenmesi, elde edilen sonuçların genellenebilirliği ve istatistiksel güvenilirliği açısından kritik öneme sahiptir. Güç analizi veya hassasiyet gerekçesi olmadan, belirli bir etkiyi tespit etmek için yeterli veri olup olmadığı belirsiz kalır. Bu durum, özellikle negatif sonuçların (fark bulunamaması) yorumlanmasında sorunlara yol açabilir.",
+        "limitations": [
+          "Makalede güç analizi veya hassasiyet gerekçesi için gerekli ön bilgiler (beklenen etki büyüklüğü, varyans vb.) verilmemiştir, bu nedenle yeniden hesaplama yapılamamıştır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Ölçüm Araçlarının ve Operasyonelleştirmenin Açıklığı",
+        "summary": "Makale, sinir ağı performansını değerlendirmek için kullanılan ölçütleri (doğruluk, bpc, MSE) ve temel değişkenlerin (ortogonallik kısıtlamaları, spektral marjlar) operasyonelleştirilmesini açıkça tanımlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_experiments.a1",
+            "section": "3 EXPERIMENTS",
+            "quote": "We show the results of experiments on permuted sequential MNIST in Table 2 and ordered sequential MNIST in Table 1. The loss curves are shown in Figure 6 in the Appendix and reveal an increased convergence rate for larger spectral margins."
+          },
+          {
+            "anchor_id": "3_experiments.a2",
+            "section": "3 EXPERIMENTS",
+            "quote": "The singular values are thus restricted to the range [1 −m, 1 + m] and the underlying parameters pi are updated freely via stochastic gradient descent."
+          }
+        ],
+        "reasoning_public": "Performans metrikleri (accuracy, bits per character, mean squared error) ilgili görevler için standart ve iyi anlaşılmış ölçütlerdir. Spektral marjın (m) ve ortogonallik kısıtlamalarının matematiksel formülasyonu (denklem 10) ve uygulanışı net bir şekilde açıklanmıştır. Bu, çalışmanın tekrarlanabilirliğini ve bulguların yorumlanabilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Varsayım Testlerinin Eksikliği",
+        "summary": "Makalede kullanılan istatistiksel analizler (örneğin, farklı marjların performans üzerindeki etkilerini karşılaştırmak için) için temel varsayımların (örneğin, veri dağılımı, bağımsızlık) test edildiğine dair bir bilgi bulunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_2_performance_on_real_data.a0",
+            "section": "3.1.2 PERFORMANCE ON REAL DATA",
+            "quote": "Interestingly, for both the ordered and permuted sequential MNIST tasks, models with a non-zero margin significantly outperform those that are constrained to have purely orthogonal transition matrices (margin of zero)."
+          }
+        ],
+        "reasoning_public": "Derin öğrenme modellerinin performansını karşılaştırırken, istatistiksel testler genellikle kullanılır. Bu testlerin geçerliliği, temel varsayımların karşılanmasına bağlıdır. Varsayımların test edilmemesi veya raporlanmaması, sonuçların güvenilirliği hakkında belirsizlik yaratır. Özellikle, 'significantly outperform' gibi ifadeler kullanıldığında, bu tür varsayımların kontrol edilmesi önemlidir.",
+        "limitations": [
+          "Makalede spesifik istatistiksel karşılaştırma testleri (örneğin, ANOVA, t-testi) açıkça belirtilmediği için, hangi varsayımların test edilmesi gerektiği konusunda kesin bir yargıya varılamamıştır. Ancak 'significantly outperform' ifadesi istatistiksel bir karşılaştırmaya işaret etmektedir.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Metin, Tablo ve Figür Arasındaki Sayısal Tutarlılık",
+        "summary": "Makalede sunulan metin, tablo ve figürlerdeki sayısal değerler (örneğin, doğruluk oranları, bpc değerleri) genel olarak tutarlıdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_2_performance_on_real_data.a1",
+            "section": "3.1.2 PERFORMANCE ON REAL DATA",
+            "quote": "The best results on both the ordered and sequential MNIST tasks were yielded by models with a spectral margin of 0.1, at 94.10% accuracy and 91.44% accuracy, respectively."
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "0.1 orthogonal 94.10"
+          },
+          {
+            "anchor_id": "table_2.a0",
+            "section": "Table 2",
+            "quote": "0.1 orthogonal 91.44"
+          }
+        ],
+        "reasoning_public": "Metin içinde bahsedilen performans değerleri (örn. MNIST doğruluk oranları) ilgili tablolardaki değerlerle eşleşmektedir. Bu, okuyucunun verileri doğru bir şekilde anlamasına ve yorumlamasına yardımcı olur ve raporlama kalitesini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makalede farklı ortogonallik kısıtlamalarının veya marjların model performansı üzerindeki etkileri raporlanırken, bu etkilerin büyüklüğünü gösteren etki büyüklüğü ölçütleri (örneğin, Cohen's d, eta squared) veya belirsizlik ölçüleri (örneğin, güven aralıkları) sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_2_performance_on_real_data.a2",
+            "section": "3.1.2 PERFORMANCE ON REAL DATA",
+            "quote": "Interestingly, for both the ordered and permuted sequential MNIST tasks, models with a non-zero margin significantly outperform those that are constrained to have purely orthogonal transition matrices (margin of zero)."
+          }
+        ],
+        "reasoning_public": "Sadece p-değerleri veya 'significantly outperform' gibi ifadeler, bir etkinin istatistiksel olarak anlamlı olup olmadığını gösterir, ancak pratik önemini veya büyüklüğünü belirtmez. Etki büyüklüğü ölçütleri, bulguların pratik önemini değerlendirmek için gereklidir. Güven aralıkları ise tahminlerin hassasiyeti hakkında bilgi verir ve sonuçların genellenebilirliğini anlamak için önemlidir. Bu eksiklik, okuyucunun bulguların gerçek dünya üzerindeki etkisini tam olarak değerlendirmesini engeller.",
+        "limitations": [
+          "Makalede etki büyüklüğü hesaplamaları için gerekli olan standart sapma veya varyans gibi ek istatistiksel bilgiler doğrudan raporlanmamıştır. Bu nedenle, etki büyüklükleri veya güven aralıkları yeniden hesaplanamamıştır.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Kullanımında Disiplin",
+        "summary": "Makale, deneysel bir tasarım kullandığı için 'etki' ve 'neden olma' gibi nedensel ifadeleri uygun bir şekilde kullanmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "however, we ﬁnd that hard constraints on orthogonality can negatively affect the speed of convergence and model performance."
+          },
+          {
+            "anchor_id": "3_experiments.a3",
+            "section": "3 EXPERIMENTS",
+            "quote": "In this section, we explore hard and soft orthogonality constraints on factorized weight matrices for recurrent neural network hidden to hidden transitions. With hard orthogonality constraints on U and V, we investigate the effect of widening the spectral margin or bounds on convergence and performance."
+          }
+        ],
+        "reasoning_public": "Çalışma, farklı ortogonallik kısıtlamalarını manipüle ederek (bağımsız değişken) ve bunun model performansı üzerindeki sonuçlarını (bağımlı değişken) gözlemleyerek kontrollü deneyler yapmaktadır. Bu tür bir deneysel kurulum, nedensel çıkarımlar yapmak için uygun bir zemin sağlar ve makale bu dili tutarlı bir şekilde kullanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Veri ve Kod Erişilebilirliğinin Eksikliği",
+        "summary": "Makalede, deneylerde kullanılan veri setlerine veya uygulanan kodlara erişim hakkında herhangi bir bilgi (örneğin, GitHub deposu, veri deposu bağlantısı) bulunmamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmanın tekrarlanabilirliği, bulguların doğrulanması ve gelecekteki araştırmalar için temel oluşturması açısından esastır. Veri ve kodun erişilebilir olmaması, başkalarının çalışmayı yeniden üretmesini, sonuçları doğrulamalarını veya üzerine inşa etmelerini engeller. Bu, modern bilimsel yayıncılıkta önemli bir eksikliktir.",
+        "limitations": [
+          "Makalede veri veya kod erişilebilirliği hakkında herhangi bir ifade bulunmadığı için, bu durumun global bir eksiklik olduğu varsayılmıştır."
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "'Significant/Non-significant' Dilinin Aşırı Kullanımı",
+        "summary": "Makale, bazı yerlerde 'significantly outperform' gibi ifadeler kullanırken, bu iddiaları destekleyecek istatistiksel test sonuçlarını (p-değerleri, test istatistikleri) veya etki büyüklüğü ölçütlerini raporlamamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_2_performance_on_real_data.a3",
+            "section": "3.1.2 PERFORMANCE ON REAL DATA",
+            "quote": "Interestingly, for both the ordered and permuted sequential MNIST tasks, models with a non-zero margin significantly outperform those that are constrained to have purely orthogonal transition matrices (margin of zero)."
+          }
+        ],
+        "reasoning_public": "İstatistiksel anlamlılık terimlerinin kullanımı, ilgili istatistiksel kanıtlarla desteklenmelidir. Sadece 'significantly outperform' demek, okuyucunun bu iddianın dayanağını değerlendirmesini zorlaştırır. Bu durum, bulguların yorumlanmasında belirsizliğe yol açabilir ve raporlama kalitesini düşürür.",
+        "limitations": [
+          "Makalede bu iddiaları destekleyecek spesifik istatistiksel test sonuçları (p-değerleri, test istatistikleri) raporlanmadığı için, bu ifadelerin istatistiksel tutarlılığı kontrol edilememiştir.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Özgün Katkının Netleştirilmesi Gerekiyor",
+        "summary": "Makale, ortogonallik kısıtlamalarının gevşetilmesinin derin öğrenme modellerinin yakınsama hızı ve performansı üzerindeki etkilerini deneysel olarak inceliyor. Ancak, önerilen 'ağırlık matrisi çarpanlara ayırma ve parametreleme stratejisinin' mevcut literatürdeki benzer yaklaşımlardan (örn. Stiefel manifoldunda optimizasyon) temel farkı ve özgünlüğü daha net vurgulanmalı.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "In particular we propose a weight matrix factorization and parameterization strategy through which we can bound matrix norms and therein control the degree of expansivity induced during backpropagation."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "In contrast, here we explore the optimization of real valued matrices within a conﬁgurable margin about the Stiefel manifold. We suspect that a strong constraint of orthogonality limits the model’s representational power, hindering its performance, and may make optimization more difﬁcult."
+          }
+        ],
+        "reasoning_public": "Makale, ortogonallik kısıtlamalarını gevşetmenin faydalarını gösteren deneysel bulgular sunuyor. Ancak, bu yaklaşımın literatürdeki diğer ortogonallik teşvik eden veya uygulayan yöntemlerden (örneğin, jeodezik gradyan inişi ile Stiefel manifoldunda doğrudan optimizasyon) teorik veya pratik olarak ne kadar farklı ve özgün olduğu tam olarak açıklanmamıştır. 'Bizim yaklaşımımız' bölümünde sunulan çarpanlara ayırma ve parametreleme stratejisinin, mevcut yöntemlere kıyasla getirdiği yenilik ve avantajlar daha belirgin hale getirilmelidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "contribution_originality.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ortogonallik Kısıtlamalarının Gevşetilmesi Üzerine Deneysel Katkı",
+        "summary": "Makale, ortogonallik kısıtlamalarının gevşetilmesinin derin öğrenme modellerinin yakınsama hızı ve performansı üzerindeki etkilerini sistematik bir şekilde deneysel olarak inceleyerek önemli bir pratik katkı sunmaktadır. Özellikle, sıfır olmayan bir spektral marjın, saf ortogonalliğe kıyasla daha iyi performans ve yakınsama sağlayabileceği bulgusu değerlidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_2_performance_on_real_data.a4",
+            "section": "3.1.2 PERFORMANCE ON REAL DATA",
+            "quote": "Interestingly, for both the ordered and permuted sequential MNIST tasks, models with a non-zero margin signiﬁcantly outperform those that are constrained to have purely orthogonal transition matri-ces (margin of zero)."
+          },
+          {
+            "anchor_id": "3_1_1_convergence_on_synthetic_memory_tasks.a1",
+            "section": "3.1.1 CONVERGENCE ON SYNTHETIC MEMORY TASKS",
+            "quote": "As shown in Figure 1 we see an increase in the rate of convergence as we increase the spectral margin. This observation generally holds across the tested sequence lengths (T = 200, T = 500, T = 1000, T = 10000); however, large spectral margins hinder convergence on extremely long sequence lengths."
+          }
+        ],
+        "reasoning_public": "Makale, ortogonallik kısıtlamalarının gevşetilmesinin (spektral marjın ayarlanması yoluyla) model performansı ve yakınsama üzerindeki etkilerini sentetik ve gerçek dünya veri kümeleri üzerinde kapsamlı bir şekilde araştırmıştır. Bu deneysel analiz, ortogonalliğin her zaman en iyi strateji olmadığını ve belirli bir 'gevşekliğin' faydalı olabileceğini göstererek alana pratik bir içgörü sağlamaktadır. Bu, özellikle derin öğrenme modellerinin optimizasyonu ve genelleştirilmesi açısından önemlidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Araştırma Sorusu ve Çalışma Tasarımı Arasında Güçlü Uyum",
+        "summary": "Makale, derin ve tekrarlayan sinir ağlarında uzun vadeli bağımlılıkların eğitimi sırasında ortaya çıkan kaybolan veya patlayan gradyan sorununu ele almak için ortogonalliğin rolünü net bir şekilde tanımlamaktadır. Çalışma tasarımı, bu sorunu çeşitli ortogonallik teşvik veya uygulama yöntemleri kullanarak optimize etme, yakınsama hızı ve gradyan kararlılığı konularını ampirik olarak inceleyerek araştırma sorusuyla doğrudan uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "This paper explores the issues of optimization convergence, speed and gradient stability using a variety of different methods for encouraging or enforcing orthogonality."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "In contrast, here we explore the optimization of real valued matrices within a conﬁgurable margin about the Stiefel manifold. We suspect that a strong constraint of orthogonality limits the model’s representational power, hindering its performance, and may make optimization more difﬁcult. We explore this hypothesis empirically by employing a factorization technique that allows us to limit the degree of deviation from the Stiefel manifold."
+          }
+        ],
+        "reasoning_public": "Makale, ortogonalliğin derin öğrenme modellerindeki gradyan sorunlarına nasıl etki ettiğini ve farklı ortogonallik kısıtlamalarının model performansı ve yakınsama üzerindeki etkilerini açıkça araştırmaktadır. Bu netlik, okuyucunun çalışmanın amacını ve kapsamını kolayca anlamasını sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Güçlü Teorik Çerçeve ve Tutarlı Uygulama",
+        "summary": "Makale, derin öğrenme modellerindeki kaybolan/patlayan gradyan sorununu ortogonallik kavramı üzerinden ele alarak güçlü bir teorik çerçeve sunmaktadır. Bu çerçeve, önerilen yöntemlerin ve deneysel tasarımların temelini oluşturmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "The vanishing or exploding gradient problem is a well known issue associated with these chal- lenges. One approach to addressing vanishing and exploding gradients is to use either soft or hard constraints on weight matrices so as to encourage or enforce or- thogonality. Orthogonal matrices preserve gradient norm during backpropagation and can therefore be a desirable property;"
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Training deep networks with gradient descent based methods is known to be difﬁcult as a consequence of the vanishing and exploding gradient problem (Hochreiter & Schmid- huber, 1997). Typically, exploding gradients are avoided by clipping large gradients (Pascanu et al., 2013) or introducing an L2 or L1 weight norm penalty. The latter has the effect of bounding the spectral radius of the linear transformations, thus limiting the maximal gain across the transforma- tion."
+          },
+          {
+            "anchor_id": "our_approach.a0",
+            "section": "OUR APPROACH",
+            "quote": "Vanishing and exploding gradients can be controlled to a large extent by controlling the maximum and minimum gain of W. The maximum gain of a matrix W is given by the spectral norm which is given by ||W||2 = max \" ||Wx|| ||x|| # . By keeping our weight matrix W close to orthogonal, one can ensure that it is close to a norm- preserving transformation (where the spectral norm is equal to one, but the minimum gain is also one)."
+          }
+        ],
+        "reasoning_public": "Makale, derin sinir ağlarının optimizasyonundaki temel zorluklardan biri olan gradyan sorununu açıkça tanımlamakta ve ortogonalliğin bu sorunu nasıl hafifletebileceğine dair teorik bir açıklama getirmektedir. Bu teorik temel, çalışmanın hipotezlerini ve deneysel kurulumunu doğrudan bilgilendirmektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Kaynakların Büyük Çoğunluğunun Dizinlerde Bulunamaması",
+        "summary": "Makalede atıf yapılan 18 kaynaktan 17'sinin OpenAlex veya Semantic Scholar gibi akademik dizinlerde güçlü bir eşleşme ile bulunamaması, makalenin literatürdeki konumunu ve doğrulanabilirliğini ciddi şekilde etkilemektedir. Bu durum, okuyucuların atıf yapılan çalışmalara erişimini ve makalenin argümanlarının dayandığı temeli değerlendirmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik bir çalışmanın güvenilirliği ve literatürdeki konumu, atıf yapılan kaynakların kolayca erişilebilir ve doğrulanabilir olmasına bağlıdır. Kaynakların büyük çoğunluğunun akademik dizinlerde bulunamaması, makalenin bilimsel topluluk içindeki şeffaflığını ve etkileşimini kısıtlar. Bu durum, makalenin argümanlarının sağlamlığını değerlendirmeyi zorlaştırır ve potansiyel olarak çalışmanın etkisini azaltır.",
+        "limitations": [
+          "OpenAlex/S2 dizinlerinin kapsam sınırlamaları nedeniyle bazı geçerli yayınların indekslenmemiş olabileceği ihtimali bulunmaktadır. Ancak bu kadar yüksek oranda bulunamayan referans, yine de bir sorun teşkil etmektedir.",
+          "Severity kanıtsızlık nedeniyle 'moderate'e indirildi: citation_integrity/literature_positioning'de critical/major severity fabricated/retracted/contradicted kanıtı gerektirir (bu makalede EvidencePack'te yok) — motor 'bulunamayan (not_found_in_index) asla suçlama değil' kuralını (HK-3) kod-seviyesinde, LLM'in metin-uyumuna bel bağlamadan uyguluyor."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0",
+          "literature_positioning.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Konuyla İlgili Seminal Çalışmaların Eksikliği",
+        "summary": "Makalenin konusuyla doğrudan ilgili olabilecek, yüksek atıf almış bazı seminal çalışmaların kaynakçada yer almaması, literatür taramasının derinliği ve kapsamı hakkında soru işaretleri yaratmaktadır. Özellikle 'ON ORTHOGONALITY AND LEARNING' gibi genel bir başlık altında, temel algoritmalar veya ilgili alanlardaki önemli katkılar gözden kaçırılmış olabilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik bir çalışmanın literatürdeki konumunu sağlamlaştırmak için, ilgili alandaki temel ve yüksek etkili çalışmalara atıfta bulunmak önemlidir. Bu tür seminal eserlerin eksikliği, makalenin literatürle yeterince derinlemesine etkileşim kurmadığı veya alanın temel taşlarını göz ardı ettiği izlenimini yaratabilir. Bu durum, çalışmanın yeniliğini ve katkısını değerlendirmeyi zorlaştırabilir.",
+        "limitations": [
+          "Sağlanan 'kapsama boşlukları' listesi, makalenin spesifik odak noktasıyla her zaman doğrudan ilgili olmayabilecek genel yüksek atıflı eserleri içermektedir. Bu nedenle, her bir eserin makalenin bağlamına uygunluğu yazar tarafından değerlendirilmelidir."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f1.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi",
+        "summary": "Makale, ortogonallik kısıtlamalarının modelin temsil gücünü sınırlayabileceği ve optimizasyonu zorlaştırabileceği yönündeki hipotezini desteklemek için deneysel bulgular sunsa da, bu bulguların genellenebilirliği konusunda dikkatli olunması gereken yerler bulunmaktadır. Özellikle, 'güçlü bir ortogonallik kısıtlamasının modelin temsil gücünü sınırladığı' iddiası, sadece belirli görevler ve model konfigürasyonları için gösterilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "In contrast, here we explore the optimization of real valued matrices within a conﬁgurable margin about the Stiefel manifold. We suspect that a strong constraint of orthogonality limits the model’s representational power, hindering its performance, and may make optimization more difﬁcult."
+          },
+          {
+            "anchor_id": "performance_on_real_data.a0",
+            "section": "PERFORMANCE ON REAL DATA",
+            "quote": "This suggests that while orthogonality helps early training by stabilizing gradient ﬂow across many time steps, orthogonality constraints may need to be loosened on some tasks so as not to over-constrain the model’s representational ability."
+          },
+          {
+            "anchor_id": "performance_on_real_data.a1",
+            "section": "PERFORMANCE ON REAL DATA",
+            "quote": "Constraining deviation from orthogonality proved detrimental for short sentences (Table 3) and beneﬁcial when long sentences were included (Table 4)."
+          }
+        ],
+        "reasoning_public": "Makale, ortogonallik kısıtlamalarının gevşetilmesinin yakınsama hızını artırabileceğini ve bazı görevlerde performansı iyileştirebileceğini göstermektedir. Ancak, bu sonuçlar sentetik bellek görevleri (kopya ve ekleme) ve MNIST gibi belirli veri kümeleri üzerinde elde edilmiştir. Bu bulguların, 'modelin temsil gücünü sınırladığı' gibi daha genel bir iddiayı desteklemesi için daha geniş bir görev yelpazesi ve model mimarisi üzerinde test edilmesi gerekmektedir. Örneğin, PTB veri kümesindeki uzun cümleler için ortogonallik kısıtlamalarının faydalı olabileceği belirtilmiştir, bu da genel iddianın her zaman geçerli olmadığını göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Spektral Yayılım ve Öğrenme Rejimi İlişkisi Hakkında Spekülatif İddia",
+        "summary": "Makale, spektral değerlerin dağılımının yukarı doğru kaymasının (ortalama 1.05'e) öğrenme için 'muhtemelen iyi bir rejim' olduğunu öne sürmektedir. Bu iddia, Saxe et al. (2013) çalışmasına atıfta bulunsa da, bu 'iyi rejim'in neden maliyetli olabileceği veya bu rejimin dışına çıkmanın neden maliyetli olduğu konusunda net bir mekanizma sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "spectral_and_gradient_evolution.a0",
+            "section": "SPECTRAL AND GRADIENT EVOLUTION",
+            "quote": "Curiously, we ﬁnd that the distribution of singular values tends to shift upward to a mean of approximately 1.05 on both the ordered and permuted sequential MNIST tasks. We note that in those experiments, a tanh transition nonlinearity was used which is contractive in both the forward signal pass and the gradient backward pass. An upward shift in the distribution of singular values of the transition matrix would help compensate for that contraction. Indeed, (Saxe et al., 2013) describe this as a possibly good regime for learning in deep neural networks. That the model appears to evolve toward this regime suggests that deviating from it may incur a cost. This is interesting because the cost function cannot take into account numerical issues such as vanishing or exploding gradients (or forward signals); we do not know what could make this deviation costly."
+          }
+        ],
+        "reasoning_public": "Makale, tanh aktivasyon fonksiyonunun kasılmasını telafi etmek için spektral değerlerin yukarı doğru kaydığını gözlemlemektedir. Bu gözlem, 1.05'lik bir ön-aktivasyon kazancının model performansını iyileştirdiğini gösteren ek deneylerle desteklenmektedir. Ancak, bu rejimin 'iyi' olduğu ve ondan sapmanın 'maliyetli' olabileceği iddiası, maliyet fonksiyonunun kaybolan/patlayan gradyanlar gibi sayısal sorunları hesaba katamayacağı belirtilerek bir belirsizlik içinde bırakılmıştır. Bu, gözlemler ile 'iyi rejim' arasındaki nedensel bağlantının tam olarak açıklanmadığı anlamına gelir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ortogonal Başlatmanın Faydalarına Dair Tutarlı Kanıtlar",
+        "summary": "Makale, ortogonal başlatmanın, özellikle MNIST görevlerinde, Glorot normal veya kimlik başlatmaya kıyasla önemli ölçüde daha iyi performans gösterdiğini tutarlı bir şekilde kanıtlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "performance_on_real_data.a2",
+            "section": "PERFORMANCE ON REAL DATA",
+            "quote": "On these tasks, orthogonal initialization appears to signiﬁcantly outperform Glorot normal initialization (Glorot & Bengio, 2010) or initializing the matrix as identity."
+          },
+          {
+            "anchor_id": "performance_on_real_data.a3",
+            "section": "PERFORMANCE ON REAL DATA",
+            "quote": "It is interesting to note that for the MNIST tasks, orthogonal initialization appears useful while orthogonality constraints appear mainly detrimental."
+          }
+        ],
+        "reasoning_public": "Tablo 1 ve Tablo 2'deki sonuçlar, hem sıralı hem de permütasyonlu MNIST görevlerinde, ortogonal başlatmanın diğer başlatma yöntemlerine göre daha yüksek doğruluk oranları sağladığını açıkça göstermektedir. Bu bulgu, ortogonalliğin erken eğitim aşamalarında gradyan akışını stabilize etmeye yardımcı olduğu yönündeki iddiayı desteklemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Oranda Çözülemeyen Atıflar",
+        "summary": "Makaledeki 18 referanstan 17'si otomatik indeksleme sistemleri (OpenAlex/Semantic Scholar) tarafından başlık, yazar ve yıla göre güçlü bir şekilde eşleştirilememiştir. Bu durum, makaledeki iddiaların dayandığı literatürün doğrulanabilirliğini ciddi şekilde etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik bir makalede atıfların doğruluğu ve erişilebilirliği temel bir beklentidir. Referansların büyük çoğunluğunun otomatik sistemler tarafından bulunamaması, okuyucuların ve hakemlerin makaledeki argümanları destekleyen kaynakları kontrol etmesini zorlaştırmaktadır. Bu durum, makalenin şeffaflığını ve güvenilirliğini azaltır.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları olabilir (örn. arXiv, workshop yayınları, İngilizce dışı kaynaklar). Ancak bu kadar yüksek oranda bulunamayan referans, sadece indeksleme kapsamıyla açıklanamayacak kadar fazladır.",
+          "Severity kanıtsızlık nedeniyle 'moderate'e indirildi: citation_integrity/literature_positioning'de critical/major severity fabricated/retracted/contradicted kanıtı gerektirir (bu makalede EvidencePack'te yok) — motor 'bulunamayan (not_found_in_index) asla suçlama değil' kuralını (HK-3) kod-seviyesinde, LLM'in metin-uyumuna bel bağlamadan uyguluyor."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "citation_integrity.f1",
+        "dimension": "citation_integrity",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "URL Referansının Eksik Bilgileri",
+        "summary": "17 numaralı referans, bir URL ve ders notu bilgisi içermekte olup, bu tür kaynakların kalıcılığı ve doğrulanabilirliği konusunda belirsizlik taşımaktadır. Ayrıca, bu referansın otomatik indeksleme sistemleri tarafından bulunamaması, içeriğinin doğrulanmasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "references.a0",
+            "section": "REFERENCES",
+            "quote": "URL http://arxiv.org/abs/ 1605.02688. T. Tieleman and G. Hinton. Lecture 6.5—RmsProp: Divide the gradient by a running average of its recent magnitude. COURSERA: Neural Networks for Machine Learning, 2012."
+          }
+        ],
+        "reasoning_public": "Akademik çalışmalarda, ders notları veya genel URL'ler yerine hakemli yayınlara atıf yapılması tercih edilir. Eğer bu tür bir kaynağa atıf yapılıyorsa, kaynağın kalıcılığını ve içeriğinin doğrulanabilirliğini sağlamak için mümkün olduğunca fazla bilgi (yazar, tarih, kurum, erişim tarihi) sağlanmalıdır.",
+        "limitations": [],
+        "action_item_ids": [
+          "citation_integrity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Eksik Raporlama Kılavuzu Belirtisi",
+        "summary": "Makale, deneysel çalışmalar için yaygın olarak kullanılan raporlama kılavuzlarına (örn. CONSORT, PRISMA) atıfta bulunmamakta veya bunlara uyduğunu belirtmemektedir. Bu durum, özellikle deney kurulumu ve sonuçların şeffaflığı açısından bazı detayların eksik kalmasına neden olabilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, özellikle deneysel veya ampirik araştırmalarda, raporlama kılavuzlarına uyum, çalışmanın şeffaflığını, tekrarlanabilirliğini ve güvenilirliğini artırır. Bu kılavuzlar, metodoloji, sonuçlar ve tartışma gibi bölümlerde nelerin raporlanması gerektiği konusunda standart bir çerçeve sunar. Makalede bu tür bir uyumun belirtilmemesi, okuyucuların deneylerin tam olarak nasıl yapıldığını ve sonuçların nasıl elde edildiğini anlamasını zorlaştırabilir.",
+        "limitations": [
+          "Makine öğrenimi alanında standart bir raporlama kılavuzunun olup olmadığına dair kesin bir bilgiye sahip değilim. Ancak genel akademik prensipler çerçevesinde bu bir iyileştirme alanı olarak değerlendirilmiştir."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Deneysel Detaylarda Kısmi Eksiklik",
+        "summary": "Makale, deneylerin kurulumu ve parametreleri hakkında genel bilgiler sunsa da, bazı spesifik detaylar (örneğin, kullanılan donanım, yazılım versiyonları, rastgele tohumlar) eksik kalmıştır. Bu durum, deneylerin tam olarak tekrarlanabilirliğini kısıtlayabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1.a0",
+            "section": "3.1",
+            "quote": "In all experiments, we employed RMSprop (Tieleman & Hinton, 2012) when not using geodesic gradient descent. We used minibatches of size 50 and for generated data (the copy and adding tasks), we assumed an epoch length of 100 minibatches. We cautiously introduced gradient clipping at magnitude 100 (unless stated otherwise) in all of our RNN experiments although it may not be required and we consistently applied a small weight decay of 0.0001. Unless otherwise speciﬁed, we trained all simple recurrent neural networks with the hidden to hidden matrix factorization as in (8) using geodesic gradient descent on the bases (learning rate 10−6) and RMSprop on the other parameters (learning rate 0.0001), using a tanh transition nonlinearity, and clipping gradients of 100 magnitude. The neural network code was built on the Theano framework (Theano Development Team, 2016)."
+          }
+        ],
+        "reasoning_public": "Bilimsel deneylerin tekrarlanabilirliği, araştırmanın güvenilirliği için kritik öneme sahiptir. Kullanılan donanım, yazılım versiyonları ve rastgele tohumlar gibi detaylar, özellikle makine öğrenimi deneylerinde sonuçların birebir yeniden üretilmesi için gereklidir. Bu bilgilerin eksikliği, diğer araştırmacıların aynı sonuçları elde etmesini zorlaştırabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Kod ve Veri Paylaşımının Eksikliği",
+        "summary": "Makale, deneylerde kullanılan kod veya veri setlerinin (Penn Treebank hariç) nasıl elde edileceği veya erişileceği hakkında bilgi vermemektedir. Bu durum, çalışmanın tekrarlanabilirliğini kısıtlamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmaların temel prensiplerinden biri tekrarlanabilirliktir. Araştırmacıların, sunulan sonuçları bağımsız olarak doğrulayabilmeleri için kullanılan kod ve verilere erişim sağlaması önemlidir. Bu eksiklik, makalenin bulgularına olan güveni azaltabilir ve gelecekteki araştırmacıların bu çalışmayı temel almasını zorlaştırabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Etik Onay ve Rıza Beyanının Gereksizliği",
+        "summary": "Makale, insan deneklerle yapılan bir çalışma içermediği veya hassas veri kullanmadığı için etik onay veya rıza beyanı gerektirmemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Çalışma, tamamen teorik ve sentetik veri setleri ile makine öğrenimi modelleri üzerine odaklandığından, insan deneklerin katılımı veya kişisel verilerin kullanımı söz konusu değildir. Bu nedenle, etik kurul onayı veya katılımcı rızası gibi beyanlara ihtiyaç duyulmamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Bölüm Başlıkları ve Akışında Eksiklikler",
+        "summary": "Makalenin bölüm başlıkları, sunulan içeriğin kapsamını tam olarak yansıtmıyor ve bazı bölümler arasında mantıksal bir akış eksikliği hissediliyor. Özellikle 'OUR APPROACH' ve 'EXPERIMENTS' bölümleri arasındaki geçiş, metodolojik detayların sunuluş biçimi nedeniyle daha net bir yapıya ihtiyaç duyuyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "In contrast, here we explore the optimization of real valued matrices within a conﬁgurable margin about the Stiefel manifold. We suspect that a strong constraint of orthogonality limits the model’s representational power, hindering its performance, and may make optimization more difﬁcult. We explore this hypothesis empirically by employing a factorization technique that allows us to limit the degree of deviation from the Stiefel manifold. While we use geodesic gradient descent, we simultaneously update the singular spectra of our matrices along Euclidean steps, allowing optimization to step away from the manifold while still curving about it."
+          },
+          {
+            "anchor_id": "our_approach.a1",
+            "section": "OUR APPROACH",
+            "quote": "Vanishing and exploding gradients can be controlled to a large extent by controlling the maximum and minimum gain of W. The maximum gain of a matrix W is given by the spectral norm which is given by ||W||2 = max \" ||Wx|| ||x|| # . (6) By keeping our weight matrix W close to orthogonal, one can ensure that it is close to a norm-preserving transformation (where the spectral norm is equal to one, but the minimum gain is also one). One way to achieve this is via a simple soft constraint or regularization term of the form: λ X i ||WT i Wi −I||2. (7) However, it is possible to formulate a more direct parameterization or factorization for W which permits hard bounds on the amount of expansion and contraction induced by W. This can be achieved by simply parameterizing W according to its singular value decomposition, which consists of the composition of orthogonal basis matrices U and V with a diagonal spectral matrix S containing the singular values which are real and positive by deﬁnition. We have W = USVT . (8)"
+          }
+        ],
+        "reasoning_public": "Makalenin ana argümanını ve deneysel sonuçlarını takip etmek, bölüm başlıklarının genelden özele doğru ilerlememesi ve bazı metodolojik detayların beklenmedik yerlerde sunulması nedeniyle zorlaşıyor. Bu durum, okuyucunun makalenin ana katkısını ve yöntemlerini anlamasını engelliyor.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0",
+          "writing_structure.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Dil ve Anlaşılırlıkta İyileştirme Alanları",
+        "summary": "Makalenin dili genel olarak anlaşılır olsa da, bazı teknik terimlerin açıklamaları yetersiz kalmakta ve cümle yapılarında karmaşıklıklar bulunmaktadır. Bu durum, özellikle konuya aşina olmayan okuyucular için metni takip etmeyi zorlaştırabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "The entire set of possible unitary or orthogonal parameterizations forms the Stiefel manifold. At a much higher computational cost, gradient descent optimization directly along this manifold can be done via geodesic steps (Nishimori, 2005; Tagare, 2011). Recent work (Wisdom et al., 2016) has proposed the optimization of unitary matrices along the Stiefel manifold using geodesic gradient descent. To produce a full-capacity parameterization for unitary matrices they use some insights from Tagare (2011), combining the use of a canonical inner products and Cayley transformations."
+          },
+          {
+            "anchor_id": "our_approach.a2",
+            "section": "OUR APPROACH",
+            "quote": "During optimization, in order to maintain the orthogonality of an orthogonally-initialized matrix M, i.e. where M = U, M = V or M = W if so desired, we employ a Cayley transformation of the update step onto the Stiefel manifold of (semi-)orthogonal matrices, as in Nishimori (2005) and Tagare (2011). Given an orthogonally-initialized parameter matrix M and its Jacobian, G with respect to the objective function, an update is performed as follows: A = GMT −MGT Mnew = M + (I + η 2A)−1(I −η 2A), (9) where A is a skew-symmetric matrix (that depends on the Jacobian and on the parameter matrix) which is mapped to an orthogonal matrix via a Cayley transform and η is the learning rate."
+          }
+        ],
+        "reasoning_public": "Akademik bir makalede netlik esastır. Karmaşık cümle yapıları ve yeterince açıklanmamış teknik terimler, okuyucunun makalenin temel argümanlarını ve yeniliklerini kavramasını engeller. Bu, makalenin etkisini azaltabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f1.a0",
+          "writing_structure.f1.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Görsel ve Metin Entegrasyonu",
+        "summary": "Makaledeki bazı şekillerin (örneğin, Şekil 1) metin içinde referans verilme ve açıklanma biçimi geliştirilebilir. Şekillerin hemen ardından gelen metin, şekillerdeki bilgiyi daha iyi özetleyebilir ve ana argümanla bağlantısını güçlendirebilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "As shown in Figure 1 we see an increase in the rate of convergence as we increase the spectral margin. This observation generally holds across the tested sequence lengths (T = 200, T = 500, T = 1000, T = 10000); however, large spectral margins hinder convergence on extremely long sequence lengths. At sequence length T = 10000, parameterizations with spectral margins larger than 0.001 converge slower than when using a margin of 0.001. In addition, the experiment without a margin failed to converge on the longest sequence length. This follows the expected pattern where stepping away from the Stiefel manifold may help with gradient descent optimization but loosening orthogonality constraints can reduce the stability of signal propagation through the network."
+          }
+        ],
+        "reasoning_public": "Görseller, karmaşık bilgiyi özetlemek ve okuyucunun anlamasını kolaylaştırmak için kritik öneme sahiptir. Metinle iyi entegre edilmemiş görseller, okuyucunun dikkatini dağıtabilir ve sunulan verilerin yorumlanmasını zorlaştırabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Konferans Kapsamına Uygunluk",
+        "summary": "Makale, derin öğrenme ve tekrarlayan sinir ağları alanındaki güncel ve önemli bir araştırma konusunu ele almaktadır. Sunulan yöntemler ve deneysel analizler, bu alandaki konferansların tipik ilgi alanlarıyla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "It is well known that it is challenging to train deep neural networks and recurrent neural networks for tasks that exhibit long term dependencies. The vanishing or exploding gradient problem is a well known issue associated with these challenges. One approach to addressing vanishing and exploding gradients is to use either soft or hard constraints on weight matrices so as to encourage or enforce orthogonality."
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "The depth of deep neural networks confers representational power, but also makes model optimization more challenging. Training deep networks with gradient descent based methods is known to be difﬁcult as a consequence of the vanishing and exploding gradient problem (Hochreiter & Schmidhuber, 1997)."
+          }
+        ],
+        "reasoning_public": "Makale, derin öğrenme modellerinin eğitimindeki temel zorluklardan biri olan kaybolan/patlayan gradyan sorununu, ortogonallik kısıtlamaları bağlamında inceliyor. Bu, makine öğrenimi konferanslarında sıkça tartışılan ve ilgi gören bir konudur. Özellikle, ortogonalliğin gevşetilmesinin yakınsama hızı ve model performansı üzerindeki etkileri, pratik uygulamalar için önemli çıkarımlar sunmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların DOI'lerini, tam yayın bilgilerini (dergi/konferans adı, cilt, sayı, sayfa aralığı) ve mümkünse kalıcı bağlantılarını (URL) ekleyerek referans listesini güncelleyin. Özellikle 'not_found_in_index' olarak işaretlenen 17 referans için bu bilgilerin eksiksiz olduğundan emin olun.",
+        "acceptance_check": "Tüm referanslar için DOI veya tam yayın bilgileri sağlanmış ve OpenAlex/Semantic Scholar gibi indeksleme sistemlerinde kolayca bulunabilir hale getirilmiştir.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Kaynakçada listelenen tüm referansların DOI'lerini veya kalıcı bağlantılarını (URL) ekleyin. Özellikle 'not_found_in_index' olarak işaretlenen 17 referans için bu bilgileri sağlamak, okuyucuların bu kaynaklara erişimini kolaylaştıracaktır.",
+        "acceptance_check": "Tüm referanslar için DOI veya kalıcı URL'ler eklenmiş olmalı ve bu bağlantılar çalışır durumda olmalıdır.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Tüm ana sonuçlar için (özellikle farklı marjların veya başlangıç yöntemlerinin performans üzerindeki etkileri için) etki büyüklüğü ölçütlerini (örneğin, doğruluk farkları, bpc farkları) ve bu tahminlerin güven aralıklarını raporlayın. Bu, bulguların pratik önemini ve hassasiyetini daha iyi anlamayı sağlayacaktır.",
+        "acceptance_check": "Etki büyüklüğü ölçütleri ve güven aralıkları tablolara veya metne eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "CONCLUSIONS",
+        "instruction": "Deneylerde kullanılan veri setlerine (eğer kamuya açıksa) ve tüm kodlara (model mimarileri, eğitim prosedürleri, analiz betikleri) erişim sağlayan bir bağlantı (örneğin, GitHub deposu veya Zenodo gibi bir veri deposu) ekleyin. Bu, çalışmanın tekrarlanabilirliğini ve şeffaflığını artıracaktır.",
+        "acceptance_check": "Veri ve kod erişim bağlantıları eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümündeki genel hipotezi, deneysel bulguların kapsamını daha iyi yansıtacak şekilde yeniden ifade edin. İddiaların belirli görevler ve koşullar altında geçerli olduğunu vurgulayın.",
+        "acceptance_check": "Hipotez, 'bazı durumlarda' veya 'belirli görevlerde' gibi niteleyicilerle daha sınırlı bir şekilde ifade edilmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "CONCLUSIONS",
+        "instruction": "Sonuçlar bölümünde, ortogonallik kısıtlamalarının temsil gücü üzerindeki etkisine dair çıkarımları, kullanılan veri kümeleri ve görevlerin sınırlılıkları bağlamında tartışın. Bulguların genellenebilirliği hakkında daha dengeli bir bakış açısı sunun.",
+        "acceptance_check": "Sonuçlar, 'tüm durumlar için' yerine 'incelenen görevler için' gibi ifadelerle sınırlandırılmış olmalı ve PTB örneğindeki çelişkili bulgulara değinilmeli.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "contribution_originality.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, OUR APPROACH",
+        "instruction": "Giriş ve 'Our Approach' bölümlerinde, önerilen ağırlık matrisi çarpanlara ayırma ve parametreleme stratejisinin, mevcut literatürdeki benzer yöntemlerden (özellikle Stiefel manifoldunda optimizasyon yapanlardan) temel farklarını ve özgün katkılarını daha açık bir şekilde belirtin. Bu farkın teorik veya deneysel avantajlarını vurgulayın.",
+        "acceptance_check": "Makaledeki 'özgün katkı' ifadesinin, literatürdeki diğer çalışmalarla karşılaştırmalı olarak net bir şekilde tanımlanması ve bu katkının neden önemli olduğunun açıklanması.",
+        "linked_finding_ids": [
+          "contribution_originality.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "CONCLUSIONS",
+        "instruction": "Deneylerde kullanılan tüm kodların (örneğin, GitHub deposu linki) ve özel olarak oluşturulmuş veri setlerinin (eğer varsa) erişilebilirliğini sağlayın. Genel kullanıma açık veri setleri için (MNIST, Penn Treebank gibi) referansları ve kullanılan spesifik versiyonları belirtin.",
+        "acceptance_check": "Makalede, kod ve veri setlerine erişim sağlayan açık ve kalıcı bağlantılar (örn. DOI, GitHub linki) eklenmiş olmalı veya veri setlerinin nasıl oluşturulduğuna dair detaylı bir açıklama bulunmalıdır.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Bulunamayan referansların (özellikle arXiv veya workshop yayınları gibi dizinlerde daha az indekslenenler) tam ve doğru bibliyografik bilgilerini (yazar, başlık, yayın yeri, yıl) kontrol edin ve gerekirse güncelleyin. Bu, dizinlerde bulunabilirliklerini artırabilir.",
+        "acceptance_check": "Referans bilgileri güncellenmiş ve standart akademik formatlara uygun hale getirilmiş olmalıdır.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Kullanılan veri kümeleri ve görevler için örneklem büyüklüklerinin (sekans uzunlukları, minibatch boyutları, epoch sayıları) seçiminin istatistiksel güç veya hassasiyet açısından neden uygun olduğunu açıklayın. Özellikle, belirli etki büyüklüklerini tespit etmek için yeterli güce sahip olup olmadığınızı belirtin.",
+        "acceptance_check": "Örneklem büyüklüğü gerekçesi ve/veya güç analizi sonuçları eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Tüm makale",
+        "instruction": "Makalenin ana bölümlerini (Giriş, İlgili Çalışmalar, Metodoloji, Deneyler, Sonuçlar) daha belirgin ve standart bir şekilde yapılandırın. Özellikle 'OUR APPROACH' bölümünü 'Metodoloji' veya 'Önerilen Yöntem' gibi daha açıklayıcı bir başlıkla yeniden adlandırın ve bu bölümde sadece yöntemin detaylarını sunun.",
+        "acceptance_check": "Bölüm başlıkları, içeriği doğru ve net bir şekilde yansıtıyor ve makale genelinde mantıksal bir akış sağlanıyor.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, OUR APPROACH",
+        "instruction": "Teknik terimlerin (örn. Stiefel manifold, Cayley dönüşümü) ilk geçtiği yerde kısa ve öz açıklamalarını ekleyin veya bu terimlerin temelini açıklayan bir 'Arka Plan' bölümü oluşturmayı düşünün.",
+        "acceptance_check": "Tüm teknik terimler ilk kullanıldıklarında yeterince açıklanmış veya okuyucunun anlayabileceği bir bağlamda sunulmuştur.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "low",
+        "target_section": "REFERENCES",
+        "instruction": "17 numaralı referans için, eğer mümkünse, bu ders notunun veya ilgili içeriğin hakemli bir yayın versiyonunu bulun ve ona atıf yapın. Eğer bu mümkün değilse, kaynağın tam erişim tarihini ve Coursera dersinin spesifik adını ekleyerek referansı daha eksiksiz hale getirin.",
+        "acceptance_check": "Referans 17, hakemli bir yayına dönüştürülmüş veya ders notu için daha eksiksiz ve kalıcı bilgilerle güncellenmiştir.",
+        "linked_finding_ids": [
+          "citation_integrity.f1"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "SPECTRAL AND GRADIENT EVOLUTION",
+        "instruction": "Spektral değerlerin dağılımının yukarı doğru kaymasının neden 'iyi bir öğrenme rejimi' olduğunu ve bu rejimden sapmanın neden 'maliyetli' olabileceğini daha net bir şekilde açıklayın. Bu mekanizmayı destekleyecek ek teorik veya deneysel kanıtlar sunun veya iddianın spekülatif doğasını daha açıkça belirtin.",
+        "acceptance_check": "İddia, 'muhtemelen iyi bir rejim' yerine daha kesin bir dille ifade edilmiş veya belirsizlikler daha açıkça tartışılmış olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f1.a0",
+        "priority": "P2",
+        "effort": "high",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, REFERENCES",
+        "instruction": "Makalenin ana temaları (ortogonallik, derin öğrenme, RNN'ler, gradyan sorunları) ile doğrudan ilgili, yüksek atıf almış seminal çalışmaları belirleyin ve bunları literatür taramanıza dahil ederek makalenin ilgili literatürdeki konumunu güçlendirin. Özellikle 'SciPy', 'QUANTUM ESPRESSO', 'Regularization and Variable Selection Via the Elastic Net' gibi genel ancak ilgili olabilecek araç ve yöntemlere dair atıfların eksikliği gözden geçirilmelidir.",
+        "acceptance_check": "Literatür taraması güncellenmiş ve ilgili seminal çalışmaların makalenin argümanlarıyla nasıl ilişkili olduğu açıklanmış olmalıdır.",
+        "linked_finding_ids": [
+          "literature_positioning.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Performans karşılaştırmaları için kullanılan istatistiksel testlerin (eğer kullanıldıysa) varsayımlarının (örneğin, normallik, varyans homojenliği) nasıl test edildiğini ve sonuçlarını açıklayın. Eğer varsayımlar karşılanmıyorsa, alternatif non-parametrik testlerin kullanılıp kullanılmadığını belirtin.",
+        "acceptance_check": "Varsayım testleri veya alternatif testlerin kullanımı hakkında bilgi eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "'Significant' veya 'non-significant' gibi terimler kullanıldığında, bu iddiaları destekleyen istatistiksel test sonuçlarını (test istatistiği, serbestlik derecesi, p-değeri) ve etki büyüklüğü ölçütlerini (güven aralıkları ile birlikte) açıkça raporlayın. Alternatif olarak, bu terimlerden kaçının ve sadece gözlemlenen farkları tanımlayın.",
+        "acceptance_check": "İstatistiksel anlamlılık iddiaları istatistiksel kanıtlarla desteklenmiş veya dil revize edilmiş mi?",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Makalenin deneysel doğası göz önüne alındığında, ilgili bir raporlama kılavuzuna (örneğin, makine öğrenimi deneyleri için özel bir kılavuz varsa veya genel bilimsel raporlama standartları) uyulduğunu belirten bir ifade eklenmelidir. Bu, çalışmanın şeffaflığını ve tekrarlanabilirliğini artıracaktır.",
+        "acceptance_check": "Giriş veya metodoloji bölümünde raporlama kılavuzlarına atıfta bulunan ve uyumu belirten bir cümle eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "3. EXPERIMENTS",
+        "instruction": "Deneylerin tekrarlanabilirliğini artırmak için, kullanılan donanım özellikleri (GPU/CPU modeli), Theano framework'ünün spesifik versiyonu ve deneylerde kullanılan rastgele tohumlar gibi ek detaylar 'Experiments' bölümüne veya bir ek bölüme eklenmelidir.",
+        "acceptance_check": "Donanım, yazılım versiyonu ve rastgele tohumlar gibi ek teknik detaylar makaleye eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f1"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "OUR APPROACH, EXPERIMENTS",
+        "instruction": "Metodolojik detayları (örneğin, Cayley dönüşümü, sigmoidal parametrizasyon) 'OUR APPROACH' bölümünde daha sistematik bir şekilde sunun. Deney kurulumu ve sonuçları ile ilgili bilgileri 'EXPERIMENTS' bölümüne taşıyarak bölümler arası ayrımı netleştirin.",
+        "acceptance_check": "Metodoloji ve deneyler arasındaki ayrım netleşmiş, her bölüm kendi kapsamındaki bilgileri içermektedir.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "Tüm makale",
+        "instruction": "Karmaşık cümle yapılarını basitleştirin ve daha doğrudan bir dil kullanmaya özen gösterin. Özellikle uzun ve birden fazla yan cümlecik içeren ifadeleri daha kısa ve net cümlelere ayırın.",
+        "acceptance_check": "Cümleler daha kısa, net ve anlaşılır hale getirilmiştir, okuyucunun metni takip etmesi kolaylaşmıştır.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f2.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Şekil 1 gibi önemli görsellerin metin içindeki açıklamalarını genişletin. Şekilde sunulan ana bulguları daha net bir şekilde özetleyin ve bu bulguların makalenin genel argümanına nasıl katkıda bulunduğunu açıklayın.",
+        "acceptance_check": "Görsellerin metin içindeki açıklamaları daha kapsamlı ve görsellerin ana argümanla bağlantısı daha net hale getirilmiştir.",
+        "linked_finding_ids": [
+          "writing_structure.f2"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Özgün Katkının Netleştirilmesi Gerekiyor",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5"
+        ],
+        "action_item_ids": [
+          "contribution_originality.f0.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi; Özgün Katkının Netleştirilmesi Gerekiyor; Bölüm Başlıkları ve Akışında Eksiklikler; Dil ve Anlaşılırlıkta İyileştirme Alanları",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "contribution_originality.f0.a0",
+          "writing_structure.f0.a0",
+          "writing_structure.f0.a1",
+          "writing_structure.f1.a0",
+          "writing_structure.f1.a1"
+        ]
+      },
+      {
+        "section": "CONCLUSIONS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "references.a0"
+        ],
+        "action_item_ids": [
+          "citation_integrity.f1.a0"
+        ]
+      },
+      {
+        "section": "3 EXPERIMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_experiments.a0",
+          "3_experiments.a1",
+          "3_experiments.a2",
+          "3_experiments.a3"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.1",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_1.a0"
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ]
+      },
+      {
+        "section": "3.1 LOOSENING HARD ORTHOGONALITY CONSTRAINTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_1_loosening_hard_orthogonality_constraints.a0"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "3.1.1 CONVERGENCE ON SYNTHETIC MEMORY TASKS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_1_1_convergence_on_synthetic_memory_tasks.a0",
+          "3_1_1_convergence_on_synthetic_memory_tasks.a1"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "3.1.2 PERFORMANCE ON REAL DATA",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Varsayım Testlerinin Eksikliği; 'Significant/Non-significant' Dilinin Aşırı Kullanımı",
+        "anchor_ids": [
+          "3_1_2_performance_on_real_data.a0",
+          "3_1_2_performance_on_real_data.a1",
+          "3_1_2_performance_on_real_data.a2",
+          "3_1_2_performance_on_real_data.a3",
+          "3_1_2_performance_on_real_data.a4"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f5.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "experiments.a0"
+        ],
+        "action_item_ids": [
+          "writing_structure.f2.a0"
+        ]
+      },
+      {
+        "section": "OUR APPROACH",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Bölüm Başlıkları ve Akışında Eksiklikler; Dil ve Anlaşılırlıkta İyileştirme Alanları",
+        "anchor_ids": [
+          "our_approach.a0",
+          "our_approach.a1",
+          "our_approach.a2"
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0",
+          "writing_structure.f0.a1",
+          "writing_structure.f1.a0",
+          "writing_structure.f1.a1"
+        ]
+      },
+      {
+        "section": "PERFORMANCE ON REAL DATA",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi",
+        "anchor_ids": [
+          "performance_on_real_data.a0",
+          "performance_on_real_data.a1",
+          "performance_on_real_data.a2",
+          "performance_on_real_data.a3"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ]
+      },
+      {
+        "section": "SPECTRAL AND GRADIENT EVOLUTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Spektral Yayılım ve Öğrenme Rejimi İlişkisi Hakkında Spekülatif İddia",
+        "anchor_ids": [
+          "spectral_and_gradient_evolution.a0"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_1.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Table 2",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_2.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "major_revision"
+}

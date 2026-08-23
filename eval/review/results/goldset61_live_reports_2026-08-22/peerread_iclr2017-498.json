@@ -1,0 +1,1181 @@
+{
+  "paper_id": "peerread:iclr2017-498",
+  "run_tag": "main",
+  "job_id": "6cefab13-3d0f-4437-a340-660cb8d0e98e",
+  "elapsed_s": 334.6,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "DROPOUT WITH EXPECTATION-LINEAR REGULARIZATION Xuezhe Ma, Yingkai Gao Language Technologies Institute",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "CONCLUSIONS",
+        "ACKNOWLEDGEMENTS",
+        "REFERENCES"
+      ],
+      "word_count": 10039,
+      "reference_count": 28,
+      "parse_confidence": 0.685,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces a novel and theoretically-grounded approach to address the 'inference gap' in dropout—the discrepancy between the ensemble model used during training and the approximated, weight-scaled model used during inference. The authors formulate dropout as a latent variable model, define a measure of this gap via 'expectation-linearity,' and propose a simple regularization term to minimize it. The theoretical contributions are significant, and the experimental results on MNIST, CIFAR-10, and CIFAR-100 consistently show performance improvements. The work is strong in its originality, technical soundness, and potential impact. While there are significant formatting issues in the bibliography that require a thorough correction before publication, the core contribution is sound and warrants acceptance.",
+    "strengths": [
+      {
+        "category": "Theoretical Contribution",
+        "points": [
+          "The paper provides a novel and elegant formulation of dropout as a latent variable model (LVM), which simplifies the analysis of weight sharing and model parameters.",
+          "It formally defines and quantifies the previously under-appreciated 'inference gap' through the concept of (approximate) expectation-linearity. This provides a new and valuable lens for analyzing dropout.",
+          "The theoretical analysis (Theorems 2-6) rigorously connects properties of the network (e.g., operator norm of weights) to the size of the inference gap, offering a clear explanation for the empirical success of techniques like max-norm regularization."
+        ]
+      },
+      {
+        "category": "Methodological Innovation",
+        "points": [
+          "The proposed expectation-linearization regularizer is a direct and practical application of the theoretical findings. It offers an explicit mechanism to control the inference gap.",
+          "The method is computationally efficient, adding minimal overhead to the standard dropout training procedure, which increases its potential for wide adoption."
+        ]
+      },
+      {
+        "category": "Empirical Validation",
+        "points": [
+          "The proposed method demonstrates consistent performance improvements over standard dropout across multiple architectures and three benchmark datasets (MNIST, CIFAR-10, CIFAR-100).",
+          "The experiments include a thoughtful comparison with Monte Carlo (MC) dropout, effectively showing that the proposed regularizer helps the standard inference approximation better match the 'true' ensemble prediction.",
+          "The ablation study on the regularization constant λ (Figure 1) provides useful insights into the trade-off between minimizing the inference gap and maintaining model accuracy."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Citation and Referencing",
+        "points": [
+          "The bibliography has significant formatting and completeness issues. A large number of references are not resolvable in their current state, which hinders readers from consulting the foundational works. This requires a meticulous correction for the final version."
+        ]
+      },
+      {
+        "category": "Experimental Comparison",
+        "points": [
+          "In the comparison with Dropout Distillation on CIFAR-100, the authors note they were unable to reproduce the baseline results from the original paper. While the transparency is appreciated, this weakens the claim of achieving comparable performance on that specific benchmark."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "A significant issue that must be addressed for the camera-ready version is the state of the bibliography. The evidence pack indicates that 25 out of 28 references could not be automatically resolved against major academic indices due to formatting, completeness, or accuracy issues (an additional reference failed due to a temporary service error). While the evidence pack found no fabricated citations or major gaps in coverage, this high failure rate prevents readers from easily verifying the work's context. The authors must meticulously review and correct every entry in their reference list to ensure it is accurate, complete, and points to the correct, stable, and published version of the cited work (using DOIs where available).",
+        "evidence_ref": "citation_integrity_summary: 26/28 references not_found_in_index"
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The theoretical framework is the paper's greatest strength. The progression from the LVM formulation to the definition of expectation-linearity and the subsequent bounds is logical and well-argued. Theorem 3 is particularly insightful, as it highlights the importance of keeping the product of the weight norm and dropout probability (Bγ) less than 1 to prevent an explosion of the inference gap in deep networks. This provides a strong theoretical justification for common regularization practices.",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "The experimental results are positive and support the paper's main thesis. The improvements on MNIST are particularly clear. For the CIFAR datasets, the gains of the proposed method ('w. EL Standard') over the baseline ('Standard') are smaller and still fall short of the more computationally expensive MC dropout. This is an acceptable trade-off, and the discussion should clearly frame it as such: the method offers a computationally cheap way to close some, but not all, of the performance gap between standard inference and full model averaging.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "Once the referencing issues are fixed, this paper has the potential for high impact. Dropout is a fundamental technique in deep learning, and this work provides both a deeper theoretical understanding and a simple, effective method for improving it. Its ease of implementation makes it a strong candidate for inclusion in standard deep learning workflows.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "The analysis following Theorem 3 highlights the importance of keeping Bγ < 1. Could you comment on the practical implications of this for hyperparameter tuning? Does this suggest a more direct relationship between the max-norm constraint value and the dropout rate than is typically considered?",
+      "Regarding the comparison with Dropout Distillation (Table 2), you mention being unable to reproduce the CIFAR-100 results from Bulò et al. (2016). Could you elaborate on the difficulties encountered? Does this affect the confidence in the comparison on that dataset?",
+      "For the final version, please conduct a full audit and correction of the reference list to ensure all entries are complete, correctly formatted, and resolvable, preferably using DOIs, to meet publication standards."
+    ],
+    "overall_assessment": "This is a paper with a strong, original, and valuable core contribution. The theoretical formalization of the dropout inference gap is a significant step forward, and the proposed expectation-linearization regularizer is an elegant and practical solution that yields consistent empirical gains. The work is well-structured, clearly written, and supported by solid experiments. While the paper is marred by extensive formatting issues in the bibliography that prevent easy verification of its sources, the evidence pack did not identify any fabricated citations or critical gaps in its coverage of related work. Therefore, the issue is considered a matter of scholarly presentation that is correctable. The paper is recommended for acceptance, on the condition that the authors undertake a meticulous and complete correction of the bibliography for the camera-ready version.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The core idea of identifying, formalizing, and proposing a regularization scheme for the dropout 'inference gap' is highly novel.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.5,
+        "rationale": "The work addresses a fundamental and under-appreciated issue in dropout, a widely used technique. The proposed solution is simple and effective, making it important for practitioners."
+      },
+      {
+        "key": "claims_supported",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Within the text, the claims are well-supported by the provided theoretical arguments and experimental data. The evidence pack did not find any contradictions.]"
+      },
+      {
+        "key": "soundness",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): No issues found in this dimension. [LLM'in kendi gerekçesi: The paper is built on a solid theoretical foundation with extensive proofs provided in the appendix. The methodology is sound.]"
+      },
+      {
+        "key": "clarity",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): No issues found in this dimension. [LLM'in kendi gerekçesi: The paper is generally well-written and structured, clearly communicating its complex ideas. The core argument is easy to follow.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.5,
+        "rationale": "The proposed method is simple to implement and provides a performance boost, making it valuable to the deep learning community."
+      },
+      {
+        "key": "contextualization",
+        "score": 7.0,
+        "rationale": "The paper situates itself well conceptually. While the reader's ability to follow up on citations is currently hampered by formatting issues, the evidence pack did not identify any missing seminal works that would alter the paper's positioning."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 6.0,
+        "rationale": "While a large number of references could not be automatically resolved, indicating significant formatting issues that must be corrected for publication, the evidence pack found no fabricated or retracted citations. The issue is considered correctable."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 10.0,
+        "rationale": "The evidence pack did not identify any missing seminal or mandatory works that should have been cited."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 10.0,
+        "rationale": "The evidence pack did not contain any flags for statistical inconsistencies."
+      }
+    ],
+    "final_score": 8.78,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 28,
+        "resolved": 2,
+        "not_found_in_index": 26,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 1
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Jacob Andreas, Maxim Rabinovich, Michael I Jordan, and Dan Klein. On the accuracy of self- normalized log-linear models. In Advances in Neural Information Processing Systems, pp. 1774– 1782, 2015.",
+          "title": "On the accuracy of self- normalized log-linear models",
+          "authors": [
+            "Jacob Andreas, Maxim Rabinovich, Michael I Jordan",
+            "Dan Klein"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Pierre Baldi and Peter Sadowski. The dropout learning algorithm. Artiﬁcial intelligence, 210:78–122, 2014.",
+          "title": "The dropout learning algorithm",
+          "authors": [
+            "Pierre Baldi",
+            "Peter Sadowski"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.38 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Pierre Baldi and Peter J Sadowski. Understanding dropout. In Advances in Neural Information Processing Systems, pp. 2814–2822, 2013.",
+          "title": "Understanding dropout",
+          "authors": [
+            "Pierre Baldi",
+            "Peter J Sadowski"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.27 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "David M Bradley and J Andrew Bagnell. Differential sparse coding. 2008.",
+          "title": "Differential sparse coding",
+          "authors": [
+            "David M Bradley",
+            "J Andrew Bagnell"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 1.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Samuel Rota Bulò, Lorenzo Porzi, and Peter Kontschieder. Dropout distillation. In Proceedings of The 33rd International Conference on Machine Learning, pp. 99–107, 2016. 1We obtained similar results as that reported in Table 1 of Bulò et al. (2016) on CIFAR-10 corpus, while we cannot reproduce comparable results on CIFAR-100 (around 3% worse) 10 Ning Chen, Jun Zhu, Jianfei Chen, and Bo Zhang. Dropout training for support vector machines. In Proceedings Twenty-Eighth AAAI Conference on Artiﬁcial Intelligence, 2014.",
+          "title": "on CIFAR-10 corpus, while we cannot reproduce comparable results on CIFAR-100 (around 3% worse) 10 Ning Chen, Jun Zhu, Jianfei Chen, and Bo Zhang",
+          "authors": [
+            "Samuel Rota Bulò, Lorenzo Porzi"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.17 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Yarin Gal and Zoubin Ghahramani. Dropout as a bayesian approximation: Insights and applications. In Deep Learning Workshop, ICML, 2015.",
+          "title": "Dropout as a bayesian approximation: Insights and applications",
+          "authors": [
+            "Yarin Gal",
+            "Zoubin Ghahramani"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.38 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Yarin Gal and Zoubin Ghahramani. A theoretically grounded application of dropout in recurrent neural networks. In Advances in Neural Information Processing Systems, 2016.",
+          "title": "A theoretically grounded application of dropout in recurrent neural networks",
+          "authors": [
+            "Yarin Gal",
+            "Zoubin Ghahramani"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2963266340",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2963266340; 'A theoretically grounded application of dropout in recurrent neural networks').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Wei Gao and Zhi-Hua Zhou. Dropout rademacher complexity of deep neural networks. arXiv preprint arXiv:1402.3811, 2014.",
+          "title": "Dropout rademacher complexity of deep neural networks",
+          "authors": [
+            "Wei Gao",
+            "Zhi-Hua Zhou"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "David P Helmbold and Philip M Long. On the inductive bias of dropout. arXiv preprint arXiv:1412.4736, 2014.",
+          "title": "On the inductive bias of dropout",
+          "authors": [
+            "David P Helmbold",
+            "Philip M Long"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "David P Helmbold and Philip M Long. Fundamental differences between dropout and weight decay in deep networks. arXiv preprint arXiv:1602.04484, 2016.",
+          "title": "Fundamental differences between dropout and weight decay in deep networks",
+          "authors": [
+            "David P Helmbold",
+            "Philip M Long"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Geoffrey Hinton. A practical guide to training restricted boltzmann machines. Momentum, 9(1):926, 2010.",
+          "title": "A practical guide to training restricted boltzmann machines",
+          "authors": [
+            "Geoffrey Hinton"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.66 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Geoffrey Hinton, Oriol Vinyals, and Jeff Dean. Distilling the knowledge in a neural network. arXiv preprint arXiv:1503.02531, 2015.",
+          "title": "Distilling the knowledge in a neural network",
+          "authors": [
+            "Geoffrey Hinton, Oriol Vinyals",
+            "Jeff Dean"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.56 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Geoffrey E Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever, and Ruslan R Salakhutdinov. Improving neural networks by preventing co-adaptation of feature detectors. arXiv preprint arXiv:1207.0580, 2012.",
+          "title": "Improving neural networks by preventing co-adaptation of feature detectors",
+          "authors": [
+            "Geoffrey E Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever",
+            "Ruslan R Salakhutdinov"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Prateek Jain, Vivek Kulkarni, Abhradeep Thakurta, and Oliver Williams. To drop or not to drop: Robustness, consistency and differential privacy properties of dropout. arXiv preprint arXiv:1503.02031, 2015.",
+          "title": "To drop or not to drop: Robustness, consistency and differential privacy properties of dropout",
+          "authors": [
+            "Prateek Jain, Vivek Kulkarni, Abhradeep Thakurta",
+            "Oliver Williams"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Diederik P Kingma, Tim Salimans, and Max Welling. Variational dropout and the local reparameteri- zation trick. In Advances in Neural Information Processing Systems, pp. 2575–2583, 2015.",
+          "title": "Variational dropout and the local reparameteri- zation trick",
+          "authors": [
+            "Diederik P Kingma, Tim Salimans",
+            "Max Welling"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Alex Krizhevsky. Learning multiple layers of features from tiny images, 2009.",
+          "title": "Learning multiple layers of features from tiny images, 2009",
+          "authors": [
+            "Alex Krizhevsky"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.",
+          "title": "Gradient-based learning applied to document recognition",
+          "authors": [
+            "Yann LeCun, Léon Bottou, Yoshua Bengio",
+            "Patrick Haffner"
+          ],
+          "year": 1998,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Yann LeCun, Yoshua Bengio, and Geoffrey Hinton. Deep learning. Nature, 521:436–444, 2015.",
+          "title": "Deep learning",
+          "authors": [
+            "Yann LeCun, Yoshua Bengio",
+            "Geoffrey Hinton"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Xuezhe Ma and Eduard Hovy. End-to-end sequence labeling via bi-directional LSTM-CNNs-CRF. In Proceedings of ACL-2016, pp. 1064–1074, Berlin, Germany, August 2016.",
+          "title": "End-to-end sequence labeling via bi-directional LSTM-CNNs-CRF",
+          "authors": [
+            "Xuezhe Ma",
+            "Eduard Hovy"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2962902328",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2962902328; 'End-to-end Sequence Labeling via Bi-directional LSTM-CNNs-CRF').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Jürgen Schmidhuber. Deep learning in neural networks: An overview. Neural Networks, 61:85–117, 2015.",
+          "title": "Deep learning in neural networks: An overview",
+          "authors": [
+            "Jürgen Schmidhuber"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Jost Tobias Springenberg, Alexey Dosovitskiy, Thomas Brox, and Martin Riedmiller. Striving for simplicity: The all convolutional net. arXiv preprint arXiv:1412.6806, 2014.",
+          "title": "Striving for simplicity: The all convolutional net",
+          "authors": [
+            "Jost Tobias Springenberg, Alexey Dosovitskiy, Thomas Brox",
+            "Martin Riedmiller"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Nathan Srebro, Jason Rennie, and Tommi S Jaakkola. Maximum-margin matrix factorization. In Advances in neural information processing systems, pp. 1329–1336, 2004.",
+          "title": "Maximum-margin matrix factorization",
+          "authors": [
+            "Nathan Srebro, Jason Rennie",
+            "Tommi S Jaakkola"
+          ],
+          "year": 2004,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.72 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Nitish Srivastava. Improving neural networks with dropout. PhD thesis, University of Toronto, 2013.",
+          "title": "Improving neural networks with dropout",
+          "authors": [
+            "Nitish Srivastava"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: A simple way to prevent neural networks from overﬁtting. The Journal of Machine Learning Research, 15(1):1929–1958, 2014.",
+          "title": "Dropout: A simple way to prevent neural networks from overﬁtting",
+          "authors": [
+            "Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever",
+            "Ruslan Salakhutdinov"
+          ],
+          "year": 1929,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "Robert Tibshirani. Regression shrinkage and selection via the lasso. Journal of the Royal Statistical Society. Series B (Methodological), pp. 267–288, 1996.",
+          "title": "Regression shrinkage and selection via the lasso",
+          "authors": [
+            "Robert Tibshirani"
+          ],
+          "year": 1996,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "Andrey Nikolayevich Tikhonov. On the stability of inverse problems. In Dokl. Akad. Nauk SSSR, volume 39, pp. 195–198, 1943. 11 Stefan Wager, Sida Wang, and Percy S Liang. Dropout training as adaptive regularization. In Advances in neural information processing systems, pp. 351–359, 2013.",
+          "title": "On the stability of inverse problems",
+          "authors": [
+            "Andrey Nikolayevich Tikhonov"
+          ],
+          "year": 1943,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 27,
+          "raw": "Stefan Wager, William Fithian, Sida Wang, and Percy S Liang. Altitude training: Strong bounds for single-layer dropout. In Advances in Neural Information Processing Systems, pp. 100–108, 2014.",
+          "title": "Altitude training: Strong bounds for single-layer dropout",
+          "authors": [
+            "Stefan Wager, William Fithian, Sida Wang",
+            "Percy S Liang"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.34 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 28,
+          "raw": "Sida Wang and Christopher Manning. Fast dropout training. In Proceedings of the 30th International Conference on Machine Learning, pp. 118–126, 2013. 12 APPENDIX: DROPOUT WITH EXPECTATION-LINEAR REGULARIZATION A LVM DROPOUT TRAINING VS. STANDARD DROPOUT TRAINING Proof of Theorem 1 Proof. ESD[l(D, SD; θ)] = R S NQ i=1 p(si) \u0010 N P i=1 log p(yi|xi, si; θ) \u0011 dµ(s1) . . . dµ(sN) = N P i=1 R S p(si) log p(yi|xi, si; θ)dµ(si) Because log(·) is a concave function, from Jensen’s Inequality, Z S p(s) log p(y|x, s; θ)dµ(s) ≤log Z S p(s)p(y|x, s; θ)dµ(s) Thus ESD[−l(D, SD; θ)] ≥ N X i=1 log Z S p(si)p(yi|xi, si; θ)dµ(si) = −l(D; θ). B EXPECTATION-LINEAR DROPOUT NEURAL NETWORKS B.1 PROOF OF THEOREM 2 Proof. Let γ∗= E[Γ], and A ∆= {x : ∥E[f(x ⊙Γ; θ)] −f(x ⊙γ∗; θ)∥2 = 0} Let X∗= argmin x∈A sup γ∈S ∥X ⊙γ −x ⊙γ∥2, and X−= X −X∗. Then, X ⊙γ = X∗⊙γ + X−⊙γ In the following, we omit the parameter θ for convenience. Moreover, we denote EΓ \u0002 f(X ⊙Γ; θ) \u0003 ∆= E \u0002 f(X ⊙Γ; θ)|X \u0003 From Taylor Series, there exit some X′, X′′ ∈X satisfy that f(X ⊙Γ) = f(X∗⊙Γ) + f ′(X′ ⊙Γ)(X−⊙Γ) f(X ⊙γ∗) = f(X∗⊙γ∗) + f ′(X′′ ⊙γ∗)(X−⊙γ∗) where we denote f ′(x) = (∇xf(x))T . Then, EΓ[f(X ⊙Γ) −f(X ⊙γ∗)] = EΓ[f(X∗⊙Γ + X−⊙Γ) −f(X∗⊙γ∗+ X−⊙γ∗)] = EΓ[f(X∗⊙Γ) −f(X∗⊙γ∗) + f ′(X′ ⊙Γ)(X−⊙Γ) −f ′(X′′ ⊙γ∗)(X−⊙γ∗)] = EΓ[f(X∗⊙Γ) −f(X∗⊙γ∗)] + EΓ[f ′(X′ ⊙Γ)(X−⊙Γ) −f ′(X′′ ⊙γ∗)(X−⊙γ∗)] Since X∗∈A, we have EΓ[f(X∗⊙Γ) −f(X∗⊙γ∗)] = 0. Then, EΓ[f(X ⊙Γ) −f(X ⊙γ∗)] = EΓ[f ′(X′ ⊙Γ)(X−⊙Γ) −f ′(X′′ ⊙γ∗)(X−⊙γ∗)] = EΓ[(f ′(X′ ⊙Γ) −f ′(X′′ ⊙γ∗))(X−⊙Γ)] + EΓ[f ′(X′′ ⊙γ∗)(X−⊙Γ −X−⊙γ∗)] = EΓ[(f ′(X′ ⊙Γ) −f ′(X′′ ⊙γ∗))(X−⊙Γ)] 13 Then, ∥EΓ[f(X ⊙Γ)] −f(X ⊙γ∗)∥2 = ∥EΓ[(f ′(X′ ⊙Γ) −f ′(X′′ ⊙γ∗))(X−⊙Γ)]∥2 Since ∥X−⊙γ′∥2 ≤sup γ∈S ∥X−⊙γ∥2 = inf x∈A sup γ∈S ∥X ⊙γ −x ⊙γ∥2, and from Jensen’s inequality and property of operator norm, ∥EΓ[(f ′(X′ ⊙Γ) −f ′(X′′ ⊙γ∗))(X−⊙Γ)]∥2 ≤ EΓ h ∥f ′(X′ ⊙Γ) −f ′(X′′ ⊙γ∗)∥op∥X−⊙Γ∥2 i ≤ 2BEΓ h ∥X−⊙Γ∥2 i ≤ 2B inf x∈A sup γ∈S ∥X ⊙γ −x ⊙γ∥2 Finally we have, EX \u0014 ∥EΓ[(f ′(X′ ⊙Γ) −f ′(X′′ ⊙γ∗))(X−⊙Γ)]∥2 \u0015 ≤ 2BE \u0014 inf x∈A sup γ∈S ∥X ⊙γ −x ⊙γ∥2 \u0015 ≤2BC B.2 PROOF OF THEOREM 3 Proof. Induction on the number of the layers L. As before, we omit the parameter θ. Initial step: when L = 1, the statement is obviously true. Induction on L: Suppose that the statement is true for neural networks with L layers. Now we prove the case L + 1. From the inductive assumption, we have, EX h ESL \u0002 H(L)(X, SL) \u0003 −h(L)(X, E[SL]) 2 i ≤∆L (1) where SL = {Γ(1), . . . , Γ(L)} is the dropout random variables for the ﬁrst L layers, and ∆L = (Bγ)L−1δ + (δ + Bγσ) \u00121 −(Bγ)L−1 1 −Bγ \u0013 In addition, the L + 1 layer is δ-approximately expectation-linear, we have: EH(L) h EΓ(L+1) \u0002 fL+1(H(L) ⊙Γ(L+1)) \u0003 −fL+1(H(L) ⊙γ(L+1)) 2 i ≤δ (2) Let E[Γ(l)] = γ(l), ∀l ∈{1, . . . , L + 1}, and let H(l) and h(l) be short for H(l)(X, Sl) and h(l)(X, E(Sl)), respectively, when there is no ambiguity. Moreover, we denote ES \u0002 H(L)(X, S; θ) \u0003 = ES \u0002 H(L)(X, S; θ) X \u0003 for convenience. Then, EX h ESL+1 \u0002 H(L+1)\u0003 −h(L+1) 2 i = EX \u0014 ESL h EΓ(L+1) \u0002 fL+1(H(L) ⊙Γ(L+1)) \u0003 −fL+1(h(L) ⊙γ(L+1)) i +ESL h fL+1(H(L) ⊙γ(L+1)) i −fL+1(h(L) ⊙γ(L+1)) 2 \u0015 ≤ EX \u0014 ESL h EΓ(L+1) \u0002 fL+1(H(L) ⊙Γ(L+1)) \u0003 −fL+1(h(L) ⊙γ(L+1)) i 2 \u0015 +EX \u0014 ESL h fL+1(H(L) ⊙γ(L+1)) i −fL+1(h(L) ⊙γ(L+1)) 2 \u0015 From Eq. 2 and Jensen’s inequality, we have EX \u0014 ESL h EΓ(L+1) \u0002 fL+1(H(L) ⊙Γ(L+1)) \u0003 −fL+1(h(L) ⊙γ(L+1)) i 2 \u0015 ≤ EH(L) \u0014 EΓ(L+1) \u0002 fL+1(H(L) ⊙Γ(L+1)) \u0003 −fL+1(h(L) ⊙γ(L+1)) 2 \u0015 ≤δ (3) 14 and EX \u0014 ESL h fL+1(H(L) ⊙γ(L+1)) i −fL+1(h(L) ⊙γ(L+1)) 2 \u0015 = EX \u0014 ESL h fL+1(H(L) ⊙γ(L+1)) i −fL+1(ESL \u0002 H(L)\u0003 ⊙γ(L+1)) +fL+1(ESL \u0002 H(L)\u0003 ⊙γ(L+1)) −fL+1(h(L) ⊙γ(L+1)) 2 \u0015 ≤ EX \u0014 ESL h fL+1(H(L) ⊙γ(L+1)) i −fL+1(ESL \u0002 H(L)\u0003 ⊙γ(L+1)) 2 \u0015 +EX \u0014 fL+1(ESL \u0002 H(L)\u0003 ⊙γ(L+1)) −fL+1(h(L) ⊙γ(L+1)) 2 \u0015 (4) Using Jensen’s inequality, property of operator norm and E \u0002 Var[H(l)|X] \u0003 ≤σ2, we have EX \u0014 ESL h fL+1(H(L) ⊙γ(L+1)) i −fL+1(ESL \u0002 H(L)\u0003 ⊙γ(L+1)) 2 \u0015 ≤ EH(L) \u0014 fL+1(H(L) ⊙γ(L+1)) −fL+1(ESL \u0002 H(L)\u0003 ⊙γ(L+1)) 2 \u0015 ≤ BγEH(L) h H(L) −ESL \u0002 H(L)\u0003 2 i ≤ Bγ \u0010 EH(L) h H(L) −ESL \u0002 H(L)\u0003 2 2 i\u0011 1 2 ≤Bγσ (5) From Eq. 1 EX \u0014 fL+1(ESL \u0002 H(L)\u0003 ⊙γ(L+1)) −fL+1(h(L) ⊙γ(L+1)) 2 \u0015 = BγEX h ESL \u0002 H(L)\u0003 −h(L) 2 i ≤Bγ∆L (6) Finally, to sum up with Eq. 3, Eq. 4, , Eq. 5, , Eq. 6, we have EX h ESL+1 \u0002 H(L+1)\u0003 −h(L+1) 2 i ≤ δ + Bγσ + Bγ∆L = (Bγ)Lδ + (δ + Bγσ) \u0012 1−(Bγ)L 1−Bγ \u0013 = ∆L+1 C EXPECTATION-LINEARIZATION C.1 PROOF OF THEOREM 4: UNIFORM DEVIATION BOUND Before proving Theorem 4, we ﬁrst deﬁne the notations. Let Xn = {X1, . . . , Xn} be a set of n samples of input X. For a function space F : X →R, we use Radn(F, Xn) to denote the empirical Rademacher complexity of F, Radn(F, Xn) = Eσ \u0014 sup f∈F \u0010 1 n n X i=1 σif(Xi) \u0011\u0015 and the Rademacher complexity is deﬁned as Radn(F) = EXn h Radn(F, Xn) i In addition, we import the deﬁnition of dropout Rademacher complexity from Gao & Zhou (2014): Rn(H, Xn, Sn) = Eσ \u0014 sup h∈H \u0010 1 n nP i=1 σih(Xi, Si) \u0011\u0015 Rn(H) = EXn,Sn h Radn(H, Xn, Sn) i 15 where H : X × S →R is a function space deﬁned on input space X and dropout variable space S. Rn(H, Xn, Sn) and Rn(H) are the empirical dropout Rademacher complexity and dropout Rademacher complexity, respectively. We further denote Rn(H, Xn) ∆= ESn h Radn(H, Xn, Sn) i . Now, we deﬁne the following function spaces: F = \u001a f(x; θ) : f(x; θ) = ES h H(L)(x, S; θ) i , θ ∈Θ \u001b G = \u001a g(x; θ) : g(x; θ) = h(L)(x, E[S]; θ), θ ∈Θ \u001b H = \u001a h(x, s; θ) : h(x, s; θ) = h(L)(x, s; θ), θ ∈Θ \u001b Then, the function space of v(x) = f(x) −g(x) is V = {f(x) −g(x) : f ∈F, g ∈G}. Lemma 7. Radn(F, Xn) ≤Rn(H, Xn) Proof. Rn(H, Xn) = ESn h Radn(H, Xn, Sn) i = ESn \u0014 Eσ h sup h∈H \u0010 1 n nP i=1 σih(Xi, Si) \u0011i\u0015 = Eσ \u0014 ESn h sup h∈H \u0010 1 n nP i=1 σih(Xi, Si) \u0011i\u0015 ≥ Eσ \u0014 sup h∈H ESn h\u0010 1 n nP i=1 σih(Xi, Si) \u0011i\u0015 = Eσ \u0014 sup h∈H \u0010 1 n nP i=1 σiESi \u0002 h(Xi, Si) \u0003\u0011\u0015 = Eσ \u0014 sup h∈H \u0010 1 n nP i=1 σiESi \u0002 H(L)(Xi, Si; θ) \u0003\u0011\u0015 = Radn(F, Xn) From Lemma 7, we have Radn(F) ≤Rn(H). Lemma 8. Rn(H) ≤ αBLγL/2 √n Radn(G) ≤ αBL √n Proof. See Theorem 4 in Gao & Zhou (2014). Now, we can prove Theorem 4. Proof of Theorem 4 Proof. From Rademacher-based uniform bounds theorem, with probability ≥1 −δ, sup v∈V |∆−ˆ∆| < 2Radn(V) + β r log(1/δ) n Since V = F −G, we have Radn(V) = Radn(F −G) ≤Radn(F) + Radn(G) ≤αBL(γL/2 + 1) √n Then, ﬁnally, we have that with probability ≥1 −δ, sup θ∈Θ |∆−ˆ∆| < 2αBL(γL/2 + 1) √n + β r log(1/δ) n 16 C.2 PROOF OF THEOREM 5: NON-UNIFORM BOUND OF MODEL ACCURACY For convenience, we denote λ = {θ1, . . . , θL−1}. Then θ = {λ, η}, and MLE θ̂ = {λ̂, η̂} Lemma 9. ∥∇fL(·; η)T ∥op ≤2∥η∥2 (7) Proof. denote A = ∇fL(·; η)T = \u0002 py(ηy −η)T \u0003 k y=1 where py = p(y|x, s; θ), η = E [ηY ] = kP y=1 pyηy. For each v such that ∥v∥2 = 1, ∥Av∥2 2 = P y∈Y \u0010 py (ηy −η)T v \u00112 ≤P y∈Y ∥py (ηy −η) ∥2 2∥v∥2 2 = P y∈Y ∥py (ηy −η) ∥2 2 ≤ P y∈Y py∥ηy −η∥2 2 ≤P y∈Y 2py ∥η∥2 2 + P y′∈Y py′∥ηy′∥2 2 ! = 4 P y∈Y py∥ηy∥2 2 ≤4∥η∥2 2 So we have ∥A∥op ≤2∥η∥2. Lemma 10. If parameter θ̃ = {λ̂, η} satisﬁes that ∥η∥2 ≤ δ 4β , then V (D; θ̃) ≤δ, where V (D; θ) is deﬁned in Eq. (16). Proof. Let SL = {Γ(1), . . . , Γ(L)}, and let H(l) and h(l) be short for H(l)(X, Sl; θ̃) and h(l)(X, E(Sl); θ̃), respectively. From lemma 9, we have ∥fL(x; η) −fL(y; η)∥2 ≤2∥η∥2∥x −y∥2. Then, ESL \u0002 HL\u0003 −hL 2 = ESL−1 \u0002 fL(H(L−1); η) \u0003 −fL(h(L−1); η) 2 ≤ ESL−1 fL(H(L−1); η) −fL(h(L−1); η) 2 ≤ 2∥η∥2 H(L−1) −h(L−1) 2 ≤ 4β∥η∥2 ≤δ Lemma 10 says that we can get θ satisfying the expectation-linearization constrain by explicitly scaling down η̂ while keeping λ̂. In order to prove Theorem 5, we make the following assumptions: • The dimension of h(L−1) is d, i.e. h(L−1) ∈Rd. • Since ∀y ∈Y, p(y|x; θ̂) > 0, we assume p(y|x; θ̂) ≥1/b, where b ≥|Y| = k. • As in the body text, let p(y|x, s; θ̂) be nonuniform, and in particular let η̂T y∗h(L−1)(x, s; λ̂) −η̂T y h(L−1)(x, s; λ̂) > c∥η̂∥2, ∀y ̸= y∗. For convenience, we denote ηT h(L−1)(x, s; λ) = ηT uy(x, s; λ), where uT y (x, s; λ) = (vT 0 , . . . , vT k ) and vi = \u001a h(L−1)(x, s; λ) if i = y 0 otherwise To prove Theorem 5, we ﬁrst prove the following lemmas. Lemma 11. If p(y|x; θ̂) ≥1/b, then ∀α ∈[0, 1], for parameter θ̃ = {λ̂, αη̂}, we have p(y|x; θ̃) ≥1 b 17 Proof. We deﬁne f(α) ∆= (y|x, s; θ̃) = eαηT y h(L−1)(x,s;λ̂) P y′∈Y eαηT y′h(L−1)(x,s;λ̂) = \u0010 eηT y h(L−1)(x,s;λ̂)\u0011α P y′∈Y \u0010 eηT y′h(L−1)(x,s;λ̂)\u0011α Since Y = {1, . . . , k}, for ﬁxed x ∈X, s ∈S, log f(α) is a concave function w.r.t α. Since b ≥k, we have log f(α) ≥(1 −α) log f(0) + α log f(1) ≥−log b So we have ∀x, s, p(y|x, s; θ̃) ≥1/b. Then p(y|x; θ̃) = ES h p(y|x, S; θ̂) i ≥1 b Lemma 12. if y is not the majority class, i.e. y ̸= y∗, then for parameter θ̃ = {λ̂, αη̂} p(y|x, s, θ̃) ≤e−cα∥η̂∥2 Proof. p(y|x, s, θ̃) = eαη̂T uy P y′∈Y eαη̂T uy′ ≤eαη̂T uy eαη̂T uy∗≤e−cα∥η̂∥2 Lemma 13. For a ﬁxed x and s, the absolute value of the entry of the vector under the parameter θ̃ = {λ̂, αη̂}: |p(y|x, s; θ̃)(uy −EY [uY ])|i ≤β(k −1)e−cα∥η̂∥2 Proof. Suppose y is the majority class of p(y|x, s; θ̃). Then, uy −Ey[uY ] = (vy′)k y′=1 where vy = \u001a (1 −p(y|x, s; θ̃)h(L−1) if y = y∗ −p(y|x, s; θ̃)h(L−1) otherwise From Lemma 12, we have |p(y|x, s; θ̃)(uy −EY [uY ])|i ≤|(uy −EY [uY ])|i ≤β(k −1)e−cα∥η̂∥2 Now, we suppose y is not the majority class of p(y|x, s; θ̃). Then, |p(y|x, s; θ̃)(uy −EY [uY ])|i ≤p(y|x, s; θ̃)β ≤βe−cα∥η̂∥2 Overall, the lemma follows. Lemma 14. We denote the matrix A ∆= ES h p(y|x,s;θ̃) p(y|x;θ̃) (uy −EY [uY ])(uy −EY [uY ])T i −ES h p(y|x,s;θ̃) p(y|x;θ̃) (uy −EY [uY ]) i ES h p(y|x,s;θ̃) p(y|x;θ̃) (uy −EY [uY ]) iT Then the absolute value of the entry of A under the parameter θ̃ = {λ̂, αη̂}: |Aij| ≤2b(k −1)β2e−cα∥η̂∥2 18 Proof. From Lemma 11, we have p(y|x; θ̃) ≥1/b. Additionally, the absolute value of the entry of uy −EY [uY ] is bounded by β. We have for each i ES \" p(y|x, s; θ̃) p(y|x; θ̃) (uy −EY [uY ]) # i ≤ES \" p(y|x, s; θ̃) p(y|x; θ̃) β # = β Then from Lemma 13 |Aij| ≤2b(k −1)β2e−cα∥η̂∥2 Lemma 15. We denote the matrix B ∆= ES \" p(y|x, s; θ̃) p(y|x; θ̃) EY \u0002 uY uT Y \u0003 −EY [uY ]EY [uY ]T \u0001 # Then the absolute value of the entry of B under the parameter θ̃ = {λ̂, αη̂}: |Bij| ≤2(k −1)β2e−cα∥η̂∥2 Proof. We only need to prove that for ﬁxed x and s, for each i, j: EY \u0002 uY uT Y \u0003 −EY [uY ]EY [uY ]T ij ≤2(k −1)β2e−cα∥η̂∥2 Since EY \u0002 uY uT Y \u0003 −EY [uY ]EY [uY ]T ij = |CovY [(uY )i, (uY )j]| ≤β2 k X y=1 p(y|x, s; θ̃) −p(y|x, s; θ̃)2 Suppose y is the majority class. Then from Lemma 12, p(y|x, s; θ̃) −p(y|x, s; θ̃)2 ≤1 −p(y|x, s; θ̃) ≤(k −1)e−cα∥η̂∥2 If y is not the majority class. Then, p(y|x, s; θ̃) −p(y|x, s; θ̃)2 ≤p(y|x, s; θ̃) ≤e−cα∥η̂∥2 So we have k X y=1 p(y|x, s; θ̃) −p(y|x, s; θ̃)2 ≤2(k −1)e−cα∥η̂∥2 The lemma follows. Lemma 16. Under the parameter θ̃ = {λ̂, αη̂}, the largest eigenvalue of the matrix 1 n n X i=1 (A(xi, yi) −B(xi, yi)) (8) is at most 2dk(k −1)(b + 1)β2e−cα∥η̂∥2 Proof. From Lemma 14 and Lemma 15, each entry of the matrix in (8) is at most 2(k −1)(b + 1)β2e−cα∥η̂∥2. Thus, by Gershgorin’s theorem, the maximum eigenvalue of the matrix in (8) is at most 2dk(k −1)(b + 1)β2e−cα∥η̂∥2. Now, we can prove Theorem 5 by constructing a scaled version of θ̂ that satisﬁes the expectation- linearization constraint. 19 Proof of Theorem 5 Proof. Consider the likelihood evaluated at θ̃ = {λ̂, αη̂}, where α = δ 4β∥η̂∥2 . If α > 1, then ∥η∥2 > δ 4β . We know the MLE θ̂ already satisﬁes the expectation-linearization constraint. So we can assume that 0 ≤α ≤1, and we know that θ̃ satisﬁes V (D; θ̃) ≤δ. Then, ∆l(θ̂, θ̂δ) ≤∆l(θ̂, θ̃) = 1 n(l(D; θ̂) −l(D; θ̃)) = g(λ̂, η̂) −g(λ̂, αη̂) where g(λ, η) = 1 nl(D; (λ, η)). Taking the second-order Taylor expansion about η, we have g(λ̂, αη̂) = g(λ̂, η̂) + ∇T η g(λ̂, η̂)(αη̂ −η̂) + (αη̂ −η̂)T ∇2 ηg(λ̂, η̂)(αη̂ −η̂) Since θ̂ is the MLE, the ﬁrst-order term ∇T η g(λ̂, η̂)(αη̂ −η̂) = 0. The Hessian in the second-order term is just Eq.(8). Thus, from Lemma 16 we have g(λ̂, αη̂) ≤ g(λ̂, η̂) −(1 −α)2∥η̂∥2 22dk(k −1)(b + 1)β2e−cα∥η̂∥2 = g(λ̂, η̂) −2dk(k −1)(b + 1)β2 \u0010 ∥η̂∥2 − δ 4β \u00112 e−cδ/4β = g(λ̂, η̂) −c1β2 \u0010 ∥η̂∥2 − δ 4β \u00112 e−c2δ/4β with setting c1 = 2dk(k −1)(b + 1) and c2 = c. Then the theorem follows. C.3 PROOF OF THEOREM 6: UNIFORM BOUND OF MODEL ACCURACY In the following, we denote θ̃ = {λ̂, αη̂}. Lemma 17. For each y ∈Y, if p(y|x, s; θ̂) ≥1/k, then ∀α ∈[0, 1] p(y|x, s; θ̃) ≥1 k Proof. This lemma can be regarded as a corollary of Lemma 11. Lemma 18. For a ﬁxed x and s, we denote eη̂T y h(L−1)(x,s;λ̂) = wy. Then we have p(y|x, s, θ̃) = eαη̂T y h(L−1)(x,s;λ̂) P y′∈Y eαη̂T y′h(L−1)(x,s;λ̂) = (wy)α P y′∈Y (wy′)α Additionally, we denote gs(α) = P y′∈Y p(y′|x, s; θ̃) log wy′ −log wy. We assume gs(0) ≥0. Then we have ∀α ≥0 gs(α) ≥0 Proof. ∂gs(α) ∂α = X y′∈Y log wy′ ∂p(y′|x, s; θ̃) ∂α = VarY [log wY |X −x, S = s] ≥0 So gs(α) is non-decreasing. Since gs(0) ≥0, we have gs(α) ≥0 when α ≥0. From above lemma, we have for each training instance (xi, yi) ∈D, and ∀α ∈[0, 1], EY h log p(Y |xi, s; θ̃) i ≥log p(yi|xi, s; θ̃) (9) For convenience, we deﬁne m(s, y) = log p(y|x, s; θ̃) −EY h log p(Y |x, s; θ̃) i 20 Lemma 19. If y satisﬁes Lemma 17 and gs(α) ≥0, then VarY [m(s, Y )] ≥m(s, y)2 Proof. First we have m(s, y) = log p(y|x, s; θ̃) −log 1/k −KL \u0010 p(·|x, s; θ̃)|Unif(Y) \u0011 ≤0 So we have (VarY [m(s, Y )])1/2 = s EY \u0014\u0010 log p(Y |x, s; θ̃) −EY h log p(Y |x, s; θ̃) i\u00112\u0015 ≥ EY h log p(Y |x, s; θ̃) −EY h log p(Y |x, s; θ̃) i i = EY h KL \u0010 p(·|x, s; θ̃)|Unif(Y) \u0011 + log 1/k −log p(Y |x, s; θ̃) i = EY h KL \u0010 p(·|x, s; θ̃)|Unif(Y) \u0011 + log 1/k −log p(Y |x, s; θ̃) i ≥ KL \u0010 p(·|x, s; θ̃)|Unif(Y) \u0011 + EY h log p(Y |x, s; θ̃) −log 1/k i = 2KL \u0010 p(·|x, s; θ̃)|Unif(Y) \u0011 As KL \u0010 p(·|x, s; θ̃)|Unif(Y) \u0011 ≥0 and log p(y|x, s; θ̃) ≥log 1/k. So we have 2KL \u0010 p(·|x, s; θ̃)|Unif(Y) \u0011 ≥KL \u0010 p(·|x, s; θ̃)|Unif(Y) \u0011 +log 1/k−log p(y|x, s; θ̃) = −m(s, y) Then the lemma follows. From Lemma 19 and Eq. (9), we have for each training instance (xi, yi) ∈D, and ∀α ∈[0, 1], VarY [m(s, Y )] ≥m(s, yi)2 (10) Lemma 20. For each training instance (xi, yi) ∈D, and ∀α ∈[0, 1], we have log p(yi|xi; {λ̂, αη̂}) ≥(1 −α) log p(yi|xi; {λ̂, 0}) + α log p(yi|xi; {λ̂, η̂}) Proof. We deﬁne f(α) = log p(yi|xi; {λ̂, αη̂}) −(1 −α) log p(yi|xi; {λ̂, 0}) −α log p(yi|xi; {λ̂, η̂}) Because f(0) = f(1) = 0, we only need to prove that f(α) is concave on [0, 1]. We have ∇2f(α) = −ES|Y =yi [VarY [m(S, Y )]] + VarS|Y =yi [m(S, yi)] where S|Y = yi is under the probability distribution p(s|Y = yi, xi; θ̃) = p(yi|xi,S;θ̃)p(s) p(yi|xi;θ̃) From Eq. (10), we have ES|Y =yi [VarY [m(S, Y )]] ≥ES|Y =yi \u0002 m(S, yi)2\u0003 ≥VarS|Y =yi [m(S, yi)] So we have ∇2f(α) ≤0. The lemma follows. Now, we can prove Theorem 6 by using the same construction of an expectation-linearizing parameter as in Theorem 5. Proof of Theorem 6 Proof. Consider the same parameter θ̃ = {λ̂, αη̂}, where α = δ 4β∥η̂∥2 ≤1. we know that θ̃ satisﬁes V (D; θ̃) ≤δ. Then, ∆l(θ̂, θ̂δ) ≤∆l(θ̂, θ̃) = 1 n(l(D; θ̂) −l(D; θ̃)) 21 From Lemma 20 we have: l(D; θ̃) = l(D; {λ̂, αη̂}) ≥(1 −α)l(D; {λ̂, 0}) + αl(D; {λ̂, η̂}) So ∆l(θ̂, θ̂δ) ≤ (1 −α) 1 n \u0010 l(D; θ̂) −l(D; {λ̂, 0}) \u0011 = (1 −α) 1 n nP i=1 log p(yi|xi; θ̂) −log Unif(Y) ≍ (1 −α)E [KL (p(·|X; θ)∥Unif(Y))] ≤ \u0010 1 − δ 4β∥η̂∥2 \u0011 E [KL (p(·|X; θ)∥Unif(Y))] D DETAILED DESCRIPTION OF EXPERIMENTS D.1 NEURAL NETWORK ARCHITECTURES MNIST For MNIST, we train 6 different fully-connected (dense) neural networks with 2 or 3 layers (see Table 1). For all architectures, we used dropout rate p = 0.5 for all hidden layers and p = 0.2 for the input layer. CIFAR-10 and CIFAR-100 For the two CIFAR datasets, we used the same architecture in Srivas- tava et al. (2014) — three convolutional layers followed by two fully-connected hidden layers. The convolutional layers have 96, 128, 265 ﬁlters respectively, with a 5 × 5 receptive ﬁeld applied with a stride of 1. Each convolutional layer is followed by a max pooling layer pools 3 × 3 regions at strides of 2. The fully-connected layers have 2048 units each. All units use the rectiﬁed linear activation function. Dropout was applied to all the layers with dropout rate p = (0.1, 0.25, 0.25, 0.5, 0.5, 0.5) for the layers going from input to convolutional layers to fully-connected layers. D.2 NEURAL NETWORK TRAINING Neural network training in all the experiments is performed with mini-batch stochastic gradient descent (SGD) with momentum. We choose an initial learning rate of η0, and the learning rate is updated on each epoch of training as ηt = η0/(1 + ρt), where ρ is the decay rate and t is the number of epoch completed. We run each experiment with 2,000 epochs and choose the parameters achieving the best performance on validation sets. Table 3 summarizes the chosen hyper-parameters for all experiments. Most of the hyper-parameters are chosen from Srivastava et al. (2014). But for some experiments, we cannot reproduce the performance reported in Srivastava et al. (2014) (We guess one of the possible reasons is that we used different library for implementation.). For these experiments, we tune the hyper-parameters on the validation sets by random search. Due to time constrains it is infeasible to do a random search across the full hyper-parameter space. Thus, we try to use as many hyper-parameters reported in Srivastava et al. (2014) as possible. D.3 EFFECT OF EXPECTATION-LINEARIZATION RATE λ Table 4 illustrates the detailed results of the experiments on the effect of λ. For MNIST, it lists the error rates under different λ values for six different network architectures. For two datasets of CIFAR, it gives the error rates under different λ values, among with the empirical expectation-linearization risk ˆ∆. 22 Table 3: Hyper-parameters for all experiments. Experiment Hyper-parameter MNIST batch size 200 initial learning rate η0 0.1 decay rate ρ 0.025 momentum 0.9 momentum type standard max-norm constrain 3.5 CIFAR 10 100 batch size 100 100 initial learning rate η0 for conv layers 0.001 0.001 initial learning rate η0 for dense layers 0.1 0.02 decay rate ρ 0.005 0.005 momentum 0.95 0.95 momentum type standard nesterov max-norm constrain 4.0 2.0 L2-norm decay 0.001 0.001 Table 4: Detailed results for experiments on the effect of λ. λ Experiment 0.0 0.5 1.0 2.0 3.0 5.0 7.0 10.0 MNIST model 1 1.23 1.12 1.12 1.08 1.07 1.10 1.25 1.35 model 2 1.19 1.14 1.08 1.04 1.03 1.07 1.13 1.21 model 3 1.05 1.04 0.98 1.03 1.05 1.05 1.10 1.12 model 4 1.07 1.02 0.97 0.94 0.96 1.01 1.05 1.20 model 5 1.03 0.95 0.95 0.90 0.92 0.98 1.03 1.08 model 6 0.99 0.98 0.93 0.87 0.96 0.98 1.05 1.10 λ 0.0 0.1 0.5 1.0 2.0 5.0 10.0 CIFAR-10 error rate 12.82 12.52 12.38 12.20 12.60 12.84 13.10 ˆ∆ 0.0139 0.0128 0.0104 0.0095 0.0089 0.0085 0.0077 CIFAR-100 error rate 37.22 36.75 36.25 37.01 37.18 37.58 38.01 ˆ∆ 0.0881 0.0711 0.0590 0.0529 0.0500 0.0467 0.0411 23",
+          "title": ": Rn(H, Xn, Sn) = Eσ \u0014 sup h∈H \u0010 1 n nP i=1 σih(Xi, Si) \u0011\u0015 Rn(H) = EXn,Sn h Radn(H, Xn, Sn) i 15 where H : X × S →R is a function space deﬁned on input space X and dropout variable space S",
+          "authors": [
+            "θ)] = R S NQ i=1 p(si) \u0010 N P i=1 log p(yi|xi, si",
+            "θ) \u0011 dµ(s1) . . . dµ(sN) = N P i=1 R S p(si) log p(yi|xi, si",
+            "θ)dµ(s) ≤log Z S p(s)p(y|x, s",
+            "θ)dµ(s) Thus ESD[−l(D, SD",
+            "θ)] ≥ N X i=1 log Z S p(si)p(yi|xi, si",
+            "θ)dµ(si) = −l(D",
+            "θ) \u0003 ∆= E \u0002 f(X ⊙Γ",
+            "θ) \u0003 = ES \u0002 H(L)(X, S"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:1",
+        "dimension_engine:technical_correctness:llm_unavailable",
+        "dimension_engine:presentation_clarity:llm_unavailable"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e98f4ed90ba5fd605728ab0885e8564e08fb49ebd1a9bbe30f89dbcbe4f91b06",
+          "request_time": "2026-08-22T17:37:35.470668Z",
+          "status": "degraded",
+          "result_count": 2,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "1/28 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:37:36.309079Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "f06120a456bda0e5a4b93cd2d36ade7fdc73aec4584bb9ac9a44c7850c0f3e7d",
+          "request_time": "2026-08-22T17:37:37.090683Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.theoretical.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:42:44.948316Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.8,
+      "study_design": "theoretical",
+      "study_design_confidence": 0.7,
+      "rationale": "Belgenin kısa olması (≈10000 kelime), yazar listesinde farklı üniversitelerden araştırmacıların bulunması ve 'Language Technologies Institute' gibi bir enstitü adının geçmesi konferans bildirisi olabileceğini düşündürüyor. Çalışma, 'formulate dropout', 'theoretical analysis', 'formally characterize', 'prove the upper bounds' gibi ifadelerle teorik bir modelleme ve analiz üzerine odaklanmaktadır.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 94.85714285714286,
+      "recommended_decision": "accept",
+      "confidence": 0.7028571428571428,
+      "top_fatal_risks": [],
+      "one_sentence_diagnosis": "No critical/major issues, but 3 moderate issue(s) need attention; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.5,
+        "why_it_matters": "No issues found in this dimension."
+      },
+      {
+        "dimension": "evidence",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "ethics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.5,
+        "why_it_matters": "No issues found in this dimension."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "2 concern(s): The bibliography contains critical deficiencies, with 26 out of 28 references being unresolvable against major academic indices. This severely hinders the verification of the paper's claims and its proper contextualization within the existing scientific literature. This is not a minor formatting issue but a fundamental scholarly flaw that requires meticulous review and correction of every entry to ensure accuracy, completeness, and stable referencing (e.g., using DOIs).; The authors state they were unable to reproduce the baseline results for Dropout Distillation on CIFAR-100, noting a performance deficit of approximately 3%. While transparency is appreciated, this inability to reproduce a key baseline weakens the confidence in the comparative results presented for this specific dataset and method. Further details on the difficulties encountered and potential implications for the comparison are needed.",
+        "key_objection": "The bibliography contains critical deficiencies, with 26 out of 28 references being unresolvable against major academic indices. This severely hinders the verification of the paper's claims and its proper contextualization within the existing scientific literature. This is not a minor formatting issue but a fundamental scholarly flaw that requires meticulous review and correction of every entry to ensure accuracy, completeness, and stable referencing (e.g., using DOIs).",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "novelty_to_length_ratio.f0",
+          "novelty_to_length_ratio.f1",
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "1 concern(s): The authors state they were unable to reproduce baseline results for Dropout Distillation on CIFAR-100, noting a performance deficit of approximately 3%. While transparency is appreciated, this inability to replicate a key baseline weakens the comparative claims for this specific dataset and method. It raises questions about the comparability of experimental setups or potential issues in the original baseline's reported performance.",
+        "key_objection": "The authors state they were unable to reproduce baseline results for Dropout Distillation on CIFAR-100, noting a performance deficit of approximately 3%. While transparency is appreciated, this inability to replicate a key baseline weakens the comparative claims for this specific dataset and method. It raises questions about the comparability of experimental setups or potential issues in the original baseline's reported performance.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The bibliography contains critical deficiencies. 26 out of 28 references could not be automatically resolved against major academic indices. This severely hinders the verification of the paper's claims and its proper contextualization within the existing literature. Authors must meticulously review and correct every entry to ensure accuracy, completeness, and proper linking to published versions (e.g., via DOIs).; The authors mention being unable to reproduce baseline results for Dropout Distillation on CIFAR-100. While transparency is appreciated, this weakens the direct comparability of the proposed method's performance on this specific dataset. It would be beneficial to elaborate on the difficulties encountered or to provide a more detailed discussion on how this affects the interpretation of the results for CIFAR-100.; For CIFAR datasets, the gains of the proposed method ('w. EL Standard') over the baseline ('Standard') are noted to be smaller than for MNIST, and still fall short of MC dropout. The discussion should explicitly frame this as an acceptable trade-off, highlighting that the method offers a computationally cheap way to close *some* of the performance gap, rather than fully matching the more expensive MC dropout.",
+        "key_objection": "The bibliography contains critical deficiencies. 26 out of 28 references could not be automatically resolved against major academic indices. This severely hinders the verification of the paper's claims and its proper contextualization within the existing literature. Authors must meticulously review and correct every entry to ensure accuracy, completeness, and proper linking to published versions (e.g., via DOIs).",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The evidence pack states that 26 out of 28 references were 'not_found_in_index'. However, it also explicitly notes that one of these (reference [28]) failed due to a 'service error' and does not necessarily mean it is not found. Therefore, stating '26 out of 28 references could not be automatically resolved' is slightly misleading as one of these failures is attributed to a temporary system issue rather than an inherent problem with the reference itself. The actual number of references that genuinely could not be resolved is 25.; The statement 'A vast majority of the references appear to be incorrectly formatted, incomplete, or unresolvable' is supported by the 'citation_integrity_summary' showing 26 out of 28 references as 'not_found_in_index'. While the evidence pack clarifies that 'not_found_in_index' does not definitively mean the reference is non-existent, the extremely low match scores (all below 0.82, with many significantly lower) for the 25 genuinely unresolved references strongly suggest issues with formatting, completeness, or accuracy that prevent automated resolution. This high rate of non-resolution indicates a systemic problem.; Similar to the previous issue, the evidence pack indicates that 26 out of 28 references were 'not_found_in_index'. However, one of these (reference [28]) was due to a 'service error' and not necessarily an issue with the reference itself. Therefore, the precise number of references that genuinely could not be resolved is 25, not 26. The conclusion about systemic issues remains valid for the 25 genuinely unresolved references.",
+        "key_objection": "The statement 'A vast majority of the references appear to be incorrectly formatted, incomplete, or unresolvable' is supported by the 'citation_integrity_summary' showing 26 out of 28 references as 'not_found_in_index'. While the evidence pack clarifies that 'not_found_in_index' does not definitively mean the reference is non-existent, the extremely low match scores (all below 0.82, with many significantly lower) for the 25 genuinely unresolved references strongly suggest issues with formatting, completeness, or accuracy that prevent automated resolution. This high rate of non-resolution indicates a systemic problem.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "reject-leaning",
+        "summary": "2 concern(s): The overall assessment claims the paper has a 'strong, original, and valuable core contribution' and rates originality as 9.0, despite the severe and widespread issues with the bibliography. The inability to verify 26 out of 28 references (as per the 'citation_integrity_summary' in the KANIT PAKETİ) makes it impossible to properly contextualize the work within existing literature and thus rigorously assess its true originality. Without verifiable references, it's difficult to ascertain if the 'novel' aspects are indeed novel or if similar ideas have been explored in the unresolvable cited works or other related literature that cannot be identified due to the poor referencing.; The originality score of 9.0 and the rationale 'The core idea of identifying, formalizing, and proposing a regularization scheme for the dropout 'inference gap' is highly novel' are not sufficiently grounded given the critical deficiencies in the bibliography. With 26 out of 28 references being unresolvable, the reviewer cannot definitively confirm the novelty of the proposed approach or the 'inference gap' concept. It is possible that some of the unresolvable references contain similar or foundational ideas that would diminish the perceived originality.",
+        "key_objection": "The overall assessment claims the paper has a 'strong, original, and valuable core contribution' and rates originality as 9.0, despite the severe and widespread issues with the bibliography. The inability to verify 26 out of 28 references (as per the 'citation_integrity_summary' in the KANIT PAKETİ) makes it impossible to properly contextualize the work within existing literature and thus rigorously assess its true originality. Without verifiable references, it's difficult to ascertain if the 'novel' aspects are indeed novel or if similar ideas have been explored in the unresolvable cited works or other related literature that cannot be identified due to the poor referencing.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "novelty_to_length_ratio.f0",
+          "novelty_to_length_ratio.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper introduces a novel and theoretically-grounded approach to address the 'inference gap' in dropout—the discrepancy between the ensemble model used during training and the approximated, weight-scaled model used during inference. The authors formulate dropout as a latent variable model, define a measure of this gap via 'expectation-linearity,' and propose a simple regularization term to minimize it. The theoretical contributions are significant, and the experimental results on MNIST, CIFAR-10, and CIFAR-100 consistently show performance improvements. The work is strong in its originality, technical soundness, and potential impact. While there are significant formatting issues in the bibliography that require a thorough correction before publication, the core contribution is sound and warrants acceptance.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Konusu ve Kapsamı",
+        "summary": "Makale, derin öğrenme alanında önemli bir teknik olan Dropout'un teorik temellerini ve pratik uygulamalarını ele almaktadır. Özellikle, Dropout'un eğitim ve çıkarım aşamaları arasındaki 'çıkarım boşluğunu' (inference gap) karakterize etme, kontrol etme ve deneysel olarak iyileştirme üzerine odaklanmaktadır. Bu konu, makine öğrenimi ve yapay zeka konferansları için oldukça uygun ve günceldir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "Dropout, a simple and effective way to train deep neural networks, has led to a number of impressive empirical successes and spawned many recent theoretical investigations. However, the gap between dropout’s training and inference phases, introduced due to tractability considerations, has largely remained under-appreciated. In this work, we ﬁrst formulate dropout as a tractable approximation of some latent variable model, leading to a clean view of parameter sharing and enabling further theoretical analysis. Then, we introduce (approximate) expectation-linear dropout neural networks, whose inference gap we are able to formally characterize. Algorithmically, we show that our proposed measure of the inference gap can be used to regularize the standard dropout training objective, resulting in an explicit control of the gap. Our method is as simple and efﬁcient as standard dropout. We further prove the upper bounds on the loss in accuracy due to expectation-linearization, describe classes of input distributions that expectation-linearize easily. Experiments on three image classiﬁcation benchmark datasets demonstrate that reducing the inference gap can indeed improve the performance consistently."
+          },
+          {
+            "anchor_id": "1_introduction.a0",
+            "section": "1 INTRODUCTION",
+            "quote": "Deep neural networks (DNNs, e.g., LeCun et al., 2015; Schmidhuber, 2015), if trained properly, have been demonstrated to signiﬁcantly improve the benchmark performances in a wide range of application domains. As neural networks go deeper and deeper, naturally, its model complexity also increases quickly, hence the pressing need to reduce overﬁtting in training DNNs. A number of techniques have emerged over the years to address this challenge, among which dropout (Hinton et al., 2012; Srivastava, 2013) has stood out for its simplicity and effectiveness."
+          }
+        ],
+        "reasoning_public": "Makale, derin öğrenme modellerinin genelleme performansını artırmaya yönelik bir yöntem olan Dropout'u inceliyor. Çalışma, Dropout'un teorik analizini derinleştirerek, çıkarım boşluğu sorununa yeni bir bakış açısı getiriyor ve bu boşluğu azaltmak için yeni bir düzenlileştirme tekniği öneriyor. Bu tür teorik ve deneysel katkılar, makine öğrenimi alanındaki konferansların temel ilgi alanlarındandır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Teorik Gelişmelerin Deneysel Doğrulamasının Sınırlı Kapsamı",
+        "summary": "Makale, dropout'un çıkarım boşluğunu ele alan önemli teorik katkılar sunmasına rağmen, bu teorik gelişmelerin deneysel doğrulaması üç standart görüntü sınıflandırma veri kümesiyle sınırlıdır. Bu durum, makalenin teorik derinliği ile deneysel kapsamı arasında bir dengesizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Experiments on three image classiﬁcation benchmark datasets demonstrate that reducing the inference gap can indeed improve the performance consistently."
+          },
+          {
+            "anchor_id": "6_experiments.a0",
+            "section": "6 EXPERIMENTS",
+            "quote": "In this section, we evaluate the empirical performance of the proposed regularized dropout in (15) on a variety of network architectures for the classiﬁcation task on three benchmark datasets—MNIST, CIFAR-10 and CIFAR-100."
+          }
+        ],
+        "reasoning_public": "Makale, dropout'un çıkarım boşluğunu nicelendirme ve kontrol etme konusunda yeni bir teorik çerçeve sunmaktadır. Ancak, bu teorik yeniliklerin pratik etkileri sadece MNIST, CIFAR-10 ve CIFAR-100 gibi yaygın veri kümeleri üzerinde gösterilmiştir. Bu veri kümeleri, derin öğrenme alanındaki birçok yeni teorik çalışmanın potansiyelini tam olarak yansıtmak için yeterince çeşitli veya zorlayıcı olmayabilir. Daha geniş bir deneysel doğrulama, teorik katkıların genellenebilirliğini ve pratik önemini daha iyi ortaya koyacaktır.",
+        "limitations": [],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f1",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik Çerçevede Yüksek Yenilik",
+        "summary": "Makale, dropout'un çıkarım boşluğunu ele almak için yeni bir beklenti-doğrusal düzenlileştirme çerçevesi sunarak önemli teorik yenilikler içermektedir. Bu, mevcut literatürdeki önemli bir boşluğu doldurmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "In this work, we ﬁrst formulate dropout as a tractable approximation of some latent variable model, leading to a clean view of parameter sharing and enabling further theoretical analysis. Then, we introduce (approximate) expectation-linear dropout neural networks, whose inference gap we are able to formally characterize."
+          },
+          {
+            "anchor_id": "1_introduction.a1",
+            "section": "1 INTRODUCTION",
+            "quote": "In general, this inference gap can be very large and no attempt (to our best knowledge) has been made to control it. We make three contributions in bridging this gap: Theoretically, we introduce expectation-linear dropout neural networks, through which we are able to explicitly quantify the inference gap (§4)."
+          }
+        ],
+        "reasoning_public": "Makale, dropout'un eğitim ve çıkarım aşamaları arasındaki boşluğu (inference gap) formüle etme, nicelendirme ve kontrol etme konusunda özgün bir yaklaşım sunmaktadır. Özellikle, beklenti-doğrusal dropout sinir ağları kavramının tanıtılması ve bu boşluğun düzenlileştirme yoluyla azaltılabileceğinin gösterilmesi, alana önemli bir teorik katkıdır. Bu yenilik, makalenin uzunluğunu ve detaylı teorik analizini haklı çıkarmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Reproducibility Artifacts Not Explicitly Provided",
+        "summary": "Makale, deneylerin tekrar üretilebilirliğini sağlayacak kod veya veri setlerine doğrudan erişim bağlantıları sunmamaktadır. Yalnızca 'Appendix D'de daha detaylı açıklama' ifadesi bulunmaktadır, ancak bu ek bölüm makale metninde yer almamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "6_experiments.a1",
+            "section": "6 EXPERIMENTS",
+            "quote": "A more detailed description of the conducted experiments can be provided in Appendix D."
+          }
+        ],
+        "reasoning_public": "Akademik araştırmalarda tekrar üretilebilirlik, bulguların doğrulanması ve gelecekteki çalışmalar için temel oluşturulması açısından kritik öneme sahiptir. Kod ve veri setlerinin açıkça sağlanmaması, diğer araştırmacıların makalede sunulan sonuçları bağımsız olarak doğrulamalarını veya bu çalışma üzerine inşa etmelerini zorlaştırır.",
+        "limitations": [],
+        "action_item_ids": [
+          "reproducibility_artifact.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Katkılar Açıkça ve Yapısal Olarak Sunulmuştur",
+        "summary": "Makale, çalışmanın temel katkılarını soyut bölümde ve giriş kısmında net bir şekilde özetlemekte, ardından bu katkıları teorik ve deneysel bulgularla desteklemektedir. Okuyucu, çalışmanın yeniliğini ve önemini kolayca anlayabilmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "In this work, we ﬁrst formulate dropout as a tractable approximation of some latent variable model, leading to a clean view of parameter sharing and enabling further theoretical analysis. Then, we introduce (approximate) expectation-linear dropout neural networks, whose inference gap we are able to formally characterize. Algorithmically, we show that our proposed measure of the inference gap can be used to regularize the standard dropout training objective, resulting in an explicit control of the gap. Our method is as simple and efﬁcient as standard dropout. We further prove the upper bounds on the loss in accuracy due to expectation-linearization, describe classes of input distributions that expectation-linearize easily. Experiments on three image classiﬁcation benchmark datasets demonstrate that reducing the inference gap can indeed improve the performance consistently."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "We make three contributions in bridging this gap: Theoretically, we introduce expectation-linear dropout neural networks, through which we are able to explicitly quantify the inference gap (§4). In particular, our theoretical results explain why the max-norm constraint on the network weights, a standard practice in training DNNs, can lead to a small inference gap hence potentially improve performance. Algorithmically, we propose to add a sampled version of the inference gap to regularize the standard dropout training objective (expectation-linearization), hence allowing explicit control of the inference gap, and analyze the interaction between expectation-linearization and the model accuracy (§5). Experimentally, through three benchmark datasets we show that our regularized dropout is not only as simple and efﬁcient as standard dropout but also consistently leads to improved performance (§6)."
+          }
+        ],
+        "reasoning_public": "Makalenin ana katkıları, soyut bölümde ve giriş bölümünde açıkça belirtilmiş ve daha sonraki bölümlerde detaylandırılmıştır. Bu yapı, okuyucunun çalışmanın neyi başardığını ve neden önemli olduğunu hızlıca kavramasına yardımcı olur.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik ve Sınırlılık Tartışması Eksikliği",
+        "summary": "Makale, çalışmanın etik boyutları veya potansiyel olumsuz etkileri hakkında herhangi bir tartışma içermemektedir. Ayrıca, çalışmanın metodolojik veya deneysel sınırlılıklarına dair açık bir bölüm bulunmamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, özellikle yapay zeka gibi hızla gelişen alanlarda, etik mülahazaların ve çalışmanın kısıtlarının şeffaf bir şekilde belirtilmesi önemlidir. Bu, okuyucuların çalışmanın kapsamını ve potansiyel etkilerini daha iyi anlamalarına yardımcı olur. Mevcut makalede bu tür bir tartışmanın olmaması, çalışmanın genel bağlamını ve sorumluluk çerçevesini eksik bırakmaktadır.",
+        "limitations": [
+          "Makalenin tamamı yerine kısaltılmış bir versiyonu değerlendirilmiştir. Tam metinde bu konulara değinilmiş olma ihtimali bulunmaktadır."
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Kısaltılmış Metin Nedeniyle Kapsamlı Değerlendirme Kısıtlılığı",
+        "summary": "Makalenin yalnızca kısaltılmış bir versiyonu sağlandığı için, metodoloji, deneysel kurulum ve sonuçların tam kapsamlı bir değerlendirmesi yapılamamıştır. Bu durum, hakemin makalenin genel kalitesi ve katkısı hakkındaki güvenini sınırlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "6_1_mnist.a0",
+            "section": "6.1 MNIST",
+            "quote": "The MNIST dataset (LeCun et al., 1998) consists of 70,000 handwritten digit images of size 28×28, where 60,000 images are used for training and the res"
+          }
+        ],
+        "reasoning_public": "Akademik bir makalenin tam metni olmadan, argümanların bütünlüğünü, deneysel detayların yeterliliğini ve literatürle olan etkileşimin derinliğini tam olarak değerlendirmek mümkün değildir. Özellikle 'Experiments' bölümünün kesik olması, deneysel bulguların güvenilirliği ve genellenebilirliği hakkında kesin yargılara varmayı engellemektedir.",
+        "limitations": [
+          "Sağlanan metnin kısaltılmış olması nedeniyle, makalenin tamamına ilişkin potansiyel sorunlar veya güçlü yönler gözden kaçırılmış olabilir."
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0"
+        ],
+        "global_issue": true
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "reviewer_confidence.f0.a0",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "Tüm Makale",
+        "instruction": "Makalenin tam metnini (özellikle 'Experiments' ve 'Appendix' bölümlerini içeren) sağlayın.",
+        "acceptance_check": "Makalenin tüm bölümlerinin eksiksiz olarak sunulması.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "6 EXPERIMENTS",
+        "instruction": "Teorik bulguların genellenebilirliğini ve pratik etkisini daha iyi göstermek için deneysel bölümü genişletin. Bu, daha çeşitli veri kümeleri (örn. doğal dil işleme, konuşma tanıma) veya daha karmaşık/büyük ölçekli modeller içerebilir.",
+        "acceptance_check": "Deneysel bölümde en az iki farklı uygulama alanından (görüntü sınıflandırma dışı) yeni veri kümeleri ve sonuçlar sunulmalı veya mevcut veri kümeleri üzerinde daha karmaşık model mimarileri ile ek deneyler yapılmalı.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "6 EXPERIMENTS",
+        "instruction": "Makalenin ekinde (Appendix D) deneylerde kullanılan kodların (örneğin GitHub deposu linki) ve/veya veri setlerinin (eğer kamuya açık değilse nasıl erişilebileceğine dair bilgi) açıkça belirtilmesi gerekmektedir.",
+        "acceptance_check": "Makalede veya ekinde, deneylerin tekrar üretilebilirliğini sağlayacak kod ve veri setlerine doğrudan erişim sağlayan bir bölümün eklenmesi.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f0.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "CONCLUSIONS",
+        "instruction": "Makalenin 'CONCLUSIONS' veya yeni bir 'Limitations and Future Work' bölümünde, çalışmanın metodolojik sınırlılıklarını (örneğin, kullanılan veri setlerinin genellenebilirliği, modelin karmaşıklığına dair kısıtlamalar) ve potansiyel etik çıkarımlarını (örneğin, modelin yanlış kullanımı, veri gizliliği) tartışın.",
+        "acceptance_check": "Makalede etik ve sınırlılıkları ele alan bir paragraf veya bölüm eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "ethics_limitations.f0"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Teorik Gelişmelerin Deneysel Doğrulamasının Sınırlı Kapsamı",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSIONS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "ACKNOWLEDGEMENTS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1 INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "1_introduction.a0",
+          "1_introduction.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "6 EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Teorik Gelişmelerin Deneysel Doğrulamasının Sınırlı Kapsamı; Reproducibility Artifacts Not Explicitly Provided",
+        "anchor_ids": [
+          "6_experiments.a0",
+          "6_experiments.a1"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "reproducibility_artifact.f0.a0"
+        ]
+      },
+      {
+        "section": "6.1 MNIST",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Kısaltılmış Metin Nedeniyle Kapsamlı Değerlendirme Kısıtlılığı",
+        "anchor_ids": [
+          "6_1_mnist.a0"
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0"
+        ]
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "theoretical",
+  "verdict": "accept"
+}

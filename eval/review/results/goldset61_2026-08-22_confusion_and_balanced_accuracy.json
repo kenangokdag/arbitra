@@ -1,0 +1,42 @@
+{
+  "n_reports": 43,
+  "motor_dagilim": {
+    "accept": 33,
+    "major_revision": 8,
+    "reject": 2
+  },
+  "confusion_matrix_insan_satir_motor_sutun": {
+    "accept": {
+      "accept": 29,
+      "major_revision": 4,
+      "reject": 1
+    },
+    "major_revision": {
+      "major_revision": 1
+    },
+    "reject": {
+      "accept": 4,
+      "major_revision": 3,
+      "reject": 1
+    }
+  },
+  "sinif_basi_dogruluk": {
+    "accept": {
+      "dogru": 29,
+      "toplam": 34
+    },
+    "minor_revision": {
+      "dogru": 0,
+      "toplam": 0
+    },
+    "major_revision": {
+      "dogru": 1,
+      "toplam": 1
+    },
+    "reject": {
+      "dogru": 1,
+      "toplam": 8
+    }
+  },
+  "sinif_dengeli_dogruluk": 0.6593137254901961
+}

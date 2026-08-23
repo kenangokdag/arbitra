@@ -1,0 +1,1686 @@
+{
+  "paper_id": "peerread:iclr2017-422",
+  "run_tag": "main",
+  "job_id": "d55d240d-594e-4833-a1d2-21fec212ebc5",
+  "elapsed_s": 380.3,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "DEEP VARIATIONAL BAYES FILTERS: UNSUPERVISED LEARNING OF STATE SPACE MODELS FROM RAW",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "CONCLUSION",
+        "ACKNOWLEDGEMENTS",
+        "REFERENCES"
+      ],
+      "word_count": 6005,
+      "reference_count": 24,
+      "parse_confidence": 0.677,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces Deep Variational Bayes Filters (DVBF), a novel and compelling method for unsupervised learning of state-space models from raw sequential data. The core contribution is a reparametrization of the state transition that forces the model to learn the underlying dynamics by allowing gradients to flow through time, elegantly addressing a common failure mode in prior work. The authors provide strong empirical evidence on simulated physics-based tasks, demonstrating that their model successfully recovers the full latent state and enables stable, long-term generative predictions. The work is a significant contribution. Revisions are required to improve clarity, provide more detail on key methodological choices, and to more thoroughly discuss the model's limitations, particularly concerning its application to real-world data and its underlying assumptions about system stochasticity.",
+    "strengths": [
+      {
+        "category": "Novelty and Significance",
+        "points": [
+          "The central idea of reparametrizing the transition to be deterministic given stochastic parameters is novel and highly effective. Forcing gradients to backpropagate through the dynamics is a key insight that directly addresses a well-known problem in generative sequence models.",
+          "The model successfully bridges concepts from classical systems theory (state-space models, filtering) with modern deep learning techniques (variational autoencoders, SGVB), providing a principled framework for system identification from raw sensory input."
+        ]
+      },
+      {
+        "category": "Empirical Validation",
+        "points": [
+          "The experimental results are clear and convincing. The direct comparison with Deep Kalman Filters (DKF) on the pendulum task provides strong evidence for the paper's central claim: DVBF captures latent information about time derivatives (velocity) that DKF misses.",
+          "The qualitative visualizations are excellent. The latent space plots (Fig. 3a) and the 'checkerboard' embedding for the bouncing ball (Fig. 5a) are powerful illustrations of the model's ability to learn meaningful, disentangled representations of the physical system.",
+          "The demonstration of stable, long-term generative sampling (Fig. 4c, Fig. 6) far beyond the training sequence length is a significant result and highlights the practical utility of learning a good transition model."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Methodological Robustness and Generalizability",
+        "points": [
+          "The paper's core assumption of a deterministic transition (given latent state and parameters) is a strong one. The work lacks a discussion of how the framework would handle systems with inherent, irreducible stochasticity that cannot be fully captured by the inferred process noise. This is a key limitation regarding the model's applicability to a broader class of real-world systems.",
+          "For the locally linear transition model, the paper provides no sensitivity analysis or discussion regarding the choice of 'M', the number of basis systems. It is unclear how this critical hyperparameter should be set or how robust the reported results are to its value, leaving a gap in understanding the model's practical application.",
+          "The experiments are performed exclusively on simulated data. While effective for validation, the paper needs a more concrete discussion of how performance might degrade with real-world data, which often features higher noise levels, non-stationarities, or partial observability, and what specific adaptations might be required."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The paper is dense and assumes a high level of familiarity with the related literature. Key concepts could benefit from more intuitive explanations. For instance, the distinction and interplay between the sample-specific noise `wt` and the universal transition parameters `vt` could be elaborated on further.",
+          "The derivation of the lower bound in Section 3.2 is very compact. Adding a few intermediate steps or explanatory sentences would improve accessibility for a broader audience."
+        ]
+      },
+      {
+        "category": "Experimental Scope",
+        "points": [
+          "The exclusion of Embed to Control (E2C) from the comparison, while justified, leaves a gap. A more detailed, even if hypothetical, discussion comparing DVBF's expected performance against E2C would better contextualize its contribution within the broader landscape of model-based control."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "technical_soundness",
+        "comment": "The reparametrization of the transition in Eq. (8) is the paper's strongest point. It is a clever architectural choice that enforces the desired state-space properties by construction. The use of an annealed objective (Eq. 10') is a practical and well-justified choice, though more intuition on its effect in this specific model and the rationale for the linear schedule would be welcome.",
+        "evidence_ref": null
+      },
+      {
+        "area": "related_work",
+        "comment": "The positioning of the work with respect to prior methods like DKF is clear and effective. The diagnosis of why previous models fail at long-term prediction (by prioritizing reconstruction over dynamics) is insightful and provides strong motivation for the proposed approach.",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "The use of Ordinary Least Squares (OLS) regression to quantitatively evaluate the information content of the latent space (Table 1) is a simple but very effective method. The stark difference in R2 for velocity between DVBF-LL and DKF is a key result that strongly supports your claims.",
+        "evidence_ref": null
+      },
+      {
+        "area": "reproducibility",
+        "comment": "To improve reproducibility, the paper should provide more specific details on the practical implementation of the 'empirical Bayes approach' used to estimate the prior p(v1:T).",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you provide more intuition on the 'empirical Bayes approach' used to estimate the prior p(v1:T)? How was this implemented in practice?",
+      "In the locally linear transition model (Sec 3.3), how sensitive is performance to the number of basis systems, M? Is there a risk of overfitting if M is too large, or poor approximation if it is too small? Please include a discussion of this trade-off.",
+      "The model assumes the transition is deterministic given the latent state, action, and stochastic parameters. How would the framework handle systems with inherent, irreducible stochasticity that cannot be fully captured by the inferred process noise wt?",
+      "The annealing schedule for `ci` is linear. Have you experimented with other schedules (e.g., exponential) and observed any significant differences in performance or training stability? What was the rationale for this choice?"
+    ],
+    "overall_assessment": "This is a strong paper with a novel, well-motivated, and technically sound contribution. The proposed DVBF model effectively solves a key problem in learning dynamical models from sequential data, and the experimental evidence convincingly demonstrates its advantages. The work is a valuable addition to the literature. The primary weaknesses relate to a lack of discussion on the model's limitations and robustness. To be ready for publication, the paper requires minor revisions to address the points raised, specifically by adding more detailed explanations of methodological choices (e.g., the empirical Bayes approach, annealing schedule), and including a thorough discussion on the model's sensitivity to hyperparameters (like M) and its applicability to systems with different stochastic properties and real-world data.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity info. [LLM'in kendi gerekçesi: The core idea of making the transition function deterministic conditioned on stochastic parameters to enforce backpropagation through time is a highly novel and insightful contribution.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.8,
+        "rationale": "The paper addresses a critical and widely recognized problem in generative sequence modeling. The method has clear and significant implications for model-based reinforcement learning and control from raw sensory data."
+      },
+      {
+        "key": "claims_supported",
+        "score": 5.14,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: The claims are exceptionally well-supported by a combination of qualitative visualizations, quantitative regression analysis, and impressive long-term prediction results. The evidence directly validates the central hypothesis.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The mathematical framework is sound, building upon established principles of variational inference. The model architecture is well-reasoned and directly implements the paper's core ideas.]"
+      },
+      {
+        "key": "clarity",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is well-written but very dense. Key concepts are presented concisely and would benefit from more intuitive explanations and methodological details to be accessible to a broader audience.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.7,
+        "rationale": "This work is of high value to researchers in generative models, time-series analysis, and reinforcement learning. The promise to release code further enhances its value to the community."
+      },
+      {
+        "key": "contextualization",
+        "score": 8.2,
+        "rationale": "The paper does a good job of situating the work within the existing literature, but would be strengthened by a more detailed discussion of its relationship to key methods like E2C."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 6.0,
+        "rationale": "I cannot verify the integrity of the citations. The automated check was inconclusive for all 24 references due to a reported external service error. While the evidence package found no fabricated or retracted papers, the validity of the references could not be confirmed."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.5,
+        "rationale": "The related work section appears to cover the most relevant contemporary and foundational papers. The evidence pack did not identify any seminal works that were missed."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not report any statistical inconsistencies. The use of OLS and R2 values is appropriate for the analysis performed.]"
+      }
+    ],
+    "final_score": 8.17,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 24,
+        "resolved": 0,
+        "not_found_in_index": 24,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 22
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Justin Bayer and Christian Osendorfer. Learning stochastic recurrent networks. arXiv preprint arXiv:1411.7610, 2014.",
+          "title": "Learning stochastic recurrent networks",
+          "authors": [
+            "Justin Bayer",
+            "Christian Osendorfer"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 2,
+          "raw": "Charles Blundell, Julien Cornebise, Koray Kavukcuoglu, and Daan Wierstra. Weight uncertainty in neural networks. arXiv preprint arXiv:1505.05424, 2015.",
+          "title": "Weight uncertainty in neural networks",
+          "authors": [
+            "Charles Blundell, Julien Cornebise, Koray Kavukcuoglu",
+            "Daan Wierstra"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 3,
+          "raw": "Léon Bottou. Large-scale machine learning with stochastic gradient descent. In Proceedings of COMPSTAT’2010, pp. 177–186. Springer, 2010.",
+          "title": "Large-scale machine learning with stochastic gradient descent",
+          "authors": [
+            "Léon Bottou"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 4,
+          "raw": "Junyoung Chung, Kyle Kastner, Laurent Dinh, Kratarth Goel, Aaron C. Courville, and Yoshua Bengio. A recurrent latent variable model for sequential data. CoRR, abs/1506.02216, 2015. URL http://arxiv.org/abs/1506.02216.",
+          "title": "A recurrent latent variable model for sequential data",
+          "authors": [
+            "Junyoung Chung, Kyle Kastner, Laurent Dinh, Kratarth Goel, Aaron C. Courville",
+            "Yoshua Bengio"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 5,
+          "raw": "Marc Deisenroth and Carl E Rasmussen. Pilco: A model-based and data-efﬁcient approach to policy search. In Proceedings of the 28th International Conference on machine learning (ICML-11), pp. 465–472, 2011.",
+          "title": "Pilco: A model-based and data-efﬁcient approach to policy search",
+          "authors": [
+            "Marc Deisenroth",
+            "Carl E Rasmussen"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 6,
+          "raw": "Zoubin Ghahramani and Geoffrey E Hinton. Parameter estimation for linear dynamical systems. Technical report, Technical Report CRG-TR-96-2, University of Toronto, Dept. of Computer Science, 1996.",
+          "title": "Parameter estimation for linear dynamical systems",
+          "authors": [
+            "Zoubin Ghahramani",
+            "Geoffrey E Hinton"
+          ],
+          "year": 1996,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 7,
+          "raw": "Zoubin Ghahramani and Geoffrey E Hinton. Variational learning for switching state-space models. Neural computation, 12(4):831–864, 2000.",
+          "title": "Variational learning for switching state-space models",
+          "authors": [
+            "Zoubin Ghahramani",
+            "Geoffrey E Hinton"
+          ],
+          "year": 2000,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 8,
+          "raw": "Alex Graves. Generating sequences with recurrent neural networks. arXiv preprint arXiv:1308.0850, 2013.",
+          "title": "Generating sequences with recurrent neural networks",
+          "authors": [
+            "Alex Graves"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 9,
+          "raw": "Geoffrey E Hinton and Drew Van Camp. Keeping the neural networks simple by minimizing the description length of the weights. In Proceedings of the sixth annual conference on Computational learning theory, pp. 5–13. ACM, 1993. 4We used the script attached to Sutskever & Hinton (2007) for generating our datasets. 10 Antti Honkela, Tapani Raiko, Mikael Kuusela, Matti Tornio, and Juha Karhunen. Approximate riemannian conjugate gradient learning for ﬁxed-form variational bayes. Journal of Machine Learning Research, 11(Nov):3235–3268, 2010.",
+          "title": "for generating our datasets",
+          "authors": [
+            "Geoffrey E Hinton",
+            "Hinton"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 10,
+          "raw": "Matthew J Johnson, David Duvenaud, Alexander B Wiltschko, Sandeep R Datta, and Ryan P Adams. Structured VAEs: Composing probabilistic graphical models and variational autoencoders. arXiv preprint arXiv:1603.06277, 2016.",
+          "title": "Structured VAEs: Composing probabilistic graphical models and variational autoencoders",
+          "authors": [
+            "Matthew J Johnson, David Duvenaud, Alexander B Wiltschko, Sandeep R Datta",
+            "Ryan P Adams"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 11,
+          "raw": "Simon J Julier and Jeffrey K Uhlmann. New extension of the kalman ﬁlter to nonlinear systems. In AeroSense’97, pp. 182–193. International Society for Optics and Photonics, 1997.",
+          "title": "New extension of the kalman ﬁlter to nonlinear systems",
+          "authors": [
+            "Simon J Julier",
+            "Jeffrey K Uhlmann"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 12,
+          "raw": "Rudolph E Kalman and Richard S Bucy. New results in linear ﬁltering and prediction theory. Journal of basic engineering, 83(1):95–108, 1961.",
+          "title": "New results in linear ﬁltering and prediction theory",
+          "authors": [
+            "Rudolph E Kalman",
+            "Richard S Bucy"
+          ],
+          "year": 1961,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 13,
+          "raw": "Diederik P Kingma and Max Welling. Auto-encoding variational bayes. arXiv preprint arXiv:1312.6114, 2013.",
+          "title": "Auto-encoding variational bayes",
+          "authors": [
+            "Diederik P Kingma",
+            "Max Welling"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 14,
+          "raw": "Jonathan Ko and Dieter Fox. Learning gp-bayesﬁlters via gaussian process latent variable models. Autonomous Robots, 30(1):3–23, 2011.",
+          "title": "Learning gp-bayesﬁlters via gaussian process latent variable models",
+          "authors": [
+            "Jonathan Ko",
+            "Dieter Fox"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 15,
+          "raw": "Rahul G Krishnan, Uri Shalit, and David Sontag. Deep Kalman ﬁlters. arXiv preprint arXiv:1511.05121, 2015.",
+          "title": "Deep Kalman ﬁlters",
+          "authors": [
+            "Rahul G Krishnan, Uri Shalit",
+            "David Sontag"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 16,
+          "raw": "Stephan Mandt, James McInerney, Farhan Abrol, Rajesh Ranganath, and David Blei. Variational tempering. In Proceedings of the 19th International Conference on Artiﬁcial Intelligence and Statistics, pp. 704–712, 2016.",
+          "title": "Variational tempering",
+          "authors": [
+            "Stephan Mandt, James McInerney, Farhan Abrol, Rajesh Ranganath",
+            "David Blei"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 17,
+          "raw": "Kevin McGoff, Sayan Mukherjee, Natesh Pillai, et al. Statistical inference for dynamical systems: A review. Statistics Surveys, 9:209–252, 2015.",
+          "title": "Statistical inference for dynamical systems: A review",
+          "authors": [
+            "Kevin McGoff, Sayan Mukherjee, Natesh Pillai, et al."
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 18,
+          "raw": "Danilo J. Rezende, Shakir Mohamed, and Daan Wierstra. Stochastic backpropagation and approxi- mate inference in deep generative models. In Tony Jebara and Eric P. Xing (eds.), Proceedings of the 31st International Conference on Machine Learning (ICML-14), pp. 1278–1286. JMLR Workshop and Conference Proceedings, 2014.",
+          "title": "Stochastic backpropagation and approxi- mate inference in deep generative models",
+          "authors": [
+            "Danilo J. Rezende, Shakir Mohamed",
+            "Daan Wierstra"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 19,
+          "raw": "URL http://jmlr.org/proceedings/ papers/v32/rezende14.pdf. Danilo Jimenez Rezende and Shakir Mohamed. Variational inference with normalizing ﬂows. arXiv preprint arXiv:1505.05770, 2015.",
+          "title": null,
+          "authors": [
+            "URL http://jmlr.org/proceedings/ papers/v32/rezende14"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Ilya Sutskever and Geoffrey E. Hinton. Learning multilevel distributed representations for high-dimensional sequences. In Marina Meila and Xiaotong Shen (eds.), Proceedings of the Eleventh International Conference on Artiﬁcial Intelligence and Statistics (AISTATS-07), volume 2, pp. 548–555. Journal of Machine Learning Research - Proceedings Track, 2007.",
+          "title": "Learning multilevel distributed representations for high-dimensional sequences",
+          "authors": [
+            "Ilya Sutskever",
+            "Geoffrey E. Hinton"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 21,
+          "raw": "URL http://jmlr.csail.mit.edu/proceedings/papers/v2/sutskever07a/ sutskever07a.pdf. Leonid Kuvayev Rich Sutton. Model-based reinforcement learning with an approximate, learned model. In Proceedings of the ninth Yale workshop on adaptive and learning systems, pp. 101–105, 1996.",
+          "title": null,
+          "authors": [
+            "URL http://jmlr.csail.mit.edu/proceedings/papers/v2/sutskever07a/ sutskever07a"
+          ],
+          "year": 1996,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Lucas Theis, Aäron van den Oord, and Matthias Bethge. A note on the evaluation of generative models. arXiv preprint arXiv:1511.01844, 2015.",
+          "title": "A note on the evaluation of generative models",
+          "authors": [
+            "Lucas Theis, Aäron van den Oord",
+            "Matthias Bethge"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 23,
+          "raw": "Harri Valpola and Juha Karhunen. An unsupervised ensemble learning method for nonlinear dynamic state-space models. Neural computation, 14(11):2647–2692, 2002.",
+          "title": "An unsupervised ensemble learning method for nonlinear dynamic state-space models",
+          "authors": [
+            "Harri Valpola",
+            "Juha Karhunen"
+          ],
+          "year": 2002,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 24,
+          "raw": "Manuel Watter, Jost Springenberg, Joschka Boedecker, and Martin Riedmiller. Embed to control: A locally linear latent dynamics model for control from raw images. In Advances in Neural Information Processing Systems, pp. 2728–2736, 2015. 11 A SUPPLEMENTARY TO LOWER BOUND A.1 ANNEALED KL-DIVERGENCE We used the analytical solution of the annealed KL-divergence in eq. (10) for optimization: Eqφ[−ln qφ(w1:T | x1:T , u1:T ) + ci ln p(w1:T )] = ci 1 2 ln(2πσ2 p) −1 2 ln(2πσ2 q) + ci σ2 q + (µq −µp)2 2σ2p −1 2 B SUPPLEMENTARY TO IMPLEMENTATION B.1 EXPERIMENTAL SETUP In all our experiments, we use sequences of 15 raw images of the respective system with 16×16 pixels each, i.e., observation space X ⊂R256, as well as control inputs of varying dimension and interpretation depending on the experiment. We used training, validation and test sets with 500 sequences each. Control input sequences were drawn randomly (“motor babbling”). Additional details about the implementation can be found in the published code at https://brml.org/ projects/dvbf. B.2 ADDITIONAL EXPERIMENT PLOTS Figure 7: Ground truth and samples from recognition and generative model. Complete version of ﬁg. 4 with all missing samples present. B.3 IMPLEMENTATION DETAILS FOR DVBF IN PENDULUM EXPERIMENT • Input: 15 timesteps of 162 observation dimensions and 1 action dimension • Latent Space: 3 dimensions • Observation Network p(xt|zt) = N(xt; µ(zt), σ): 128 ReLU + 162 identity output • Recognition Model: 128 ReLU + 6 identity output q(wt|zt, xt+1, ut) = N(wt; µ, σ), (µ, σ) = f(zt, xt+1, ut) • Transition Network αt(zt): 16 softmax output • Initial Network w1 ∼p(x1:T ): Fast Dropout BiRNN with: 128 ReLU + 3 identity output • Initial Transition z1(w1): 128 ReLU + 3 identity output • Optimizer: adadelta, 0.1 step rate • Inverse temperature: c0 = 0.01, updated every 250th gradient update, TA = 105 iterations • Batch-size: 500 12 B.4 IMPLEMENTATION DETAILS FOR DVBF IN BOUNCING BALL EXPERIMENT • Input: 15 timesteps of 162 observation dimensions and 2 action dimension • Latent Space: 4 dimensions • Observation Network p(xt|zt) = N(xt; µ(zt), σ): 128 ReLU + 162 identity output • Recognition Model: 128 ReLU + 8 identity output q(wt|zt, xt+1, ut) = N(wt; µ, σ), (µ, σ) = f(zt, xt+1, ut) • Transition Network αt(zt): 16 softmax output • Initial Network w1 ∼p(x1:T ): Fast Dropout BiRNN with: 128 ReLU + 4 identity output • Initial Transition z1(w1): 128 ReLU + 4 identity output • Optimizer: adadelta, 0.1 step rate • Inverse temperature: c0 = 0.01, updated every 250th gradient update, TA = 105 iterations • Batch-size: 500 B.5 IMPLEMENTATION DETAILS FOR DVBF IN TWO BOUNCING BALLS EXPERIMENT • Input: 15 timesteps of 202 observation dimensions and 2000 samples • Latent Space: 10 dimensions • Observation Network p(xt|zt) = N(xt; µ(zt), σ): 128 ReLU + 202 sigmoid output • Recognition Model: 128 ReLU + 20 identity output q(wt|zt, xt+1, ut) = N(wt; µ, σ), (µ, σ) = f(zt, xt+1, ut) • Transition Network αt(zt): 64 softmax output • Initial Network w1 ∼p(x1:T ): MLP with: 128 ReLU + 10 identity output • Initial Transition z1(w1): 128 ReLU + 10 identity output • Optimizer: adam, 0.001 step rate • Inverse temperature: c0 = 0.01, updated every gradient update, TA = 2 105 iterations • Batch-size: 80 B.6 IMPLEMENTATION DETAILS FOR DKF IN PENDULUM EXPERIMENT • Input: 15 timesteps of 162 observation dimensions and 1 action dimension • Latent Space: 3 dimensions • Observation Network p(xt|zt) = N(xt; µ(zt), σ(zt)): 128 Sigmoid + 128 Sigmoid + 2 162 identity output • Recognition Model: Fast Dropout BiRNN 128 Sigmoid + 128 Sigmoid + 3 identity output • Transition Network p(zt|zt−1, ut−1): 128 Sigmoid + 128 Sigmoid + 6 output • Optimizer: adam, 0.001 step rate • Inverse temperature: c0 = 0.01, updated every 25th gradient update, TA = 2000 iterations • Batch-size: 500 13",
+          "title": "Embed to control: A locally linear latent dynamics model for control from raw images",
+          "authors": [
+            "Manuel Watter, Jost Springenberg, Joschka Boedecker",
+            "Martin Riedmiller"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:22",
+        "coverage:openalex_unavailable",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "4932985b83e2e3900d22065afe9d4300cf14b2cc1fadd0bb87d7ed09794d8933",
+          "request_time": "2026-08-22T18:25:08.385884Z",
+          "status": "degraded",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "22/24 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:25:09.499051Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "f503326ac8dda2c44799a7e73e51e2eee90ce65d1cae70e7495fc3c38a6d9ca5",
+          "request_time": "2026-08-22T18:25:11.415648Z",
+          "status": "failed",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "openalex search_works_raw failed: all 3 attempts failed; last=HTTPStatusError"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:30:45.414066Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin kısa kelime sayısı, sınırlı bölüm başlıkları (ABSTRACT, INTRODUCTION, CONCLUSION, ACKNOWLEDGEMENTS, REFERENCES) ve yazar künyesindeki 'Data Lab' gibi ifadeler bir konferans bildirisi olabileceğini düşündürmektedir. Başlık ve özet, yeni bir yöntemin (Deep Variational Bayes Filters) tanıtıldığını ve deneysel sonuçlarla desteklendiğini belirtiyor, bu da bir hesaplamalı modelleme çalışmasına işaret ediyor.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 86.625,
+      "recommended_decision": "accept",
+      "confidence": 0.6931818181818182,
+      "top_fatal_risks": [
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 1 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 46.0,
+        "severity": "major",
+        "confidence": 0.8583333333333334,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "4 concern(s): The paper acknowledges that experiments are on simulated data but lacks a concrete discussion on how the model's performance might degrade or what specific adaptations would be necessary when confronted with real-world data characteristics such as higher noise levels, non-stationary dynamics, or partial observability. This omission leaves a significant gap in understanding the practical applicability and robustness of DVBF.; While the exclusion of E2C is justified by differing data assumptions, the paper would benefit from a more detailed, even if hypothetical, discussion comparing DVBF's expected performance against E2C, particularly in scenarios where E2C's assumptions might partially overlap or where DVBF could offer advantages despite those differences. This would better contextualize DVBF's contribution within the broader landscape of model-based control.; The paper does not provide any analysis or empirical evidence regarding the sensitivity of the model's performance to the choice of 'M', the number of basis systems in the locally linear transition model. Without this, it's unclear how to select an appropriate 'M' for new problems, and whether the reported results are robust to this hyperparameter choice. A sensitivity analysis or a discussion on the trade-offs would be valuable. (+1 more)",
+        "key_objection": "The paper acknowledges that experiments are on simulated data but lacks a concrete discussion on how the model's performance might degrade or what specific adaptations would be necessary when confronted with real-world data characteristics such as higher noise levels, non-stationary dynamics, or partial observability. This omission leaves a significant gap in understanding the practical applicability and robustness of DVBF.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "novelty_to_length_ratio.f0",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "reviewer_confidence.f0",
+          "reviewer_confidence.f1",
+          "reviewer_confidence.f2"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "6 concern(s): The report notes that experiments are exclusively on simulated data. While this is acknowledged as a limitation in the 'weaknesses' section, the methodology section itself should explicitly state the scope and generalizability of the findings, particularly regarding the transition from simulated to real-world data. A discussion on potential challenges or necessary adaptations for real-world data, which may be noisier or have more complex, non-stationary dynamics, is crucial for methodological completeness.; The report mentions the exclusion of E2C from comparisons. While justified in the text, the methodology should briefly address why E2C was not included as a direct baseline, especially if it's a relevant method in the field. A brief discussion on how DVBF's performance might hypothetically compare, given the differences in data assumptions, would strengthen the methodological context.; The question regarding the 'empirical Bayes approach' for estimating the prior p(v1:T) highlights a potential lack of detail in the methodology. The practical implementation of this approach should be clearly described within the methods section to ensure reproducibility and understanding. (+3 more)",
+        "key_objection": "The report notes that experiments are exclusively on simulated data. While this is acknowledged as a limitation in the 'weaknesses' section, the methodology section itself should explicitly state the scope and generalizability of the findings, particularly regarding the transition from simulated to real-world data. A discussion on potential challenges or necessary adaptations for real-world data, which may be noisier or have more complex, non-stationary dynamics, is crucial for methodological completeness.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "5 concern(s): The distinction and interplay between the sample-specific noise `wt` and the universal transition parameters `vt` could be elaborated on further to improve clarity for readers less familiar with the specific literature.; A few more intermediate steps or explanatory sentences in the derivation of the lower bound would improve accessibility for a broader audience.; The paper would be strengthened by a brief discussion of potential challenges or necessary adaptations for applying DVBF to more complex, real-world data, which may be noisier or have more complex, non-stationary dynamics. (+2 more)",
+        "key_objection": "The distinction and interplay between the sample-specific noise `wt` and the universal transition parameters `vt` could be elaborated on further to improve clarity for readers less familiar with the specific literature.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "revision-required",
+        "summary": "1 concern(s): The reviewer states that 'No issues are apparent from the text itself' regarding citation integrity, despite the evidence package indicating that all 24 references could not be found due to a service error or lack of resolvable information. While the service error is noted, the conclusion that 'No issues are apparent' is an ungrounded claim, as the actual status of the references (e.g., if they are indeed valid and exist) could not be verified. This statement downplays the inability to verify any citation.",
+        "key_objection": "The reviewer states that 'No issues are apparent from the text itself' regarding citation integrity, despite the evidence package indicating that all 24 references could not be found due to a service error or lack of resolvable information. While the service error is noted, the conclusion that 'No issues are apparent' is an ungrounded claim, as the actual status of the references (e.g., if they are indeed valid and exist) could not be verified. This statement downplays the inability to verify any citation.",
+        "confidence": 0.0,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "minor-revision",
+        "summary": "This paper introduces Deep Variational Bayes Filters (DVBF), a novel and compelling method for unsupervised learning of state-space models from raw sequential data. The core contribution is a reparametrization of the state transition that forces the model to learn the underlying dynamics by allowing gradients to flow through time, elegantly addressing a common failure mode in prior work. The authors provide strong empirical evidence on simulated physics-based tasks, demonstrating that their model successfully recovers the full latent state and enables stable, long-term generative predictions. The work is a significant contribution. Revisions are required to improve clarity, provide more detail on key methodological choices, and to more thoroughly discuss the model's limitations, particularly concerning its application to real-world data and its underlying assumptions about system stochasticity.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Model Geliştirme ve Deneysel Doğrulama Tasarımı",
+        "summary": "Makale, yeni bir model olan Deep Variational Bayes Filters (DVBF) geliştirmekte ve bu modelin performansını simüle edilmiş dinamik sistemler (sarkaç, zıplayan top) üzerinde deneysel olarak doğrulamaktadır. Araştırma sorusu, latent Markovian durum uzayı modellerinin denetimsiz öğrenimi ve tanımlanması ile uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We introduce Deep Variational Bayes Filters (DVBF), a new method for unsupervised learning and identiﬁcation of latent Markovian state space models."
+          },
+          {
+            "anchor_id": "4_experiments_and_results.a0",
+            "section": "4 EXPERIMENTS AND RESULTS",
+            "quote": "In this section we validate that DVBF with locally linear transitions (DVBF-LL) (section 3.3) outperforms Deep Kalman Filters (DKF, Krishnan et al. (2015)) in recovering latent spaces with full information. We focus on environments that can be simulated with full knowledge of the ground truth latent dynamical system."
+          }
+        ],
+        "reasoning_public": "Bu tasarım, yeni bir metodolojinin teorik temellerini sunmak ve kontrollü ortamlarda pratik uygulanabilirliğini ve avantajlarını göstermek için uygundur. Simülasyonlar, gerçek dünya verilerinin karmaşıklığını basitleştirerek modelin temel yeteneklerini izole etmeye ve değerlendirmeye olanak tanır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Raporlaması Eksikliği",
+        "summary": "Makalede kullanılan simülasyon verileri için örneklem büyüklüğü (örneğin, her bir deney için üretilen zaman serisi uzunluğu veya sayısı) belirtilmemiştir. Ayrıca, power analysis veya precision rationale gibi örneklem büyüklüğünü gerekçelendiren herhangi bir bilgi sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_dynamic_pendulum.a0",
+            "section": "4.1 DYNAMIC PENDULUM",
+            "quote": "In order to test our algorithm on truly non-Markovian observations of a dynamical system, we simulated a dynamic torque-controlled pendulum governed by the differential equation ml2 ϕ̈(t) = −µ ϕ̇(t) + mgl sin ϕ(t) + u(t), m = l = 1, µ = 0.5, g = 9.81, via numerical integration, and then converted the ground-truth angle ϕ into an image observation in X."
+          },
+          {
+            "anchor_id": "4_2_bouncing_ball.a0",
+            "section": "4.2 BOUNCING BALL",
+            "quote": "The bouncing ball experiment features a ball rolling within a bounding box in a plane. The system has a two-dimensional control input, added to the directed velocity of the ball."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, özellikle deneysel doğrulama içeren çalışmalarda, kullanılan veri setlerinin büyüklüğü ve bu büyüklüğün sonuçların güvenilirliği ve genellenebilirliği üzerindeki etkisi önemlidir. Örneklem büyüklüğünün gerekçelendirilmemesi, bulguların istatistiksel gücü ve tekrarlanabilirliği hakkında belirsizlik yaratır. Simülasyon tabanlı çalışmalarda bile, belirli bir etkiyi tespit etmek için yeterli veri üretildiğini göstermek önemlidir.",
+        "limitations": [
+          "Makalede simülasyon verilerinin tam olarak nasıl oluşturulduğuna dair detaylı bilgi eksikliği, örneklem büyüklüğü hakkında kesin bir yorum yapmayı zorlaştırmaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Operasyonelleştirme ve Ölçüm Araçları Açıklığı",
+        "summary": "Makale, latent durumların ve gözlemlerin (örneğin, sarkaç için görüntüler) operasyonelleştirilmesini ve modelin çıktılarını (örneğin, R2 değerleri, log-likelihood) açıkça tanımlamaktadır. Özellikle, latent uzayın fiziksel niceliklerle (açı, açısal hız) ilişkisi OLS regresyonları ile ölçülmüştür.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_dynamic_pendulum.a1",
+            "section": "4.1 DYNAMIC PENDULUM",
+            "quote": "The bottom row shows ordinary least-squares regressions (OLS) underlining the performance: there exists a high correlation between latent states and ground-truth angle and angular velocity for DVBF-LL."
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Results for pendulum OLS regressions of all latent states on respective dependent variable."
+          }
+        ],
+        "reasoning_public": "Bu açıklık, okuyucuların modelin neyi ölçtüğünü ve nasıl değerlendirildiğini anlamasına yardımcı olur. Fiziksel sistemlerle doğrudan ilişkilendirme, modelin yorumlanabilirliğini ve geçerliliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Varsayım Testleri ve Çoklu Karşılaştırma Riski Eksikliği",
+        "summary": "Makale, OLS regresyonları gibi istatistiksel yöntemler kullanmasına rağmen, bu testlerin varsayımlarının (örneğin, doğrusallık, hata terimlerinin normalliği, homoskedastisite) test edilip edilmediğini belirtmemiştir. Ayrıca, birden fazla bağımlı değişken (sin(ϕ), cos(ϕ), ϕ̇) için yapılan regresyonlarda çoklu karşılaştırma riski ele alınmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_dynamic_pendulum.a2",
+            "section": "4.1 DYNAMIC PENDULUM",
+            "quote": "The bottom row shows ordinary least-squares regressions (OLS) underlining the performance: there exists a high correlation between latent states and ground-truth angle and angular velocity for DVBF-LL."
+          },
+          {
+            "anchor_id": "table_1.a1",
+            "section": "Table 1",
+            "quote": "Results for pendulum OLS regressions of all latent states on respective dependent variable."
+          }
+        ],
+        "reasoning_public": "İstatistiksel testlerin varsayımlarının karşılanıp karşılanmadığının belirtilmemesi, sonuçların güvenilirliği hakkında soru işaretleri yaratır. Çoklu karşılaştırmalar, Tip I hata oranını artırabilir ve bu durumun düzeltilmesi veya tartışılması gereklidir.",
+        "limitations": [
+          "Makalede varsayım testleri veya çoklu karşılaştırma düzeltmeleri hakkında herhangi bir bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metin ve Tablo Arası Sayısal Tutarlılık",
+        "summary": "Makalede sunulan istatistiksel değerler (örneğin, Tablo 1'deki R2 ve Log-Likelihood değerleri) metin içinde yapılan yorumlarla tutarlıdır. Örneğin, DKF için ϕ̇ tahminindeki düşük R2 değeri (0.035) metinde 'hardly any information' olarak doğru bir şekilde yorumlanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_dynamic_pendulum.a3",
+            "section": "4.1 DYNAMIC PENDULUM",
+            "quote": "DKF, instead, contains hardly any information, resulting in a very low goodness-of-ﬁt score of R2 = 0.035."
+          },
+          {
+            "anchor_id": "table_1.a2",
+            "section": "Table 1",
+            "quote": "ϕ̇ | −11139 | 0.916 | −20289 | 0.035"
+          }
+        ],
+        "reasoning_public": "Metin ve tablolar arasındaki tutarlılık, bulguların doğru bir şekilde sunulduğunu ve yorumlandığını gösterir, bu da makalenin güvenilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, OLS regresyonları için R2 değerlerini (etki büyüklüğü göstergesi olarak kabul edilebilir) raporlamış olsa da, bu değerler için güven aralıkları veya diğer belirsizlik ölçüleri (örneğin, standart hatalar) sunulmamıştır. Log-Likelihood değerleri verilmiş ancak bunların belirsizlikleri de belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a3",
+            "section": "Table 1",
+            "quote": "Results for pendulum OLS regressions of all latent states on respective dependent variable. Dependent ground truth variable DVBF-LL DKF Log-Likelihood R2 Log-Likelihood R2 sin(ϕ) 3990.8 0.961 1737.6 0.929 cos(ϕ) 7231.1 0.982 6614.2 0.979 ϕ̇ −11139 0.916 −20289 0.035"
+          },
+          {
+            "anchor_id": "table_2.a0",
+            "section": "Table 2",
+            "quote": "Average test set objective function values for pendulum experiment. Lower Bound = Reconstruction Error − KL divergence DVBF-LL 798.56 802.06 3.50 DKF 784.70 788.58 3.88"
+          }
+        ],
+        "reasoning_public": "Etki büyüklüklerinin yanı sıra belirsizlik ölçülerinin (güven aralıkları gibi) raporlanması, bulguların istatistiksel kesinliği ve genellenebilirliği hakkında kritik bilgi sağlar. Sadece nokta tahminleri sunmak, okuyucunun sonuçların değişkenliğini ve güvenilirliğini değerlendirmesini zorlaştırır.",
+        "limitations": [
+          "Makalede güven aralıkları veya standart hatalar gibi belirsizlik ölçüleri raporlanmamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Eksikliği",
+        "summary": "Makale, simülasyon verileri kullandığı için eksik veri veya aykırı değerlerin varlığı ve bunların nasıl ele alındığı hakkında herhangi bir bilgi sunmamıştır. Simülasyon ortamında bu tür sorunlar daha az olası olsa da, modelin gerçek dünya verileriyle karşılaşabileceği durumlar için bu stratejilerin belirtilmesi önemlidir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Gerçek dünya uygulamalarında eksik veri ve aykırı değerler yaygın sorunlardır ve bunların uygun şekilde ele alınması modelin sağlamlığı ve genellenebilirliği için kritiktir. Simülasyonlarda bu sorunlar doğrudan ortaya çıkmasa bile, modelin bu durumlara karşı nasıl bir performans sergileyeceği veya bu durumların nasıl yönetileceği hakkında bir tartışma faydalı olacaktır.",
+        "limitations": [
+          "Makalede eksik veri veya aykırı değerlere ilişkin herhangi bir bilgi bulunmamaktadır. Simülasyon verileri kullanıldığı için bu durumun doğrudan bir sorun olup olmadığı belirsizdir."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Nedensel Dil Kullanımında Disiplin",
+        "summary": "Makale, modelin 'latent Markovian state space models' tanımlaması ve 'system identiﬁcation' yeteneği üzerine odaklanmaktadır. Kullanılan dil, modelin belirli sistem özelliklerini 'yakaladığı' veya 'kodladığı' yönündedir, bu da nedensel iddialardan ziyade modelin açıklayıcı ve tahmin edici gücüne vurgu yapar. Simülasyon ortamında 'ground truth' ile karşılaştırma yapılması, nedensel çıkarım riskini azaltır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Our experiments show that enabling back-propagation through transitions enforces state space assumptions and signiﬁcantly improves information content of the latent embedding. This also enables realistic long-term prediction."
+          },
+          {
+            "anchor_id": "5_conclusion.a0",
+            "section": "5 CONCLUSION",
+            "quote": "In a series of vision-based experiments we demonstrated that latent states can be recovered which identify the underlying physical quantities."
+          }
+        ],
+        "reasoning_public": "Simülasyon tabanlı çalışmalarda, 'ground truth' bilindiği için modelin belirli ilişkileri ne kadar iyi 'öğrendiği' veya 'temsil ettiği' hakkında güçlü çıkarımlar yapmak mümkündür. Makale, bu bağlamda uygun bir dil kullanmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod Erişilebilirliği",
+        "summary": "Makale, DVBF için kodun yayınlandığını ve bir bağlantının sağlanacağını belirtmektedir (https://brml.org/projects/dvbf). Bu, çalışmanın tekrarlanabilirliği için önemli bir adımdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_experiments_and_results.a1",
+            "section": "4 EXPERIMENTS AND RESULTS",
+            "quote": "We published the code for DVBF and a link will be made available at https://brml.org/projects/dvbf."
+          }
+        ],
+        "reasoning_public": "Kodun açıkça erişilebilir olması, diğer araştırmacıların çalışmayı doğrulamasına, üzerine inşa etmesine ve sonuçları yeniden üretmesine olanak tanır, bu da bilimsel şeffaflığı ve ilerlemeyi destekler.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Ana Sonuçların Belirsizlik Ölçüleri ile Sunulmasında Eksiklik",
+        "summary": "Ana sonuçlar (örneğin, Tablo 1'deki R2 değerleri ve Tablo 2'deki objektif fonksiyon değerleri) sunulmuş olsa da, bu değerler için güven aralıkları veya standart hatalar gibi belirsizlik ölçüleri eksiktir. Bu durum, okuyucunun sonuçların kesinliğini ve genellenebilirliğini tam olarak değerlendirmesini engeller.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a4",
+            "section": "Table 1",
+            "quote": "Results for pendulum OLS regressions of all latent states on respective dependent variable."
+          },
+          {
+            "anchor_id": "table_2.a1",
+            "section": "Table 2",
+            "quote": "Average test set objective function values for pendulum experiment."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, ana bulguların sadece nokta tahminleri olarak değil, aynı zamanda belirsizlik ölçüleriyle birlikte sunulması, sonuçların sağlamlığı ve istatistiksel önemi hakkında daha eksiksiz bir resim sağlar. Bu eksiklik, raporlama kalitesini düşürür.",
+        "limitations": [
+          "Makalede belirsizlik ölçüleri raporlanmamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Konusu ve Hedef Track Uyumu",
+        "summary": "Makale, derin öğrenme ve varyasyonel Bayes filtreleri kullanarak durum uzayı modellerinin denetimsiz öğrenimi üzerine odaklanmaktadır. Bu konu, yapay zeka, makine öğrenimi ve dinamik sistemler alanlarındaki güncel araştırmalarla yüksek düzeyde uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "We introduce Deep Variational Bayes Filters (DVBF), a new method for unsupervised learning and identiﬁcation of latent Markovian state space models."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "Estimating probabilistic models for sequential data is central to many domains, such as audio, natural language or physical plants, Graves (2013); Watter et al. (2015); Chung et al. (2015); Deisenroth & Rasmussen (2011); Ko & Fox (2011). The goal is to obtain a model p(x1:T ) that best reﬂects a data set of observed sequences x1:T . Recent advances in deep learning have paved the way to powerful models capable of representing high-dimensional sequences with temporal dependencies, e.g., Graves (2013); Watter et al. (2015); Chung et al. (2015); Bayer & Osendorfer (2014)."
+          }
+        ],
+        "reasoning_public": "Makalenin ana konusu olan 'Deep Variational Bayes Filters' (DVBF) ve durum uzayı modellerinin denetimsiz öğrenimi, makine öğrenimi ve yapay zeka alanlarında aktif bir araştırma konusudur. Özellikle, derin öğrenme tekniklerinin dinamik sistemlerin modellenmesi ve tahmini için kullanılması, bu alanlardaki konferans ve dergilerin ilgi alanına girmektedir. Makale, bu alandaki mevcut zorluklara (örneğin, yüksek boyutlu verilerle başa çıkma, uzun vadeli tahmin) yenilikçi bir çözüm sunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yüksek Yenilik ve Kapsamlı Katkı",
+        "summary": "Makale, derin varyasyonel Bayes filtreleri (DVBF) kavramını tanıtarak ve bunu çeşitli deneylerle destekleyerek önemli bir yenilik sunmaktadır. Sunulan yöntem, durum uzayı modellerinin denetimsiz öğrenimi ve tanımlanması alanında önemli bir ilerlemedir ve makalenin uzunluğu bu katkıyı detaylandırmak için uygun görünmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "We introduce Deep Variational Bayes Filters (DVBF), a new method for unsupervised learning and identiﬁcation of latent Markovian state space models. Leveraging recent advances in Stochastic Gradient Variational Bayes, DVBF can overcome intractable inference distributions via variational inference. Thus, it can handle highly nonlinear input data with temporal and spatial dependencies such as image sequences without domain knowledge. Our experiments show that enabling back-propagation through transitions enforces state space assumptions and signiﬁcantly improves information content of the latent embedding. This also enables realistic long-term prediction."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "Our contribution is, to our knowledge, the ﬁrst model that (i) enforces the latent state-space model assumptions, allowing for reliable system identiﬁcation, and plausible long-term prediction of the observable system, (ii) provides the corresponding inference mechanism with rich dependencies, (iii) inherits the merit of neural architectures to be trainable on raw data such as images or other sensory inputs, and (iv) scales to large data due to optimization of parameters based on stochastic gradient descent, Bottou (2010)."
+          },
+          {
+            "anchor_id": "conclusion.a0",
+            "section": "CONCLUSION",
+            "quote": "We have proposed Deep Variational Bayes Filters (DVBF), a new method to learn state space models from raw non-Markovian sequence data. DVBFs perform latent dynamic system identiﬁcation, and subsequently overcome intractable inference. As DVBFs make use of stochastic gradient variational Bayes they naturally scale to large data sets. In a series of vision-based experiments we demonstrated that latent states can be recovered which identify the underlying physical quantities. The generative model showed stable long-term predictions far beyond the sequence length used during training."
+          }
+        ],
+        "reasoning_public": "Makale, 'Deep Variational Bayes Filters' (DVBF) adını verdiği yeni bir yöntemi tanıtmaktadır. Bu yöntem, ham verilerden gizli Markovian durum uzayı modellerinin denetimsiz öğrenimi ve tanımlanması için tasarlanmıştır. Özellikle, Kingma & Welling (2013) ve Rezende et al. (2014) tarafından geliştirilen Stokastik Gradyan Varyasyonel Bayes'teki son gelişmelerden yararlanarak, çıkarım dağılımlarının zorluğunu varyasyonel çıkarım yoluyla aşmaktadır. Bu, görüntü dizileri gibi zamansal ve uzamsal bağımlılıklara sahip yüksek derecede doğrusal olmayan girdi verilerini alan bilgisi olmadan işleyebilmesini sağlar. Makale, bu yöntemin teorik temelini detaylı bir şekilde açıklamakta ve dinamik sarkaç, zıplayan top ve iki zıplayan top gibi çeşitli görsel tabanlı deneylerle etkinliğini göstermektedir. Bu deneyler, DVBF'nin temel fiziksel nicelikleri tanımlayan gizli durumları kurtarmada ve eğitim sırasında kullanılan dizi uzunluğunun ötesinde istikrarlı uzun vadeli tahminler sağlamada başarılı olduğunu ortaya koymaktadır. Bu kapsamlı teorik açıklama ve deneysel doğrulama, makalenin uzunluğunu ve kapsamını haklı çıkarmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod ve Veri Erişilebilirliği",
+        "summary": "Makale, Deep Variational Bayes Filters (DVBF) için kodun ve deneylerde kullanılan verilerin erişilebilir olacağını belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments_and_results.a0",
+            "section": "EXPERIMENTS AND RESULTS",
+            "quote": "We published the code for DVBF and a link will be made available at https://brml.org/projects/dvbf."
+          }
+        ],
+        "reasoning_public": "Araştırmanın tekrarlanabilirliği ve doğrulanabilirliği için kod ve veri setlerinin açıkça belirtilmesi ve erişilebilir olması büyük önem taşır. Bu, diğer araştırmacıların sonuçları yeniden üretmesine, yöntemleri geliştirmesine ve yeni çalışmalar yapmasına olanak tanır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f0",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Figure 1'deki diyagramların açıklayıcı metinleri yetersiz",
+        "summary": "Figure 1'deki 'Forward graphical model' ve 'Inference' diyagramları, diyagramların kendisinde veya başlığında yeterli açıklayıcı metin içermemektedir. Bu durum, okuyucunun diyagramların neyi temsil ettiğini ve aralarındaki farkı tam olarak anlamasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_deep_variational_bayes_filters.a0",
+            "section": "3 DEEP VARIATIONAL BAYES FILTERS",
+            "quote": "Figure 1: Left: Graphical model for one transition under state-space model assumptions. The updated latent state zt+1 depends on the previous state zt, control input ut, and transition parameters βt. zt+1 contains all information for generating observation xt+1. Diamond nodes indicate a deterministic dependency on parent nodes. Right: Inference performed during training (or while ﬁltering). Past observations are indirectly used for inference as zt contains all information about them."
+          }
+        ],
+        "reasoning_public": "Görsel materyallerin netliği, makalenin anlaşılırlığı için kritik öneme sahiptir. Diyagramların yeterince açıklanmaması, okuyucunun anahtar kavramları ve modelin işleyişini kavramasını engelleyebilir, özellikle de bu diyagramlar modelin temel yapısını gösteriyorsa.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f1",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Figure 2'deki diyagramların başlıkları ve açıklamaları yetersiz",
+        "summary": "Figure 2'deki (a) ve (b) diyagramlarının başlıkları ve açıklamaları, diyagramların içeriğini tam olarak yansıtmamakta ve okuyucunun karmaşık mimariyi ve örnek geçişi anlamasını zorlaştırmaktadır. Özellikle (a) diyagramının 'General scheme for arbitrary transitions' başlığı, diyagramın neyi gösterdiğini tam olarak açıklamamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_deep_variational_bayes_filters.a1",
+            "section": "3 DEEP VARIATIONAL BAYES FILTERS",
+            "quote": "Figure 2: Left: General architecture for DVBF. Stochastic transition parameters βt are inferred via the recognition model, e.g., a neural network. Based on a sampled βt, the state transition is computed deterministically. The updated latent state zt+1 is used for predicting xt+1. For details, see section 3.1. Right: Zoom into latent space transition (red box in left ﬁgure). One exemplary transition is shown, the locally linear transition from section 3.3."
+          }
+        ],
+        "reasoning_public": "Karmaşık modellerin görsel temsilleri, okuyucunun modelin yapısını ve işleyişini anlaması için hayati öneme sahiptir. Diyagram başlıklarının ve açıklamalarının yetersiz olması, okuyucunun görsel bilgiyi metinle ilişkilendirmesini ve modelin temel bileşenlerini kavramasını zorlaştırır.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f2",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deney sonuçlarının görselleştirilmesi ve tabloların netliği",
+        "summary": "Makaledeki Figure 3, Figure 4, Figure 5 ve Figure 6 gibi görseller, deney sonuçlarını etkili bir şekilde sunmaktadır. Özellikle Figure 3'teki latent uzay görselleştirmeleri ve Figure 4'teki generatif örnekler, modelin performansını ve temel bulgularını açıkça göstermektedir. Tablo 1 ve Tablo 2 de sonuçları anlaşılır bir şekilde özetlemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_experiments_and_results.a2",
+            "section": "4 EXPERIMENTS AND RESULTS",
+            "quote": "Figure 3: (a) Our DVBF-LL model trained on pendulum image sequences. The upper plots show the latent space with coloring according to the ground truth with angles on the left and angular velocities on the right. The lower plots show regression results for predicting ground truth from the latent representation. The latent space plots show clearly that all information for representing the full state of a pendulum is encoded in each latent state. (b) DKF from Krishnan et al. (2015) trained on the same pendulum dataset. The latent space plot shows that DKF fails to learn velocities of the pendulum. It is therefore not able to capture all information for representing the full pendulum state."
+          },
+          {
+            "anchor_id": "4_experiments_and_results.a3",
+            "section": "4 EXPERIMENTS AND RESULTS",
+            "quote": "Table 1: Results for pendulum OLS regressions of all latent states on respective dependent variable."
+          }
+        ],
+        "reasoning_public": "Deney sonuçlarının açık ve etkili bir şekilde görselleştirilmesi, okuyucunun bulguları hızlıca kavramasına ve makalenin ana iddialarını destekleyen kanıtları değerlendirmesine olanak tanır. İyi tasarlanmış görseller ve tablolar, makalenin genel anlaşılırlığını ve ikna ediciliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ana Katkılar Açıkça Belirtilmiş",
+        "summary": "Makale, Deep Variational Bayes Filters (DVBF) yönteminin temel katkılarını ve yeniliklerini giriş bölümünde net bir şekilde özetlemektedir. Bu, okuyucunun çalışmanın ana hedeflerini ve literatüre getirdiği yeniliği kolayca anlamasını sağlar.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Our contribution is, to our knowledge, the ﬁrst model that (i) enforces the latent state-space model assumptions, allowing for reliable system identiﬁcation, and plausible long-term prediction of the observable system, (ii) provides the corresponding inference mechanism with rich dependencies, (iii) inherits the merit of neural architectures to be trainable on raw data such as images or other sensory inputs, and (iv) scales to large data due to optimization of parameters based on stochastic gradient descent, Bottou (2010)."
+          }
+        ],
+        "reasoning_public": "Araştırma makalelerinde, çalışmanın neyi başardığını ve mevcut bilgi birikimine nasıl katkıda bulunduğunu açıkça belirtmek, okuyucunun makalenin değerini hızlıca kavraması için kritik öneme sahiptir. Bu makale bu beklentiyi karşılamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f1",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Yöntemin Temel Farkı Vurgulanmış",
+        "summary": "Makale, DVBF'nin önceki yaklaşımlardan temel farkını ve bu farkın neden önemli olduğunu (geçişin latent alanı şekillendirmede itici güç olması) açıkça belirtmektedir. Bu, yöntemin yenilikçi yönünü vurgular.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "deep_variational_bayes_filters.a0",
+            "section": "DEEP VARIATIONAL BAYES FILTERS",
+            "quote": "This leads to a key contribution of this paper: We force the latent space to ﬁt the transition—reversing the direction, and thus achieving the state-space model assumptions and full information in the latent states."
+          },
+          {
+            "anchor_id": "deep_variational_bayes_filters.a1",
+            "section": "DEEP VARIATIONAL BAYES FILTERS",
+            "quote": "To overcome this, we establish gradient paths through transitions over time so that the transition becomes the driving factor for shaping the latent space, rather than adjusting the transition to the recognition model’s latent space. The key is to prevent the recognition model qφ(z1:T | x1:T ) from directly drawing the latent state zt."
+          }
+        ],
+        "reasoning_public": "Bir yöntemin yeniliğini ve üstünlüğünü göstermek için, mevcut yöntemlerle arasındaki temel farkı ve bu farkın getirdiği avantajları net bir şekilde ortaya koymak önemlidir. Makale bu konuda başarılıdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çalışmanın Sınırlılıkları ve Etik Konular Açıkça Belirtilmemiş",
+        "summary": "Makale, önerilen yöntemin potansiyel sınırlılıklarını veya etik çıkarımlarını açıkça tartışmamaktadır. Bu tür bir tartışma, çalışmanın kapsamını ve gelecekteki araştırma yönlerini daha iyi anlamak için faydalı olacaktır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, önerilen yöntemlerin veya modellerin sadece güçlü yönlerini değil, aynı zamanda potansiyel sınırlılıklarını ve etik çıkarımlarını da belirtmek önemlidir. Bu, okuyucuların çalışmanın uygulanabilirliğini ve genellenebilirliğini daha iyi değerlendirmesine yardımcı olur. Bu makalede, DVBF'nin hangi durumlarda yetersiz kalabileceği veya hangi tür verilerle çalışırken özel dikkat gerektirebileceği gibi konulara değinilmemiştir. Ayrıca, 'raw data' ve 'image sequences' gibi ifadeler, potansiyel olarak hassas verilerin işlenmesiyle ilgili etik konuları gündeme getirebilir, ancak bu konuda herhangi bir tartışma bulunmamaktadır.",
+        "limitations": [
+          "Makalenin tamamı yerine kısaltılmış bir versiyonu değerlendirilmiştir. Tam metinde bu konulara değinilmiş olabilir, ancak mevcut metinde bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Eksik Deneysel Detaylar ve Karşılaştırmalı Analiz Sınırlılıkları",
+        "summary": "Makale, deneysel kurulum ve karşılaştırmalı analizler hakkında yeterli detay sağlamadığı için bulguların genellenebilirliği ve tekrarlanabilirliği konusunda belirsizlikler bulunmaktadır. Özellikle, 'Supplementary Material' referansı verilmesine rağmen bu materyale erişim sağlanamamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments_and_results.a1",
+            "section": "EXPERIMENTS AND RESULTS",
+            "quote": "The experimental setup is described in the Supplementary Material. We published the code for DVBF and a link will be made available at https://brml.org/projects/dvbf."
+          }
+        ],
+        "reasoning_public": "Hakem olarak, makalede sunulan deneysel sonuçların geçerliliğini ve güvenilirliğini tam olarak değerlendirebilmek için deney kurulumu, kullanılan veri setleri, model parametreleri ve eğitim süreçleri hakkında daha fazla detaya ihtiyaç duymaktayım. 'Supplementary Material'a yapılan atıf, bu bilgilerin makale içinde eksik bırakıldığını düşündürmektedir. Bu eksiklik, makalenin bulgularının bağımsız olarak doğrulanmasını veya başka çalışmalarla karşılaştırılmasını zorlaştırmaktadır.",
+        "limitations": [
+          "Sağlanan metin, 'Supplementary Material'ın içeriğini veya erişilebilirliğini değerlendirmek için yeterli değildir. Bu nedenle, eksiklik varsayımı, materyalin şu anda erişilebilir olmadığına dayanmaktadır.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0",
+          "reviewer_confidence.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f1",
+        "dimension": "reviewer_confidence",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Atıf Eksikliği ve Erişilebilirlik Sorunu",
+        "summary": "Makalede bahsedilen bazı referansların (örn. 'Supplementary Material' ve kod deposu) doğrudan erişilebilir olmaması veya eksik bilgi içermesi, hakemin makalenin bütünlüğüne ve doğrulanabilirliğine olan güvenini azaltmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments_and_results.a2",
+            "section": "EXPERIMENTS AND RESULTS",
+            "quote": "The experimental setup is described in the Supplementary Material. We published the code for DVBF and a link will be made available at https://brml.org/projects/dvbf."
+          }
+        ],
+        "reasoning_public": "Makalede 'Supplementary Material'a ve kod deposuna yapılan atıflar, bu kaynakların şu anda erişilebilir olmadığını göstermektedir. Bu durum, makalenin deneysel sonuçlarının bağımsız olarak doğrulanmasını veya daha derinlemesine incelenmesini engellemektedir. Hakem olarak, sunulan çalışmanın şeffaflığı ve tekrarlanabilirliği için bu tür kaynakların kolayca erişilebilir olması önemlidir.",
+        "limitations": [
+          "Sağlanan metin, 'Supplementary Material'ın içeriğini veya kod deposunun durumunu değerlendirmek için yeterli değildir. Bu bulgu, yalnızca atıfların mevcut durumuna dayanmaktadır.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f2",
+        "dimension": "reviewer_confidence",
+        "severity": "info",
+        "confidence": 0.95,
+        "title": "Açık ve Yapılandırılmış Sunum",
+        "summary": "Makale, karmaşık bir konuyu net ve yapılandırılmış bir şekilde sunarak hakemin konuyu anlamasını kolaylaştırmıştır. Özellikle, DVBF'nin temel katkıları ve önceki çalışmalarla karşılaştırması açıkça belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "Our contribution is, to our knowledge, the ﬁrst model that (i) enforces the latent state-space model assumptions, allowing for reliable system identiﬁcation, and plausible long-term prediction of the observable system, (ii) provides the corresponding inference mechanism with rich dependencies, (iii) inherits the merit of neural architectures to be trainable on raw data such as images or other sensory inputs, and (iv) scales to large data due to optimization of parameters based on stochastic gradient descent, Bottou (2010)."
+          },
+          {
+            "anchor_id": "background_and_related_work.a0",
+            "section": "BACKGROUND AND RELATED WORK",
+            "quote": "This leads to a key contribution of this paper: We force the latent space to ﬁt the transition—reversing the direction, and thus achieving the state-space model assumptions and full information in the latent states."
+          }
+        ],
+        "reasoning_public": "Makalenin giriş ve arka plan bölümleri, DVBF'nin motivasyonunu, temel prensiplerini ve literatürdeki yerini anlaşılır bir dille açıklamaktadır. Şekiller ve denklemler, sunulan yöntemin görsel ve matematiksel olarak kavranmasına yardımcı olmaktadır. Bu netlik, hakemin makalenin içeriğini hızlı ve doğru bir şekilde değerlendirmesine olanak tanımaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "presentation_clarity.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "3 DEEP VARIATIONAL BAYES FILTERS",
+        "instruction": "Figure 1'deki her bir diyagramın (a) ve (b) alt başlıklarına, diyagramın temel amacını ve gösterdiği ana bileşenleri özetleyen kısa açıklamalar ekleyin. Örneğin, 'Forward graphical model' için 'Modelin ileriye doğru veri akışını ve bağımlılıklarını gösterir' gibi bir ifade eklenebilir.",
+        "acceptance_check": "Figure 1'deki her diyagramın başlığında veya hemen altında, diyagramın neyi temsil ettiğini açıklayan kısa ve net bir metin bulunmalıdır.",
+        "linked_finding_ids": [
+          "presentation_clarity.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "3 DEEP VARIATIONAL BAYES FILTERS",
+        "instruction": "Figure 2'deki (a) ve (b) diyagramlarının başlıklarını ve açıklamalarını, diyagramların gösterdiği mimariyi ve örnek geçişi daha net ve açıklayıcı bir şekilde ifade edecek şekilde güncelleyin. Örneğin, (a) için 'DVBF'nin genel mimarisi ve stokastik geçiş parametrelerinin çıkarımı' gibi bir başlık düşünülebilir.",
+        "acceptance_check": "Figure 2'deki her diyagramın başlığı ve açıklaması, diyagramın içeriğini ve amacını net bir şekilde yansıtmalıdır.",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4 EXPERIMENTS AND RESULTS",
+        "instruction": "Her bir deney (sarkaç, zıplayan top vb.) için simülasyon verilerinin nasıl üretildiği (örneğin, kaç adet zaman serisi, her serinin uzunluğu) ve bu veri setlerinin büyüklüğünün neden yeterli olduğu açıklanmalıdır. Gerekirse, power analysis veya benzeri bir gerekçelendirme sunulmalıdır.",
+        "acceptance_check": "Simülasyon veri setlerinin nicel özellikleri ve gerekçeleri makalede açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4 EXPERIMENTS AND RESULTS",
+        "instruction": "Tablo 1 ve Tablo 2'deki tüm istatistiksel değerler (R2, Log-Likelihood, Lower Bound, Reconstruction Error, KL divergence) için güven aralıkları veya standart hatalar gibi belirsizlik ölçüleri raporlanmalıdır. Bu, okuyucuların sonuçların kesinliğini ve güvenilirliğini daha iyi değerlendirmesine olanak tanır.",
+        "acceptance_check": "Tüm raporlanan istatistiksel değerler için belirsizlik ölçüleri (örneğin, güven aralıkları) eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4 EXPERIMENTS AND RESULTS",
+        "instruction": "Tüm ana sonuçlar (R2, Log-Likelihood, Lower Bound vb.) için güven aralıkları veya standart hatalar gibi belirsizlik ölçüleri eklenmelidir. Bu, bulguların istatistiksel kesinliğini ve güvenilirliğini artıracaktır.",
+        "acceptance_check": "Tüm ana sonuçlar belirsizlik ölçüleri ile birlikte raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS AND RESULTS",
+        "instruction": "Deneysel kurulum, veri setleri, model mimarileri, hiperparametreler ve eğitim prosedürleri hakkında tüm gerekli detayları makalenin ana metnine veya kolayca erişilebilir bir ek materyale (örn. arXiv ek dosyası) dahil edin. 'Supplementary Material'a yapılan atfı güncelleyin veya kaldırın.",
+        "acceptance_check": "Tüm deneysel detayların makale içinde veya erişilebilir bir ekte açıkça belirtilmesi ve 'Supplementary Material' referansının güncellenmesi.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS AND RESULTS",
+        "instruction": "Makalede bahsedilen 'Supplementary Material' ve kod deposu için geçerli ve kalıcı bağlantılar sağlayın. Bu bağlantıların makalenin yayınlandığı platformda (örn. arXiv, dergi ekleri) erişilebilir olduğundan emin olun.",
+        "acceptance_check": "Tüm harici kaynaklara (ek materyal, kod) çalışan ve kalıcı bağlantıların sağlanması.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f0.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "CONCLUSION",
+        "instruction": "Makalenin 'Conclusion' veya yeni bir 'Discussion' bölümünde, DVBF'nin mevcut sınırlılıklarını (örneğin, belirli veri türleri, model karmaşıklığı, hesaplama maliyeti) ve gelecekteki araştırma için potansiyel yönleri tartışın. Ayrıca, 'raw data' veya 'sensory inputs' gibi terimlerin kullanıldığı bağlamlarda, veri gizliliği veya önyargı gibi potansiyel etik çıkarımlara kısaca değinin.",
+        "acceptance_check": "Makalede, yöntemin sınırlılıklarını ve/veya etik çıkarımlarını tartışan yeni bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "ethics_limitations.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "4 EXPERIMENTS AND RESULTS",
+        "instruction": "OLS regresyonları için varsayım testlerinin sonuçları (örneğin, normallik, homoskedastisite testleri) raporlanmalı veya bu varsayımların neden geçerli olduğu açıklanmalıdır. Ayrıca, birden fazla regresyon yapıldığı için çoklu karşılaştırma düzeltmelerinin (örneğin, Bonferroni, Holm) uygulanıp uygulanmadığı belirtilmeli veya bu durumun sonuçlar üzerindeki potansiyel etkisi tartışılmalıdır.",
+        "acceptance_check": "Regresyon varsayımları ve çoklu karşılaştırma riski ile ilgili açıklamalar veya düzeltmeler makalede yer almalı.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "4 EXPERIMENTS AND RESULTS",
+        "instruction": "Simülasyon verilerinde eksik veri veya aykırı değerlerin olup olmadığı ve varsa nasıl ele alındığı açıklanmalıdır. Eğer simülasyonlar bu tür sorunları içermiyorsa, modelin gerçek dünya verilerinde eksik veri veya aykırı değerlerle nasıl başa çıkabileceğine dair potansiyel stratejiler veya sınırlamalar tartışılmalıdır.",
+        "acceptance_check": "Eksik veri ve aykırı değer yönetimi hakkında bir açıklama veya tartışma eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS AND RESULTS",
+        "instruction": "Karşılaştırmalı analizlerde (örn. DKF ile) kullanılan modellerin ve eğitim koşullarının tam olarak aynı olduğundan emin olun ve bu durumu açıkça belirtin. Karşılaştırmalı modellerin neden seçildiği ve sınırlılıkları hakkında daha fazla bağlam sağlayın.",
+        "acceptance_check": "Karşılaştırmalı modellerin seçim kriterleri ve eğitim detaylarının netleştirilmesi.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "conclusion.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "ACKNOWLEDGEMENTS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "3 DEEP VARIATIONAL BAYES FILTERS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Figure 1'deki diyagramların açıklayıcı metinleri yetersiz; Figure 2'deki diyagramların başlıkları ve açıklamaları yetersiz",
+        "anchor_ids": [
+          "3_deep_variational_bayes_filters.a0",
+          "3_deep_variational_bayes_filters.a1"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0",
+          "presentation_clarity.f1.a0"
+        ]
+      },
+      {
+        "section": "4 EXPERIMENTS AND RESULTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_experiments_and_results.a0",
+          "4_experiments_and_results.a1",
+          "4_experiments_and_results.a2",
+          "4_experiments_and_results.a3"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4.1 DYNAMIC PENDULUM",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Varsayım Testleri ve Çoklu Karşılaştırma Riski Eksikliği",
+        "anchor_ids": [
+          "4_1_dynamic_pendulum.a0",
+          "4_1_dynamic_pendulum.a1",
+          "4_1_dynamic_pendulum.a2",
+          "4_1_dynamic_pendulum.a3"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f3.a0"
+        ]
+      },
+      {
+        "section": "4.2 BOUNCING BALL",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_2_bouncing_ball.a0"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "5 CONCLUSION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "5_conclusion.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "BACKGROUND AND RELATED WORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "background_and_related_work.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "DEEP VARIATIONAL BAYES FILTERS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "deep_variational_bayes_filters.a0",
+          "deep_variational_bayes_filters.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "EXPERIMENTS AND RESULTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Eksik Deneysel Detaylar ve Karşılaştırmalı Analiz Sınırlılıkları",
+        "anchor_ids": [
+          "experiments_and_results.a0",
+          "experiments_and_results.a1",
+          "experiments_and_results.a2"
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0",
+          "reviewer_confidence.f0.a1",
+          "reviewer_confidence.f1.a0"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Varsayım Testleri ve Çoklu Karşılaştırma Riski Eksikliği; Ana Sonuçların Belirsizlik Ölçüleri ile Sunulmasında Eksiklik",
+        "anchor_ids": [
+          "table_1.a0",
+          "table_1.a1",
+          "table_1.a2",
+          "table_1.a3",
+          "table_1.a4"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f5.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "Table 2",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Ana Sonuçların Belirsizlik Ölçüleri ile Sunulmasında Eksiklik",
+        "anchor_ids": [
+          "table_2.a0",
+          "table_2.a1"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

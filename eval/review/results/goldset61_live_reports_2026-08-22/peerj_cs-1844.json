@@ -1,0 +1,2353 @@
+{
+  "paper_id": "peerj:cs-1844",
+  "run_tag": "main",
+  "job_id": "859a424a-77ee-4150-8cc2-956868126a26",
+  "elapsed_s": 502.7,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "Submitted 28 September 2023 Accepted 9 January 2024 Published 29 March 2024 Corresponding author",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RESULTS",
+        "DISCUSSION",
+        "CONCLUSIONS",
+        "REFERENCES"
+      ],
+      "word_count": 11098,
+      "reference_count": 38,
+      "parse_confidence": 0.74,
+      "parse_warnings": []
+    },
+    "summary": "This manuscript proposes a deep learning model, purportedly based on the Structure of the Observed Learning Outcome (SOLO) taxonomy, to assess the 'cognitive literacy' of middle school teachers using 'AI electronic images'. The authors compare their model against SVM and decision tree algorithms, claiming superior accuracy and lower complexity. While the research topic is timely and important, the manuscript suffers from fundamental and irremediable flaws. The core methodology is entirely undefined, making the work irreproducible. The reported results contain direct contradictions, undermining their credibility. Furthermore, the manuscript is characterized by poor writing and a high number of errors in the reference list, reflecting a lack of scholarly rigor. These critical issues prevent publication.",
+    "strengths": [
+      {
+        "category": "Importance",
+        "points": [
+          "The paper addresses the significant and relevant problem of improving teacher training and evaluation, which is of high interest to the education and computer science communities.",
+          "The goal of developing objective, AI-driven methods for assessing pedagogical effectiveness is a valuable research direction."
+        ]
+      },
+      {
+        "category": "Approach",
+        "points": [
+          "The conceptual goal of integrating a pedagogical framework (the SOLO taxonomy) with a machine learning model is interesting, though the manuscript fails to describe how this was achieved.",
+          "The comparative analysis against established baselines like SVM is an appropriate methodological choice for evaluating performance, even if the results presented are unreliable."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Methodological Soundness",
+        "points": [
+          "The core methodology is critically underspecified to the point of being non-existent. The paper repeatedly refers to a 'SOLO algorithm' but never explains how the SOLO taxonomy, a qualitative cognitive framework, was operationalized into a computational model for image analysis. The pseudocode in Table 1 is generic and uninformative, making the work impossible to understand or replicate.",
+          "The nature of the input data, 'AI electronic images', is critically vague. The manuscript lacks essential details about what these images depict, what specific features are extracted, and how the ground-truth labels were generated for training the model.",
+          "The experimental description is insufficient for replication, which is a fundamental requirement for scientific publication."
+        ]
+      },
+      {
+        "category": "Results and Analysis",
+        "points": [
+          "There is a direct and unexplained contradiction in the results. Figure 5 and Figure 6 both claim to report 'accuracy of teacher literacy recognition' but present different values for the same model (e.g., at 600 iterations, the SOLO model has 80% accuracy in Fig. 5 vs. 85% in Fig. 6). This inconsistency invalidates the paper's core findings.",
+          "The paper claims superiority based on small differences in accuracy (e.g., 80% for SOLO vs. 77% for SVM) without any statistical significance testing. It is impossible to know if this difference is meaningful or due to chance.",
+          "The analysis of time and space complexity is superficial, presenting only final numbers without explaining why the proposed model would be more efficient from an algorithmic perspective."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The manuscript is poorly written, with convoluted sentences, awkward phrasing, and excessive jargon that obscures meaning. The text requires substantial professional language editing to be comprehensible.",
+          "The literature review is structured as a disconnected list of summaries rather than a coherent synthesis that identifies a clear research gap."
+        ]
+      },
+      {
+        "category": "Scholarly Rigor",
+        "points": [
+          "The reference list contains numerous errors, indicating a severe lack of care. The evidence pack confirms that 15 of 38 references are unresolvable, some entries are merged (e.g., ref[13]), and several DOIs are malformed (e.g., ref[22], ref[38]). This level of sloppiness falls far below the standards for publication."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "technical_soundness",
+        "comment": "The central concept of a 'SOLO algorithm' is undefined. The SOLO taxonomy is a qualitative framework for assessing learning. You must provide a detailed explanation of your model's architecture. Is this a standard CNN where the output classes correspond to the SOLO levels? If so, you must describe how the training data was labeled by experts according to this taxonomy and what the inter-rater reliability was. The current description is not sufficient for a reader to understand what was actually built and tested.",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "Figures 5 and 6 are contradictory. They both claim to show the 'accuracy of teacher literacy recognition' but report different results for the same experiment. This is a critical error that undermines the entire results section. Please correct this and ensure all figures and text are consistent. Without this correction, the paper's core results are unreliable.",
+        "evidence_ref": null
+      },
+      {
+        "area": "related_work",
+        "comment": "The bibliography requires a complete overhaul. It is plagued with errors that suggest a lack of scholarly diligence. For example, reference [13] incorrectly merges two distinct publications into a single entry. Other entries, like [27], are incomplete and unresolvable. Furthermore, 15 out of 38 references could not be automatically resolved, some due to malformed DOIs (e.g., [22], [38]). Every entry must be verified for accuracy and correct formatting.",
+        "evidence_ref": "ref[13] merged, ref[27] incomplete, ref[22] malformed DOI, ref[38] malformed DOI, 15/38 unresolved"
+      },
+      {
+        "area": "impact",
+        "comment": "The term 'AI electronic images' is used throughout but never clearly defined. For the work to have impact, readers must understand the data. Please specify if these are video frames, what the temporal context is, and what specific visual information the model is using to make its classifications. This lack of definition severely limits the paper's contribution.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Can you please provide a precise architectural description of your 'SOLO algorithm' and explain how it computationally implements the principles of the SOLO taxonomy?",
+      "How was the ground truth for the 1,000 'electronic images' established? Were they manually labeled by educational experts using the SOLO framework? If so, what was the process and inter-rater agreement?",
+      "Could you please resolve the contradiction between the accuracy results presented in Figure 5 and Figure 6?",
+      "Have you performed any statistical tests (e.g., a t-test or McNemar's test) to confirm that the reported accuracy difference between your SOLO model and the SVM baseline is statistically significant?",
+      "What specific features within the 'electronic images' is your model learning to recognize as indicative of teacher literacy (e.g., specific gestures, classroom layouts, student reactions)?"
+    ],
+    "overall_assessment": "While the manuscript addresses an important problem, it is fundamentally flawed to a degree that cannot be rectified through revision. The work is undermined by three critical failures: 1) The core methodology is so poorly described that the work is neither understandable nor reproducible. 2) The results section contains direct contradictions that invalidate the findings. 3) The overall quality of the writing and the numerous errors in the bibliography demonstrate a lack of scholarly rigor. Because the central claims are based on an undefined method and untrustworthy results, the manuscript offers no contribution to the field in its current state. Therefore, it must be rejected.",
+    "verdict": "reject",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 5.68,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The novelty of the work cannot be assessed. While the concept of applying the SOLO taxonomy to an AI model is mentioned, the manuscript provides no details on how this was implemented. Without a described methodology, any claim to originality is unsubstantiated.]"
+      },
+      {
+        "key": "importance",
+        "score": 7.0,
+        "rationale": "The research addresses the highly important and challenging area of teacher evaluation and professional development. AI-based tools could have a significant positive impact if developed rigorously."
+      },
+      {
+        "key": "claims_supported",
+        "score": 2.17,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: The central claim that the SOLO model is superior is completely unsupported due to contradictory figures (Fig 5 vs. Fig 6), a lack of statistical significance testing, and an opaque, irreproducible methodology.]"
+      },
+      {
+        "key": "soundness",
+        "score": 3.25,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity major. [LLM'in kendi gerekçesi: The methodological soundness is critically low. The core algorithm is undefined, the experimental procedure is not reproducible, and the results are internally contradictory. The work is fundamentally unsound.]"
+      },
+      {
+        "key": "clarity",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The manuscript is extremely difficult to read. Key terms are undefined, sentences are convoluted, and the overall narrative is unclear. It requires a complete rewrite to be comprehensible.]"
+      },
+      {
+        "key": "community_value",
+        "score": 1.0,
+        "rationale": "In its current state, the paper provides no value to the community. The methodology is irreproducible and the results are untrustworthy, meaning the findings cannot be built upon, trusted, or even understood."
+      },
+      {
+        "key": "contextualization",
+        "score": 3.0,
+        "rationale": "The literature review is a simple list of summaries and fails to build a strong argument for the study's contribution. This is compounded by a messy and error-prone reference list, indicating poor engagement with existing scholarship."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack confirms no fabricated or retracted citations. However, the reference list is of very poor quality, with 15/38 references being unresolvable and several entries containing significant formatting errors (e.g., merged citations, malformed DOIs). This indicates severe sloppiness.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 6.31,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify specific seminal works that were missed. This score reflects a neutral position in the absence of definitive negative evidence, though the poor quality of the literature review suggests coverage may be superficial.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 7.75,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity major. [LLM'in kendi gerekçesi: The manuscript contains directly contradictory data in its own figures (Fig 5 vs. Fig 6) and fails to report any significance testing for its main claims. This represents a critical failure of internal statistical consistency.]"
+      }
+    ],
+    "final_score": 5.25,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 38,
+        "resolved": 23,
+        "not_found_in_index": 15,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 11
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Alhumaid K, Naqbi S, Elsori D, Mansoori M. 2023. The adoption of artificial intelligence applications in education. International Journal of Data and Network Science 7(1):457–466 DOI 10.5267/j.ijdns.2022.8.013.",
+          "title": "The adoption of artificial intelligence applications in education",
+          "authors": [
+            "Alhumaid K, Naqbi S, Elsori D, Mansoori M. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.5267/j.ijdns.2022.8.013",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4311786576",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4311786576; 'The adoption of artificial intelligence applications in education').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Bengtsson M. 2020. Using a game-based learning approach in teaching overall equip- ment effectiveness. Journal of Quality in Maintenance Engineering 26(3):489–507.",
+          "title": "Using a game-based learning approach in teaching overall equip- ment effectiveness",
+          "authors": [
+            "Bengtsson M. 2020"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 3,
+          "raw": "Celik I. 2023. Towards Intelligent-TPACK: an empirical study on teachers’ professional knowledge to ethically integrate artificial intelligence (AI)-based tools into educa- tion. Computers in Human Behavior 138:107468 DOI 10.1016/j.chb.2022.107468.",
+          "title": "Towards Intelligent-TPACK: an empirical study on teachers’ professional knowledge to ethically integrate artificial intelligence (AI)-based tools into educa- tion",
+          "authors": [
+            "Celik I. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.1016/j.chb.2022.107468",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4293731327",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4293731327; 'Towards Intelligent-TPACK: An empirical study on teachers’ professional knowledge to ethically integrate artificial intelligence (AI)-based tools into education').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Chen M, Zhou C, Wang Y, Li Y. 2022. The role of school ICT construction and teacher information literacy in reducing teacher burnout: based on SEM and fsQCA. Educa- tion and Information Technologies 27(6):8751–8770 DOI 10.1007/s10639-022-10989-7.",
+          "title": "The role of school ICT construction and teacher information literacy in reducing teacher burnout: based on SEM and fsQCA",
+          "authors": [
+            "Chen M, Zhou C, Wang Y, Li Y. 2022"
+          ],
+          "year": 2022,
+          "doi": "10.1007/s10639-022-10989-7",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4220950376",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4220950376; 'The role of school ICT construction and teacher information literacy in reducing teacher burnout: Based on SEM and fsQCA').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Dong P, Li A. 2021. Simulation of physical education teaching based on FPGA and wearable VR equipment. Microprocessors and Microsystems 81:103773. Fernández-Batanero JM, Montenegro-Rueda M, Fernández-Cerero J, García-",
+          "title": "Simulation of physical education teaching based on FPGA and wearable VR equipment",
+          "authors": [
+            "Dong P, Li A. 2021"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 6,
+          "raw": "Martínez I. 2022. Digital competences for teacher professional development. Systematic review. European Journal of Teacher Education 45(4):513–531 DOI 10.1080/02619768.2020.1827389. Finlayson SG, Subbaswamy A, Singh K, Bowers J, Kupke A, Zittrain J, Kohane IS, Saria",
+          "title": "Digital competences for teacher professional development",
+          "authors": [
+            "Martínez I. 2022"
+          ],
+          "year": 2022,
+          "doi": "10.1080/02619768.2020.1827389",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3092340577",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3092340577; başlık benzerliği 0.86). YIL FARKI: kaynakçada 2022, OpenAlex'te 2020 — muhtemelen online-first/baskı tarihi farkı; yazarın kontrol etmesi önerilir (uydurma atıf iddiası DEĞİLDİR, düzeltme önerisidir).",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "S. 2021. The clinician and dataset shift in artificial intelligence. New England Journal of Medicine 385(3):283–286 DOI 10.1056/NEJMc2104626.",
+          "title": "The clinician and dataset shift in artificial intelligence",
+          "authors": [
+            "S. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.1056/NEJMc2104626",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3177617320",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3177617320; 'The Clinician and Dataset Shift in Artificial Intelligence').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Gamazo A, Martínez-Abad F. 2020. An exploration of factors linked to academic performance in PISA 2018 through data mining techniques. Frontiers in Psychology 11:575167.",
+          "title": "An exploration of factors linked to academic performance in PISA 2018 through data mining techniques",
+          "authors": [
+            "Gamazo A, Martínez-Abad F. 2020"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 9,
+          "raw": "Ghazal MT, Abdullah K. 2020. Face recognition based on curvelets, invariant moments features and SVM. TELKOMNIKA (Telecommunication Computing Electronics and Control) 18(2):733–739 DOI 10.12928/telkomnika.v18i2.14106. 29/32",
+          "title": "Face recognition based on curvelets, invariant moments features and SVM",
+          "authors": [
+            "Ghazal MT, Abdullah K. 2020"
+          ],
+          "year": 2020,
+          "doi": "10.12928/telkomnika.v18i2.14106.29/32",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Verilen DOI (10.12928/telkomnika.v18i2.14106.29/32) OpenAlex'te bulunamadı; mevcut olmadığı anlamına gelmez (niş/indekssiz olabilir).",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Gupta MK, Chandra P. 2020. A comprehensive survey of data mining. International Jour- nal of Information Technology 12(4):1243–1257 DOI 10.1007/s41870-020-00427-7. Huang K, Fu T, Gao W, Zhao Y, Roohani Y, Leskovec J, Coley CW, Xiao C, Sun J, Zitnik",
+          "title": "A comprehensive survey of data mining",
+          "authors": [
+            "Gupta MK, Chandra P. 2020"
+          ],
+          "year": 2020,
+          "doi": "10.1007/s41870-020-00427-7",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3007362259",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3007362259; 'A comprehensive survey of data mining').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "M. 2022. Artificial intelligence foundation for therapeutic science. Nature Chemical Biology 18(10):1033–1036 DOI 10.1038/s41589-022-01131-2.",
+          "title": "Artificial intelligence foundation for therapeutic science",
+          "authors": [
+            "M. 2022"
+          ],
+          "year": 2022,
+          "doi": "10.1038/s41589-022-01131-2",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4296551289",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4296551289; 'Artificial intelligence foundation for therapeutic science').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Iannucci C, Richards KAR, MacPhail A. 2021. The relationships among personal accomplishment, resilience and teachers’ experience of teaching multiple school subjects role conflict. European Physical Education Review 27(3):613–635 DOI 10.1177/1356336X20980777.",
+          "title": "The relationships among personal accomplishment, resilience and teachers’ experience of teaching multiple school subjects role conflict",
+          "authors": [
+            "Iannucci C, Richards KAR, MacPhail A. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.1177/1356336X20980777",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3115075376",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3115075376; 'The relationships among personal accomplishment, resilience and teachers’ experience of teaching multiple school subjects role conflict').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Kaul V, Enslin S, Gross SA. 2020. History of artificial intelligence in medicine. Gastroin- testinal Endoscopy 92(4):807–812 DOI 10.1016/j.gie.2020.06.040. Lakeman R, Coutts R, Hutchinson M, Lee M, Massey D, Nasrawi D, Fielden J. 2022. Appearance, insults, allegations, blame and threats: an analysis of anonymous non- constructive student evaluation of teaching in Australia. Assessment & Evaluation in Higher Education 47(8):1245–1258 DOI 10.1080/02602938.2021.2012643.",
+          "title": null,
+          "authors": [
+            "Kaul V, Enslin S, Gross SA"
+          ],
+          "year": 2020,
+          "doi": "10.1016/j.gie.2020.06.040",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W3035901421",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3035901421; 'History of artificial intelligence in medicine').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Li B, Su Z. 2021. Research on data mining equipment for teaching English writing based on application. Journal of Intelligent & Fuzzy Systems 40(2):3263–3269 DOI 10.3233/JIFS-189366.",
+          "title": "Research on data mining equipment for teaching English writing based on application",
+          "authors": [
+            "Li B, Su Z. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.3233/JIFS-189366",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3092007437",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3092007437; 'Research on data mining equipment for teaching English writing based on application').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Li X, Lin J, Zhao L. 2021. Time series clustering in linear time complexity. Data Mining and Knowledge Discovery 35:2369–2388 DOI 10.1007/s10618-021-00798-w.",
+          "title": "Time series clustering in linear time complexity",
+          "authors": [
+            "Li X, Lin J, Zhao L. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.1007/s10618-021-00798-w",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3201032495",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3201032495; 'Time series clustering in linear time complexity').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Litualy SJ, Serpara H. 2020. Stationenlernen learning technique and German language learning outcomes. International Journal of Evaluation and Research in Education 9(2):421–426.",
+          "title": "Stationenlernen learning technique and German language learning outcomes",
+          "authors": [
+            "Litualy SJ, Serpara H. 2020"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 17,
+          "raw": "Luo X, Wei B, Shi M, Xiao X. 2020. Exploring the impact of the reasoning flow scaffold (RFS) on students’ scientific argumentation: based on the structure of observed learning outcomes (SOLO) taxonomy. Chemistry Education Research and Practice 21(4):1083–1094 DOI 10.1039/C9RP00269C.",
+          "title": "Exploring the impact of the reasoning flow scaffold (RFS) on students’ scientific argumentation: based on the structure of observed learning outcomes (SOLO) taxonomy",
+          "authors": [
+            "Luo X, Wei B, Shi M, Xiao X. 2020"
+          ],
+          "year": 2020,
+          "doi": "10.1039/C9RP00269C",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3026073167",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3026073167; 'Exploring the impact of the reasoning flow scaffold (RFS) on students’ scientific argumentation: based on the structure of observed learning outcomes (SOLO) taxonomy').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Lv Z, Han Y, Singh AK, Manogaran G, Lv H. 2020. Trustworthiness in industrial IoT systems based on artificial intelligence. IEEE Transactions on Industrial Informatics 17(2):1496–1504.",
+          "title": "Trustworthiness in industrial IoT systems based on artificial intelligence",
+          "authors": [
+            "Lv Z, Han Y, Singh AK, Manogaran G, Lv H. 2020"
+          ],
+          "year": 2020,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 19,
+          "raw": "Mazzye DL, Duffy MA, Lamb RL. 2023. Teacher candidate self-efficacy and ability to teach literacy: a comparison of residency and traditional teacher preparation models. Journal of Global Education and Research 7(2):146–165 DOI 10.5038/2577-509X.7.2.1230.",
+          "title": null,
+          "authors": [
+            "Mazzye DL, Duffy MA, Lamb RL"
+          ],
+          "year": 2023,
+          "doi": "10.5038/2577-509X.7.2.1230",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4292223484",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4292223484; 'Teacher candidate self-efficacy and ability to teach literacy: A comparison of residency and traditional teacher preparation models').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Meyer S, Aikenhead G. 2021. Indigenous culture-based school mathematics in action part II: the study’s results: what support do teachers need? The Mathematics Enthusi- ast 18(1):119–138 DOI 10.54870/1551-3440.1517.",
+          "title": "Indigenous culture-based school mathematics in action part II: the study’s results: what support do teachers need? The Mathematics Enthusi- ast 18(1):119–138 DOI 10.54870/1551-3440.1517.",
+          "authors": [
+            "Meyer S, Aikenhead G. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.54870/1551-3440.1517",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3037501181",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3037501181; 'Indigenous Culture-Based School Mathematics in Action Part II: The Study’s Results: What Support Do Teachers Need?').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Moallem M. 2019. Effects of PBL on learning outcomes, knowledge acquisition, and higher-order thinking skills. In: The Wiley handbook of problem-based learning. Mahnaz Moallem, 107–133 DOI 10.1002/9781119173243.ch5.",
+          "title": "Effects of PBL on learning outcomes, knowledge acquisition, and higher-order thinking skills",
+          "authors": [
+            "Moallem M. 2019"
+          ],
+          "year": 2019,
+          "doi": "10.1002/9781119173243.ch5",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2946666151",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2946666151; 'Effects of PBL on Learning Outcomes, Knowledge Acquisition, and Higher‐Order Thinking Skills').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Ndukwe IG, Daniel BK. 2020. Teaching analytics, value and tools for teacher data literacy: a systematic and tripartite approach. International Journal of Educational Technology in Higher Education 17(1):1–31 DOI 10.1186/s41239-019-0174-x. 30/32",
+          "title": null,
+          "authors": [
+            "Ndukwe IG, Daniel BK"
+          ],
+          "year": 2020,
+          "doi": "10.1186/s41239-019-0174-x.30/32",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Verilen DOI (10.1186/s41239-019-0174-x.30/32) OpenAlex'te bulunamadı; mevcut olmadığı anlamına gelmez (niş/indekssiz olabilir).",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Prachagool V. 2021. Literature and project-based learning and learning outcomes of young children. International Education Studies 14(12):93–98.",
+          "title": "Literature and project-based learning and learning outcomes of young children",
+          "authors": [
+            "Prachagool V. 2021"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 24,
+          "raw": "Qiu F, Zhang G, Sheng X, Jiang L, Zhu L, Xiang Q, Jiang B, Chen PK. 2022. Predicting students’ performance in e-learning using learning process and behaviour data. Scientific Reports 12(1):453 DOI 10.1038/s41598-021-03867-8.",
+          "title": null,
+          "authors": [
+            "Qiu F, Zhang G, Sheng X, Jiang L, Zhu L, Xiang Q, Jiang B, Chen PK"
+          ],
+          "year": 2022,
+          "doi": "10.1038/s41598-021-03867-8",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4206157917",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4206157917; 'Predicting students’ performance in e-learning using learning process and behaviour data').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "Ryan SAC, Stieff M. 2019. Drawing for assessing learning outcomes in chemistry. Journal of Chemical Education 96(9):1813–1820 DOI 10.1021/acs.jchemed.9b00361.",
+          "title": "Drawing for assessing learning outcomes in chemistry",
+          "authors": [
+            "Ryan SAC, Stieff M. 2019"
+          ],
+          "year": 2019,
+          "doi": "10.1021/acs.jchemed.9b00361",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2966036198",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2966036198; 'Drawing for Assessing Learning Outcomes in Chemistry').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "Sancar R, Atal D, Deryakulu D. 2021. A new framework for teachers’ professional development. Teaching and Teacher Education 101:103305.",
+          "title": "A new framework for teachers’ professional development",
+          "authors": [
+            "Sancar R, Atal D, Deryakulu D. 2021"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 27,
+          "raw": "Sanjaya DB, Suartama IK, Suastika IN. 2022. The effect of the conflict resolution learning model and portfolio assessment on the students’ learning outcomes of civic education. International Journal of Instruction 15(1):473–488. Timmons AC, Duong JB, Simo Fiallo N, Lee T, Vo QHP, Ahle MW, Comer JS, Brewer",
+          "title": null,
+          "authors": [
+            "Sanjaya DB, Suartama IK, Suastika IN"
+          ],
+          "year": 2022,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 28,
+          "raw": "LC, Frazier SL, Chaspari T. 2023. A call to action on assessing and mitigating bias in artificial intelligence applications for mental health. Perspectives on Psychological Science 18(5):1062–1096 DOI 10.1177/17456916221134490.",
+          "title": "A call to action on assessing and mitigating bias in artificial intelligence applications for mental health",
+          "authors": [
+            "LC, Frazier SL, Chaspari T. 2023"
+          ],
+          "year": 2023,
+          "doi": "10.1177/17456916221134490",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4311026115",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4311026115; 'A Call to Action on Assessing and Mitigating Bias in Artificial Intelligence Applications for Mental Health').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 29,
+          "raw": "Vadim K. 2018. Overview of different approaches to solving problems of data mining. Procedia Computer Science 123:234–239.",
+          "title": "Overview of different approaches to solving problems of data mining",
+          "authors": [
+            "Vadim K. 2018"
+          ],
+          "year": 2018,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 30,
+          "raw": "Waldia N, Sonawane S, Mali M, Jadhav V. 2023. Microlearning strategies for teacher professional development in the era of fourth industrial revolution in India. Journal of e-Learning and Knowledge Society 19(3):74–81.",
+          "title": "Microlearning strategies for teacher professional development in the era of fourth industrial revolution in India",
+          "authors": [
+            "Waldia N, Sonawane S, Mali M, Jadhav V. 2023"
+          ],
+          "year": 2023,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 31,
+          "raw": "Wang CY. 2019. Building a network for preserving intangible cultural heritage through education: a study of Indonesian batik. International Journal of Art & Design Education 38(2):398–415 DOI 10.1111/jade.12200.",
+          "title": null,
+          "authors": [
+            "Wang CY"
+          ],
+          "year": 2019,
+          "doi": "10.1111/jade.12200",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2893203768",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2893203768; 'Building a Network for Preserving Intangible Cultural Heritage through Education: A Study of Indonesian Batik').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 32,
+          "raw": "Wang X, Liu X, Tang Y, Zhao F, Luo Y. 2021. Numerical analysis of the flow effect of the menger-type artificial reefs with different void space complexity indices. Symmetry 13(6):1040 DOI 10.3390/sym13061040.",
+          "title": "Numerical analysis of the flow effect of the menger-type artificial reefs with different void space complexity indices",
+          "authors": [
+            "Wang X, Liu X, Tang Y, Zhao F, Luo Y. 2021"
+          ],
+          "year": 2021,
+          "doi": "10.3390/sym13061040",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W3170199316",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3170199316; 'Numerical Analysis of the Flow Effect of the Menger-Type Artificial Reefs with Different Void Space Complexity Indices').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 33,
+          "raw": "Weng SS, Liu Y, Dai J, Chuang YC. 2020. A novel improvement strategy of competency for education for sustainable development (ESD) of university teachers based on data mining. Sustainability 12(7):2679 DOI 10.3390/su12072679.",
+          "title": null,
+          "authors": [
+            "Weng SS, Liu Y, Dai J, Chuang YC"
+          ],
+          "year": 2020,
+          "doi": "10.3390/su12072679",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W3013828594",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W3013828594; 'A Novel Improvement Strategy of Competency for Education for Sustainable Development (ESD) of University Teachers Based on Data Mining').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 34,
+          "raw": "Yang C, Chan M, Lin X, Chen C. 2022. Teacher victimization and teacher burnout: multi-level moderating role of school climate in a large-scale survey study. Journal of School Violence 21(2):206–221 DOI 10.1080/15388220.2022.2041023.",
+          "title": "Teacher victimization and teacher burnout: multi-level moderating role of school climate in a large-scale survey study",
+          "authors": [
+            "Yang C, Chan M, Lin X, Chen C. 2022"
+          ],
+          "year": 2022,
+          "doi": "10.1080/15388220.2022.2041023",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W4213385958",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4213385958; 'Teacher Victimization and Teacher Burnout: Multilevel Moderating Role of School Climate in a Large-scale Survey Study').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 35,
+          "raw": "Yang Y. 2018. Teaching research on higher vocational preschool education of profes- sional art course based on innovation and entrepreneurship education. Creative Education 9(5):713–718 DOI 10.4236/ce.2018.95053.",
+          "title": "Teaching research on higher vocational preschool education of profes- sional art course based on innovation and entrepreneurship education",
+          "authors": [
+            "Yang Y. 2018"
+          ],
+          "year": 2018,
+          "doi": "10.4236/ce.2018.95053",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2801259221",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2801259221; 'Teaching Research on Higher Vocational Pre-School Education of Professional Art Course Based on Innovation and Entrepreneurship Education').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 36,
+          "raw": "Zhang C, Lu Y. 2021. Study on artificial intelligence: the state of the art and future prospects. Journal of Industrial Information Integration 23:100224.",
+          "title": "Study on artificial intelligence: the state of the art and future prospects",
+          "authors": [
+            "Zhang C, Lu Y. 2021"
+          ],
+          "year": 2021,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 37,
+          "raw": "Zhao L, Wu X, Luo H. 2022. Developing AI literacy for primary and middle school teachers in China: based on a structural equation modeling analysis. Sustainability 14(21):14549. 31/32",
+          "title": "Developing AI literacy for primary and middle school teachers in China: based on a structural equation modeling analysis",
+          "authors": [
+            "Zhao L, Wu X, Luo H. 2022"
+          ],
+          "year": 2022,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 38,
+          "raw": "Zhuang T, Liu B. 2022. Sustaining higher education quality by building an educational innovation ecosystem in China—policies, implementations and effects. Sustainability 14(13):7568 DOI 10.3390/su14137568. 32/32",
+          "title": "Sustaining higher education quality by building an educational innovation ecosystem in China—policies, implementations and effects",
+          "authors": [
+            "Zhuang T, Liu B. 2022"
+          ],
+          "year": 2022,
+          "doi": "10.3390/su14137568.32/32",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Verilen DOI (10.3390/su14137568.32/32) OpenAlex'te bulunamadı; mevcut olmadığı anlamına gelmez (niş/indekssiz olabilir).",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:11",
+        "coverage:openalex_unavailable"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e3f296a02ab3598de809879fe48a7931fa41997d924681d6d09b0d6b0eeb9679",
+          "request_time": "2026-08-22T18:24:58.949664Z",
+          "status": "degraded",
+          "result_count": 23,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "11/38 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:24:59.944489Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "40dcc3000411a5ebfc5d1211798916ccfc641f03d87d0c75b2d34c042ae64823",
+          "request_time": "2026-08-22T18:25:05.281393Z",
+          "status": "failed",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "openalex search_works_raw failed: all 3 attempts failed; last=HTTPStatusError"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.unknown.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:32:39.605125Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.9,
+      "study_design": "unknown",
+      "study_design_confidence": 0.3,
+      "rationale": "Belgenin 'Submitted', 'Accepted', 'Published' tarihleri, 'DOI' numarası ve 'Corresponding author' bilgisi bir dergi makalesine işaret etmektedir. Çalışma tasarımı hakkında metin içeriği olmadan kesin bir yargıya varmak mümkün değildir, ancak 'model establishing' ve 'algorithms' ifadeleri nicel veya hesaplamalı bir çalışma olabileceğini düşündürmektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 59.8,
+      "recommended_decision": "reject",
+      "confidence": 0.74125,
+      "top_fatal_risks": [
+        "Genel İddialar ile Sunulan Kanıtlar Arasındaki Uyumsuzluk",
+        "Araştırma Tasarımının Belirsizliği ve Araştırma Sorusuyla Uyumsuzluğu",
+        "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "Ölçüm Araçlarının ve Değişken Operasyonelleştirmesinin Belirsizliği",
+        "İstatistiksel Analiz Planının Eksikliği ve Varsayım Testlerinin Belirsizliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 8 major issue(s) detected; recommended decision: reject."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 52.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "6 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": 59.0,
+        "severity": "moderate",
+        "confidence": 0.78,
+        "why_it_matters": "5 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 25.0,
+        "severity": "major",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity major."
+      },
+      {
+        "dimension": "evidence",
+        "score": 13.0,
+        "severity": "major",
+        "confidence": 0.86,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.75,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 75.0,
+        "severity": "major",
+        "confidence": 0.8,
+        "why_it_matters": "1 finding(s); worst severity major."
+      },
+      {
+        "dimension": "ethics",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "6 concern(s): The manuscript repeatedly refers to a 'SOLO algorithm' but fails to provide any concrete explanation of how the qualitative SOLO taxonomy is operationalized into a computational model for image analysis. The pseudocode in Table 1 is generic and does not clarify the specific algorithmic steps or architecture. This lack of detail makes the core methodology impossible to understand or replicate.; The description of the input data, 'AI electronic images', is critically vague. The manuscript does not specify what these images depict (e.g., classroom interactions, static teaching materials), what features are extracted, or how ground-truth labels corresponding to SOLO levels were generated. This omission prevents any meaningful evaluation of the model's input or its relevance to the stated problem.; There is a direct contradiction between Figure 5 and Figure 6, both of which claim to report 'accuracy of teacher literacy recognition'. For example, at 600 iterations, Figure 5 shows the SOLO model at 80% accuracy, while Figure 6 shows it at 85%. This inconsistency undermines the credibility of all reported results and suggests a fundamental error in data presentation or analysis. (+3 more)",
+        "key_objection": "The manuscript repeatedly refers to a 'SOLO algorithm' but fails to provide any concrete explanation of how the qualitative SOLO taxonomy is operationalized into a computational model for image analysis. The pseudocode in Table 1 is generic and does not clarify the specific algorithmic steps or architecture. This lack of detail makes the core methodology impossible to understand or replicate.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f4",
+          "quant.f5",
+          "research_question_fit.f0",
+          "research_question_fit.f1",
+          "research_question_fit.f2"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "reject-leaning",
+        "summary": "6 concern(s): The core methodology, specifically the 'SOLO algorithm', is critically underspecified. The manuscript refers to it as a computational model for image analysis but fails to explain how the SOLO taxonomy (a cognitive assessment framework) is operationalized into this algorithm. The provided pseudocode in Table 1 is generic and lacks specific details for implementation.; The nature of the input data, 'AI electronic images', is vague. Essential details are missing regarding what these images depict (e.g., classroom video frames, static photos), what specific features are extracted, and how ground-truth labels were generated for model training. This lack of detail makes the study irreproducible.; The experimental description is insufficient for replication. Key information about the experimental setup, data preprocessing, and model training parameters is absent. (+3 more)",
+        "key_objection": "The core methodology, specifically the 'SOLO algorithm', is critically underspecified. The manuscript refers to it as a computational model for image analysis but fails to explain how the SOLO taxonomy (a cognitive assessment framework) is operationalized into this algorithm. The provided pseudocode in Table 1 is generic and lacks specific details for implementation.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "6 concern(s): The core methodology, specifically the 'SOLO algorithm', is not adequately explained. The manuscript needs to clearly detail how the SOLO taxonomy is operationalized into a computational model for image analysis. The provided pseudocode in Table 1 is too generic and does not offer sufficient insight into the model's architecture or its connection to SOLO principles.; The description of the 'AI electronic images' is vague. Please provide essential details about what these images depict (e.g., classroom video frames, static photos), what specific features are extracted, and how the ground-truth labels were generated for training the model. This clarity is crucial for understanding the study's context and potential impact.; There is a significant inconsistency between Figure 5 and Figure 6, which both report 'accuracy of teacher literacy recognition' but show different values and trends. For example, at 600 iterations, Figure 5 shows 80% accuracy for the SOLO model, while Figure 6 shows 85%. This discrepancy undermines the credibility of the reported findings and must be corrected. (+3 more)",
+        "key_objection": "The core methodology, specifically the 'SOLO algorithm', is not adequately explained. The manuscript needs to clearly detail how the SOLO taxonomy is operationalized into a computational model for image analysis. The provided pseudocode in Table 1 is too generic and does not offer sufficient insight into the model's architecture or its connection to SOLO principles.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): The claim that 'several entries appear to be merged (e.g., ref[13], ref[27])' is partially inaccurate. While ref[13] is indeed a merged entry, ref[27] is not explicitly merged but rather lacks a resolvable DOI and title, making it difficult to verify. The claim that 'some DOIs are malformed or incorrect (e.g., ref[22], ref[38])' is accurate. The claim that 'a significant number of citations could not be resolved' is accurate (15 out of 38).; Reference [13] is indeed a merged entry. However, reference [27] is not explicitly merged; it lacks a resolvable DOI and title, making its status as a merged entry unconfirmable from the provided evidence.; This statement is accurate based on the provided evidence package. 15 out of 38 references were not found in the index, and some (e.g., ref[9], ref[22], ref[38]) had malformed DOIs. (+1 more)",
+        "key_objection": "The claim that 'several entries appear to be merged (e.g., ref[13], ref[27])' is partially inaccurate. While ref[13] is indeed a merged entry, ref[27] is not explicitly merged but rather lacks a resolvable DOI and title, making it difficult to verify. The claim that 'some DOIs are malformed or incorrect (e.g., ref[22], ref[38])' is accurate. The claim that 'a significant number of citations could not be resolved' is accurate (15 out of 38).",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "citation_integrity.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1",
+          "theoretical_framing.f2"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "revision-required",
+        "summary": "2 concern(s): The draft's overall assessment praises the 'potentially interesting approach' and 'moderately original' idea of integrating SOLO taxonomy with AI for teacher assessment. However, the core methodology is critically underspecified, making it impossible to evaluate the actual novelty of the implementation. The 'SOLO algorithm' is not explained, and the operationalization of a qualitative framework into a computational model for image analysis is completely missing. Without this fundamental clarity, any claim of originality, even moderate, is unsubstantiated.; The originality score of 5.0 (moderately original) is given with the caveat that 'the lack of a clear description of the method makes it difficult to assess the novelty of the implementation.' This directly contradicts assigning a moderate originality score. If the implementation's novelty cannot be assessed due to lack of description, then a positive originality score is premature and ungrounded.",
+        "key_objection": "The draft's overall assessment praises the 'potentially interesting approach' and 'moderately original' idea of integrating SOLO taxonomy with AI for teacher assessment. However, the core methodology is critically underspecified, making it impossible to evaluate the actual novelty of the implementation. The 'SOLO algorithm' is not explained, and the operationalization of a qualitative framework into a computational model for image analysis is completely missing. Without this fundamental clarity, any claim of originality, even moderate, is unsubstantiated.",
+        "confidence": 0.0,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "research_question_fit.f1",
+          "research_question_fit.f2",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1",
+          "theoretical_framing.f2"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "reject",
+        "summary": "This manuscript proposes a deep learning model, purportedly based on the Structure of the Observed Learning Outcome (SOLO) taxonomy, to assess the 'cognitive literacy' of middle school teachers using 'AI electronic images'. The authors compare their model against SVM and decision tree algorithms, claiming superior accuracy and lower complexity. While the research topic is timely and important, the manuscript suffers from fundamental and irremediable flaws. The core methodology is entirely undefined, making the work irreproducible. The reported results contain direct contradictions, undermining their credibility. Furthermore, the manuscript is characterized by poor writing and a high number of errors in the reference list, reflecting a lack of scholarly rigor. These critical issues prevent publication.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Araştırma Tasarımının Belirsizliği ve Araştırma Sorusuyla Uyumsuzluğu",
+        "summary": "Makale, 'ortaokul öğretmenlerinin okuryazarlığını geliştirmede derin öğrenmeye dayalı yapay zeka elektronik görüntülerinin kullanılması' başlığı altında bir uygulama ve değerlendirme modeli sunmaktadır. Ancak, çalışmanın deneysel bir tasarım mı, gözlemsel bir karşılaştırma mı yoksa sadece bir model tanıtımı mı olduğu net değildir. Özellikle 'SOLO algoritmasının %80 doğruluk oranına ulaştığı' bulgusu, bir karşılaştırmalı analizden ziyade bir modelin performansını göstermektedir. Bu belirsizlik, araştırmanın temel amacını ve bulgularının yorumlanabilirliğini zayıflatmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "The findings reveal that, following 600 iterations of the model, the SVM algorithm achieves a 77% accuracy rate in recognizing teacher literacy, whereas the SOLO algorithm attains 80%."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "This study aims to analyze and explore the practical significance of employing AI methods, particularly AI electronic images and the SOLO algorithm, to enhance the cognitive literacy of middle school teachers."
+          }
+        ],
+        "reasoning_public": "Araştırma tasarımının net olmaması, çalışmanın iç ve dış geçerliliğini doğrudan etkiler. Okuyucunun, sunulan bulguların hangi tür kanıt gücüne sahip olduğunu anlamasını engeller. Özellikle nedensel çıkarımlar yapılıp yapılmadığı veya hangi koşullar altında genellenebileceği belirsiz kalır.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Makalede, modelin eğitildiği veya test edildiği veri setinin büyüklüğü, özellikleri veya nasıl toplandığına dair herhangi bir bilgi bulunmamaktadır. Özellikle 'ortaokul öğretmenlerinin okuryazarlığını' değerlendiren bir model için örneklem büyüklüğü ve temsiliyet kritik öneme sahiptir. Güç analizi veya hassasiyet gerekçesi sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "The findings reveal that, following 600 iterations of the model, the SVM algorithm achieves a 77% accuracy rate in recognizing teacher literacy, whereas the SOLO algorithm attains 80%."
+          },
+          {
+            "anchor_id": "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a0",
+            "section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+            "quote": "Utilizing digital imagery as its foundation, this investigation posits a model for the application and evaluation of teachers’ intelligent literacy predicated on the SOLO classification method. The objective is to quantitatively assess the cognitive proficiency of middle school educators and furnish tailored instructional feedback."
+          }
+        ],
+        "reasoning_public": "Yeterli örneklem büyüklüğü ve temsiliyet, bir çalışmanın bulgularının genellenebilirliği ve istatistiksel gücü için temeldir. Bu bilgiler olmadan, modelin performansının ne kadar güvenilir olduğu veya farklı popülasyonlara ne ölçüde uygulanabileceği belirsiz kalır.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Ölçüm Araçlarının ve Değişken Operasyonelleştirmesinin Belirsizliği",
+        "summary": "Çalışma, 'öğretmenlerin bilişsel okuryazarlığını' ve 'öğretim etkinliğini' değerlendirmek için SOLO sınıflandırma algoritmasını kullandığını belirtmektedir. Ancak, bu 'okuryazarlık' veya 'etkinlik' kavramlarının nasıl operasyonelleştirildiği, hangi spesifik ölçütlerle değerlendirildiği veya bu ölçütlerin geçerlilik ve güvenilirliğinin nasıl sağlandığına dair detaylı bilgi eksiktir. 'Elektronik görüntü verilerinden özellik çıkarma ve öğrenme' ifadesi genel kalmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "This model is designed to assess the cognitive literacy and teaching efficacy of middle school educators, and its performance is juxtaposed with classification algorithms such as support vector machine (SVM) and decision trees."
+          },
+          {
+            "anchor_id": "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a1",
+            "section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+            "quote": "The SOLO classification method employed herein constitutes a deep learning-based image classification algorithm adept at accurately discerning teachers’ pedagogical behaviors and performances. This algorithm achieves precision through feature extraction and learning from electronic imaging data."
+          }
+        ],
+        "reasoning_public": "Ölçüm araçlarının ve değişken operasyonelleştirmesinin net olmaması, çalışmanın bulgularının neyi temsil ettiğini ve ne kadar güvenilir olduğunu anlamayı zorlaştırır. Özellikle 'öğretmen okuryazarlığı' gibi karmaşık bir yapının nasıl ölçüldüğü, çalışmanın temel geçerliliği için kritik öneme sahiptir.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "İstatistiksel Analiz Planının Eksikliği ve Varsayım Testlerinin Belirsizliği",
+        "summary": "Makalede, SOLO ve SVM algoritmalarının performansını karşılaştırmak için kullanılan istatistiksel testler veya modeller hakkında yeterli bilgi bulunmamaktadır. Sadece 'doğruluk oranı' ve 'uzamsal karmaşıklık' gibi metrikler raporlanmıştır. Bu algoritmaların karşılaştırılmasında kullanılan istatistiksel yöntemler (örn. hipotez testleri, çapraz doğrulama stratejileri) ve bu yöntemlerin varsayımlarının test edilip edilmediği belirsizdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "The findings reveal that, following 600 iterations of the model, the SVM algorithm achieves a 77% accuracy rate in recognizing teacher literacy, whereas the SOLO algorithm attains 80%. Concurrently, the spatial complexities of the SVM-based and SOLO-based intelligent literacy improvement models are determined to be 45 and 22, respectively."
+          }
+        ],
+        "reasoning_public": "İstatistiksel analiz planının ve varsayım testlerinin eksikliği, sunulan bulguların güvenilirliğini ve geçerliliğini sorgulatır. Algoritma performans karşılaştırmalarında, sadece doğruluk oranları değil, aynı zamanda bu oranların istatistiksel olarak anlamlı farklılık gösterip göstermediği de önemlidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makalede, SOLO ve SVM algoritmalarının doğruluk oranları (%80 ve %77) ve uzamsal karmaşıklıkları (22 ve 45) raporlanmıştır. Ancak, bu farkların istatistiksel anlamlılığını veya pratik önemini değerlendirmek için etki büyüklüğü ölçüleri (örn. Cohen's d, odds ratio) veya güven aralıkları (CI) sunulmamıştır. Bu eksiklik, okuyucunun bulguların gerçek dünya üzerindeki etkisini anlamasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "The findings reveal that, following 600 iterations of the model, the SVM algorithm achieves a 77% accuracy rate in recognizing teacher literacy, whereas the SOLO algorithm attains 80%. Concurrently, the spatial complexities of the SVM-based and SOLO-based intelligent literacy improvement models are determined to be 45 and 22, respectively."
+          }
+        ],
+        "reasoning_public": "Sadece p-değerleri veya nokta tahminleri yerine etki büyüklüğü ve güven aralıklarının raporlanması, bulguların hem istatistiksel hem de pratik önemini daha kapsamlı bir şekilde sunar. Bu, okuyucunun sonuçların kesinliği ve genellenebilirliği hakkında daha iyi bir fikir edinmesini sağlar.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "causal_language_discipline",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Nedensel Dilin Aşırı Kullanımı ve Gözlemsel Veriyle Çelişki",
+        "summary": "Makale, 'AI metodolojilerinin elektronik görüntüleme teknolojisini ilerletmede ve eğitim öğretiminde görüntü tanıma etkinliğini artırmada son derece etkili olduğunu' belirtmektedir. Ancak, çalışma bir model karşılaştırması sunmakta ve nedensel bir müdahale veya kontrol grubu içermemektedir. Bu tür ifadeler, gözlemsel veya model karşılaştırmalı bir çalışmanın ötesinde nedensel bir ilişki ima etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "Consequently, the utilization of AI methodologies proves highly efficacious in advancing electronic imaging technology and enhancing the efficacy of image recognition in educational instruction."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "To address these challenges, the utilization of artificial intelligence (AI) holds profound significance in enhancing the cognitive literacy of middle school educators (Fernández-Batanero et al., 2022)."
+          }
+        ],
+        "reasoning_public": "Gözlemsel veya model karşılaştırmalı çalışmalarda nedensel dilin aşırı kullanımı, okuyucuyu yanıltabilir ve bulguların gücünü abartabilir. Nedensel çıkarımlar için randomize kontrollü deneyler veya güçlü nedensel çıkarım stratejileri gereklidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Veri ve Kod Erişilebilirliği Beyanının Yetersizliği",
+        "summary": "Makale, 'kodun Ek Dosyalarda mevcut olduğunu' belirtmektedir. Ancak, veri setinin erişilebilirliği hakkında net bir bilgi bulunmamaktadır. Bilimsel tekrar üretilebilirliği sağlamak için hem kodun hem de kullanılan veri setinin (veya sentetik bir versiyonunun) erişilebilir olması kritik öneme sahiptir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "data_availability.a0",
+            "section": "Data Availability",
+            "quote": "The code is available in the Supplementary Files."
+          }
+        ],
+        "reasoning_public": "Veri ve kodun erişilebilirliği, bilimsel şeffaflık ve tekrar üretilebilirlik için temel bir gerekliliktir. Bu olmadan, diğer araştırmacılar bulguları doğrulayamaz veya çalışmayı genişletemez.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Ana Sonuçların Yetersiz Raporlanması",
+        "summary": "Makale, SOLO ve SVM algoritmalarının doğruluk oranlarını ve uzamsal karmaşıklıklarını raporlamaktadır. Ancak, bu sonuçlar genellikle sadece nokta tahminleri olarak sunulmuştur. Güven aralıkları veya diğer belirsizlik ölçüleri eksiktir. Ayrıca, 'significant/non-significant' gibi istatistiksel anlamlılık dilinin kullanımı, etki büyüklüğü ve pratik önemden ziyade p-değerlerine odaklanma eğilimindedir, ancak bu çalışmada p-değerleri bile raporlanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "The findings reveal that, following 600 iterations of the model, the SVM algorithm achieves a 77% accuracy rate in recognizing teacher literacy, whereas the SOLO algorithm attains 80%. Concurrently, the spatial complexities of the SVM-based and SOLO-based intelligent literacy improvement models are determined to be 45 and 22, respectively."
+          }
+        ],
+        "reasoning_public": "Ana sonuçların sadece nokta tahminleri olarak sunulması, okuyucunun bulguların kesinliği ve genellenebilirliği hakkında tam bir resim edinmesini engeller. Güven aralıkları, tahminlerin ne kadar değişken olabileceğini gösterir ve pratik önemi değerlendirmek için etki büyüklüğü ölçüleri gereklidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Özgünlük İddialarının Yetersiz Somutlaştırılması",
+        "summary": "Makale, AI elektronik görüntülerinin ve SOLO algoritmasının öğretmenlerin bilişsel okuryazarlığını artırmadaki uygulamasının 'birkaç boyutta yenilik' sunduğunu iddia etse de, bu yeniliklerin mevcut literatürdeki benzer çalışmalardan somut olarak nasıl ayrıştığı yeterince açıklanmamıştır. Özellikle, AI destekli eğitim araçları ve SOLO tabanlı değerlendirme modelleri üzerine yapılan önceki çalışmalarla karşılaştırmalı bir analiz eksikliği bulunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "The innovation inherent in this study manifests in several dimensions. Firstly, it delves into the application of AI electronic images in the training and instruction of middle school teachers, furnishing them with diverse teaching resources and tools to foster their professional development. Secondly, the utilization of the Structure of the Observed Learning Outcome (SOLO) algorithm underpins an intelligent classification and algorithmic application model. This model provides objective and precise methodologies for the evaluation of middle school teachers’ teaching, thereby enhancing teaching quality and effectiveness. Additionally, the study conducts a comparative analysis with other widely employed classification algorithms, such as decision trees and support vector machines (SVM), offering valuable insights and guidance for the application of AI in education."
+          }
+        ],
+        "reasoning_public": "Bir çalışmanın özgünlüğü, mevcut bilgi birikimine yaptığı benzersiz katkılarla ölçülür. Bu makale, AI elektronik görüntüleri ve SOLO algoritması gibi kavramları bir araya getirerek öğretmenlerin bilişsel okuryazarlığını artırma potansiyelini vurgulamaktadır. Ancak, bu yaklaşımın literatürdeki diğer benzer yaklaşımlardan neden daha üstün veya farklı olduğunu açıkça ortaya koymak, çalışmanın gerçek özgünlüğünü ve katkısını belirlemek için kritik öneme sahiptir. Mevcut haliyle, iddia edilen yenilikler genel ifadelerle sınırlı kalmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "contribution_originality.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Literatür Taramasında Kapsam Boşlukları ve Özgünlük Bağlamı",
+        "summary": "Literatür taraması, AI ve SOLO sınıflandırma algoritmasının genel uygulamalarına değinse de, AI destekli görsel materyallerin öğretmen eğitimi ve değerlendirmesindeki spesifik kullanımı veya SOLO'nun öğretmen performansını değerlendirmedeki yenilikçi uygulamaları üzerine daha doğrudan ve derinlemesine bir inceleme eksiktir. Bu durum, çalışmanın iddia ettiği özgünlüğün literatürdeki yerini tam olarak konumlandırmasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "recent_related_work.a0",
+            "section": "RECENT RELATED WORK",
+            "quote": "The aforementioned research reveals that conventional centralized training and qualitative evaluation methods fall short of meeting the individual needs of teachers and fail to provide objective and accurate assessments, consequently resulting in limited efficacy in teacher training and evaluation outcomes. Traditional teacher training is often constrained by temporal and spatial limitations, unable to furnish diverse and personalized training resources (Mazzye, Duffy & Lamb, 2023). The evaluation process heavily relies on subjective judgments, introducing potential inaccuracies and subjectivity. Methodologically, numerous studies employ qualitative analysis methods to explore issues related to teacher training and evaluation, emphasizing the necessity for increased objectivity and accuracy. Typically, uniform training content and evaluation criteria are adopted, proving insufficient to address the specific needs and differentiated development of individual teachers. This study introduces a novel teacher training and evaluation methodology utilizing AI electronic images and deep learning technology. Leveraging potent data processing and pattern recognition capabilities inherent in AI technology, the approach provides personalized teaching support and yields objective and accurate assessment results."
+          }
+        ],
+        "reasoning_public": "Kapsamlı bir literatür taraması, bir çalışmanın özgünlüğünü ve alana katkısını belirlemede temel bir adımdır. Mevcut tarama, AI ve SOLO'nun genel uygulamalarına odaklanırken, bu iki alanın kesişiminde, özellikle öğretmen eğitimi ve değerlendirmesi bağlamında, daha spesifik çalışmaların eksikliği hissedilmektedir. Bu boşluk, makalenin kendi 'yenilik' iddialarını sağlam bir literatür temeline oturtmasını engellemektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "contribution_originality.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f2",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Disiplinlerarası Yaklaşım Potansiyeli",
+        "summary": "Çalışma, yapay zeka ve eğitim bilimleri gibi farklı disiplinleri bir araya getirerek öğretmenlerin bilişsel okuryazarlığını artırma potansiyeli sunmaktadır. Bu disiplinlerarası yaklaşım, eğitim teknolojileri alanında yeni araştırma yolları açabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "This study endeavors to analyze and explore the application of artificial intelligence (AI) methods to enhance their cognitive literacy."
+          }
+        ],
+        "reasoning_public": "Disiplinlerarası çalışmalar, genellikle yeni perspektifler ve yenilikçi çözümler sunarak bilimsel alana önemli katkılarda bulunur. Bu makalenin yapay zeka ve eğitim bilimlerini birleştirmesi, öğretmen eğitimi ve değerlendirmesi için yeni araçlar ve yöntemler geliştirme potansiyeli taşımaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Araştırma Sorusu ve Çalışma Kapsamı Arasındaki Uyumsuzluk",
+        "summary": "Makale, ortaokul öğretmenlerinin bilişsel okuryazarlığını artırmak için yapay zeka yöntemlerinin, özellikle yapay zeka destekli elektronik görüntülerin ve SOLO algoritmasının pratik önemini analiz etmeyi ve keşfetmeyi amaçladığını belirtmektedir. Ancak, makalenin ana odak noktası, öğretmenlerin bilişsel okuryazarlığını artırmaktan ziyade, SOLO algoritmasının SVM ve karar ağaçları gibi diğer sınıflandırma algoritmalarıyla karşılaştırılması yoluyla öğretmenlerin pedagojik okuryazarlığını değerlendiren bir modelin geliştirilmesi ve performansıdır. Bu durum, belirtilen araştırma sorusu ile çalışmanın gerçekte ele aldığı konular arasında bir uyumsuzluk yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a8",
+            "section": "ABSTRACT",
+            "quote": "This study endeavors to analyze and explore the application of artificial intelligence (AI) methods to enhance their cognitive literacy."
+          },
+          {
+            "anchor_id": "abstract.a9",
+            "section": "ABSTRACT",
+            "quote": "This model is designed to assess the cognitive literacy and teaching efficacy of middle school educators, and its performance is juxtaposed with classification algorithms such as support vector machine (SVM) and decision trees."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "This study aims to analyze and explore the practical significance of employing AI methods, particularly AI electronic images and the SOLO algorithm, to enhance the cognitive literacy of middle school teachers."
+          },
+          {
+            "anchor_id": "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a2",
+            "section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+            "quote": "Utilizing digital imagery as its foundation, this investigation posits a model for the application and evaluation of teachers’ intelligent literacy predicated on the SOLO classification method. The objective is to quantitatively assess the cognitive proficiency of middle school educators and furnish tailored instructional feedback."
+          }
+        ],
+        "reasoning_public": "Makalenin giriş bölümünde belirtilen araştırma amacı, yapay zeka yöntemlerinin öğretmenlerin 'bilişsel okuryazarlığını' artırmadaki pratik önemini analiz etmek ve keşfetmektir. Ancak, çalışmanın 'ABSTRACT' ve 'APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION' bölümlerinde sunulan metodoloji ve bulgular, daha çok 'pedagojik okuryazarlığın' değerlendirilmesine ve SOLO algoritmasının diğer sınıflandırma algoritmalarıyla karşılaştırılmasına odaklanmaktadır. 'Bilişsel okuryazarlık' ve 'pedagojik okuryazarlık' terimleri makale boyunca yer yer birbirinin yerine kullanılmış gibi görünse de, çalışmanın deneysel kısmı ve sonuçları daha çok 'pedagojik okuryazarlığın' değerlendirilmesi üzerine kuruludur. Bu durum, okuyucunun makalenin temel amacını ve kapsamını anlamasında kafa karışıklığına yol açabilir ve araştırma sorusunun çalışmanın içeriğiyle tam olarak örtüşmediği izlenimini yaratır.",
+        "limitations": [],
+        "action_item_ids": [
+          "research_question_fit.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f1",
+        "dimension": "research_question_fit",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Yapay Zeka Destekli Elektronik Görüntülerin Rolünün Belirsizliği",
+        "summary": "Makale başlığında ve giriş bölümünde 'yapay zeka destekli elektronik görüntülerin' öğretmenlerin okuryazarlığını geliştirmedeki rolüne vurgu yapılmasına rağmen, çalışmanın deneysel tasarımı ve sonuçları bu görüntülerin 'nasıl' kullanıldığına veya 'nasıl' bir geliştirme sağladığına dair somut bir analiz sunmamaktadır. Görüntüler daha çok veri toplama ve algoritma girdisi olarak bahsedilmekte, ancak okuryazarlığı geliştirme mekanizması net değildir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "ba_l_k.a0",
+            "section": "Başlık",
+            "quote": "Using deep learning-based artificial intelligence electronic images in improving middle school teachers’ literacy"
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "This study aims to analyze and explore the practical significance of employing AI methods, particularly AI electronic images and the SOLO algorithm, to enhance the cognitive literacy of middle school teachers."
+          },
+          {
+            "anchor_id": "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a3",
+            "section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+            "quote": "In a targeted approach, this framework initiates the acquisition of electronic image data during the instructional activities of educators, encompassing teaching videos, students’ learning records, and the utilization of instructional materials."
+          }
+        ],
+        "reasoning_public": "Makalenin başlığı ve giriş bölümü, yapay zeka destekli elektronik görüntülerin öğretmenlerin okuryazarlığını geliştirmedeki önemini vurgulamaktadır. Ancak, 'APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION' bölümünde, elektronik görüntüler daha çok 'öğretmenlerin öğretim faaliyetleri sırasında elektronik görüntü verilerinin elde edilmesi' ve 'SOLO sınıflandırma yönteminin bu elektronik görüntülerdeki ayırt edici özellikleri çıkarmak ve anlamak için kullanılması' bağlamında ele alınmaktadır. Çalışma, bu görüntülerin öğretmenlerin okuryazarlığını doğrudan nasıl geliştirdiğini veya bu geliştirme sürecindeki spesifik mekanizmaları açıklamak yerine, daha çok bu görüntülerin bir değerlendirme modeline girdi olarak nasıl kullanıldığını göstermektedir. Bu durum, makalenin iddia ettiği 'geliştirme' yönü ile sunulan 'değerlendirme' odaklı metodoloji arasında bir boşluk yaratmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "research_question_fit.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f2",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "SOLO Algoritmasının Değerlendirme Odaklı Kullanımı",
+        "summary": "Makale, SOLO algoritmasını öğretmenlerin pedagojik okuryazarlığını değerlendirmek için bir sınıflandırma modeli olarak kullanma amacını net bir şekilde ortaya koymaktadır. Bu, çalışmanın deneysel tasarımı ve sonuçlarıyla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a10",
+            "section": "ABSTRACT",
+            "quote": "Subsequently, an integrated intelligent device serves as the foundation for establishing a model that applies intelligent classification and algorithms based on the Structure of the Observed Learning Outcome (SOLO). This model is designed to assess the cognitive literacy and teaching efficacy of middle school educators, and its performance is juxtaposed with classification algorithms such as support vector machine (SVM) and decision trees."
+          },
+          {
+            "anchor_id": "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a4",
+            "section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+            "quote": "Utilizing digital imagery as its foundation, this investigation posits a model for the application and evaluation of teachers’ intelligent literacy predicated on the SOLO classification method. The objective is to quantitatively assess the cognitive proficiency of middle school educators and furnish tailored instructional feedback."
+          }
+        ],
+        "reasoning_public": "Makale, SOLO algoritmasının öğretmenlerin pedagojik okuryazarlığını değerlendiren bir modelin temelini oluşturduğunu ve bu modelin performansını diğer algoritmalarla karşılaştırdığını açıkça belirtmektedir. Bu amaç, çalışmanın metodolojisi ve bulgularıyla doğrudan örtüşmektedir ve araştırma sorusunun bu kısmı için iyi bir uyum sağlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "SOLO Taksonomisinin Teorik Çerçevesi Yetersiz Açıklanmış",
+        "summary": "Makale, SOLO (Structure of the Observed Learning Outcome) taksonimisini ana metodolojik yaklaşımlarından biri olarak sunmasına rağmen, bu taksonominin teorik temelleri ve eğitim bilimlerindeki yeri yeterince açıklanmamıştır. SOLO'nun ne olduğu, nasıl çalıştığı ve neden bu çalışmada kullanıldığına dair detaylı bir teorik çerçeve sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a11",
+            "section": "ABSTRACT",
+            "quote": "Subsequently, an integrated intelligent device serves as the foundation for establishing a model that applies intelligent classification and algorithms based on the Structure of the Observed Learning Outcome (SOLO)."
+          },
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "Furthermore, the application of the SOLO algorithm ensures a more nuanced and comprehensive evaluation of teachers’ educational effectiveness, meeting the demand for more adaptive and insightful assessment methods in a dynamic educational environment."
+          },
+          {
+            "anchor_id": "recent_related_work.a1",
+            "section": "RECENT RELATED WORK",
+            "quote": "The SOLO algorithm is an educational assessment tool employed to gauge students’ comprehension and application of knowledge across various cognitive levels. By analyzing the structure of students’ work, it categorizes it into distinct levels, thereby providing an assessment of the depth of learning."
+          }
+        ],
+        "reasoning_public": "SOLO taksonomisi, öğrenme çıktılarını değerlendirmek için kullanılan önemli bir pedagojik araçtır. Ancak makalede, bu taksonominin sadece bir 'sınıflandırma algoritması' olarak ele alınması, eğitim teorisiyle olan güçlü bağlarının göz ardı edildiğini düşündürmektedir. Bu durum, çalışmanın pedagojik temellerini zayıflatmakta ve okuyucunun SOLO'nun AI ile entegrasyonunun teorik gerekçesini anlamasını zorlaştırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "AI ve Derin Öğrenme Entegrasyonunun Teorik Temelleri Yetersiz",
+        "summary": "Makale, yapay zeka (AI) ve derin öğrenme teknolojilerini öğretmenlerin okuryazarlığını artırmak için kullandığını belirtse de, bu teknolojilerin pedagojik bağlamda nasıl bir teorik çerçeveye oturduğu veya hangi öğrenme teorileriyle uyumlu olduğu yeterince açıklanmamıştır. AI'nın 'sadece' bir araç olarak sunulması, teorik derinliği azaltmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a12",
+            "section": "ABSTRACT",
+            "quote": "Using deep learning-based artificial intelligence electronic images in improving middle school teachers’ literacy"
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "To address these challenges, the utilization of artificial intelligence (AI) holds profound significance in enhancing the cognitive literacy of middle school educators (Fernández-Batanero et al., 2022)."
+          },
+          {
+            "anchor_id": "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a5",
+            "section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+            "quote": "The SOLO classification method employed herein constitutes a deep learning-based image classification algorithm adept at accurately discerning teachers’ pedagogical behaviors and performances."
+          }
+        ],
+        "reasoning_public": "AI ve derin öğrenme, eğitimde kullanıldığında belirli öğrenme teorileriyle (örn. bilişsel öğrenme, yapılandırmacılık) ilişkilendirilebilir. Makalede bu teknolojilerin sadece teknik yönlerine odaklanılması, pedagojik uygulamalarının altında yatan teorik gerekçelerin eksik kalmasına neden olmaktadır. Bu durum, çalışmanın yenilikçi yönünü vurgulamak yerine, sadece teknolojik bir uygulama olarak algılanmasına yol açabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f2",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Literatür Taraması Teorik Çerçeveye Katkı Sağlıyor",
+        "summary": "Makalenin 'Recent Related Work' bölümü, AI ve SOLO sınıflandırma algoritması üzerine yapılan güncel araştırmaları özetleyerek, çalışmanın teorik çerçevesine ve bağlamına önemli katkılar sağlamaktadır. Bu bölüm, okuyucuya ilgili alanlardaki mevcut durumu ve boşlukları anlama konusunda yardımcı olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "recent_related_work.a2",
+            "section": "RECENT RELATED WORK",
+            "quote": "Recent research status of AI and SOLO classiﬁcation algorithm"
+          },
+          {
+            "anchor_id": "recent_related_work.a3",
+            "section": "RECENT RELATED WORK",
+            "quote": "The aforementioned research reveals that conventional centralized training and qualitative evaluation methods fall short of meeting the individual needs of teachers and fail to provide objective and accurate assessments, consequently resulting in limited efficacy in teacher training and evaluation outcomes."
+          }
+        ],
+        "reasoning_public": "İlgili literatürün kapsamlı bir şekilde sunulması, çalışmanın mevcut bilgi birikimi üzerine inşa edildiğini ve belirli bir teorik altyapıya sahip olduğunu göstermektedir. Bu, çalışmanın bilimsel geçerliliğini artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Literatür Taramasında Kapsam ve Erişilebilirlik Eksiklikleri",
+        "summary": "Makalenin referans listesinde önemli sayıda kaynağın OpenAlex gibi akademik indekslerde bulunamaması veya servis hataları nedeniyle çözülememesi, literatür taramasının kapsamı ve doğrulanabilirliği açısından bazı zayıflıklar olduğunu göstermektedir. Bu durum, okuyucuların atıf yapılan bazı çalışmalara erişimini ve makalenin literatürdeki konumunu tam olarak değerlendirmesini zorlaştırabilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bir akademik çalışmanın literatürdeki konumunu sağlam bir şekilde belirleyebilmesi için atıf yapılan kaynakların kolayca erişilebilir ve doğrulanabilir olması önemlidir. Referansların önemli bir kısmının otomatik indeksleme sistemleri tarafından bulunamaması, makalenin dayandığı bazı argümanların temelini sorgulatabilir veya en azından okuyucunun bu kaynaklara ulaşmasını engelleyerek şeffaflığı azaltabilir. Bu durum, makalenin literatürle etkileşiminin derinliğini ve güncelliğini değerlendirmeyi zorlaştırır.",
+        "limitations": [
+          "OpenAlex servis hatalarının geçici olup olmadığı veya atıf yapılan kaynakların gerçekten indekslenmemiş niş yayınlar olup olmadığı tam olarak belirlenememiştir. Bu durum, bulgunun kesinliğini etkileyebilir."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Atıf Yılı Tutarsızlığı",
+        "summary": "Bir referansın ([6] Digital competences for teacher professional development) kaynakçada belirtilen yayın yılı ile OpenAlex'te çözülen yayın yılı arasında bir tutarsızlık bulunmaktadır (kaynakçada 2022, OpenAlex'te 2020). Bu durum, makalenin literatürdeki güncelliğini değerlendirirken küçük bir belirsizlik yaratabilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Yayın yılı tutarsızlıkları, okuyucuların bir çalışmanın ne zaman yayımlandığını ve dolayısıyla literatürdeki güncelliğini doğru bir şekilde anlamasını engelleyebilir. Bu tür küçük hatalar, makalenin genel titizliği hakkında soru işaretleri yaratabilir.",
+        "limitations": [
+          "Yıl farkının online-first yayın veya basılı yayın tarihleri arasındaki doğal bir farktan kaynaklanma olasılığı bulunmaktadır."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genel İddialar ile Sunulan Kanıtlar Arasındaki Uyumsuzluk",
+        "summary": "Makale, yapay zeka destekli elektronik görüntülerin ortaokul öğretmenlerinin okuryazarlığını geliştirmedeki etkinliği hakkında güçlü iddialarda bulunmasına rağmen, bu iddiaları destekleyecek doğrudan ve kapsamlı kanıtlar sunmamaktadır. Özellikle, 'okuryazarlık' kavramının tanımı ve ölçümüne dair detaylar yetersizdir ve sunulan 'doğruluk oranı' gibi metrikler, iddia edilen geniş etkiyi tam olarak yansıtmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a13",
+            "section": "ABSTRACT",
+            "quote": "The findings reveal that, following 600 iterations of the model, the SVM algorithm achieves a 77% accuracy rate in recognizing teacher literacy, whereas the SOLO algorithm attains 80%. Concurrently, the spatial complexities of the SVM-based and SOLO-based intelligent literacy improvement models are determined to be 45 and 22, respectively. Notably, it is discerned that, with escalating iterations, the SOLO algorithm exhibits higher accuracy and reduced spatial complexity in evaluating teachers’ pedagogical literacy. Consequently, the utilization of AI methodologies proves highly efficacious in advancing electronic imaging technology and enhancing the efficacy of image recognition in educational instruction."
+          },
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "This study aims to analyze and explore the practical significance of employing AI methods, particularly AI electronic images and the SOLO algorithm, to enhance the cognitive literacy of middle school teachers."
+          }
+        ],
+        "reasoning_public": "Makale, yapay zeka ve SOLO algoritmasının öğretmenlerin 'bilişsel okuryazarlığını' ve 'öğretim etkinliğini' artırdığını iddia etmektedir. Ancak, bu iddialar genellikle genel ifadelerle sunulmakta ve bu geniş kavramların nasıl ölçüldüğüne veya hangi spesifik kanıtlarla desteklendiğine dair yeterli detay verilmemektedir. Örneğin, 'öğretmen okuryazarlığı'nın ne anlama geldiği, hangi bileşenlerden oluştuğu ve bu çalışmada nasıl operasyonelleştirildiği açıkça belirtilmemiştir. Sunulan %80'lik doğruluk oranı, 'öğretmen okuryazarlığını tanıma' ile ilgili olsa da, bu oranın okuryazarlığın gerçekte nasıl geliştirildiğini veya öğretim etkinliğini nasıl artırdığını doğrudan kanıtlamadığı görülmektedir. Bu durum, makalenin ana iddialarının kanıtlarla orantısız olduğu izlenimini yaratmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Uzamsal Karmaşıklık ve Öğretmen Okuryazarlığı Gelişimi Arasındaki İlişkinin Açıklığı",
+        "summary": "Makale, SOLO algoritmasının daha düşük uzamsal karmaşıklığa (22) sahip olduğunu belirtirken, bu durumun öğretmen okuryazarlığının 'gelişimi' üzerindeki doğrudan etkisini veya pratik faydalarını yeterince açıklamamaktadır. Düşük uzamsal karmaşıklık bir teknik avantaj olsa da, bunun pedagojik sonuçlarla nasıl ilişkilendiği belirsizdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a14",
+            "section": "ABSTRACT",
+            "quote": "Concurrently, the spatial complexities of the SVM-based and SOLO-based intelligent literacy improvement models are determined to be 45 and 22, respectively. Notably, it is discerned that, with escalating iterations, the SOLO algorithm exhibits higher accuracy and reduced spatial complexity in evaluating teachers’ pedagogical literacy."
+          }
+        ],
+        "reasoning_public": "Özet bölümünde, SOLO algoritmasının SVM'ye kıyasla daha düşük uzamsal karmaşıklığa sahip olduğu belirtilmektedir. Bu, algoritmanın verimliliği açısından önemli bir bulgu olabilir. Ancak, bu teknik özelliğin öğretmenlerin 'pedagojik okuryazarlığını değerlendirmedeki' veya 'geliştirmedeki' pratik faydaları veya sonuçları hakkında daha fazla açıklama gerekmektedir. Düşük uzamsal karmaşıklığın, uygulamanın ölçeklenebilirliği, erişilebilirliği veya gerçek dünya senaryolarındaki performansı üzerindeki etkileri netleştirilmelidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "SOLO Algoritmasının Yüksek Doğruluk Oranı",
+        "summary": "Makale, SOLO algoritmasının öğretmen okuryazarlığını tanımada %80'lik bir doğruluk oranına ulaştığını ve bunun SVM algoritmasından daha yüksek olduğunu açıkça belirtmektedir. Bu bulgu, çalışmanın temel iddialarından birini desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a15",
+            "section": "ABSTRACT",
+            "quote": "The findings reveal that, following 600 iterations of the model, the SVM algorithm achieves a 77% accuracy rate in recognizing teacher literacy, whereas the SOLO algorithm attains 80%."
+          }
+        ],
+        "reasoning_public": "Makale, SOLO algoritmasının öğretmen okuryazarlığını tanımadaki performansını nicel olarak sunarak, bu algoritmanın SVM'ye göre daha yüksek bir doğruluk oranı elde ettiğini göstermektedir. Bu, çalışmanın ana hedeflerinden biri olan SOLO algoritmasının etkinliğini kanıtlayan somut bir veri parçasıdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yüksek Sayıda Çözülemeyen Referans",
+        "summary": "Makalede yer alan 38 referanstan 15'i OpenAlex indeksinde çözülememiştir. Bu durum, makalenin referanslarının doğrulanabilirliğini ve şeffaflığını olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda referansların kolayca doğrulanabilir olması, okuyucuların atıf yapılan kaynaklara erişimini ve makaledeki iddiaların dayanaklarını kontrol etmesini sağlar. Yüksek oranda çözülemeyen referanslar, makalenin şeffaflığını azaltır ve okuyucuların literatür taramasını zorlaştırır. Her ne kadar bu durum doğrudan 'uydurma' bir atıf anlamına gelmese de, kaynakların erişilebilirliği açısından bir zayıflık teşkil etmektedir.",
+        "limitations": [
+          "OpenAlex servis hatası nedeniyle çözülemeyen referansların gerçekten mevcut olup olmadığı veya sadece indeksleme sorunu olup olmadığı kesin olarak belirlenememiştir. Bu durum, referansların 'uydurma' olduğu anlamına gelmez, sadece doğrulanabilirliklerinin düşük olduğunu gösterir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "citation_integrity.f1",
+        "dimension": "citation_integrity",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Referans Yıl Farklılığı",
+        "summary": "Bir referansın kaynakçada belirtilen yayın yılı ile OpenAlex'te bulunan yayın yılı arasında farklılık tespit edilmiştir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Yayın yılı farklılıkları, okuyucuların doğru versiyona ulaşmasını zorlaştırabilir ve literatür takibinde karışıklığa yol açabilir. Genellikle online-first veya baskı tarihi farklılıklarından kaynaklansa da, yazarın bu durumu kontrol etmesi ve tutarlılığı sağlaması önemlidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "citation_integrity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Raporlama Kılavuzu Uyumunun Belirtilmemesi",
+        "summary": "Makalede, çalışmanın tasarımı ve bulgularının raporlanmasında belirli bir raporlama kılavuzuna (örn. CONSORT, PRISMA, STROBE) uyulduğuna dair herhangi bir belirti bulunmamaktadır. Bu durum, çalışmanın şeffaflığını ve tekrarlanabilirliğini olumsuz etkileyebilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, özellikle deneysel veya gözlemsel araştırmalarda, ilgili raporlama kılavuzlarına uyum, metodolojinin şeffaflığını, bulguların güvenilirliğini ve çalışmanın tekrarlanabilirliğini artırır. Bu kılavuzlar, araştırmacıların önemli bilgileri atlamamasını sağlayarak okuyucuların çalışmayı daha iyi anlamasına ve değerlendirmesine yardımcı olur. Makalede böyle bir uyumun belirtilmemesi, okuyucuların çalışmanın tüm kritik unsurlarının raporlandığından emin olmasını zorlaştırır.",
+        "limitations": [
+          "Makalenin tam metnine erişimim olmadığı için, raporlama kılavuzlarına uyumun 'Ek Bilgiler' veya 'Yazar Katkıları' gibi bölümlerde dolaylı olarak belirtilip belirtilmediğini kesin olarak doğrulayamıyorum. Ancak, ana metinde bu tür bir beyan bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod Paylaşımı Beyanı",
+        "summary": "Makale, çalışmada kullanılan kodun ek dosyalar aracılığıyla erişilebilir olduğunu açıkça belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "additional_information_and_declarations.a0",
+            "section": "Additional Information and Declarations",
+            "quote": "The code is available in the Supplementary Files."
+          }
+        ],
+        "reasoning_public": "Kodun paylaşılması, araştırmanın şeffaflığını ve tekrar üretilebilirliğini artırır. Diğer araştırmacılar, metodolojiyi doğrulayabilir ve bulguları yeniden üretebilir veya geliştirebilir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Veri Paylaşımı Beyanının Eksikliği",
+        "summary": "Makale, kodun erişilebilir olduğunu belirtirken, çalışmada kullanılan verilerin erişilebilirliği hakkında net bir beyan sunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "additional_information_and_declarations.a1",
+            "section": "Additional Information and Declarations",
+            "quote": "The following information was supplied regarding data availability: The code is available in the Supplementary Files."
+          }
+        ],
+        "reasoning_public": "Verilerin paylaşılması, araştırmanın şeffaflığı ve tekrar üretilebilirliği için kritik öneme sahiptir. Veri erişiminin olmaması, bulguların bağımsız olarak doğrulanmasını veya gelecekteki araştırmalar için temel oluşturmasını zorlaştırır. Özellikle 'öğretmenlerin öğretim süreçleri ve öğrencilerin öğrenme kayıtları' gibi hassas verilerin kullanıldığı bir çalışmada, veri paylaşım politikası ve anonimleştirme süreçleri hakkında bilgi verilmesi önemlidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f2",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Etik Onay ve Katılımcı Rızası Beyanının Eksikliği",
+        "summary": "Makale, insan katılımcılarla (ortaokul öğretmenleri ve öğrenciler) yapılan bir çalışmada etik onay veya katılımcı rızası alındığına dair herhangi bir beyan içermemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a16",
+            "section": "ABSTRACT",
+            "quote": "This study endeavors to analyze and explore the application of artificial intelligence (AI) methods to enhance their cognitive literacy."
+          },
+          {
+            "anchor_id": "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a6",
+            "section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+            "quote": "This framework initiates the acquisition of electronic image data during the instructional activities of educators, encompassing teaching videos, students’ learning records, and the utilization of instructional materials."
+          }
+        ],
+        "reasoning_public": "İnsan katılımcılarla yapılan araştırmalarda etik onay ve bilgilendirilmiş rıza, araştırmanın temel etik prensiplerindendir. Bu beyanların eksikliği, çalışmanın etik standartlara uygunluğu hakkında ciddi sorular doğurur ve bulguların güvenilirliğini etkileyebilir. Özellikle 'öğretim videoları, öğrencilerin öğrenme kayıtları' gibi verilerin toplandığı belirtildiğinden, bu durum daha da önem kazanmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Giriş Bölümünde Tekrarlayan İfadeler",
+        "summary": "Giriş bölümünün ilk paragrafı ile ikinci paragrafı arasında ve genel olarak giriş bölümü içinde bazı ifadelerin ve fikirlerin tekrarlandığı gözlemlenmiştir. Bu durum, okuyucunun metni takip etmesini zorlaştırabilir ve metnin akıcılığını azaltabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a8",
+            "section": "INTRODUCTION",
+            "quote": "Amidst the rapid expansion of societal information, electronic educational resources have emerged as an integral cornerstone of contemporary educational paradigms. The traditional pedagogical framework continues to face challenges in accommodating the diverse learning needs of modern students and aligning with the dynamic methods of information acquisition (Vadim, 2018). The widening gap presents specific challenges for secondary school teachers, who must engage in instructional activities within an educational environment continuously influenced by the transformation of electronic resources."
+          },
+          {
+            "anchor_id": "introduction.a9",
+            "section": "INTRODUCTION",
+            "quote": "With the rapid development of societal information, electronic educational resources have become an indispensable component of modern education. In response to the increasingly formidable challenges faced by secondary school teachers, this study endeavors to analyze and explore the application of artificial intelligence (AI) methods to enhance their cognitive literacy."
+          }
+        ],
+        "reasoning_public": "Akademik metinlerde tekrarlayan ifadeler, metnin yoğunluğunu ve okunabilirliğini olumsuz etkiler. Okuyucunun dikkatini dağıtabilir ve sunulan argümanların gücünü azaltabilir. Daha özlü ve çeşitli bir dil kullanımı, metnin kalitesini artırır.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Bölüm Başlıklarının İçerikle Uyumsuzluğu",
+        "summary": "'Recent Related Work' bölümü, başlığında belirtildiği gibi 'recent' (yakın tarihli) çalışmaların bir incelemesini sunsa da, bazı atıfların (örneğin Yang, 2018; Wang, 2019) güncel literatür tanımına tam olarak uymadığı görülmektedir. Bu durum, bölüm başlığının okuyucuda yarattığı beklenti ile içeriğin tam olarak örtüşmemesine neden olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "recent_related_work.a4",
+            "section": "RECENT RELATED WORK",
+            "quote": "Yang (2018) explored the art curriculum of preschool vocational education within the context of innovation and entrepreneurship education, assessing the improvement and application effects on the intelligent literacy of middle school teachers."
+          },
+          {
+            "anchor_id": "recent_related_work.a5",
+            "section": "RECENT RELATED WORK",
+            "quote": "Wang (2019) established a network structure for the protection of intangible cultural heritage, discussing strategies for safeguarding such heritage in education."
+          }
+        ],
+        "reasoning_public": "Bölüm başlıkları, içeriği doğru ve eksiksiz bir şekilde yansıtmalıdır. Başlık ve içerik arasındaki uyumsuzluk, okuyucunun makalenin yapısını ve argümanlarını anlamasını zorlaştırabilir ve güvenilirliği azaltabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıksal Akış ve Bölümleme",
+        "summary": "Makalenin genel yapısı ve bölümlemesi mantıklı bir akış sunmaktadır. Giriş, ilgili çalışmalar, metodoloji, sonuçlar ve tartışma bölümleri standart akademik makale formatına uygun olarak düzenlenmiştir. Bu durum, okuyucunun makaleyi takip etmesini kolaylaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a10",
+            "section": "INTRODUCTION",
+            "quote": "The structural framework of this study unfolds as follows: ‘Introduction’ introduces the contextual background of the SOLO classification algorithm and AI. Section ‘Recent Related Work’ provides a review of recent literature on AI and intelligent converged devices. Section ‘Application and Effect Evaluation Model of Teachers’ Intelligent Literacy based on the SOLO Classification Evaluation’ evaluates middle school teachers’ intelligent literacy and teaching effectiveness using the intelligent classification models of SVM and SOLO. Section ‘Results’ systematically assesses the impact of enhancing teachers’ quality. Section ‘Conclusions’ concludes through induction and summary."
+          }
+        ],
+        "reasoning_public": "Net ve mantıklı bir yapı, akademik metinlerin anlaşılabilirliği ve etkinliği için temeldir. Standart bölümleme, okuyucuların ana argümanları ve bulguları kolayca bulmasına ve anlamasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Makalenin Bilgisayar Bilimleri Dergisi Kapsamına Uygunluğu",
+        "summary": "Makale, yapay zeka ve derin öğrenme yöntemlerini kullanarak ortaokul öğretmenlerinin okuryazarlığını geliştirmeyi ele almaktadır. Ancak, metodolojik detaylar ve teknik derinlik açısından bir bilgisayar bilimleri dergisinin beklentilerini tam olarak karşılamayabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a17",
+            "section": "ABSTRACT",
+            "quote": "The findings reveal that, following 600 iterations of the model, the SVM algorithm achieves a 77% accuracy rate in recognizing teacher literacy, whereas the SOLO algorithm attains 80%. Concurrently, the spatial complexities of the SVM-based and SOLO-based intelligent literacy improvement models are determined to be 45 and 22, respectively."
+          },
+          {
+            "anchor_id": "subjects.a0",
+            "section": "Subjects",
+            "quote": "Subjects Algorithms and Analysis of Algorithms, Artificial Intelligence, Computer Education, Computer Vision, Multimedia"
+          }
+        ],
+        "reasoning_public": "Makale, yapay zeka ve SOLO sınıflandırma algoritmasının eğitim alanındaki uygulamalarına odaklanmaktadır. Bilgisayar bilimleri dergileri genellikle algoritmaların geliştirilmesi, teknik detayları, performans analizi ve karşılaştırmaları gibi konulara daha fazla vurgu yapar. Bu makalede ise uygulama ve etki değerlendirmesi ön plandadır. Özellikle 'RESULTS' bölümünde sunulan bulgular (SVM %77, SOLO %80 doğruluk oranları ve uzamsal karmaşıklık değerleri) bilgisayar bilimleri alanında daha detaylı metodolojik açıklama ve karşılaştırmalı analiz gerektirebilir. Makalenin ana odağı eğitim bilimleri ve pedagojiye daha yakın görünmektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "venue_fit.f0.a0",
+          "venue_fit.f0.a1"
+        ],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, INTRODUCTION, APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+        "instruction": "Makalede 'öğretmen okuryazarlığı' ve 'öğretim etkinliği' gibi temel kavramların operasyonel tanımlarını ve bu kavramların çalışmada nasıl ölçüldüğünü netleştirin. Sunulan %80'lik doğruluk oranının, bu geniş kavramların gelişimini nasıl desteklediğini açıklayın.",
+        "acceptance_check": "Okuryazarlık ve etkinlik tanımları netleştirilmiş, ölçüm yöntemleri açıklanmış ve sonuçların bu tanımlarla nasıl ilişkilendiği belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f2.a0",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "Additional Information and Declarations",
+        "instruction": "Çalışmanın etik kurul onayı alıp almadığını ve katılımcılardan (öğretmenler ve öğrenciler) bilgilendirilmiş rıza alınıp alınmadığını belirten bir bölüm ekleyin. Eğer onay alındıysa, etik kurulun adı ve onay numarası gibi detayları belirtin. Eğer alınmadıysa, bunun nedenlerini açıklayın ve çalışmanın etik boyutunu nasıl ele aldığınızı detaylandırın.",
+        "acceptance_check": "Etik onay ve rıza beyanını içeren açık bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f2"
+        ]
+      },
+      {
+        "action_id": "quant.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+        "instruction": "Çalışmanın araştırma tasarımını (örn. deneysel, yarı-deneysel, gözlemsel, model geliştirme ve karşılaştırma) açıkça belirtin. Eğer bir karşılaştırmalı analiz yapıldıysa, karşılaştırma gruplarının nasıl oluşturulduğunu ve müdahalenin ne olduğunu detaylandırın.",
+        "acceptance_check": "Araştırma tasarımı, metodoloji bölümünde net bir şekilde tanımlanmış ve araştırma sorularıyla uyumlu hale getirilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+        "instruction": "Modelin eğitildiği ve test edildiği veri setinin (örn. öğretmen sayısı, gözlem sayısı, demografik özellikler) detaylı bir açıklamasını ekleyin. Veri toplama yöntemlerini ve örneklem büyüklüğünün nasıl belirlendiğini açıklayın. Eğer bir güç analizi yapılmadıysa, bunun nedenlerini belirtin ve bulguların genellenebilirliği üzerindeki potansiyel etkilerini tartışın.",
+        "acceptance_check": "Veri setinin büyüklüğü, özellikleri ve toplama yöntemleri açıkça belirtilmiş olmalı; güç analizi veya hassasiyet gerekçesi sunulmalı veya eksikliği tartışılmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f2.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+        "instruction": "Öğretmenlerin 'bilişsel okuryazarlığı' ve 'öğretim etkinliği' gibi anahtar değişkenlerin nasıl operasyonelleştirildiğini ve ölçüldüğünü detaylandırın. Kullanılan elektronik görüntü verilerinden hangi spesifik özelliklerin çıkarıldığını ve bu özelliklerin ilgili kavramları ne ölçüde temsil ettiğini açıklayın. Ölçüm araçlarının geçerlilik ve güvenilirliğine dair kanıtları sunun.",
+        "acceptance_check": "Anahtar değişkenlerin operasyonel tanımları ve ölçüm yöntemleri açıkça belirtilmiş, geçerlilik ve güvenilirlik kanıtları sunulmuş olmalı.",
+        "linked_finding_ids": [
+          "quant.f2"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Data Availability",
+        "instruction": "Kullanılan veri setinin (veya uygunsa anonimleştirilmiş/sentetik bir versiyonunun) nasıl erişilebilir olduğunu açıklayın. Eğer veri paylaşılamıyorsa, bunun nedenlerini belirtin ve veri toplama prosedürlerini daha detaylı açıklayarak şeffaflığı artırın.",
+        "acceptance_check": "Veri erişilebilirliği hakkında net bir beyan eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Çözülemeyen referansların (özellikle DOI'si bulunamayan veya servis hatası verenler) her birinin doğruluğu ve erişilebilirliği manuel olarak kontrol edilmelidir. Mümkünse, bu referanslar için alternatif DOI'ler, URL'ler veya daha yaygın indekslerde bulunan versiyonları sağlanmalıdır. Özellikle [2], [5], [8], [9], [16], [18], [22], [23], [26], [29], [30], [36], [37], [38] numaralı referanslar için bu kontrol yapılmalıdır.",
+        "acceptance_check": "Tüm referansların doğruluğu ve erişilebilirliği kontrol edilmiş, mümkün olanlar için güncel ve doğru bilgiler eklenmiştir. Çözülemeyen referansların neden çözülemediğine dair açıklama (örn. niş yayın, konferans bildirisi) eklenmiştir.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a1",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "RESULTS, DISCUSSION",
+        "instruction": "Yapay zeka destekli elektronik görüntülerin öğretmenlerin okuryazarlığını 'geliştirdiğine' dair doğrudan kanıtlar sunun. Mevcut bulgular 'tanıma' veya 'değerlendirme' üzerine odaklanmaktadır; geliştirme etkisini gösteren ek veriler veya analizler ekleyin.",
+        "acceptance_check": "Öğretmen okuryazarlığındaki artışı gösteren nicel veya nitel veriler (örn. öğretmen performansındaki değişim, öğrenci başarısı üzerindeki etki) eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "contribution_originality.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, RECENT RELATED WORK",
+        "instruction": "Giriş ve 'Recent Related Work' bölümlerinde, çalışmanın iddia edilen yeniliklerini (AI elektronik görüntülerinin öğretmen eğitiminde kullanımı ve SOLO tabanlı değerlendirme modeli) mevcut literatürdeki benzer yaklaşımlardan somut örneklerle ve karşılaştırmalı analizlerle ayırın. Bu yaklaşımın neden 'yeni' veya 'daha iyi' olduğunu açıkça belirtin.",
+        "acceptance_check": "Makalenin özgünlük iddiaları, literatürdeki benzer çalışmalarla açıkça karşılaştırılmış ve bu çalışmanın benzersiz katkıları somut olarak belirtilmiştir.",
+        "linked_finding_ids": [
+          "contribution_originality.f0"
+        ]
+      },
+      {
+        "action_id": "contribution_originality.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RECENT RELATED WORK",
+        "instruction": "'Recent Related Work' bölümünü, AI destekli görsel materyallerin öğretmen eğitimi ve değerlendirmesindeki spesifik uygulamaları ile SOLO tabanlı değerlendirme modellerinin öğretmen performansını ölçmedeki yenilikçi kullanımlarına odaklanan çalışmalarla genişletin. Bu, çalışmanın özgünlüğünü daha sağlam bir literatür bağlamına yerleştirecektir.",
+        "acceptance_check": "Literatür taraması, çalışmanın ana konuları olan AI elektronik görüntülerinin öğretmen eğitiminde kullanımı ve SOLO tabanlı öğretmen değerlendirmesi üzerine daha spesifik ve ilgili çalışmaları içerecek şekilde güncellenmiştir.",
+        "linked_finding_ids": [
+          "contribution_originality.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Additional Information and Declarations",
+        "instruction": "Çalışmada kullanılan verilerin (özellikle 'öğretim videoları, öğrencilerin öğrenme kayıtları' gibi) nasıl erişilebilir olduğu veya neden erişilebilir olmadığına dair net bir beyan ekleyin. Eğer veriler paylaşılamıyorsa, bunun nedenlerini (örn. gizlilik, etik kısıtlamalar) açıklayın ve veri toplama/işleme süreçlerindeki etik önlemleri detaylandırın.",
+        "acceptance_check": "Veri erişilebilirliği veya kısıtlamaları hakkında açık bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Bulunamayan veya servis hatası veren referansların (özellikle [2], [5], [8], [9], [16], [18], [22], [23], [26], [27], [29], [30], [36], [37], [38]) DOI'lerini veya tam künye bilgilerini kontrol ederek güncelleyin. Mümkünse, bu kaynakların alternatif erişim yollarını (örneğin, arXiv, kurum depoları) belirtin veya daha yaygın olarak indekslenen eşdeğer kaynaklarla değiştirin.",
+        "acceptance_check": "Tüm referansların güncel ve doğrulanabilir künye bilgileriyle listelenmesi ve OpenAlex gibi indekslerde çözülebilir olması.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION, RESULTS",
+        "instruction": "SOLO ve SVM algoritmalarının performansını karşılaştırmak için kullanılan istatistiksel analiz yöntemlerini (örn. t-testi, ANOVA, McNemar testi, çapraz doğrulama stratejileri) detaylandırın. Bu testlerin varsayımlarının nasıl kontrol edildiğini açıklayın. Eğer varsayım testleri yapılmadıysa, bunun bulgular üzerindeki potansiyel etkilerini tartışın.",
+        "acceptance_check": "İstatistiksel analiz yöntemleri ve varsayım testleri açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f4.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "Raporlanan doğruluk oranları ve uzamsal karmaşıklık farkları için etki büyüklüğü ölçülerini (örn. Cohen's d, Cramer's V, veya ilgili diğer metrikler) ve güven aralıklarını (örn. %95 CI) ekleyin. Bu, bulguların pratik önemini ve kesinliğini daha iyi anlamayı sağlayacaktır.",
+        "acceptance_check": "Tüm ana bulgular için etki büyüklüğü ve güven aralıkları raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f4"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "ABSTRACT, INTRODUCTION, CONCLUSIONS",
+        "instruction": "Makaledeki nedensel dil içeren ifadeleri gözden geçirin ve çalışmanın tasarımına uygun olarak daha ihtiyatlı bir dil kullanın. Özellikle 'etkili', 'geliştirme' gibi kelimeleri kullanırken, çalışmanın nedensel bir ilişkiyi kanıtlamadığını veya sadece bir korelasyon/model performansı gösterdiğini açıkça belirtin.",
+        "acceptance_check": "Nedensel dil, çalışmanın tasarımının izin verdiği çıkarım düzeyine uygun hale getirilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Makalenin 'Giriş' veya 'Metodoloji' bölümlerine, çalışmanın tasarımı ve raporlaması için hangi raporlama kılavuzuna (varsa) uyulduğunu belirten bir ifade ekleyin. Eğer belirli bir kılavuza uyulmadıysa, bunun nedenlerini açıklayın veya çalışmanın doğasına en uygun kılavuzu belirleyip gelecekteki raporlamalar için dikkate alın.",
+        "acceptance_check": "Makalede raporlama kılavuzu uyumuna dair açık bir beyan bulunmalı veya uyulmama nedeni belirtilmelidir.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "research_question_fit.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, INTRODUCTION, CONCLUSIONS",
+        "instruction": "Araştırma sorusu, makalenin ana odak noktası olan öğretmenlerin 'pedagojik okuryazarlığının' değerlendirilmesi ve SOLO algoritmasının performans analizi ile daha net bir şekilde uyumlu hale getirilmelidir. 'Bilişsel okuryazarlık' ve 'pedagojik okuryazarlık' terimlerinin kullanımı tutarlı hale getirilmeli veya aralarındaki fark netleştirilmelidir.",
+        "acceptance_check": "Makalenin başlığı, özeti ve giriş bölümündeki araştırma amacı, çalışmanın deneysel kısmında ele alınan 'pedagojik okuryazarlık' değerlendirmesi ve algoritma karşılaştırması ile tam olarak örtüşmelidir. Terimlerin kullanımı makale genelinde tutarlı olmalıdır.",
+        "linked_finding_ids": [
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "action_id": "research_question_fit.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION, DISCUSSION",
+        "instruction": "Yapay zeka destekli elektronik görüntülerin öğretmenlerin okuryazarlığını 'geliştirmedeki' rolü, çalışmanın deneysel tasarımı ve bulgularıyla daha açık bir şekilde ilişkilendirilmelidir. Görüntülerin sadece veri toplama aracı olmanın ötesinde, öğretmenlerin gelişimine nasıl katkıda bulunduğuna dair somut mekanizmalar veya örnekler sunulmalıdır.",
+        "acceptance_check": "Makalede, elektronik görüntülerin öğretmenlerin okuryazarlığını doğrudan nasıl geliştirdiğine dair (örneğin, kişiselleştirilmiş geri bildirim, simülasyonlar, eğitim materyalleri vb. aracılığıyla) daha detaylı açıklamalar ve bulgular yer almalıdır. Başlık ve giriş bölümündeki iddia, çalışmanın içeriğiyle tam olarak desteklenmelidir.",
+        "linked_finding_ids": [
+          "research_question_fit.f1"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, RECENT RELATED WORK",
+        "instruction": "Giriş veya 'Recent Related Work' bölümünde SOLO taksonomisinin eğitim bilimlerindeki teorik kökenleri, temel prensipleri (örn. tek yapısal, çok yapısal, ilişkisel, genişletilmiş soyut) ve bu çalışmada neden tercih edildiğine dair daha kapsamlı bir açıklama eklenmelidir. Bu, SOLO'nun sadece bir algoritma değil, aynı zamanda bir pedagojik değerlendirme çerçevesi olduğunu vurgulayacaktır.",
+        "acceptance_check": "SOLO taksonomisinin tanımı, seviyeleri ve eğitimdeki teorik önemi açıkça belirtilmiş olmalı; AI ile entegrasyonunun pedagojik gerekçesi güçlendirilmiş olmalı.",
+        "linked_finding_ids": [
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "action_id": "venue_fit.f0.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+        "instruction": "Makalenin metodoloji bölümünü genişleterek kullanılan algoritmaların (özellikle SOLO sınıflandırma) teknik detaylarını, mimarisini, eğitim süreçlerini ve parametrelerini bilgisayar bilimleri okuyucusunun anlayabileceği bir derinlikte açıklayın. Karşılaştırmalı analizleri (SVM ve karar ağaçları ile) daha kapsamlı hale getirin ve neden SOLO'nun daha uygun olduğunu teknik argümanlarla destekleyin.",
+        "acceptance_check": "Metodoloji bölümünde algoritmaların teknik detayları (örneğin, kullanılan katmanlar, aktivasyon fonksiyonları, optimizasyon algoritmaları, veri ön işleme adımları) açıkça belirtilmiş ve bilgisayar bilimleri alanındaki benzer çalışmalarla karşılaştırmalı bir analiz sunulmuş olmalı.",
+        "linked_finding_ids": [
+          "venue_fit.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümündeki tekrarlayan cümleleri ve fikirleri belirleyerek daha özlü ve akıcı bir anlatım sağlamak için yeniden düzenleyin. Özellikle ilk iki paragrafın birleştirilmesi veya yeniden yazılması faydalı olabilir.",
+        "acceptance_check": "Giriş bölümünde belirgin tekrar eden ifadelerin kalmaması ve metnin daha akıcı hale gelmesi.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "RECENT RELATED WORK",
+        "instruction": "'Recent Related Work' bölüm başlığını, içeriği daha doğru yansıtacak şekilde 'Related Work' veya 'Literature Review' olarak güncelleyin. Alternatif olarak, bu bölümde sadece gerçekten 'yakın tarihli' çalışmalara odaklanın ve eski tarihli çalışmaları başka bir bölüme taşıyın veya çıkarın.",
+        "acceptance_check": "Bölüm başlığının içeriği doğru bir şekilde yansıtması veya içeriğin başlığa uygun hale getirilmesi.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "REFERENCES",
+        "instruction": "Referans [6] için kaynakçada belirtilen 2022 yılı ile OpenAlex'te bulunan 2020 yılı arasındaki farklılık kontrol edilmeli ve doğru yayın yılı ile güncellenmelidir.",
+        "acceptance_check": "Referans [6]'nın yayın yılı, makalenin doğru versiyonuna göre güncellenmiştir.",
+        "linked_finding_ids": [
+          "citation_integrity.f1"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION, CONCLUSIONS",
+        "instruction": "Düşük uzamsal karmaşıklığın (spatial complexity) öğretmen okuryazarlığının değerlendirilmesi veya geliştirilmesi üzerindeki pratik etkilerini ve faydalarını daha detaylı açıklayın. Örneğin, bu durumun sistemin dağıtım kolaylığı, maliyeti veya gerçek zamanlı geri bildirim yetenekleri üzerindeki etkilerini belirtin.",
+        "acceptance_check": "Uzamsal karmaşıklığın pedagojik veya uygulama bağlamındaki somut faydaları açıklanmış olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "REFERENCES",
+        "instruction": "Referans [6] için doğru yayın yılını doğrulayın ve kaynakçada güncelleyin. Eğer farklı yıllar online-first ve basılı yayın tarihlerinden kaynaklanıyorsa, bu durumu açıklığa kavuşturun.",
+        "acceptance_check": "Referans [6]'nın yayın yılının doğru ve tutarlı olması.",
+        "linked_finding_ids": [
+          "literature_positioning.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RESULTS, ABSTRACT",
+        "instruction": "Ana sonuçları (doğruluk oranları, uzamsal karmaşıklıklar) güven aralıkları ile birlikte raporlayın. Eğer mümkünse, bu farkların etki büyüklüğü ölçülerini de ekleyin. İstatistiksel anlamlılık yerine pratik öneme odaklanan bir dil kullanın.",
+        "acceptance_check": "Ana sonuçlar, belirsizlik ölçüleri (örn. CI) ve/veya etki büyüklüğü ile birlikte sunulmuş olmalı.",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, RECENT RELATED WORK",
+        "instruction": "AI ve derin öğrenme teknolojilerinin eğitimde kullanımının hangi öğrenme teorileriyle (örn. bilişsel yük teorisi, sosyal öğrenme teorisi, yapılandırmacılık) uyumlu olduğunu veya bu teknolojilerin öğretmenlerin bilişsel okuryazarlığını nasıl teorik olarak desteklediğini açıklayan bir bölüm eklenmelidir. Bu, çalışmanın teknolojik yeniliğini pedagojik bir çerçeveye oturtacaktır.",
+        "acceptance_check": "AI ve derin öğrenme uygulamalarının altında yatan pedagojik veya bilişsel teoriler açıkça belirtilmiş ve çalışmanın bu teorilerle nasıl ilişkilendiği açıklanmış olmalı.",
+        "linked_finding_ids": [
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "action_id": "venue_fit.f0.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Makalenin 'DISCUSSION' bölümünde, elde edilen sonuçların bilgisayar bilimleri alanındaki mevcut literatüre nasıl bir katkı sağladığını ve gelecekteki algoritmik geliştirmeler için ne gibi çıkarımlar sunduğunu daha net bir şekilde vurgulayın. Eğitim bilimleri odaklı çıkarımların yanı sıra, teknik yenilikleri ve zorlukları da ele alın.",
+        "acceptance_check": "Tartışma bölümünde, makalenin bilgisayar bilimleri alanındaki teorik veya pratik katkıları (örneğin, yeni bir algoritma varyantı, mevcut algoritmaların yeni bir alana adaptasyonu, performans iyileştirmeleri) açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "venue_fit.f0"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genel İddialar ile Sunulan Kanıtlar Arasındaki Uyumsuzluk; Araştırma Tasarımının Belirsizliği ve Araştırma Sorusuyla Uyumsuzluğu; Örneklem Büyüklüğü ve Güç Analizi Eksikliği; Ölçüm Araçlarının ve Değişken Operasyonelleştirmesinin Belirsizliği; İstatistiksel Analiz Planının Eksikliği ve Varsayım Testlerinin Belirsizliği; Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Nedensel Dilin Aşırı Kullanımı ve Gözlemsel Veriyle Çelişki; Uzamsal Karmaşıklık ve Öğretmen Okuryazarlığı Gelişimi Arasındaki İlişkinin Açıklığı; Etik Onay ve Katılımcı Rızası Beyanının Eksikliği; Ana Sonuçların Yetersiz Raporlanması; Araştırma Sorusu ve Çalışma Kapsamı Arasındaki Uyumsuzluk; SOLO Taksonomisinin Teorik Çerçevesi Yetersiz Açıklanmış; AI ve Derin Öğrenme Entegrasyonunun Teorik Temelleri Yetersiz; Makalenin Bilgisayar Bilimleri Dergisi Kapsamına Uygunluğu",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a10",
+          "abstract.a11",
+          "abstract.a12",
+          "abstract.a13",
+          "abstract.a14",
+          "abstract.a15",
+          "abstract.a16",
+          "abstract.a17",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7",
+          "abstract.a8",
+          "abstract.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "claim_evidence_alignment.f1.a0",
+          "ethics_reproducibility.f2.a0",
+          "quant.f0.a0",
+          "quant.f1.a0",
+          "quant.f2.a0",
+          "quant.f3.a0",
+          "quant.f4.a0",
+          "quant.f5.a0",
+          "quant.f7.a0",
+          "research_question_fit.f0.a0",
+          "theoretical_framing.f0.a0",
+          "theoretical_framing.f1.a0",
+          "venue_fit.f0.a0",
+          "venue_fit.f0.a1"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genel İddialar ile Sunulan Kanıtlar Arasındaki Uyumsuzluk; Araştırma Tasarımının Belirsizliği ve Araştırma Sorusuyla Uyumsuzluğu; Nedensel Dilin Aşırı Kullanımı ve Gözlemsel Veriyle Çelişki; Özgünlük İddialarının Yetersiz Somutlaştırılması; Araştırma Sorusu ve Çalışma Kapsamı Arasındaki Uyumsuzluk; Yapay Zeka Destekli Elektronik Görüntülerin Rolünün Belirsizliği; SOLO Taksonomisinin Teorik Çerçevesi Yetersiz Açıklanmış; AI ve Derin Öğrenme Entegrasyonunun Teorik Temelleri Yetersiz; Giriş Bölümünde Tekrarlayan İfadeler",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a10",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8",
+          "introduction.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "contribution_originality.f0.a0",
+          "quant.f0.a0",
+          "quant.f5.a0",
+          "research_question_fit.f0.a0",
+          "research_question_fit.f1.a0",
+          "theoretical_framing.f0.a0",
+          "theoretical_framing.f1.a0",
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "RESULTS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "DISCUSSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSIONS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Additional Information and Declarations",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Veri Paylaşımı Beyanının Eksikliği",
+        "anchor_ids": [
+          "additional_information_and_declarations.a0",
+          "additional_information_and_declarations.a1"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f1.a0"
+        ]
+      },
+      {
+        "section": "APPLICATION AND EFFECT EVALUATION MODEL OF TEACHERS’ INTELLIGENT LITERACY BASED ON THE SOLO CLASSIFICATION EVALUATION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği; Ölçüm Araçlarının ve Değişken Operasyonelleştirmesinin Belirsizliği; Etik Onay ve Katılımcı Rızası Beyanının Eksikliği; Araştırma Sorusu ve Çalışma Kapsamı Arasındaki Uyumsuzluk; Yapay Zeka Destekli Elektronik Görüntülerin Rolünün Belirsizliği; AI ve Derin Öğrenme Entegrasyonunun Teorik Temelleri Yetersiz",
+        "anchor_ids": [
+          "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a0",
+          "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a1",
+          "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a2",
+          "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a3",
+          "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a4",
+          "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a5",
+          "application_and_effect_evaluation_model_of_teachers_intelligent_literacy_based_on_the_solo_classification_evaluation.a6"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f2.a0",
+          "quant.f1.a0",
+          "quant.f2.a0",
+          "research_question_fit.f0.a0",
+          "research_question_fit.f1.a0",
+          "theoretical_framing.f1.a0"
+        ]
+      },
+      {
+        "section": "Başlık",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yapay Zeka Destekli Elektronik Görüntülerin Rolünün Belirsizliği",
+        "anchor_ids": [
+          "ba_l_k.a0"
+        ],
+        "action_item_ids": [
+          "research_question_fit.f1.a0"
+        ]
+      },
+      {
+        "section": "Data Availability",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Veri ve Kod Erişilebilirliği Beyanının Yetersizliği",
+        "anchor_ids": [
+          "data_availability.a0"
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ]
+      },
+      {
+        "section": "RECENT RELATED WORK",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Literatür Taramasında Kapsam Boşlukları ve Özgünlük Bağlamı; SOLO Taksonomisinin Teorik Çerçevesi Yetersiz Açıklanmış; Bölüm Başlıklarının İçerikle Uyumsuzluğu",
+        "anchor_ids": [
+          "recent_related_work.a0",
+          "recent_related_work.a1",
+          "recent_related_work.a2",
+          "recent_related_work.a3",
+          "recent_related_work.a4",
+          "recent_related_work.a5"
+        ],
+        "action_item_ids": [
+          "contribution_originality.f1.a0",
+          "theoretical_framing.f0.a0",
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "Subjects",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Makalenin Bilgisayar Bilimleri Dergisi Kapsamına Uygunluğu",
+        "anchor_ids": [
+          "subjects.a0"
+        ],
+        "action_item_ids": [
+          "venue_fit.f0.a0",
+          "venue_fit.f0.a1"
+        ]
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "unknown",
+  "verdict": "reject"
+}

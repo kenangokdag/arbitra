@@ -1,0 +1,1266 @@
+{
+  "paper_id": "peerread:iclr2017-445",
+  "run_tag": "main",
+  "job_id": "822121fb-2959-4423-b754-05eaed5ac8ba",
+  "elapsed_s": 360.0,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "DIALOGUE LEARNING WITH HUMAN-IN-THE-LOOP Jiwei Li, Alexander H. Miller, Sumit Chopra, Marc’Aurelio Ranzato, Jason Weston Facebook AI Research, New York, USA",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RELATED WORK",
+        "METHODS",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 9317,
+      "reference_count": 2,
+      "parse_confidence": 0.685,
+      "parse_warnings": []
+    },
+    "summary": "This paper investigates the training of dialogue agents for question-answering tasks through online interaction with a human teacher. The authors frame this as a reinforcement learning problem and systematically evaluate several algorithms, including Reward-Based Imitation (RBI), REINFORCE, and Forward Prediction (FP), which learns from textual feedback instead of explicit rewards. The study extends prior work by moving from fixed, pre-built datasets to a truly interactive learning setting. Experiments are conducted in both a controlled simulator and with real human teachers via Amazon Mechanical Turk, demonstrating that human-in-the-loop learning is a feasible and effective approach for improving dialogue agents, provided that potential instabilities are managed through techniques like exploration and data balancing.",
+    "strengths": [
+      {
+        "category": "Significance and Originality",
+        "points": [
+          "The paper addresses a highly important and practical problem: enabling conversational agents to learn and improve from live interactions after their initial deployment. This is a crucial step beyond training on static datasets.",
+          "The primary contribution—demonstrating that methods like FP and RBI can be successfully adapted from a supervised, fixed-policy setting to a true online, interactive reinforcement learning setting—is a significant and original advancement for the field."
+        ]
+      },
+      {
+        "category": "Technical Soundness",
+        "points": [
+          "The experimental methodology is rigorous and well-designed. The use of a simulator allows for controlled ablation studies on key factors like exploration (ϵ) and batch size, while the Mechanical Turk experiments validate the approach with noisy, natural human language.",
+          "The paper provides a valuable analysis of practical challenges in online learning, such as the instability of the Forward Prediction (FP) method, and offers effective solutions like data balancing and exploration.",
+          "The finding that the learning algorithms are robust to large batch sizes is a key practical result, as it makes the approach viable for real-world systems that typically collect user feedback in batches."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The manuscript is exceptionally well-written, clearly structured, and easy to follow. The motivation, methods, and results are all presented with high clarity.",
+          "The authors do an excellent job in the Related Work section of positioning their contribution against prior work, particularly Weston (2016), by clearly articulating its limitations and how this paper overcomes them."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Methodological Detail",
+        "points": [
+          "The description of the Mechanical Turk experiments lacks crucial details regarding data quality control. Information on the instructions provided to Turkers, any pre-screening of participants, or post-collection filtering and normalization of the textual feedback is missing. This information is essential for assessing the reproducibility and real-world validity of the results obtained with human teachers."
+        ]
+      },
+      {
+        "category": "Analysis",
+        "points": [
+          "While the paper proposes effective solutions (data balancing, exploration) for the 'learning collapse' of the Forward Prediction (FP) method observed in Table 1, it lacks a deeper analysis of the root cause. A more thorough investigation into the underlying dynamics—such as gradient behavior, loss landscape changes, or specific interactions between textual feedback and policy updates in large-batch settings—would significantly strengthen the contribution."
+        ]
+      },
+      {
+        "category": "Scope and Generalizability",
+        "points": [
+          "While the Mechanical Turk experiments are a major strength, the interaction is still confined to a structured question-answering task. The applicability of these methods to more open-ended, multi-turn conversational domains where feedback is more implicit remains an open question.",
+          "The paper focuses on a single model architecture (MemN2N). While appropriate for the task, a brief discussion on how these learning frameworks might interact with other popular architectures (e.g., Transformer-based models) could broaden the paper's impact."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The detailed comparison with Weston (2016) in Section 2 is exemplary. It clearly establishes the novelty of this work by highlighting the shift from a fixed-policy, pre-built dataset to a genuine online learning paradigm where the agent's policy evolves and influences the data it collects. This is a model for how to effectively differentiate from closely related prior work.",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "The experiments demonstrating robustness to batch size (Figures 3 and 4) are particularly compelling. This result has significant practical implications, suggesting that models can be updated less frequently using large batches of collected interactions, which aligns well with the operational constraints of real-world deployed systems.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The validation with human feedback from Mechanical Turk (Section 5.2) is the most impactful part of the paper. It successfully bridges the gap between simulated environments and the complexities of real human language, showing that the proposed methods can handle the lexical and semantic variability of natural feedback. The finding that combining reward-based and text-based feedback (RBI+FP) yields the best performance is a strong, actionable takeaway for practitioners.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "The study focuses on question-answering. Have you considered how this human-in-the-loop framework might be adapted for tasks with a less defined 'correct answer', such as open-domain chit-chat or negotiation dialogues, where feedback might be about style or strategy rather than factual accuracy?",
+      "The instability of FP in the large-batch setting is a fascinating result. Beyond data balancing and ϵ-greedy exploration, have you considered alternative regularization strategies to prevent this collapse, such as constraining the magnitude of policy updates or using a form of trust region optimization?"
+    ],
+    "overall_assessment": "This is an excellent paper that presents a significant contribution to the field of conversational AI. It provides a clear, methodologically sound, and empirically validated framework for training dialogue agents through online human interaction. The experiments are thorough, and the findings are both insightful for researchers and valuable for practitioners. The primary weaknesses are minor and address areas for clarification rather than fundamental flaws. Specifically, the paper would be strengthened by providing details on the quality control measures for the human feedback collected via MTurk and by offering a deeper analysis of the observed instability in the Forward Prediction method. With these additions, the paper will be an outstanding contribution. It is very well-written and requires only minor revisions to be ready for publication.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is not the first to apply RL to dialogue, but it is a novel and systematic study of applying modern methods (especially FP) in a true online, interactive setting, directly and successfully extending prior work that was limited to fixed policies.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The problem of enabling agents to learn continuously from human interaction is of critical importance for the future of conversational AI. This work provides a strong, practical step in that direction."
+      },
+      {
+        "key": "claims_supported",
+        "score": 6.67,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity major. [LLM'in kendi gerekçesi: All claims are strongly supported by extensive experiments in both simulated and real-world settings. The conclusions are drawn directly from the empirical evidence presented.]"
+      },
+      {
+        "key": "soundness",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The methodology is generally very sound, combining controlled simulator experiments with real-world validation. However, the omission of key details regarding quality control for the human-generated data from MTurk represents a minor gap in the experimental description that should be addressed.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is exceptionally clear, well-structured, and well-written. The authors' effort to explicitly differentiate their work from prior art is particularly effective.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.0,
+        "rationale": "The paper offers high value to the community by providing a viable framework for online dialogue learning. The release of code and data further enhances its contribution."
+      },
+      {
+        "key": "contextualization",
+        "score": 9.5,
+        "rationale": "The related work section is excellent, thoroughly situating the paper within the broader context of dialogue systems research and clearly delineating its specific contribution relative to the state of the art."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 9.0,
+        "rationale": "The evidence pack reported no fabricated or retracted citations. Two references could not be found by the automated indexer, but the pack notes this is likely a temporary system error and not proof of non-existence. The citations used appear appropriate and integral to the work."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.5,
+        "rationale": "The evidence pack did not identify any missed seminal works. The literature review appears comprehensive for the specific problem addressed."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack reported no statistical inconsistencies. The paper's metrics are straightforward and do not involve complex statistical tests that would be flagged.]"
+      }
+    ],
+    "final_score": 8.64,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 2,
+        "resolved": 0,
+        "not_found_in_index": 2,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 2
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Mohammad Amin Bassiri. Interactional feedback and the impact of attitude and motivation on noticing l2 form. English Language and Literature Studies, 1(2):61, 2011. Antoine Bordes, Nicolas Usunier, Sumit Chopra, and Jason Weston. Large-scale simple question answering with memory networks. arXiv preprint arXiv:1506.02075, 2015. Leon Bottou, Jonas Peters, Denis X. Quionero-Candela, Joaquin amd Charles, D. Max Chicker- ing, Elon Portugaly, Dipankar Ray, Patrice Simard, and Ed Snelson. Counterfactual reasoning and learning systems: The example of computational advertising. Journal of Machine Learning Research, 14:3207–3260, 2013. Jesse Dodge, Andreea Gane, Xiang Zhang, Antoine Bordes, Sumit Chopra, Alexander Miller, Arthur Szlam, and Jason Weston. Evaluating prerequisite qualities for learning end-to-end dialog sys- tems. arXiv preprint arXiv:1511.06931, 2015. Milica Gašic, Catherine Breslin, Matthew Henderson, Dongho Kim, Martin Szummer, Blaise Thom- son, Pirros Tsiakoulis, and Steve Young. Pomdp-based dialogue manager adaptation to extended domains. In Proceedings of SIGDIAL, 2013. Milica Gašic, Dongho Kim, Pirros Tsiakoulis, Catherine Breslin, Matthew Henderson, Martin Szummer, Blaise Thomson, and Steve Young. Incremental on-line adaptation of pomdp-based dialogue managers to extended domains. In Proceedings on InterSpeech, 2014. Karl Moritz Hermann, Tomas Kocisky, Edward Grefenstette, Lasse Espeholt, Will Kay, Mustafa Suleyman, and Phil Blunsom. Teaching machines to read and comprehend. In Advances in Neural Information Processing Systems, pp. 1693–1701, 2015. 10 Esther Levin, Roberto Pieraccini, and Wieland Eckert. Learning dialogue strategies within the markov decision process framework. In Automatic Speech Recognition and Understanding, 1997. Proceedings., 1997 IEEE Workshop on, pp. 72–79. IEEE, 1997. Esther Levin, Roberto Pieraccini, and Wieland Eckert. A stochastic model of human-machine in- teraction for learning dialog strategies. IEEE Transactions on speech and audio processing, 8(1): 11–23, 2000. Alexander Miller, Adam Fisch, Jesse Dodge, Amir-Hossein Karimi, Antoine Bordes, and Ja- son Weston. Key-value memory networks for directly reading documents. arXiv preprint arXiv:1606.03126, 2016. Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wier- stra, and Martin Riedmiller. Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602, 2013. Roberto Pieraccini, David Suendermann, Krishna Dayanidhi, and Jackson Liscombe. Are we there yet? research in commercial spoken dialog systems. In International Conference on Text, Speech and Dialogue, pp. 3–13. Springer, 2009. Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev, and Percy Liang. Squad: 100,000+ questions for machine comprehension of text. arXiv preprint arXiv:1606.05250, 2016. Marc’Aurelio Ranzato, Sumit Chopra, Michael Auli, and Wojciech Zaremba. Sequence level train- ing with recurrent neural networks. arXiv preprint arXiv:1511.06732, 2015. Jost Schatzmann, Karl Weilhammer, Matt Stuttle, and Steve Young. A survey of statistical user sim- ulation techniques for reinforcement-learning of dialogue management strategies. The knowledge engineering review, 21(02):97–126, 2006. Satinder Singh, Michael Kearns, Diane J Litman, Marilyn A Walker, et al. Empirical evaluation of a reinforcement learning spoken dialogue system. In AAAI/IAAI, pp. 645–651, 2000. Satinder Singh, Diane Litman, Michael Kearns, and Marilyn Walker. Optimizing dialogue man- agement with reinforcement learning: Experiments with the njfun system. Journal of Artiﬁcial Intelligence Research, 16:105–133, 2002. Pei-Hao Su, Milica Gasic, Nikola Mrksic, Lina Rojas-Barahona, Stefan Ultes, David Vandyke, Tsung-Hsien Wen, and Steve Young. Continuously learning neural dialogue management. arXiv preprint arXiv:1606.02689, 2016. Sainbayar Sukhbaatar, Jason Weston, Rob Fergus, et al. End-to-end memory networks. In Advances in neural information processing systems, pp. 2440–2448, 2015. Marilyn A. Walker. An application of reinforcement learning to dialogue strategy selection in a spoken dialogue system for email. Journal of Artiﬁcial Intelligence Research, 12:387–416, 2000. Marilyn A Walker, Rashmi Prasad, and Amanda Stent. A trainable generator for recommendations in multimodal dialog. In INTERSPEECH, 2003. Margaret G Werts, Mark Wolery, Ariane Holcombe, and David L Gast. Instructive feedback: Review of parameters and effects. Journal of Behavioral Education, 5(1):55–75, 1995. Jason Weston. Dialog-based language learning. arXiv preprint arXiv:1604.06045, 2016. Jason Weston, Antoine Bordes, Sumit Chopra, Alexander M Rush, Bart van Merriënboer, Armand Joulin, and Tomas Mikolov. Towards ai-complete question answering: A set of prerequisite toy tasks. arXiv preprint arXiv:1502.05698, 2015. Ronald J Williams. Simple statistical gradient-following algorithms for connectionist reinforcement learning. Machine learning, 8(3-4):229–256, 1992. Steve Young, Milica Gašić, Simon Keizer, Franco̧is Mairesse, Jost Schatzmann, Blaise Thomson, and Kai Yu. The hidden information state model: A practical framework for pomdp-based spoken dialogue management. Computer Speech & Language, 24(2):150–174, 2010. 11 Steve Young, Milica Gašić, Blaise Thomson, and Jason D Williams. Pomdp-based statistical spoken dialog systems: A review. Proceedings of the IEEE, 101(5):1160–1179, 2013. Wojciech Zaremba and Ilya Sutskever. Reinforcement learning neural turing machines. arXiv preprint arXiv:1505.00521, 362, 2015. 12 A FURTHER SIMULATOR TASK DETAILS",
+          "title": "Interactional feedback and the impact of attitude and motivation on noticing l2 form",
+          "authors": [
+            "Mohammad Amin Bassiri"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 2,
+          "raw": "The tasks in Weston (2016) were speciﬁcally: - Task 1: The teacher tells the student exactly what they should have said (supervised baseline). - Task 2: The teacher replies with positive textual feedback and reward, or negative textual feedback. - Task 3: The teacher gives textual feedback containing the answer when the bot is wrong. - Task 4: The teacher provides a hint by providing the class of the correct answer, e.g., “No it’s a movie” for the question “which movie did Forest Gump star in?”. - Task 5: The teacher provides a reason why the student’s answer is wrong by pointing out the relevant supporting fact from the knowledge base. - Task 6: The teacher gives positive reward only 50% of the time. - Task 7: Rewards are missing and the teacher only gives natural language feedback. - Task 8: Combines Tasks 1 and 2 to see whether a learner can learn successfully from both forms of supervision at once. - Task 9: The bot asks questions of the teacher about what it has done wrong. - Task 10: The bot will receive a hint rather than the correct answer after asking for help. We refer the readers to (Weston, 2016) for more detailed descriptions and the motivation behind these tasks. The difference in our system is that the model can be trained on-the-ﬂy via the simulator: after receiving feedback and/or rewards, the model can update itself and apply its learning to the next episode. We present results on Tasks 2, 3 and 4 in this appendix B INSTRUCTIONS GIVEN TO TURKERS These are the instructions given for the textual feedback mechanical turk task (we also constructed a separate task to collect the initial questions, not described here): Title: Write brief responses to given dialogue exchanges (about 15 min) Description: Write a brief response to a student’s answer to a teacher’s question, providing feedback to the student on their answer. Instructions: Each task consists of the following triplets: 1. a question by the teacher 2. the correct answer(s) to the question (separated by “OR”) 3. a proposed answer in reply to the question from the student Consider the scenario where you are the teacher and have already asked the question, and received the reply from the student. Please compose a brief response giving feedback to the student about their answer. The correct answers are provided so that you know whether the student was correct or not. For example, given 1) question: “what is a color in the united states ﬂag?”; 2) correct answer: “white, blue, red”; 3) student reply: “red”, your response could be something like “that’s right!”; for 3) reply: “green”, you might say “no that’s not right” or “nope, a correct answer is actually white”. Please vary responses and try to minimize spelling mistakes. If the same responses are copied/pasted or overused, we’ll reject the HIT. Avoid naming the student or addressing “the class” directly. We will consider bonuses for higher quality responses during review. 13 T : Which movie did Tom Hanks star in ? T : Which movie did Tom Hanks star in ? S : Forrest Gump S : Brad Pitt. Task 1: Imitating an Expert Student Task 1: Imitating an Expert Student S: Forrest Gump S: Forrest Gump T: (no response) T: (no response) Task 2: Positive and Negative Feedback Task 2: Positive and Negative Feedback T: Yes, that’s right! (+) T: No, that’s incorrect! Task 3: Answers Supplied by Teacher Task 3: Answers Supplied by Teacher T: Yes, that is correct. (+) T: No, the answer is Forrest Gump ! Task 4: Hints Supplied by Teacher Task 4: Hints Supplied by Teacher T: Correct! (+) T: No, it’s a movie ! Task 5: Supporting Facts Supplied by Teacher Task 5: Supporting Facts Supplied by Teacher T: That’s right. (+) T: No, because Forrest Gump starred actors Tom Hanks, Robin Wright, Gary Sinise ! Task 6: Partial Feedback Task 6: Partial Feedback if random(0,1)<0.5 then T: Sorry, wrong. T: That’s correct. (+) else T: That’s correct. Task 7: No Feedback Task 7: No Feedback T: Yes. T: No. Task 8: Imitation and Feedback Mixture Task 8: Imitation and Feedback Mixture if random(0,1)<0.5 then if random(0,1)<0.5 then T: Yes, that’s right! (+) T: Wrong. else T: (no response) else S: Forrest Gump Task 9: Asking For Corrections Task 9: Asking For Corrections T: Correct! (+) T: No, that’s wrong. S: Can you help me? T: Forrest Gump ! Task 10: Asking For Supporting Facts Task 10: Asking For Supporting Facts T: Yes, that’s right! (+) T: Sorry, that’s not it. S: Can you help me? T: A relevant fact is that Forrest Gump starred actors Tom Hanks, Robin Wright, Gary Sinise ! Figure 5: The ten tasks our simulator implements, which evaluate different forms of teacher response and binary feedback. In each case the same example from WikiMovies is given for simplicity, where the student answered correctly for all tasks (left) or incorrectly (right). Red text denotes responses by the bot with S denoting the bot. Blue text is spoken by the teacher with T denoting the teacher’s response. For imitation learning the teacher provides the response the student should say denoted with S in Tasks 1 and 8. A (+) denotes a positive reward. C ADDITIONAL EXPERIMENTS Iteration 1 2 3 4 5 6 Imitation Learning 0.24 0.23 0.23 0.23 0.25 0.25 Reward Based Imitation (RBI) 0.95 0.99 0.99 0.99 1.00 1.00 Forward Pred. (FP) 1.00 0.19 0.86 0.30 99 0.22 RBI+FP 0.99 0.99 0.99 0.99 99 0.99 FP (balanced) 0.99 0.97 0.98 0.98 0.96 0.97 FP (rand. exploration ϵ = 0.25) 0.99 0.91 0.93 0.88 0.94 0.94 FP (rand. exploration ϵ = 0.5) 0.98 0.93 0.97 0.96 0.95 0.97 Table 3: Test accuracy of various models in the dataset batch size case (using batch size equal to the size of the full training set) for bAbI, task 3. Results > 0.95 are in bold. 14 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Accuracy ϵ=0 ϵ=0.2 ϵ=0.4 ϵ=0.6 ϵ=0.8 ϵ=1 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 Accuracy ϵ=0 ϵ=0.2 ϵ=0.4 ϵ=0.6 ϵ=0.8 ϵ=1 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 Accuracy Random Exploration for FP with Balancing ϵ=0 ϵ=0.2 ϵ=0.4 ϵ=0.6 ϵ=0.8 ϵ=1 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Accuracy REINFORCE RBI FP 0 20 40 60 80 100 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Accuracy batch 20 batch 80 batch 320 batch 1000 0 20 40 60 80 100 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 Accuracy FP (eps=0.6) Varying Batch Size batch 20 batch 80 batch 320 batch 1000 Figure 6: Training epoch vs. test accuracy for bAbI (Task 2) varying exploration ϵ and batch size. 15 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Accuracy ϵ=0 ϵ=0.2 ϵ=0.4 ϵ=0.6 ϵ=0.8 ϵ=1 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 Accuracy ϵ=0 ϵ=0.2 ϵ=0.4 ϵ=0.6 ϵ=0.8 ϵ=1 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 Accuracy Random Exploration for FP with Balancing ϵ=0 ϵ=0.2 ϵ=0.4 ϵ=0.6 ϵ=0.8 ϵ=1 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Accuracy REINFORCE RBI FP 0 20 40 60 80 100 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Accuracy batch 20 batch 80 batch 320 batch 1000 0 20 40 60 80 100 Epoch 0.3 0.4 0.5 0.6 0.7 0.8 0.9 Accuracy FP (eps=0.6) Varying Batch Size batch 20 batch 80 batch 320 batch 1000 Figure 7: Training epoch vs. test accuracy for bAbI (Task 3) varying exploration ϵ and batch size. Random exploration is important for both reward-based (RBI) and forward prediction (FP). 16 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Accuracy ϵ=0 ϵ=0.2 ϵ=0.4 ϵ=0.6 ϵ=0.8 ϵ=1 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 Accuracy ϵ=0 ϵ=0.2 ϵ=0.4 ϵ=0.6 ϵ=0.8 ϵ=1 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 Accuracy Random Exploration for FP with Balancing ϵ=0 ϵ=0.2 ϵ=0.4 ϵ=0.6 ϵ=0.8 ϵ=1 0 20 40 60 80 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Accuracy REINFORCE RBI FP 0 20 40 60 80 100 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Accuracy batch 20 batch 80 batch 320 batch 1000 0 20 40 60 80 100 Epoch 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 Accuracy FP (eps=0.6) Varying Batch Size batch 20 batch 80 batch 320 batch 1000 Figure 8: Training epoch vs. test accuracy for bAbI (Task 4) varying exploration ϵ and batch size. Random exploration is important for both reward-based (RBI) and forward prediction (FP). 17 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy ϵ=0 ϵ=0.1 ϵ=0.2 ϵ=0.3 ϵ=0.4 ϵ=0.5 ϵ=1 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy ϵ=0 ϵ=0.1 ϵ=0.2 ϵ=0.3 ϵ=0.4 ϵ=0.5 ϵ=1 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy batch 32 batch 320 batch 3200 batch 32000 full dataset 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy REINFORCE RBI FP Figure 9: WikiMovies: Training epoch vs. test accuracy on Task 2 varying (top left panel) explo- ration rate ϵ while setting batch size to 32 for RBI, (top right panel) for FP, (bottom left) batch size for RBI, and (bottom right) comparing RBI, REINFORCE and FP setting ϵ = 0.5. The model is robust to the choice of batch size. RBI and REINFORCE perform comparably. 18 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy ϵ=0 ϵ=0.1 ϵ=0.2 ϵ=0.3 ϵ=0.4 ϵ=0.5 ϵ=1 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy ϵ=0 ϵ=0.1 ϵ=0.2 ϵ=0.3 ϵ=0.4 ϵ=0.5 ϵ=1 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy batch 32 batch 320 batch 3200 batch 32000 full dataset 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy REINFORCE RBI FP Figure 10: WikiMovies: Training epoch vs. test accuracy on Task 3 varying (top left panel) explo- ration rate ϵ while setting batch size to 32 for RBI, (top right panel) for FP, (bottom left) batch size for RBI, and (bottom right) comparing RBI, REINFORCE and FP setting ϵ = 0.5. The model is robust to the choice of batch size. RBI and REINFORCE perform comparably. 19 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy ϵ=0 ϵ=0.1 ϵ=0.2 ϵ=0.3 ϵ=0.4 ϵ=0.5 ϵ=1 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy ϵ=0 ϵ=0.1 ϵ=0.2 ϵ=0.3 ϵ=0.4 ϵ=0.5 ϵ=1 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy batch 32 batch 320 batch 3200 batch 32000 full dataset 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy REINFORCE RBI FP Figure 11: WikiMovies: Training epoch vs. test accuracy on Task 4 varying (top left panel) explo- ration rate ϵ while setting batch size to 32 for RBI, (top right panel) for FP, (bottom left) batch size for RBI, and (bottom right) comparing RBI, REINFORCE and FP setting ϵ = 0.5. The model is robust to the choice of batch size. RBI and REINFORCE perform comparably. 20 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy FP (eps=0.5) Varying Batch Size batch 32 batch 320 batch 3200 batch 32000 full dataset 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy FP (eps=0.5) Varying Batch Size batch 32 batch 320 batch 3200 batch 32000 full dataset 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy FP (eps=0.5) Varying Batch Size batch 32 batch 320 batch 3200 batch 32000 full dataset 0 5 10 15 20 Epoch 0.1 0.2 0.3 0.4 0.5 0.6 0.7 Accuracy FP (eps=0.5) Varying Batch Size batch 32 batch 320 batch 3200 batch 32000 full dataset Figure 12: WikiMovies: Training epoch vs. test accuracy with varying batch size for FP on Task 2 (top left panel), 3 (top right panel), 4 (bottom left panel) and 6 (top right panel) setting ϵ = 0.5. The model is robust to the choice of batch size. 21 C.1 ADDITIONAL EXPERIMENTS FOR MECHANICAL TURK SETUP In the experiment in Section 5.2 we conducted experiments with real human feedback. Here, we compare this to a form of synthetic feedback, mostly as a sanity check, but also to see how much improvement we can get if the signal is simpler and cleaner (as it is synthetic). We hence constructed synthetic feedback for the 10,000 responses, using either Task 2 (positive or negative feedback), Task 3 (answers provided by teacher) or a mix (Task 2+3) where we use one or the other for each example (50% chance of each). The latter makes the synthetic data have a mixed setup of responses, which more closely mimics the real data case. The results are given in Table 4. The RBI+FP combination is better using the synthetic data than the real data with Task 2+3 or Task 3, which is to be expected, but the real data is competitive, despite the difﬁculty of dealing with its lexical and semantic variability. The real data is better than using Task 2 synthetic data. For comparison purposes, we also ran a supervised (imitation learning) MemN2N on different sized training sets of turker authored questions with gold annotated labels (so, there are no numerical rewards or textual feedback, this is a pure supervised setting). The results are given in Table 5. They indicate that RBI+FP and even FP alone get close to the performance of fully supervised learning. Model r = 0 r = 0.1 r = 0.5 r = 1 Reward Based Imitation (RBI) 0.333 0.340 0.365 0.375 Forward Prediction (FP) [real] 0.358 0.358 0.358 0.358 RBI+FP [real] 0.431 0.438 0.443 0.441 Forward Prediction (FP) [synthetic Task 2] 0.188 0.188 0.188 0.188 Forward Prediction (FP) [synthetic Task 2+3] 0.328 0.328 0.328 0.328 Forward Prediction (FP) [synthetic Task 3] 0.361 0.361 0.361 0.361 RBI+FP [synthetic Task 2] 0.382 0.383 0.407 0.408 RBI+FP [synthetic Task 2+3] 0.459 0.465 0.464 0.478 RBI+FP [synthetic Task 3] 0.473 0.486 0.490 0.494 Table 4: Incorporating Feedback From Humans via Mechanical Turk: comparing real human feedback to synthetic feedback. Textual feedback is provided for 10,000 model predictions (from a model trained with 1k labeled training examples), and additional sparse binary rewards (fraction r of examples have rewards). We compare real feedback (rows 2 and 3) to synthetic feedback when using FP or RBI+FP (rows 4 and 5). Train data size 1k 5k 10k 20k 60k Supervised MemN2N 0.333 0.429 0.476 0.526 0.599 Table 5: Fully Supervised (Imitation Learning) Results on Human Questions r = 0 r = 0.1 r = 0.5 r = 1 ϵ = 0 0.499 0.502 0.501 0.502 ϵ = 0.1 0.494 0.496 0.501 0.502 ϵ = 0.25 0.493 0.495 0.496 0.499 ϵ = 0.5 0.501 0.499 0.501 0.504 ϵ = 1 0.497 0.497 0.498 0.497 Table 6: Second Iteration of Feedback Using synthetic textual feedback of synthetic Task2+3 with the RBI+FP method, an additional iteration of data collection of 10k examples, varying sparse binary reward fraction r and exploration ϵ. The performance of the ﬁrst iteration model was 0.478. C.2 SECOND ITERATION OF FEEDBACK We conducted experiments with an additional iteration of data collection for the case of binary rewards and textual feedback using the synthetic Task 2+3 mix. We selected the best model from the previous training, using RBI+FP with r = 1 which previously gave a test accuracy of 0.478 (see Table 4). Using that model as a predictor, we collected an additional 10,000 training examples. 22 We then continue to train our model using the original 1k+10k training set, plus the additional 10k. As before, we report the test accuracy varying r on the additional collected set. We also report the performance from varying ϵ, the proportion of random exploration of predictions on the new set. The results are reported in Table 6. Overall, performance is improved in the second iteration, with slightly better performance for large r and ϵ = 0.5. However, the improvement is mostly invariant to those parameters, likely because FP takes advantage of feedback from incorrect predictions in any case. 23",
+          "title": "were speciﬁcally: - Task 1: The teacher tells the student exactly what they should have said (supervised baseline)",
+          "authors": [
+            "The tasks in Weston"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:2",
+        "coverage:openalex_unavailable",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "8507100ad2111a76bfed7c607f8de96848ae6433ba3799738067f89a370498d4",
+          "request_time": "2026-08-22T18:32:45.988815Z",
+          "status": "degraded",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "2/2 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:32:47.373049Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "a065fbbe4eb0d41c357c6ad502a537c3607e2eb8a5ea73853bddf24bca270bca",
+          "request_time": "2026-08-22T18:32:49.792929Z",
+          "status": "failed",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "openalex search_works_raw failed: all 3 attempts failed; last=HTTPStatusError"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:38:27.843338Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.8,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.7,
+      "rationale": "Belgenin kısa olması (kelime sayısı, referans sayısı), yazar listesinde 'Facebook AI Research' gibi bir kurumun belirtilmesi ve bölüm başlıklarının (ABSTRACT, INTRODUCTION, RELATED WORK, METHODS, CONCLUSION, REFERENCES) tipik bir konferans bildirisi formatına uyması nedeniyle 'conference_paper' olarak sınıflandırılmıştır. Çalışma tasarımı, özet ve giriş kısmında 'reinforcement learning', 'simulator', 'models' ve 'real experiments with Mechanical Turk' ifadelerinin geçmesi, bir hesaplamalı model geliştirme ve test etme çalışmasına işaret etmektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 85.125,
+      "recommended_decision": "accept",
+      "confidence": 0.8247619047619048,
+      "top_fatal_risks": [
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 1 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "evidence",
+        "score": 63.0,
+        "severity": "major",
+        "confidence": 0.9,
+        "why_it_matters": "4 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.85,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The paper identifies the instability of FP in the dataset-batch-size setting (Table 1) and proposes effective solutions. However, a deeper analysis of the root cause of this 'learning collapse' could further strengthen the paper. Is it purely a feedback imbalance issue, or are there other dynamics at play? The current explanation is somewhat superficial.; Regarding the MTurk experiments, what specific measures were taken to ensure the quality and consistency of the textual feedback? Was any form of filtering, normalization, or quality control applied to the Turkers' responses before they were used for training? This is crucial for validating the real-world applicability of the results.; The paper focuses on a single model architecture (MemN2N). While appropriate for the task, the lack of even a brief discussion on how these learning frameworks might interact with other popular architectures (e.g., Transformer-based models) limits the generalizability of the findings and could broaden the paper's impact. This omission makes it harder to assess the broader applicability of the proposed methods.",
+        "key_objection": "Regarding the MTurk experiments, what specific measures were taken to ensure the quality and consistency of the textual feedback? Was any form of filtering, normalization, or quality control applied to the Turkers' responses before they were used for training? This is crucial for validating the real-world applicability of the results.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "novelty_to_length_ratio.f0",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "reviewer_confidence.f0",
+          "reviewer_confidence.f1"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "2 concern(s): The reviewer notes that the paper identifies the instability of FP in the dataset-batch-size setting (Table 1) and proposes effective solutions. However, a deeper analysis of the root cause of this 'learning collapse' is requested. While the current solutions (data balancing and exploration) are effective, the underlying statistical or algorithmic reasons for this instability are not fully explored. This could involve a more detailed examination of the loss landscape, gradient dynamics, or the interaction between the textual feedback and the model's update mechanism under different batch sizes.; The question 'Regarding the MTurk experiments, what measures were taken to ensure the quality and consistency of the textual feedback? Was any form of filtering, normalization, or quality control applied to the Turkers' responses before they were used for training?' points to a potential gap in the methodological description. Details on data quality control for human-generated feedback are crucial for reproducibility and understanding the robustness of the results, especially given the inherent noise in crowdsourced data. This should include information on instructions given to Turkers, any pre-screening, post-collection filtering, or normalization techniques applied to the textual feedback.",
+        "key_objection": "The reviewer notes that the paper identifies the instability of FP in the dataset-batch-size setting (Table 1) and proposes effective solutions. However, a deeper analysis of the root cause of this 'learning collapse' is requested. While the current solutions (data balancing and exploration) are effective, the underlying statistical or algorithmic reasons for this instability are not fully explored. This could involve a more detailed examination of the loss landscape, gradient dynamics, or the interaction between the textual feedback and the model's update mechanism under different batch sizes.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "3 concern(s): The paper focuses on a single model architecture (MemN2N). While appropriate for the task, a brief discussion on how these learning frameworks might interact with other popular architectures (e.g., Transformer-based models) could broaden the paper's impact. Please add a short discussion on this point.; The paper identifies the instability of FP in the dataset-batch-size setting (Table 1) and proposes effective solutions. However, a deeper analysis of the root cause of this 'learning collapse' could further strengthen the paper. Is it purely a feedback imbalance issue, or are there other dynamics at play? Please elaborate on the potential root causes.; Regarding the MTurk experiments, what measures were taken to ensure the quality and consistency of the textual feedback? Was any form of filtering, normalization, or quality control applied to the Turkers' responses before they were used for training? Please add details on quality control measures for MTurk data.",
+        "key_objection": "The paper focuses on a single model architecture (MemN2N). While appropriate for the task, a brief discussion on how these learning frameworks might interact with other popular architectures (e.g., Transformer-based models) could broaden the paper's impact. Please add a short discussion on this point.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "1 concern(s): The reviewer's statement implies that the 'not found' flags are definitively system errors and not author errors. While the evidence pack notes they are 'likely system errors' and 'not a proof of non-existence', it does not definitively confirm they are not author errors. The reviewer is making a stronger claim than the evidence supports. The evidence pack only states that two citations could not be found in the index, with a note that this might be a temporary service error, not that they are confirmed system errors.",
+        "key_objection": "The reviewer's statement implies that the 'not found' flags are definitively system errors and not author errors. While the evidence pack notes they are 'likely system errors' and 'not a proof of non-existence', it does not definitively confirm they are not author errors. The reviewer is making a stronger claim than the evidence supports. The evidence pack only states that two citations could not be found in the index, with a note that this might be a temporary service error, not that they are confirmed system errors.",
+        "confidence": 0.0,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "minor-revision",
+        "summary": "This paper investigates the training of dialogue agents for question-answering tasks through online interaction with a human teacher. The authors frame this as a reinforcement learning problem and systematically evaluate several algorithms, including Reward-Based Imitation (RBI), REINFORCE, and Forward Prediction (FP), which learns from textual feedback instead of explicit rewards. The study extends prior work by moving from fixed, pre-built datasets to a truly interactive learning setting. Experiments are conducted in both a controlled simulator and with real human teachers via Amazon Mechanical Turk, demonstrating that human-in-the-loop learning is a feasible and effective approach for improving dialogue agents, provided that potential instabilities are managed through techniques like exploration and data balancing.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Hibrit Tasarım Yaklaşımı",
+        "summary": "Çalışma, hem simülasyon tabanlı kontrollü deneyler hem de gerçek insan etkileşimlerini içeren Mechanical Turk deneyleri ile hibrit bir tasarım kullanmaktadır. Bu yaklaşım, kontrollü ortamda algoritmaların temel davranışlarını inceleme ve ardından gerçek dünya karmaşıklığına genellenebilirliğini test etme avantajı sunar.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We build a simulator that tests various aspects of such learning in a synthetic environment, and introduce models that work in this regime. Finally, real experiments with Mechanical Turk validate the approach."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "We consider two online training scenarios: (i) where the task is built with a dialogue simulator allowing for easy analysis and repeatability of experiments; and (ii) where the teachers are real humans using Amazon Mechanical Turk."
+          }
+        ],
+        "reasoning_public": "Bu hibrit tasarım, yapay zeka ve diyalog sistemleri araştırmalarında yaygın ve etkili bir yaklaşımdır. Simülasyonlar, tekrarlanabilirlik ve kolay analiz sağlarken, insan-döngüdeki deneyler gerçek dünya geçerliliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Çalışma, simülasyon ve Mechanical Turk deneylerinde kullanılan örneklem büyüklükleri (diyalog sayısı, katılımcı sayısı vb.) hakkında yeterli gerekçe sunmamaktadır. Özellikle Mechanical Turk deneyleri için, insan katılımcı sayısının veya toplanan diyalog hacminin istatistiksel güç açısından yeterli olup olmadığı belirtilmemiştir. Güç analizi veya hassasiyet gerekçesi sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_2_mechanical_turk_experiments.a0",
+            "section": "3.2 MECHANICAL TURK EXPERIMENTS",
+            "quote": "Finally, we extended WikiMovies using Mechanical Turk so that real human teachers are giving feedback rather than using a simulation. As both the questions and feedback are templated in the simulation, they are now both replaced with natural human utterances."
+          }
+        ],
+        "reasoning_public": "Örneklem büyüklüğünün gerekçelendirilmemesi, elde edilen sonuçların genellenebilirliği ve istatistiksel güvenilirliği hakkında şüphe uyandırır. Yeterli güce sahip olmayan bir çalışma, gerçek etkileri tespit edememe riskini taşır veya yanıltıcı sonuçlar üretebilir. Özellikle insan katılımcılarla yapılan deneylerde, örneklem büyüklüğü ve çeşitliliği kritik öneme sahiptir.",
+        "limitations": [
+          "Makalede Mechanical Turk deneyleri için spesifik katılımcı sayısı veya diyalog hacmi belirtilmediği için, bu bulgunun kesin nicel bir değerlendirmesi yapılamamıştır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "İnsan Geri Bildiriminin Kategorizasyonunda Şeffaflık Eksikliği",
+        "summary": "Mechanical Turk deneylerinde insan öğretmenlerin verdiği geri bildirimlerin 'pozitif/negatif cümleler', 'cevap içeren ifadeler' veya 'ipuçları' olarak kategorize edildiği belirtilmektedir. Ancak, bu kategorizasyonun nasıl yapıldığına dair metodoloji (örneğin, manuel kodlama, otomatik sınıflandırma, birden fazla kodlayıcı ve kodlayıcılar arası güvenilirlik) yeterince açık değildir. Bu durum, insan geri bildiriminin ölçüm geçerliliğini etkileyebilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_2_mechanical_turk_experiments.a1",
+            "section": "3.2 MECHANICAL TURK EXPERIMENTS",
+            "quote": "In general, each independent response contains feedback like (i) positive or negative sentences; or (ii) a phrase containing the answer or (iii) a hint, which are similar to setups deﬁned in the simulator. However, some human responses cannot be so easily categorized, and the lexical variability is much larger in human responses."
+          }
+        ],
+        "reasoning_public": "İnsan tarafından üretilen verilerin kategorizasyonu, öznel yorumlamalara açık olabilir. Bu tür bir ölçümün geçerliliğini ve güvenilirliğini sağlamak için, kategorizasyon sürecinin şeffaf bir şekilde açıklanması ve metodolojik sağlamlığının gösterilmesi önemlidir. Aksi takdirde, sonuçların bu kategorizasyona dayalı yorumları sorgulanabilir hale gelir.",
+        "limitations": [
+          "Makalede kategorizasyon sürecine dair detaylı bilgi verilmediği için, bu bulgunun kesin bir değerlendirmesi yapılamamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Varsayım Testleri ve Çoklu Karşılaştırma Riski Eksikliği",
+        "summary": "Çalışma, kullanılan istatistiksel modellerin (örneğin, REINFORCE algoritmasındaki lineer regresyon modeli) varsayımlarının test edilip edilmediğini belirtmemektedir. Ayrıca, birden fazla model ve parametre kombinasyonu (ϵ değerleri, batch boyutları) üzerinde yapılan çok sayıda karşılaştırma için çoklu karşılaştırma düzeltmeleri (örneğin, Bonferroni, Holm) uygulanıp uygulanmadığına dair bilgi yoktur. Bu durum, Tip I hata oranını artırma riski taşır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_2_2_reinforce.a0",
+            "section": "4.2.2 REINFORCE",
+            "quote": "The baseline model is trained by minimizing the mean squared loss between the estimated reward b and actual reward r, ||r −b||2."
+          },
+          {
+            "anchor_id": "5_1_simulator.a0",
+            "section": "5.1 SIMULATOR",
+            "quote": "In our ﬁrst experiments, we considered both the bAbI and WikiMovies tasks and varied batch size, random exploration rate ϵ, and type of model. Figure 3 and Figure 4 shows (Task 6) results on bAbI and WikiMovies. Other tasks yield similar conclusions and are reported in the appendix."
+          }
+        ],
+        "reasoning_public": "İstatistiksel modellerin varsayımlarının karşılanıp karşılanmadığının kontrol edilmesi, sonuçların geçerliliği için esastır. Varsayımların ihlali, model tahminlerinin güvenilirliğini azaltabilir. Birden fazla karşılaştırma yapıldığında, her bir testte Tip I hata yapma olasılığı birikir ve genel hata oranını artırır. Bu riski azaltmak için uygun düzeltmelerin uygulanması gerekir.",
+        "limitations": [
+          "Makalede varsayım testleri veya çoklu karşılaştırma düzeltmeleri hakkında bilgi verilmediği için, bu bulgunun kesin bir değerlendirmesi yapılamamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Metin-Tablo-Figür Tutarlılığı",
+        "summary": "Makalede sunulan metin, tablo ve figürler arasında genel olarak iyi bir tutarlılık gözlemlenmiştir. Özellikle, Tablo 1'deki değerler ve Figür 3 ile Figür 4'teki eğilimler metin içinde yapılan çıkarımlarla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_simulator.a1",
+            "section": "5.1 SIMULATOR",
+            "quote": "Figure 3 and Figure 4 shows (Task 6) results on bAbI and WikiMovies. Other tasks yield similar conclusions and are reported in the appendix. Overall, we obtain the following conclusions: ... Table 1 reports test error at each iteration of training, using the bAbI Task 6 as the case study (see the appendix for results on other tasks). The following conclusions can be made for this setting: ..."
+          }
+        ],
+        "reasoning_public": "Metin, tablo ve figürler arasındaki tutarlılık, okuyucunun çalışmayı anlamasını kolaylaştırır ve raporlama kalitesini artırır. Bu, bulguların güvenilir bir şekilde sunulduğunu gösterir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Çalışma, modellerin performansını (doğruluk) raporlarken, bu performans farklarının istatistiksel etki büyüklüklerini veya güven aralıklarını (CI) sunmamaktadır. Özellikle, farklı algoritmalar veya parametreler arasındaki performans karşılaştırmalarında, sadece ortalama doğruluk değerleri verilmekte, ancak bu farkların büyüklüğü ve istatistiksel belirsizliği hakkında bilgi eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Test accuracy of various models per iteration in the dataset batch size case (using batch size equal to the size of the full training set) for bAbI, Task 6. Results > 0.95 are in bold."
+          },
+          {
+            "anchor_id": "figure_3.a0",
+            "section": "Figure 3",
+            "quote": "Training epoch vs. test accuracy for bAbI (Task 6) varying exploration ϵ and batch size."
+          }
+        ],
+        "reasoning_public": "Sadece p-değerleri veya ortalama değerler, bir etkinin pratik önemini tam olarak yansıtmaz. Etki büyüklükleri, gözlemlenen farkların pratik anlamlılığını gösterirken, güven aralıkları tahminlerin hassasiyetini ve belirsizliğini belirtir. Bu ölçümlerin eksikliği, okuyucunun bulguların gerçek dünya uygulamaları için ne kadar önemli olduğunu değerlendirmesini zorlaştırır ve sonuçların yorumlanmasını kısıtlar.",
+        "limitations": [
+          "Makalede güven aralıkları veya etki büyüklüğü ölçümleri raporlanmadığı için, bu bulgunun kesin bir değerlendirmesi yapılamamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Kullanımında Disiplin",
+        "summary": "Çalışma, simülasyon tabanlı deneylerde ve kontrollü ayarlarda nedensel çıkarımlar yaparken, Mechanical Turk gibi daha az kontrollü ortamlarda 'validate the approach' (yaklaşımı doğrulamak) gibi daha dikkatli bir dil kullanmaktadır. Bu, nedensel dil disiplinine uygun bir yaklaşımdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Finally, real experiments with Mechanical Turk validate the approach."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "Our ﬁndings indicate that it is feasible to build a pipeline that starts from a model trained with ﬁxed data and then learns from interactions with humans to improve itself."
+          }
+        ],
+        "reasoning_public": "Gözlemsel veya daha az kontrollü deneylerde nedensel dil kullanımından kaçınmak, bilimsel raporlamanın önemli bir yönüdür. Çalışma, farklı deney türleri için uygun dil seviyesini koruyarak bu disiplini göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Kod ve Veri Erişilebilirliği",
+        "summary": "Çalışma, kod ve verilerin GitHub deposu aracılığıyla erişilebilir olduğunu belirterek tekrar üretilebilirliği desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_simulator.a2",
+            "section": "5.1 SIMULATOR",
+            "quote": "Code and data are available at https://github.com/facebook/MemNN/tree/master/HITL."
+          }
+        ],
+        "reasoning_public": "Kod ve verilerin açıkça paylaşılması, diğer araştırmacıların bulguları doğrulamasına, yöntemleri yeniden üretmesine ve üzerine inşa etmesine olanak tanır. Bu, bilimsel şeffaflık ve tekrar üretilebilirlik için kritik bir adımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Ana Sonuçların Belirsizlik Ölçüleri ile Sunulmaması",
+        "summary": "Ana sonuçlar (örneğin, Tablo 1'deki doğruluk değerleri ve Figür 3 ile 4'teki performans eğrileri) genellikle sadece nokta tahminleri olarak sunulmaktadır. Bu sonuçların belirsizlik ölçüleri (örneğin, standart hatalar veya güven aralıkları) ile birlikte raporlanmaması, okuyucunun bu tahminlerin ne kadar güvenilir olduğunu değerlendirmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a1",
+            "section": "Table 1",
+            "quote": "Test accuracy of various models per iteration in the dataset batch size case (using batch size equal to the size of the full training set) for bAbI, Task 6. Results > 0.95 are in bold."
+          },
+          {
+            "anchor_id": "5_1_simulator.a3",
+            "section": "5.1 SIMULATOR",
+            "quote": "Overall, we obtain the following conclusions: ... REINFORCE obtains similar performance to RBI with optimal ϵ."
+          }
+        ],
+        "reasoning_public": "Bilimsel raporlamada, ana sonuçların sadece ortalama değerlerle değil, aynı zamanda bu değerlerin etrafındaki belirsizliği gösteren ölçülerle (güven aralıkları gibi) sunulması beklenir. Bu, bulguların sağlamlığını ve genellenebilirliğini daha iyi anlamak için kritik öneme sahiptir. 'Significant' veya 'non-significant' gibi terimlerin aşırı kullanımından kaçınılması da raporlama kalitesini artırır, ancak bu çalışmada bu tür bir dil aşırı kullanılmamıştır.",
+        "limitations": [
+          "Makalede belirsizlik ölçüleri raporlanmadığı için, bu bulgunun kesin bir değerlendirmesi yapılamamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Konuşma Ajanları ve Takviyeli Öğrenme Alanına Uygunluk",
+        "summary": "Makale, insanlarla etkileşim yoluyla gelişen konuşma ajanlarının geliştirilmesi ve takviyeli öğrenme ortamında çevrimiçi öğrenme üzerine odaklanmaktadır. Bu konu, yapay zeka ve doğal dil işleme alanındaki güncel araştırma eğilimleriyle uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "An important aspect of developing conversational agents is to give a bot the ability to improve through communicating with humans and to learn from the mistakes that it makes. Most research has focused on learning from ﬁxed training sets of labeled data rather than interacting with a dialogue partner in an online fashion. In this paper we explore this direction in a reinforcement learning setting where the bot improves its question-answering ability from feedback a teacher gives fol-lowing its generated responses."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "A good conversational agent (which we sometimes refer to as a learner or bot1) should have the ability to learn from the online feedback from a teacher: adapting its model when making mistakes and reinforcing the model when the teacher’s feedback is positive."
+          }
+        ],
+        "reasoning_public": "Makalenin ana teması, konuşma ajanlarının insan geri bildiriminden öğrenme yeteneğini geliştirmektir. Bu, özellikle takviyeli öğrenme ve insan-döngüde (human-in-the-loop) öğrenme paradigmalarını kullanarak gerçekleştirilmektedir. Bu yaklaşım, yapay zeka ve doğal dil işleme konferanslarının veya dergilerinin ilgili oturumlarına mükemmel bir şekilde uymaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yenilikçi Yaklaşım ve Kapsamlı Deneysel Doğrulama",
+        "summary": "Makale, diyalog öğreniminde insan-döngüde (human-in-the-loop) pekiştirmeli öğrenme yaklaşımını ele alarak önemli bir yenilik sunmaktadır. Simülasyon ve gerçek insan deneyleriyle kapsamlı bir şekilde doğrulanması, çalışmanın değerini artırmaktadır. Ancak, bazı bölümlerdeki detay seviyesi ve tekrar eden açıklamalar, makalenin uzunluğunu gereksiz yere artırmış olabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "Most recent research has focused on training a bot from ﬁxed training sets of labeled data but seldom on how the bot can improve through online interaction with humans."
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "In this work, we explore this direction by training a bot through interaction with teachers in an online fashion."
+          },
+          {
+            "anchor_id": "related_work.a0",
+            "section": "RELATED WORK",
+            "quote": "Our work is closely related to a recent work from Weston (2016) that learns through conducting conversations where supervision is given naturally in the response during the conversation. That work introduced the use of forward prediction that learns by predicting the teacher’s feedback, in addition to using reward-based learning of correct answers. However, two important issues were not addressed: (i) it did not use a reinforcement learning setting, but instead used pre-built datasets with ﬁxed policies given in advance; and (ii) experiments used only simulated and no real language data. Hence, models that can learn policies from real online communication were not investigated. To make the differences with our work clear, we will now detail these points further."
+          },
+          {
+            "anchor_id": "related_work.a1",
+            "section": "RELATED WORK",
+            "quote": "Finally, (Weston, 2016) only conducted experiments on synthetic or templated language, and not real language, especially the feedback from the teacher was scripted. While we believe that synthetic datasets are very important for developing understanding (hence we develop a simulator and conduct experiments also with synthetic data), for a new method to gain traction it must be shown to work on real data. We hence employ Mechanical Turk to collect real language data for the questions and importantly for the teacher feedback and construct experiments in this real setting."
+          }
+        ],
+        "reasoning_public": "Makale, sohbet ajanlarının çevrimiçi insan geri bildiriminden öğrenme yeteneğini pekiştirmeli öğrenme çerçevesinde inceleyerek, mevcut literatürdeki sabit eğitim setlerine odaklanan yaklaşımlardan ayrılmaktadır. Bu, diyalog sistemleri için önemli bir araştırma yönüdür. Özellikle, simülasyon ortamında farklı öğrenme algoritmalarını (RBI, REINFORCE, FP) karşılaştırması ve ardından Amazon Mechanical Turk aracılığıyla gerçek insanlarla yapılan deneylerle bulgularını doğrulaması, çalışmanın sağlamlığını ve yeniliğini desteklemektedir. Ancak, 'RELATED WORK' bölümünde Weston (2016) çalışmasıyla yapılan karşılaştırmanın detaylı ve tekrar eden doğası, makalenin genel uzunluğuna katkıda bulunurken, ana yenilikçi katkıyı daha net bir şekilde vurgulama potansiyelini azaltmaktadır. Benzer şekilde, 'METHODS' bölümündeki bazı temel kavramların (örn. MemN2N'in genel yapısı) detaylı açıklaması, bu alandaki okuyucular için gereksiz olabilir ve daha çok yenilikçi yönlere odaklanılabilirdi.",
+        "limitations": [],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod ve Veri Erişilebilirliği",
+        "summary": "Makale, çalışmada kullanılan kod ve verilerin GitHub deposu aracılığıyla erişilebilir olduğunu belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "Code and data are available at https://github.com/facebook/MemNN/tree/master/HITL."
+          }
+        ],
+        "reasoning_public": "Araştırmanın tekrar üretilebilirliği ve şeffaflığı açısından kod ve verilerin açıkça paylaşılması önemli bir güçlü yöndür. Bu, diğer araştırmacıların sonuçları doğrulamasına, yöntemleri anlamasına ve üzerine inşa etmesine olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f0",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Figürlerdeki Metin Boyutları ve Okunabilirlik Sorunları",
+        "summary": "Makaledeki figürlerin (özellikle grafiklerin) metin boyutları oldukça küçük ve okunması zor. Bu durum, sunulan verilerin ve sonuçların anlaşılmasını güçleştirmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_simulator.a4",
+            "section": "5.1 SIMULATOR",
+            "quote": "Figure 3: Training epoch vs. test accuracy for bAbI (Task 6) varying exploration ϵ and batch size. Random exploration is important for both reward-based (RBI) and forward prediction (FP). Performance is largely independent of batch size, and RBI performs similarly to REINFORCE."
+          },
+          {
+            "anchor_id": "5_1_simulator.a5",
+            "section": "5.1 SIMULATOR",
+            "quote": "Figure 4: WikiMovies: Training epoch vs. test accuracy on Task 6 varying (top left panel) exploration rate ϵ while setting batch size to 32 for RBI, (top right panel) for FP, (bottom left) batch size for RBI, and (bottom right) comparing RBI, REINFORCE and FP with ϵ = 0.5. The model is robust to the choice of batch size. RBI and REINFORCE perform comparably."
+          }
+        ],
+        "reasoning_public": "Akademik makalelerde figürler, karmaşık bilgileri görsel olarak özetlemek ve okuyucunun ana bulguları hızlıca kavramasını sağlamak için kritik öneme sahiptir. Küçük metin boyutları, okuyucunun figürleri anlamak için ek çaba sarf etmesine neden olur ve makalenin genel okunabilirliğini düşürür. Özellikle 'Epoch' ve 'Accuracy' gibi eksen etiketleri ile lejantlardaki 'epsilon' değerleri zorlukla okunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f1",
+        "dimension": "presentation_clarity",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Tablo 1'deki Metin Boyutu ve Vurgulama",
+        "summary": "Tablo 1'deki bazı metinler, özellikle 'Iteration' ve 'Imitation Learning' gibi başlıklar, diğer tablolara kıyasla daha küçük görünmektedir. Ayrıca, 'bold' vurgulamasının amacı ve tutarlılığı net değildir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_simulator.a6",
+            "section": "5.1 SIMULATOR",
+            "quote": "Table 1: Test accuracy of various models per iteration in the dataset batch size case (using batch size equal to the size of the full training set) for bAbI, Task 6. Results > 0.95 are in bold."
+          }
+        ],
+        "reasoning_public": "Tablolar, sayısal verileri düzenli bir şekilde sunarak okuyucunun karşılaştırmalar yapmasını ve ana bulguları görmesini kolaylaştırır. Metin boyutlarındaki tutarsızlıklar ve vurgulama kurallarının belirsizliği, tablonun anlaşılmasını zorlaştırabilir ve profesyonel bir görünümden uzaklaştırabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f2",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Akış ve Yapılandırma Netliği",
+        "summary": "Makale, girişten sonuç bölümüne kadar mantıksal bir akışa sahiptir. Bölüm başlıkları ve alt başlıklar, okuyucunun konuyu takip etmesini kolaylaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "An important aspect of developing conversational agents is to give a bot the ability to improve through communicating with humans and to learn from the mistakes that it makes."
+          },
+          {
+            "anchor_id": "1_introduction.a0",
+            "section": "1 INTRODUCTION",
+            "quote": "A good conversational agent (which we sometimes refer to as a learner or bot1) should have the ability to learn from the online feedback from a teacher: adapting its model when making mistakes and reinforcing the model when the teacher’s feedback is positive."
+          }
+        ],
+        "reasoning_public": "İyi yapılandırılmış bir makale, okuyucunun karmaşık fikirleri ve deneysel süreçleri anlamasına yardımcı olur. Bu makalede, 'INTRODUCTION', 'RELATED WORK', 'METHODS', 'CONCLUSION' gibi standart bölümlerin yanı sıra, 'SIMULATOR' ve 'MECHANICAL TURK EXPERIMENTS' gibi alt bölümler, çalışmanın farklı yönlerini net bir şekilde ayırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çalışmanın Temel Katkıları Açıkça Belirtilmiştir",
+        "summary": "Makale, çevrimiçi etkileşim yoluyla sohbet botlarının öğrenmesi üzerine odaklanarak, geleneksel sabit veri setlerinden öğrenme yaklaşımlarından ayrılan temel katkılarını net bir şekilde ifade etmektedir. Özellikle, pekiştirmeli öğrenme ortamında insan geri bildirimiyle botun soru-cevap yeteneğini geliştirmeyi ve bu yönde bir simülatör ile gerçek deneyler yapmayı vurgulamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "Most recent research has focused on training a bot from ﬁxed training sets of labeled data but seldom on how the bot can improve through online interaction with humans. Human (rather than machine) language learning happens during communication (Bassiri, 2011; Werts et al., 1995), and not from labeled datasets, hence making this an important subject to study. In this work, we explore this direction by training a bot through interaction with teachers in an online fashion."
+          },
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "In this paper we explore this direction in a reinforcement learning setting where the bot improves its question-answering ability from feedback a teacher gives fol-lowing its generated responses. We build a simulator that tests various aspects of such learning in a synthetic environment, and introduce models that work in this regime. Finally, real experiments with Mechanical Turk validate the approach."
+          }
+        ],
+        "reasoning_public": "Makalenin giriş bölümü, çalışmanın literatürdeki boşluğu nasıl doldurduğunu ve sunduğu yenilikleri açıkça ortaya koymaktadır. Bu netlik, okuyucunun makalenin ana amacını ve katkısını hızlıca anlamasını sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f1",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Önceki Çalışmalarla Farklılıklar Detaylıca Açıklanmıştır",
+        "summary": "Makale, özellikle Weston (2016) çalışmasıyla olan ilişkisini ve kendi çalışmasının bu önceki çalışmadan hangi noktalarda ayrıştığını (pekiştirmeli öğrenme kullanımı, çevrimiçi öğrenme, gerçek dil verisi kullanımı) detaylı bir şekilde açıklamıştır. Bu, makalenin özgün katkısını daha da belirginleştirmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a2",
+            "section": "RELATED WORK",
+            "quote": "Our work is closely related to a recent work from Weston (2016) that learns through conducting conversations where supervision is given naturally in the response during the conversation. That work introduced the use of forward prediction that learns by predicting the teacher’s feedback, in addition to using reward-based learning of correct answers. However, two important issues were not addressed: (i) it did not use a reinforcement learning setting, but instead used pre-built datasets with ﬁxed policies given in advance; and (ii) experiments used only simulated and no real language data. Hence, models that can learn policies from real online communication were not investigated. To make the differences with our work clear, we will now detail these points further."
+          },
+          {
+            "anchor_id": "related_work.a3",
+            "section": "RELATED WORK",
+            "quote": "The experiments in (Weston, 2016) involve constructing pre-built ﬁxed datasets, rather than training the learner within a simulator, as in our work. Pre-built datasets can only be made by ﬁxing a prior in advance. ... In our work, when policy training is viewed as batch learning over iterations of the dataset, updating the policy on each iteration, (Weston, 2016) can be viewed as training only one iteration, whereas we perform multiple iterations. This is explained further in Sections 4.2 and 5.1. We show in our experiments that performance improves over the iterations, i.e. it is better than the ﬁrst iteration. We show that such online learning works for both reward- based numerical feedback and for forward prediction methods using textual feedback (under certain conditions which are detailed). This is a key contribution of our work."
+          }
+        ],
+        "reasoning_public": "Önceki çalışmalarla olan farkların açıkça belirtilmesi, makalenin literatürdeki yerini ve sunduğu yenilikleri okuyucu için daha anlaşılır kılar. Bu tür detaylı karşılaştırmalar, çalışmanın özgünlüğünü vurgulamak için önemlidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "İnsan Katılımcılarla İlgili Etik Hususların Eksikliği",
+        "summary": "Makale, Amazon Mechanical Turk aracılığıyla gerçek insan öğretmenlerle yapılan deneyleri detaylandırmasına rağmen, bu insan katılımcılarla ilgili etik hususlara (örneğin, bilgilendirilmiş onam, veri gizliliği, ödeme adilliği) değinmemektedir. Bu tür çalışmalar için standart bir uygulamadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "Finally, real experiments with Mechanical Turk validate the approach."
+          },
+          {
+            "anchor_id": "mechanical_turk_experiments.a0",
+            "section": "MECHANICAL TURK EXPERIMENTS",
+            "quote": "Finally, we extended WikiMovies using Mechanical Turk so that real human teachers are giving feedback rather than using a simulation."
+          }
+        ],
+        "reasoning_public": "İnsan katılımcıların dahil olduğu araştırmalarda, etik ilkelerin ve prosedürlerin açıkça belirtilmesi, katılımcıların haklarını ve refahını korumak için kritik öneme sahiptir. Bu tür bir açıklamanın eksikliği, çalışmanın etik gözetiminin yeterliliği hakkında sorular doğurabilir ve şeffaflığı azaltır.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f1",
+        "dimension": "ethics_limitations",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çalışmanın Sınırlılıklarının Açıkça Belirtilmesi",
+        "summary": "Makale, simülasyon ve gerçek insan deneyleri arasındaki farkları ve her bir yaklaşımın sınırlılıklarını (örneğin, simülasyonun sentetik doğası, gerçek verinin değişkenliği) açıkça belirtmektedir. Özellikle, Weston (2016) ile yapılan karşılaştırmalarda kendi yaklaşımlarının güçlü ve zayıf yönleri vurgulanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a4",
+            "section": "RELATED WORK",
+            "quote": "The experiments in (Weston, 2016) involve constructing pre-built ﬁxed datasets, rather than training the learner within a simulator, as in our work. Pre-built datasets can only be made by ﬁxing a prior in advance. They achieve this by choosing an omniscient (but deliberately imperfect) labeler that gets πacc examples always correct (the paper looked at values 50%, 10% and 1%). Again, this was not learned, and was ﬁxed to generate the datasets. Note that the paper refers to these answers as coming from “the learner” (which should be the model), but since the policy is ﬁxed it actually does not depend on the model. In a realistic setting one does not have access to an omniscient labeler, one has to learn a policy completely from scratch, online, starting with a random policy, so their setting was not practically viable."
+          },
+          {
+            "anchor_id": "related_work.a5",
+            "section": "RELATED WORK",
+            "quote": "Finally, (Weston, 2016) only conducted experiments on synthetic or templated language, and not real language, especially the feedback from the teacher was scripted. While we believe that synthetic datasets are very important for developing understanding (hence we develop a simulator and conduct experiments also with synthetic data), for a new method to gain traction it must be shown to work on real data."
+          }
+        ],
+        "reasoning_public": "Çalışmanın sınırlılıklarının dürüstçe ve açıkça tartışılması, araştırmanın kapsamını ve genellenebilirliğini anlamak için önemlidir. Bu, okuyucuların bulguları doğru bir şekilde yorumlamasına yardımcı olur ve gelecekteki araştırmalar için yön sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Kısaltılmış Metin Nedeniyle Kapsamlı Değerlendirme Sınırlılığı",
+        "summary": "Makalenin yalnızca kısaltılmış bir versiyonu sağlandığı için, metodoloji, sonuçlar ve tartışma bölümlerinin tam kapsamını ve detaylarını değerlendirmek mümkün olmamıştır. Bu durum, çalışmanın genel geçerliliği ve katkısı hakkında tam bir yargıya varmamı engellemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik bir makalenin tam ve doğru bir şekilde değerlendirilmesi için tüm bölümlerinin (özellikle metodoloji, deneyler, sonuçlar ve tartışma) eksiksiz olarak incelenmesi gerekmektedir. Kısaltılmış metin, çalışmanın derinliğini, argümanların tutarlılığını ve bulguların sağlamlığını tam olarak anlamayı zorlaştırmaktadır. Bu durum, hakemin makaleye olan güvenini ve değerlendirmesinin kapsamını doğal olarak sınırlar.",
+        "limitations": [
+          "Sağlanan metnin kısaltılmış olması nedeniyle, makalenin tamamına erişimim bulunmamaktadır. Bu nedenle, değerlendirme yalnızca mevcut metin parçaları üzerinden yapılmıştır."
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reviewer_confidence.f1",
+        "dimension": "reviewer_confidence",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Açık ve Yapılandırılmış Giriş ve İlgili Çalışmalar Bölümleri",
+        "summary": "Makalenin giriş ve ilgili çalışmalar bölümleri, çalışmanın motivasyonunu, hedeflerini ve literatürdeki yerini net bir şekilde ortaya koymaktadır. Özellikle, mevcut yaklaşımların sınırlılıkları ve bu çalışmanın getirdiği yenilikler açıkça belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "Most recent research has focused on training a bot from ﬁxed training sets of labeled data but seldom on how the bot can improve through online interaction with humans."
+          },
+          {
+            "anchor_id": "related_work.a6",
+            "section": "RELATED WORK",
+            "quote": "Our work is closely related to a recent work from Weston (2016) that learns through conducting conversations where supervision is given naturally in the response during the conversation. That work introduced the use of forward prediction that learns by predicting the teacher’s feedback, in addition to using reward-based learning of correct answers. However, two important issues were not addressed: (i) it did not use a reinforcement learning setting, but instead used pre-built datasets with ﬁxed policies given in advance; and (ii) experiments used only simulated and no real language data."
+          }
+        ],
+        "reasoning_public": "İyi yapılandırılmış bir giriş ve ilgili çalışmalar bölümü, hakemin çalışmanın bağlamını ve önemini hızlıca kavramasına yardımcı olur. Bu makalede, yazarın kendi çalışmasını literatürdeki diğer çalışmalarla nasıl ilişkilendirdiği ve farklılaştırdığı açıkça ifade edilmiştir, bu da hakemin çalışmanın özgünlüğüne dair güvenini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3.2 MECHANICAL TURK EXPERIMENTS",
+        "instruction": "Mechanical Turk deneyleri için kullanılan insan katılımcı sayısı ve toplanan diyalog/veri hacmi hakkında detaylı bilgi ekleyin. Bu örneklem büyüklüğünün neden yeterli olduğunu açıklayın veya bir güç analizi/hassasiyet gerekçesi sunun.",
+        "acceptance_check": "Mechanical Turk deneyleri için katılımcı sayısı, toplanan veri miktarı ve bu miktarın istatistiksel gücü desteklediğine dair bir açıklama veya analiz eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "5. EXPERIMENTS",
+        "instruction": "Tüm performans metrikleri (doğruluk) için güven aralıklarını (örneğin, %95 CI) raporlayın. Özellikle farklı modeller veya parametreler arasındaki karşılaştırmalar için etki büyüklüğü ölçümleri (örneğin, Cohen's d, odds ratio) ekleyin.",
+        "acceptance_check": "Tablo ve figürlerdeki tüm nicel sonuçlar için güven aralıkları ve/veya etki büyüklükleri raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a0",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "Tüm Makale",
+        "instruction": "Makalenin tam metnini sağlayın. Özellikle 'METHODS', 'RESULTS' (eğer varsa) ve 'DISCUSSION' bölümlerinin eksiksiz olması gerekmektedir.",
+        "acceptance_check": "Makalenin tam metni, tüm bölümleriyle birlikte sunulmalıdır.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "MECHANICAL TURK EXPERIMENTS",
+        "instruction": "Makaleye, Amazon Mechanical Turk katılımcılarının bilgilendirilmiş onamının nasıl alındığı, verilerinin nasıl kullanıldığı ve gizliliğinin nasıl sağlandığı gibi etik hususları açıklayan bir bölüm ekleyin. Ayrıca, katılımcılara yapılan ödemelerin adilliği hakkında bilgi verilebilir.",
+        "acceptance_check": "Etik hususları detaylandıran yeni bir alt bölüm veya paragrafın eklenmesi ve bu konuların yeterince ele alındığının gösterilmesi.",
+        "linked_finding_ids": [
+          "ethics_limitations.f0"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RELATED WORK",
+        "instruction": "Weston (2016) ile yapılan karşılaştırmanın 'RELATED WORK' bölümündeki tekrar eden detayları kısaltın ve makalenin kendi yenilikçi katkılarını daha özlü bir şekilde vurgulayın. Okuyucunun ana farkları hızlıca anlamasını sağlayacak şekilde yeniden düzenleyin.",
+        "acceptance_check": "Karşılaştırma metni %20 oranında kısaltılmış ve ana farklar madde işaretleriyle veya daha net ifadelerle belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Figures 3 and 4",
+        "instruction": "Tüm figürlerdeki metin boyutlarını (eksen etiketleri, lejantlar, başlıklar) artırarak okunabilirliği iyileştirin. Özellikle Figure 3 ve Figure 4'teki grafiklerin metinleri büyütülmelidir.",
+        "acceptance_check": "Figürlerdeki tüm metinlerin, makalenin ana metin boyutuyla orantılı ve kolayca okunabilir olması.",
+        "linked_finding_ids": [
+          "presentation_clarity.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f2.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "3.2 MECHANICAL TURK EXPERIMENTS",
+        "instruction": "Mechanical Turk'ten toplanan insan geri bildirimlerinin nasıl kategorize edildiğini (örneğin, manuel kodlama, kodlayıcılar arası anlaşma, kullanılan yönergeler) açıklayın. Bu kategorizasyonun güvenilirliğini ve geçerliliğini destekleyecek ek bilgiler sağlayın.",
+        "acceptance_check": "Geri bildirim kategorizasyon metodolojisi ve güvenilirlik ölçümleri (varsa) açıklanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f2"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5. EXPERIMENTS",
+        "instruction": "Tüm ana sonuçları (tablolardaki ve figürlerdeki performans metrikleri) ilgili belirsizlik ölçüleri (örneğin, standart sapma, standart hata veya güven aralıkları) ile birlikte raporlayın. Bu, bulguların sağlamlığı hakkında daha eksiksiz bir resim sunacaktır.",
+        "acceptance_check": "Ana sonuçlar için belirsizlik ölçüleri (CI, SE vb.) eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "METHODS",
+        "instruction": "'METHODS' bölümünde MemN2N gibi bilinen modellerin temel açıklamalarını daha kısa tutarak veya ek bir referansa yönlendirerek, makalenin kendi metodolojik yeniliklerine daha fazla odaklanın.",
+        "acceptance_check": "MemN2N'in temel çalışma prensiplerine ayrılan metin miktarı azaltılmış ve makalenin kendi adaptasyonlarına veya yeniliklerine daha fazla yer verilmiş olmalı.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "Table 1",
+        "instruction": "Tablo 1'deki metin boyutlarını diğer tablolarla tutarlı hale getirin. Ayrıca, '> 0.95' olan sonuçların kalın (bold) yapıldığı belirtilmiş olsa da, bu vurgulamanın neden önemli olduğu veya okuyucuya ne anlatmak istediği daha açık ifade edilebilir.",
+        "acceptance_check": "Tablo metinlerinin tutarlı boyutta olması ve vurgulama kurallarının netleştirilmesi.",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "4.2 REINFORCEMENT LEARNING",
+        "instruction": "Kullanılan istatistiksel modellerin (özellikle REINFORCE'daki baseline modeli) varsayımlarının nasıl test edildiğini veya neden varsayım testlerinin gerekli olmadığını açıklayın. Ayrıca, çoklu karşılaştırma riski için uygulanan düzeltmeleri (varsa) belirtin veya bu riskin neden önemli olmadığını açıklayın.",
+        "acceptance_check": "Varsayım testleri veya çoklu karşılaştırma düzeltmeleri hakkında açıklama eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "İnsan Katılımcılarla İlgili Etik Hususların Eksikliği; Yenilikçi Yaklaşım ve Kapsamlı Deneysel Doğrulama",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7"
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0",
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1"
+        ]
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yenilikçi Yaklaşım ve Kapsamlı Deneysel Doğrulama",
+        "anchor_ids": [
+          "related_work.a0",
+          "related_work.a1",
+          "related_work.a2",
+          "related_work.a3",
+          "related_work.a4",
+          "related_work.a5",
+          "related_work.a6"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1"
+        ]
+      },
+      {
+        "section": "METHODS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1 INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "1_introduction.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.2 MECHANICAL TURK EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "İnsan Geri Bildiriminin Kategorizasyonunda Şeffaflık Eksikliği",
+        "anchor_ids": [
+          "3_2_mechanical_turk_experiments.a0",
+          "3_2_mechanical_turk_experiments.a1"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f2.a0"
+        ]
+      },
+      {
+        "section": "4.2.2 REINFORCE",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Varsayım Testleri ve Çoklu Karşılaştırma Riski Eksikliği",
+        "anchor_ids": [
+          "4_2_2_reinforce.a0"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ]
+      },
+      {
+        "section": "5.1 SIMULATOR",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Figürlerdeki Metin Boyutları ve Okunabilirlik Sorunları; Varsayım Testleri ve Çoklu Karşılaştırma Riski Eksikliği; Ana Sonuçların Belirsizlik Ölçüleri ile Sunulmaması",
+        "anchor_ids": [
+          "5_1_simulator.a0",
+          "5_1_simulator.a1",
+          "5_1_simulator.a2",
+          "5_1_simulator.a3",
+          "5_1_simulator.a4",
+          "5_1_simulator.a5",
+          "5_1_simulator.a6"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0",
+          "presentation_clarity.f1.a0",
+          "quant.f3.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "experiments.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Figure 3",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "anchor_ids": [
+          "figure_3.a0"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "MECHANICAL TURK EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "İnsan Katılımcılarla İlgili Etik Hususların Eksikliği",
+        "anchor_ids": [
+          "mechanical_turk_experiments.a0"
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Ana Sonuçların Belirsizlik Ölçüleri ile Sunulmaması",
+        "anchor_ids": [
+          "table_1.a0",
+          "table_1.a1"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

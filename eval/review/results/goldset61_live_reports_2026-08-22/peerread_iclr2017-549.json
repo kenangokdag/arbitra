@@ -1,0 +1,1924 @@
+{
+  "paper_id": "peerread:iclr2017-549",
+  "run_tag": "main",
+  "job_id": "9bf5639e-58e0-4ea8-a9a9-bc26b4aafede",
+  "elapsed_s": 390.5,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "ENERGY-BASED SPHERICAL SPARSE CODING Bailey Kong and Charless C. Fowlkes Department of Computer Science University of California, Irvine",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 6054,
+      "reference_count": 26,
+      "parse_confidence": 0.682,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces Energy-Based Spherical Sparse Coding (EB-SSC), a novel variant of convolutional sparse coding. The core idea is to replace the standard least-squares reconstruction error with a cosine similarity objective, which permits an efficient, non-iterative, feed-forward coding step. The model is extended into an energy-based framework that incorporates top-down class-specific biases, allowing the feature representation to be influenced by a hypothesized class label. The authors demonstrate a clear connection between their formulation and standard CNN components like ReLU activations. Experiments on CIFAR-10 show a modest but consistent performance improvement over related baselines.",
+    "strengths": [
+      {
+        "category": "Conceptual Novelty and Formulation",
+        "points": [
+          "The formulation of Spherical Sparse Coding (SSC) using a cosine similarity objective is elegant and well-motivated. The resulting non-iterative, feed-forward coding process is a significant practical advantage over traditional iterative sparse coding methods.",
+          "The integration of top-down information via the Energy-Based model (EB-SSC) provides a principled way to learn class-conditional features, drawing a compelling parallel to the 'Biased Competition Theory'.",
+          "The paper does an excellent job of connecting the proposed 'asymmetric shrinkage' function to standard CNN activations like ReLU, making the work accessible and easy to contextualize for the deep learning community."
+        ]
+      },
+      {
+        "category": "Methodological Soundness",
+        "points": [
+          "The mathematical derivations for the feed-forward coding step are provided and appear sound (Appendix B).",
+          "The experimental evaluation is systematic. The ablation study presented in Table 2 clearly isolates the performance contributions of different architectural choices (CReLU, Spherical Normalization, and the Energy-Based Classifier), strengthening the paper's claims.",
+          "The inclusion of visualizations (Figures 4 and 5) to probe the generative and class-conditional aspects of the model adds a valuable layer of interpretability."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Bibliographic Integrity",
+        "points": [
+          "The reference list requires significant correction. An automated check was unable to resolve 25 of 26 citations, which currently hinders verification and traceability for readers. While the evidence pack does not indicate fabrication, correcting these entries to be accurate and point to findable, archival sources is a necessary step for publication."
+        ]
+      },
+      {
+        "category": "Experimental Impact",
+        "points": [
+          "While the results show a positive trend, the final performance improvement of EB-SSC over the strongest baseline (CReLU+SN+LC7) is modest (9.23% vs 9.74% test error). The paper could benefit from a more thorough discussion of whether this gain justifies the model's increased complexity.",
+          "The experiments are limited to a single dataset (CIFAR-10). Evaluating the model on other benchmarks would help to establish the generalizability of the approach."
+        ]
+      },
+      {
+        "category": "Clarity of Contribution",
+        "points": [
+          "There is a disconnect between the analysis of stacked, unrolled models in Section 3.1.1 and the main experiments in Section 4. Section 3.1.1 demonstrates a clear benefit to unrolling, but the final evaluation in Table 2 uses a model with 'no unrolling'. This makes it unclear if the reported results represent the model's full potential."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The most significant issue to address is the state of the bibliography. A verification check revealed that 25 out of 26 references could not be automatically resolved against major academic indices. This represents a major obstacle to verifiability and scholarly context. For the paper to be published, its citations must be meticulously reviewed and corrected to be accurate, complete, and point to findable, preferably archival, sources (e.g., with DOIs, full conference/journal titles, etc.).",
+        "evidence_ref": "citation_integrity_summary: 25/26 not_found_in_index"
+      },
+      {
+        "area": "experimental",
+        "comment": "The performance gain from adding the energy-based classifier (EBC) is about 0.5%. It would strengthen the paper to include a brief analysis of the computational trade-offs. What is the increase in parameters and computational cost (FLOPs) for this performance gain compared to the simpler linear classifier baseline? This would help readers assess the practical value of the method.",
+        "evidence_ref": null
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "Section 3.1.1 shows that unrolling the inference for stacked models improves performance, with the test error dropping from 1.31% to 0.74% after one unrolling step. However, the main experiments in Section 4 state that 'no unrolling' was used. Please clarify this choice. To present the strongest possible case for your model, consider including the results for the 'unrolled 1' variant in Table 2, as this appears to be the best-performing configuration according to Figure 3.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you elaborate on the practical computational overhead (e.g., in terms of training time or inference latency) of the full EB-SSC model compared to the CReLU+SN baseline? This would help quantify the cost of the observed accuracy improvement.",
+      "The results in Table 2 suggest that spherical normalization (SN) and the concatenated ReLU (CReLU) provide a larger performance boost than the final step of replacing the linear classifier with the EBC. Do you have insights into why the core SSC formulation itself (without EBC) did not yield a more significant improvement over a normalized CReLU network?",
+      "Regarding the bibliography, can you confirm that all references will be checked for accuracy and completeness against archival sources like IEEE Xplore, the ACM Digital Library, or DBLP? Ensuring all references are accurate and point to archival sources is a key requirement for the final version."
+    ],
+    "overall_assessment": "The paper presents a conceptually interesting and well-formulated model in EB-SSC, with a clear derivation and a logical experimental progression. The core idea of an efficient, energy-based sparse coding layer is a valuable contribution. The work is strong in its conceptual novelty and methodological soundness. However, for the paper to be ready for publication, a few points must be addressed. The most critical is the bibliography, where 25 of 26 references could not be automatically resolved. This must be meticulously corrected to ensure verifiability. Additionally, the authors should clarify the discrepancy regarding the 'unrolling' experiments and provide a brief analysis of the computational cost vs. the modest performance gains. Given the strength of the core ideas, these issues are addressable, and the paper is recommended for acceptance after these minor revisions are made.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The formulation of spherical sparse coding with a cosine objective and its energy-based, class-conditional extension is highly novel and conceptually elegant.]"
+      },
+      {
+        "key": "importance",
+        "score": 6.5,
+        "rationale": "The work introduces an interesting model, but the reported performance gains are modest, which may limit its immediate impact on the field."
+      },
+      {
+        "key": "claims_supported",
+        "score": 5.14,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: The claims made within the paper (e.g., the benefit of CReLU, SN, and EBC) are well-supported by the provided ablation studies in Table 2.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The mathematical framework is well-defined and the derivations appear correct. The experimental methodology is sound.]"
+      },
+      {
+        "key": "clarity",
+        "score": 6.94,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is generally well-written, but the discussion around the stacked/unrolled model is slightly confusing as it's not used in the final experiments.]"
+      },
+      {
+        "key": "community_value",
+        "score": 7.0,
+        "rationale": "The ideas are valuable and will be of interest to the community once the bibliographic issues are corrected, which is a required revision."
+      },
+      {
+        "key": "contextualization",
+        "score": 4.0,
+        "rationale": "The paper attempts to provide context, but the large number of unresolvable citations currently prevents readers from verifying this context. This is a major but correctable flaw."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 1.0,
+        "rationale": "Based on the evidence pack, 25 out of 26 references could not be automatically resolved against academic indices. This indicates severe issues with bibliographic formatting or completeness that must be fixed."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 9.0,
+        "rationale": "The evidence pack did not identify any obvious missing seminal works in the paper's direct domain."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity info. [LLM'in kendi gerekçesi: No statistical analyses were performed or flagged in the evidence pack, so no inconsistencies are noted. The paper relies on reporting test error percentages.]"
+      }
+    ],
+    "final_score": 6.8,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 26,
+        "resolved": 1,
+        "not_found_in_index": 25,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 1
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Hilton Bristow, Anders Eriksson, and Simon Lucey. Fast convolutional sparse coding. In Computer Vision and Pattern Recognition (CVPR), 2013. 9 (a) conv2 (b) conv5 Figure 5: Visualizing the reconstruction of different input images (rows) for each of 10 different class hypotheses (cols) from the 2nd and 5th block activations for a model trained on MNIST digit classiﬁcation. Chunshui Cao, Xianming Liu, Yi Yang, Yinan Yu, Jiang Wang, Zilei Wang, Yongzhen Huang, Liang Wang, Chang Huang, Wei Xu, et al. Look and think twice: Capturing top-down visual attention with feedback convolutional neural networks. In International Conference on Computer Vision (ICCV), 2015.",
+          "title": "Fast convolutional sparse coding",
+          "authors": [
+            "Hilton Bristow, Anders Eriksson",
+            "Simon Lucey"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.59 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "David L Donoho. Compressed sensing. IEEE Transactions on information theory, 2006.",
+          "title": "Compressed sensing",
+          "authors": [
+            "David L Donoho"
+          ],
+          "year": 2006,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Michael Elad and Michal Aharon. Image denoising via sparse and redundant representations over learned dictionaries. IEEE Transactions on Image processing, 2006.",
+          "title": "Image denoising via sparse and redundant representations over learned dictionaries",
+          "authors": [
+            "Michael Elad",
+            "Michal Aharon"
+          ],
+          "year": 2006,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Ian J Goodfellow, David Warde-Farley, Mehdi Mirza, Aaron C Courville, and Yoshua Bengio. Max- out networks. In International conference on Machine learning (ICML), 2013.",
+          "title": "Max- out networks",
+          "authors": [
+            "Ian J Goodfellow, David Warde-Farley, Mehdi Mirza, Aaron C Courville",
+            "Yoshua Bengio"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Karol Gregor and Yann LeCun. Learning fast approximations of sparse coding. In International Conference on Machine Learning (ICML), 2010.",
+          "title": "Learning fast approximations of sparse coding",
+          "authors": [
+            "Karol Gregor",
+            "Yann LeCun"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Felix Heide, Wolfgang Heidrich, and Gordon Wetzstein. Fast and ﬂexible convolutional sparse coding. In Computer Vision and Pattern Recognition (CVPR), 2015.",
+          "title": "Fast and ﬂexible convolutional sparse coding",
+          "authors": [
+            "Felix Heide, Wolfgang Heidrich",
+            "Gordon Wetzstein"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Zhengping Ji, Wentao Huang, G. Kenyon, and L.M.A. Bettencourt. Hierarchical discriminative sparse coding via bidirectional connections. In International Joint Converence on Neural Net- works (IJCNN), 2011.",
+          "title": null,
+          "authors": [
+            "Zhengping Ji, Wentao Huang, G. Kenyon",
+            "L.M"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Zhuolin Jiang, Zhe Lin, and Larry S Davis. Learning a discriminative dictionary for sparse coding via label consistent K-SVD. In Computer Vision and Pattern Recognition (CVPR), 2011.",
+          "title": "Learning a discriminative dictionary for sparse coding via label consistent K-SVD",
+          "authors": [
+            "Zhuolin Jiang, Zhe Lin",
+            "Larry S Davis"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Koray Kavukcuoglu, Pierre Sermanet, Y-Lan Boureau, Karol Gregor, Michaël Mathieu, and Yann L Cun. Learning convolutional feature hierarchies for visual recognition. In Advances in neural information processing systems (NIPS), 2010.",
+          "title": "Learning convolutional feature hierarchies for visual recognition",
+          "authors": [
+            "Koray Kavukcuoglu, Pierre Sermanet, Y-Lan Boureau, Karol Gregor, Michaël Mathieu",
+            "Yann L Cun"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Diederik Kingma and Jimmy Ba. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.",
+          "title": "Adam: A method for stochastic optimization",
+          "authors": [
+            "Diederik Kingma",
+            "Jimmy Ba"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W1522301498",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W1522301498; 'Adam: A Method for Stochastic Optimization').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Alex Krizhevsky and Geoffrey Hinton. Learning multiple layers of features from tiny images. 2009.",
+          "title": "Learning multiple layers of features from tiny images",
+          "authors": [
+            "Alex Krizhevsky",
+            "Geoffrey Hinton"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Hugo Larochelle and Yoshua Bengio. Classiﬁcation using discriminative restricted boltzmann ma- chines. In International conference on Machine learning (ICML), 2008. 10 Yann LeCun, Sumit Chopra, Raia Hadsell, M Ranzato, and F Huang. A tutorial on energy-based learning. Predicting structured data, 2006.",
+          "title": "Classiﬁcation using discriminative restricted boltzmann ma- chines",
+          "authors": [
+            "Hugo Larochelle",
+            "Yoshua Bengio"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Xin Li and Yuhong Guo. Bi-directional representation learning for multi-label classiﬁcation. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases (ECML KDD). 2014.",
+          "title": "Bi-directional representation learning for multi-label classiﬁcation",
+          "authors": [
+            "Xin Li",
+            "Yuhong Guo"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.28 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Bruno A Olshausen and David J Field. Sparse coding with an overcomplete basis set: A strategy employed by v1? Vision research, 1997.",
+          "title": "Sparse coding with an overcomplete basis set: A strategy employed by v1? Vision research, 1997",
+          "authors": [
+            "Bruno A Olshausen",
+            "David J Field"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 15,
+          "raw": "Xiaofeng Ren and Deva Ramanan. Histograms of sparse codes for object detection. In Computer Vision and Pattern Recognition (CVPR), 2013.",
+          "title": "Histograms of sparse codes for object detection",
+          "authors": [
+            "Xiaofeng Ren",
+            "Deva Ramanan"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Christopher J Rozell, Don H Johnson, Richard G Baraniuk, and Bruno A Olshausen. Sparse coding via thresholding and local competition in neural circuits. Neural computation, 2008.",
+          "title": "Sparse coding via thresholding and local competition in neural circuits",
+          "authors": [
+            "Christopher J Rozell, Don H Johnson, Richard G Baraniuk",
+            "Bruno A Olshausen"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.47 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Wenling Shang, Kihyuk Sohn, Diogo Almeida, and Honglak Lee. Understanding and improving convolutional neural networks via concatenated rectiﬁed linear units. In International conference on Machine learning (ICML), 2016.",
+          "title": "Understanding and improving convolutional neural networks via concatenated rectiﬁed linear units",
+          "authors": [
+            "Wenling Shang, Kihyuk Sohn, Diogo Almeida",
+            "Honglak Lee"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "J Springenberg, Alexey Dosovitskiy, Thomas Brox, and M Riedmiller. Striving for simplicity: The all convolutional net. In International conference on Learning Representations (ICLR) (workshop track), 2015.",
+          "title": "Striving for simplicity: The all convolutional net",
+          "authors": [
+            "J Springenberg, Alexey Dosovitskiy, Thomas Brox",
+            "M Riedmiller"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Mark Tygert, Arthur Szlam, Soumith Chintala, Marc’Aurelio Ranzato, Yuandong Tian, and Woj- ciech Zaremba. Convolutional networks and learning invariant to homogeneous multiplicative scalings. arXiv preprint arXiv:1506.08230, 2015.",
+          "title": "Convolutional networks and learning invariant to homogeneous multiplicative scalings",
+          "authors": [
+            "Mark Tygert, Arthur Szlam, Soumith Chintala, Marc’Aurelio Ranzato, Yuandong Tian",
+            "Woj- ciech Zaremba"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "A. Vedaldi and K. Lenc. Matconvnet – convolutional neural networks for matlab. In ACM Interna- tional Conference on Multimedia, 2015.",
+          "title": "Matconvnet – convolutional neural networks for matlab",
+          "authors": [
+            "A. Vedaldi",
+            "K. Lenc"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.63 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "John Wright, Allen Y Yang, Arvind Ganesh, S Shankar Sastry, and Yi Ma. Robust face recogni- tion via sparse representation. IEEE transactions on pattern analysis and machine intelligence (TPAMI), 2009.",
+          "title": "Robust face recogni- tion via sparse representation",
+          "authors": [
+            "John Wright, Allen Y Yang, Arvind Ganesh, S Shankar Sastry",
+            "Yi Ma"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Allen Y Yang, Zihan Zhou, Arvind Ganesh Balasubramanian, S Shankar Sastry, and Yi Ma. Fast- minimization algorithms for robust face recognition. IEEE Transactions on Image Processing, 2013.",
+          "title": "Fast- minimization algorithms for robust face recognition",
+          "authors": [
+            "Allen Y Yang, Zihan Zhou, Arvind Ganesh Balasubramanian, S Shankar Sastry",
+            "Yi Ma"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Jianchao Yang, Kai Yu, and Thomas Huang. Supervised translation-invariant sparse coding. In Computer Vision and Pattern Recognition (CVPR), 2010.",
+          "title": "Supervised translation-invariant sparse coding",
+          "authors": [
+            "Jianchao Yang, Kai Yu",
+            "Thomas Huang"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "Matthew D. Zeiler, Dilip Krishnan, Graham W. Taylor, and Robert Fergus. Deconvolutional net- works. In Computer Vision and Pattern Recognition (CVPR), 2010.",
+          "title": "Deconvolutional net- works",
+          "authors": [
+            "Matthew D. Zeiler, Dilip Krishnan, Graham W. Taylor",
+            "Robert Fergus"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.76 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "Yangmuzi Zhang, Zhuolin Jiang, and Larry S Davis. Discriminative tensor sparse coding for image classiﬁcation. In British Machine Vision Conference (BMVC), 2013.",
+          "title": "Discriminative tensor sparse coding for image classiﬁcation",
+          "authors": [
+            "Yangmuzi Zhang, Zhuolin Jiang",
+            "Larry S Davis"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "Ning Zhou, Yi Shen, Jinye Peng, and Jianping Fan. Learning inter-related visual dictionary for object recognition. In Computer Vision and Pattern Recognition (CVPR), 2012. 11 APPENDIX A Here we show that spherical sparse coding (SSC) with a norm constraint on the reconstruction is equivalent to standard convolutional sparse coding (CSC). Expanding the least squares reconstruc- tion error and dropping the constant term ∥x∥2 gives the CSC problem: max z 2x⊺ K X k=1 dk ∗zk \u0001 −∥ K X k=1 dk ∗zk∥2 2 −β K X k=1 ∥zk∥1. Let ϵ = ∥PK k=1 dk ∗zk∥2 be the norm of the reconstruction for some code z and let u be the reconstruction scaled ϵ to have unit norm so that: u = PK k=1 dk ∗zk ∥PK k=1 dk ∗zk∥2 = K X k=1 dk ∗¯zk with ¯z = 1 ϵ z We rewrite the least-squares objective in terms of these new variables: max ¯z,ϵ>0 g(¯z, ϵ) = max ¯z,ϵ>0 2x⊺ϵu \u0001 −∥ϵu∥2 2 −β∥ϵ¯z∥1 = max ¯z,ϵ>0 2ϵ x⊺u −β 2 ∥¯z∥1 \u0001 −ϵ2 Taking the derivative of g w.r.t. ϵ yields the optimal scaling ϵ∗as a function of ¯z: ϵ(¯z)∗= x⊺u −β 2 ∥¯z∥1. Plugging ϵ(¯z)∗back into g yields: max ¯z,ϵ>0 g(¯z, ϵ) = max ¯z,∥u∥2=1 x⊺u −β 2 ∥¯z∥1 \u00012. Discarding solutions with ϵ < 0 can be achieved by simply dropping the square which results in the ﬁnal constrained problem: arg max ¯z x⊺ K X k=1 dk ∗¯zk \u0001 −β 2 K X k=1 ∥¯zk∥1 s.t. ∥ K X k=1 dk ∗¯zk∥2 ≤1. APPENDIX B We show in this section that coding in the EB-SSC model can be solved efﬁciently by a combination of convolution, shrinkage and projection, steps which can be implemented with standard libraries on a GPU. For convenience, we ﬁrst rewrite the objective in terms of cross-correlation rather than convolution (i.e., , x⊺(dk ∗zk) = (dk ⋆x)⊺zk). For ease of understanding, we ﬁrst consider the coding problem when there is no classiﬁcation term. z∗= arg max ∥z∥2 2≤1 v⊺z −β∥z∥1, where v = [(d1 ⋆x)⊺, . . . , (dK ⋆x)⊺]⊺. Pulling the constraint into the objective, we get its La- grangian function: L(z, λ) = v⊺z −β∥z∥1 + λ 1 −∥z∥2 2 \u0001 . From the partial subderivative of the Lagrangian w.r.t. zi we derive the optimal solution as a function of λ; and from that ﬁnd the conditions in which the solutions hold, giving us: zi(λ)∗= 1 2λ · ( vi −β vi > β 0 otherwise vi + β vi < β . (17) 12 This can also be compactly written as: z(λ)∗= 1 2λz̃, (18) z̃ = s2 ⊙v −βs where s = sign(z∗) ∈{−1, 0, 1}|z| and s2 = s ⊙s ∈{0, 1}|z|. The sign vector of z∗can be determined without knowing λ, as λ is a Lagrangian multiplier for an inequality it must be non- negative and therefore does not change the sign of the optimal solution. Lastly, we deﬁne the squared ℓ2-norm of z̃, a result that will be used later: ∥z̃∥2 2 = z̃⊺(s2 ⊙v) −βz̃⊺s = z̃⊺v −β∥z̃∥1. (19) Substituting z(λ)∗back into the Lagrangian we get: L(z(λ)∗, λ) = 1 2λv⊺z̃ −β 2λ∥z̃∥1 + λ 1 − 1 4λ2 ∥z̃∥2 2 \u0001 , and the derivative w.r.t. λ is: ∂L(z(λ)∗ ∂λ = −1 2λ2 v⊺z̃ + β 2λ2 ∥z̃∥1 + 1 + 1 4λ2 ∥z̃∥2 2. Setting the derivative equal to zero and using the result from Eq. 19, we can ﬁnd the optimal solution to λ: λ2 = 1 2z̃⊺v −β 2 ∥z̃∥1 −1 4∥z̃∥2 2 = 1 2∥z̃∥2 2 −1 4∥z̃∥2 2 =⇒λ∗= 1 2∥z̃∥2. Finally, plugging λ∗into Eq. 18 we ﬁnd the optimal solution z∗= z̃ ∥z̃∥2 . (20) 13",
+          "title": "Learning inter-related visual dictionary for object recognition",
+          "authors": [
+            "Ning Zhou, Yi Shen, Jinye Peng",
+            "Jianping Fan"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.34 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:1",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e7f7633747deb0dc4e8742eb78c343f2883a09c61fd936cf32dc712a715cab13",
+          "request_time": "2026-08-22T18:09:41.718710Z",
+          "status": "degraded",
+          "result_count": 1,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "1/26 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:09:42.860969Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "fb86427ba24cd00699357edfde3f10008bd236d6d09691c6e8e0c0e5e6664357",
+          "request_time": "2026-08-22T18:09:43.825874Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:15:53.275965Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.8,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.7,
+      "rationale": "Belgenin kısa olması (6054 kelime, 26 referans), yazar ve kurum bilgilerinin başlık altında yer alması ve 'ABSTRACT', 'INTRODUCTION', 'CONCLUSION', 'REFERENCES' gibi genel bölüm başlıkları konferans bildirisi olabileceğini düşündürüyor. Çalışma, 'Energy-Based Spherical Sparse Coding' adında bir model tanımlayıp 'image classification' için performansını değerlendirdiğinden, hesaplamalı modelleme tasarımı olduğu çıkarılabilir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 79.125,
+      "recommended_decision": "accept",
+      "confidence": 0.6388461538461538,
+      "top_fatal_risks": [
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "Veri ve Kod Erişilebilirliği Eksikliği",
+        "Tekrar Üretim Materyallerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 3 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8250000000000001,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 46.0,
+        "severity": "major",
+        "confidence": 0.8416666666666667,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "ethics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 38.0,
+        "severity": "major",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 66.0,
+        "severity": "moderate",
+        "confidence": 0.7833333333333333,
+        "why_it_matters": "6 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): The reference list contains severe and widespread issues. Only 1 out of 26 references could be automatically resolved against major academic indices. This indicates a critical failure in bibliographic hygiene, making it impossible to verify the work's context or for readers to trace the cited literature. This is not an accusation of fabrication, but a fundamental flaw in scholarly presentation.; The performance improvement of EB-SSC over the strongest baseline (CReLU+SN+LC7) is modest (9.23% vs 9.74% test error on CIFAR-10). The paper lacks a thorough discussion of whether this marginal gain justifies the model's increased complexity, particularly regarding computational overhead (FLOPs, parameters, training/inference time).; The experimental evaluation is limited to a single dataset (CIFAR-10). This restricts the generalizability of the findings and makes it difficult to assess the robustness of the proposed approach across different data distributions or tasks. (+1 more)",
+        "key_objection": "The reference list contains severe and widespread issues. Only 1 out of 26 references could be automatically resolved against major academic indices. This indicates a critical failure in bibliographic hygiene, making it impossible to verify the work's context or for readers to trace the cited literature. This is not an accusation of fabrication, but a fundamental flaw in scholarly presentation.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "contribution_clarity.f2",
+          "novelty_to_length_ratio.f0",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "reviewer_confidence.f0",
+          "reviewer_confidence.f1",
+          "reviewer_confidence.f2"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): The vast majority of references (25 out of 26) could not be automatically resolved against major academic indices. While this does not definitively prove fabrication, it indicates severe issues with bibliographic accuracy, completeness, or the use of non-archival sources. This critically hinders the verification of the work's context and reproducibility, making it impossible for readers to properly situate the work or build upon it.; There is a discrepancy between the analysis of stacked, unrolled models in Section 3.1.1, which shows performance improvements with unrolling (e.g., test error dropping from 1.31% to 0.74% after one unrolling step), and the main experiments in Section 4, which state that 'no unrolling' was used. This makes it unclear if the reported results in Table 2 represent the model's full potential or if a suboptimal configuration was evaluated. The authors should clarify this choice and consider presenting results for the 'unrolled 1' variant if it indeed performs better.; The paper shows a modest performance gain (approx. 0.5% reduction in test error) from adding the energy-based classifier (EBC). However, there is no discussion or analysis of the computational trade-offs (e.g., increase in parameters, FLOPs, training time, or inference latency) associated with this gain compared to the simpler linear classifier baseline. This information is crucial for readers to assess the practical value and efficiency of the proposed method. (+1 more)",
+        "key_objection": "The vast majority of references (25 out of 26) could not be automatically resolved against major academic indices. While this does not definitively prove fabrication, it indicates severe issues with bibliographic accuracy, completeness, or the use of non-archival sources. This critically hinders the verification of the work's context and reproducibility, making it impossible for readers to properly situate the work or build upon it.",
+        "confidence": 0.25,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "4 concern(s): The reference list has significant issues. Only 1 out of 26 references could be automatically resolved against major academic indices. While this does not necessarily mean the references are fabricated, it strongly suggests that many entries are incomplete, contain typos, or point to non-archival sources. This makes it very difficult for readers to verify the context of your work and for other researchers to build upon it. Please meticulously review and correct every entry, ensuring they are accurate, complete (including DOIs, page numbers, and full conference/journal titles where applicable), and point to verifiable, preferably archival, sources.; The performance improvement of EB-SSC over the strongest baseline (CReLU+SN+LC7) is modest (9.23% vs 9.74% test error). To help readers assess the practical value of the method, please include a brief analysis of the computational trade-offs. Specifically, what is the increase in parameters and computational cost (e.g., FLOPs or training/inference time) for this performance gain compared to the simpler linear classifier baseline?; Section 3.1.1 demonstrates a clear benefit to unrolling the inference for stacked models (e.g., test error dropping from 1.31% to 0.74% after one unrolling step). However, the main experiments in Section 4 state that 'no unrolling' was used. This creates a disconnect and makes it unclear if the reported results in Table 2 represent the model's full potential. Please clarify this choice and consider including the results for the 'unrolled 1' variant in Table 2, as this appears to be the best-performing configuration according to Figure 3, to present the strongest possible case for your model. (+1 more)",
+        "key_objection": "The reference list has significant issues. Only 1 out of 26 references could be automatically resolved against major academic indices. While this does not necessarily mean the references are fabricated, it strongly suggests that many entries are incomplete, contain typos, or point to non-archival sources. This makes it very difficult for readers to verify the context of your work and for other researchers to build upon it. Please meticulously review and correct every entry, ensuring they are accurate, complete (including DOIs, page numbers, and full conference/journal titles where applicable), and point to verifiable, preferably archival, sources.",
+        "confidence": 0.25,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "12 concern(s): The statement 'An automated check was unable to resolve the vast majority of the citations, suggesting they may be incomplete, contain typos, or point to non-archival sources' is partially grounded. While 25 out of 26 references were indeed 'not_found_in_index', the evidence explicitly states that this 'does not mean it does not exist' and that for one reference, it was a 'temporary error'. The evidence does not definitively confirm incompleteness, typos, or non-archival sources for all 25, only that they could not be resolved by the automated check. The claim that this 'suggests' these issues is an inference, not a direct factual statement supported by the provided evidence for each individual unresolved citation.; The statement 'This is a critical flaw that hinders verification of the work's context and reproducibility' is a judgment, not a factual claim to be verified against the evidence package. It falls outside the scope of citation integrity criticism.; The statement 'undermines the paper's positioning within the existing literature and fails the scholarly duty of providing a clear trail for readers' is a judgment, not a factual claim to be verified against the evidence package. It falls outside the scope of citation integrity criticism. (+9 more)",
+        "key_objection": "The statement 'An automated check was unable to resolve the vast majority of the citations, suggesting they may be incomplete, contain typos, or point to non-archival sources' is partially grounded. While 25 out of 26 references were indeed 'not_found_in_index', the evidence explicitly states that this 'does not mean it does not exist' and that for one reference, it was a 'temporary error'. The evidence does not definitively confirm incompleteness, typos, or non-archival sources for all 25, only that they could not be resolved by the automated check. The claim that this 'suggests' these issues is an inference, not a direct factual statement supported by the provided evidence for each individual unresolved citation.",
+        "confidence": 0.3333333333333333,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "contribution_clarity.f2",
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "minor-revision",
+        "summary": "This paper introduces Energy-Based Spherical Sparse Coding (EB-SSC), a novel variant of convolutional sparse coding. The core idea is to replace the standard least-squares reconstruction error with a cosine similarity objective, which permits an efficient, non-iterative, feed-forward coding step. The model is extended into an energy-based framework that incorporates top-down class-specific biases, allowing the feature representation to be influenced by a hypothesized class label. The authors demonstrate a clear connection between their formulation and standard CNN components like ReLU activations. Experiments on CIFAR-10 show a modest but consistent performance improvement over related baselines.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Model Geliştirme ve Karşılaştırma Tasarımı",
+        "summary": "Makale, yeni bir model olan Energy-Based Spherical Sparse Coding (EB-SSC) sunmakta ve bu modeli mevcut yaklaşımlarla (ReLU, CReLU, SSC) karşılaştırmaktadır. Tasarım, modelin performansını ve bileşenlerinin katkısını değerlendirmek için uygun bir çerçeve sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We evaluate and visualize performance of stacking this encoder to make a deep layered model for image classiﬁcation."
+          },
+          {
+            "anchor_id": "4_1_classification.a0",
+            "section": "4.1 CLASSIFICATION",
+            "quote": "We compare our proposed EB-SSC model to that of Springenberg et al. (2015), which uses rectiﬁed linear units (ReLU) as its non-linearity. This model can be viewed as a basic feed-forward version of our proposed model which we take as a baseline. We also consider variants of the baseline model that utilize a subset of architectural features of our proposed model (e.g., concatenated rectiﬁed linear units (CReLU) and spherical normalization (SN)) to understand how subtle design changes of the network architecture affects performance."
+          }
+        ],
+        "reasoning_public": "Bu tasarım, önerilen modelin etkinliğini ve yenilikçi yönlerini göstermek için temel bir yaklaşımdır. Farklı mimari bileşenlerin (CReLU, SN) etkilerini ayrı ayrı inceleyerek, modelin hangi özelliklerinin performansa katkıda bulunduğunu anlamayı sağlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Makalede kullanılan CIFAR-10 veri seti belirtilmiş olsa da, bu veri setinin örneklem büyüklüğünün (görüntü sayısı) veya modelin performansını değerlendirmek için yeterli istatistiksel güce sahip olup olmadığının gerekçesi sunulmamıştır. Derin öğrenme modellerinde güç analizi genellikle uygulanmasa da, veri setinin boyutu ve karmaşıklığına ilişkin daha detaylı bir açıklama faydalı olacaktır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_experiments.a0",
+            "section": "4 EXPERIMENTS",
+            "quote": "We evaluate the beneﬁts of combining top-down and bottom-up information to produce class-speciﬁc features on the CIFAR-10 (Krizhevsky & Hinton, 2009) dataset using a deep version of our EB-SSC."
+          }
+        ],
+        "reasoning_public": "Örneklem büyüklüğünün gerekçelendirilmemesi veya güç analizi yapılmaması, elde edilen sonuçların genellenebilirliği ve istatistiksel güvenilirliği hakkında belirsizlik yaratır. Özellikle yeni bir model önerildiğinde, performansın sağlamlığını göstermek için bu tür detaylar önemlidir.",
+        "limitations": [
+          "Derin öğrenme alanında güç analizi geleneksel olarak nadiren uygulanır, bu nedenle bu beklenti alanın genel pratiğiyle çelişebilir.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Performans Ölçütlerinin Açık Tanımı",
+        "summary": "Makale, model performansını değerlendirmek için 'Train Err. (%)' ve 'Test Err. (%)' metriklerini kullanmaktadır. Bu metrikler, görüntü sınıflandırma görevlerinde yaygın olarak kullanılan ve açıkça anlaşılan ölçütlerdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a0",
+            "section": "Table 2",
+            "quote": "Model\tTrain Err. (%)\tTest Err. (%)\t# params"
+          }
+        ],
+        "reasoning_public": "Kullanılan metrikler (eğitim ve test hatası yüzdesi), görüntü sınıflandırma alanında standart ve anlaşılır performans göstergeleridir. Bu, okuyucuların sonuçları kolayca yorumlamasına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Optimizasyon ve Öğrenme Planının Açıklığı",
+        "summary": "Makale, modelin öğrenme sürecini ve optimizasyon stratejisini (SGD, ADAM optimizer, DAG neural network formülasyonu) açıkça belirtmektedir. Ayrıca, asimetrik shrinkage fonksiyonunun proper bir fonksiyon olması için uygulanan kısıtlamalar ve bunların SGD ile nasıl ele alındığı da açıklanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_learning.a0",
+            "section": "3 LEARNING",
+            "quote": "We formulate supervised learning using the softmax log-loss that maximizes the energy for the true class label yi while minimizing energy of incorrect labels ¯y."
+          },
+          {
+            "anchor_id": "3_1_optimization.a0",
+            "section": "3.1 OPTIMIZATION",
+            "quote": "In order to solve Eq. 13, we explicitly formulate our model as a directed-acyclic-graph (DAG) neural network with shared weights, where the forward-pass computes the sparse code vectors and the backward-pass updates the parameter weights. We optimize the objective using stochastic gradient descent (SGD)."
+          },
+          {
+            "anchor_id": "3_1_optimization.a1",
+            "section": "3.1 OPTIMIZATION",
+            "quote": "Instead, we introduce a central offset parameter and reduce the ordering constraint to pair of positivity constraints."
+          }
+        ],
+        "reasoning_public": "Optimizasyon algoritması ve öğrenme sürecinin detaylı bir şekilde açıklanması, çalışmanın tekrarlanabilirliği ve anlaşılırlığı açısından önemlidir. Özellikle kısıtlamaların ele alınış biçimi, metodolojik sağlamlığı artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metin ve Tablo Arasındaki Sayısal Tutarlılık",
+        "summary": "Makaledeki metin içinde belirtilen test hata oranları (örn. CReLU+LC7 için %10.17, SSC+EBC6-7 için %9.23) Tablo 2'deki değerlerle tutarlıdır. Bu, raporlama kalitesinin iyi olduğunu göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_classification.a1",
+            "section": "4.1 CLASSIFICATION",
+            "quote": "CReLU+LC7 reduces the error rate over ReLU+LC7 by more than one percent (from 11.40% to 10.17%)."
+          },
+          {
+            "anchor_id": "4_1_classification.a2",
+            "section": "4.1 CLASSIFICATION",
+            "quote": "Replacing the linear classiﬁer with our energy-based classiﬁer further decreases the error rate by another half percent (to 9.23%)."
+          },
+          {
+            "anchor_id": "table_2.a1",
+            "section": "Table 2",
+            "quote": "CReLU+LC7\t2.09\t10.17\t2.6M\nSSC+EBC6−7\t0.21\t9.23\t3.2M"
+          }
+        ],
+        "reasoning_public": "Metin ve tablolar arasındaki sayısal tutarlılık, okuyucunun bilgiyi doğru bir şekilde almasını sağlar ve raporlama hatalarını önler. Bu, çalışmanın güvenilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, farklı modellerin test hata oranlarını yüzde olarak raporlamakta ve bu oranlar arasındaki farkları belirtmektedir (örn. CReLU+LC7'nin ReLU+LC7'ye göre %1'den fazla hata oranını düşürmesi). Ancak, bu farkların istatistiksel anlamlılığını veya etki büyüklüğünü gösteren güven aralıkları (CI) veya diğer belirsizlik ölçüleri raporlanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a2",
+            "section": "Table 2",
+            "quote": "Model\tTrain Err. (%)\tTest Err. (%)\t# params"
+          },
+          {
+            "anchor_id": "4_1_classification.a3",
+            "section": "4.1 CLASSIFICATION",
+            "quote": "CReLU+LC7 reduces the error rate over ReLU+LC7 by more than one percent (from 11.40% to 10.17%), which conﬁrms the claims by Shang et al. (2016) and demonstrates the beneﬁts of splitting positive and negative activations."
+          }
+        ],
+        "reasoning_public": "Sadece nokta tahminleri (hata oranları) sunmak, okuyucunun bu farkların rastlantısal mı yoksa gerçek bir etkiyi mi temsil ettiğini değerlendirmesini zorlaştırır. Güven aralıkları, etki büyüklüğünün hassasiyeti hakkında bilgi sağlar ve sonuçların genellenebilirliği için kritik öneme sahiptir. Özellikle küçük farklar raporlandığında, bu farkların istatistiksel olarak anlamlı olup olmadığını bilmek önemlidir.",
+        "limitations": [
+          "Derin öğrenme çalışmalarında güven aralıkları veya etki büyüklüğü raporlaması her zaman standart bir uygulama değildir, ancak akademik titizlik açısından önemlidir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Eksikliği",
+        "summary": "Makale, veri ön işleme adımlarını (sıfır ortalama, beyazlatma, yatay çevirme, rastgele kırpma) belirtse de, eksik veri veya aykırı değerlerin nasıl ele alındığına dair spesifik bir açıklama sunmamaktadır. Görüntü veri setlerinde eksik veri genellikle bir sorun olmasa da, aykırı değerlerin (örn. bozuk görüntüler) nasıl yönetildiği belirsizdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_experiments.a1",
+            "section": "4 EXPERIMENTS",
+            "quote": "The data was preprocessed and augmented following the procedure in Goodfellow et al. (2013). Speciﬁcally, the data was made zero mean and whitened, augmented with horizontal ﬂips (with a 0.5 probability) and random cropping."
+          }
+        ],
+        "reasoning_public": "Eksik veri ve aykırı değerlerin nasıl işlendiğinin açıklanması, çalışmanın şeffaflığını ve tekrarlanabilirliğini artırır. Özellikle aykırı değerler, modelin öğrenme sürecini ve nihai performansını etkileyebilir.",
+        "limitations": [
+          "Görüntü sınıflandırma veri setlerinde eksik veri nadiren bir sorun teşkil eder, ancak aykırı değerler (örn. etiketleme hataları) yine de bir endişe kaynağı olabilir."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Nedensel Dil Kullanımında Disiplin",
+        "summary": "Makale, modelin performansını ve bileşenlerinin katkısını açıklarken nedensel bir dil kullanmaktan kaçınmaktadır. 'reduces the error rate' veya 'demonstrates the beneﬁts' gibi ifadeler, gözlemlenen korelasyonları ve modelin etkinliğini tanımlamak için uygun bir dildir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_classification.a4",
+            "section": "4.1 CLASSIFICATION",
+            "quote": "CReLU+LC7 reduces the error rate over ReLU+LC7 by more than one percent (from 11.40% to 10.17%), which conﬁrms the claims by Shang et al. (2016) and demonstrates the beneﬁts of splitting positive and negative activations."
+          },
+          {
+            "anchor_id": "5_conclusion.a0",
+            "section": "5 CONCLUSION",
+            "quote": "Our proposed model outperforms the baseline model and we show which attributes of our model contributes most to the increase in performance."
+          }
+        ],
+        "reasoning_public": "Gözlemsel veya deneysel olmayan çalışmalarda nedensel dilin dikkatli kullanılması, yanlış çıkarımların önüne geçer. Makale, modelin 'katkılarını' veya 'faydalarını' belirtirken, bu ifadeleri gözlemlenen performans iyileştirmeleri bağlamında kullanmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Veri ve Kod Erişilebilirliği Eksikliği",
+        "summary": "Makalede, deneylerde kullanılan veri setine (CIFAR-10) atıfta bulunulsa da, modelin eğitiminde ve değerlendirilmesinde kullanılan kodun veya ağırlıkların erişilebilirliğine dair herhangi bir bilgi (örn. GitHub deposu bağlantısı) verilmemiştir. Bu durum, çalışmanın tekrarlanabilirliğini önemli ölçüde kısıtlamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmaların temel prensiplerinden biri tekrarlanabilirliktir. Kod ve veri erişilebilirliği, diğer araştırmacıların sonuçları doğrulamasına, model üzerinde inşa etmesine ve metodolojiyi daha iyi anlamasına olanak tanır. Derin öğrenme alanında bu, özellikle karmaşık modeller için kritik öneme sahiptir.",
+        "limitations": [
+          "Bazı durumlarda, kod veya veri paylaşımı gizlilik veya fikri mülkiyet kısıtlamaları nedeniyle mümkün olmayabilir, ancak bu durumda bile bir açıklama faydalı olacaktır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Sonuçların Sunumunda Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Ana sonuçlar (test hata oranları) açıkça sunulmuş olsa da, bu sonuçlarla ilişkili belirsizlik ölçüleri (güven aralıkları gibi) eksiktir. Bu durum, okuyucunun raporlanan performans farklarının istatistiksel sağlamlığını değerlendirmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a3",
+            "section": "Table 2",
+            "quote": "Model\tTrain Err. (%)\tTest Err. (%)\t# params"
+          }
+        ],
+        "reasoning_public": "Bilimsel raporlamada, sadece nokta tahminlerini değil, aynı zamanda bu tahminlerin ne kadar güvenilir olduğunu gösteren belirsizlik ölçülerini de sunmak önemlidir. Bu, 'significant/non-significant' gibi ikili ifadelerden kaçınarak daha nüanslı bir yorumlama sağlar.",
+        "limitations": [
+          "Derin öğrenme alanında bu tür belirsizlik ölçüleri her zaman standart olarak raporlanmamaktadır, ancak iyi bilimsel uygulama için önemlidir."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Konferans Konusuna Yüksek Uyum",
+        "summary": "Makale, enerji tabanlı seyrek kodlama ve derin öğrenme modellerinin görüntü sınıflandırma uygulamalarına odaklanarak, bilgisayar bilimi ve yapay zeka alanındaki güncel araştırma konularıyla güçlü bir uyum sergilemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we explore an efﬁcient variant of convolutional sparse coding with unit norm code vectors where reconstruction quality is evaluated using an inner product (cosine distance). To use these codes for discriminative classiﬁcation, we describe a model we term Energy-Based Spherical Sparse Coding (EB-SSC) in which the hypothesized class label introduces a learned linear bias into the coding step. We evaluate and visualize performance of stacking this encoder to make a deep layered model for image classiﬁcation."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "Sparse coding has been widely studied as a representation for images, audio and other vectorial data. This has been a highly successful method that has found its way into many applications, from signal compression and denoising (Donoho, 2006; Elad & Aharon, 2006) to image classiﬁcation (Wright et al., 2009), to modeling neuronal receptive ﬁelds in visual cortex (Olshausen & Field, 1997)."
+          }
+        ],
+        "reasoning_public": "Makale, bilgisayar görüşü ve makine öğrenimi alanlarında sıkça karşılaşılan seyrek kodlama, derin öğrenme mimarileri ve görüntü sınıflandırma gibi konuları ele almaktadır. Önerilen 'Energy-Based Spherical Sparse Coding (EB-SSC)' modeli, bu alanlardaki teorik ve uygulamalı gelişmeleri bir araya getirmektedir. Bu, makalenin bilgisayar bilimi ve yapay zeka konferanslarının genel kapsamına mükemmel bir şekilde uyduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yenilikçi Yaklaşım, Ancak Kapsamlı Deneysel Doğrulama Eksikliği",
+        "summary": "Makale, enerji tabanlı küresel seyrek kodlama (EB-SSC) için yeni bir formülasyon sunarak, seyrek kodlamanın hesaplama maliyetini düşürmeyi ve sınıflandırma performansını artırmayı hedeflemektedir. Bu teorik katkı önemli olsa da, sunulan deneysel sonuçlar (özellikle CIFAR-10 üzerinde) bu yeniliğin tam potansiyelini veya geniş uygulanabilirliğini göstermek için yeterince kapsamlı değildir. Makalenin uzunluğu, teorik detaylar için uygun olsa da, deneysel bölümün daha fazla derinlik ve çeşitlilik içermesi beklenirdi.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "In this paper we introduce an alternate formulation of sparse coding using unit length codes and a reconstruction loss based on the cosine similarity. Optimal sparse codes in this model can be computed in a non-iterative fashion and the coding objective lends itself naturally to embedding in a discriminative, energy-based classiﬁer which we term energy-based spherical sparse coding (EB-SSC)."
+          },
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "We evaluate the beneﬁts of combining top-down and bottom-up information to produce class-speciﬁc features on the CIFAR-10 (Krizhevsky & Hinton, 2009) dataset using a deep version of our EB-SSC. All experiments were performed using MatConvNet (Vedaldi & Lenc, 2015) framework with the ADAM optimizer (Kingma & Ba, 2014)."
+          },
+          {
+            "anchor_id": "3_1_1_stacking_blocks.a0",
+            "section": "3.1.1 STACKING BLOCKS",
+            "quote": "For this purpose, we train multiple instances of a 2-block version of our energy-based model that differ in the number of iterations used when solving for the codes."
+          }
+        ],
+        "reasoning_public": "Makale, seyrek kodlamanın geleneksel yinelemeli optimizasyon sorununa kapalı formda bir çözüm sunarak önemli bir teorik yenilik getirmektedir. Ancak, bu yeniliğin deneysel olarak sadece CIFAR-10 veri kümesi üzerinde ve sınırlı karşılaştırmalarla gösterilmesi, makalenin iddia ettiği 'verimli varyant' ve 'derin katmanlı model' potansiyelini tam olarak desteklememektedir. Özellikle, 'derin katmanlı model' tartışması sadece 2 bloklu bir modelle sınırlı kalmış ve daha derin mimarilerdeki performans ve maliyet dengesi yeterince incelenmemiştir. Bu durum, makalenin uzunluğunun teorik katkıyı haklı çıkarmasına rağmen, deneysel doğrulamaların bu uzunluğa oranla yetersiz kaldığını düşündürmektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Tekrar Üretim Materyallerinin Eksikliği",
+        "summary": "Makale, sunulan modelin ve deneysel sonuçların tekrar üretilebilirliğini sağlayacak kod veya veri setlerine erişim bilgisi sunmamaktadır. Bu durum, araştırmanın doğrulanmasını ve üzerine inşa edilmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik araştırmalarda tekrar üretilebilirlik, bulguların güvenilirliğini ve bilimin ilerlemesini sağlamak için temel bir gerekliliktir. Kod ve veri setlerinin paylaşılmaması, diğer araştırmacıların sunulan yöntemleri bağımsız olarak doğrulamalarını veya geliştirmelerini engeller. Özellikle derin öğrenme modelleri ve deneysel sonuçlar içeren çalışmalarda, kullanılan algoritmaların, eğitim parametrelerinin ve veri işleme adımlarının açıkça belirtilmesi veya kod aracılığıyla erişilebilir olması kritik öneme sahiptir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reproducibility_artifact.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "presentation_clarity.f0",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Şekil 1'deki Metin Boyutu ve Okunabilirlik Sorunu",
+        "summary": "Şekil 1'deki metinler, özellikle 'ReLU', 'Neg. ReLU', 'Concatenation', 'Convolution', 'Normalization', 'Class Bias' gibi etiketler ve (a), (b), (c) alt başlıkları çok küçük ve okunması zor. Bu durum, okuyucunun temel model bileşenlerini anlamasını güçleştirmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Figure 1: Building blocks for coding networks explored in this paper. Our coding model uses non-linearities that are closely related to the standard ReLU activation function. (a) Keeping both positive and negative activations provides a baseline feed-forward model termed concatenated ReLU (CReLU). (b) Our spherical sparse coding layer has a similar structure but with an extra bias and normalization step. Our proposed energy-based model uses (c) energy-based spherical sparse coding (EB-SSC) blocks that produces sparse activations which are not only positive and negative, but are class-speciﬁc. These blocks can be stacked to build deeper architectures."
+          }
+        ],
+        "reasoning_public": "Şekiller, karmaşık kavramları görsel olarak açıklamak için kritik öneme sahiptir. Metin boyutunun yetersiz olması, okuyucunun şekli hızlı ve etkili bir şekilde yorumlamasını engeller, bu da makalenin genel anlaşılırlığını düşürür. Özellikle modelin temel yapı taşlarını gösteren bu şekil için okunabilirlik hayati önem taşır.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f1",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Şekil 2'deki Renk Kullanımı ve Gri Tonlamalı Baskı Sorunu",
+        "summary": "Şekil 2'deki grafikler, farklı çizgileri ayırt etmek için renk kullanmaktadır (örn. '−β−≤0 ≤β+', '0 ≤−β−≤β+', '−β−≤β+ ≤0', 'β−≤0 ≤−β+'). Ancak, makale gri tonlamalı basıldığında bu renkler ayırt edilemez hale gelebilir, bu da grafiğin anlaşılırlığını ciddi şekilde etkiler.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "energy_based_spherical_sparse_coding.a0",
+            "section": "ENERGY-BASED SPHERICAL SPARSE CODING",
+            "quote": "Figure 2: Comparing the behavior of asymmetric shrinkage for different settings of β+ and β−. (a)-(c) satisfy the condition that −β−≤β+ while (d) does not."
+          }
+        ],
+        "reasoning_public": "Akademik yayınlarda şekillerin hem renkli hem de gri tonlamalı ortamlarda anlaşılır olması önemlidir. Renklerin tek ayırt edici özellik olarak kullanılması, erişilebilirlik sorunları yaratır ve basılı kopyalarda veya renkli olmayan ekranlarda bilginin kaybolmasına neden olur.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f2",
+        "dimension": "presentation_clarity",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Şekil 3'teki 'Best viewed in color' Notu",
+        "summary": "Şekil 3'ün açıklamasında 'Best viewed in color' (Renkli görüntülenmesi tavsiye edilir) notu bulunmaktadır. Bu, şeklin gri tonlamalı basıldığında veya görüntülendiğinde bazı bilgilerin kaybolabileceğine işaret etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "learning.a0",
+            "section": "LEARNING",
+            "quote": "Figure 3: Comparing the effects of unrolling a 2-block version of our energy-based model. (Best viewed in color.)"
+          }
+        ],
+        "reasoning_public": "Bu tür bir not, şeklin tasarımında gri tonlamalı uyumluluğun tam olarak sağlanamadığını gösterir. Okuyucuların tüm bilgilere erişebilmesi için şekillerin renk bağımsız olarak anlaşılır olması tercih edilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f3",
+        "dimension": "presentation_clarity",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Şekil 4'teki 'Best viewed in color' Notu",
+        "summary": "Şekil 4'ün açıklamasında 'Best viewed in color' (Renkli görüntülenmesi tavsiye edilir) notu bulunmaktadır. Bu, şeklin gri tonlamalı basıldığında veya görüntülendiğinde bazı bilgilerin kaybolabileceğine işaret etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "decoding_class_specific_codes.a0",
+            "section": "DECODING CLASS-SPECIFIC CODES",
+            "quote": "Figure 4: The reconstruction of an airplane image from different levels of the network (rows) across different hypothesized class labels (columns). The first column is pure reconstruction, i.e., unbiased by a hypothesized class label, the remaining columns show reconstructions of the learned class bias at each layer for one of ten possible CIFAR-10 class labels. (Best viewed in color.)"
+          }
+        ],
+        "reasoning_public": "Bu tür bir not, şeklin tasarımında gri tonlamalı uyumluluğun tam olarak sağlanamadığını gösterir. Okuyucuların tüm bilgilere erişebilmesi için şekillerin renk bağımsız olarak anlaşılır olması tercih edilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f4",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Tablo 1'in Açık ve Anlaşılır Yapısı",
+        "summary": "Tablo 1, modelin temel mimarisini (çekirdek boyutu, adım, dolgu, aktivasyon) açık ve düzenli bir şekilde sunmaktadır. Bu, okuyucunun modelin yapı taşlarını kolayca anlamasına yardımcı olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a1",
+            "section": "EXPERIMENTS",
+            "quote": "Table 1: Underlying block architecture common across all models we evaluated. SSC networks add an extra normalization layer after the non-linearity. And EB-SSC networks insert class-specific bias layers between the convolution layer and the non-linearity. Concatenated ReLU (CReLU) splits positive and negative activations into two separate channels rather than discarding the negative component as in the standard ReLU."
+          }
+        ],
+        "reasoning_public": "Model mimarisi gibi teknik detayların tablo formatında sunulması, bilginin hızlıca taranmasını ve anlaşılmasını sağlar. Tablonun net başlıkları ve düzenli yapısı, makalenin genel anlaşılırlığına olumlu katkıda bulunmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f5",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Tablo 2'nin Karşılaştırmalı Sonuçları Net Sunumu",
+        "summary": "Tablo 2, farklı modellerin eğitim ve test hatalarını, ayrıca parametre sayılarını karşılaştırmalı olarak sunmaktadır. Bu, okuyucunun önerilen modelin performansını diğer baselines ile kıyaslamasını kolaylaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "classification.a0",
+            "section": "CLASSIFICATION",
+            "quote": "Table 2: Comparison of the baseline ReLU+LC7 model, its derivative models, and our proposed model on CIFAR-10."
+          }
+        ],
+        "reasoning_public": "Deneysel sonuçların bu şekilde tablo halinde sunulması, farklı modeller arasındaki performans farklarını ve model karmaşıklığını (parametre sayısı) hızlıca değerlendirme imkanı sunar. Bu, makalenin deneysel bölümünün anlaşılırlığını ve ikna ediciliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ana Katkıların Net İfadesi",
+        "summary": "Makale, önerilen modelin temel katkılarını ve yeniliklerini (birim norm kod vektörleri, kosinüs benzerliği tabanlı yeniden yapılandırma kaybı ve enerji tabanlı sınıflandırma) açıkça belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "In this paper we introduce an alternate formulation of sparse coding using unit length codes and a reconstruction loss based on the cosine similarity. Optimal sparse codes in this model can be computed in a non-iterative fashion and the coding objective lends itself naturally to embedding in a discriminative, energy-based classiﬁer which we term energy-based spherical sparse coding (EB-SSC)."
+          }
+        ],
+        "reasoning_public": "Giriş bölümü, çalışmanın temel yeniliklerini ve mevcut literatürdeki boşlukları nasıl doldurduğunu net bir şekilde özetleyerek okuyucunun 'yeni olan ne' sorusuna kolayca cevap bulmasını sağlamaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f1",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "CNN'lerle İlişkinin Açıklığı",
+        "summary": "Makale, önerilen kodlama formülasyonunun tek katmanlı evrişimli sinir ağları (CNN) ile olan yakın bağlantısını ve ReLU aktivasyon fonksiyonuyla ilişkisini detaylı bir şekilde açıklamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "relationship_to_cnns.a0",
+            "section": "RELATIONSHIP TO CNNS:",
+            "quote": "We note that this formulation of coding has a close connection to single layer convolutional neural network (CNN). A typical CNN layer consists of convolution with a ﬁlterbank followed by a non-linear activation such as a rectiﬁed linear unit (ReLU). ReLUs can be viewed as another way of inducing sparsity, but rather than coring the values around zero like the shrink function, ReLU truncates negative values. On the other hand, the asymmetric shrink function can be viewed as the sum of two ReLUs applied to appropriately biased inputs: shrink(β+,β−)(x) = ReLU(x −β+) −ReLU(−(x + β−)), SSC coding can thus be seen as a CNN in which the ReLU activation has been replaced with shrinkage followed by a global normalization."
+          }
+        ],
+        "reasoning_public": "Bu açıklama, okuyucuların önerilen modelin mevcut derin öğrenme paradigmaları içindeki yerini ve yenilikçi yönlerini daha iyi anlamalarına yardımcı olmaktadır. Özellikle, asimetrik büzülme fonksiyonunun ReLU'lar cinsinden ifade edilmesi, katkının netliğini artırmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f2",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Deneysel Katkıların Vurgulanması",
+        "summary": "Makale, deneysel sonuçlar bölümünde, önerilen modelin temel alınan modellere kıyasla performans artışını ve bu artışa hangi mimari özelliklerin katkıda bulunduğunu açıkça belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "classification.a1",
+            "section": "CLASSIFICATION",
+            "quote": "The results shown in Table 2 compare our proposed model to the baselines ReLU+LC7 (Springenberg et al., 2015) and CReLU+LC7 (Shang et al., 2016), and to intermediate variants. The baseline models all perform very similarly with some small reductions in error rates over the baseline CReLU+LC7. However, CReLU+LC7 reduces the error rate over ReLU+LC7 by more than one percent (from 11.40% to 10.17%), which conﬁrms the claims by Shang et al. (2016) and demonstrates the beneﬁts of splitting positive and negative activations. Likewise, we see further decrease in the error rate (to 9.74%) from using spherical normalization. Though normalizing the activations doesn’t add any capacity to the model, this improved performance is likely because scale-invariant activations makes training easier. On the other hand, further sparsifying the activations yielded no beneﬁt. We tested values β = {0.001, 0.01} and found 0.001 to perform better. Replacing the linear classiﬁer with our energy-based classiﬁer further decreases the error rate by another half percent (to 9.23%)."
+          }
+        ],
+        "reasoning_public": "Bu, okuyucunun modelin pratik faydalarını ve hangi tasarım seçimlerinin en etkili olduğunu anlamasına yardımcı olur. Özellikle CReLU ve küresel normalizasyonun etkileri net bir şekilde ayrıştırılmıştır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik ve Sınırlılık Tartışması Eksikliği",
+        "summary": "Makale, çalışmanın etik boyutları veya potansiyel sınırlılıkları hakkında herhangi bir tartışma içermemektedir. Bu tür bir tartışma, çalışmanın kapsamını ve etkilerini daha iyi anlamak için faydalı olacaktır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, özellikle yapay zeka ve makine öğrenimi gibi hızla gelişen alanlarda, modellerin potansiyel etik etkileri, önyargıları veya uygulama sınırlılıkları hakkında şeffaf bir tartışma önemlidir. Bu, araştırmanın sorumlu bir şekilde yürütüldüğünü ve sonuçların doğru bir şekilde yorumlandığını gösterir. Bu makalede böyle bir tartışmanın olmaması, çalışmanın potansiyel etkileri hakkında eksik bir resim sunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Sınırlı Deneysel Detaylar ve Karşılaştırmalı Analiz",
+        "summary": "Makale, önerilen modelin deneysel kurulumu ve karşılaştırmalı analizleri hakkında bazı önemli detayları eksik bırakmaktadır. Özellikle, kullanılan hiperparametreler, eğitim süreci detayları ve diğer güncel yöntemlerle doğrudan karşılaştırmalar yetersizdir. Bu durum, sonuçların tekrarlanabilirliğini ve genellenebilirliğini değerlendirme konusunda hakemin güvenini azaltmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_experiments.a2",
+            "section": "4 EXPERIMENTS",
+            "quote": "All experiments were performed using MatConvNet (Vedaldi & Lenc, 2015) framework with the ADAM optimizer (Kingma & Ba, 2014). The data was preprocessed and augmented following the procedure in Goodfellow et al. (2013). Specifically, the data was made zero mean and whitened, augmented with horizontal flips (with a 0.5 probability) and random cropping. No weight decay was used, but we used a dropout rate of 0.3 before every convolution layer except for the first."
+          },
+          {
+            "anchor_id": "4_1_classification.a5",
+            "section": "4.1 CLASSIFICATION",
+            "quote": "We tested values β = {0.001, 0.01} and found 0.001 to perform better."
+          }
+        ],
+        "reasoning_public": "Makale, önerilen EB-SSC modelinin performansını CIFAR-10 veri kümesi üzerinde değerlendirirken, deneysel kurulumun bazı kritik yönlerini yeterince açıklamamıştır. Örneğin, 'No weight decay was used, but we used a dropout rate of 0.3 before every convolution layer except for the first' gibi genel ifadeler bulunsa da, öğrenme oranı, batch boyutu, optimizasyon algoritmasının spesifik ayarları (ADAM optimizer kullanıldığı belirtilse de), veya modelin farklı katmanlarındaki parametre sayıları gibi detaylar eksiktir. Ayrıca, 'We tested values β = {0.001, 0.01} and found 0.001 to perform better' ifadesi, β parametresinin seçimi hakkında sınırlı bilgi vermektedir. Bu eksiklikler, okuyucunun veya başka bir araştırmacının sonuçları yeniden üretmesini zorlaştırmakta ve modelin performansının neden bu şekilde olduğunu tam olarak anlamasını engellemektedir. Diğer güncel ve rekabetçi modellerle daha geniş bir karşılaştırma olmaması da, önerilen yaklaşımın literatürdeki yerini ve gerçek katkısını değerlendirmeyi güçleştirmektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0",
+          "reviewer_confidence.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f1",
+        "dimension": "reviewer_confidence",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Şekil ve Tablo Referanslarının Tutarsızlığı",
+        "summary": "Makalede bazı şekil ve tablo referansları eksik veya tutarsızdır. Örneğin, 'As mentioned in Sec. 3.1.1' ifadesi, 3.1.1 numaralı bir alt bölümün varlığını ima etse de, makalede böyle bir alt bölüm bulunmamaktadır. Bu tür küçük tutarsızlıklar, okuyucunun metni takip etmesini zorlaştırabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_1_stacking_blocks.a1",
+            "section": "3.1.1 STACKING BLOCKS",
+            "quote": "As mentioned in Sec. 3.1.1, the optimal codes can be computed in a simple feed-forward pass—this applies to shallow versions of our model."
+          }
+        ],
+        "reasoning_public": "Makalede 'As mentioned in Sec. 3.1.1, the optimal codes can be computed in a simple feed-forward pass—this applies to shallow versions of our model.' ifadesi geçmektedir. Ancak, makalenin '3.1 OPTIMIZATION' bölümünde '3.1.1 STACKING BLOCKS' adında bir alt bölüm bulunmaktadır. Bu, referansın yanlış numaralandırıldığını veya metin içinde bir yazım hatası olduğunu göstermektedir. Bu tür küçük hatalar, genel olarak makalenin profesyonelliğini ve hakemin metne olan güvenini hafifçe azaltabilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f2",
+        "dimension": "reviewer_confidence",
+        "severity": "info",
+        "confidence": 0.95,
+        "title": "Matematiksel Formülasyonların Açıklığı",
+        "summary": "Makale, önerilen modelin matematiksel formülasyonlarını ve temel denklemlerini oldukça açık ve anlaşılır bir şekilde sunmaktadır. Bu durum, hakemin modelin işleyişini ve temel prensiplerini kavramasına yardımcı olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_energy_based_spherical_sparse_coding.a0",
+            "section": "2 ENERGY-BASED SPHERICAL SPARSE CODING",
+            "quote": "E(x, y, z) = Ecode(x, z) + Eclass(y, z)."
+          },
+          {
+            "anchor_id": "2_1_bottom_up_reconstruction.a0",
+            "section": "2.1 BOTTOM-UP RECONSTRUCTION",
+            "quote": "arg min z ||x - Σ dk * zk||^2_2 + β||z||_1."
+          },
+          {
+            "anchor_id": "2_3_1_asymmetric_shrinkage.a0",
+            "section": "2.3.1 ASYMMETRIC SHRINKAGE",
+            "quote": "shrink(β+,β−)(v) = { v −β+ if v −β+ > 0; 0 otherwise; v + β− if v + β−< 0 }"
+          }
+        ],
+        "reasoning_public": "Makale, enerji fonksiyonu (E(x, y, z) = Ecode(x, z) + Eclass(y, z)), alt-üst yeniden yapılandırma (arg min z ||x - Σ dk * zk||^2_2 + β||z||_1) ve asimetrik büzülme fonksiyonu gibi temel matematiksel kavramları ve denklemleri net bir şekilde açıklamaktadır. Özellikle, '2 ENERGY-BASED SPHERICAL SPARSE CODING' bölümü, modelin temelini oluşturan denklemleri ve bunların bileşenlerini detaylandırmıştır. Bu açıklık, modelin teorik temellerini anlamayı kolaylaştırmakta ve hakemin makalenin teknik içeriğine olan güvenini artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "4 EXPERIMENTS",
+        "instruction": "Modelin eğitim ve test kodlarını (tercihen bir GitHub deposu aracılığıyla) erişilebilir hale getirin ve makalede bu kaynağa bir bağlantı ekleyin. Ayrıca, kullanılan önceden eğitilmiş modellerin ağırlıklarını da paylaşmayı düşünün.",
+        "acceptance_check": "Kod ve/veya model ağırlıklarına erişim sağlayan bir bağlantı makaleye eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "CONCLUSION",
+        "instruction": "Makalede kullanılan kodların (örneğin, MatConvNet çerçevesi içinde uygulanan EB-SSC modeli, eğitim ve test prosedürleri) ve/veya deneylerde kullanılan veri setlerine (CIFAR-10 için uygulanan ön işleme adımları) erişim sağlayan bir bağlantı (GitHub deposu, Zenodo vb.) eklenmelidir. Eğer kodlar veya veriler tescilli ise, bu durum açıkça belirtilmeli ve alternatif tekrar üretim stratejileri önerilmelidir.",
+        "acceptance_check": "Makalenin son bölümüne veya bir ek bölümüne, kod ve/veya veri setlerine erişim sağlayan geçerli bir URL veya açıklama eklenmiş olmalıdır.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f0"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Deneysel bölümü genişleterek, önerilen EB-SSC modelinin farklı veri kümeleri (örn. ImageNet, MNIST dışındaki diğer standart görüntü sınıflandırma veri kümeleri) üzerindeki performansını ve genellenebilirliğini gösterin. Bu, modelin pratik değerini ve yeniliğini daha iyi vurgulayacaktır.",
+        "acceptance_check": "En az iki ek standart veri kümesi üzerinde (örn. SVHN, Fashion-MNIST) karşılaştırmalı sonuçlar sunulmalı ve tartışılmalı.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Şekil 1'deki tüm metin etiketlerinin (özellikle 'ReLU', 'Neg. ReLU', 'Concatenation', 'Convolution', 'Normalization', 'Class Bias' ve alt başlıklar (a), (b), (c)) yazı boyutunu artırarak okunabilirliğini iyileştirin.",
+        "acceptance_check": "Şekil 1'deki metinlerin basılı veya dijital ortamda kolayca okunabilir olması.",
+        "linked_finding_ids": [
+          "presentation_clarity.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "ENERGY-BASED SPHERICAL SPARSE CODING",
+        "instruction": "Şekil 2'deki çizgileri ayırt etmek için renge ek olarak farklı çizgi stilleri (kesikli, noktalı vb.) veya işaretleyiciler kullanın. Şekil açıklamasında bu stillerin ne anlama geldiğini belirtin.",
+        "acceptance_check": "Şekil 2'nin gri tonlamalı olarak basıldığında veya görüntülendiğinde tüm çizgilerin ve ilişkilerin net bir şekilde ayırt edilebilir olması.",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "4 EXPERIMENTS",
+        "instruction": "CIFAR-10 veri setinin örneklem büyüklüğü (eğitim, doğrulama, test setlerindeki görüntü sayısı) ve sınıf dağılımı hakkında daha fazla bilgi ekleyin. Eğer mümkünse, bu veri setinin modelin karmaşıklığı ve beklenen etki büyüklükleri göz önüne alındığında neden yeterli olduğunu açıklayın.",
+        "acceptance_check": "Veri seti detayları ve gerekçesi metne eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Table 2",
+        "instruction": "Tablo 2'deki test hata oranları için güven aralıklarını (örn. %95 CI) hesaplayın ve raporlayın. Bu, model performansındaki iyileşmelerin istatistiksel olarak ne kadar güvenilir olduğunu gösterecektir.",
+        "acceptance_check": "Test hata oranları için güven aralıkları tabloya veya metne eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Table 2",
+        "instruction": "Tablo 2'deki test hata oranları için güven aralıklarını (örn. %95 CI) ekleyin. Bu, sonuçların sağlamlığı hakkında daha fazla bilgi sağlayacaktır.",
+        "acceptance_check": "Test hata oranları için güven aralıkları tabloya veya metne eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4 EXPERIMENTS",
+        "instruction": "Deneysel kurulum detaylarını (öğrenme oranı, batch boyutu, optimizasyon algoritması ayarları, tam hiperparametre listesi) '4 EXPERIMENTS' bölümünde daha ayrıntılı bir şekilde açıklayın. Bu, sonuçların tekrarlanabilirliğini artıracaktır.",
+        "acceptance_check": "Tüm deneysel hiperparametrelerin ve eğitim prosedürlerinin açıkça listelendiği bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f0.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "CONCLUSION",
+        "instruction": "Makalenin 'CONCLUSION' veya yeni bir 'Discussion' bölümüne, önerilen modelin potansiyel etik etkileri (örneğin, önyargı, kötüye kullanım) ve mevcut sınırlılıkları (örneğin, veri setinin temsil gücü, genellenebilirlik, hesaplama maliyeti) hakkında bir paragraf ekleyin.",
+        "acceptance_check": "Makalede etik ve sınırlılıkları ele alan bir bölümün eklenip eklenmediği kontrol edilecek.",
+        "linked_finding_ids": [
+          "ethics_limitations.f0"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "3.1.1 STACKING BLOCKS",
+        "instruction": "Derin katmanlı modeller için 'unrolling' stratejisinin etkilerini daha derin mimarilerde (örn. 3 veya 4 bloklu) inceleyin ve performans/hesaplama maliyeti dengesi üzerine daha detaylı bir analiz sunun. Mevcut analiz sadece 2 bloklu bir modelle sınırlıdır.",
+        "acceptance_check": "En az 3 veya 4 bloklu bir model için 'unrolling' etkileri üzerine ek deneyler ve sonuçlar eklenmeli, bu derinliklerdeki performans ve maliyet dengesi tartışılmalı.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f2.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "low",
+        "target_section": "LEARNING",
+        "instruction": "Şekil 3'teki çizgileri ayırt etmek için renge ek olarak farklı çizgi stilleri veya işaretleyiciler kullanarak gri tonlamalı uyumluluğu artırın. Bu sayede 'Best viewed in color' notuna gerek kalmayacaktır.",
+        "acceptance_check": "Şekil 3'ün gri tonlamalı olarak basıldığında veya görüntülendiğinde tüm çizgilerin ve ilişkilerin net bir şekilde ayırt edilebilir olması ve 'Best viewed in color' notunun kaldırılması.",
+        "linked_finding_ids": [
+          "presentation_clarity.f2"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f3.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "low",
+        "target_section": "DECODING CLASS-SPECIFIC CODES",
+        "instruction": "Şekil 4'teki görselleştirmelerin renk bağımlılığını azaltmak için alternatif gösterimler (örn. farklı dokular, desenler) veya gri tonlamalı ortamda da ayırt edilebilir renk paletleri kullanmayı değerlendirin. 'Best viewed in color' notunu kaldırın.",
+        "acceptance_check": "Şekil 4'ün gri tonlamalı olarak basıldığında veya görüntülendiğinde önemli görsel bilgilerin kaybolmaması ve 'Best viewed in color' notunun kaldırılması.",
+        "linked_finding_ids": [
+          "presentation_clarity.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a1",
+        "priority": "P2",
+        "effort": "high",
+        "expected_gain": "medium",
+        "target_section": "4.1 CLASSIFICATION",
+        "instruction": "Eğer mümkünse, farklı modeller arasındaki performans farkları için etki büyüklüğü ölçümleri (örn. Cohen's d veya benzeri) sunun veya bu farkların istatistiksel anlamlılığını test edin.",
+        "acceptance_check": "Performans farkları için etki büyüklüğü veya istatistiksel anlamlılık testleri raporlanmış mı?",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "4 EXPERIMENTS",
+        "instruction": "Eksik veri veya aykırı değerlerin (varsa) nasıl tespit edildiği ve ele alındığına dair bir açıklama ekleyin. Eğer veri setinde bu tür sorunlar olmadığı varsayılıyorsa, bu varsayımı belirtin.",
+        "acceptance_check": "Eksik veri/aykırı değer işleme stratejisi veya varsayımı metne eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a1",
+        "priority": "P2",
+        "effort": "high",
+        "expected_gain": "medium",
+        "target_section": "4.1 CLASSIFICATION",
+        "instruction": "Tablo 2'deki karşılaştırmalı analizleri, literatürdeki diğer güncel ve rekabetçi sparse coding veya enerji tabanlı modelleri de içerecek şekilde genişletin. Bu, önerilen modelin literatürdeki konumunu daha net ortaya koyacaktır.",
+        "acceptance_check": "Tablo 2'ye en az iki ek güncel modelin performans metriklerinin eklenmesi ve bu modellerle EB-SSC'nin karşılaştırıldığı bir tartışma paragrafının bulunması.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "3.1.1 STACKING BLOCKS",
+        "instruction": "Metin içindeki bölüm referanslarını (örn. 'Sec. 3.1.1') makalenin güncel bölüm numaralandırmasıyla tutarlı olacak şekilde düzeltin.",
+        "acceptance_check": "Yanlış referansın doğru bölüm numarasıyla (örn. 'Sec. 3.1.1' yerine 'Sec. 3.1.1 STACKING BLOCKS' veya sadece 'Sec. 3.1.1') değiştirilmesi.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yenilikçi Yaklaşım, Ancak Kapsamlı Deneysel Doğrulama Eksikliği; Şekil 1'deki Metin Boyutu ve Okunabilirlik Sorunu",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1",
+          "presentation_clarity.f0.a0"
+        ]
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "2 ENERGY-BASED SPHERICAL SPARSE CODING",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_energy_based_spherical_sparse_coding.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "2.1 BOTTOM-UP RECONSTRUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_1_bottom_up_reconstruction.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "2.3.1 ASYMMETRIC SHRINKAGE",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_3_1_asymmetric_shrinkage.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3 LEARNING",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_learning.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.1 OPTIMIZATION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_1_optimization.a0",
+          "3_1_optimization.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.1.1 STACKING BLOCKS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yenilikçi Yaklaşım, Ancak Kapsamlı Deneysel Doğrulama Eksikliği",
+        "anchor_ids": [
+          "3_1_1_stacking_blocks.a0",
+          "3_1_1_stacking_blocks.a1"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1",
+          "reviewer_confidence.f1.a0"
+        ]
+      },
+      {
+        "section": "4 EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Eksikliği; Sınırlı Deneysel Detaylar ve Karşılaştırmalı Analiz",
+        "anchor_ids": [
+          "4_experiments.a0",
+          "4_experiments.a1",
+          "4_experiments.a2"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f6.a0",
+          "reviewer_confidence.f0.a0",
+          "reviewer_confidence.f0.a1"
+        ]
+      },
+      {
+        "section": "4.1 CLASSIFICATION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Sınırlı Deneysel Detaylar ve Karşılaştırmalı Analiz",
+        "anchor_ids": [
+          "4_1_classification.a0",
+          "4_1_classification.a1",
+          "4_1_classification.a2",
+          "4_1_classification.a3",
+          "4_1_classification.a4",
+          "4_1_classification.a5"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1",
+          "reviewer_confidence.f0.a0",
+          "reviewer_confidence.f0.a1"
+        ]
+      },
+      {
+        "section": "5 CONCLUSION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "5_conclusion.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "CLASSIFICATION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "classification.a0",
+          "classification.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "DECODING CLASS-SPECIFIC CODES",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "decoding_class_specific_codes.a0"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f3.a0"
+        ]
+      },
+      {
+        "section": "ENERGY-BASED SPHERICAL SPARSE CODING",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Şekil 2'deki Renk Kullanımı ve Gri Tonlamalı Baskı Sorunu",
+        "anchor_ids": [
+          "energy_based_spherical_sparse_coding.a0"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yenilikçi Yaklaşım, Ancak Kapsamlı Deneysel Doğrulama Eksikliği",
+        "anchor_ids": [
+          "experiments.a0",
+          "experiments.a1"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1"
+        ]
+      },
+      {
+        "section": "LEARNING",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "learning.a0"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f2.a0"
+        ]
+      },
+      {
+        "section": "RELATIONSHIP TO CNNS:",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "relationship_to_cnns.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Table 2",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Sonuçların Sunumunda Belirsizlik Ölçülerinin Eksikliği",
+        "anchor_ids": [
+          "table_2.a0",
+          "table_2.a1",
+          "table_2.a2",
+          "table_2.a3"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

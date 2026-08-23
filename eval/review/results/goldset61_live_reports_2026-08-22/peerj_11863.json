@@ -1,0 +1,8 @@
+{
+  "paper_id": "peerj:11863",
+  "run_tag": "main",
+  "job_id": "7cc57d67-a6ae-4462-aa21-6210b8edef6d",
+  "elapsed_s": 491.9,
+  "final_status": "failed",
+  "error": "SupabaseQueryError: supabase call failed: RemoteProtocolError"
+}

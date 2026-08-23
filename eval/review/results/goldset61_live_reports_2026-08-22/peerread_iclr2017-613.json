@@ -1,0 +1,2033 @@
+{
+  "paper_id": "peerread:iclr2017-613",
+  "run_tag": "main",
+  "job_id": "202f2495-b0e0-48c9-91fb-0d262f2bc3e3",
+  "elapsed_s": 499.5,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "NEURAL CAUSAL REGULARIZATION UNDER THE INDEPENDENCE OF MECHANISMS ASSUMPTION Mohammad Taha Bahadori1, Krzysztof Chalupka2, Edward Choi1, Robert Chen1, Walter F. Stewart3, & Jimeng Sun1",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "METHODOLOGY",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 8943,
+      "reference_count": 21,
+      "parse_confidence": 0.685,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces a novel causal regularizer for neural networks, grounded in the Independence of Mechanisms (ICM) assumption. The authors design a causality detector trained on synthetic data and use its output to penalize non-causal feature weights in a predictive model. The primary goal is to steer models towards solutions that are not only predictively accurate but also causally interpretable. The method is evaluated on two large-scale electronic health record (EHR) datasets, demonstrating superior performance in both predictive accuracy and causal relevance compared to a standard L1-regularized baseline. The paper further shows the regularizer's utility in generating plausible multivariate causal hypotheses.",
+    "strengths": [
+      {
+        "category": "Methodological Contribution",
+        "points": [
+          "The core contribution, a practical and scalable causal regularizer for neural networks, is both novel and significant. It provides a concrete method for operationalizing the high-level idea of balancing prediction and causation.",
+          "The approach of training a causality detector on synthetic data tailored to the statistics of the target domain (count data in EHRs) is a clever and effective way to bypass the need for labeled causal data.",
+          "The extension of the regularizer to generate multivariate causal hypotheses is a valuable application that addresses a key challenge in high-dimensional domains like healthcare."
+        ]
+      },
+      {
+        "category": "Empirical Evaluation",
+        "points": [
+          "The paper presents a strong empirical case on two real-world, large-scale EHR datasets (Sutter and MIMIC-III), which adds significant weight to the claims.",
+          "The qualitative analysis of the generated multivariate hypotheses (Table 3) provides compelling, clinically plausible examples of the method's utility."
+        ]
+      },
+      {
+        "category": "Impact and Relevance",
+        "points": [
+          "The work addresses a critical and timely problem at the intersection of machine learning, causal inference, and healthcare. Developing more interpretable and causal models for clinical data is of paramount importance.",
+          "The proposed framework is scalable (linear in the number of variables) and integrates seamlessly with modern deep learning architectures, making it highly relevant to the broader machine learning community."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Experimental Validity",
+        "points": [
+          "The description of the expert validation process is insufficient and represents a major flaw. It is not stated whether the clinical expert was blinded to the method that generated each list of factors. Blinding is a standard and essential procedure to prevent bias, and its absence (or lack of reporting) significantly weakens the validity of the central claims regarding the method's ability to identify more 'causally relevant' factors (Table 2, Figure 5b)."
+        ]
+      },
+      {
+        "category": "Methodological Soundness and Justification",
+        "points": [
+          "The justification for how a pairwise causality detector can appropriately regularize a multivariate model is a critical weakness. The paper's claim that other variables are 'implicitly included as hidden variables' (Section 2.2) is not rigorously explained or defended, leaving a significant gap in the methodological argument.",
+          "The application of regularization to an input-dependent weight `ω_i(x_j)` in the non-linear model (Eq. 3) is not clearly connected to the population-level causality score `c_i` used for the penalty. This inconsistency between an instance-level weight and a population-level score requires clarification to ensure the causal interpretation is sound."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The paper's novelty claim with respect to prior work (Lopez-Paz et al., 2016) could be sharpened. A more precise framing is needed to acknowledge the prior conceptual suggestion while highlighting the paper's novel contribution in formulation, implementation, and large-scale validation.",
+          "Several medical codes in the tables (e.g., '427.31', '496' in Table 4) lack descriptions. This hinders readability and understanding for a broader audience and should be rectified by including full descriptions for all listed codes."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "technical_soundness",
+        "comment": "The argument in Section 2.2 that the pairwise regularizer is suitable for a multivariate model because other variables are treated as 'hidden variables' is crucial but underdeveloped. Could you elaborate on this? For example, does the synthetic data generation process for the detector (Figure 2, cases d-j) explicitly model the influence of other observed covariates as confounders, thereby making the detector robust enough for a multivariate setting? A more explicit connection would make the entire framework more convincing.",
+        "evidence_ref": "Section 2.2"
+      },
+      {
+        "area": "experimental",
+        "comment": "The results in Table 2 and Figure 5b rely on expert-assigned causality scores. To strengthen the validity of this evaluation, you must provide details on the protocol. Specifically, was the clinical expert blinded to which algorithm produced which list of top factors? Reporting on blinding is standard practice and essential for preventing potential bias in such evaluations. Without this information, the results are difficult to interpret reliably.",
+        "evidence_ref": "Table 2, Figure 5b"
+      },
+      {
+        "area": "related_work",
+        "comment": "In Section 2.2, you state that 'a major novelty of our proposed causal regularizer is to do joint causal variable selection... and prediction, but the idea in (Lopez-Paz et al., 2016) cannot.' This is a strong claim. While your work is the first to develop and test this, the conceptual idea of using a causality score for regularization is present in the cited work. We suggest rephrasing to emphasize that your contribution is the specific formulation, implementation, and large-scale empirical validation of this idea, which had not been done before.",
+        "evidence_ref": "Section 2.2"
+      }
+    ],
+    "questions": [
+      "Could you provide a more intuitive or theoretical explanation for why the pairwise causality scores `c_i` are sufficient to regularize a multivariate regression model, particularly regarding the claim that other variables are 'implicitly included'?",
+      "In the non-linear model (Eq. 3), the regularization is applied to an input-dependent weight `ω_i(x_j)`. Does this imply you are assessing causality at an individual level? If so, how does this connect back to the population-level causality score `c_i` used for the penalty?",
+      "The robustness of the causal regularizer to the penalty parameter `λ` (Figure 4) is an interesting finding. You attribute this to the regularizer matching the 'true generative process' better than L1. Is it also possible that the distribution of causality scores `c_i` is highly bimodal (close to 0 or 1), creating a more 'stable' penalty landscape than the uniform penalty of L1? A histogram of the `c_i` scores might provide insight here."
+    ],
+    "overall_assessment": "This paper presents a promising and novel approach for incorporating causal priors into neural networks, a topic of high importance to the community. The strengths of the paper lie in its original methodological contribution, the clever use of synthetic data, and its application to large-scale, real-world healthcare datasets. However, the paper suffers from significant weaknesses in its current form that preclude acceptance. The two most critical issues are a major flaw in the experimental validation and a key gap in the methodological justification. First, the failure to report whether the expert validation was blinded undermines the central claim that the method identifies more causally relevant factors. Second, the theoretical leap from a pairwise causality detector to a multivariate model regularizer is not sufficiently justified. These are not minor points; they are fundamental to the paper's claims and require substantial revision. While the idea is strong, the execution and reporting of the evidence need major improvement before the work can be considered for publication.\n\nNot: bazı eleştirmenler yanıt veremedi (citation_critic); rapor kalan eleştirmenlere göre sentezlendi.",
+    "verdict": "major_revision",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity info. [LLM'in kendi gerekçesi: The specific formulation, implementation, and large-scale evaluation of a causal regularizer for neural networks is highly original, even if the general idea was previously floated.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The paper addresses a critical problem in a high-impact domain (causal inference in healthcare). The method is scalable and applicable to modern ML, making it very important."
+      },
+      {
+        "key": "claims_supported",
+        "score": 1.0,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity critical. [LLM'in kendi gerekçesi: The central claim about identifying more 'causally relevant' factors is undermined by the lack of a reported blinding protocol in the expert validation, which is a major flaw in the experimental support.]"
+      },
+      {
+        "key": "soundness",
+        "score": 6.22,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity major. [LLM'in kendi gerekçesi: The methodology has significant gaps, particularly the weak justification for applying a pairwise detector to a multivariate model and the lack of a blinded experimental validation for the causality claims.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is generally well-written, but clarity is lacking around key methodological justifications (e.g., the pairwise-to-multivariate leap) and in the presentation of tables.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.0,
+        "rationale": "This work, if its methodological issues are addressed, will be highly valuable to researchers in causal inference, ML for health, and deep learning. It provides a practical tool and a strong benchmark."
+      },
+      {
+        "key": "contextualization",
+        "score": 8.0,
+        "rationale": "The paper does a good job of situating the work within the literature on causal discovery, regularization, and machine learning for healthcare."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: I cannot verify the integrity of the references. The evidence pack indicates that all 21 references could not be resolved due to a data provider service error. There is no evidence of fabrication, but verification was not possible.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missing seminal or mandatory citations in the field. The literature review appears comprehensive.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: I cannot verify the statistical consistency of the reported results. The evidence pack did not contain a statistical check (e.g., via statcheck).]"
+      }
+    ],
+    "final_score": 7.8,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 21,
+        "resolved": 0,
+        "not_found_in_index": 21,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 21
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Leo Breiman et al. Statistical modeling: The two cultures. Statistical Science, 16(3):199–231, 2001.",
+          "title": "Statistical modeling: The two cultures",
+          "authors": [
+            "Leo Breiman et al."
+          ],
+          "year": 2001,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 2,
+          "raw": "Krzysztof Chalupka, Frederick Eberhardt, and Pietro Perona. Estimating the causal direction and confounding of two discrete variables. arXiv Preprint, 2016.",
+          "title": "Estimating the causal direction and confounding of two discrete variables",
+          "authors": [
+            "Krzysztof Chalupka, Frederick Eberhardt",
+            "Pietro Perona"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 3,
+          "raw": "David M. Chickering. Optimal structure identiﬁcation with greedy search. JMLR, 3:507–554, 2002.",
+          "title": "Optimal structure identiﬁcation with greedy search",
+          "authors": [
+            "David M. Chickering"
+          ],
+          "year": 2002,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 4,
+          "raw": "Diego Colombo, Marloes H Maathuis, Markus Kalisch, and Thomas S Richardson. Learning high-dimensional directed acyclic graphs with latent and selection variables. Ann. Stat., 2012.",
+          "title": "Learning high-dimensional directed acyclic graphs with latent and selection variables",
+          "authors": [
+            "Diego Colombo, Marloes H Maathuis, Markus Kalisch",
+            "Thomas S Richardson"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 5,
+          "raw": "Povilas Daniusis, Dominik Janzing, Joris Mooij, Jakob Zscheischler, Bastian Steudel, Kun Zhang, and Bernhard Schölkopf. Inferring deterministic causal relations. In UAI, 2010.",
+          "title": "Inferring deterministic causal relations",
+          "authors": [
+            "Bernhard Schölkopf"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 6,
+          "raw": "David Donoho. 50 years of data science. In Princeton NJ, Tukey Centennial Workshop, 2015.",
+          "title": "50 years of data science",
+          "authors": [
+            "David Donoho"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 7,
+          "raw": "Stephen Jay Gould. Is uniformitarianism necessary? Am. J. Sci., 263(3):223–228, 1965.",
+          "title": "Is uniformitarianism necessary? Am",
+          "authors": [
+            "Stephen Jay Gould"
+          ],
+          "year": 1965,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 8,
+          "raw": "Dominik Janzing and Bernhard Scholkopf. Causal inference using the algorithmic markov condition. IEEE Transactions on Information Theory, 56(10):5168–5194, 2010.",
+          "title": "Causal inference using the algorithmic markov condition",
+          "authors": [
+            "Dominik Janzing",
+            "Bernhard Scholkopf"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 9,
+          "raw": "Dominik Janzing, Jonas Peters, Eleni Sgouritsa, Kun Zhang, Joris M Mooij, and Bernhard Schölkopf. On causal and anticausal learning. In ICML, pp. 1255–1262, 2012.",
+          "title": "On causal and anticausal learning",
+          "authors": [
+            "Dominik Janzing, Jonas Peters, Eleni Sgouritsa, Kun Zhang, Joris M Mooij",
+            "Bernhard Schölkopf"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 10,
+          "raw": "Alistair EW Johnson, Tom J Pollard, Lu Shen, Li-wei H Lehman, Mengling Feng, Mohammad Ghassemi, Benjamin Moody, Peter Szolovits, Leo Anthony Celi, and Roger G Mark. Mimic-iii, a freely accessible critical care database. Scientiﬁc data, 3, 2016.",
+          "title": "Mimic-iii, a freely accessible critical care database",
+          "authors": [
+            "Roger G Mark"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 11,
+          "raw": "Markus Kalisch and Peter Bühlmann. Estimating high-dimensional directed acyclic graphs with the pc-algorithm. JMLR, 8(Mar):613–636, 2007.",
+          "title": "Estimating high-dimensional directed acyclic graphs with the pc-algorithm",
+          "authors": [
+            "Markus Kalisch",
+            "Peter Bühlmann"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 12,
+          "raw": "Jan Lemeire and Erik Dirkx. Causal models as minimal descriptions of multivariate systems, 2006.",
+          "title": "Causal models as minimal descriptions of multivariate systems, 2006",
+          "authors": [
+            "Jan Lemeire",
+            "Erik Dirkx"
+          ],
+          "year": 2006,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 13,
+          "raw": "David Lopez-Paz. From dependence to causation. PhD thesis, University of Cambridge, 2016.",
+          "title": "From dependence to causation",
+          "authors": [
+            "David Lopez-Paz"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 14,
+          "raw": "David Lopez-Paz, Robert Nishihara, Soumith Chintala, Bernhard Schölkopf, and Léon Bottou. Discovering causal signals in images. arXiv preprint arXiv:1605.08179, 2016.",
+          "title": "Discovering causal signals in images",
+          "authors": [
+            "David Lopez-Paz, Robert Nishihara, Soumith Chintala, Bernhard Schölkopf",
+            "Léon Bottou"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 15,
+          "raw": "Tomas Mikolov, Ilya Sutskever, Kai Chen, Greg S Corrado, and Jeff Dean. Distributed representations of words and phrases and their compositionality. In NIPS, 2013.",
+          "title": "Distributed representations of words and phrases and their compositionality",
+          "authors": [
+            "Tomas Mikolov, Ilya Sutskever, Kai Chen, Greg S Corrado",
+            "Jeff Dean"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 16,
+          "raw": "Sahand N. Negahban, Pradeep Ravikumar, Martin J. Wainwright, and Bin Yu. A uniﬁed framework for high-dimensional analysis of m-estimators with decomposable regularizers. Statist. Sci., 2012.",
+          "title": "A uniﬁed framework for high-dimensional analysis of m-estimators with decomposable regularizers",
+          "authors": [
+            "Sahand N. Negahban, Pradeep Ravikumar, Martin J. Wainwright",
+            "Bin Yu"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 17,
+          "raw": "Judea Pearl. Causality. Cambridge university press, 2000.",
+          "title": "Causality",
+          "authors": [
+            "Judea Pearl"
+          ],
+          "year": 2000,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 18,
+          "raw": "Jeffrey Pennington, Richard Socher, and Christopher D Manning. Glove: Global vectors for word representation. EMNLP, 2014.",
+          "title": "Glove: Global vectors for word representation",
+          "authors": [
+            "Jeffrey Pennington, Richard Socher",
+            "Christopher D Manning"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 19,
+          "raw": "Galit Shmueli. To explain or to predict? Statistical science, pp. 289–310, 2010.",
+          "title": "To explain or to predict? Statistical science, pp",
+          "authors": [
+            "Galit Shmueli"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 20,
+          "raw": "Peter Spirtes. Introduction to causal inference. JMLR, 11(May):1643–1662, 2010.",
+          "title": "Introduction to causal inference",
+          "authors": [
+            "Peter Spirtes"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 21,
+          "raw": "Martin J Wainwright and Michael I Jordan. Graphical models, exponential families, and variational inference. Foundations and Trends R⃝in Machine Learning, 1(1-2):1–305, 2008. 10 A THE SAMPLING PROCEDURE FOR COUNT INDEPENDENT VARIABLES As described in Section 3, our independent variables have count data type. Thus, we need to generate data from distributions for count data, such as Poisson or Zipf distributions with ﬁxed support size of 16. Looking at the histogram of maximum number of code occurrences in Figure 6, we observe that many codes only occur at most once or twice. Thus, we also generate binary and trinary distributions from ﬂat Dirichlet distributions. Finally, to make sure that the space is fully spanned, we also generate samples from Dirichlet distribution with 16 categories. In summary, the dist(s, K) is the mixture of these ﬁve distributions. The parameters of Poisson and Zipf are sampled from χ2(1) distribution. 1 3 5 7 9 11 13 15 Maximum Number of Occurrence 0 1000 2000 3000 4000 5000 6000 7000 8000 Count Figure 6: Histogram of maximum number of code occurrences. Let dist(s, K) denotes a discrete distribution with parameter s and given support size K. Direct X →Y : 1. Sample s ∼χ2(2). Generate PX = dist(s, K). 2. Sample PY |X ∼Unif(0, 1) for K times. 3. Compute the 2K-dimensional vector PX,Y (x, y) = [p(1, 0), . . . , p(K, 0), p(1, 1), . . . , p(K, 1)]. Algorithm 2: Another example of generating the synthetic dataset. Sampling from the graphical models in Figure 2 is done writing the factorization and sampling from directed edges and ﬁnally marginalization with respect to hidden variables (Wainwright & Jordan, 2008). The hidden variables are selected to be categorical variables with cardinality selected uniformly from the integers in the interval [2, 100]. The conditional distribution of the hidden variables is selected to be Dirichlet distribution with all-ones parameter vector. A.1 EVALUATING THE CAUSALITY DETECTOR Table 5 show two advantages of the proposed sampling procedure for count data in Appendix A in comparison to the binary case proposed by Chalupka et al. (2016). First, in the synthetic dataset, the test error is signiﬁcantly lower. This is because the size of input to the neural causality detector is 32 compared to 4 for the binary case. Applying the causality detectors to our data, we observe that the causality scores generated by our sampling scheme has signiﬁcantly higher correlation with the mutual information between independent variables and the target label. Figure 10 in Appendix C 11 log( 6) -6 -5 -4 -3 -2 -1 0 1 Fraction of Non-zero Coefficients 10 -4 10 -3 10 -2 10 -1 10 0 Causal Regularizer L1 Regularizer (a) Sparsity on Sutter log( 6) -6 -5 -4 -3 -2 -1 0 1 Fraction of Non-zero Coefficients 10 -4 10 -3 10 -2 10 -1 10 0 Causal Regularizer L1 Regularizer (b) Sparsity on MIMIC Figure 7: Comparison of variable selection in logistic regression via the causal and L1 regularizers on two datsets and two accuracy measures. Note the stability of variable selection by the causal regularizer as the penalization coefﬁcient varies. highlights another advantage of the sampling procedure for count data as it is able to identify a larger portion of the variables as non-causal, which is more inline the expectations. Table 7 in Appendix C shows that the mutual information identiﬁes V70.0 (Routine general medical examination at a health care facility) as highly correlated, but the causality detector correctly identiﬁes it as non-causal with causality score 0.0000. In particular, in Figure 9, the Spearman’s rank correlation is ρ = 0.6689 which indicates a strong correlation. This is intuitive as we expect on average the causal connections to create stronger correlations. Another consequence of the large correlation makes regularization by the non-causality scores safer and guarantees that it will not signiﬁcantly hurt the predictive performance. In Figure 9, we have marked four codes in the four corner of the ﬁgure. An example of highly correlated and causal code we can point out 250.00 (Diabetes mellitus without mention of complication) which is a known cause of heart failure. Code 362.01 (Background diabetic retinopathy) is an effect of diabetes —a common cause of heart failure. Code V06.5 (Need for TD vaccination) is an example of neither causal nor correlated code. Finally, code 365.00 (Preglaucoma) is known for increasing the risk of heart failure, despite the fact that it is not very correlated with heart failure. B DETAILS OF THE NEURAL NETWORKS B.1 NEURAL CAUSALITY DETECTOR ARCHITECTURE We used a multilayer perceptron with seven layers of size 1024 with rectiﬁed linear units as activation functions. We use batch normalization for each layer. We used adamax for training and early stopping based on the validation accuracy. Implementation is done in Theano 0.8. B.2 THE NEURAL NETWORK IN SECTION 2.2 After tuning the parameters of the neural network, we ended up using a multilayer perceptron with three layers with rectiﬁed linear units as activation functions. The embedding dimension was 128 obtained by training GloVe on the entire dataset. We used dropout with rate p = 0.8 and adadelta for optimization and early stopping based on the validation accuracy. Implementation is done in Theano 0.8. C QUALITATIVE RESULTS 12 0 0.2 0.4 0.6 0.8 1 -5 -4.5 -4 -3.5 -3 -2.5 -2 -1.5 log10(MI) 6 = 1 6 = 10-1 6 = 10-2 6 = 10-3 6 = 10-4 Figure 8: The impact of λ on the top 50 selected variables, marked in the original plot in Figure 9 As λ increases, there is a shift from left-up towards down-right corner and the trade-off shifts towards selecting more causal codes despite possibly lower mutual information. In this ﬁgure a small noise has been added to the points to visualize the overlapped points. Algorithm Error Spearman Correlation Rate w/ Mutual Information Binary 0.2165 -0.0099 (0.4506) Count 0.0617 0.6689 (0.0000) Table 5: Summary of the results 0 0.2 0.4 0.6 0.8 1 -5.5 -5 -4.5 -4 -3.5 -3 -2.5 -2 log10(MI) 362.01 250.00 V06.5 365.00 Figure 9: The scatter plot of causation score vs. mutual information. 0 0.2 0.4 0.6 0.8 1 Causality Coefficient 0 500 1000 1500 2000 2500 Frequency (a) Binary 0 0.2 0.4 0.6 0.8 1 Causality Coefficients 0 500 1000 1500 2000 2500 3000 Frequency (b) Count Figure 10: Distribution of the coefﬁcients generated by the causality detector. 13 Table 6: Performance of simple causality detector using count data. The causality score is the output of our neural network in Section 2.1 P[Xi →Y ]. MI denotes the mutual information between Xi and Y . Code Description log(MI) V58.83 Encounter for therapeutic drug monitoring -2.1050 1.0000 250.00 Diabetes mellitus without mention of complication, type II or unspeciﬁed type, not stated as uncontrolled -2.0962 1.0000 401.9 Unspeciﬁed essential hypertension -2.1023 1.0000 V58.61 Long-term (current) use of anticoagulants -1.8371 1.0000 427.31 -1.5795 1.0000 780.52 Insomnia, unspeciﬁed -3.3101 1.0000 272.4 Other and unspeciﬁed hyperlipidemia -2.6500 1.0000 401.1 Benign essential hypertension -2.4455 1.0000 702.0 Actinic keratosis -3.1493 1.0000 530.81 Esophageal reﬂux -3.3658 1.0000 V04.81 Need for prophylactic vaccination and inoculation against inﬂuenza -3.6712 1.0000 V10.83 Personal history of other malignant neoplasm of skin -3.4214 1.0000 250.60 Diabetes with neurological manifestations, type II or unspeciﬁed type, not stated as uncontrolled -2.3711 0.9999 414.00 Coronary atherosclerosis of unspeciﬁed type of vessel, native or graft -1.8896 0.9999 250.02 Diabetes mellitus without mention of complication, type II or unspeciﬁed type, uncontrolled -2.4819 0.9999 733.00 Osteoporosis, unspeciﬁed -3.4939 0.9999 692.74 Other chronic dermatitis due to solar radiation -2.9428 0.9999 244.9 Unspeciﬁed acquired hypothyroidism -3.1736 0.9999 311 Depressive disorder, not elsewhere classiﬁed -2.8482 0.9999 714.0 Rheumatoid arthritis -3.0010 0.9995 724.2 Lumbago -3.4554 0.9995 493.90 Asthma, unspeciﬁed type, unspeciﬁed -2.8824 0.9994 V43.1 Lens replaced by other means -2.8667 0.9994 250.40 Diabetes with renal manifestations, type II or unspeciﬁed type, not stated as uncontrolled -2.3952 0.9990 496 -2.2993 0.9990 786.2 Cough -2.3533 0.9987 173.3 —- -4.1204 0.9964 733.90 Disorder of bone and cartilage, unspeciﬁed -3.4001 0.9919 786.50 Chest pain, unspeciﬁed -2.5651 0.9915 285.9 Anemia, unspeciﬁed -2.1526 0.9905 14 Table 7: Top 20 codes with highest mutual information with the heart failure outcome. The causality score is the output of our neural network in Section 2.1 P[Xi →Y ]. MI denotes the mutual information between Xi and Y . Code Description log(MI) 782.3 Edema -1.7355 0.0027 424.1 Aortic valve disorders -2.2021 0.0012 425.4 Other primary cardiomyopathies -2.2330 0.1351 V70.0 Routine general medical examination at a health care facility -2.2420 0.0000 443.9 Peripheral vascular disease, unspeciﬁed -2.2668 0.1145 424.0 Mitral valve disorders -2.3088 0.0003 250.50 Diabetes with ophthalmic manifestations, type II or unspeciﬁed type, not stated as uncontrolled -2.3288 0.2271 511.9 Unspeciﬁed pleural effusion -2.3320 0.0839 427.32 Atrial ﬂutter -2.3508 0.0767 278.01 Morbid obesity -2.3924 0.0345 425.8 Cardiomyopathy in other diseases classiﬁed elsewhere -2.4090 0.2322 362.01 Background diabetic retinopathy -2.4536 0.0815 584.9 Acute kidney failure, unspeciﬁed -2.4661 0.2882 412 Old myocardial infarction -2.4750 0.0780 428.0 Congestive heart failure, unspeciﬁed -2.4946 0.0039 791.0 Proteinuria -2.4984 0.1883 357.2 Polyneuropathy in diabetes -2.5040 0.2120 402.90 Unspeciﬁed hypertensive heart disease without heart failure -2.5103 0.2034 250.42 Diabetes with renal manifestations, type II or unspeciﬁed type, uncontrolled -2.5310 0.2378 280.9 Iron deﬁciency anemia, unspeciﬁed -2.5661 0.0283 427.1 Paroxysmal ventricular tachycardia -2.5884 0.0367 V53.31 Fitting and adjustment of cardiac pacemaker -2.6014 0.2894 459.81 Venous (peripheral) insufﬁciency, unspeciﬁed -2.6093 0.0748 410.90 Acute myocardial infarction of unspeciﬁed site, episode of care unspeciﬁed -2.6154 0.2510 588.81 Secondary hyperparathyroidism (of renal origin) -2.6199 0.0478 250.62 Diabetes with neurological manifestations, type II or unspeciﬁed type, uncontrolled -2.6367 0.2051 414.8 Other speciﬁed forms of chronic ischemic heart disease -2.6403 0.0923 362.02 Proliferative diabetic retinopathy -2.6490 0.2629 586 Renal failure, unspeciﬁed -2.7324 0.2388 250.52 Diabetes with ophthalmic manifestations, type II or unspeciﬁed type, uncontrolled -2.7375 0.2154 15 Table 8: Top 20 causal codes (ci ≥0.5) with highest mutual information. The causality score is the output of our neural network in Section 2.1 P[Xi →Y ]. MI denotes the mutual information between Xi and Y . Code Description log(MI) 427.31 -1.5795 1.0000 V58.61 Long-term (current) use of anticoagulants -1.8371 1.0000 414.00 Coronary atherosclerosis of unspeciﬁed type of vessel, native or graft -1.8896 0.9999 250.00 Diabetes mellitus without mention of complication, type II or unspeciﬁed type, not stated as uncontrolled -2.0962 1.0000 401.9 Unspeciﬁed essential hypertension -2.1023 1.0000 V58.83 Encounter for therapeutic drug monitoring -2.1050 1.0000 285.9 Anemia, unspeciﬁed -2.1526 0.9905 496 -2.2993 0.9990 427.9 Cardiac dysrhythmia, unspeciﬁed -2.3100 0.9864 585.3 Chronic kidney disease, Stage III (moderate) -2.3406 0.9447 786.2 Cough -2.3533 0.9987 250.60 Diabetes with neurological manifestations, type II or unspeciﬁed type, not stated as uncontrolled -2.3711 0.9999 250.40 Diabetes with renal manifestations, type II or unspeciﬁed type, not stated as uncontrolled -2.3952 0.9990 585.4 Chronic kidney disease, Stage IV (severe) -2.4419 0.8091 401.1 Benign essential hypertension -2.4455 1.0000 285.21 Anemia in chronic kidney disease -2.4734 0.8384 250.02 Diabetes mellitus without mention of complication, type II or unspeciﬁed type, uncontrolled -2.4819 0.9999 786.50 Chest pain, unspeciﬁed -2.5651 0.9915 703.8 Other speciﬁed diseases of nail -2.5659 0.9583 427.89 Other speciﬁed cardiac dysrhythmias -2.6153 0.9416 780.79 Other malaise and fatigue -2.6174 0.9169 272.4 Other and unspeciﬁed hyperlipidemia -2.6500 1.0000 250.01 Diabetes mellitus without mention of complication, type I [juvenile type], not stated as uncontrolled -2.7045 0.8049 794.31 Nonspeciﬁc abnormal electrocardiogram [ECG] [EKG] -2.7602 0.9351 785.9 Other symptoms involving cardiovascular system -2.7719 0.8024 724.02 Spinal stenosis, lumbar region, without neurogenic claudication -2.7874 0.8932 425.9 Secondary cardiomyopathy, unspeciﬁed -2.8071 0.8024 274.9 Gout, unspeciﬁed -2.8380 0.9539 311 Depressive disorder, not elsewhere classiﬁed -2.8482 0.9999 10000 —- -2.8504 0.9721 16 Table 9: Top 30 codes with causal regularization. The coefﬁcient is wi from Eq. (1). Code Description Coefﬁcient 794.31 Nonspeciﬁc abnormal electrocardiogram [ECG] [EKG] 0.3422 0.9351 425.8 Cardiomyopathy in other diseases classiﬁed elsewhere 0.3272 0.2322 786.05 Shortness of breath 0.3124 0.5536 424.90 Endocarditis, valve unspeciﬁed, unspeciﬁed cause 0.3086 0.3908 425.4 Other primary cardiomyopathies 0.2880 0.1351 427.9 Cardiac dysrhythmia, unspeciﬁed 0.2531 0.9864 785.9 Other symptoms involving cardiovascular system 0.2377 0.8024 585.6 End stage renal disease 0.2225 0.3948 511.9 Unspeciﬁed pleural effusion 0.2218 0.0839 425.9 Secondary cardiomyopathy, unspeciﬁed 0.2203 0.8024 782.3 Edema 0.2065 0.0027 278.01 Morbid obesity 0.1955 0.0345 424.0 Mitral valve disorders 0.1948 0.0003 427.31 0.1762 1.0000 410.90 Acute myocardial infarction of unspeciﬁed site, episode of care unspeciﬁed 0.1756 0.2510 426.3 Other left bundle branch block 0.1690 0.4890 424.1 Aortic valve disorders 0.1649 0.0012 879.8 Open wound(s) (multiple) of unspeciﬁed site(s), without mention of complication 0.1645 0.6399 429.3 Cardiomegaly 0.1619 0.5022 780.60 Fever, unspeciﬁed 0.1602 0.7747 482.9 Bacterial pneumonia, unspeciﬁed 0.1514 0.7482 786.09 Other respiratory abnormalities 0.1454 0.7305 496 0.1403 0.9990 V42.0 Kidney replaced by transplant 0.1398 0.4351 250.03 Diabetes mellitus without mention of complication, type I [juvenile type], uncontrolled 0.1388 0.4727 276.51 Dehydration 0.1347 0.6738 403.10 Hypertensive chronic kidney disease, benign, with chronic kidney disease stage I through stage IV, or unspeciﬁed 0.1316 0.7488 250.50 Diabetes with ophthalmic manifestations, type II or unspeciﬁed type, not stated as uncontrolled 0.1283 0.2271 427.89 Other speciﬁed cardiac dysrhythmias 0.1282 0.9416 250.51 Diabetes with ophthalmic manifestations, type I [juvenile type], not stated as uncontrolled 0.1234 0.5473 17 Table 10: Top 30 codes with the two-step procedure. The coefﬁcient is the logistic regression coefﬁcient with L1 regularization after causal variable selection. Code Description Coefﬁcient 786.05 Shortness of breath 0.3620 0.5536 427.9 Cardiac dysrhythmia, unspeciﬁed 0.2501 0.9864 794.31 Nonspeciﬁc abnormal electrocardiogram [ECG] [EKG] 0.2100 0.9351 427.31 0.2017 1.0000 785.9 Other symptoms involving cardiovascular system 0.1781 0.8024 786.09 Other respiratory abnormalities 0.1772 0.7305 414.00 Coronary atherosclerosis of unspeciﬁed type of vessel, native or graft 0.1478 0.9999 496 0.1465 0.9990 707.15 Ulcer of other part of foot 0.1407 0.5519 707.14 Ulcer of heel and midfoot 0.1383 0.5113 879.8 Open wound(s) (multiple) of unspeciﬁed site(s), without mention of complication 0.1334 0.6399 682.9 Cellulitis and abscess of unspeciﬁed sites 0.1328 0.5989 585.4 Chronic kidney disease, Stage IV (severe) 0.1322 0.8091 414.01 Coronary atherosclerosis of native coronary artery 0.1253 0.6930 250.51 Diabetes with ophthalmic manifestations, type I [juvenile type], not stated as uncontrolled 0.1180 0.5473 285.9 Anemia, unspeciﬁed 0.1172 0.9905 250.02 Diabetes mellitus without mention of complication, type II or unspeciﬁed type, uncontrolled 0.1172 0.9999 425.9 Secondary cardiomyopathy, unspeciﬁed 0.1132 0.8024 250.40 Diabetes with renal manifestations, type II or unspeciﬁed type, not stated as uncontrolled 0.1040 0.9990 427.89 Other speciﬁed cardiac dysrhythmias 0.1024 0.9416 429.3 Cardiomegaly 0.0968 0.5022 785.0 Tachycardia, unspeciﬁed 0.0828 0.5367 724.02 Spinal stenosis, lumbar region, without neurogenic claudication 0.0814 0.8932 482.9 Bacterial pneumonia, unspeciﬁed 0.0796 0.7482 786.50 Chest pain, unspeciﬁed 0.0789 0.9915 250.00 Diabetes mellitus without mention of complication, type II or unspeciﬁed type, not stated as uncontrolled 0.0760 1.0000 V43.3 Heart valve replaced by other means 0.0749 0.8558 434.91 Cerebral artery occlusion, unspeciﬁed with cerebral infarction 0.0688 0.6249 285.21 Anemia in chronic kidney disease 0.0684 0.8384 V72.84 Pre-operative examination, unspeciﬁed 0.0629 0.9866 18",
+          "title": "First, in the synthetic dataset, the test error is signiﬁcantly lower",
+          "authors": [
+            "Martin J Wainwright",
+            "Michael I Jordan. Graphical models, exponential families",
+            "variational inference. Foundations",
+            "ﬁnally marginalization with respect to hidden variables (Wainwright"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:21",
+        "coverage:openalex_unavailable",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "4e97bfe2fc698ed947df0763ae7c7c25a6aaabccc1d74377ea32c2f7ac887988",
+          "request_time": "2026-08-22T18:24:59.947489Z",
+          "status": "degraded",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "21/21 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:25:00.768819Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "a140eac204c63f5aecb494f77c50feca8e746c903b44d6571fac12e3f2566a85",
+          "request_time": "2026-08-22T18:25:06.715434Z",
+          "status": "failed",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "openalex search_works_raw failed: all 3 attempts failed; last=HTTPStatusError"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:32:21.935906Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin başlığı, özet ve bölüm başlıkları (ABSTRACT, INTRODUCTION, METHODOLOGY, CONCLUSION, REFERENCES) tipik bir araştırma makalesi yapısını göstermektedir. Metin, 'neural networks', 'causal regularization', 'electronic health records' gibi terimler ve bir algoritmanın performansını karşılaştırma ('outperforms its L1-regularized counterpart') ifadeleriyle hesaplamalı bir modelleme çalışmasına işaret etmektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 72.7,
+      "recommended_decision": "major_revision",
+      "confidence": 0.7143333333333334,
+      "top_fatal_risks": [
+        "Gözlemsel Verilerle Aşırı Nedensel Dil Kullanımı",
+        "Genelleyici İddiaların Sınırlı Kanıtla Desteklenmesi",
+        "Gözlemsel Veriden Nedensel Çıkarım Yapma Girişimi",
+        "Etki Büyüklüğü ve Güven Aralığı Raporlamasında Eksiklikler",
+        "Veri ve Kod Erişilebilirliği Eksikliği"
+      ],
+      "one_sentence_diagnosis": "1 critical and 4 major issue(s) detected; recommended decision: major_revision."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 58.0,
+        "severity": "major",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity major."
+      },
+      {
+        "dimension": "evidence",
+        "score": 0.0,
+        "severity": "critical",
+        "confidence": 0.89,
+        "why_it_matters": "5 finding(s); worst severity critical."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.75,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 39.0,
+        "severity": "major",
+        "confidence": 0.78,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "6 concern(s): The justification for how the pairwise causality detector appropriately regularizes a multivariate model is not sufficiently elaborated. The claim that other variables are 'implicitly included as hidden variables' requires a more rigorous explanation, especially regarding how the synthetic data generation for the detector accounts for multivariate confounding.; The paper's claim of novelty regarding the causal regularizer, particularly in relation to Lopez-Paz et al. (2016), could be sharpened. While the implementation and large-scale evaluation are novel, the conceptual link to prior suggestions needs to be more precisely articulated to avoid overstating the conceptual originality.; Several medical codes in the tables (e.g., '427.31', '496' in Table 4) lack descriptions. This hinders readability and understanding for a broader audience and should be rectified by including full descriptions for all listed codes. (+3 more)",
+        "key_objection": "The justification for how the pairwise causality detector appropriately regularizes a multivariate model is not sufficiently elaborated. The claim that other variables are 'implicitly included as hidden variables' requires a more rigorous explanation, especially regarding how the synthetic data generation for the detector accounts for multivariate confounding.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "research_question_fit.f0",
+          "research_question_fit.f1"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The description of the expert validation process lacks crucial methodological details. Specifically, it is not stated whether the expert was blinded to the method that generated each list of factors. Blinding is a standard procedure to prevent bias in such evaluations and its absence or lack of reporting weakens the validity of the 'causality score evaluation'.; The justification for how the pairwise causality detector appropriately regularizes a multivariate model, particularly the claim that other variables are 'implicitly included as hidden variables', requires further methodological elaboration. The current explanation is insufficient to fully convince a methods-focused reader of its robustness in a multivariate setting.; The paper applies regularization to an input-dependent weight ω_i(x_j) in the non-linear model. It is unclear how this individual-level assessment of causality connects back to the population-level causality score c_i used for the penalty. This methodological detail needs clarification to ensure consistency in the causal interpretation.",
+        "key_objection": "The description of the expert validation process lacks crucial methodological details. Specifically, it is not stated whether the expert was blinded to the method that generated each list of factors. Blinding is a standard procedure to prevent bias in such evaluations and its absence or lack of reporting weakens the validity of the 'causality score evaluation'.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): The justification for how the pairwise causality detector appropriately regularizes a multivariate model needs further elaboration. The claim that other variables are 'implicitly included as hidden variables' is a crucial point that requires a more detailed explanation to be fully convincing to readers.; The novelty claim regarding prior work, specifically in relation to Lopez-Paz et al. (2016), could be phrased more precisely. While your work is the first to provide a concrete formulation and large-scale evaluation, acknowledging the conceptual suggestion in previous work more directly would enhance clarity.; Several medical codes (e.g., '427.31', '496') are listed without corresponding descriptions. Including these descriptions for all codes would significantly improve readability and accessibility for a broader audience, especially those less familiar with specific medical coding systems. (+1 more)",
+        "key_objection": "The justification for how the pairwise causality detector appropriately regularizes a multivariate model needs further elaboration. The claim that other variables are 'implicitly included as hidden variables' is a crucial point that requires a more detailed explanation to be fully convincing to readers.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "research_question_fit.f1",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "major-revision",
+        "summary": "This paper introduces a novel causal regularizer for neural networks, grounded in the Independence of Mechanisms (ICM) assumption. The authors design a causality detector trained on synthetic data and use its output to penalize non-causal feature weights in a predictive model. The primary goal is to steer models towards solutions that are not only predictively accurate but also causally interpretable. The method is evaluated on two large-scale electronic health record (EHR) datasets, demonstrating superior performance in both predictive accuracy and causal relevance compared to a standard L1-regularized baseline. The paper further shows the regularizer's utility in generating plausible multivariate causal hypotheses.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Gözlemsel Veriden Nedensel Çıkarım Yapma Girişimi",
+        "summary": "Makale, gözlemsel sağlık kayıtlarından (EHR) nedensel ilişkileri ortaya çıkarmayı hedeflemektedir. Ancak, bu tür verilerle nedensel çıkarım yapmak, randomize kontrollü denemelerin (RCT) aksine, potansiyel karıştırıcı faktörlerin (confounders) kontrol edilmesindeki zorluklar nedeniyle ciddi metodolojik kısıtlamalara sahiptir. Makale, 'bağımsız mekanizmalar varsayımı' (ICM) ve 'nedensel düzenleyici' (causal regularizer) kullanarak bu zorluğun üstesinden gelmeye çalıştığını belirtse de, gözlemsel veriden elde edilen nedensel iddiaların geçerliliği için yeterli kanıt sunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "Neural networks provide a powerful framework for learning the association between input and response variables and making accurate predictions and offer promise in using the rapidly growing volume of health care data to surface causal relationships that cannot necessarily be tested in randomized clinical trials."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "In domains such as healthcare, genomics or social science there is high demand for data analysis that reveals causal relationships between independent and target variables. For example, doctors not only want models that accurately predict the status of patients, but also want to identify the factors that can change the status."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "Analyzing causation without resorting to experiment is challenging due to unobserved confounders (such as the possible inﬂuence of socio-economic status on heart health and wine drinking)."
+          }
+        ],
+        "reasoning_public": "Gözlemsel çalışmalarda nedensel çıkarım yapmak, karıştırıcı faktörlerin (confounders) tam olarak kontrol edilememesi nedeniyle zordur. Bu tür çalışmalarda 'nedensel' dil kullanmak, okuyucuyu yanıltabilir ve bulguların genellenebilirliğini ve güvenilirliğini azaltabilir. ICM varsayımı, nedensel çıkarım için bir çerçeve sunsa da, bu varsayımın gerçek dünya sağlık verilerinde ne ölçüde karşılandığı ve tüm karıştırıcı faktörleri ne kadar etkili bir şekilde ele aldığı net değildir. Bu durum, çalışmanın temel iddialarının geçerliliğini zayıflatmaktadır.",
+        "limitations": [
+          "ICM varsayımının matematiksel detayları ve bu varsayımın gözlemlenmeyen karıştırıcı faktörleri ne ölçüde ele aldığına dair derinlemesine bir değerlendirme, makalenin tam metnine erişim olmadan sınırlıdır."
+        ],
+        "action_item_ids": [
+          "quant.f0.a0",
+          "quant.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü Gerekçesi ve Güç Analizi Eksikliği",
+        "summary": "Makale, Sutter Health veri setinde 3,884 vaka ve 28,903 kontrol, MIMIC III veri setinde ise 46,520 hasta (5810 ölüm) kullandığını belirtmektedir. Ancak, bu örneklem büyüklüklerinin neden seçildiğine dair herhangi bir gerekçe, güç analizi veya hassasiyet analizi sunulmamıştır. Özellikle 'nedensel' ilişkileri tespit etme iddiası göz önüne alındığında, bu tür analizler kritik öneme sahiptir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_data.a0",
+            "section": "3.1 DATA",
+            "quote": "To this end, 3,884 cases are selected and approximately 10 controls are selected for each case (28,903 controls)."
+          },
+          {
+            "anchor_id": "3_1_data.a1",
+            "section": "3.1 DATA",
+            "quote": "Our dataset includes 46,520 patients out of whom 5810 have deceased (mortality=1)."
+          }
+        ],
+        "reasoning_public": "Örneklem büyüklüğünün gerekçelendirilmemesi veya güç analizi yapılmaması, çalışmanın bulgularının istatistiksel gücünü ve genellenebilirliğini sorgulatır. Yeterli güce sahip olmayan bir çalışma, gerçek etkileri gözden kaçırma (Tip II hata) riskini taşırken, gereğinden büyük bir örneklem kaynak israfına yol açabilir. Nedensel çıkarım yapmayı hedefleyen çalışmalarda, belirli bir etki büyüklüğünü tespit etmek için gereken örneklem büyüklüğünün belirlenmesi esastır.",
+        "limitations": [
+          "Makalede güç analizi veya örneklem büyüklüğü gerekçesiyle ilgili herhangi bir bilgi bulunmadığından, bu konuda daha fazla detay verilememektedir.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Sentetik Veri Üretiminde Ölçüm Geçerliliği Belirsizliği",
+        "summary": "Makale, nedensellik dedektörünü eğitmek için sentetik veri setleri oluşturduğunu belirtmektedir. Bu sentetik verilerin, gerçek dünya sağlık verilerinin istatistiksel özelliklerini ne ölçüde yansıttığı ve bu sentetik veriler üzerinde eğitilen dedektörün gerçek verilerdeki nedensel ilişkileri ne kadar doğru bir şekilde tespit edebildiği tam olarak açıklanmamıştır. Özellikle 'Zipf, Poisson, Uniform ve Bernoulli dağılımlarının bir karışımından' örneklem alındığı belirtilse de, bu seçimin gerçek verilerin dağılımını ne kadar iyi temsil ettiği belirsizdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "methodology.a0",
+            "section": "METHODOLOGY",
+            "quote": "The key idea is to generate a synthetic dataset composed of the cases in Figure 2 based on the ICM assumption. As shown in Algorithm 1, the overall procedure is to generate samples from distributions pX,Y that are one of the ten possible cases in Figure 2. We need to select the distributions such that they impose minimum number of restriction on the data and the synthetically-generated distributions have statistics as similar as possible to those of our true data of interest. For example, in our dataset, the independent variables X are counts of the number of disease codes in patients’ records (cf. Section 3). Thus, we sample X from a mixture of appropriate distributions for count data: the Zipf, Poisson, Uniform, and Bernoulli distributions. The hidden variable H and the response variable Y are sampled from the Dirichlet and Bernoulli distributions. Details of our sampling procedure are provided in Appendix A."
+          }
+        ],
+        "reasoning_public": "Sentetik veri setlerinin kalitesi, modelin genellenebilirliği ve gerçek dünya verileri üzerindeki performansı için kritiktir. Sentetik verilerin gerçek verilerin özelliklerini yeterince yansıtmaması, eğitilen nedensellik dedektörünün gerçek verilerde yanlış veya yanıltıcı sonuçlar üretmesine neden olabilir. Bu durum, ölçüm geçerliliği açısından bir zayıflık oluşturur.",
+        "limitations": [
+          "Appendix A'ya erişim olmadan sentetik veri üretiminin tüm detayları ve gerçek verilerle karşılaştırması tam olarak değerlendirilememektedir."
+        ],
+        "action_item_ids": [
+          "quant.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Çoklu Karşılaştırma Riskinin Ele Alınmaması",
+        "summary": "Makale, '17,081 bağımsız değişkenin kalp yetmezliği üzerindeki etkisini' analiz ettiğini belirtmektedir. Bu kadar çok sayıda değişkenle çalışırken, çoklu karşılaştırma (multiple comparisons) riski ortaya çıkar. Makalede, bu riskin nasıl ele alındığına dair herhangi bir bilgi (örneğin, düzeltme yöntemleri) sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Altogether, we analyzed the inﬂuence of 17,081 independent variables on heart failure."
+          }
+        ],
+        "reasoning_public": "Çoklu karşılaştırmalar, Tip I hata oranını (yanlış pozitifler) artırarak, aslında var olmayan ilişkilerin istatistiksel olarak anlamlı bulunmasına yol açabilir. Özellikle 'nedensel' ilişkiler arayan bir çalışmada, bu durum bulguların güvenilirliğini ciddi şekilde zayıflatır. Bu riskin ele alınmaması, analizin geçerliliğini sorgulatır.",
+        "limitations": [
+          "Makalede çoklu karşılaştırma düzeltmeleriyle ilgili herhangi bir bilgi bulunmadığından, bu konuda daha fazla detay verilememektedir."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Tablo ve Metin Arasında Tutarsızlık",
+        "summary": "Figure 1'de 'Causal Regularizer' ve 'L1 Regularizer' için AUC ve F1 skorları gösterilirken, Table 1'de 'Causal Logistic' ve 'L1 Logistic' başlıkları altında benzer değerler raporlanmıştır. Bu başlıklandırma tutarsızlığı, okuyucunun hangi sonuçların hangi yönteme ait olduğunu anlamasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "figure_1.a0",
+            "section": "Figure 1",
+            "quote": "Causal Regularizer, L1 Regularizer"
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Causal Logistic, L1 Logistic"
+          }
+        ],
+        "reasoning_public": "Raporlama tutarlılığı, okuyucunun bulguları doğru bir şekilde yorumlaması ve çalışmanın şeffaflığı için önemlidir. Başlıklandırmadaki tutarsızlıklar, kafa karışıklığına yol açabilir ve çalışmanın güvenilirliğini azaltabilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Güven Aralığı Raporlamasında Eksiklikler",
+        "summary": "Makale, AUC ve F1 skorları için ortalama ve standart sapma değerlerini raporlamaktadır (Table 1). Ancak, bu değerler için güven aralıkları (Confidence Intervals - CI) veya diğer belirsizlik ölçüleri sunulmamıştır. Ayrıca, 'causality score' gibi anahtar metrikler için etki büyüklüğü yorumları eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a1",
+            "section": "Table 1",
+            "quote": "Prediction accuracy results on two datasets. (mean±standard deviation)"
+          },
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "yield up to 20% improvement in the causality score of the generated hypotheses."
+          }
+        ],
+        "reasoning_public": "Sadece ortalama ve standart sapma raporlamak, bulguların kesinliği hakkında yeterli bilgi sağlamaz. Güven aralıkları, tahminlerin hassasiyetini gösterir ve okuyucunun sonuçların genellenebilirliğini daha iyi değerlendirmesine olanak tanır. Etki büyüklüğü yorumları ise, istatistiksel olarak anlamlı bulunan bir etkinin pratik önemini anlamak için kritiktir. Özellikle 'causality score' gibi yeni bir metrik için, bu skorun pratik anlamını açıklayan etki büyüklüğü yorumları önemlidir.",
+        "limitations": [
+          "Makalede güven aralıkları veya etki büyüklüğü yorumları bulunmadığından, bu konuda daha fazla detay verilememektedir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "causal_language_discipline",
+        "severity": "critical",
+        "confidence": 0.95,
+        "title": "Gözlemsel Verilerle Aşırı Nedensel Dil Kullanımı",
+        "summary": "Makale, elektronik sağlık kayıtları (EHR) gibi gözlemsel veriler kullanarak 'nedensel ilişkileri ortaya çıkarmayı' ve 'nedensel değişkenleri' belirlemeyi hedeflemektedir. Ancak, gözlemsel verilerle yapılan çalışmalarda, randomize kontrollü denemelerin aksine, karıştırıcı faktörlerin (confounders) tam kontrolü mümkün değildir. Bu durum, 'nedensel' dilin aşırı ve yanıltıcı kullanımına yol açmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "offer promise in using the rapidly growing volume of health care data to surface causal relationships that cannot necessarily be tested in randomized clinical trials."
+          },
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "In pursuit of models whose predictive power comes maximally from causal variables, we propose a novel causal regularizer based on the independence of mechanisms assumption."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "In domains such as healthcare, genomics or social science there is high demand for data analysis that reveals causal relationships between independent and target variables."
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "Analyzing causation without resorting to experiment is challenging due to unobserved confounders (such as the possible inﬂuence of socio-economic status on heart health and wine drinking)."
+          }
+        ],
+        "reasoning_public": "Gözlemsel çalışmalardan elde edilen bulgular, korelasyonu gösterebilir ancak doğrudan nedenselliği kanıtlayamaz. 'Nedensel' teriminin bu bağlamda sıkça kullanılması, okuyucuyu çalışmanın bulgularının nedensel olduğu konusunda yanlış yönlendirebilir. Bu, bilimsel raporlamada ciddi bir disiplin eksikliğidir ve çalışmanın temel iddialarının geçerliliğini zayıflatır. Makale, 'unobserved confounders' sorununu kabul etse de, bu sorunu tamamen çözdüğüne dair yeterli kanıt sunmadan nedensel dil kullanmaya devam etmektedir.",
+        "limitations": [
+          "Makalenin tam metnine erişim olmadan, 'nedensel' kelimesinin her kullanımının bağlamı tam olarak değerlendirilemeyebilir, ancak mevcut bölümlerdeki kullanım genel bir eğilimi göstermektedir."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0",
+          "quant.f6.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Veri ve Kod Erişilebilirliği Eksikliği",
+        "summary": "Makale, Sutter Health veri setini kullandığını belirtirken, bu veri setinin erişilebilirliği hakkında bilgi vermemektedir. MIMIC III veri setinin halka açık olduğu belirtilse de, kullanılan spesifik kodlar veya analizlerin yeniden üretilebilirliğini sağlayacak kod depoları (repositories) hakkında bilgi eksiktir. Ön kayıt (preregistration) veya protokol uyumu hakkında da bilgi verilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_data.a2",
+            "section": "3.1 DATA",
+            "quote": "The Sutter Health heart failure dataset consists of Electronic Health Records of middle-aged adults collected by Sutter Health for a heart failure study."
+          },
+          {
+            "anchor_id": "3_1_data.a3",
+            "section": "3.1 DATA",
+            "quote": "The MIMIC III dataset (Johnson et al., 2016) is a publicly available dataset consisting of medical records of intensive care unit (ICU) patients over 11 years. We use a public query1 to extract the binary mortality labels for the patients."
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmaların yeniden üretilebilirliği, bulguların güvenilirliği ve şeffaflığı için temel bir gerekliliktir. Veri ve kod erişilebilirliğinin olmaması, diğer araştırmacıların çalışmayı doğrulamasına, genişletmesine veya eleştirmesine engel olur. Bu durum, çalışmanın bilimsel değerini ve etkisini sınırlar.",
+        "limitations": [
+          "Makalede veri ve kod erişilebilirliği veya ön kayıt hakkında herhangi bir bilgi bulunmadığından, bu konuda daha fazla detay verilememektedir."
+        ],
+        "action_item_ids": [
+          "quant.f7.a0",
+          "quant.f7.a1",
+          "quant.f7.a2"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net Tanımlanmış Özgün Katkılar",
+        "summary": "Makale, nedensel çıkarım ve derin öğrenme alanlarına dört ana katkı sunmaktadır. Bu katkılar, nedensel düzenlileştiricinin tasarımı, uygulanması ve çok değişkenli nedensel hipotez üretimi gibi spesifik alanlarda yenilikçi yaklaşımlar içermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "Our contributions are four-fold:\n1. We propose a customized causality detector neural network that can accurately discriminate causal and non-causal variables in our healthcare datasets. To this end, we propose new synthetic dataset generation to train the causal structure detectors in (Chalupka et al., 2016; Lopez-Paz et al., 2016) with additional prior knowledge from the healthcare domain.\n2. We use the causality detector to construct a causal regularizer that can guide predictive models towards learning causal relationships between the independent and target variables.\n3. Given the fact that the causal regularizer seamlessly integrates with non-linear predictive models such as neural networks, we propose a new non-linear predictive model regularized by our causal regularizer, which allows neural causally predictive modeling.\n4. Finally, we demonstrate that the proposed causal regularizer can be combined with neural representation learning techniques to efﬁciently generate multivariate causal hypotheses."
+          }
+        ],
+        "reasoning_public": "Yazarlar, makalenin giriş bölümünde dört ana katkıyı açıkça listelemişlerdir. Bu, okuyucunun çalışmanın özgün yönlerini ve alana getirdiği yenilikleri kolayca anlamasını sağlar. Özellikle, nedensel düzenlileştiricinin doğrusal olmayan modellerle entegrasyonu ve çok değişkenli nedensel hipotez üretimi için kullanımı, mevcut literatürdeki boşlukları doldurmaya yönelik önemli adımlar olarak sunulmuştur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Mevcut Çalışmalardan Farkın Vurgulanması",
+        "summary": "Makale, önerilen nedensel düzenlileştiricinin daha önceki çalışmalarda (Lopez-Paz, 2016; Lopez-Paz et al., 2016) sadece bir olasılık olarak bahsedildiğini ancak spesifik olarak geliştirilip değerlendirilmediğini belirterek kendi özgünlüğünü vurgulamaktadır. Ayrıca, çok değişkenli modelleri düzenleyemeyen 'nedensel-nedensel olmayan' sınıflandırıcıların aksine, kendi yaklaşımlarının çok değişkenli nedensel değişken seçimi ve tahmini bir arada yapabildiğini belirtir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "methodology.a1",
+            "section": "METHODOLOGY",
+            "quote": "Note that the possibility of having a causal regularizer has been proposed in (Lopez-Paz, 2016, Page 181) and (Lopez-Paz et al., 2016), however a speciﬁc causal regularizer has never been developed and evaluated. Furthermore, note that using the score of a “causal-anticausal”-only classiﬁer, as e.g. in (Lopez-Paz et al., 2016), cannot properly regularize a multivariate model such as logistic regression. In our proposal, the rest of the observed independent variables can be considered as hidden variables in our bivariate causality analysis which allows proper regularization. Moreover, a major novelty of our proposed causal regularizer is to do joint causal variable selection (the L1 regularization) and prediction, but the idea in (Lopez-Paz et al., 2016) cannot."
+          }
+        ],
+        "reasoning_public": "Yazarlar, kendi çalışmalarının önceki literatürdeki boşlukları nasıl doldurduğunu açıkça belirtmişlerdir. Özellikle, Lopez-Paz ve arkadaşlarının çalışmalarında nedensel düzenlileştirici fikrinin ortaya atılmasına rağmen, bu makalenin ilk kez somut bir düzenlileştirici geliştirip değerlendirdiğini vurgulamaları, çalışmanın özgünlüğünü güçlendirmektedir. Çok değişkenli modellerle entegrasyon yeteneği de önemli bir fark olarak sunulmuştur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve İyi Tanımlanmış Araştırma Sorusu",
+        "summary": "Makale, nedensel yorumlanabilirliği yüksek tahmin modelleri geliştirme ihtiyacını açıkça belirtmekte ve bu ihtiyaca yönelik yeni bir nedensel düzenleyici önermektedir. Çalışmanın tasarımı ve kapsamı, bu araştırma sorusunu ele almak için uygun görünmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "In pursuit of models whose predictive power comes maximally from causal variables, we propose a novel causal regularizer based on the independence of mechanisms assumption."
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "In this work, we propose a neural causal regularizer that balances causal interpretability and high predictive power."
+          }
+        ],
+        "reasoning_public": "Makale, sağlık hizmetleri gibi alanlarda sadece tahmin gücü yüksek değil, aynı zamanda nedensel ilişkileri de ortaya koyan modellere olan talebi vurgulayarak araştırma sorusunu net bir şekilde ortaya koymaktadır. Önerilen nedensel düzenleyici, bu ihtiyaca doğrudan yanıt vermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f1",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Cevaplanabilir Araştırma Sorusu ve Somut Katkılar",
+        "summary": "Makale, önerilen nedensel düzenleyicinin nasıl çalıştığını ve hangi katkıları sağladığını dört ana madde halinde açıkça belirtmektedir. Bu maddeler, araştırma sorusunun somut ve ölçülebilir hedeflere dönüştürüldüğünü göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "Our contributions are four-fold:\n1. We propose a customized causality detector neural network that can accurately discriminate causal and non-causal variables in our healthcare datasets.\n2. We use the causality detector to construct a causal regularizer that can guide predictive models towards learning causal relationships between the independent and target variables.\n3. Given the fact that the causal regularizer seamlessly integrates with non-linear predictive models such as neural networks, we propose a new non-linear predictive model regularized by our causal regularizer, which allows neural causally predictive modeling.\n4. Finally, we demonstrate that the proposed causal regularizer can be combined with neural representation learning techniques to efﬁciently generate multivariate causal hypotheses."
+          }
+        ],
+        "reasoning_public": "Makalenin 'Our contributions are four-fold' bölümünde sunulan maddeler, araştırma sorusunun nasıl ele alınacağını ve hangi somut sonuçların beklendiğini detaylandırmaktadır. Bu, sorunun cevaplanabilirliğini ve çalışmanın hedeflerinin netliğini artırmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik Çerçevenin Tutarlı Kullanımı",
+        "summary": "Makale, nedensellik kavramını Pearl'ün karşıolgusal çerçevesi ve Mekanizmaların Bağımsızlığı Varsayımı (ICM) üzerine inşa ederek güçlü ve tutarlı bir teorik çerçeve sunmaktadır. Bu çerçeve, önerilen yöntemin temelini oluşturmakta ve makale boyunca yöntem ve bulgularla uyumlu bir şekilde işlenmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a8",
+            "section": "INTRODUCTION",
+            "quote": "Causal Inference: Our notion of causality follows the counterfactual framework of Pearl (2000)."
+          },
+          {
+            "anchor_id": "methodology.a2",
+            "section": "METHODOLOGY",
+            "quote": "In order to “inject causality” into predictive models, we use the “independence of cause and mechanisms” (ICM) assumption, which allows us to construct a neural network causality detector, as described in Section 2.1."
+          },
+          {
+            "anchor_id": "causality_detection_based_on_independence_of_mechanisms.a0",
+            "section": "CAUSALITY DETECTION BASED ON INDEPENDENCE OF MECHANISMS",
+            "quote": "Algorithms based on the ICM, such as (Chalupka et al., 2016; Lopez-Paz et al., 2016) do not put assumptions on the functional form of the causal relationships between the variables of interest. Instead, they are based on the following assumption on how causal mechanisms come to be. ICM states that the two processes of generation of the cause and mapping from cause to effect are in some sense independent."
+          }
+        ],
+        "reasoning_public": "Makale, nedensel çıkarım alanındaki temel varsayımlardan biri olan Mekanizmaların Bağımsızlığı Varsayımı'nı (ICM) açıkça belirtmekte ve bu varsayımın kendi nedensellik dedektörlerini nasıl bilgilendirdiğini detaylandırmaktadır. Bu, teorik çerçevenin sadece bir giriş unsuru olmaktan öte, metodolojinin ayrılmaz bir parçası olduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Referansların Doğrulanabilirliğinde Eksiklik",
+        "summary": "Makalede atıfta bulunulan 21 referansın tamamı otomatik indeksleme sistemleri tarafından bulunamamıştır. Bu durum, makalenin dayandığı literatürün doğrulanabilirliğini ve erişilebilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik bir çalışmanın temel gerekliliklerinden biri, atıfta bulunulan kaynakların kolayca doğrulanabilir ve erişilebilir olmasıdır. Tüm referansların indeksleme sistemlerinde bulunamaması, okuyucuların makalenin argümanlarını ve metodolojisini destekleyen önceki çalışmaları incelemesini zorlaştırmaktadır. Bu durum, makalenin literatürdeki konumunu ve güvenilirliğini sorgulatabilir.",
+        "limitations": [
+          "Sağlanan kanıt paketi, referansların bulunamamasının OpenAlex servis hatasından kaynaklandığını belirtmektedir. Bu durum, referansların gerçekten var olmadığı anlamına gelmemektedir, ancak mevcut haliyle doğrulanabilirlik sorununa işaret etmektedir."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0",
+          "literature_positioning.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Literatürle Etkileşim ve Konumlandırma",
+        "summary": "Makale, nedensel çıkarım ve makine öğrenimi alanlarındaki temel tartışmaları ve önceki çalışmaları başarılı bir şekilde ele alarak kendi yaklaşımını bu bağlamda konumlandırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a9",
+            "section": "INTRODUCTION",
+            "quote": "The distinction between prediction and causation has at times been subject to controversy in statistics and machine learning (Breiman et al., 2001; Shmueli, 2010; Donoho, 2015). On one hand, machine learning has been focusing almost exclusively on pure prediction tasks, enjoying great commercial success. On the other hand, in many scientiﬁc domains pure prediction without consideration of the underlying causal mechanisms is considered unscientiﬁc (Shmueli, 2010). In this work, we propose a neural causal regularizer that balances causal interpretability and high predictive power."
+          },
+          {
+            "anchor_id": "introduction.a10",
+            "section": "INTRODUCTION",
+            "quote": "Causal Inference: Our notion of causality follows the counterfactual framework of Pearl (2000). Thus, we will say that one random variable X causes another variable Y (which relationship we denote as X →Y ) if intervening or experimenting on X changes the distribution of Y ."
+          },
+          {
+            "anchor_id": "methodology.a3",
+            "section": "METHODOLOGY",
+            "quote": "In order to “inject causality” into predictive models, we use the “independence of cause and mechanisms” (ICM) assumption, which allows us to construct a neural network causality detector, as described in Section 2.1."
+          }
+        ],
+        "reasoning_public": "Yazarlar, 'prediction vs. causation' tartışması gibi alanın temel konularına değinerek çalışmalarının önemini vurgulamışlardır. Pearl'ün karşıolgusal çerçevesine atıfta bulunarak nedensellik anlayışlarını net bir şekilde belirtmiş ve 'mekanizmaların bağımsızlığı' varsayımı gibi spesifik yaklaşımları temel alarak kendi metodolojilerini geliştirmişlerdir. Bu, makalenin literatürdeki yerini sağlam bir şekilde belirlemesine yardımcı olmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genelleyici İddiaların Sınırlı Kanıtla Desteklenmesi",
+        "summary": "Makale, önerilen nedensel düzenleyicinin 'nedensel olarak yorumlanabilir çözümlere' yol açtığını ve 'nedensel alaka düzeyinde' L1 düzenleyiciden daha iyi performans gösterdiğini iddia etmektedir. Ancak, bu iddiaları desteklemek için sunulan 'nedensellik puanı'nın nasıl hesaplandığına dair detaylar yetersizdir ve bu puanın gerçekten nedensel yorumlanabilirliği veya alaka düzeyini ne ölçüde yansıttığı açık değildir. Özellikle, 'uzman yargısı'nın nedensel zemin doğruluk olarak kullanıldığı belirtilse de, bu yargının kapsamı, metodolojisi ve güvenilirliği hakkında yeterli bilgi verilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "Our causally-regularized algorithm outperforms its L1-regularized counterpart both in predictive performance as well as causal relevance."
+          },
+          {
+            "anchor_id": "introduction.a11",
+            "section": "INTRODUCTION",
+            "quote": "To validate our claims, we use expert judgment as the causal ground-truth to compare our causal-predictive solutions with purely predictive solutions that do not take causality into account."
+          },
+          {
+            "anchor_id": "figure_1.a1",
+            "section": "Figure 1",
+            "quote": "(a) Average causality score computed using ground truth causality labels."
+          }
+        ],
+        "reasoning_public": "Makalenin temel katkısı, nedensel düzenleyicinin hem tahmin performansını korurken hem de nedensel yorumlanabilirliği artırdığı iddiasıdır. Ancak, 'nedensel yorumlanabilirlik' ve 'nedensel alaka düzeyi' gibi merkezi kavramların operasyonel tanımı ve ölçümüne dair şeffaflık eksikliği, bu iddiaların gücünü zayıflatmaktadır. Özellikle, 'uzman yargısı'na dayalı 'nedensel zemin doğruluk' kullanımı, bu yargının nasıl elde edildiği ve ne kadar güvenilir olduğu açıklanmadığı sürece, sonuçların genellenebilirliği ve doğruluğu konusunda şüphe uyandırır. Bu durum, makalenin ana iddialarının kanıtlarla tam olarak desteklenmediği anlamına gelir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Sentetik Veri Üretiminin Gerçek Dünya Verileriyle İlişkisi Üzerine Yetersiz Açıklama",
+        "summary": "Makale, nedensellik dedektörünü eğitmek için sentetik veri setleri kullandığını belirtmektedir. Bu sentetik verilerin, gerçek dünya verilerinin istatistiklerine 'mümkün olduğunca benzer' olması gerektiği ifade edilse de, bu benzerliğin nasıl sağlandığına ve sentetik veriler üzerinde eğitilen dedektörün gerçek dünya verilerindeki nedensel ilişkileri ne kadar doğru bir şekilde tespit edebildiğine dair kanıtlar sınırlıdır. Özellikle, 'minimum kısıtlama' ve 'benzer istatistikler' gibi ifadeler yeterince somutlaştırılmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "methodology.a4",
+            "section": "METHODOLOGY",
+            "quote": "The key idea is to generate a synthetic dataset composed of the cases in Figure 2 based on the ICM assumption. As shown in Algorithm 1, the overall procedure is to generate samples from distributions pX,Y that are one of the ten possible cases in Figure 2. We need to select the distributions such that they impose minimum number of restriction on the data and the synthetically-generated distributions have statistics as similar as possible to those of our true data of interest."
+          }
+        ],
+        "reasoning_public": "Sentetik veri kullanımı, nedensellik dedektörünün eğitiminde önemli bir rol oynamaktadır. Ancak, sentetik verilerin gerçek dünya verileriyle ne kadar uyumlu olduğu ve bu uyumun dedektörün performansını nasıl etkilediği net bir şekilde açıklanmamıştır. Bu durum, sentetik veriler üzerinde elde edilen sonuçların gerçek dünya uygulamalarına genellenebilirliği konusunda bir belirsizlik yaratmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Tahmin Performansında L1 Düzenleyiciye Karşı Sağlam Kanıt",
+        "summary": "Makale, nedensel düzenleyicinin tahmin performansında L1 düzenleyiciye kıyasla önemli bir düşüşe neden olmadığını ve hatta bazı durumlarda daha istikrarlı olduğunu göstermektedir. Tablo 1 ve Şekil 4'teki AUC ve F1 puanları, bu iddiayı destekleyen açık ve nicel kanıtlar sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a2",
+            "section": "Table 1",
+            "quote": "Causal Logistic: 0.8289 ± 0.0064 (AUC Sutter), 0.4147 ± 0.0192 (F1 Sutter), 0.9772 ± 0.0022 (AUC MIMIC III), 0.7871 ± 0.0097 (F1 MIMIC III)\nL1 Logistic: 0.8289 ± 0.0054 (AUC Sutter), 0.4109 ± 0.0150 (F1 Sutter), 0.9774 ± 0.0022 (AUC MIMIC III), 0.7869 ± 0.0095 (F1 MIMIC III)"
+          },
+          {
+            "anchor_id": "figure_4.a0",
+            "section": "Figure 4",
+            "quote": "Comparison of variable selection in logistic regression via the causal and L1 regularizers on two datsets and two accuracy measures. Note the stability of variable selection by the causal regularizer as the penalization coefﬁcient varies."
+          }
+        ],
+        "reasoning_public": "Makalenin iddialarından biri, nedensel düzenleyicinin tahmin performansını koruduğudur. Sunulan deneysel sonuçlar (Tablo 1 ve Şekil 4), bu iddiayı güçlü bir şekilde desteklemektedir. Bu, nedensel yorumlanabilirliği artırırken tahmin gücünden ödün verilmediğini gösteren önemli bir bulgudur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Referansların Dizinlerde Bulunamaması",
+        "summary": "Makaledeki tüm referansların otomatik dizinlerde (OpenAlex) bulunamaması, makalenin doğrulanabilirliğini ve erişilebilirliğini olumsuz etkilemektedir. Bu durum, okuyucuların atıf yapılan kaynaklara kolayca ulaşmasını ve yazarın iddialarını bağımsız olarak kontrol etmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayıncılıkta, atıfların kolayca erişilebilir ve doğrulanabilir olması esastır. Referansların otomatik dizinlerde bulunamaması, makalenin şeffaflığını azaltır ve okuyucuların belirtilen kaynakları incelemesini engeller. Bu durum, özellikle makalenin temel argümanlarını destekleyen literatürün incelenmesi gerektiğinde bir engel teşkil eder.",
+        "limitations": [
+          "OpenAlex servis hatası nedeniyle referansların bulunamaması, referansların gerçekten var olmadığı anlamına gelmemektedir. Bu bulgu, yalnızca otomatik dizinlerdeki mevcut durumun bir yansımasıdır ve referansların içeriğinin doğruluğu hakkında doğrudan bir yorum içermemektedir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Veri Seti Seçimi ve Kontrol Kriterlerinin Eksik Raporlanması",
+        "summary": "Makale, Sutter Health veri setindeki vaka/kontrol seçimi kriterlerinin ek bölümde tam olarak açıklandığını belirtse de, bu ek bölüm ana metinde sunulmamıştır. Bu durum, çalışmanın tekrarlanabilirliğini ve bulguların genellenebilirliğini değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_data.a4",
+            "section": "3.1 DATA",
+            "quote": "To this end, 3,884 cases are selected and approximately 10 controls are selected for each case (28,903 controls). The case/control selection criteria are fully described in the supplementary section."
+          }
+        ],
+        "reasoning_public": "Çalışmanın temelini oluşturan veri setlerinin nasıl oluşturulduğu ve vaka/kontrol gruplarının hangi kriterlere göre seçildiği, metodolojinin şeffaflığı ve tekrarlanabilirliği açısından kritik öneme sahiptir. Bu bilgilerin eksikliği, okuyucuların çalışmanın geçerliliğini tam olarak değerlendirmesini engeller.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Sentetik Veri Seti Oluşturma Detaylarının Eksikliği",
+        "summary": "Causality detector'ı eğitmek için kullanılan sentetik veri setinin oluşturulma süreci ve parametreleri hakkında detaylar 'Appendix A'ya atıfta bulunulsa da, bu ek bölüm ana metinde mevcut değildir. Bu durum, sentetik veri setinin kalitesini ve dolayısıyla causality detector'ın güvenilirliğini değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_1_causality_detection_based_on_independence_of_mechanisms.a0",
+            "section": "2.1 CAUSALITY DETECTION BASED ON INDEPENDENCE OF MECHANISMS",
+            "quote": "Details of our sampling procedure are provided in Appendix A."
+          },
+          {
+            "anchor_id": "3_experiments.a0",
+            "section": "3 EXPERIMENTS",
+            "quote": "We defer evaluation of the causality detection algorithms to Appendix A, as they are not the main contributions of this work."
+          }
+        ],
+        "reasoning_public": "Sentetik veri setlerinin oluşturulma yöntemleri, özellikle bir modelin eğitiminde kullanıldığında, modelin performansını ve genellenebilirliğini doğrudan etkiler. Bu detayların eksikliği, çalışmanın metodolojik sağlamlığını sorgulatır ve sonuçların doğrulanabilirliğini azaltır.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f2",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Neural Ağ Eğitim Detaylarının Eksik Raporlanması",
+        "summary": "Makale, neural ağ modelinin eğitim detaylarının 'Appendix B.2'de verildiğini belirtse de, bu ek bölüm ana metinde mevcut değildir. Bu durum, modelin eğitim sürecinin şeffaflığını ve tekrarlanabilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_data.a5",
+            "section": "3.1 DATA",
+            "quote": "Details of training the latter neural network are given in Appendix B.2."
+          }
+        ],
+        "reasoning_public": "Derin öğrenme modellerinin eğitim detayları (hiperparametreler, optimizasyon algoritmaları, mimari detayları vb.), sonuçların doğrulanabilirliği ve çalışmanın tekrarlanabilirliği için hayati öneme sahiptir. Bu bilgilerin eksikliği, okuyucuların modelin nasıl eğitildiğini ve sonuçların neden bu şekilde çıktığını anlamasını engeller.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f3",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Şekil ve Tabloların Açıklayıcı Başlıkları",
+        "summary": "Makaledeki şekil ve tablolar, içeriklerini ve bulgularını net bir şekilde özetleyen açıklayıcı başlıklar içermektedir. Bu durum, okuyucuların görsel materyalleri hızlıca anlamasına yardımcı olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a12",
+            "section": "INTRODUCTION",
+            "quote": "Figure 1: Superior causality and predictive performance of the causal regularizer in our heart failure study. (a) Average causality score computed using ground truth causality labels. We compute the score for top k codes reported by three algorithms. (b and c) The causal regularizer is more stable in predictive performance measured by AUC and F1 metrics. See Section 3 for more details."
+          },
+          {
+            "anchor_id": "3_2_evaluating_the_predictive_preformance_of_causal_regularizer.a0",
+            "section": "3.2 EVALUATING THE PREDICTIVE PREFORMANCE OF CAUSAL REGULARIZER",
+            "quote": "Table 1: Prediction accuracy results on two datasets. (mean±standard deviation)"
+          }
+        ],
+        "reasoning_public": "Açıklayıcı şekil ve tablo başlıkları, bilimsel raporlamanın önemli bir parçasıdır. Okuyucuların ana metni okumadan bile görsel materyallerden önemli bilgileri edinmesini sağlar ve genel anlaşılırlığı artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Veri Paylaşımı ve Tekrar Üretilebilirlik Açıklamalarının Eksikliği",
+        "summary": "Makale, kullanılan veri setlerinin (Sutter Health ve MIMIC III) erişilebilirliği ve tekrar üretilebilirlik için gerekli kodların paylaşımı hakkında yeterli bilgi sunmamaktadır. Özellikle Sutter Health veri seti için erişim koşulları belirsizdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_data.a6",
+            "section": "3.1 DATA",
+            "quote": "The Sutter Health heart failure dataset consists of Electronic Health Records of middle-aged adults collected by Sutter Health for a heart failure study. ... The MIMIC III dataset (Johnson et al., 2016) is a publicly available dataset consisting of medical records of intensive care unit (ICU) patients over 11 years."
+          }
+        ],
+        "reasoning_public": "Akademik araştırmalarda şeffaflık ve tekrar üretilebilirlik esastır. Çalışmanın bulgularının bağımsız araştırmacılar tarafından doğrulanabilmesi için kullanılan veri setlerine erişim ve analiz kodlarının paylaşımı büyük önem taşır. Mevcut durumda, Sutter Health veri setinin özel niteliği ve kod paylaşımına dair bir açıklama olmaması, çalışmanın tekrar üretilebilirliğini kısıtlamaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0",
+          "ethics_reproducibility.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "MIMIC III Veri Seti Kullanımı",
+        "summary": "Makale, halka açık MIMIC III veri setini kullandığını belirtmektedir. Bu, çalışmanın bir kısmının tekrar üretilebilirliğini destekleyen olumlu bir adımdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_data.a7",
+            "section": "3.1 DATA",
+            "quote": "The MIMIC III dataset (Johnson et al., 2016) is a publicly available dataset consisting of medical records of intensive care unit (ICU) patients over 11 years. We use a public query1 to extract the binary mortality labels for the patients."
+          }
+        ],
+        "reasoning_public": "Halka açık veri setlerinin kullanılması, araştırmanın şeffaflığını ve bulguların bağımsız olarak doğrulanabilme potansiyelini artırır. MIMIC III gibi yaygın olarak kullanılan bir veri setinin belirtilmesi, bu açıdan olumlu bir uygulamadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Methodology Bölümünün Alt Başlık Yapısı",
+        "summary": "Methodology bölümü, ana başlık altında alt başlıklar yerine düz metinle devam ediyor, bu da bölümün okunabilirliğini ve yapısal netliğini azaltıyor. Özellikle 'Causality Detection Based on Independence of Mechanisms' ve 'The Causal Regularizer' gibi önemli kısımlar alt başlık olarak belirtilseydi, okuyucunun konuyu takip etmesi kolaylaşırdı.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "methodology.a5",
+            "section": "METHODOLOGY",
+            "quote": "In order to “inject causality” into predictive models, we use the “independence of cause and mech-anisms” (ICM) assumption, which allows us to construct a neural network causality detector, as described in Section 2.1. We present a causal regularizer for linear models in Section 2.2. Using this regularizer, in Section 2.3 we propose non-linear deep neural networks to learn non-linear causal relationships between the independent and target variables. Finally, we show that the causal regularizer can efﬁciently explore the space of multivariate causal hypotheses and extract meaningful candidates for causality analysis."
+          }
+        ],
+        "reasoning_public": "Akademik makalelerde, karmaşık metodolojilerin sunulduğu bölümlerde alt başlıkların kullanılması, okuyucunun farklı kavramlar ve adımlar arasında ayrım yapmasına yardımcı olur. Mevcut yapı, okuyucunun ana fikirleri ve geçişleri hızlıca kavramasını zorlaştırmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Giriş Bölümündeki Akış ve Geçişler",
+        "summary": "Giriş bölümü genel olarak iyi yapılandırılmış olsa da, 'Causal Inference' ve 'Causal Regularization' gibi ana kavramlara geçişler bazen ani olabilmektedir. Bu geçişler arasında daha yumuşak bağlantılar kurulması, okuyucunun argüman akışını daha rahat takip etmesini sağlayabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a13",
+            "section": "INTRODUCTION",
+            "quote": "In this work, we propose a neural causal regularizer that balances causal interpretability and high predictive power.\nCausal Inference: Our notion of causality follows the counterfactual framework of Pearl (2000)."
+          },
+          {
+            "anchor_id": "introduction.a14",
+            "section": "INTRODUCTION",
+            "quote": "These methods, however, are often very sensitive to small changes in the joint distribution.\nCausal Regularization: Our main idea is to design a causal regularizer to control the complexity of the statistical models and at the same time favor causal explanations."
+          }
+        ],
+        "reasoning_public": "Giriş bölümü, okuyucuyu konuya hazırlamalı ve makalenin ana argümanlarına doğru mantıksal bir akış sunmalıdır. Kavramlar arası geçişlerin net olmaması, okuyucunun konuyu bütünsel olarak anlamasını zorlaştırabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Genel Yapı ve Dil Netliği",
+        "summary": "Makalenin genel yapısı, ABSTRACT, INTRODUCTION, METHODOLOGY, CONCLUSION ve REFERENCES gibi standart akademik bölümleri içermektedir. Dil kullanımı net ve anlaşılırdır, karmaşık kavramlar mümkün olduğunca açık bir şekilde ifade edilmiştir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Standart akademik yapı, okuyucuların makalenin içeriğini kolayca bulmasına ve takip etmesine olanak tanır. Net ve anlaşılır bir dil, teknik konuların geniş bir kitle tarafından anlaşılmasını sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Uygun Konferans Kapsamı",
+        "summary": "Makale, sinir ağları ve nedensel çıkarım konularını birleştirerek, makine öğrenimi konferanslarının kapsamına uygun, yenilikçi bir yaklaşım sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "Neural networks provide a powerful framework for learning the association between input and response variables and making accurate predictions and offer promise in using the rapidly growing volume of health care data to surface causal relationships that cannot necessarily be tested in randomized clinical trials. In pursuit of models whose predictive power comes maximally from causal variables, we propose a novel causal regularizer based on the independence of mechanisms assumption."
+          },
+          {
+            "anchor_id": "introduction.a15",
+            "section": "INTRODUCTION",
+            "quote": "In this work, we propose a neural causal regularizer that balances causal interpretability and high predictive power."
+          }
+        ],
+        "reasoning_public": "Makale, derin öğrenme tekniklerini nedensel çıkarım ile birleştirerek sağlık verileri gibi karmaşık alanlarda uygulanabilirliğini göstermektedir. Bu, makine öğrenimi alanındaki güncel araştırma eğilimleriyle uyumludur ve bu tür konferanslarda ilgi çekici bir konu olacaktır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f1",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Pratik Uygulama ve Veri Setleri",
+        "summary": "Makale, önerilen yöntemi elektronik sağlık kayıtları (EHR) gibi gerçek dünya veri setleri üzerinde değerlendirerek, makine öğrenimi alanındaki pratik uygulamalara ve sağlık bilişimi topluluğuna hitap etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "We perform a large-scale analysis of electronic health records."
+          },
+          {
+            "anchor_id": "introduction.a16",
+            "section": "INTRODUCTION",
+            "quote": "We applied the proposed algorithm to two electronic health records (EHR) datasets: Sutter Health’s heart failure study data and the publicly available MIMIC III (Johnson et al., 2016) dataset."
+          }
+        ],
+        "reasoning_public": "Sağlık verileri üzerindeki uygulamalar, makine öğrenimi araştırmalarında giderek daha fazla önem kazanmaktadır. Makalenin Sutter Health ve MIMIC III gibi gerçek dünya EHR veri setlerini kullanması, çalışmanın pratik değerini ve potansiyel etkisini artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, METHODOLOGY, EXPERIMENTS",
+        "instruction": "Makalede 'nedensel alaka düzeyi' ve 'nedensellik puanı'nın nasıl tanımlandığı ve ölçüldüğü hakkında daha fazla detay sağlayın. Özellikle, 'uzman yargısı'nın nasıl toplandığı, hangi kriterlere göre değerlendirildiği ve bu yargının güvenilirliğini artırmak için hangi adımların atıldığı açıklanmalıdır.",
+        "acceptance_check": "Nedensellik puanının hesaplama metodolojisi ve uzman yargısının detayları (örneğin, uzman sayısı, uzmanlık alanları, değerlendirme protokolü) açıkça belirtilmiş olmalı ve bu puanın nedensel yorumlanabilirliği ne ölçüde temsil ettiği tartışılmalıdır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f0.a0",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, INTRODUCTION, CONCLUSION",
+        "instruction": "Makalenin başlığında ve özetinde 'nedensel' (causal) kelimesinin kullanımını gözden geçirin ve gözlemsel verilerin doğasına uygun olarak daha ihtiyatlı bir dil kullanın. Örneğin, 'potansiyel nedensel ilişkiler' veya 'ilişkisel bulgular' gibi ifadeler tercih edilebilir.",
+        "acceptance_check": "Başlık, özet ve sonuç bölümlerindeki nedensel dilin gözlemsel tasarımın kısıtlamalarını yansıtacak şekilde revize edilmesi.",
+        "linked_finding_ids": [
+          "quant.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, INTRODUCTION, METHODOLOGY, CONCLUSION",
+        "instruction": "Makalenin başlığından, özetinden, girişinden ve sonuç bölümlerinden başlayarak 'nedensel' (causal) kelimesinin kullanımını gözden geçirin ve gözlemsel verilerin doğasına uygun olarak daha ihtiyatlı bir dil kullanın. 'İlişkisel', 'tahminsel' veya 'potansiyel nedensel' gibi ifadeler tercih edilebilir.",
+        "acceptance_check": "Makale genelinde nedensel dilin gözlemsel tasarımın kısıtlamalarını yansıtacak şekilde revize edilmesi.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a1",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "CONCLUSION",
+        "instruction": "Çalışmanın sınırlamaları bölümünde, gözlemsel verilerden nedensel çıkarım yapmanın zorluklarını ve bu çalışmanın bulgularının nedensel olarak yorumlanmasındaki kısıtlamaları açıkça belirtin.",
+        "acceptance_check": "Sınırlamalar bölümüne nedensel çıkarım kısıtlamalarının eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların DOI'lerini veya tam ve doğru bibliyografik bilgilerini (yazar, yıl, başlık, yayın yeri, cilt, sayı, sayfa aralığı) kontrol edin ve eksik veya hatalı olanları düzeltin. Özellikle OpenAlex gibi dizinlerde bulunamayan referanslar için alternatif erişim yolları (örneğin, arXiv linkleri, kişisel web sayfaları) sağlamayı düşünün.",
+        "acceptance_check": "Tüm referansların güncel ve doğru bibliyografik bilgilerle güncellendiği ve mümkünse DOI veya kalıcı bağlantılarının eklendiği doğrulanacaktır.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Figure 1'deki 'Ground Truth Causality Score'un ne anlama geldiğini ve nasıl hesaplandığını açıklayan bir bölüm ekleyin. Bu puanın, nedensel yorumlanabilirlik veya alaka düzeyini nicel olarak nasıl yansıttığını detaylandırın.",
+        "acceptance_check": "Figure 1'deki 'Causality Score'un matematiksel tanımı ve uzman yargısıyla ilişkisi net bir şekilde açıklanmış olmalıdır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "METHODOLOGY, EXPERIMENTS",
+        "instruction": "Sentetik veri üretim sürecinde gerçek dünya verilerinin istatistiksel özelliklerinin nasıl modellendiğini ve bu modellemenin dedektörün gerçek dünya performansı üzerindeki etkisini daha detaylı açıklayın. Sentetik ve gerçek veriler arasındaki benzerliği nicel olarak gösteren analizler (örneğin, dağılım karşılaştırmaları) eklenebilir.",
+        "acceptance_check": "Sentetik veri üretiminde kullanılan dağılımların gerçek veri dağılımlarıyla uyumu ve bu uyumun dedektörün performansına etkisi hakkında nicel veya nitel kanıtlar sunulmuş olmalıdır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3.1 DATA",
+        "instruction": "Sutter Health veri setinin erişim koşulları ve potansiyel paylaşım mekanizmaları hakkında daha fazla bilgi eklenmelidir. Eğer veri paylaşılamıyorsa, bunun nedenleri ve alternatif doğrulama yöntemleri açıklanmalıdır.",
+        "acceptance_check": "Sutter Health veri setinin erişim durumu ve paylaşım politikası net bir şekilde belirtilmiş olmalı; eğer paylaşılamıyorsa, bunun gerekçeleri ve bulguların doğrulanabilirliğini artıracak alternatif yaklaşımlar (örn. sentetik veri setleri) sunulmalıdır.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3.1 DATA veya Ekler",
+        "instruction": "Çalışmada kullanılan tüm kodların (veri ön işleme, model eğitimi, analiz ve değerlendirme) bir kod deposu (örn. GitHub) aracılığıyla paylaşılıp paylaşılmayacağı belirtilmeli ve eğer paylaşılacaksa, erişim bilgileri sağlanmalıdır.",
+        "acceptance_check": "Kod paylaşımına dair net bir ifade ve erişim linki (varsa) eklenmiş olmalı veya kodların neden paylaşılamadığına dair makul bir açıklama sunulmalıdır.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Referans listesindeki her bir kaynağın tam ve doğru bibliyografik bilgilerini (yazar, yıl, başlık, yayın yeri, cilt, sayı, sayfa aralığı, DOI/URL) kontrol edin ve güncelleyin. Özellikle 'not_found_in_index' olarak belirtilen referanslar için bu kontrol kritik öneme sahiptir.",
+        "acceptance_check": "Tüm referansların OpenAlex veya benzeri akademik indeksleme sistemlerinde bulunabilir ve doğrulanabilir olması.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f0.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "METHODOLOGY, DISCUSSION",
+        "instruction": "ICM varsayımının ve nedensel düzenleyicinin, gözlemlenmeyen karıştırıcı faktörleri (unobserved confounders) ne ölçüde ele aldığını ve bu varsayımların sağlık verileri bağlamında ne kadar geçerli olduğunu daha detaylı tartışın. Bu varsayımların ihlal edilmesi durumunda bulguların nasıl etkilenebileceğine dair bir hassasiyet analizi ekleyin.",
+        "acceptance_check": "ICM varsayımının sınırlamaları ve karıştırıcı faktörlerin potansiyel etkisi hakkında ek tartışma ve hassasiyet analizi önerisi.",
+        "linked_finding_ids": [
+          "quant.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3.1 DATA",
+        "instruction": "Kullanılan veri setleri için örneklem büyüklüğü gerekçesini (örneğin, güç analizi veya hassasiyet analizi) ekleyin. Bu analizler, belirli bir etki büyüklüğünü tespit etmek için gereken minimum örneklem büyüklüğünü veya mevcut örneklem büyüklüğüyle tespit edilebilecek en küçük etkiyi belirtmelidir.",
+        "acceptance_check": "Örneklem büyüklüğü gerekçesi veya güç analizi sonuçlarının eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "METHODOLOGY, DISCUSSION",
+        "instruction": "Çoklu karşılaştırma riskini ele almak için kullanılan yöntemleri (örneğin, Bonferroni düzeltmesi, Benjamini-Hochberg prosedürü veya diğer uygun yöntemler) açıklayın. Eğer bir yöntem kullanılmadıysa, bunun nedenlerini ve potansiyel etkilerini tartışın.",
+        "acceptance_check": "Çoklu karşılaştırma düzeltme yöntemlerinin açıklanması veya bu konudaki risklerin tartışılması.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Table 1",
+        "instruction": "Table 1'deki AUC ve F1 skorları için güven aralıklarını (örneğin, %95 CI) ekleyin. Bu, okuyucunun tahminlerin hassasiyetini daha iyi anlamasına yardımcı olacaktır.",
+        "acceptance_check": "Table 1'e güven aralıklarının eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RESULTS, DISCUSSION",
+        "instruction": "Özellikle 'causality score' gibi anahtar metrikler için, elde edilen etki büyüklüklerinin pratik önemini tartışın. Örneğin, %20'lik bir iyileşmenin klinik veya teorik açıdan ne anlama geldiğini açıklayın.",
+        "acceptance_check": "Causality score'daki iyileşmenin pratik önemine dair tartışmanın eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "3.1 DATA",
+        "instruction": "Sutter Health veri setinin erişilebilirliği hakkında bilgi sağlayın veya veri paylaşım politikalarını açıklayın. Eğer veri paylaşılamıyorsa, bu durumun nedenlerini belirtin.",
+        "acceptance_check": "Sutter Health veri setinin erişilebilirliği veya paylaşım politikalarının açıklanması.",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "METHODOLOGY, Appendix B",
+        "instruction": "Tüm analizlerin ve modellerin yeniden üretilebilirliğini sağlamak için kullanılan kodları (örneğin, GitHub deposu linki) paylaşın. Bu, özellikle sentetik veri üretimi ve nedensel düzenleyici algoritmaları için önemlidir.",
+        "acceptance_check": "Analiz kodlarının erişilebilir bir depoda paylaşılması.",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3.1 DATA",
+        "instruction": "Sutter Health veri setindeki vaka/kontrol seçimi kriterlerini ana metinde veya kolayca erişilebilir bir ekte detaylı olarak açıklayın. Bu kriterlerin neden bu şekilde belirlendiğine dair gerekçeleri de ekleyin.",
+        "acceptance_check": "Vaka/kontrol seçimi kriterleri, okuyucunun çalışmayı tekrarlayabileceği veya benzer çalışmalar tasarlayabileceği detayda açıklanmış olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "2.1 CAUSALITY DETECTION BASED ON INDEPENDENCE OF MECHANISMS",
+        "instruction": "Sentetik veri setinin oluşturulma prosedürünü, kullanılan dağılımları ve parametreleri 'Appendix A'yı ana metne dahil ederek veya kolayca erişilebilir bir ek olarak sunarak detaylandırın.",
+        "acceptance_check": "Sentetik veri oluşturma süreci, okuyucunun aynı veri setini yeniden üretebileceği veya benzer bir yaklaşımla kendi çalışmalarını tasarlayabileceği detayda açıklanmış olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f1"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f2.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3.1 DATA",
+        "instruction": "Neural ağ modelinin eğitim detaylarını (mimari, hiperparametreler, optimizasyon stratejileri vb.) 'Appendix B.2'yi ana metne dahil ederek veya kolayca erişilebilir bir ek olarak sunarak detaylandırın.",
+        "acceptance_check": "Neural ağ eğitim detayları, okuyucunun aynı modeli yeniden eğitebileceği veya benzer bir yaklaşımla kendi çalışmalarını tasarlayabileceği detayda açıklanmış olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f2"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "METHODOLOGY",
+        "instruction": "Methodology bölümündeki ana konuları (örn. 'Causality Detection Based on Independence of Mechanisms', 'The Causal Regularizer', 'Causal Regularizers in Neural Networks') uygun alt başlıklar olarak biçimlendirin.",
+        "acceptance_check": "Methodology bölümünün ana konuları alt başlıklar halinde düzenlenmiş olmalı ve bu alt başlıklar içindekiler tablosunda görünmelidir.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Eğer bazı referanslar niş yayınlar, konferans bildirileri veya henüz tam olarak indekslenmemiş çalışmalar ise, bu durumun okuyucuya açıklanması ve mümkünse erişim bağlantılarının (örneğin arXiv linkleri) sağlanması faydalı olacaktır.",
+        "acceptance_check": "Erişimi zor olan referanslar için ek bilgi veya bağlantıların sağlanması.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f2.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "METHODOLOGY, Appendix A",
+        "instruction": "Sentetik veri üretiminde kullanılan dağılımların ve parametrelerin, gerçek sağlık verilerinin istatistiksel özelliklerini ne ölçüde yansıttığına dair daha detaylı bir analiz sunun. Sentetik verilerin gerçek verilerle karşılaştırmalı istatistiksel özelliklerini (örneğin, ortalama, varyans, çarpıklık) gösteren ekler veya bir tartışma ekleyin.",
+        "acceptance_check": "Sentetik ve gerçek veri dağılımlarının karşılaştırmalı analizinin eklenmesi veya bu konudaki tartışmanın derinleştirilmesi.",
+        "linked_finding_ids": [
+          "quant.f2"
+        ]
+      },
+      {
+        "action_id": "quant.f4.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "Figure 1, Table 1",
+        "instruction": "Figure 1 ve Table 1'deki yöntem adlarını tutarlı hale getirin. Örneğin, her ikisinde de 'Causal Regularizer' ve 'L1 Regularizer' veya 'Causal Logistic' ve 'L1 Logistic' kullanın.",
+        "acceptance_check": "Figure 1 ve Table 1'deki yöntem adlarının tutarlı hale getirilmesi.",
+        "linked_finding_ids": [
+          "quant.f4"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a2",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "INTRODUCTION, METHODOLOGY",
+        "instruction": "Eğer varsa, çalışmanın ön kayıt (preregistration) veya protokol uyumu hakkında bilgi ekleyin. Bu, çalışmanın şeffaflığını artıracaktır.",
+        "acceptance_check": "Ön kayıt veya protokol uyumu bilgisinin eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümündeki ana kavramlar (örn. 'Causal Inference', 'Causal Regularization') arasındaki geçiş cümlelerini gözden geçirin ve daha akıcı hale getirin. Örneğin, bir önceki paragrafın son cümlesi ile yeni bir kavramın başlangıcı arasında bağlantı kuran ifadeler ekleyin.",
+        "acceptance_check": "Giriş bölümündeki ana kavramlar arasındaki geçişler daha belirgin ve akıcı hale getirilmiş olmalı.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Gözlemsel Verilerle Aşırı Nedensel Dil Kullanımı; Genelleyici İddiaların Sınırlı Kanıtla Desteklenmesi; Gözlemsel Veriden Nedensel Çıkarım Yapma Girişimi; Etki Büyüklüğü ve Güven Aralığı Raporlamasında Eksiklikler",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "quant.f0.a0",
+          "quant.f0.a1",
+          "quant.f5.a0",
+          "quant.f5.a1",
+          "quant.f6.a0",
+          "quant.f6.a1"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Gözlemsel Verilerle Aşırı Nedensel Dil Kullanımı; Genelleyici İddiaların Sınırlı Kanıtla Desteklenmesi; Gözlemsel Veriden Nedensel Çıkarım Yapma Girişimi; Çoklu Karşılaştırma Riskinin Ele Alınmaması",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a10",
+          "introduction.a11",
+          "introduction.a12",
+          "introduction.a13",
+          "introduction.a14",
+          "introduction.a15",
+          "introduction.a16",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8",
+          "introduction.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "quant.f0.a0",
+          "quant.f0.a1",
+          "quant.f3.a0",
+          "quant.f6.a0",
+          "quant.f6.a1",
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "METHODOLOGY",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Sentetik Veri Üretiminin Gerçek Dünya Verileriyle İlişkisi Üzerine Yetersiz Açıklama; Sentetik Veri Üretiminde Ölçüm Geçerliliği Belirsizliği; Methodology Bölümünün Alt Başlık Yapısı",
+        "anchor_ids": [
+          "methodology.a0",
+          "methodology.a1",
+          "methodology.a2",
+          "methodology.a3",
+          "methodology.a4",
+          "methodology.a5"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "quant.f2.a0",
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "2.1 CAUSALITY DETECTION BASED ON INDEPENDENCE OF MECHANISMS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Sentetik Veri Seti Oluşturma Detaylarının Eksikliği",
+        "anchor_ids": [
+          "2_1_causality_detection_based_on_independence_of_mechanisms.a0"
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ]
+      },
+      {
+        "section": "3 EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Sentetik Veri Seti Oluşturma Detaylarının Eksikliği",
+        "anchor_ids": [
+          "3_experiments.a0"
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ]
+      },
+      {
+        "section": "3.1 DATA",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Veri ve Kod Erişilebilirliği Eksikliği; Veri Paylaşımı ve Tekrar Üretilebilirlik Açıklamalarının Eksikliği; Veri Seti Seçimi ve Kontrol Kriterlerinin Eksik Raporlanması; Neural Ağ Eğitim Detaylarının Eksik Raporlanması",
+        "anchor_ids": [
+          "3_1_data.a0",
+          "3_1_data.a1",
+          "3_1_data.a2",
+          "3_1_data.a3",
+          "3_1_data.a4",
+          "3_1_data.a5",
+          "3_1_data.a6",
+          "3_1_data.a7"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0",
+          "ethics_reproducibility.f0.a1",
+          "quant.f1.a0",
+          "quant.f7.a0",
+          "quant.f7.a1",
+          "quant.f7.a2",
+          "reporting_guideline_compliance.f0.a0",
+          "reporting_guideline_compliance.f2.a0"
+        ]
+      },
+      {
+        "section": "3.2 EVALUATING THE PREDICTIVE PREFORMANCE OF CAUSAL REGULARIZER",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_2_evaluating_the_predictive_preformance_of_causal_regularizer.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "CAUSALITY DETECTION BASED ON INDEPENDENCE OF MECHANISMS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "causality_detection_based_on_independence_of_mechanisms.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Figure 1",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleyici İddiaların Sınırlı Kanıtla Desteklenmesi",
+        "anchor_ids": [
+          "figure_1.a0",
+          "figure_1.a1"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "quant.f4.a0"
+        ]
+      },
+      {
+        "section": "Figure 4",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "figure_4.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Table 1",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Güven Aralığı Raporlamasında Eksiklikler",
+        "anchor_ids": [
+          "table_1.a0",
+          "table_1.a1",
+          "table_1.a2"
+        ],
+        "action_item_ids": [
+          "quant.f4.a0",
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ]
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "major_revision"
+}

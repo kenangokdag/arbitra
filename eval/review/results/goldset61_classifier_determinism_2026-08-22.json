@@ -1,0 +1,68 @@
+[
+  {
+    "paper_id": "openreview:w7P92BEsb2",
+    "run1_document_type": "unknown",
+    "run2_document_type": "unknown",
+    "run1_study_design": "computational_modeling",
+    "run2_study_design": "computational_modeling",
+    "same_document_type": true,
+    "same_study_design": true,
+    "run1_verdict": "accept",
+    "run2_verdict": "accept"
+  },
+  {
+    "paper_id": "peerj:20153",
+    "run1_document_type": "journal_article",
+    "run2_document_type": "journal_article",
+    "run1_study_design": "quantitative",
+    "run2_study_design": "quantitative",
+    "same_document_type": true,
+    "same_study_design": true,
+    "run1_verdict": "major_revision",
+    "run2_verdict": "accept"
+  },
+  {
+    "paper_id": "openreview:imT03YXlG2",
+    "run1_document_type": "preprint",
+    "run2_document_type": "preprint",
+    "run1_study_design": "computational_modeling",
+    "run2_study_design": "computational_modeling",
+    "same_document_type": true,
+    "same_study_design": true,
+    "run1_verdict": "accept",
+    "run2_verdict": "accept"
+  },
+  {
+    "paper_id": "openreview:PwxYoMvmvy",
+    "run1_document_type": "journal_article",
+    "run2_document_type": "journal_article",
+    "run1_study_design": "computational_modeling",
+    "run2_study_design": "computational_modeling",
+    "same_document_type": true,
+    "same_study_design": true,
+    "run1_verdict": "accept",
+    "run2_verdict": "accept"
+  },
+  {
+    "paper_id": "openreview:ONfWFluZBI",
+    "run1_document_type": null,
+    "run2_document_type": "preprint",
+    "run1_study_design": null,
+    "run2_study_design": "computational_modeling",
+    "same_document_type": false,
+    "same_study_design": false,
+    "run1_verdict": null,
+    "run2_verdict": "accept"
+  },
+  {
+    "paper_id": "openreview:odjMSBSWRt",
+    "run1_document_type": null,
+    "run2_document_type": "preprint",
+    "run1_study_design": null,
+    "run2_study_design": "quantitative",
+    "same_document_type": false,
+    "same_study_design": false,
+    "run1_verdict": null,
+    "run2_verdict": "accept"
+  }
+]

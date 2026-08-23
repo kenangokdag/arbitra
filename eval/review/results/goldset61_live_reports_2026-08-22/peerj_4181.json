@@ -1,0 +1,2813 @@
+{
+  "paper_id": "peerj:4181",
+  "run_tag": "main",
+  "job_id": "406981f0-522e-4538-8df5-16d3472f2b77",
+  "elapsed_s": 476.7,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "Submitted 14 September 2017 Accepted 1 December 2017 Published 19 December 2017 Corresponding author",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RESULTS",
+        "DISCUSSION",
+        "CONCLUSIONS",
+        "REFERENCES"
+      ],
+      "word_count": 6885,
+      "reference_count": 56,
+      "parse_confidence": 0.713,
+      "parse_warnings": []
+    },
+    "summary": "This study investigates the mediating role of negative thoughts in the relationship between life stress (both general and sport-specific) and burnout among college student-athletes. Grounded in Smith's (1986) cognitive-affective model, the authors surveyed 300 athletes and used hierarchical regression to test their hypotheses. The results indicate that four types of negative thoughts (Personal Maladjustment and Desire for Change, Negative Self-Concept, Giving Up/Helplessness, and Negative Expectations) partially mediate the relationship between both types of life stress and athlete burnout. The paper makes a valuable contribution by empirically testing a key cognitive component within a widely-used theoretical framework for burnout.",
+    "strengths": [
+      {
+        "category": "Theoretical Contribution",
+        "points": [
+          "The study is well-grounded in theory, using Smith's (1986) cognitive-affective model as a clear framework and extending it by operationalizing and testing the 'cognitive appraisal' stage through the construct of negative thoughts.",
+          "By examining negative thoughts as a mediator, the paper moves beyond simple correlational links and provides a more nuanced understanding of the psychological mechanisms that may connect stress to burnout."
+        ]
+      },
+      {
+        "category": "Methodological Rigor",
+        "points": [
+          "The use of established and validated questionnaires (CSALSS, ATQ, ABQ) for measuring the core constructs enhances the reliability of the findings.",
+          "The sample size (N=300) is adequate for the conducted statistical analyses (correlation and hierarchical regression), providing sufficient power to detect the reported effects."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The manuscript is well-structured, clearly written, and the hypotheses and analyses are presented in a logical, easy-to-follow manner."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Citation and Referencing Integrity",
+        "points": [
+          "A substantial portion of the bibliography has citation issues. According to the evidence pack, 17 out of 56 references could not be resolved by automated checks. This high error rate hinders the verifiability of the cited evidence and requires a complete review and correction of the reference list."
+        ]
+      },
+      {
+        "category": "Statistical Interpretation",
+        "points": [
+          "The analysis does not address the issue of severe multicollinearity among the mediating variables. Reviewers noted that the correlation matrix shows extremely high correlations between the four ATQ subscales (e.g., r = .96, .95, .92), suggesting they may not be empirically distinct constructs. This makes it difficult to interpret the unique mediating role of each subscale, as they largely measure the same underlying variance."
+        ]
+      },
+      {
+        "category": "Study Design and Causal Claims",
+        "points": [
+          "The cross-sectional design is a significant limitation. It is impossible to establish the temporal precedence required for a true mediation model (i.e., stress precedes negative thoughts, which in turn precede burnout). The claims about mediation should be framed more cautiously throughout the manuscript to reflect the correlational nature of the data."
+        ]
+      },
+      {
+        "category": "Methodological Approach",
+        "points": [
+          "The discussion of mediation analysis could be updated. While the Baron & Kenny (1986) method is foundational, the field has largely moved towards more robust techniques like bootstrapping to directly test the significance of the indirect effect, which are less prone to power issues."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The reference list requires significant, mandatory attention. A large number of citations (17 of 56) could not be located using standard academic databases, which may be due to formatting errors, incorrect DOIs, or citation of non-indexed sources. For example, references [2], [6], [8], [20], [22], and many others were flagged. Please conduct a thorough review of the entire bibliography to ensure every entry is accurate, complete, and points to the correct source. This is crucial for the paper's scholarly integrity.",
+        "evidence_ref": "Citation Integrity Summary: 17 of 56 references not found."
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The primary statistical concern is the high multicollinearity among the four 'negative thoughts' subscales, which are treated as separate mediators. With correlations reportedly exceeding .90, these subscales appear to be measuring a single, broader construct of negative cognition rather than distinct facets. Presenting four separate mediation models may create an illusion of four different pathways, when in fact they are statistically redundant. The discussion must explicitly address this limitation and consider the possibility that a single, higher-order factor of negative thoughts is the actual mediator.",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "The paper's claims about mediation must be tempered due to the cross-sectional data. While you appropriately mention this in the limitations, the main body of the text must more consistently use cautious language (e.g., 'is consistent with a mediating role' rather than 'mediated'). It would also strengthen the paper to elaborate in the main discussion why your proposed model (Stress -> Thoughts -> Burnout) is more theoretically plausible than alternatives (e.g., Burnout -> Thoughts), citing Smith's (1986) model as the justification.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The practical implications could be more developed. Given the finding that negative thoughts are a key pathway, what specific, evidence-based interventions could be derived from this? For example, you could connect your findings more directly to Cognitive Behavioral Therapy (CBT) techniques, attribution retraining, or mindfulness-based interventions that are designed to target precisely these types of automatic negative thoughts.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Given the very high intercorrelations reported between the ATQ subscales, what is the theoretical and empirical justification for treating them as distinct mediators? Would an analysis using a single composite score for 'negative thoughts' provide a more parsimonious and robust test of your core hypothesis?",
+      "Could you elaborate on the decision to use the Baron & Kenny method with Sobel tests, as opposed to more modern bootstrapping methods (e.g., using the PROCESS macro for SPSS) which are now considered the standard for testing indirect effects and offer greater statistical power?",
+      "The gender difference found for 'personal maladjustment' and 'giving up/helplessness' is an interesting preliminary finding. Although you control for gender in the subsequent analyses, does the literature suggest why this difference might exist, and could this have implications for gender-specific interventions against burnout?"
+    ],
+    "overall_assessment": "This manuscript addresses an important and relevant question in sport psychology: the cognitive mechanisms underlying the stress-burnout relationship. The study is built on a solid theoretical foundation, is clearly written, and employs a straightforward methodology to test its hypotheses. The core finding—that negative thoughts are associated with the stress-burnout link—is a valuable contribution. However, the paper's contribution is currently undermined by several significant issues that require major revision. The most pressing concerns are (1) the poor state of the reference list, with a high number of unresolvable citations (17/56); (2) the unaddressed statistical issue of severe multicollinearity among the mediators, which calls the interpretation of the results into question; and (3) the need to consistently temper causal language given the cross-sectional design. If the authors can thoroughly address these points, particularly the statistical and referencing issues, the manuscript has the potential to be a solid publication.",
+    "verdict": "major_revision",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper provides a solid, incremental contribution by empirically testing the mediating role of a specific cognitive construct (negative thoughts) within an established theoretical model of burnout.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.0,
+        "rationale": "Athlete burnout is a topic of high practical and theoretical importance. Understanding the cognitive pathways that contribute to it is crucial for developing effective interventions."
+      },
+      {
+        "key": "claims_supported",
+        "score": 1.0,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 7 finding(s); worst severity critical. [LLM'in kendi gerekçesi: The statistical results support the claims as stated, but the strength of the mediation claim is weakened by the cross-sectional design and the severe multicollinearity between the mediators, which makes the 'distinct' pathways less convincing.]"
+      },
+      {
+        "key": "soundness",
+        "score": 7.75,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity major. [LLM'in kendi gerekçesi: The overall design is standard for the field. However, the use of a dated mediation analysis and, more importantly, the failure to address the clear multicollinearity problem are significant methodological weaknesses.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.02,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The manuscript is well-structured, clearly written, and the hypotheses and analyses are presented in a logical, easy-to-follow manner.]"
+      },
+      {
+        "key": "community_value",
+        "score": 7.5,
+        "rationale": "The findings are of clear interest to researchers and practitioners in sport psychology, offering insights into the cognitive aspects of burnout."
+      },
+      {
+        "key": "contextualization",
+        "score": 5.0,
+        "rationale": "The paper is well-situated within Smith's (1986) model, but the broader engagement with the literature is weakened by the significant number of unverified references, which raises concerns about the diligence of the literature review process."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the evidence pack, 17 out of 56 references (~30%) could not be resolved. This is a high error rate and indicates a significant problem in the bibliography that requires major correction. No fabricated or retracted citations were found.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 7.39,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: I cannot confirm if seminal works were missed. The evidence pack provided a list of suggested papers with topics entirely irrelevant to sport psychology, indicating a tool error. This score reflects this uncertainty, combined with the general weakness in literature engagement suggested by the poor citation integrity.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 5.68,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not report any statistical calculation errors. The score is not higher because of the unaddressed issue of multicollinearity, which is a critical statistical problem that affects the validity of the regression model interpretations, a point covered under 'soundness'.]"
+      }
+    ],
+    "final_score": 6.82,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 56,
+        "resolved": 39,
+        "not_found_in_index": 17,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Allen MS. 2012. A systematic review of content themes in sport attribution research: 1952–2011. International Journal of Sport and Exercise Psychology 10(1):1–8 DOI 10.1080/1612197X.2012.645130.",
+          "title": null,
+          "authors": [
+            "Allen MS"
+          ],
+          "year": 2012,
+          "doi": "10.1080/1612197X.2012.645130",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W1992637499",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W1992637499; 'A systematic review of content themes in sport attribution research: 1954–2011').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Arnold R, Fletcher D, Daniels K. 2013. Development and validation of the Organiza- tional Stressor Indicator for Sport Performers (OSI-SP). Journal of Sport and Exercise Psychology 35(2):180–196.",
+          "title": "Development and validation of the Organiza- tional Stressor Indicator for Sport Performers (OSI-SP)",
+          "authors": [
+            "Arnold R, Fletcher D, Daniels K. 2013"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Arpin-Cribbie CA, Cribbie RA. 2007. Psychological correlates of fatigue: examining depression, perfectionism, and automatic negative thoughts. Personality and Individual Differences 43:1310–1320 DOI 10.1016/j.paid.2007.03.020. Arvinen-Barrow M, Clement D, Hamson-Utley JJ, Kamphoff C, Zakrajsek R, Lee",
+          "title": null,
+          "authors": [
+            "Arpin-Cribbie CA, Cribbie RA"
+          ],
+          "year": 2007,
+          "doi": "10.1016/j.paid.2007.03.020",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2061732585",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2061732585; 'Psychological correlates of fatigue: Examining depression, perfectionism, and automatic negative thoughts').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "S, Hemmings B, Lintunen T, Martin SB. 2016. Athletes’ expectations about sport-injury rehabilitation: a cross-cultural study. Journal of Sport Rehabilitation 25(4):338–347 DOI 10.1123/jsr.2015-0018.",
+          "title": null,
+          "authors": [
+            "S, Hemmings B, Lintunen T, Martin SB"
+          ],
+          "year": 2016,
+          "doi": "10.1123/jsr.2015-0018",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W1447693235",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W1447693235; 'Athletes’ Expectations About Sport-Injury Rehabilitation: A Cross-Cultural Study').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Bacharach SB, Bamberger P, Conley S. 1991. Work-home conflict among nurses and engineers: mediating the impact of role stress on burnout and satisfaction at work. Journal of Organizational Behavior 12:39–53 DOI 10.1002/job.4030120104.",
+          "title": "Work-home conflict among nurses and engineers: mediating the impact of role stress on burnout and satisfaction at work",
+          "authors": [
+            "Bacharach SB, Bamberger P, Conley S. 1991"
+          ],
+          "year": 1991,
+          "doi": "10.1002/job.4030120104",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2111046833",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2111046833; 'Work‐home conflict among nurses and engineers: Mediating the impact of role stress on burnout and satisfaction at work').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Bandura A. 1997. Self-efficacy: the exercise of control. New York: W. H. Freeman.",
+          "title": "Self-efficacy: the exercise of control",
+          "authors": [
+            "Bandura A. 1997"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Barron RM, Kenny DA. 1986. The moderator-mediator variable distinction in social psychological research: conceptual, strategic, and statistical considerations. Journal of Personality and Social Psychology 51:1173–1182 DOI 10.1037/0022-3514.51.6.1173.",
+          "title": null,
+          "authors": [
+            "Barron RM, Kenny DA"
+          ],
+          "year": 1986,
+          "doi": "10.1037/0022-3514.51.6.1173",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W4292811746",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W4292811746; 'The moderator–mediator variable distinction in social psychological research: Conceptual, strategic, and statistical considerations.').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Beck TA. 1976. Cognitive therapy and emotional disorder. New York: International Universities Press. 13/17",
+          "title": null,
+          "authors": [
+            "Beck TA"
+          ],
+          "year": 1976,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Ben-Ari R, Krole R, Har-Even D. 2003. Differential effects of simple frontal versus complex teaching strategy on teachers’ stress, burnout, and satisfaction. International Journal of Stress Management 10(2):173–195 DOI 10.1037/1072-5245.10.2.173.",
+          "title": "Differential effects of simple frontal versus complex teaching strategy on teachers’ stress, burnout, and satisfaction",
+          "authors": [
+            "Ben-Ari R, Krole R, Har-Even D. 2003"
+          ],
+          "year": 2003,
+          "doi": "10.1037/1072-5245.10.2.173",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2020096341",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2020096341; 'Differential Effects of Simple Frontal Versus Complex Teaching Strategy on Teachers' Stress, Burnout, and Satisfaction.').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Blank C, Schobersberger W, Leichtfried V, Duschek S. 2016. Health psychological constructs as predictors of doping susceptibility in adolescent athletes. Asian Journal of Sports Medicine 7(4):1–9 DOI 10.5812/asjsm.35024.",
+          "title": "Health psychological constructs as predictors of doping susceptibility in adolescent athletes",
+          "authors": [
+            "Blank C, Schobersberger W, Leichtfried V, Duschek S. 2016"
+          ],
+          "year": 2016,
+          "doi": "10.5812/asjsm.35024",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2534980586",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2534980586; 'Health Psychological Constructs as Predictors of Doping Susceptibility in Adolescent Athletes').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Brewer WB. 1999. Causal attribution dimensions and adjustment of sort injury. Journal of Personality and Interpersonal Loss 4:215–224 DOI 10.1080/10811449908409730.",
+          "title": null,
+          "authors": [
+            "Brewer WB"
+          ],
+          "year": 1999,
+          "doi": "10.1080/10811449908409730",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2020278953",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2020278953; 'Causal Attribution Dimensions and Adjustment To Sport Injury').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Bryant FB, Baxter WJ. 1997. The structure of positive and negative automatic cognition. Journal of Cognition and Emotions 3:225–258 DOI 10.1080/026999397379908.",
+          "title": null,
+          "authors": [
+            "Bryant FB, Baxter WJ"
+          ],
+          "year": 1997,
+          "doi": "10.1080/026999397379908",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2050663786",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2050663786; 'The Structure of Positive and Negative Automatic Cognition').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Chan DW. 2003. Hardiness and its role in the stress-burnout relationship among prospective Chinese teachers in Hong Kong. Teaching and Teacher Education 19:381–395 DOI 10.1016/S0742-051X(03)00023-4.",
+          "title": null,
+          "authors": [
+            "Chan DW"
+          ],
+          "year": 2003,
+          "doi": "10.1016/S0742-051X(03)00023-4",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2046057609",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2046057609; 'Hardiness and its role in the stress–burnout relationship among prospective Chinese teachers in Hong Kong').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Chang YK, Ho LA, Lu FJH, Ou CC, Song TF, Gill D. 2014. Self-talk and softball perfor- mances: the role of self-talk nature, motor task characteristics, and self-efficacy in novice softball players. Psychology of Sport and Exercise 15:135–149 DOI 10.1016/j.psychsport.2013.10.004.",
+          "title": "Self-talk and softball perfor- mances: the role of self-talk nature, motor task characteristics, and self-efficacy in novice softball players",
+          "authors": [
+            "Chang YK, Ho LA, Lu FJH, Ou CC, Song TF, Gill D. 2014"
+          ],
+          "year": 2014,
+          "doi": "10.1016/j.psychsport.2013.10.004",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2110490341",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2110490341; 'Self-talk and softball performance: The role of self-talk nature, motor task characteristics, and self-efficacy in novice softball players').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Chioqueta AP, Stiles TC. 2004. Norwegian version of the automatic thoughts question- naire: a reliability and validity study. Cognitive Behavioural Therapy 33(2):79–82 DOI 10.1080/16506070310016031.",
+          "title": null,
+          "authors": [
+            "Chioqueta AP, Stiles TC"
+          ],
+          "year": 2004,
+          "doi": "10.1080/16506070310016031",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2047353561",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2047353561; 'Norwegian version of the automatic thoughts questionnaire: a reliability and validity study').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Chiu Y, Lu FJ, Lin J, Nien C, Hsu Y, Liu H. 2016. Psychometric properties of the perceived stress scale (PSS): measurement invariance between athletes and non- athletes and construct validity. PeerJ 4:e2790 DOI 10.7717/peerj.2790.",
+          "title": "Psychometric properties of the perceived stress scale (PSS): measurement invariance between athletes and non- athletes and construct validity",
+          "authors": [
+            "Chiu Y, Lu FJ, Lin J, Nien C, Hsu Y, Liu H. 2016"
+          ],
+          "year": 2016,
+          "doi": "10.7717/peerj.2790",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2498960449",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2498960449; 'Psychometric properties of the Perceived Stress Scale (PSS): measurement invariance between athletes and non-athletes and construct validity').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Clark D, Goosen T. 2009. The mediating effects of coping strategies in the relationship between automatic negative thoughts and depression in a clinical sample of diabetes patients. Personality and Individual Differences 46:460–464 DOI 10.1016/j.paid.2008.11.014.",
+          "title": "The mediating effects of coping strategies in the relationship between automatic negative thoughts and depression in a clinical sample of diabetes patients",
+          "authors": [
+            "Clark D, Goosen T. 2009"
+          ],
+          "year": 2009,
+          "doi": "10.1016/j.paid.2008.11.014",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2064156700",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2064156700; 'The mediating effects of coping strategies in the relationship between automatic negative thoughts and depression in a clinical sample of diabetes patients').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Cresswell S, Eklund RC. 2006. The nature of player burnout in rugby: key char- acteristics and attributions. Journal of Applied Sports Psychology 18:219–239 DOI 10.1080/10413200600830299.",
+          "title": null,
+          "authors": [
+            "Cresswell S, Eklund RC"
+          ],
+          "year": 2006,
+          "doi": "10.1080/10413200600830299",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2052626696",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2052626696; 'The Nature of Player Burnout in Rugby: Key Characteristics and Attributions').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Dimmock JA, Grove JR, Eklund RC. 2005. Reconceptualising team identification: new dimensions and their relationship to intergroup bias. Group Dynamics: Theory, Research, and Practice 9(2):75–86 DOI 10.1037/1089-2699.9.2.75.",
+          "title": null,
+          "authors": [
+            "Dimmock JA, Grove JR, Eklund RC"
+          ],
+          "year": 2005,
+          "doi": "10.1037/1089-2699.9.2.75",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2007226659",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2007226659; 'Reconceptualizing Team Identification: New Dimensions and Their Relationship to Intergroup Bias.').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Eklund R, DeFreese JD. 2015. Athlete Burnout: what we know, what we could know, and how we can find out more. International Journal of Applied Sports Sciences 27(2):63–75.",
+          "title": null,
+          "authors": [
+            "Eklund R, DeFreese JD"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Finez L, Sherman DK. 2012. Train in vain: the role of the self in claimed self- handicapping strategies. Journal of Sport & Exercise Psychology 34:600–620 DOI 10.1123/jsep.34.5.600.",
+          "title": null,
+          "authors": [
+            "Finez L, Sherman DK"
+          ],
+          "year": 2012,
+          "doi": "10.1123/jsep.34.5.600",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2115546795",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2115546795; 'Train in Vain: The Role of the Self in Claimed Self-Handicapping Strategies').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Franciscoa CA, Vílcheza M, Valesc A. 2016. Antecedents and consequences of burnout in athletes: perceived stress and depression. International Journal of Clinical and Health Psychology 16:239–246 DOI 10.1016/j.ijchp.2016.04.001. 14/17",
+          "title": "Antecedents and consequences of burnout in athletes: perceived stress and depression",
+          "authors": [
+            "Franciscoa CA, Vílcheza M, Valesc A. 2016"
+          ],
+          "year": 2016,
+          "doi": "10.1016/j.ijchp.2016.04.001.14/17",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Verilen DOI (10.1016/j.ijchp.2016.04.001.14/17) OpenAlex'te bulunamadı; mevcut olmadığı anlamına gelmez (niş/indekssiz olabilir).",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Gallia N, Gonzalez SP. 2014. Psychological resilience in sport: a review of the literature and implications for research and practice. International Journal of Sport and Exercise Psychology 13(3):243–257 DOI 10.1080/1612197X.2014.946947.",
+          "title": null,
+          "authors": [
+            "Gallia N, Gonzalez SP"
+          ],
+          "year": 2014,
+          "doi": "10.1080/1612197X.2014.946947",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2020980539",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2020980539; 'Psychological resilience in sport: A review of the literature and implications for research and practice').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "Gernigon C, Delloye JB. 2003. Self-efficacy, causal attribution, and track athletic performance following unexpected success or failure among elite sprinters. The Sport Psychologist 17:55–76 DOI 10.1123/tsp.17.1.55.",
+          "title": null,
+          "authors": [
+            "Gernigon C, Delloye JB"
+          ],
+          "year": 2003,
+          "doi": "10.1123/tsp.17.1.55",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2148992866",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2148992866; 'Self-Efficacy, Causal Attribution, and Track Athletic Performance Following Unexpected Success or Failure among Elite Sprinters').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "Gil DM, Williams DA, Keefe FJ, Beckham JC. 1990. The relationship of negative thoughts to pain and psychological distress. Behavior Therapy 21(3):349–362 DOI 10.1016/S0005-7894(05)80336-3.",
+          "title": null,
+          "authors": [
+            "Gil DM, Williams DA, Keefe FJ, Beckham JC"
+          ],
+          "year": 1990,
+          "doi": "10.1016/S0005-7894(05)80336-3",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2072800631",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2072800631; 'The relationship of negative thoughts to pain and psychological distress').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "Glick ID, Stillman MA, Reardon CL, Ritvo EC. 2012. Managing psychiatric issues in elite athletes. The Journal of Clinical Psychology 73(5):640–644 DOI 10.4088/JCP.11r07381.",
+          "title": null,
+          "authors": [
+            "Glick ID, Stillman MA, Reardon CL, Ritvo EC"
+          ],
+          "year": 2012,
+          "doi": "10.4088/JCP.11r07381",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W1984248591",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W1984248591; 'Managing Psychiatric Issues in Elite Athletes').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 27,
+          "raw": "Gould D, Tuffey S, Udry E, Loehr J. 1997. Burnout in competitive junior tennis play- ers: III. Individual differences in the burnout experience. The Sport Psychologist 11:257–276 DOI 10.1123/tsp.11.3.257.",
+          "title": "Burnout in competitive junior tennis play- ers: III",
+          "authors": [
+            "Gould D, Tuffey S, Udry E, Loehr J. 1997"
+          ],
+          "year": 1997,
+          "doi": "10.1123/tsp.11.3.257",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2100687281",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2100687281; 'Burnout in Competitive Junior Tennis Players: III. Individual Differences in the Burnout Experience').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 28,
+          "raw": "Gould D, Whitley MA. 2009. Sources and consequences of athletic burnout among college athletes. Journal of Intercollegiate Sports 2:16–30 DOI 10.1123/jis.2.1.16.",
+          "title": null,
+          "authors": [
+            "Gould D, Whitley MA"
+          ],
+          "year": 2009,
+          "doi": "10.1123/jis.2.1.16",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2156229489",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2156229489; 'Sources and Consequences of Athletic Burnout among College Athletes').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 29,
+          "raw": "Green TD, Holeman S. 2004. Athletes’ attributions for team performance: a theoretical test across sports and genders. Social Behavior and Personality: An International Journal 32(2):129–206 DOI 10.2224/sbp.2004.32.2.199.",
+          "title": "Athletes’ attributions for team performance: a theoretical test across sports and genders",
+          "authors": [
+            "Green TD, Holeman S. 2004"
+          ],
+          "year": 2004,
+          "doi": "10.2224/sbp.2004.32.2.199",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2055518024",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2055518024; 'ATHLETES' ATTRIBUTIONS FOR TEAM PERFORMANCE: A THEORETICAL TEST ACROSS SPORTS AND GENDERS').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 30,
+          "raw": "Gustafsson H, Hassmen P, Kenta G, Johansson M. 2008. A qualitative analysis of burnout in elite Swedish athletes. Psychology of Sport and Exercise 9:800–816 DOI 10.1016/j.psychsport.2007.11.004.",
+          "title": "A qualitative analysis of burnout in elite Swedish athletes",
+          "authors": [
+            "Gustafsson H, Hassmen P, Kenta G, Johansson M. 2008"
+          ],
+          "year": 2008,
+          "doi": "10.1016/j.psychsport.2007.11.004",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W1994092552",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W1994092552; 'A qualitative analysis of burnout in elite Swedish athletes').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 31,
+          "raw": "Gustafsson H, Kentta G, Hassmen P. 2011. Athlete burnout: an integrated model and future research directions. International Review of Sport and Exercise Psychology 4(1):3–24.",
+          "title": "Athlete burnout: an integrated model and future research directions",
+          "authors": [
+            "Gustafsson H, Kentta G, Hassmen P. 2011"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 32,
+          "raw": "Gustafsson H, Kentta G, Hassmen P, Lundqvist C. 2007. Prevalence of burnout in adolescent competitive athletes. The Sport Psychologist 20:21–37.",
+          "title": "Prevalence of burnout in adolescent competitive athletes",
+          "authors": [
+            "Gustafsson H, Kentta G, Hassmen P, Lundqvist C. 2007"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 33,
+          "raw": "Gustafsson H, Skoog T. 2012. The mediational role of perceived stress in the relation between optimism and burnout in competitive athletes. Anxiety, Stress, and Coping 25(2):183–199 DOI 10.1080/10615806.2011.594045.",
+          "title": "The mediational role of perceived stress in the relation between optimism and burnout in competitive athletes",
+          "authors": [
+            "Gustafsson H, Skoog T. 2012"
+          ],
+          "year": 2012,
+          "doi": "10.1080/10615806.2011.594045",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2063598215",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2063598215; 'The mediational role of perceived stress in the relation between optimism and burnout in competitive athletes').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 34,
+          "raw": "Gustafsson H, Skoog T, Podlog L, Wagnsson S. 2013. Hope and athlete burnout: stress and affect as mediators. Psychology of Sport and Exercise 14:640–649 DOI 10.1016/j.psychsport.2013.03.008.",
+          "title": "Hope and athlete burnout: stress and affect as mediators",
+          "authors": [
+            "Gustafsson H, Skoog T, Podlog L, Wagnsson S. 2013"
+          ],
+          "year": 2013,
+          "doi": "10.1016/j.psychsport.2013.03.008",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2057329488",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2057329488; 'Hope and athlete burnout: Stress and affect as mediators').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 35,
+          "raw": "Hatzigeorgiadis A, Zourbanos N, Galanis E, Theodorakis Y. 2011. Self-talk and sports performance: a meta-analysis. Perspectives on Psychological Science 6:348–356 DOI 10.1177/1745691611413136.",
+          "title": "Self-talk and sports performance: a meta-analysis",
+          "authors": [
+            "Hatzigeorgiadis A, Zourbanos N, Galanis E, Theodorakis Y. 2011"
+          ],
+          "year": 2011,
+          "doi": "10.1177/1745691611413136",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2057172229",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2057172229; 'Self-Talk and Sports Performance').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 36,
+          "raw": "Hollon SD, Kendall PC. 1980. Cognitive self-statements in depression: development of and Automatic Thoughts Questionnaire. Cognitive Therapy and Research 4:383–395 DOI 10.1007/BF01178214.",
+          "title": null,
+          "authors": [
+            "Hollon SD, Kendall PC"
+          ],
+          "year": 1980,
+          "doi": "10.1007/BF01178214",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2009143349",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2009143349; 'Cognitive self-statements in depression: Development of an automatic thoughts questionnaire').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 37,
+          "raw": "Kercher AJ, Rapee RM, Schniering CA. 2009. Neuroticism, life events and negative thoughts in the development of depression in adolescent girls. Journal of Abnormal Child Psychology 37:903–915. 15/17",
+          "title": null,
+          "authors": [
+            "Kercher AJ, Rapee RM, Schniering CA"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 38,
+          "raw": "Koeske GF, Koeske RD. 1989. Work load and burnout: can social support and perceived accomplishment help? Social Work 34(3):243–248.",
+          "title": null,
+          "authors": [
+            "Koeske GF, Koeske RD"
+          ],
+          "year": 1989,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 39,
+          "raw": "Lakey B, Tanner SM. 2013. Social influences in negative thinking and affect. Cognitive Therapy Research 37:160–172 DOI 10.1007/s10608-012-9444-9.",
+          "title": null,
+          "authors": [
+            "Lakey B, Tanner SM"
+          ],
+          "year": 2013,
+          "doi": "10.1007/s10608-012-9444-9",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W1976945350",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W1976945350; 'Social Influences in Negative Thinking and Affect').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 40,
+          "raw": "Lu FJH, Chen LH, Cho KH. 2006. Revision of Raedeke and Smith’s athlete burnout questionnaire (ABQ): analyses of validity and reliability of Chinese version. Physical Education Journal 39(3):83–94 (in Chinese).",
+          "title": null,
+          "authors": [
+            "Lu FJH, Chen LH, Cho KH"
+          ],
+          "year": 2006,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 41,
+          "raw": "Lu FJH, Hsu YW, Chan YS, Cheen JR, Kao KT. 2012. Assessing college student-athletes’ life stress: initial measurement development and validation. Measurement in Physical Education and Exercise Science 16(4):254–267 DOI 10.1080/1091367X.2012.693371.",
+          "title": null,
+          "authors": [
+            "Lu FJH, Hsu YW, Chan YS, Cheen JR, Kao KT"
+          ],
+          "year": 2012,
+          "doi": "10.1080/1091367X.2012.693371",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2157247263",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2157247263; 'Assessing College Student-Athletes' Life Stress: Initial Measurement Development and Validation').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 42,
+          "raw": "Lu FJH, Lee WP, Chang YK, Chou CC, Hsu YW, Lin JH, Gill DL. 2016. Interaction of athletes’ resilience and coaches’ social support on the stress-burnout relationship: a conjunctive moderation perspective. Psychology of Sport and Exercise 22:202–209 DOI 10.1016/j.psychsport.2015.08.005.",
+          "title": null,
+          "authors": [
+            "Lu FJH, Lee WP, Chang YK, Chou CC, Hsu YW, Lin JH, Gill DL"
+          ],
+          "year": 2016,
+          "doi": "10.1016/j.psychsport.2015.08.005",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W1434768625",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W1434768625; 'Interaction of athletes' resilience and coaches' social support on the stress-burnout relationship: A conjunctive moderation perspective').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 43,
+          "raw": "Martens R, Burton D, Vealey RS, Bump LA, Smith DE. 1990. Development and validation of the competitive state anxiety inventory-2. In: Martens R, Vealey RS, Burton D, eds. Competitive anxiety in sport. Champaign: Human Kinetics, 117–190.",
+          "title": null,
+          "authors": [
+            "Martens R, Burton D, Vealey RS, Bump LA, Smith DE"
+          ],
+          "year": 1990,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 44,
+          "raw": "McLester CN, Hardin R, Hoppe S. 2014. Susceptibility to eating disorders among collegiate female student-athletes. Journal of Athletic Training 49(3):406–410 DOI 10.4085/1062-6050-49.2.16.",
+          "title": "Susceptibility to eating disorders among collegiate female student-athletes",
+          "authors": [
+            "McLester CN, Hardin R, Hoppe S. 2014"
+          ],
+          "year": 2014,
+          "doi": "10.4085/1062-6050-49.2.16",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2019840526",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2019840526; 'Susceptibility to Eating Disorders Among Collegiate Female Student–Athletes').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 45,
+          "raw": "Musil CM, Jones SL, Warner CD. 1998. Structural equation modeling and its rela- tionship to multiple regression and factor analysis. Research in Nursing and Health 21:271–281 DOI 10.1002/(SICI)1098-240X(199806)21:3<271::AID-NUR10>3.0.CO;2-G.",
+          "title": null,
+          "authors": [
+            "Musil CM, Jones SL, Warner CD"
+          ],
+          "year": 1998,
+          "doi": "10.1002/(SICI)1098-240X(199806)21:3",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Verilen DOI (10.1002/(sici)1098-240x(199806)21:3) OpenAlex'te bulunamadı; mevcut olmadığı anlamına gelmez (niş/indekssiz olabilir).",
+          "resolution_degraded": false
+        },
+        {
+          "index": 46,
+          "raw": "Raedeke TD, Smith AL. 2001. Development and preliminary validation of a measure of athlete burnout measure. Journal of Sport and Exercise Psychology 23:281–306 DOI 10.1123/jsep.23.4.281.",
+          "title": null,
+          "authors": [
+            "Raedeke TD, Smith AL"
+          ],
+          "year": 2001,
+          "doi": "10.1123/jsep.23.4.281",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2171786736",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2171786736; 'Development and Preliminary Validation of an Athlete Burnout Measure').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 47,
+          "raw": "Raedeke TD, Smith AL. 2004. Coping resources and athlete burnout: an examination of stress-mediated and moderation hypothesis. Journal of Sport and Exercise Psychology 26:525–541 DOI 10.1123/jsep.26.4.525. Risch N, Herrell R, Lehner T, Liang K, Eaves L, Hoh J, Griem A, Kovacs M, Ott J,",
+          "title": null,
+          "authors": [
+            "Raedeke TD, Smith AL"
+          ],
+          "year": 2004,
+          "doi": "10.1123/jsep.26.4.525",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2111419357",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2111419357; 'Coping Resources and Athlete Burnout: An Examination of Stress Mediated and Moderation Hypotheses').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 48,
+          "raw": "Merikangas KR. 2009. Interaction between the serotonin transporter gene (5- HTTLPR), stressful life events, and risk of depression a meta-analysis. Journal of the American Medical Association 301(23):2462–2471 DOI 10.1001/jama.2009.878.",
+          "title": null,
+          "authors": [
+            "Merikangas KR"
+          ],
+          "year": 2009,
+          "doi": "10.1001/jama.2009.878",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2042170262",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2042170262; 'Interaction Between the Serotonin Transporter Gene (5-HTTLPR), Stressful Life Events, and Risk of Depression').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 49,
+          "raw": "Schwarzer R, Hallum S. 2008. Perceived teacher self-efficacy as a predictor of job stress and burnout: mediation analyses. Applied Psychology: An International Review 57:152–171 DOI 10.1111/j.1464-0597.2008.00359.x.",
+          "title": "Perceived teacher self-efficacy as a predictor of job stress and burnout: mediation analyses",
+          "authors": [
+            "Schwarzer R, Hallum S. 2008"
+          ],
+          "year": 2008,
+          "doi": "10.1111/j.1464-0597.2008.00359.x",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2129075983",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2129075983; 'Perceived Teacher Self‐Efficacy as a Predictor of Job Stress and Burnout: Mediation Analyses').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 50,
+          "raw": "Smith RE. 1986. Toward a cognitive-affective model of athletic burnout. Journal of Sport Psychology 8:36–50 DOI 10.1123/jsp.8.1.36.",
+          "title": null,
+          "authors": [
+            "Smith RE"
+          ],
+          "year": 1986,
+          "doi": "10.1123/jsp.8.1.36",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2494598405",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2494598405; 'Toward a Cognitive-Affective Model of Athletic Burnout').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 51,
+          "raw": "Smith RE, Smoll FL, Cumming SP. 2007. Effects of a motivational climate intervention for coaches on young athletes’ sport performance anxiety. Journal of Sport & Exercise Psychology 29:39–59 DOI 10.1123/jsep.29.1.39. 16/17",
+          "title": null,
+          "authors": [
+            "Smith RE, Smoll FL, Cumming SP"
+          ],
+          "year": 2007,
+          "doi": "10.1123/jsep.29.1.39.16/17",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Verilen DOI (10.1123/jsep.29.1.39.16/17) OpenAlex'te bulunamadı; mevcut olmadığı anlamına gelmez (niş/indekssiz olabilir).",
+          "resolution_degraded": false
+        },
+        {
+          "index": 52,
+          "raw": "Stiles TC, Gotestam KG. 1989. The role of automatic negative thoughts I the develop- ment of dysphoric mood: an analog experiment. Cognitive Therapy and Research 13(2):161–170 DOI 10.1007/BF01173270.",
+          "title": null,
+          "authors": [
+            "Stiles TC, Gotestam KG"
+          ],
+          "year": 1989,
+          "doi": "10.1007/BF01173270",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2042624307",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2042624307; 'The role of automatic negative thoughts in the development of dysphoric mood: An analogue experiment').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 53,
+          "raw": "Suhr JA, Gunstad A. 2004. ‘‘Diagnosis threat’’: the effect of negative expectations on cognitive performance in head injury. Journal of Clinical and Experimental Neuropsychology 24(4):448–457.",
+          "title": "‘‘Diagnosis threat’’: the effect of negative expectations on cognitive performance in head injury",
+          "authors": [
+            "Suhr JA, Gunstad A. 2004"
+          ],
+          "year": 2004,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.35 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 54,
+          "raw": "Weinberg R, Gould D. 2015. Foundations of sport and exercise psychology. 6th edition. Champaign: Human Kinetics.",
+          "title": "Foundations of sport and exercise psychology",
+          "authors": [
+            "Weinberg R, Gould D. 2015"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.38 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 55,
+          "raw": "Weiner B. 1972. Theories of motivation: from mechanism to cognition. Chicago: Markham.",
+          "title": "Theories of motivation: from mechanism to cognition",
+          "authors": [
+            "Weiner B. 1972"
+          ],
+          "year": 1972,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.56 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 56,
+          "raw": "Zourbanos N, Hatzigeorgiadas N, Tsiakaras N, Chroni S, Theodorakis Y. 2010. A multimethod examination of the relationship between coaching behavior and athletes’ inherent self-talk. Journal of Sport & Exercise Psychology 32:764–785 DOI 10.1123/jsep.32.6.764. 17/17",
+          "title": "A multimethod examination of the relationship between coaching behavior and athletes’ inherent self-talk",
+          "authors": [
+            "Zourbanos N, Hatzigeorgiadas N, Tsiakaras N, Chroni S, Theodorakis Y. 2010"
+          ],
+          "year": 2010,
+          "doi": "10.1123/jsep.32.6.764.17/17",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Verilen DOI (10.1123/jsep.32.6.764.17/17) OpenAlex'te bulunamadı; mevcut olmadığı anlamına gelmez (niş/indekssiz olabilir).",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [
+        {
+          "openalex_id": "W4206481149",
+          "title": "Parkinson's disease",
+          "year": 2021,
+          "cited_by_count": 3792,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (3792 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W4249242153",
+          "title": "Chemical engineering progress",
+          "year": 1988,
+          "cited_by_count": 2542,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (2542 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2976362764",
+          "title": "British Society of Gastroenterology consensus guidelines on the management of inflammatory bowel disease in adults",
+          "year": 2019,
+          "cited_by_count": 2354,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (2354 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2999958881",
+          "title": "Development of therapeutic antibodies for the treatment of diseases",
+          "year": 2020,
+          "cited_by_count": 2159,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (2159 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2898284215",
+          "title": "Venetoclax combined with decitabine or azacitidine in treatment-naive, elderly patients with acute myeloid leukemia",
+          "year": 2018,
+          "cited_by_count": 1876,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (1876 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2136175013",
+          "title": "Effectiveness of brief alcohol interventions in primary care populations",
+          "year": 2018,
+          "cited_by_count": 1676,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (1676 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W3153493739",
+          "title": "High-dimensional characterization of post-acute sequelae of COVID-19",
+          "year": 2021,
+          "cited_by_count": 1626,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (1626 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W1714980748",
+          "title": "Industry sponsorship and research outcome",
+          "year": 2017,
+          "cited_by_count": 1608,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (1608 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2972225545",
+          "title": "Worldwide contamination of food-crops with mycotoxins: Validity of the widely cited ‘FAO estimate’ of 25%",
+          "year": 2019,
+          "cited_by_count": 1441,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (1441 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2923282967",
+          "title": "Capecitabine compared with observation in resected biliary tract cancer (BILCAP): a randomised, controlled, multicentre, phase 3 study",
+          "year": 2019,
+          "cited_by_count": 1257,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (1257 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W2403089519",
+          "title": "History of dark matter",
+          "year": 2018,
+          "cited_by_count": 1235,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (1235 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W4388673199",
+          "title": "The 2023 report of the Lancet Countdown on health and climate change: the imperative for a health-centred response in a world facing irreversible harms",
+          "year": 2023,
+          "cited_by_count": 1206,
+          "reason": "Konu 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' için yüksek-atıflı seminal eser (1206 atıf) kaynakçada yer almıyor."
+        }
+      ],
+      "stat_findings": [],
+      "degraded_features": [],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "9e646007eb29f9296217a9ba3c4f1fd3db11c13bad4fc2ad27621161d9ebd9ef",
+          "request_time": "2026-08-22T18:10:15.808819Z",
+          "status": "ok",
+          "result_count": 39,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:10:16.804358Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "09d9734c1be772cf7c3a7fe7a4863ca0c2391a9243dd3f4033b6a5fc7c88c92c",
+          "request_time": "2026-08-22T18:10:18.823571Z",
+          "status": "ok",
+          "result_count": 12,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.quantitative.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:17:49.816656Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.9,
+      "study_design": "quantitative",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin başında 'Submitted', 'Accepted', 'Published' tarihleri, 'Corresponding author' bilgisi ve 'DOI' bulunması bir dergi makalesi olduğunu düşündürüyor. Bölüm başlıkları (ABSTRACT, INTRODUCTION, RESULTS, DISCUSSION, CONCLUSIONS) ve özetin 'Methods' kısmında 'A total of 300 colleg' ifadesi nicel bir çalışma tasarımına işaret ediyor.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 72.8,
+      "recommended_decision": "major_revision",
+      "confidence": 0.652972972972973,
+      "top_fatal_risks": [
+        "Causal language used with cross-sectional data",
+        "Lack of power analysis or sample size justification",
+        "Confidence intervals not reported for regression coefficients or mediation effects"
+      ],
+      "one_sentence_diagnosis": "1 critical and 2 major issue(s) detected; recommended decision: major_revision."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": 71.0,
+        "severity": "moderate",
+        "confidence": 0.82,
+        "why_it_matters": "5 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 75.0,
+        "severity": "major",
+        "confidence": 0.9,
+        "why_it_matters": "3 finding(s); worst severity major."
+      },
+      {
+        "dimension": "evidence",
+        "score": 0.0,
+        "severity": "critical",
+        "confidence": 0.8571428571428571,
+        "why_it_matters": "7 finding(s); worst severity critical."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 52.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "7 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 78.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): A significant portion of the bibliography (17 out of 56 references) could not be resolved using standard academic databases. This severely hinders the verifiability of the cited evidence and suggests a lack of careful proofreading. For example, references [2], [6], [8], [20], [22], [31], [32], [37], [38], [40], [43], [45], [51], [53], [54], [55], and [56] were flagged as 'not_found_in_index' or 'not_found'. This issue must be thoroughly addressed to ensure scholarly integrity.; The analysis does not adequately address the severe multicollinearity among the four 'negative thoughts' subscales. The correlation matrix (Table 1, not provided in the prompt but referenced in the summary) reportedly shows extremely high correlations (e.g., r = .96, .95, .92) between these subscales. Treating them as distinct mediators in separate mediation models is problematic, as they likely measure a single, broader construct of negative cognition. This makes it difficult to interpret the unique mediating role of each subscale and may lead to unstable regression coefficients. The authors should justify the use of separate subscales or consider a single composite score.; The decision to use the Baron & Kenny (1986) method with Sobel tests for mediation analysis is outdated. While foundational, more robust and statistically powerful techniques, such as bootstrapping (e.g., using the PROCESS macro), are now standard for directly testing the significance of indirect effects and are less prone to power issues. The authors should justify this choice or consider re-running the analyses with a more contemporary approach. (+1 more)",
+        "key_objection": "A significant portion of the bibliography (17 out of 56 references) could not be resolved using standard academic databases. This severely hinders the verifiability of the cited evidence and suggests a lack of careful proofreading. For example, references [2], [6], [8], [20], [22], [31], [32], [37], [38], [40], [43], [45], [51], [53], [54], [55], and [56] were flagged as 'not_found_in_index' or 'not_found'. This issue must be thoroughly addressed to ensure scholarly integrity.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f10",
+          "quant.f2",
+          "quant.f7",
+          "quant.f8",
+          "quant.f9",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The analytical strategy relies on the Baron & Kenny (1986) method for mediation analysis. While foundational, this method is considered less robust than modern bootstrapping techniques (e.g., using PROCESS macro) which directly test the significance of indirect effects and are less prone to power issues. The authors should consider updating their approach or providing a strong justification for using Baron & Kenny.; The study treats four 'negative thoughts' subscales as distinct mediators, despite extremely high intercorrelations (e.g., r = .96, .95, .92) reported in Table 1. This high multicollinearity suggests that these subscales may not be empirically distinct constructs and could be measuring a single underlying factor of negative cognition. Presenting them as separate mediators may lead to an over-interpretation of distinct pathways and makes it difficult to ascertain the unique contribution of each subscale. The authors should address this limitation, potentially by using a single composite score or a higher-order factor for negative thoughts, or by employing a statistical method that accounts for such high collinearity.; The cross-sectional design inherently limits the ability to establish causality or temporal precedence, which is a fundamental requirement for true mediation. Although acknowledged in the limitations, the language used in the main body of the text should be more consistently cautious (e.g., 'is consistent with a mediating role' instead of 'mediated') to reflect this limitation. The authors should elaborate on why their proposed model (Stress -> Thoughts -> Burnout) is theoretically more plausible than alternative causal directions, especially given the cross-sectional nature of the data.",
+        "key_objection": "The study treats four 'negative thoughts' subscales as distinct mediators, despite extremely high intercorrelations (e.g., r = .96, .95, .92) reported in Table 1. This high multicollinearity suggests that these subscales may not be empirically distinct constructs and could be measuring a single underlying factor of negative cognition. Presenting them as separate mediators may lead to an over-interpretation of distinct pathways and makes it difficult to ascertain the unique contribution of each subscale. The authors should address this limitation, potentially by using a single composite score or a higher-order factor for negative thoughts, or by employing a statistical method that accounts for such high collinearity.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4",
+          "quant.f5",
+          "quant.f6"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "5 concern(s): The reference list contains a significant number of unresolvable citations (17 out of 56). This hinders the verifiability of the cited evidence and suggests a need for careful proofreading and correction of the entire bibliography to ensure accuracy and completeness. For example, references [2], [6], [8], [20], [22], [31], [32], [37], [38], [40], [43], [45], [51], [53], [54], [55], and [56] were flagged as not found or unresolvable.; The analysis does not adequately address the issue of high multicollinearity among the four 'negative thoughts' subscales. The correlation matrix (Table 1) shows extremely high correlations (e.g., r = .96, .95, .92) between these subscales, suggesting they may not be empirically distinct constructs. This makes it difficult to interpret the unique mediating role of each subscale and should be explicitly discussed as a limitation, potentially suggesting an analysis with a single composite score for negative thoughts.; While the cross-sectional design is acknowledged as a limitation, the language used in the main body of the text could be more consistently cautious when discussing mediation (e.g., using 'is consistent with a mediating role' rather than 'mediated'). Additionally, elaborating on why the proposed model (Stress -> Thoughts -> Burnout) is theoretically more plausible than alternatives, citing Smith's (1986) model, would strengthen the paper. (+2 more)",
+        "key_objection": "The reference list contains a significant number of unresolvable citations (17 out of 56). This hinders the verifiability of the cited evidence and suggests a need for careful proofreading and correction of the entire bibliography to ensure accuracy and completeness. For example, references [2], [6], [8], [20], [22], [31], [32], [37], [38], [40], [43], [45], [51], [53], [54], [55], and [56] were flagged as not found or unresolvable.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): The statement '17 out of 56 references' is accurate according to the 'Citation Integrity Summary'.; The claim that references [2], [6], and [8] were flagged as 'not_found_in_index' is accurate based on the provided 'Referanslar (durum + kanıt)' data.; The statement '17 out of 56 references (~30%) could not be resolved' is accurate according to the 'Citation Integrity Summary'. The statement 'No fabricated or retracted citations were found' is also accurate based on the 'Citation Integrity Summary'. (+1 more)",
+        "key_objection": "The statement '17 out of 56 references' is accurate according to the 'Citation Integrity Summary'.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "citation_integrity.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "literature_positioning.f2",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "literature_positioning.f2",
+          "research_question_fit.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "major-revision",
+        "summary": "This study investigates the mediating role of negative thoughts in the relationship between life stress (both general and sport-specific) and burnout among college student-athletes. Grounded in Smith's (1986) cognitive-affective model, the authors surveyed 300 athletes and used hierarchical regression to test their hypotheses. The results indicate that four types of negative thoughts (Personal Maladjustment and Desire for Change, Negative Self-Concept, Giving Up/Helplessness, and Negative Expectations) partially mediate the relationship between both types of life stress and athlete burnout. The paper makes a valuable contribution by empirically testing a key cognitive component within a widely-used theoretical framework for burnout.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Cross-sectional design appropriately identified",
+        "summary": "The study clearly states its purpose to examine relationships and mediating roles, which is consistent with a cross-sectional design.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "Using Smith’s (1986) cognitive-affective model of athletic burnout as a guiding framework, the purpose of this study was to examine the relationships among athletes’ stress in life, negative thoughts, and the mediating role of negative thoughts on the stress-burnout relationship."
+          }
+        ],
+        "reasoning_public": "The research question aligns with the chosen cross-sectional design, which is suitable for exploring associations and mediating effects at a single point in time.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Lack of power analysis or sample size justification",
+        "summary": "The manuscript does not provide a justification for the sample size of 300 participants, nor does it report a power analysis to ensure adequate statistical power for detecting the hypothesized effects.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "materials_methods.a0",
+            "section": "MATERIALS & METHODS",
+            "quote": "A total of 300 college student-athletes (males = 174; females = 126, M age = 20.43 y, SD = 1.68) from five colleges voluntarily participated in this study."
+          }
+        ],
+        "reasoning_public": "Without a power analysis or sample size justification, it is unclear whether the study had sufficient power to detect true effects, increasing the risk of Type II errors. This is particularly important for mediation analyses, which can require larger sample sizes.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Measurement instruments reported as valid and reliable",
+        "summary": "The study utilized established scales (CSALSS, ATQ, ABQ) and reported acceptable internal consistency (Cronbach's α) for all measures, along with previous validation evidence.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "measures.a0",
+            "section": "Measures",
+            "quote": "The Cronbach’s α for these factors in the present study ranged from 0.69 to 0.87, indicating that the measure was reliable. Lu and colleagues (2012) reported CSALSS with adequate concurrent and discriminant validity."
+          },
+          {
+            "anchor_id": "measures.a1",
+            "section": "Measures",
+            "quote": "The results were internally consistent with scores of 0.85, 0.86, and 0.63. In this research, we used a composite score by adding the three subscales together. Lu and colleagues (2006) found ABQ positively correlated with amotivation and negatively correlated with intrinsic motivation which provides concurrent validity and discriminant validity."
+          }
+        ],
+        "reasoning_public": "Using validated and reliable instruments enhances the credibility of the study's findings by ensuring that the constructs are measured accurately and consistently.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Lack of explicit assumption testing for regression analyses",
+        "summary": "While skewness and kurtosis were checked, the manuscript does not explicitly state that other key assumptions for hierarchical regression (e.g., linearity, homoscedasticity, independence of errors, multicollinearity) were tested or met.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "statistical_analyses.a0",
+            "section": "Statistical analyses",
+            "quote": "The skewness (0.10–1.38) and kurtosis (−0.10−1.38) were found to be in an acceptable range."
+          }
+        ],
+        "reasoning_public": "Regression analyses rely on several assumptions. Failing to test and report these assumptions can compromise the validity of the regression results and the conclusions drawn from them. Although multicollinearity can be inferred from high correlations, explicit reporting of VIF values or similar diagnostics would strengthen the analysis.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Multiple comparisons risk not explicitly addressed",
+        "summary": "The study conducts multiple correlational analyses and several hierarchical regression models (e.g., four types of negative thoughts mediating two types of stress on burnout), increasing the risk of Type I errors. No adjustment for multiple comparisons is reported.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a0",
+            "section": "RESULTS",
+            "quote": "Correlational analyses found that two types of life stress and four types of negative thoughts correlated with burnout. Additionally, hierarchical regression analyses found that four types of negative thoughts partially mediated the stress-burnout relationship."
+          }
+        ],
+        "reasoning_public": "When multiple statistical tests are performed, the probability of finding a statistically significant result by chance increases. Without appropriate adjustments (e.g., Bonferroni correction, FDR), the reported p-values may be misleading.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "statistical_consistency",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Inconsistent reporting of R-squared values in Table 2 and 3",
+        "summary": "In Tables 2 and 3, the R-squared values (1R2) for 'Regression 2' are reported as identical across all negative thought subscales (e.g., .29** for Sport stress in Table 2, Model 2), which is unlikely given that different negative thought subscales are being considered as predictors.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a0",
+            "section": "Table 2",
+            "quote": "Regression 2\nSport stress\n.54**\n.29**\n.54**\n.29**\n.54**\n.29**\n.54**\n.29**"
+          },
+          {
+            "anchor_id": "table_3.a0",
+            "section": "Table 3",
+            "quote": "Regression 2\nGen-life stress\n.49**\n.24**\n.49**\n.24**\n.49**\n.24**\n.49**\n.24**"
+          }
+        ],
+        "reasoning_public": "The R-squared value represents the proportion of variance explained by the model. If different predictors (negative thought subscales) are used in separate models, their R-squared contributions should vary, unless the models are identical, which is not implied by the table structure. This suggests a potential reporting error or misunderstanding of how R-squared should be presented for these models.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "statistical_consistency",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Inconsistent reporting of beta coefficients in Table 3",
+        "summary": "In Table 3, 'Regression 2' for General-life stress, the beta coefficient for NSC is reported as '.22449', which is inconsistent with the format of other beta coefficients (e.g., '.49**') and likely a typo.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_3.a1",
+            "section": "Table 3",
+            "quote": "Regression 2\nGen-life stress\n.49**\n.24**\n.22449\n.24**\n.49**\n.24**\n.49**\n.24**"
+          }
+        ],
+        "reasoning_public": "Typographical errors in statistical reporting can undermine the credibility of the results. Ensuring consistency in reporting format is crucial for clarity and accuracy.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Confidence intervals not reported for regression coefficients or mediation effects",
+        "summary": "While beta coefficients and p-values are reported for regression and mediation analyses, confidence intervals (CIs) are consistently absent, making it difficult to assess the precision of the estimated effects.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a1",
+            "section": "Table 2",
+            "quote": "Variables\nPMADC\nNSC\nGU/H\nNE\nβ\n1R2\nβ\n1R2\nβ\n1R2\nβ\n1R2"
+          },
+          {
+            "anchor_id": "table_4.a0",
+            "section": "Table 4",
+            "quote": "Mediating model\nVariables\nPMADC\nNSC\nGU/H\nNE\nModel 1\nModel 2\nModel 1\nModel 2\nModel 1\nModel 2\nModel 1\nModel 2\nβ\n1R2\nβ\n1R2\nβ\n1R2\nβ\n1R2\nβ\n1R2\nβ\n1R2\nβ\n1R2\nβ\n1R2"
+          }
+        ],
+        "reasoning_public": "Confidence intervals provide crucial information about the precision and stability of effect estimates. Reporting only point estimates and p-values can lead to an overemphasis on statistical significance without conveying the practical importance or variability of the effects. This is particularly important for mediation effects, where CIs for indirect effects are recommended.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Missing data handling strategy not fully detailed",
+        "summary": "The manuscript mentions checking for missing data but does not explicitly state the strategy used to handle any missing values (e.g., listwise deletion, imputation method).",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "statistical_analyses.a1",
+            "section": "Statistical analyses",
+            "quote": "First, a descriptive statistical analysis was applied to examine the properties of the collected data, including skewness, kurtosis, means, standard deviations, outliers, and missing data for all variables."
+          }
+        ],
+        "reasoning_public": "The method for handling missing data can significantly impact the results and generalizability of a study. Transparency in this regard is crucial for reproducibility and accurate interpretation.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Outlier handling strategy not fully detailed",
+        "summary": "The manuscript mentions checking for outliers but does not explicitly state the strategy used to handle any identified outliers (e.g., removal, transformation, robust methods).",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "statistical_analyses.a2",
+            "section": "Statistical analyses",
+            "quote": "First, a descriptive statistical analysis was applied to examine the properties of the collected data, including skewness, kurtosis, means, standard deviations, outliers, and missing data for all variables."
+          }
+        ],
+        "reasoning_public": "Outliers can unduly influence statistical analyses. A transparent approach to identifying and handling outliers is essential for ensuring the robustness of the findings.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f10",
+        "dimension": "causal_language_discipline",
+        "severity": "critical",
+        "confidence": 0.9,
+        "title": "Causal language used with cross-sectional data",
+        "summary": "The study uses causal language such as 'predicted', 'mediated', and 'influences' when discussing relationships derived from a cross-sectional design, which cannot establish causality.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Additionally, hierarchical regression analyses found that four types of negative thoughts partially mediated the stress-burnout relationship."
+          },
+          {
+            "anchor_id": "discussion.a0",
+            "section": "DISCUSSION",
+            "quote": "To determine whether negative thoughts might influence the stress-burnout relationship for athletes, this study examined the relationships among athletes’ life stress, negative thoughts, and burnout; and the potential mediating effects of negative thoughts on the life stress-burnout relationship."
+          }
+        ],
+        "reasoning_public": "Cross-sectional designs can only establish associations, not causal relationships. Using causal language implies a temporal order and direct influence that cannot be confirmed without longitudinal data or experimental manipulation. This overstates the conclusions that can be drawn from the study.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f10.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f11",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Data availability statement provided",
+        "summary": "The manuscript includes a data availability statement indicating that the raw data has been provided as a Supplemental File.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "data_availability.a0",
+            "section": "Data Availability",
+            "quote": "The following information was supplied regarding data availability:\nThe raw data has been provided as a Supplemental File."
+          }
+        ],
+        "reasoning_public": "Providing access to raw data enhances the transparency and reproducibility of the research, allowing other researchers to verify findings or conduct further analyses.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f12",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Over-reliance on 'significant' language without consistent effect size interpretation",
+        "summary": "The discussion frequently refers to findings as 'significant' without consistently interpreting the practical implications of the reported effect sizes (beta coefficients, R-squared changes).",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a1",
+            "section": "RESULTS",
+            "quote": "Among these correlations, burnout correlated more significantly with two types of life stress than negative thoughts."
+          },
+          {
+            "anchor_id": "discussion.a1",
+            "section": "DISCUSSION",
+            "quote": "Our study provides new evidence that negative thoughts can change the stress-burnout relationship."
+          }
+        ],
+        "reasoning_public": "While statistical significance is important, focusing solely on p-values can obscure the practical importance of findings. Interpreting effect sizes helps readers understand the magnitude and real-world relevance of the observed relationships.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f12.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Negatif Düşüncelerin Aracılık Rolünün Vurgulanması",
+        "summary": "Çalışma, negatif düşüncelerin sporcularda stres-tükenmişlik ilişkisindeki aracılık rolünü inceleyerek Smith'in (1986) bilişsel-duygusal modeline yeni bir boyut eklemektedir. Ancak, bu katkının literatürdeki diğer aracılık/düzenleyicilik çalışmaları bağlamında özgünlüğü daha net vurgulanabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "discussion.a2",
+            "section": "DISCUSSION",
+            "quote": "Our results provide several theoretical implications for researchers. By incorporating negative thoughts into Smith’s (1986) cognitive-affective model of athletic burnout, our study advances our knowledge of how negative thoughts underlie the life stress-burnout relationship for athletes. We found that the association between athletes’ life stress and burnout was partially explained by negative thoughts. Past research examining the mechanisms underlying the stress-burnout relationship generally found that positive variables, such as self-efficacy (e.g., Schwarzer & Hallum, 2008), optimism (Gustafsson & Skoog, 2012), teaching strategy (e.g., Ben-Ari, Krole & Har-Even, 2003), hardiness (e.g., Chan, 2003), coping and social support (e.g., Koeske & Koeske, 1989; Raedeke & Smith, 2004), or perceived accomplishments (e.g., Koeske & Koeske, 1989), mediate or moderate the stress-burnout relationship. Our study provides new evidence that negative thoughts can change the stress-burnout relationship. These results should prompt future research to examine how positive and negative variables influence the stress-burnout relationship."
+          }
+        ],
+        "reasoning_public": "Makale, negatif düşüncelerin stres ve tükenmişlik arasındaki ilişkiyi nasıl etkilediğini göstererek mevcut literatüre önemli bir katkı sunmaktadır. Ancak, literatürde zaten birçok pozitif ve negatif değişkenin bu ilişkiyi aracılık ettiği veya düzenlediği belirtilmiştir. Bu nedenle, negatif düşüncelerin bu bağlamdaki özgünlüğü ve önemi daha güçlü bir şekilde açıklanmalıdır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "contribution_originality.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Smith'in Bilişsel-Duygusal Modelinin Genişletilmesi",
+        "summary": "Çalışma, Smith'in (1986) bilişsel-duygusal tükenmişlik modelini negatif düşüncelerin aracılık rolüyle genişleterek, modelin daha kapsamlı anlaşılmasına katkıda bulunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "Using Smith’s (1986) cognitive-affective model of athletic burnout as a guiding framework, the purpose of this study was to examine the relationships among athletes’ stress in life, negative thoughts, and the mediating role of negative thoughts on the stress-burnout relationship."
+          },
+          {
+            "anchor_id": "discussion.a3",
+            "section": "DISCUSSION",
+            "quote": "By incorporating negative thoughts into Smith’s (1986) cognitive-affective model of athletic burnout, our study advances our knowledge of how negative thoughts underlie the life stress-burnout relationship for athletes."
+          }
+        ],
+        "reasoning_public": "Makale, Smith'in modelini temel alarak, stres ve tükenmişlik arasındaki ilişkide negatif düşüncelerin oynadığı spesifik rolü ampirik olarak göstermektedir. Bu, mevcut teorik çerçeveye değerli bir eklemedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Araştırma Sorusu Net ve Çalışma Kapsamıyla Uyumlu",
+        "summary": "Makalenin araştırma sorusu net bir şekilde ifade edilmiş ve çalışmanın tasarımı, kullanılan ölçüm araçları ve analiz yöntemleri ile tam bir uyum içindedir. Bu durum, çalışmanın hedeflerine ulaşma potansiyelini artırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "Using Smith’s (1986) cognitive-affective model of athletic burnout as a guiding framework, the purpose of this study was to examine the relationships among athletes’ stress in life, negative thoughts, and the mediating role of negative thoughts on the stress-burnout relationship."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "Using the aforementioned theoretical and empirical background, the purpose of this study was to examine the relationships among athletes’ life stressors (both in sports and in general life), negative thoughts (i.e., personal maladjustment, the desire for change, negative sense of self, giving up, learned helplessness, and negative expectations), and burnout. We also examined the mediating role of negative thoughts on the life stress-burnout relationship."
+          },
+          {
+            "anchor_id": "materials_methods.a1",
+            "section": "MATERIALS & METHODS",
+            "quote": "A total of 300 college student-athletes (males = 174; females = 126, Mage = 20.43 y, SD = 1.68) completed the College Student Athlete’s Life Stress Scale (CSALSS; Lu et al., 2012), the Automatic Thoughts Questionnaire (ATQ; Hollon & Kendall, 1980), and the Athlete Burnout Questionnaire (ABQ; Raedeke & Smith, 2001)."
+          }
+        ],
+        "reasoning_public": "Araştırma sorusu, 'sporcuların yaşam stresleri, olumsuz düşünceleri ve olumsuz düşüncelerin stres-tükenmişlik ilişkisindeki aracı rolü arasındaki ilişkileri incelemek' olarak açıkça belirtilmiştir. Bu soru, çalışmanın giriş bölümünde sunulan teorik çerçeve (Smith'in bilişsel-duygusal atletik tükenmişlik modeli) ve yöntemler bölümünde detaylandırılan veri toplama ve analiz süreçleriyle doğrudan ilişkilidir. Kullanılan ölçekler (CSALSS, ATQ, ABQ) ve istatistiksel analizler (korelasyon, hiyerarşik regresyon, Sobel testi) araştırma sorusunu cevaplamaya yönelik olarak seçilmiştir. Bu netlik ve uyum, çalışmanın anlaşılırlığını ve doğrulanabilirliğini artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Smith'in Bilişsel-Duygusal Modelinin Etkili Kullanımı",
+        "summary": "Makale, Smith'in (1986) atletik tükenmişliğin bilişsel-duygusal modelini temel bir çerçeve olarak başarılı bir şekilde kullanmakta ve çalışmanın hipotezlerini ve bulgularını bu modelle tutarlı bir şekilde açıklamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "Using Smith’s (1986) cognitive-affective model of athletic burnout as a guiding framework, the purpose of this study was to examine the relationships among athletes’ stress in life, negative thoughts, and the mediating role of negative thoughts on the stress-burnout relationship."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "To explain the process of athlete burnout, Smith (1986) proposed a ‘‘cognitive-affective model of athletic burnout,’’ which contends that burnout is a reaction to chronic stress and it comprises situational, cognitive, physiological, and behavioral components that progress in four predicted stages."
+          },
+          {
+            "anchor_id": "discussion.a4",
+            "section": "DISCUSSION",
+            "quote": "By incorporating negative thoughts into Smith’s (1986) cognitive-affective model of athletic burnout, our study advances our knowledge of how negative thoughts underlie the life stress-burnout relationship for athletes."
+          }
+        ],
+        "reasoning_public": "Smith'in modeli, çalışmanın ana değişkenleri olan stres, olumsuz düşünceler ve tükenmişlik arasındaki ilişkileri açıklamak için sağlam bir teorik temel sağlamaktadır. Bu, çalışmanın kavramsal bütünlüğünü ve bulgularının yorumlanabilirliğini artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Olumsuz Düşüncelerin Teorik Çerçeveye Entegrasyonunda Yüzeysellik",
+        "summary": "Makale, olumsuz düşüncelerin Smith'in (1986) bilişsel-duygusal modeline entegrasyonunu iddia etse de, bu entegrasyonun nasıl gerçekleştiği veya olumsuz düşüncelerin modelin dört aşamalı sürecine nasıl oturduğu yeterince detaylandırılmamıştır. Olumsuz düşüncelerin modeldeki 'bilişsel değerlendirme' aşamasıyla ilişkisi belirtilse de, bu bağlantı daha derinlemesine açıklanabilirdi.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Despite these efforts, it is unknown what role negative thoughts play in the stress-burnout relationship. The study of negative thoughts can be traced back to Beck’s (1976) works on depressed patients."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "Negative thoughts play a pivotal role in the cognitive-affective model of athletic burnout. Specifically, Smith contends that when encountering environmental stressors, athletes engage in a cognitive appraisal to evaluate whether these stressors are threatening or whether they can handle them (Smith, 1986). Thus, the ways in which athletes appraise the stressors, both from positive and negative perspectives, are worthy of investigation."
+          }
+        ],
+        "reasoning_public": "Teorik çerçevenin temel amacı, çalışmanın değişkenleri arasındaki ilişkileri açıklamak ve hipotezleri desteklemektir. Olumsuz düşüncelerin modelin belirli bir aşamasına (bilişsel değerlendirme) yerleştirilmesi doğru bir adım olsa da, bu entegrasyonun yüzeysel kalması, modelin olumsuz düşüncelerle nasıl zenginleştirildiğini tam olarak anlamayı zorlaştırmaktadır. Bu durum, çalışmanın teorik katkısının potansiyelini tam olarak ortaya koymasını engellemektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Literatür Taramasında Kapsam Eksiklikleri",
+        "summary": "Makalenin literatür taraması, genel olarak ilgili alandaki temel çalışmaları kapsasa da, bazı yüksek atıflı ve potansiyel olarak ilgili seminal eserleri içermemektedir. Bu durum, çalışmanın literatürdeki konumunu ve katkısını tam olarak yansıtmada eksiklik yaratabilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makale, sporcu tükenmişliği ve stres ilişkisi üzerine odaklanmaktadır. Ancak, 'Submitted 14 September 2017 Accepted 1 December 2017 Publish' konusuyla doğrudan ilişkili olabilecek, ancak kaynakçada yer almayan yüksek atıflı bazı çalışmalar tespit edilmiştir. Bu çalışmaların incelenmemesi, makalenin literatürdeki yerini ve argümanlarını güçlendirme potansiyelini azaltmaktadır. Özellikle, 'Parkinson's disease, 2021' ve 'Chemical engineering progress, 1988' gibi çok yüksek atıflı ancak konuyla doğrudan ilişkisi belirsiz olan eserlerin listelenmesi, otomatik tespitin sınırlılıklarını gösterse de, genel olarak literatür taramasının derinlemesine yapılmadığı izlenimini yaratmaktadır. Yazarın kendi alanındaki seminal eserleri gözden kaçırması, çalışmanın kapsamını daraltabilir.",
+        "limitations": [
+          "Otomatik tespit edilen 'kapsama boşlukları' listesindeki bazı eserlerin makalenin ana konusuyla doğrudan ilişkisi net değildir. Bu durum, otomatik tespit aracının genel anahtar kelime eşleştirmesine dayanmasından kaynaklanmaktadır. Yazarın kendi alanındaki uzmanlığıyla bu boşlukları değerlendirmesi gerekmektedir."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Kaynakçada Bulunamayan Referanslar",
+        "summary": "Kaynakçada yer alan 56 referanstan 17'si OpenAlex veya Semantic Scholar indekslerinde doğrudan bulunamamıştır. Bu durum, makalenin doğrulanabilirliğini ve şeffaflığını bir miktar azaltmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Kaynakçada belirtilen bazı referansların (örn. [2] 'Development and validation of the Organiza- tional Stressor Indicator for Sport Performers (OSI-SP)', [6] 'Self-efficacy: the exercise of control', [8] 'Beck TA. 1976. Cognitive therapy and emotional disorder') OpenAlex veya Semantic Scholar gibi akademik indekslerde bulunamaması, bu kaynakların doğrulanmasını zorlaştırmaktadır. Bu durum, özellikle niş yayınlar, konferans bildirileri veya İngilizce dışı dillerdeki yayınlar için yaygın olsa da, okuyucuların ve hakemlerin atıf yapılan çalışmalara erişimini ve makalenin argümanlarının dayandığı temelleri kontrol etmesini engellemektedir.",
+        "limitations": [
+          "Referansların indekslerde bulunamaması, referansın geçersiz olduğu anlamına gelmez, sadece otomatik sistemlerin kapsam dışı kalmasından kaynaklanabilir. Özellikle eski tarihli veya niş yayınlar için bu durum daha sık görülür."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f1.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f2",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Smith'in Bilişsel-Duygusal Modelinin Etkin Kullanımı",
+        "summary": "Makale, Smith'in (1986) bilişsel-duygusal sporcu tükenmişliği modelini temel çerçeve olarak başarılı bir şekilde kullanmış ve negatif düşüncelerin bu modeldeki aracı rolünü net bir şekilde konumlandırmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "Using Smith’s (1986) cognitive-affective model of athletic burnout as a guiding framework, the purpose of this study was to examine the relationships among athletes’ stress in life, negative thoughts, and the mediating role of negative thoughts on the stress-burnout relationship."
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "To explain the process of athlete burnout, Smith (1986) proposed a ‘‘cognitive-affective model of athletic burnout,’’ which contends that burnout is a reaction to chronic stress and it comprises situational, cognitive, physiological, and behavioral components that progress in four predicted stages."
+          },
+          {
+            "anchor_id": "discussion.a5",
+            "section": "DISCUSSION",
+            "quote": "By incorporating negative thoughts into Smith’s (1986) cognitive-affective model of athletic burnout, our study advances our knowledge of how negative thoughts underlie the life stress-burnout relationship for athletes."
+          }
+        ],
+        "reasoning_public": "Makale, giriş ve tartışma bölümlerinde Smith'in (1986) bilişsel-duygusal modelini açıkça belirtmiş ve çalışmanın bu model içindeki boşluğu doldurma amacını net bir şekilde ifade etmiştir. Bu, çalışmanın literatürdeki yerini ve teorik katkısını güçlendirmektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Genel yaşam stresi ve spor-spesifik stres arasındaki ayrımın sonuçlarda yeterince vurgulanmaması",
+        "summary": "Makale, genel yaşam stresi ve spor-spesifik stresin negatif düşünceler ve tükenmişlik üzerindeki etkilerini ayrı ayrı incelemesine rağmen, tartışma bölümünde bu iki stres türü arasındaki farklılıklar veya benzerlikler yeterince vurgulanmamıştır. Bulgular, her iki stres türünün de negatif düşünceler aracılığıyla tükenmişliği etkilediğini gösterse de, bu iki stres kaynağının sporcular üzerindeki özgül etkileri veya aralarındaki nüanslar tartışmada daha derinlemesine ele alınabilirdi.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "Using the aforementioned theoretical and empirical background, the purpose of this study was to examine the relationships among athletes’ life stressors (both in sports and in general life), negative thoughts (i.e., personal maladjustment, the desire for change, negative sense of self, giving up, learned helplessness, and negative expectations), and burnout."
+          },
+          {
+            "anchor_id": "discussion.a6",
+            "section": "DISCUSSION",
+            "quote": "Results indicated that two types of athletes’ life stress, four types of negative thoughts, and burnout were all positively correlated. Also, four types of negative thoughts mediated a general life- and sports-specific stress-burnout relationship."
+          }
+        ],
+        "reasoning_public": "Makale, sporcuların yaşam stresini 'spor-spesifik stres' ve 'genel yaşam stresi' olarak iki ana bileşene ayırmış ve analizlerini bu ayrım üzerinden yapmıştır. Ancak, tartışma bölümünde bu iki stres türünün tükenmişlik üzerindeki etkileri arasındaki potansiyel farklılıklar veya benzerlikler yeterince açıklanmamıştır. Bu durum, bulguların tam potansiyelinin anlaşılmasını engellemektedir. Örneğin, spor-spesifik stresin sporcuların performansına veya kariyerine yönelik daha doğrudan etkileri olabilirken, genel yaşam stresi daha geniş bir psikolojik etki yaratabilir. Bu ayrımın tartışmada daha belirgin hale getirilmesi, çalışmanın katkısını artıracaktır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Negatif düşüncelerin 'değişimi arzu etme' boyutu ile ilgili tartışmanın yetersizliği",
+        "summary": "Makale, Otomatik Düşünceler Anketi'nin (ATQ) 'Kişisel Uyumsuzluk ve Değişim Arzusu' (PMADC) alt ölçeğini kullanmasına rağmen, tartışma bölümünde 'değişim arzusu' bileşeninin tükenmişlik ilişkisindeki rolü veya anlamı hakkında spesifik bir yorum veya açıklama yapılmamıştır. Bu durum, bu alt ölçeğin bulgulara katkısının tam olarak anlaşılmasını engellemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "measures.a2",
+            "section": "Measures",
+            "quote": "The ATQ was divided into four subscales: (a) Personal Maladjustment and Desire for Change (PMADC) (e.g., I wish I were a better person);"
+          },
+          {
+            "anchor_id": "discussion.a7",
+            "section": "DISCUSSION",
+            "quote": "The mediating effect of negative self-concept (NSC) on the two types of life stress-burnout relationships suggests that there is a role for the self-concept in predicting athletes’ motivation, affect, and behavior (Gallia & Gonzalez, 2014)."
+          },
+          {
+            "anchor_id": "discussion.a8",
+            "section": "DISCUSSION",
+            "quote": "The effect of giving up and helplessness (GU/H) on the relationship between two types of life stress and burnout prompted us to examine athletes’ causal explanation about their failure in sports."
+          }
+        ],
+        "reasoning_public": "ATQ'nun PMADC alt ölçeği, 'Kişisel Uyumsuzluk ve Değişim Arzusu'nu ölçmektedir. Ancak tartışma bölümünde, özellikle 'değişim arzusu' bileşeninin sporcuların stres-tükenmişlik ilişkisindeki rolü veya bu arzunun negatif düşüncelerle nasıl birleştiği hakkında spesifik bir yorum bulunmamaktadır. Tartışma daha çok 'negatif benlik kavramı' ve 'vazgeçme/çaresizlik' gibi diğer alt ölçeklere odaklanmıştır. PMADC'nin 'değişim arzusu' kısmı, sporcuların motivasyonu veya başa çıkma stratejileri açısından önemli çıkarımlar sunabilir, ancak bu potansiyel göz ardı edilmiştir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Aracılık analizlerinin bulgularla tutarlı bir şekilde sunulması",
+        "summary": "Makale, negatif düşüncelerin stres-tükenmişlik ilişkisindeki aracılık rolünü destekleyen güçlü istatistiksel kanıtlar sunmuştur. Sobel test sonuçları ve beta katsayılarındaki düşüşler, iddia edilen aracılık etkilerini açıkça göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a2",
+            "section": "RESULTS",
+            "quote": "The upper part of Table 4 shows the mediating effects of four types of negative thoughts on the sports-specific life stress-burnout relationship. The first block illustrates that personal maladjustment and the desire for change (PMADC) mediated the sports-specific life stress-burnout relationship (β = 0.54 changed to β = 0.41). ... Sobel tests of PMADC, NSC, GU/H, and NE were 6.86, 6.74, 5.63, and 5.81 (z > 1.96 and p < 0.05), respectively."
+          },
+          {
+            "anchor_id": "results.a3",
+            "section": "RESULTS",
+            "quote": "The lower part of Table 4 shows the mediating effects of four types of negative thoughts on the general life stress-burnout relationship. ... Sobel tests for PMADC, NSC, GU/H, and NE p were 7.03, 7.02, 5.68, and 5.87 (z > 1.96 and P < 0.05), respectively."
+          }
+        ],
+        "reasoning_public": "Makale, Barron ve Kenny'nin (1986) önerilerine uygun olarak aracılık analizlerini gerçekleştirmiş ve hem spor-spesifik hem de genel yaşam stresi için negatif düşüncelerin tükenmişlik üzerindeki aracılık etkilerini istatistiksel olarak doğrulamıştır. Tablo 4'te sunulan beta katsayılarındaki düşüşler ve Sobel testlerinin anlamlı sonuçları (z > 1.96 ve p < 0.05), negatif düşüncelerin stres-tükenmişlik ilişkisinde önemli bir aracı rol oynadığı iddiasını güçlü bir şekilde desteklemektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yüksek Sayıda Çözülemeyen Referans",
+        "summary": "Makalenin referans listesindeki 56 atıftan 17'si (%30) otomatik indekslerde (OpenAlex/Semantic Scholar) bulunamamıştır. Bu durum, makaledeki bazı iddiaların doğrulanabilirliğini ve literatürdeki yerini takip etmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayıncılıkta, atıfların kolayca erişilebilir ve doğrulanabilir olması, araştırmanın şeffaflığı ve güvenilirliği açısından önemlidir. Yüksek oranda bulunamayan referanslar, okuyucuların ve hakemlerin makaledeki argümanların dayandığı kaynakları değerlendirmesini engelleyebilir. Bu durum, özellikle niş veya İngilizce dışı yayınlar için anlaşılabilir olsa da, genel olarak literatür taramasının eksiksizliğini ve atıf kalitesini düşürebilir.",
+        "limitations": [
+          "Otomatik indekslerin kapsam sınırlamaları nedeniyle bazı geçerli referansların bulunamaması normaldir. Bu bulgu, referansların kendisinin hatalı olduğu anlamına gelmez, daha çok erişilebilirlik sorununa işaret eder."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "citation_integrity.f1",
+        "dimension": "citation_integrity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Atıf Doğruluğu ve Bütünlüğü Yüksek",
+        "summary": "Makalede 'uydurma' veya 'geri çekilmiş' olarak işaretlenmiş hiçbir referans bulunmamaktadır. Çözümlenen referansların tamamı OpenAlex/Semantic Scholar indekslerinde başarıyla eşleştirilmiştir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Referansların uydurma olmaması veya geri çekilmiş yayınlara atıf yapılmaması, makalenin akademik dürüstlük ve güvenilirlik açısından güçlü olduğunu göstermektedir. Bu durum, araştırmanın temelini oluşturan literatürün sağlam ve geçerli olduğunu destekler.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Temel Raporlama Bilgileri Mevcut",
+        "summary": "Makale, yayın tarihi, yazarlar, kurumlar, DOI ve Creative Commons lisansı gibi temel raporlama bilgilerini açıkça belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "ba_l_k_sayfas.a0",
+            "section": "Başlık Sayfası",
+            "quote": "Submitted 14 September 2017 Accepted 1 December 2017 Published 19 December 2017 Corresponding author\nFrank J.H. Lu, ljh25@ulive.pccu.edu.tw, frankjlu@gmail.com\nDOI 10.7717/peerj.4181\nCopyright 2017 Chang et al. Distributed under Creative Commons CC-BY 4.0 OPEN ACCESS"
+          }
+        ],
+        "reasoning_public": "Bu bilgiler, makalenin şeffaflığını ve erişilebilirliğini artırarak okuyucuların çalışmayı doğru bir şekilde tanımlamasına ve atıfta bulunmasına olanak tanır. Ayrıca, Creative Commons lisansı, çalışmanın yeniden kullanım koşulları hakkında netlik sağlar.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Veri Erişilebilirliği Beyanı",
+        "summary": "Makale, ham verilerin ek dosya olarak sağlandığını belirten bir veri erişilebilirliği beyanı içermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "data_availability.a1",
+            "section": "Data Availability",
+            "quote": "The following information was supplied regarding data availability:\nThe raw data has been provided as a Supplemental File."
+          }
+        ],
+        "reasoning_public": "Veri erişilebilirliği beyanı, çalışmanın şeffaflığını ve tekrarlanabilirliğini artırır. Araştırmacıların ve diğer okuyucuların, analizleri doğrulamak veya ek araştırmalar yapmak için verilere erişmesine olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f2",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Yazar Katkıları Beyanı",
+        "summary": "Makale, her bir yazarın çalışmaya yaptığı spesifik katkıları detaylandıran bir yazar katkıları bölümü içermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "author_contributions.a0",
+            "section": "Author Contributions",
+            "quote": "• Ko-Hsin Chang conceived and designed the experiments, performed the experiments, wrote the paper.\n• Frank J.H. Lu conceived and designed the experiments, wrote the paper, reviewed drafts of the paper, monitoring the whole process of the study.\n• Theresa Chyi conceived and designed the experiments, performed the experiments, wrote the paper, prepared figures and/or tables.\n• Ya-Wen Hsu performed the experiments, analyzed the data, wrote the paper, prepared figures and/or tables.\n• Shi-Wei Chan and Erica T.W. Wang analyzed the data, contributed reagents/materials/"
+          }
+        ],
+        "reasoning_public": "Yazar katkılarının açıkça belirtilmesi, yazarlık şeffaflığını artırır ve her bir yazarın çalışmadaki rolünü netleştirir. Bu, akademik dürüstlük ve sorumluluk açısından önemlidir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f3",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.7,
+        "title": "Etik Onay Beyanı",
+        "summary": "Makale, çalışmanın etik kurul onayı alındığını belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "procedure.a0",
+            "section": "Procedure",
+            "quote": "After receiving approval from a local institutional review board (TSMH IRB No. 16-094-B1), the research team contacted the coach or administrator of a target team and asked permission to invite his/her team as participants."
+          }
+        ],
+        "reasoning_public": "İnsan katılımcılarla yapılan araştırmalarda etik onay, çalışmanın sorumlu bir şekilde yürütüldüğünü ve katılımcı haklarının korunduğunu gösteren temel bir gerekliliktir. Bu beyan, çalışmanın etik standartlara uygunluğunu teyit eder.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f4",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Raporlama Kılavuzu Belirtilmemiş",
+        "summary": "Makale, çalışmanın hangi spesifik raporlama kılavuzuna (örn. STROBE, APA) uygun olarak hazırlandığını belirtmemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Gözlemsel çalışmalar için STROBE gibi raporlama kılavuzları, metodolojinin, sonuçların ve tartışmanın şeffaf ve eksiksiz bir şekilde sunulması için standartlar sağlar. Bu kılavuzlara uyumun belirtilmemesi, okuyucuların çalışmanın raporlama kalitesini değerlendirmesini zorlaştırabilir ve potansiyel eksikliklerin gözden kaçmasına neden olabilir.",
+        "limitations": [
+          "Makalenin gözlemsel bir çalışma olduğu varsayımına dayanmaktadır. Eğer farklı bir çalışma türü ise, uygun kılavuz değişebilir."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f4.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Onay ve Veri Erişimi Açıklaması",
+        "summary": "Makale, etik kurul onayını ve veri erişilebilirliğini açıkça belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "procedure.a1",
+            "section": "Procedure",
+            "quote": "After receiving approval from a local institutional review board (TSMH IRB No. 16-094-B1), the research team contacted the coach or administrator of a target team and asked permission to invite his/her team as participants."
+          },
+          {
+            "anchor_id": "data_availability.a2",
+            "section": "Data Availability",
+            "quote": "The following information was supplied regarding data availability: The raw data has been provided as a Supplemental File."
+          }
+        ],
+        "reasoning_public": "Etik onay ve veri paylaşımı, araştırmanın şeffaflığı ve tekrarlanabilirliği açısından kritik öneme sahiptir. Bu makale, bu bilgileri sağlayarak iyi bir uygulama örneği sergilemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Katılımcı Rızası ve Gizliliğin Sağlanması",
+        "summary": "Çalışma, katılımcılardan bilgilendirilmiş onam alındığını ve yanıtların gizliliğinin sağlandığını belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "procedure.a2",
+            "section": "Procedure",
+            "quote": "Before administering the questionnaire, we explained the general purpose of the study, the methods to complete questionnaires, and the rights associated with being a participant. To prevent social desirability effects, we informed participants that this was a study to explore college students’ life experiences, and there were no right or wrong answers. Additionally, we asked participants to answer the questions as truthfully as possible, and all responses would be confidential. After the briefing, participants who were interested in participating in this study signed a consent form and completed the investigation package."
+          }
+        ],
+        "reasoning_public": "İnsan katılımcılarla yapılan çalışmalarda bilgilendirilmiş onam ve gizliliğin korunması etik standartların temelini oluşturur. Makale bu adımları açıkça ifade ederek etik ilkelere uygun hareket edildiğini göstermektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Tutarsız Bölüm Başlıkları ve Alt Başlıklar",
+        "summary": "Makalede bölüm başlıkları ve alt başlıkların biçimlendirilmesinde ve hiyerarşisinde tutarsızlıklar bulunmaktadır. Örneğin, 'RESULTS' ve 'DISCUSSION' ana başlıklar olarak görünürken, 'Mediating effects of negative thoughts on the sports-specific life stress-burnout relationship' gibi alt başlıklar da benzer şekilde vurgulanmıştır, bu da okuyucunun makalenin yapısını anlamasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a4",
+            "section": "RESULTS",
+            "quote": "RESULTS\nDescriptive statistics and correlations matrix\nTable 1 shows that all measures had appropriate internal reliability (ranging from 0.76–\n96). These results indicated that athlete burnout positively correlated with a total score\nfor negative thoughts, four types of negative thoughts, and two types of life stress. Among\nthese correlations, burnout correlated more significantly with two types of life stress than\n6/17\nTable 1\nCorrelation matrix and descriptive statistics for study variables.\nABQ\nATQ\nPMADC\nNSC\nGU/H\nNE\nSport\nstress\nGeneral\nstress\n1. ABQ\n1.00\n.47**\n.46**\n.47**\n.41**\n.42**\n.54**\n.49**\n2. ATQ\n1.00\n.86**\n.88**\n.96**\n.95**\n.49**\n.52**\n3. PMADC\n1.00\n.79**\n.74**\n.69**\n.53**\n.56**\n4. NSC\n1.00\n.79**\n.80**\n.50**\n.53**\n5. GU/H\n1.00\n.92**\n.44**\n.44**\n6. NE\n1.00\n.40**\n.44**\n7. Sport Stress\n1.00\n.68**\n8. Gen. Stress\n1.00\nMean\n2.48\n1.86\n2.36\n1.92\n1.76\n1.62\n2.61\n2.43\nSD\n0.76\n0.65\n0.77\n0.73\n0.70\n0.67\n0.85\n0.96\nα\n.89\n.96\n.84\n.76\n.91\n.94\n.89\n.90\nNotes.\nABQ, athlete burnout; ATQ, total score of automatic negative thoughts; PMADC, personal maladjustment and desire for\nchange; NSC, negative self-concept; GU/H, giving up/helplessness; NE, negative expectations; Sport Stress, sport-specific\nlife stress; Gen. Stress, general-life stress.\n**p < .01.\nnegative thoughts. Four types of negative thoughts positively correlated with each other, as\ndid two types of life stress.\nPredictions for the eﬀects of life stress and negative thoughts\non burnout\nBefore performing mediating analyses, we examined the relationships among life stress,\nnegative thoughts, and burnout. As Table 2 shows, sports-specific life stress predicted four\ntypes of negative thoughts (β = 0.53; β = 0.50; β = 0.44; β = 0.40, p < 0.01) in Model 1. In\nModel 2, both sports-specific life stress (β = 0.54; β = 0.54; β = 0.54 ; β = 0.54, p < 0.01)\nand four types of negative thoughts (β = 0.46; β = 0.47; β = 0.41; β = 0.42, p < 0.01)\npredicted burnout. Thus, these results demonstrated that it these data can be further\nanalyzed for mediating effects. Also, as Table 3 illustrates, general life stress predicted four\ntypes of negative thoughts (β = 0.56; β = 0.53; β = 0.44; β = 0.44, p < 0.01) in Model 1. In\nModel 2, both general life stress (β = 0.49; β = 0.22449; β = 0.49; β = 0.49, p < 0.01) and\nfour types of negative thoughts (β = 0.46; β = 0.47; β = 0.41; β = 0.42, p < 0.01) predicted\nburnout. Thus, these results indicated that these data can be further analyzed for mediating\neffects.\nMediating eﬀects of negative thoughts on the sports-speciﬁc life\nstress-burnout relationship\nThe upper part of Table 4 shows the mediating effects of four types of negative thoughts on\nthe sports-specific life stress-burnout relationship. The first block illustrates that personal\nmaladjustment and the desire for change (PMADC) mediated the sports-specific life stress-\nburnout relationship (β = 0.54 changed to β = 0.41). The second block demonstrates that\nnegative self-concept (NSC) mediated the sports-specific life stress-burnout relationship\n(β = 0.54 changed to β = 0.41). The third block demonstrates that giving up and\n7/17\nTable 2\nSimple regression of sport- life stress and negative thoughts on burnout.\nVariables\nPMADC\nNSC\nGU/H\nNE\nβ\n1R2\nβ\n1R2\nβ\n1R2\nβ\n1R2\nRegression 1\nSport stress\n.53**\n.28**\n.50**\n.25**\n.44**\n.19**\n.40**\n.16**\nRegression 2\nSport stress\n.54**\n.29**\n.54**\n.29**\n.54**\n.29**\n.54**\n.29**\nNegative Thoughts\n.46**\n.21**\n.47**\n.22**\n.41**\n.16**\n.42**\n.18**\nNotes.\nThe dependent variables of regression 1 was negative thoughts, and regression 2 was burnout. All abbreviations were as indi-\ncated in Table 1.\n**p < .01.\nTable 3\nSimple regression of general-life stress and negative thoughts on burnout.\nVariables\nPMADC\nNSC\nGU/H\nNE\nβ\n1R2\nβ\n1R2\nβ\n1R2\nβ\n1R2\nRegression 1\nGen-life stress\n.56**\n.31**\n.53**\n.27**\n.44**\n.19**\n.44**\n.19**\nRegression 2\nGen-life stress\n.49**\n.24**\n.49**\n.24**\n.49**\n.24**\n.49**\n.24**\nNegative Thoughts\n.46**\n.21**\n.47**\n.22**\n.41**\n.16**\n.42**\n.18**\nNotes.\nThe dependent variables of regression 1 was negative thoughts, and regression 2 was burnout.\nAll abbreviations were as indicated in Table 1.\n**p < .01.\nhelplessness (GU/H) mediated the sports-specific life stress-burnout relationship (β = 0.54\nchanged to β = 0.45). The fourth block shows that negative self-concept (NE) mediated the\nsports-specific life stress-burnout relationship (β = 0.54 changed to β = 0.44). Sobel tests\nof PMADC, NSC, GU/H, and NE were 6.86, 6.74, 5.63, and 5.81 (z > 1.96 and p < 0.05),\nrespectively.\nMediating eﬀects of negative thoughts on the general life\nstress-burnout relationship\nThe lower part of Table 4 shows the mediating effects of four types of negative thoughts\non the general life stress-burnout relationship. The first block illustrates that personal\nmaladjustment and the desire for change (PMADC) mediated the general life stress-burnout\nrelationship (β = 0.49 changed to β = 0.34). The second block demonstrates that negative\nself-concept (NSC) mediated the sports-specific life stress-burnout relationship (β = 0.49\nchanged to β = 0.34). The third block shows that giving up and helplessness (GU/H)\nmediated the general life stress-burnout relationship (β = 0.49 changed to β = 0.39). The\nfourth block shows that negative self-concept (NE) mediated the general life stress-burnout\nrelationship (β = 0.49 changed to β = 0.38). Sobel tests for PMADC, NSC, GU/H, and NE\np were 7.03, 7.02, 5.68, and 5.87 (z > 1.96 and P < 0.05), respectively.\n8/17"
+          },
+          {
+            "anchor_id": "discussion.a9",
+            "section": "DISCUSSION",
+            "quote": "DISCUSSION\nTo determine whether negative thoughts might influence the stress-burnout relationship\nfor athletes, this study examined the relationships among athletes’ life stress, negative\nthoughts, and burnout; and the potential mediating effects of negative thoughts on the life\nstress-burnout relationship. Results indicated that two types of athletes’ life stress, four\ntypes of negative thoughts, and burnout were all positively correlated. Also, four types of\nnegative thoughts mediated a general life- and sports-specific stress-burnout relationship.\nOur results provide several theoretical implications for researchers. By incorporating\nnegative thoughts into Smith’s (1986) cognitive-affective model of athletic burnout,\nour study advances our knowledge of how negative thoughts underlie the life stress-\nburnout relationship for athletes. We found that the association between athletes’ life\nstress and burnout was partially explained by negative thoughts. Past research examining\nthe mechanisms underlying the stress-burnout relationship generally found that positive\nvariables, such as self-efficacy (e.g., Schwarzer & Hallum, 2008), optimism (Gustafsson\n& Skoog, 2012), teaching strategy (e.g., Ben-Ari, Krole & Har-Even, 2003), hardiness (e.g.,\nChan, 2003), coping and social support (e.g., Koeske & Koeske, 1989; Raedeke & Smith,\n2004), or perceived accomplishments (e.g., Koeske & Koeske, 1989), mediate or moderate\nthe stress-burnout relationship. Our study provides new evidence that negative thoughts\ncan change the stress-burnout relationship. These results should prompt future research\nto examine how positive and negative variables influence the stress-burnout relationship.\nThe mediating effect of negative self-concept (NSC) on the two types of life stress-\nburnout relationships suggests that there is a role for the self-concept in predicting athletes’\nmotivation, affect, and behavior (Gallia & Gonzalez, 2014). Past research found that when\nathletes had low self-esteem, they either adopted self-handicapping strategies in sports\n(Finez & Sherman, 2012) or were susceptible to developing eating disorders (McLester,\nHardin & Hoppe, 2014). Thus, it is important to monitor athletes’ self-related thought\npatterns. Additionally, coaches, parents, and sports professionals need to build a positive\nmotivational culture in which athletes’ self-concept will not be threatened in losing\nsituations (Smith, Smoll & Cumming, 2007).\nThe effect of giving up and helplessness (GU/H) on the relationship between two types\nof life stress and burnout prompted us to examine athletes’ causal explanation about their\nfailure in sports. Why one gives up and displays helplessness derives from attributing failure\nto internal and stable reasons (Weiner , 1972). As previously stated, female athletes tend to\nattribute success to external, unstable, and uncontrollable causes, while attributing failure\nto internal, stable, and controllable reasons (Green & Holeman, 2004). Therefore, how to\nchange athletes’ thought patterns and attribution retraining for those with self-defeating\nattribution is key for coaches and sport psychology consultants.\nThe mediating effects of negative expectations on the relationship between two types\nof life stress and burnout imply that when athletes tend to be negative about their future,\nthey will increase the life stress-burnout relationship. Although no specific investigation\nfocused on the sources of negative expectations in sports, it has been shown that social\nagents, such as coaches, parents, peers, and teachers, play a significant role in formulating\n10/17"
+          }
+        ],
+        "reasoning_public": "Tutarsız başlıklandırma, makalenin mantıksal akışını ve okunabilirliğini olumsuz etkiler. Okuyucuların ana bölümler ile alt bölümler arasındaki ilişkiyi hızlıca kavramasını engeller ve metin içinde gezinmeyi zorlaştırır.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Giriş Bölümünde Tekrarlayan Bilgiler",
+        "summary": "Giriş bölümünde, Smith'in (1986) bilişsel-duygusal atletik tükenmişlik modelinin açıklaması ve bu modelin temel bileşenleri birden fazla kez tekrarlanmıştır. Bu durum, metnin akıcılığını azaltmakta ve gereksiz yere uzunluğa neden olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "Background. Using Smith’s (1986) cognitive-affective model of athletic burnout as a\nguiding framework, the purpose of this study was to examine the relationships among\nathletes’ stress in life, negative thoughts, and the mediating role of negative thoughts\non the stress-burnout relationship."
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "To explain the process of athlete burnout, Smith (1986) proposed a ‘‘cognitive-affective\nmodel of athletic burnout,’’ which contends that burnout is a reaction to chronic stress and\nit comprises situational, cognitive, physiological, and behavioral components that progress\nin four predicted stages. The first stage is triggered by the athletes’ perceived situational\ndemands (e.g., high conflicting demands, overload training, parental expectations, or\ncoaches’ pressures). The second stage involves cognitive appraisal to interpret these\ndemands. In particular, athletes at this stage will appraise the balance between challenges\nand resources with potential consequences. When athletes perceive that demands surpass\npersonal resources and consequences will be severe, the process will move to the third\nstage, which involves physiological and psychological responses, such as anxiety, tension,\ninsomnia, and illness. Finally, physiological and psychological responses lead to burnout\n(i.e., rigid and inappropriate behavior, decreased performance, and withdrawal from the\nactivity)."
+          },
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "Negative thoughts play a pivotal role in the cognitive-affective model of athletic burnout.\nSpecifically, Smith contends that when encountering environmental stressors, athletes\nengage in a cognitive appraisal to evaluate whether these stressors are threatening or\nwhether they can handle them (Smith, 1986). Thus, the ways in which athletes appraise the\nstressors, both from positive and negative perspectives, are worthy of investigation."
+          }
+        ],
+        "reasoning_public": "Gereksiz tekrarlar, okuyucunun dikkatini dağıtabilir ve metnin verimliliğini düşürebilir. Bilgilerin bir kez, net ve öz bir şekilde sunulması, makalenin genel kalitesini artırır.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Tablo Başlıklarında ve Metin İçinde Kısaltma Tutarsızlığı",
+        "summary": "Tablo başlıklarında ve metin içinde kullanılan kısaltmaların (örn. 'Sport stress' ve 'Sport-specific life stress') tutarlılığı eksiktir. Bu durum, okuyucunun farklı terimlerin aynı şeyi ifade edip etmediği konusunda kafa karışıklığı yaşamasına neden olabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a5",
+            "section": "RESULTS",
+            "quote": "Table 1\nCorrelation matrix and descriptive statistics for study variables.\nABQ\nATQ\nPMADC\nNSC\nGU/H\nNE\nSport\nstress\nGeneral\nstress"
+          },
+          {
+            "anchor_id": "results.a6",
+            "section": "RESULTS",
+            "quote": "Notes.\nABQ, athlete burnout; ATQ, total score of automatic negative thoughts; PMADC, personal maladjustment and desire for\nchange; NSC, negative self-concept; GU/H, giving up/helplessness; NE, negative expectations; Sport Stress, sport-specific\nlife stress; Gen. Stress, general-life stress."
+          },
+          {
+            "anchor_id": "results.a7",
+            "section": "RESULTS",
+            "quote": "Mediating eﬀects of negative thoughts on the sports-speciﬁc life\nstress-burnout relationship"
+          }
+        ],
+        "reasoning_public": "Kısaltmaların ve terimlerin tutarlı kullanımı, akademik metinlerde netliği ve anlaşılırlığı artırır. Tutarsızlıklar, okuyucunun metni doğru bir şekilde yorumlamasını engelleyebilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makalenin Konusu ve Kapsamı Derginin Alanına Uygun",
+        "summary": "Makale, spor bilimleri, psikiyatri ve psikoloji alanlarına giren sporcularda stres-tükenmişlik ilişkisini ve olumsuz düşüncelerin aracı rolünü incelemektedir. Bu konu, PeerJ dergisinin geniş kapsamlı bilimsel yayın alanına ve özellikle biyoloji, tıp ve sağlık bilimleri gibi ilgili disiplinlere uygun görünmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "Subjects Kinesiology, Psychiatry and Psychology"
+          },
+          {
+            "anchor_id": "abstract.a8",
+            "section": "ABSTRACT",
+            "quote": "Examining the stress-burnout relationship: the mediating role of negative thoughts"
+          }
+        ],
+        "reasoning_public": "PeerJ, geniş bir bilimsel yelpazeyi kapsayan açık erişimli bir dergi olup, spor psikolojisi ve fizyolojisi gibi alanlardaki araştırmaları da yayınlamaktadır. Makalenin konusu ve metodolojisi derginin genel yayın politikasıyla uyumludur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "MATERIALS & METHODS",
+        "instruction": "Add a section to the Methods explaining the rationale for the sample size. If a power analysis was conducted, report its parameters (e.g., effect size, alpha, power level) and the resulting required sample size. If not, acknowledge this limitation and discuss its implications for interpreting the findings.",
+        "acceptance_check": "Presence of a clear sample size justification or power analysis report.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f10.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, RESULTS, DISCUSSION",
+        "instruction": "Revise all instances of causal language (e.g., 'predicted', 'mediated', 'influenced') to reflect correlational or associational terms (e.g., 'associated with', 'related to', 'explained variance in') throughout the abstract, results, and discussion sections. Emphasize that the findings suggest potential mechanisms but do not establish causality due to the cross-sectional nature of the data.",
+        "acceptance_check": "All causal language replaced with appropriate associational terms, and a clear statement about the limitations of cross-sectional data for causal inference is included.",
+        "linked_finding_ids": [
+          "quant.f10"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "Add confidence intervals for all reported beta coefficients in Tables 2, 3, and 4. For mediation analyses, report confidence intervals for the indirect effects (e.g., using bootstrapping methods for Sobel test results).",
+        "acceptance_check": "Confidence intervals are reported for all regression coefficients and mediation effects.",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Tartışma bölümünde, genel yaşam stresi ve spor-spesifik stresin negatif düşünceler ve tükenmişlik üzerindeki aracılık etkileri arasındaki benzerlikleri ve farklılıkları daha ayrıntılı olarak ele alın. Bu iki stres türünün sporcular üzerindeki özgül etkilerine dair literatürle bağlantı kurarak bulguların yorumunu zenginleştirin.",
+        "acceptance_check": "Tartışma bölümünde, iki stres türü arasındaki ayrımın ve bunların tükenmişlik üzerindeki farklı veya benzer etkilerinin açıkça belirtildiği ve literatürle desteklendiği bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "contribution_originality.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Tartışma bölümünde, negatif düşüncelerin aracılık rolünün, daha önce incelenen pozitif değişkenlerden (öz yeterlilik, iyimserlik vb.) neden farklı veya daha önemli olduğunu açıklayan ek bir paragraf ekleyin. Bu, çalışmanın özgün katkısını daha belirgin hale getirecektir.",
+        "acceptance_check": "Negatif düşüncelerin aracılık rolünün, literatürdeki diğer aracılık/düzenleyicilik mekanizmalarından ayrışan özgün yönleri açıkça belirtilmiş mi?",
+        "linked_finding_ids": [
+          "contribution_originality.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, DISCUSSION, REFERENCES",
+        "instruction": "Makalenin ana konusu olan sporcu stresi, tükenmişliği ve negatif düşüncelerle ilgili alandaki en güncel ve seminal çalışmaları yeniden gözden geçirin. Özellikle, çalışmanın temel argümanlarını destekleyebilecek veya onlarla çelişebilecek yüksek atıflı eserleri kaynakçanıza ekleyin ve tartışma bölümünde bu eserlerle etkileşime geçin.",
+        "acceptance_check": "Kaynakçada, makalenin ana temalarıyla doğrudan ilgili, son 5-10 yıl içinde yayınlanmış en az 3-5 yeni seminal çalışma eklenmiş ve bu çalışmalar metin içinde tartışmaya dahil edilmiş olmalı.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "Statistical analyses",
+        "instruction": "Add a statement to the 'Statistical analyses' section confirming that all relevant assumptions for hierarchical regression were checked and met, or discuss any violations and how they were addressed. Specifically mention checks for linearity, homoscedasticity, independence of errors, and multicollinearity (e.g., VIF values).",
+        "acceptance_check": "Explicit mention of assumption testing for regression.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "Review and correct the R-squared values in Tables 2 and 3 for 'Regression 2'. Ensure that the R-squared values accurately reflect the variance explained by each specific model, especially when different negative thought subscales are included.",
+        "acceptance_check": "R-squared values in Tables 2 and 3 are distinct and logically consistent with the models presented.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "RESULTS",
+        "instruction": "Correct the beta coefficient for 'Gen-life stress' under 'NSC' in Table 3, 'Regression 2' to match the format and likely intended value of other coefficients.",
+        "acceptance_check": "Beta coefficient for 'Gen-life stress' under 'NSC' in Table 3 is corrected and consistent with other reported values.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Statistical analyses",
+        "instruction": "Clarify the strategy used to handle missing data in the 'Statistical analyses' section. If no missing data were present, state this explicitly. If missing data were handled, describe the method (e.g., listwise deletion, mean imputation, multiple imputation) and justify its choice.",
+        "acceptance_check": "Explicit description of missing data handling strategy.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Statistical analyses",
+        "instruction": "Clarify the strategy used to handle outliers in the 'Statistical analyses' section. If no outliers were identified or handled, state this explicitly. If outliers were handled, describe the method (e.g., removal, winsorization, transformation) and justify its choice.",
+        "acceptance_check": "Explicit description of outlier handling strategy.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "DISCUSSION",
+        "instruction": "Tartışma bölümünde, olumsuz düşüncelerin Smith'in bilişsel-duygusal modelinin 'bilişsel değerlendirme' aşamasına nasıl entegre edildiğini ve bu entegrasyonun modelin işleyişini nasıl değiştirdiğini veya genişlettiğini daha ayrıntılı açıklayın. Bu entegrasyonun modelin diğer aşamalarıyla (durumsal talepler, fizyolojik/psikolojik tepkiler, tükenmişlik) potansiyel etkileşimlerini de tartışın.",
+        "acceptance_check": "Olumsuz düşüncelerin modeldeki yerinin ve rolünün net bir şekilde açıklandığı, modelin nasıl zenginleştirildiğini gösteren ek bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Tüm makale",
+        "instruction": "Makaledeki tüm bölüm ve alt bölüm başlıklarını tutarlı bir hiyerarşik yapıya göre yeniden biçimlendirin. Ana başlıklar (örn. Introduction, Methods, Results, Discussion, Conclusions) ve alt başlıklar (örn. Participants, Measures, Statistical analyses) arasında net bir görsel ayrım sağlayın (örn. farklı font boyutları, kalınlıklar veya numaralandırma sistemleri kullanarak).",
+        "acceptance_check": "Tüm bölüm ve alt bölüm başlıkları, makale genelinde tutarlı bir biçimlendirme ve hiyerarşi ile sunulmuştur.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Bulunamayan referanslar için DOI veya tam erişim bağlantıları (URL) eklenmeli, özellikle kitaplar veya konferans bildirileri gibi indekslerde daha az yer alan yayınlar için. Bu, okuyucuların ve hakemlerin kaynaklara erişimini kolaylaştıracaktır.",
+        "acceptance_check": "Tüm referanslar için DOI veya erişilebilir URL'ler sağlanmış olmalı ve OpenAlex/Semantic Scholar gibi indekslerde çözülebilirlik oranı artırılmalıdır.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Tartışma bölümünde, 'Kişisel Uyumsuzluk ve Değişim Arzusu' (PMADC) alt ölçeğinin 'değişim arzusu' bileşeninin bulgularla nasıl ilişkili olduğunu ve sporcuların stres-tükenmişlik sürecindeki potansiyel rolünü açıklayın. Bu bileşenin sporcuların motivasyonu veya başa çıkma stratejileri açısından ne anlama geldiğini tartışın.",
+        "acceptance_check": "PMADC'nin 'değişim arzusu' yönüne odaklanan ve bulgularla ilişkilendiren yeni bir paragrafın veya mevcut bir paragrafın genişletilmesinin eklenmesi.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "REFERENCES",
+        "instruction": "Bulunamayan referanslar için mümkünse DOI veya tam yayın bilgilerini (dergi adı, cilt, sayı, sayfa aralığı) kontrol edin ve güncelleyin. Eğer referanslar bir kitap veya niş bir yayınsa, tam künye bilgilerini sağlayarak erişimi kolaylaştırın.",
+        "acceptance_check": "Bulunamayan referansların en az yarısı için DOI veya daha detaylı künye bilgileri eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "literature_positioning.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f12.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "Discussion",
+        "instruction": "In the Discussion section, elaborate on the practical implications of the reported beta coefficients and R-squared values. Discuss what the magnitude of these effects means in the context of athlete burnout, rather than just stating statistical significance.",
+        "acceptance_check": "Discussion includes interpretation of effect sizes in terms of practical significance.",
+        "linked_finding_ids": [
+          "quant.f12"
+        ]
+      },
+      {
+        "action_id": "quant.f4.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "Discussion",
+        "instruction": "Discuss the potential for Type I errors due to multiple comparisons in the Discussion section. Consider applying a correction method (e.g., Bonferroni, FDR) if appropriate, or at least acknowledge this as a limitation.",
+        "acceptance_check": "Discussion of multiple comparisons risk and/or application of a correction method.",
+        "linked_finding_ids": [
+          "quant.f4"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f4.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Introduction|Methods",
+        "instruction": "Makalenin, gözlemsel çalışmalar için uygun bir raporlama kılavuzuna (örn. STROBE) uygun olarak hazırlandığını belirten bir ifade ekleyin. Eğer uyum sağlandıysa, hangi maddelere uyulduğunu kısaca açıklayın.",
+        "acceptance_check": "Makalede kullanılan raporlama kılavuzunun adı ve uyum beyanı açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f4"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümündeki Smith'in (1986) modeline ilişkin açıklamaları birleştirin ve tekrarlayan ifadeleri çıkararak daha öz ve akıcı bir anlatım sağlayın. Modelin temel prensipleri bir kez ve net bir şekilde açıklanmalıdır.",
+        "acceptance_check": "Giriş bölümünde Smith'in modeline ilişkin tekrarlayan açıklamalar kaldırılmış ve metin daha akıcı hale getirilmiştir.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f2.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "Tüm makale",
+        "instruction": "Makale genelinde 'Sport stress' ve 'Sport-specific life stress' gibi terimlerin kullanımını standartlaştırın. Ya tam terimi kullanın ya da kısaltmayı ilk geçtiği yerde açıklayarak tutarlı bir şekilde kullanın.",
+        "acceptance_check": "Tüm terim ve kısaltmalar makale genelinde tutarlı bir şekilde kullanılmıştır.",
+        "linked_finding_ids": [
+          "writing_structure.f2"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Causal language used with cross-sectional data",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7",
+          "abstract.a8"
+        ],
+        "action_item_ids": [
+          "quant.f10.a0",
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Genel yaşam stresi ve spor-spesifik stres arasındaki ayrımın sonuçlarda yeterince vurgulanmaması; Olumsuz Düşüncelerin Teorik Çerçeveye Entegrasyonunda Yüzeysellik",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "theoretical_framing.f1.a0",
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "RESULTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Over-reliance on 'significant' language without consistent effect size interpretation; Multiple comparisons risk not explicitly addressed; Tutarsız Bölüm Başlıkları ve Alt Başlıklar",
+        "anchor_ids": [
+          "results.a0",
+          "results.a1",
+          "results.a2",
+          "results.a3",
+          "results.a4",
+          "results.a5",
+          "results.a6",
+          "results.a7"
+        ],
+        "action_item_ids": [
+          "quant.f12.a0",
+          "quant.f4.a0",
+          "writing_structure.f0.a0",
+          "writing_structure.f2.a0"
+        ]
+      },
+      {
+        "section": "DISCUSSION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Causal language used with cross-sectional data; Genel yaşam stresi ve spor-spesifik stres arasındaki ayrımın sonuçlarda yeterince vurgulanmaması; Negatif düşüncelerin 'değişimi arzu etme' boyutu ile ilgili tartışmanın yetersizliği; Negatif Düşüncelerin Aracılık Rolünün Vurgulanması; Over-reliance on 'significant' language without consistent effect size interpretation; Tutarsız Bölüm Başlıkları ve Alt Başlıklar",
+        "anchor_ids": [
+          "discussion.a0",
+          "discussion.a1",
+          "discussion.a2",
+          "discussion.a3",
+          "discussion.a4",
+          "discussion.a5",
+          "discussion.a6",
+          "discussion.a7",
+          "discussion.a8",
+          "discussion.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f1.a0",
+          "contribution_originality.f0.a0",
+          "quant.f10.a0",
+          "quant.f12.a0",
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "CONCLUSIONS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Author Contributions",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "author_contributions.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Başlık Sayfası",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "ba_l_k_sayfas.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Data Availability",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "data_availability.a0",
+          "data_availability.a1",
+          "data_availability.a2"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "MATERIALS & METHODS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Lack of power analysis or sample size justification",
+        "anchor_ids": [
+          "materials_methods.a0",
+          "materials_methods.a1"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "Measures",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Negatif düşüncelerin 'değişimi arzu etme' boyutu ile ilgili tartışmanın yetersizliği",
+        "anchor_ids": [
+          "measures.a0",
+          "measures.a1",
+          "measures.a2"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "Procedure",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "procedure.a0",
+          "procedure.a1",
+          "procedure.a2"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Statistical analyses",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Lack of explicit assumption testing for regression analyses; Missing data handling strategy not fully detailed; Outlier handling strategy not fully detailed",
+        "anchor_ids": [
+          "statistical_analyses.a0",
+          "statistical_analyses.a1",
+          "statistical_analyses.a2"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f8.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "Table 2",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Confidence intervals not reported for regression coefficients or mediation effects; Inconsistent reporting of R-squared values in Table 2 and 3",
+        "anchor_ids": [
+          "table_2.a0",
+          "table_2.a1"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f7.a0"
+        ]
+      },
+      {
+        "section": "Table 3",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Inconsistent reporting of R-squared values in Table 2 and 3; Inconsistent reporting of beta coefficients in Table 3",
+        "anchor_ids": [
+          "table_3.a0",
+          "table_3.a1"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f6.a0"
+        ]
+      },
+      {
+        "section": "Table 4",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Confidence intervals not reported for regression coefficients or mediation effects",
+        "anchor_ids": [
+          "table_4.a0"
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "quantitative",
+  "verdict": "major_revision"
+}

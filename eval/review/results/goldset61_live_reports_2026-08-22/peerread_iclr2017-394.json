@@ -1,0 +1,1829 @@
+{
+  "paper_id": "peerread:iclr2017-394",
+  "run_tag": "main",
+  "job_id": "3c5f5b7b-4248-433d-b10d-faadf299602c",
+  "elapsed_s": 360.3,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "ZONEOUT: REGULARIZING RNNS BY RANDOMLY PRESERVING HIDDEN ACTIVATIONS",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RELATED WORK",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 5063,
+      "reference_count": 34,
+      "parse_confidence": 0.685,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces 'zoneout,' a novel and intuitive regularization method for Recurrent Neural Networks (RNNs). Instead of zeroing out activations like dropout, zoneout stochastically preserves a hidden unit's activation from the previous timestep. The authors provide a comprehensive empirical evaluation across several language modeling and classification benchmarks (Penn Treebank, Text8, pMNIST), demonstrating that zoneout significantly improves performance over unregularized models and other regularization techniques. The method is shown to be particularly effective when combined with other regularizers like recurrent batch normalization, achieving state-of-the-art results on the pMNIST task.",
+    "strengths": [
+      {
+        "category": "Novelty and Significance",
+        "points": [
+          "The proposed method, zoneout, is a simple, elegant, and conceptually novel approach to RNN regularization. The idea of preserving state via stochastic identity connections is a clever and distinct alternative to dropout.",
+          "The contribution is significant, addressing the critical challenge of regularizing recurrent models. The method's effectiveness is demonstrated to be substantial, leading to competitive or state-of-the-art results."
+        ]
+      },
+      {
+        "category": "Empirical Evaluation",
+        "points": [
+          "The paper is supported by a rigorous and extensive set of experiments across multiple datasets and tasks, strengthening the generality of the claims.",
+          "The comparison against a range of alternative regularization methods (recurrent dropout, weight noise, etc.) is thorough and provides a clear context for zoneout's performance."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The paper is exceptionally well-written, clear, and easy to follow. The core concept of zoneout is explained with admirable simplicity."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Scholarly Referencing",
+        "points": [
+          "The bibliography has critical integrity issues. Based on the evidence pack, an automated check found that 29 of the 34 references could not be resolved against major academic indices. This suggests widespread formatting errors or incomplete details, which is a major impediment to scholarly traceability. The fact that seminal works like Hochreiter & Schmidhuber (1997) and Bengio et al. (1994) are among the unresolvable citations underscores the severity of this issue."
+        ]
+      },
+      {
+        "category": "Literature Context",
+        "points": [
+          "The literature review omits key contemporary work, notably 'Gaussian Error Linear Units (GELUs)' (Hendrycks & Gimpel, 2016), a highly-cited paper confirmed as a coverage gap in the evidence pack. Failing to discuss this relevant work on controlling information flow weakens the paper's contextualization and the framing of its novelty."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The related work section provides a good overview. However, to better situate your work, consider discussing other contemporary methods for improving network dynamics and training. For instance, a discussion of 'Gaussian Error Linear Units (GELUs)' (Hendrycks & Gimpel, 2016) could be relevant, as it also explored novel ways to control information flow through non-linearities around the same time.",
+        "evidence_ref": "coverage_gap: Gaussian Error Linear Units (GELUs), 2016"
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The experimental methodology is sound. However, the reference list requires a major revision. An automated check indicates that 29 of the 34 citations could not be located in standard academic databases using the provided information. This is a critical issue for scholarly traceability. Please meticulously review every reference to ensure author names, year, title, and publication venue are correct and point to the canonical, archival version of the work. For example, key papers like Hochreiter & Schmidhuber (1997) and Bengio et al. (1994) were among those not found, which strongly suggests formatting errors rather than non-existence.",
+        "evidence_ref": "citation_integrity: 29/34 not_found"
+      }
+    ],
+    "questions": [
+      "The paper observes that different zoneout rates are optimal for LSTM cells (high, ~0.5) versus hidden states (low, ~0.05). Your conjecture about the interplay is plausible. Have you performed any further analysis to isolate why this is the case? For example, does forcing the cell state to be preserved more often prevent the loss of long-term information that the hidden state update might otherwise disrupt?",
+      "In Section 2.3, you make an interesting note that using standard residual connections in your RNNs led to instability. Could you elaborate on the nature of this instability (e.g., exploding/vanishing gradients, training divergence)? This is a valuable 'negative result' that could benefit the community.",
+      "Given that the evidence pack confirms 29 of 34 citations are unresolvable, could you please confirm that you have reviewed and corrected the full bibliographic details for all 34 references to ensure they are accurate and point to archival sources?"
+    ],
+    "overall_assessment": "This is an excellent paper proposing a simple, powerful, and well-motivated regularization technique for RNNs. The core idea of 'zoneout' is novel and the empirical evidence supporting its effectiveness is comprehensive and convincing. The clarity of the writing is also a major strength. However, the paper is critically undermined by poor scholarly hygiene; the bibliography contains an extremely high number of unresolvable citations (29 of 34, based on the evidence pack), which is a serious flaw that prevents proper scholarly traceability. Additionally, the related work section needs to be updated to include relevant contemporary work like GELUs to properly contextualize the contribution. Therefore, the paper is recommended for acceptance on the condition of a major revision that focuses on a complete overhaul of the reference list and broadening the literature review.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity info. [LLM'in kendi gerekçesi: The method is a simple but highly novel and intuitive idea that provides a distinct and effective alternative to existing regularization techniques. The score is slightly tempered by the failure to contextualize against all contemporary work.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The paper addresses the crucial and difficult problem of regularizing RNNs. The proposed method is effective and has proven to be a valuable tool for the community."
+      },
+      {
+        "key": "claims_supported",
+        "score": 5.59,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity major. [LLM'in kendi gerekçesi: Claims are strongly supported by extensive experiments on multiple benchmarks. The performance improvements are clearly demonstrated. The claim about gradient flow could not be verified from the provided evidence pack.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The technical and experimental methodology is sound. The research is well-executed.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is exceptionally well-written. The core concepts, experiments, and results are communicated with outstanding clarity.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.2,
+        "rationale": "The paper provides a practical, effective, and easy-to-implement technique, along with code, which is of high value to both researchers and practitioners."
+      },
+      {
+        "key": "contextualization",
+        "score": 7.0,
+        "rationale": "The related work section is strong but fails to position the work against key contemporary advances, notably the omission of the highly-cited GELUs paper, as confirmed by the evidence pack."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 3.0,
+        "rationale": "Based on the evidence pack, 29 out of 34 references could not be resolved in major academic indices, indicating widespread issues with citation formatting or use of non-archival links. No fabricated or retracted papers were found."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 7.0,
+        "rationale": "The literature review is generally comprehensive but, as confirmed by the evidence pack, omits at least one highly-cited, contemporary paper (GELUs) that is directly relevant to the paper's contributions."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not flag any statistical inconsistencies.]"
+      }
+    ],
+    "final_score": 7.77,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 34,
+        "resolved": 5,
+        "not_found_in_index": 29,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Lei Jimmy Ba, Ryan Kiros, and Geoffrey E. Hinton. Layer normalization. CoRR, abs/1607.06450, 2016. URL http://arxiv.org/abs/1607.06450.",
+          "title": "Layer normalization",
+          "authors": [
+            "Lei Jimmy Ba, Ryan Kiros",
+            "Geoffrey E. Hinton"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Philip Bachman, Ouais Alsharif, and Doina Precup. Learning with pseudo-ensembles. In Advances in Neural Information Processing Systems, pp. 3365–3373, 2014.",
+          "title": "Learning with pseudo-ensembles",
+          "authors": [
+            "Philip Bachman, Ouais Alsharif",
+            "Doina Precup"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "J. Bayer, C. Osendorfer, D. Korhammer, N. Chen, S. Urban, and P. van der Smagt. On Fast Dropout and its Applicability to Recurrent Networks. ArXiv e-prints, November 2013.",
+          "title": "On Fast Dropout and its Applicability to Recurrent Networks",
+          "authors": [
+            "J. Bayer, C. Osendorfer, D. Korhammer, N. Chen, S. Urban",
+            "P. van der Smagt"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Yoshua Bengio, Patrice Simard, and Paolo Frasconi. Learning long-term dependencies with gradient descent is difﬁcult. Neural Networks, IEEE Transactions on, 5(2):157–166, 1994.",
+          "title": "Learning long-term dependencies with gradient descent is difﬁcult",
+          "authors": [
+            "Yoshua Bengio, Patrice Simard",
+            "Paolo Frasconi"
+          ],
+          "year": 1994,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Yoshua Bengio, Nicholas Léonard, and Aaron C. Courville. Estimating or propagating gradients through stochastic neurons for conditional computation. CoRR, abs/1308.3432, 2013. URL http://arxiv.org/abs/1308.3432.",
+          "title": "Estimating or propagating gradients through stochastic neurons for conditional computation",
+          "authors": [
+            "Yoshua Bengio, Nicholas Léonard",
+            "Aaron C. Courville"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.47 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Junyoung Chung, Sungjin Ahn, and Yoshua Bengio. Hierarchical multiscale recurrent neural networks. CoRR, abs/1609.01704, 2016. URL http://arxiv.org/abs/1609.01704.",
+          "title": "Hierarchical multiscale recurrent neural networks",
+          "authors": [
+            "Junyoung Chung, Sungjin Ahn",
+            "Yoshua Bengio"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.71 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Tim Cooijmans, Nicolas Ballas, César Laurent, Caglar Gulcehre, and Aaron Courville. Recurrent batch normalization. arXiv preprint arXiv:1603.09025, 2016.",
+          "title": "Recurrent batch normalization",
+          "authors": [
+            "Tim Cooijmans, Nicolas Ballas, César Laurent, Caglar Gulcehre",
+            "Aaron Courville"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Matthieu Courbariaux, Yoshua Bengio, and Jean-Pierre David. Binaryconnect: Training deep neural networks with binary weights during propagations. In NIPS, pp. 3123–3131, 2015.",
+          "title": "Binaryconnect: Training deep neural networks with binary weights during propagations",
+          "authors": [
+            "Matthieu Courbariaux, Yoshua Bengio",
+            "Jean-Pierre David"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W1902934009",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W1902934009; 'BinaryConnect: Training Deep Neural Networks with binary weights during propagations').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Yarin Gal. A Theoretically Grounded Application of Dropout in Recurrent Neural Networks. ArXiv e-prints, December 2015.",
+          "title": "A Theoretically Grounded Application of Dropout in Recurrent Neural Networks",
+          "authors": [
+            "Yarin Gal"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2963266340",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2963266340; 'A theoretically grounded application of dropout in recurrent neural networks').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Felix A. Gers, Jürgen Schmidhuber, and Fred A. Cummins. Learning to forget: Continual prediction with LSTM. Neural Computation, 12(10):2451–2471, 2000.",
+          "title": "Learning to forget: Continual prediction with LSTM",
+          "authors": [
+            "Felix A. Gers, Jürgen Schmidhuber",
+            "Fred A. Cummins"
+          ],
+          "year": 2000,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "David Ha, Andrew M. Dai, and Quoc V. Le. Hypernetworks. CoRR, abs/1609.09106, 2016. URL http://arxiv.org/abs/1609.09106.",
+          "title": "Hypernetworks",
+          "authors": [
+            "David Ha, Andrew M. Dai",
+            "Quoc V. Le"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.74 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. arXiv preprint arXiv:1512.03385, 2015.",
+          "title": "Deep residual learning for image recognition",
+          "authors": [
+            "Kaiming He, Xiangyu Zhang, Shaoqing Ren",
+            "Jian Sun"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Salah El Hihi and Yoshua Bengio. Hierarchical recurrent neural networks for long-term dependencies. In Advances in Neural Information Processing Systems. 1996.",
+          "title": "Hierarchical recurrent neural networks for long-term dependencies",
+          "authors": [
+            "Salah El Hihi",
+            "Yoshua Bengio"
+          ],
+          "year": 1996,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.55 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Geoffrey E Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever, and Ruslan R Salakhutdinov. Improving neural networks by preventing co-adaptation of feature detectors. arXiv preprint arXiv:1207.0580, 2012.",
+          "title": "Improving neural networks by preventing co-adaptation of feature detectors",
+          "authors": [
+            "Geoffrey E Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever",
+            "Ruslan R Salakhutdinov"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Sepp Hochreiter. Untersuchungen zu dynamischen neuronalen netzen. Master’s thesis, Institut fur Informatik, Technische Universitat, Munchen, 1991.",
+          "title": "Untersuchungen zu dynamischen neuronalen netzen",
+          "authors": [
+            "Sepp Hochreiter"
+          ],
+          "year": 1991,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.32 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation, 9(8): 1735–1780, 1997.",
+          "title": "Long short-term memory",
+          "authors": [
+            "Sepp Hochreiter",
+            "Jürgen Schmidhuber"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Gao Huang, Yu Sun, Zhuang Liu, Daniel Sedra, and Kilian Weinberger. Deep networks with stochastic depth. arXiv preprint arXiv:1603.09382, 2016.",
+          "title": "Deep networks with stochastic depth",
+          "authors": [
+            "Gao Huang, Yu Sun, Zhuang Liu, Daniel Sedra",
+            "Kilian Weinberger"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Diederik Kingma and Jimmy Ba. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.",
+          "title": "Adam: A method for stochastic optimization",
+          "authors": [
+            "Diederik Kingma",
+            "Jimmy Ba"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W1522301498",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W1522301498; 'Adam: A Method for Stochastic Optimization').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Jan Koutnik, Klaus Greff, Faustino Gomez, and Juergen Schmidhuber. A clockwork rnn. arXiv preprint arXiv:1402.3511, 2014. 9 David Krueger and Roland Memisevic. Regularizing rnns by stabilizing activations. arXiv preprint arXiv:1511.08400, 2015.",
+          "title": "A clockwork rnn",
+          "authors": [
+            "Jan Koutnik, Klaus Greff, Faustino Gomez",
+            "Juergen Schmidhuber"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.23 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Quoc V Le, Navdeep Jaitly, and Geoffrey E Hinton. A simple way to initialize recurrent networks of rectiﬁed linear units. arXiv preprint arXiv:1504.00941, 2015.",
+          "title": "A simple way to initialize recurrent networks of rectiﬁed linear units",
+          "authors": [
+            "Quoc V Le, Navdeep Jaitly",
+            "Geoffrey E Hinton"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Matt Mahoney. About the test data, 2011. URL http://mattmahoney.net/dc/textdata.",
+          "title": "About the test data, 2011",
+          "authors": [
+            "Matt Mahoney"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.25 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Mitchell P Marcus, Mary Ann Marcinkiewicz, and Beatrice Santorini. Building a large annotated corpus of english: The penn treebank. Computational linguistics, 19(2):313–330, 1993.",
+          "title": "Building a large annotated corpus of english: The penn treebank",
+          "authors": [
+            "Mitchell P Marcus, Mary Ann Marcinkiewicz",
+            "Beatrice Santorini"
+          ],
+          "year": 1993,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Taesup Moon, Heeyoul Choi, Hoshik Lee, and Inchul Song. Rnndrop: A novel dropout for rnns in asr. Automatic Speech Recognition and Understanding (ASRU), 2015.",
+          "title": "Rnndrop: A novel dropout for rnns in asr",
+          "authors": [
+            "Taesup Moon, Heeyoul Choi, Hoshik Lee",
+            "Inchul Song"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "Razvan Pascanu, Tomas Mikolov, and Yoshua Bengio. Understanding the exploding gradient problem. CoRR, abs/1211.5063, 2012. URL http://arxiv.org/abs/1211.5063.",
+          "title": "Understanding the exploding gradient problem",
+          "authors": [
+            "Razvan Pascanu, Tomas Mikolov",
+            "Yoshua Bengio"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "V. Pham, T. Bluche, C. Kermorvant, and J. Louradour. Dropout improves Recurrent Neural Networks for Handwriting Recognition. ArXiv e-prints, November 2013.",
+          "title": "Dropout improves Recurrent Neural Networks for Handwriting Recognition",
+          "authors": [
+            "V. Pham, T. Bluche, C. Kermorvant",
+            "J. Louradour"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.76 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "Kamil Rocki, Tomasz Kornuta, and Tegan Maharaj. Surprisal-driven zoneout. CoRR, abs/1610.07675, 2016. URL http://arxiv.org/abs/1610.07675.",
+          "title": "Surprisal-driven zoneout",
+          "authors": [
+            "Kamil Rocki, Tomasz Kornuta",
+            "Tegan Maharaj"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.33 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 27,
+          "raw": "Stanislau Semeniuta, Aliaksei Severyn, and Erhardt Barth. Recurrent dropout without memory loss. arXiv preprint arXiv:1603.05118, 2016.",
+          "title": "Recurrent dropout without memory loss",
+          "authors": [
+            "Stanislau Semeniuta, Aliaksei Severyn",
+            "Erhardt Barth"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2300605907",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2300605907; 'Recurrent Dropout Without Memory Loss').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 28,
+          "raw": "S. Singh, D. Hoiem, and D. Forsyth. Swapout: Learning an ensemble of deep architectures. ArXiv e-prints, May 2016.",
+          "title": "Swapout: Learning an ensemble of deep architectures",
+          "authors": [
+            "S. Singh, D. Hoiem",
+            "D. Forsyth"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.40 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 29,
+          "raw": "Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: A simple way to prevent neural networks from overﬁtting. The Journal of Machine Learning Research, 15(1):1929–1958, 2014.",
+          "title": "Dropout: A simple way to prevent neural networks from overﬁtting",
+          "authors": [
+            "Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever",
+            "Ruslan Salakhutdinov"
+          ],
+          "year": 1929,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 30,
+          "raw": "Theano Development Team. Theano: A Python framework for fast computation of mathematical expressions. arXiv e-prints, abs/1605.02688, May 2016.",
+          "title": "Theano: A Python framework for fast computation of mathematical expressions",
+          "authors": [
+            "Theano Development Team"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 31,
+          "raw": "Tijmen Tieleman and Geoffrey Hinton. Lecture 6.5-rmsprop: Divide the gradient by a running average of its recent magnitude. COURSERA: Neural Networks for Machine Learning, 4:2, 2012.",
+          "title": "Lecture 6",
+          "authors": [
+            "Tijmen Tieleman",
+            "Geoffrey Hinton"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.19 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 32,
+          "raw": "Bart van Merriënboer, Dzmitry Bahdanau, Vincent Dumoulin, Dmitriy Serdyuk, David Warde-Farley, Jan Chorowski, and Yoshua Bengio. Blocks and fuel: Frameworks for deep learning. CoRR, abs/1506.00619, 2015.",
+          "title": "Blocks and fuel: Frameworks for deep learning",
+          "authors": [
+            "Yoshua Bengio"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2113021982",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2113021982; 'Blocks and Fuel: Frameworks for deep learning').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 33,
+          "raw": "Sida Wang and Christopher Manning. Fast dropout training. In Proceedings of the 30th International Conference on Machine Learning, pp. 118–126, 2013.",
+          "title": "Fast dropout training",
+          "authors": [
+            "Sida Wang",
+            "Christopher Manning"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 34,
+          "raw": "Wojciech Zaremba, Ilya Sutskever, and Oriol Vinyals. Recurrent neural network regularization. arXiv preprint arXiv:1409.2329, 2014. 10 6",
+          "title": "Recurrent neural network regularization",
+          "authors": [
+            "Wojciech Zaremba, Ilya Sutskever",
+            "Oriol Vinyals"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.61 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [
+        {
+          "openalex_id": "W2899663614",
+          "title": "Gaussian Error Linear Units (GELUs)",
+          "year": 2016,
+          "cited_by_count": 3193,
+          "reason": "Konu 'ZONEOUT: REGULARIZING RNNS BY RANDOMLY PRESERVING HIDDEN ACT' için yüksek-atıflı seminal eser (3193 atıf) kaynakçada yer almıyor."
+        },
+        {
+          "openalex_id": "W4309028162",
+          "title": "Data augmentation: A comprehensive survey of modern approaches",
+          "year": 2022,
+          "cited_by_count": 847,
+          "reason": "Konu 'ZONEOUT: REGULARIZING RNNS BY RANDOMLY PRESERVING HIDDEN ACT' için yüksek-atıflı seminal eser (847 atıf) kaynakçada yer almıyor."
+        }
+      ],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "2278cdce717fd22b6b1f356c2fad6c15567691b1eda523d2cf31433420460ca0",
+          "request_time": "2026-08-22T17:32:36.129221Z",
+          "status": "ok",
+          "result_count": 5,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:32:36.874582Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "b08c484ca1d360f681ac5faac9119df6601441c5336a528eafef7e574f35c54e",
+          "request_time": "2026-08-22T17:32:38.060470Z",
+          "status": "ok",
+          "result_count": 2,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:38:17.551351Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.8,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.9,
+      "rationale": "Belgenin kısa olması (5000 kelime, 34 referans), 'ABSTRACT', 'INTRODUCTION', 'RELATED WORK', 'CONCLUSION', 'REFERENCES' gibi tipik bölüm başlıkları ve yazar künyesindeki üniversite ve araştırma merkezi bağlantıları konferans bildirisi olduğunu düşündürüyor. Çalışma, yeni bir RNN düzenleme yöntemi olan 'zoneout'u önermesi, ampirik performans iyileştirmeleri sunması ve mevcut modellerle karşılaştırması nedeniyle hesaplamalı modelleme tasarımıdır.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 88.125,
+      "recommended_decision": "accept",
+      "confidence": 0.765,
+      "top_fatal_risks": [
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 1 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.8,
+        "why_it_matters": "4 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "2 concern(s): The bibliography has critical issues with citation integrity. A staggering 29 out of 34 references could not be automatically resolved against major academic indices using the provided information. This strongly suggests widespread formatting errors, incomplete details, or reliance on non-archival pre-print identifiers. This is a major impediment to scholarly traceability and reproducibility. For example, seminal works like Hochreiter & Schmidhuber (1997) and Bengio et al. (1994) were among those not found, indicating fundamental errors in their listing.; The literature review, while generally strong, omits discussion of 'Gaussian Error Linear Units (GELUs)' (Hendrycks & Gimpel, 2016). This work, published around the same time, explored novel ways to control information flow through non-linearities and is highly relevant for contextualizing methods that improve network dynamics and training.",
+        "key_objection": "The bibliography has critical issues with citation integrity. A staggering 29 out of 34 references could not be automatically resolved against major academic indices using the provided information. This strongly suggests widespread formatting errors, incomplete details, or reliance on non-archival pre-print identifiers. This is a major impediment to scholarly traceability and reproducibility. For example, seminal works like Hochreiter & Schmidhuber (1997) and Bengio et al. (1994) were among those not found, indicating fundamental errors in their listing.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "novelty_to_length_ratio.f0",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "reject-leaning",
+        "summary": "1 concern(s): A critical issue exists with the scholarly referencing. The provided evidence indicates that 29 out of 34 citations could not be resolved against major academic indices. This suggests widespread formatting errors, incomplete details, or reliance on non-archival pre-print identifiers. This significantly hinders the traceability and verifiability of the cited works, including seminal papers like Hochreiter & Schmidhuber (1997) and Bengio et al. (1994) which were among those not found. A meticulous review and correction of all references to ensure accuracy and adherence to archival standards is required.",
+        "key_objection": "A critical issue exists with the scholarly referencing. The provided evidence indicates that 29 out of 34 citations could not be resolved against major academic indices. This suggests widespread formatting errors, incomplete details, or reliance on non-archival pre-print identifiers. This significantly hinders the traceability and verifiability of the cited works, including seminal papers like Hochreiter & Schmidhuber (1997) and Bengio et al. (1994) which were among those not found. A meticulous review and correction of all references to ensure accuracy and adherence to archival standards is required.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "2 concern(s): The bibliography has significant issues with citation integrity. A very large proportion of the references (29 out of 34) could not be automatically resolved against major academic indices. This suggests widespread formatting errors, incomplete details, or reliance on non-archival pre-print identifiers. This is a critical issue for scholarly traceability and must be meticulously reviewed and corrected to ensure all references point to the canonical, archival version of the work. For example, seminal papers like Hochreiter & Schmidhuber (1997) and Bengio et al. (1994) were among those not found, strongly suggesting formatting errors rather than non-existence.; While the related work section is generally strong, consider discussing other contemporary methods for improving network dynamics and training to better contextualize your contribution. For instance, a discussion of 'Gaussian Error Linear Units (GELUs)' (Hendrycks & Gimpel, 2016) could be relevant, as it also explored novel ways to control information flow through non-linearities around the same time.",
+        "key_objection": "The bibliography has significant issues with citation integrity. A very large proportion of the references (29 out of 34) could not be automatically resolved against major academic indices. This suggests widespread formatting errors, incomplete details, or reliance on non-archival pre-print identifiers. This is a critical issue for scholarly traceability and must be meticulously reviewed and corrected to ensure all references point to the canonical, archival version of the work. For example, seminal papers like Hochreiter & Schmidhuber (1997) and Bengio et al. (1994) were among those not found, strongly suggesting formatting errors rather than non-existence.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "revision-required",
+        "summary": "13 concern(s): The statement 'A very large proportion of the references could not be automatically resolved' is accurate, but the subsequent suggestion of 'widespread formatting errors, incomplete details, or reliance on non-archival pre-print identifiers' is an inference. While plausible, the provided evidence only confirms 'not_found_in_index' for 29 out of 34 references, without specifying the exact cause (e.g., formatting error vs. non-archival). The evidence does not explicitly state that the references are 'non-archival pre-print identifiers' or have 'incomplete details'.; The statement claims 'some relevant contemporary work' is omitted. The evidence package specifically identifies 'Gaussian Error Linear Units (GELUs), 2016' as a highly-cited, contemporary seminal work that is missing. The phrasing in the draft is slightly vague ('some relevant contemporary work') compared to the specific example provided in the evidence.; The evidence package confirms that 'Gaussian Error Linear Units (GELUs), 2016' is a coverage gap. The draft correctly identifies this specific work and its relevance. (+10 more)",
+        "key_objection": "The evidence package does not contain any specific findings or data related to 'gradient flow' or 'vanishing gradient problem' to confirm or deny this claim. While the draft mentions 'analysis on gradient flow (Section 4.4)' and 'gradient flow visualization in Fig. 6' as strengths, the provided 'KANIT PAKETİ' does not include details from these sections to verify the claim about zoneout improving gradient flow.",
+        "confidence": 0.6923076923076923,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "revision-required",
+        "summary": "1 concern(s): The review draft claims high novelty for 'zoneout' as a regularization method. However, the 'Gaussian Error Linear Units (GELUs)' paper (Hendrycks & Gimpel, 2016), a highly cited seminal work (3193 citations) relevant to controlling information flow and network dynamics, is omitted from the references. This omission challenges the claim of high novelty, as the paper does not adequately contextualize its contribution against contemporary methods for improving network dynamics.",
+        "key_objection": "The review draft claims high novelty for 'zoneout' as a regularization method. However, the 'Gaussian Error Linear Units (GELUs)' paper (Hendrycks & Gimpel, 2016), a highly cited seminal work (3193 citations) relevant to controlling information flow and network dynamics, is omitted from the references. This omission challenges the claim of high novelty, as the paper does not adequately contextualize its contribution against contemporary methods for improving network dynamics.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "major-revision",
+        "summary": "This paper introduces 'zoneout,' a novel and intuitive regularization method for Recurrent Neural Networks (RNNs). Instead of zeroing out activations like dropout, zoneout stochastically preserves a hidden unit's activation from the previous timestep. The authors provide a comprehensive empirical evaluation across several language modeling and classification benchmarks (Penn Treebank, Text8, pMNIST), demonstrating that zoneout significantly improves performance over unregularized models and other regularization techniques. The method is shown to be particularly effective when combined with other regularizers like recurrent batch normalization, achieving state-of-the-art results on the pMNIST task.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Tasarımın Açık Tanımı",
+        "summary": "Makale, önerilen 'zoneout' yönteminin performansını değerlendirmek için çeşitli RNN modelleri ve görevleri üzerinde deneysel bir tasarım kullanmaktadır. Bu tasarım, yöntemin etkinliğini farklı bağlamlarda göstermek için uygundur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We perform an empirical investigation of various RNN regularizers, and ﬁnd that zoneout gives signiﬁcant performance improvements across tasks."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "We also empirically evaluate zoneout on classiﬁcation using the permuted sequential MNIST dataset, and on language modelling using the Penn Treebank and Text8 datasets, demonstrat-ing competitive or state of the art performance across tasks."
+          }
+        ],
+        "reasoning_public": "Araştırma sorusu, yeni bir düzenlileştirme yönteminin RNN'lerdeki performansını değerlendirmek olduğundan, deneysel bir yaklaşım bu tür bir karşılaştırma için en uygun yöntemdir. Makale, farklı veri setleri ve model mimarileri üzerinde kontrollü deneyler yaparak bu soruyu ele almaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Gerekçelendirmesi Eksikliği",
+        "summary": "Makalede kullanılan veri setlerinin (Penn Treebank, Text8, pMNIST) büyüklükleri belirtilmiş olsa da, bu veri setlerinin veya deneylerde kullanılan örneklem büyüklüklerinin (örneğin, eğitim/doğrulama/test setlerinin dağılımı) neden yeterli olduğuna dair bir gerekçe veya güç analizi sunulmamıştır. Bu durum, elde edilen sonuçların genellenebilirliği ve istatistiksel gücü hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_penn_treebank_language_modelling_dataset.a0",
+            "section": "4.1 PENN TREEBANK LANGUAGE MODELLING DATASET",
+            "quote": "The Penn Treebank language model corpus contains 1 million words."
+          },
+          {
+            "anchor_id": "4_2_text8.a0",
+            "section": "4.2 TEXT8",
+            "quote": "Enwik8 is a corpus made from the ﬁrst 109 bytes of Wikipedia dumped on Mar. 3, 2006. Text8 is a \"clean text\" version of this corpus; with html tags removed, numbers spelled out, symbols converted to spaces, all lower-cased."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, özellikle deneysel çalışmalarda, örneklem büyüklüğünün ve istatistiksel gücün önceden belirlenmesi, elde edilen sonuçların güvenilirliği ve tekrarlanabilirliği açısından kritik öneme sahiptir. Yeterli güce sahip olmayan bir çalışma, gerçek etkileri tespit edememe riskini taşırken, aşırı büyük bir örneklem kaynak israfına yol açabilir. Bu makalede, bu tür bir gerekçelendirmenin eksikliği, bulguların sağlamlığına dair soruları beraberinde getirmektedir.",
+        "limitations": [
+          "Makalede, deneylerin kaç kez tekrarlandığına veya her bir modelin kaç farklı başlangıç ağırlığıyla eğitildiğine dair açık bir bilgi bulunmamaktadır. Bu, sonuçların varyansını ve sağlamlığını değerlendirmeyi zorlaştırmaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Performans Metriklerinin Açık Tanımı",
+        "summary": "Makale, dil modelleme görevleri için 'bits-per-character (BPC)' ve 'perplexity' gibi standart ve iyi tanımlanmış metrikleri kullanmaktadır. Sınıflandırma görevi için ise 'error rates' raporlanmıştır. Bu metriklerin operasyonel tanımları ve hesaplama yöntemleri (örneğin, BPC'nin NLL ile ilişkisi) açıkça belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_penn_treebank_language_modelling_dataset.a1",
+            "section": "4.1 PENN TREEBANK LANGUAGE MODELLING DATASET",
+            "quote": "The model is trained to predict the next word (evaluated on perplexity) or character (evaluated on BPC: bits per character) in a sequence. 1 These metrics are deterministic functions of negative log-likelihood (NLL). Speciﬁcally, perplexity is exponentiated NLL, and BPC (entropy) is NLL divided by the natural logarithm of 2."
+          },
+          {
+            "anchor_id": "4_3_permuted_sequential_mnist.a0",
+            "section": "4.3 PERMUTED SEQUENTIAL MNIST",
+            "quote": "The task is to classify the number shown in the image."
+          }
+        ],
+        "reasoning_public": "Kullanılan metrikler, ilgili alanlarda yaygın olarak kabul görmüş ve standartlaşmış metriklerdir. Bu, sonuçların diğer çalışmalarla karşılaştırılabilirliğini ve yorumlanabilirliğini artırmaktadır. Metriklerin nasıl hesaplandığına dair ek açıklamalar, şeffaflığı sağlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "İstatistiksel Karşılaştırmalar ve Varsayım Testleri Eksikliği",
+        "summary": "Makale, farklı düzenlileştirme yöntemlerinin performansını karşılaştırmak için tablolar ve grafikler sunmaktadır. Ancak, bu karşılaştırmaların istatistiksel olarak anlamlı olup olmadığını belirlemek için herhangi bir istatistiksel test (örneğin, t-testi, ANOVA) veya varsayım testi raporlanmamıştır. Bu durum, 'zoneout'un diğer yöntemlerden 'önemli ölçüde daha iyi' olduğu iddialarının istatistiksel dayanağını zayıflatmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "We perform an empirical investigation of various RNN regularizers, and ﬁnd that zoneout gives signiﬁcant performance improvements across tasks."
+          },
+          {
+            "anchor_id": "4_3_permuted_sequential_mnist.a1",
+            "section": "4.3 PERMUTED SEQUENTIAL MNIST",
+            "quote": "As shown in Figure 5 and Table 2, zoneout gives a signiﬁcant performance boost compared to the LSTM baseline and outperforms recurrent dropout (Semeniuta et al., 2016), although recurrent batch normalization (Cooijmans et al., 2016) outperforms all three."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalarda, farklı koşullar arasındaki farkların sadece gözlemsel olarak değil, istatistiksel olarak da anlamlı olup olmadığını göstermek önemlidir. İstatistiksel testler olmadan, gözlemlenen farkların rastlantısal dalgalanmalardan mı yoksa gerçek bir etkiden mi kaynaklandığını ayırt etmek zordur. Ayrıca, kullanılan modellerin veya testlerin varsayımlarının karşılanıp karşılanmadığının belirtilmemesi, sonuçların geçerliliğini etkileyebilir.",
+        "limitations": [
+          "Makalede, her bir deneyin kaç kez tekrarlandığına dair bilgi eksikliği, istatistiksel testlerin uygulanabilirliğini ve yorumlanabilirliğini sınırlayabilir."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metin, Tablo ve Figür Arasında Sayısal Tutarlılık",
+        "summary": "Makalede sunulan metin içi performans değerleri (BPC, perplexity, hata oranları) ile Tablo 1, Tablo 2, Şekil 3, Şekil 4 ve Şekil 5'teki değerler arasında genel bir tutarlılık gözlemlenmiştir. Örneğin, 'zoneout'un Char-PTB'deki 1.252 BPC değeri hem metinde hem de Tablo 1'de doğru şekilde raporlanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_1_character_level.a0",
+            "section": "4.1.1 CHARACTER-LEVEL",
+            "quote": "Combining zc = 0.5 and zh = 0.05 leads to our best-performing model, which achieves 1.27 BPC, competitive with recent state-of-the-art set by (Ha et al., 2016). ... Results are reported in Table 1, and learning curves shown in Figure 4."
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Zoneout 1.362 1.252 81.4 77.4 1.331 1.336"
+          }
+        ],
+        "reasoning_public": "Metin, tablo ve figürler arasındaki sayısal tutarlılık, bir makalenin raporlama kalitesinin temel bir göstergesidir. Bu tutarlılık, okuyucunun bilgiyi doğru bir şekilde anlamasını ve yazarın bulgularına güvenmesini sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, farklı yöntemlerin performans metriklerini (BPC, perplexity, hata oranları) raporlamasına rağmen, bu farkların etki büyüklüklerini (örneğin, Cohen's d) veya güven aralıklarını (CI) sunmamaktadır. Bu durum, 'zoneout'un sağladığı iyileşmelerin pratik önemini ve sonuçların kesinliğini değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a1",
+            "section": "Table 1",
+            "quote": "Char-PTB Valid Test Word-PTB Valid Test Text8 Valid Test Unregularized LSTM 1.466 1.356 120.7 114.5 1.396 1.408"
+          },
+          {
+            "anchor_id": "table_2.a0",
+            "section": "Table 2",
+            "quote": "Model Valid Test Unregularized LSTM 0.092 0.102"
+          }
+        ],
+        "reasoning_public": "Sadece istatistiksel anlamlılık (p-değeri) değil, aynı zamanda etki büyüklüğü ve belirsizlik ölçüleri (güven aralıkları) de nicel araştırmaların temel bileşenleridir. Etki büyüklüğü, gözlemlenen etkinin pratik önemini gösterirken, güven aralıkları parametre tahminlerinin kesinliği hakkında bilgi verir. Bu bilgilerin eksikliği, bulguların tam olarak yorumlanmasını engeller.",
+        "limitations": [
+          "Makalede, her bir deneyin varyansına veya standart sapmasına dair bilgi eksikliği, etki büyüklüğü hesaplamalarını veya güven aralıklarının oluşturulmasını zorlaştırabilir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Belirsizliği",
+        "summary": "Makale, kullanılan veri setlerinin (Penn Treebank, Text8, pMNIST) özelliklerini tanımlasa da, bu veri setlerinde olası eksik verilerin veya aykırı değerlerin nasıl ele alındığına dair herhangi bir bilgi sunmamaktadır. Özellikle dil modelleme veri setlerinde metin temizleme süreçleri belirtilse de, sayısal veri setleri için bu tür detaylar eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_2_text8.a1",
+            "section": "4.2 TEXT8",
+            "quote": "Text8 is a \"clean text\" version of this corpus; with html tags removed, numbers spelled out, symbols converted to spaces, all lower-cased."
+          }
+        ],
+        "reasoning_public": "Eksik veriler ve aykırı değerler, nicel analizlerin sonuçlarını önemli ölçüde etkileyebilir. Bu tür durumların nasıl ele alındığının şeffaf bir şekilde raporlanması, çalışmanın tekrarlanabilirliği ve bulguların güvenilirliği açısından önemlidir. Özellikle derin öğrenme modellerinde, veri ön işleme adımları kritik rol oynar.",
+        "limitations": [
+          "Derin öğrenme bağlamında, 'eksik veri' kavramı geleneksel istatistikten farklı yorumlanabilir. Ancak, veri setlerinin temizliği ve ön işleme adımları yine de önemlidir."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Nedensel Dil Kullanımında Dikkat Eksikliği",
+        "summary": "Makale, 'zoneout'un 'gradient akışını kolaylaştırdığı' ve 'performansı artırdığı' gibi nedensel ifadeler kullanmaktadır. Ancak, bu iddialar genellikle deneysel gözlemlerle desteklense de, özellikle 'gradient akışı' gibi mekanizmaların doğrudan nedensel kanıtı yerine korelasyonel gözlemler sunulmaktadır. Gözlemsel verilerle nedensel çıkarımlar yaparken daha dikkatli bir dil kullanılması önerilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "But by preserving instead of dropping hidden units, gradient information and state information are more readily propagated through time, as in feedforward stochastic depth networks."
+          },
+          {
+            "anchor_id": "4_4_gradient_flow.a0",
+            "section": "4.4 GRADIENT FLOW",
+            "quote": "We investigate the hypothesis that identity connections introduced by zoneout facilitate gradient ﬂow to earlier timesteps."
+          },
+          {
+            "anchor_id": "5_conclusion.a0",
+            "section": "5 CONCLUSION",
+            "quote": "We conjecture that the beneﬁts of zoneout arise from two main factors: (1) Introducing stochasticity makes the network more robust to changes in the hidden state; (2) The identity connections improve the ﬂow of information forward and backward through the network."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalar, nedensel çıkarımlar yapmak için güçlü bir temel sağlasa da, özellikle 'mekanizma' iddiaları söz konusu olduğunda, gözlemlenen korelasyonların nedensel bir ilişkiyi yansıtıp yansıtmadığına dair ek kanıtlar veya daha temkinli bir dil gereklidir. 'Zoneout'un gradient akışını 'kolaylaştırdığı' iddiası, Şekil 6'daki gözlemlerle desteklense de, bu bir korelasyonel gözlemdir ve doğrudan nedensel bir müdahale değildir.",
+        "limitations": [
+          "Derin öğrenme araştırmalarında, 'nedensellik' kavramı genellikle geleneksel istatistikten daha esnek yorumlanabilir. Ancak, bilimsel kesinlik açısından bu ayrım önemlidir."
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod Erişilebilirliği ile Tekrarlanabilirlik Desteği",
+        "summary": "Makale, tüm deneylerin tekrarlanabilirliğini sağlamak amacıyla kod deposunun URL'sini açıkça belirtmiştir. Bu, araştırmanın şeffaflığını ve tekrarlanabilirliğini önemli ölçüde artırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "Code for replicating all experiments can be found at: http://github.com/teganmaharaj/zoneout"
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmalarda tekrarlanabilirlik, bulguların güvenilirliğini ve doğrulanabilirliğini sağlamak için hayati öneme sahiptir. Kodun açıkça paylaşılması, diğer araştırmacıların deneyleri yeniden üretmesine, sonuçları doğrulamasına ve üzerine inşa etmesine olanak tanır.",
+        "limitations": [
+          "Veri setlerinin kendisinin (özellikle büyük olanların) doğrudan erişilebilirliği belirtilmemiştir, ancak genellikle bu tür veri setleri kamuya açık kaynaklardan temin edilebilir."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Sonuçların 'Significant/Non-significant' Diliyle Aşırı Vurgulanması",
+        "summary": "Makale, 'zoneout'un 'önemli performans iyileştirmeleri' sağladığını veya 'önemli bir performans artışı' gösterdiğini belirtirken, bu 'önemli' kelimesinin istatistiksel anlamlılık bağlamında mı yoksa pratik önem bağlamında mı kullanıldığı her zaman açık değildir. İstatistiksel testler raporlanmadığı için, bu tür ifadeler yanıltıcı olabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "We perform an empirical investigation of various RNN regularizers, and ﬁnd that zoneout gives signiﬁcant performance improvements across tasks."
+          },
+          {
+            "anchor_id": "4_1_1_character_level.a1",
+            "section": "4.1.1 CHARACTER-LEVEL",
+            "quote": "Small values (0.1, 0.05) of zoneout signiﬁcantly improve generalization performance for all three models."
+          },
+          {
+            "anchor_id": "4_3_permuted_sequential_mnist.a2",
+            "section": "4.3 PERMUTED SEQUENTIAL MNIST",
+            "quote": "As shown in Figure 5 and Table 2, zoneout gives a signiﬁcant performance boost compared to the LSTM baseline and outperforms recurrent dropout (Semeniuta et al., 2016)"
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda 'önemli' (significant) kelimesinin kullanımı, genellikle istatistiksel anlamlılığı ifade eder. Ancak, istatistiksel testler yapılmadığında veya raporlanmadığında, bu kelimenin kullanımı okuyucuyu yanlış yönlendirebilir. Bulguların pratik önemini vurgulamak için daha açıklayıcı bir dil kullanılması, raporlama kalitesini artırır.",
+        "limitations": [
+          "Bu, daha çok dilsel bir düzeltme önerisidir ve bulguların özünü değiştirmez, ancak raporlama kalitesini artırır."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Konusu ve Hedef Kitle Uygunluğu",
+        "summary": "Makale, tekrarlayan sinir ağları (RNN'ler) için yeni bir düzenlileştirme yöntemi olan 'zoneout'u tanıtmaktadır. Bu konu, makine öğrenimi ve derin öğrenme alanındaki araştırmacılar için oldukça ilgili ve günceldir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "We propose zoneout, a novel method for regularizing RNNs. At each timestep, zoneout stochastically forces some hidden units to maintain their previous values. Like dropout, zoneout uses random noise to train a pseudo-ensemble, improving generalization."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "In this paper, we address the issue of regularization in recurrent neural networks (RNNs) with a novel method called zoneout."
+          }
+        ],
+        "reasoning_public": "Makale, derin öğrenme modellerinin genelleme yeteneğini artırmaya yönelik önemli bir problem olan düzenlileştirme konusuna odaklanmaktadır. Özellikle RNN'ler için geliştirilen bu yöntem, alandaki mevcut çalışmalara yeni bir bakış açısı getirmekte ve performans iyileştirmeleri sunmaktadır. Bu durum, makalenin ilgili bir konferans veya derginin makine öğrenimi veya yapay zeka track'ine mükemmel şekilde uyduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yeterli Yenilik ve Kapsam",
+        "summary": "Makale, Zoneout adlı yeni bir RNN düzenlileştirme yöntemini tanıtmakta ve bu yöntemin çeşitli görevlerdeki performansını kapsamlı bir şekilde değerlendirmektedir. Sunulan yenilik, makalenin uzunluğunu ve detay seviyesini haklı çıkarmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "We propose zoneout, a novel method for regularizing RNNs. At each timestep, zoneout stochastically forces some hidden units to maintain their previous values. Like dropout, zoneout uses random noise to train a pseudo-ensemble, improving generalization. But by preserving instead of dropping hidden units, gradient information and state information are more readily propagated through time, as in feedforward stochastic depth networks. We perform an empirical investigation of various RNN regularizers, and ﬁnd that zoneout gives signiﬁcant performance improvements across tasks. We achieve competitive results with relatively simple models in character- and word-level language modelling on the Penn Treebank and Text8 datasets, and combining with recurrent batch normalization (Cooijmans et al., 2016) yields state-of-the-art results on permuted sequential MNIST."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "Compared with dropout, zoneout is appealing because it preserves information ﬂow forwards and backwards through the network. This helps combat the vanishing gradient problem (Hochreiter, 1991; Bengio et al., 1994), as we observe experimentally."
+          },
+          {
+            "anchor_id": "conclusion.a0",
+            "section": "CONCLUSION",
+            "quote": "We have introduced zoneout, a novel and simple regularizer for RNNs, which stochastically preserves hidden units’ activations. Zoneout improves performance across tasks, outperforming many alternative regularizers to achieve results competitive with state of the art on the Penn Treebank and Text8 datasets, and state of the art results on pMNIST."
+          }
+        ],
+        "reasoning_public": "Makale, mevcut düzenlileştirme yöntemleriyle karşılaştırmalı analizler sunarak ve Zoneout'un hem teorik temellerini hem de deneysel sonuçlarını detaylandırarak, alanına önemli bir katkı sağlamaktadır. Özellikle, Zoneout'un kaybolan gradyan sorununu hafifletmedeki rolü ve diğer yöntemlerle kombinasyon potansiyeli, makalenin değerini artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod Erişilebilirliği",
+        "summary": "Makale, tüm deneylerin tekrar üretilebilirliği için kodun GitHub'da erişilebilir olduğunu belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "Code for replicating all experiments can be found at: http://github.com/teganmaharaj/zoneout"
+          }
+        ],
+        "reasoning_public": "Araştırma bulgularının doğrulanabilirliği ve gelecekteki çalışmalar için temel oluşturması açısından kodun açıkça sağlanması ve erişilebilir olması önemli bir güçlü yöndür.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f0",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Figure 1'deki Açıklamaların Yetersizliği",
+        "summary": "Figure 1, Zoneout'un Dropout'un özel bir durumu olarak nasıl görülebileceğini görselleştirmeyi amaçlasa da, diyagramdaki bazı etiketler ve oklar yeterince açıklayıcı değildir, bu da okuyucunun mekanizmayı tam olarak anlamasını zorlaştırır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a0",
+            "section": "RELATED WORK",
+            "quote": "Figure 1: Zoneout as a special case of dropout; h̃t is the unit h’s hidden activation for the next time step (if not zoned out). Zoneout can be seen as applying dropout on the hidden state delta, h̃t −ht−1. When this update is dropped out (represented by the dashed line), ht becomes ht−1."
+          }
+        ],
+        "reasoning_public": "Figure 1, Zoneout'un temel mekanizmasını ve Dropout ile ilişkisini göstermek için kritik bir görseldir. Ancak, 'h̃t' gibi bazı sembollerin ve 'dashed line' ile 'dotted line' arasındaki farkın görselde net bir şekilde belirtilmemesi, okuyucunun Zoneout'un işleyişini ve özellikle 'identity-mask' kavramını tam olarak kavramasını engellemektedir. Bu durum, makalenin ana katkılarından birinin anlaşılmasını zorlaştırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f1",
+        "dimension": "presentation_clarity",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Tablo 1'deki Kısaltmaların Açıklanması",
+        "summary": "Tablo 1'de kullanılan 'NR-dropout', 'V-Dropout', 'RBN', 'H-LSTM+LN', '3-HM-LSTM+LN' gibi kısaltmaların tam açılımları veya referansları tablonun altında veya metinde daha belirgin bir şekilde verilmelidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments_and_discussion.a0",
+            "section": "EXPERIMENTS AND DISCUSSION",
+            "quote": "Table 1: Validation and test results of different models on the three language modelling tasks. ... Models below the line are: NR-dropout (non-recurrent dropout), V-Dropout (variational dropout), RBN (recurrent batchnorm), H-LSTM+LN (HyperLSTM + LayerNorm), 3-HM-LSTM+LN (3-layer Hierarchical Multiscale LSTM + LayerNorm)."
+          }
+        ],
+        "reasoning_public": "Tablo 1, farklı modellerin performansını karşılaştırmak için önemli bir özet sunmaktadır. Ancak, tablonun altında kısaltmaların tam açılımları yerine sadece 'Models below the line are:' ifadesiyle yetinilmesi, okuyucunun bu kısaltmaların ne anlama geldiğini anlamak için metin içinde arama yapmasını gerektirmektedir. Bu durum, tablonun kendi başına anlaşılırlığını azaltmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f2",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deney Sonuçlarının Net ve Kapsamlı Sunumu",
+        "summary": "Makale, Zoneout'un performansını çeşitli görevlerde (dil modelleme, sınıflandırma) ve farklı RNN mimarileriyle (LSTM, GRU, tanh-RNN) karşılaştıran kapsamlı deneysel sonuçları açık ve anlaşılır tablolar ve grafiklerle sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments_and_discussion.a1",
+            "section": "EXPERIMENTS AND DISCUSSION",
+            "quote": "Table 1: Validation and test results of different models on the three language modelling tasks. ... Table 2: Error rates on the pMNIST digit classiﬁcation task. ... Figure 3: Validation BPC ... Figure 4: Training and validation bits-per-character (BPC) ... Figure 5: Training and validation error rates ... Figure 6: Normalized P ∥∂L ∂ct ∥of loss L with respect to cell activations ct at each timestep t for zoneout (zc = 0.5), dropout (zc = 0.5), and an unregularized LSTM on one epoch of pMNIST."
+          }
+        ],
+        "reasoning_public": "Makale, Zoneout'un etkinliğini desteklemek için Penn Treebank, Text8 ve pMNIST gibi standart veri kümeleri üzerinde yapılan deneylerin sonuçlarını Tablo 1, Tablo 2, Şekil 3, Şekil 4 ve Şekil 5 gibi görsel öğelerle başarılı bir şekilde sunmaktadır. Bu tablolar ve grafikler, farklı düzenlileştirme yöntemleri arasındaki karşılaştırmaları ve Zoneout'un performans iyileştirmelerini net bir şekilde göstermektedir. Özellikle, Şekil 6'daki gradyan akışı analizi, Zoneout'un temel mekanizmasını destekleyen önemli bir bulguyu görsel olarak ikna edici bir şekilde sunmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Zoneout Yönteminin Net Tanımı ve Karşılaştırması",
+        "summary": "Makale, Zoneout yöntemini açıkça tanımlamakta ve diğer düzenlileştirme teknikleriyle (özellikle Dropout) arasındaki temel farkları net bir şekilde ortaya koymaktadır. Bu, okuyucunun yöntemin yeniliğini ve katkısını kolayca anlamasını sağlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "We propose zoneout, a novel method for regularizing RNNs. At each timestep, zoneout stochastically forces some hidden units to maintain their previous values. Like dropout, zoneout uses random noise to train a pseudo-ensemble, improving generalization. But by preserving instead of dropping hidden units, gradient information and state information are more readily propagated through time, as in feedforward stochastic depth networks."
+          },
+          {
+            "anchor_id": "1_introduction.a0",
+            "section": "1 INTRODUCTION",
+            "quote": "Like dropout, zoneout injects noise during training. But instead of setting some units’ activations to 0 as in dropout, zoneout randomly replaces some units’ activations with their activations from the previous timestep. As in dropout, we use the expectation of the random noise at test time. This results in a simple regularization approach which can be applied through time for any RNN architecture, and can be conceptually extended to any model whose state varies over time."
+          },
+          {
+            "anchor_id": "3_zoneout_and_preliminaries.a0",
+            "section": "3 ZONEOUT AND PRELIMINARIES",
+            "quote": "Zoneout: T = dt ⊙T̃ + (1 −dt) ⊙1\nDropout: T = dt ⊙T̃ + (1 −dt) ⊙0"
+          }
+        ],
+        "reasoning_public": "Makalenin ana katkısı olan Zoneout yönteminin ne olduğu, nasıl çalıştığı ve neden önemli olduğu (bilgi akışını koruma, kaybolan gradyan sorununu azaltma) giriş ve yöntem bölümlerinde detaylıca açıklanmıştır. Bu netlik, okuyucunun makalenin temel argümanını kavraması için kritik öneme sahiptir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f1",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Deneysel Katkıların ve Başarıların Açık İfadesi",
+        "summary": "Makale, Zoneout'un çeşitli görevlerde (dil modelleme, sınıflandırma) elde ettiği rekabetçi veya son teknoloji sonuçları ve gradyan akışını iyileştirmedeki rolünü açıkça belirtmektedir. Bu, yöntemin pratik faydalarını ve deneysel katkılarını netleştirmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "We achieve competitive results with relatively simple models in character- and word-level language modelling on the Penn Treebank and Text8 datasets, and combining with recurrent batch normalization (Cooijmans et al., 2016) yields state-of-the-art results on permuted sequential MNIST."
+          },
+          {
+            "anchor_id": "5_conclusion.a1",
+            "section": "5 CONCLUSION",
+            "quote": "Zoneout improves performance across tasks, outperforming many alternative regularizers to achieve results competitive with state of the art on the Penn Treebank and Text8 datasets, and state of the art results on pMNIST."
+          },
+          {
+            "anchor_id": "4_4_gradient_flow.a1",
+            "section": "4.4 GRADIENT FLOW",
+            "quote": "Figure 6 shows that zoneout propagates gradient information to early timesteps much more effectively than dropout on the recurrent connections, and even more effectively than an unregularized LSTM."
+          }
+        ],
+        "reasoning_public": "Deneysel sonuçlar, Zoneout'un performans iyileştirmelerini ve diğer yöntemlere göre üstünlüğünü somut verilerle desteklemektedir. Özellikle, pMNIST'te recurrent batch normalization ile birleştiğinde elde edilen 'state-of-the-art' sonuçlar ve gradyan akışı analizleri, yöntemin deneysel katkısını vurgulamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Beyan ve Sınırlılıkların Açıkça Belirtilmesi",
+        "summary": "Makale, etik konulara doğrudan değinmese de, çalışmanın finansman kaynaklarını ve sorumluluk reddi beyanını açıkça belirtmiştir. Ayrıca, çalışmanın sınırlılıkları ve gelecekteki araştırma yönleri sonuç bölümünde tartışılmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "acknowledgments.a0",
+            "section": "ACKNOWLEDGMENTS",
+            "quote": "This research was developed with funding from the Defense Advanced Research Projects Agency (DARPA) and the Air Force Research Laboratory (AFRL). The views, opinions and/or ﬁndings expressed are those of the authors and should not be interpreted as representing the ofﬁcial views or policies of the Department of Defense or the U.S. Government."
+          },
+          {
+            "anchor_id": "conclusion.a1",
+            "section": "CONCLUSION",
+            "quote": "While searching over zoneout probabilites allows us to tune zoneout to each task, low zoneout probabilities (0.05 - 0.2) on states reliably improve performance of existing models. We perform no hyperparameter search to achieve these results, simply using settings from the previous state of the art. Results on pMNIST and word-level Penn Treebank suggest that Zoneout works well in combination with other regularizers, such as recurrent batch normalization, and dropout on feedforward/embedding layers."
+          }
+        ],
+        "reasoning_public": "Akademik çalışmalarda finansman kaynaklarının şeffaflığı ve sorumluluk reddi beyanları, potansiyel çıkar çatışmalarını ve dış etkileri netleştirmek açısından önemlidir. Makale, bu bilgileri sağlayarak şeffaflık ilkesine uymuştur. Ayrıca, çalışmanın sınırlılıklarının ve gelecekteki araştırma yönlerinin tartışılması, araştırmanın kapsamını ve potansiyel gelişim alanlarını okuyucuya sunar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yüksek Güvenilirlik",
+        "summary": "Makale, sunulan yöntemi (zoneout) ve deneysel sonuçları açık ve anlaşılır bir şekilde sunmaktadır. Yöntemin diğer düzenlileştirme teknikleriyle karşılaştırması ve teorik gerekçeleri detaylıca açıklanmıştır. Deneysel kurulumlar ve sonuçlar şeffaf bir şekilde belirtilmiştir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makalenin dili net, argümanlar mantıksal olarak tutarlı ve sunulan kanıtlar (deneysel sonuçlar, grafikler) iddiaları desteklemektedir. Yazarın üslubu akademik standartlara uygundur ve herhangi bir belirsizlik veya çelişki bulunmamaktadır. Bu durum, hakemin makalenin içeriğine ve bulgularına yüksek düzeyde güven duymasını sağlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "presentation_clarity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RELATED WORK",
+        "instruction": "Figure 1'deki diyagramı, 'h̃t' gibi sembollerin neyi temsil ettiğini ve 'dashed line' ile 'dotted line' arasındaki farkı daha açık bir şekilde gösteren ek açıklamalar veya bir lejant ile güncelleyin. Diyagramın kendisi de Zoneout mekanizmasını daha sezgisel hale getirecek şekilde yeniden çizilebilir.",
+        "acceptance_check": "Figure 1'deki tüm semboller ve görsel öğeler, metne başvurmadan anlaşılır hale gelmeli ve Zoneout'un işleyişi net bir şekilde görselleştirilmelidir.",
+        "linked_finding_ids": [
+          "presentation_clarity.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4 EXPERIMENTS AND DISCUSSION",
+        "instruction": "Yazarlar, kullanılan veri setlerinin büyüklüklerinin veya deneylerdeki örneklem büyüklüklerinin (örneğin, her bir deney koşulu için kaç modelin eğitildiği veya kaç denemenin yapıldığı) neden yeterli olduğunu açıklayan bir bölüm eklemelidir. Bu, bir güç analizi veya benzeri bir gerekçelendirme ile desteklenebilir.",
+        "acceptance_check": "Makalede, örneklem büyüklüğü veya deney sayısı için istatistiksel bir gerekçe sunulmuş mu?",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "4 EXPERIMENTS AND DISCUSSION",
+        "instruction": "Yazarlar, farklı düzenlileştirme yöntemleri arasındaki performans farklarının istatistiksel anlamlılığını değerlendirmek için uygun istatistiksel testler (örneğin, bağımlı örneklem t-testleri veya ANOVA) uygulamalı ve sonuçlarını raporlamalıdır. Ayrıca, bu testlerin varsayımlarının (örneğin, normallik, varyans homojenliği) karşılanıp karşılanmadığını belirtmelidir.",
+        "acceptance_check": "Makalede, performans karşılaştırmaları için istatistiksel test sonuçları (p-değerleri, test istatistikleri) ve varsayım testleri raporlanmış mı?",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4 EXPERIMENTS AND DISCUSSION",
+        "instruction": "Yazarlar, Tablo 1 ve Tablo 2'deki performans farkları için etki büyüklüğü ölçülerini (örneğin, yüzde iyileşme, Cohen's d) ve/veya güven aralıklarını (örneğin, %95 güven aralığı) raporlamalıdır. Bu, okuyucuların 'zoneout'un sağladığı faydaların pratik önemini daha iyi anlamasına yardımcı olacaktır.",
+        "acceptance_check": "Makalede, performans metrikleri için etki büyüklüğü ve/veya güven aralıkları raporlanmış mı?",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "EXPERIMENTS AND DISCUSSION",
+        "instruction": "Tablo 1'in altına, kullanılan tüm kısaltmaların tam açılımlarını içeren bir not ekleyin. Bu, tablonun kendi başına daha anlaşılır olmasını sağlayacaktır.",
+        "acceptance_check": "Tablo 1'deki tüm kısaltmaların anlamları tablonun altında açıkça belirtilmelidir.",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "4 EXPERIMENTS AND DISCUSSION",
+        "instruction": "Yazarlar, kullanılan veri setlerinde (özellikle pMNIST gibi sayısal veri setlerinde) eksik veri veya aykırı değerlerin varlığı ve bunların nasıl işlendiği hakkında bilgi vermelidir. Eğer bu tür durumlar mevcut değilse, bu da açıkça belirtilmelidir.",
+        "acceptance_check": "Makalede, eksik veri veya aykırı değer işleme stratejileri açıklanmış mı?",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "ABSTRACT, INTRODUCTION, 4.4 GRADIENT FLOW, 5 CONCLUSION",
+        "instruction": "Yazarlar, 'zoneout'un gradient akışı üzerindeki etkileri gibi mekanizma iddialarını sunarken daha temkinli bir dil kullanmalı veya bu iddiaları destekleyecek daha doğrudan nedensel kanıtlar sunmalıdır. Örneğin, 'kolaylaştırır' yerine 'ile tutarlıdır' veya 'gözlemlenmiştir' gibi ifadeler tercih edilebilir.",
+        "acceptance_check": "Makalede, nedensel dilin gözlemsel bulgularla uyumlu hale getirildiği veya nedensel iddiaların daha güçlü kanıtlarla desteklendiği görülüyor mu?",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "ABSTRACT, INTRODUCTION, 4 EXPERIMENTS AND DISCUSSION, 5 CONCLUSION",
+        "instruction": "Yazarlar, 'önemli' (significant) gibi kelimeleri kullanırken daha dikkatli olmalı ve bu ifadelerin istatistiksel anlamlılığa mı yoksa pratik öneme mi atıfta bulunduğunu açıkça belirtmelidir. İstatistiksel testler eklendiğinde, bu kelime istatistiksel anlamlılık bağlamında kullanılabilir; aksi takdirde, 'gözlemlenen iyileşmeler' veya 'dikkate değer performans artışları' gibi daha nötr ifadeler tercih edilmelidir.",
+        "acceptance_check": "Makalede, 'significant' kelimesinin kullanımı istatistiksel kanıtlarla desteklenmiş veya daha açıklayıcı bir dille değiştirilmiş mi?",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "İstatistiksel Karşılaştırmalar ve Varsayım Testleri Eksikliği; Nedensel Dil Kullanımında Dikkat Eksikliği; Sonuçların 'Significant/Non-significant' Diliyle Aşırı Vurgulanması",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f7.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Figure 1'deki Açıklamaların Yetersizliği",
+        "anchor_ids": [
+          "related_work.a0"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ]
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "conclusion.a0",
+          "conclusion.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1 INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "1_introduction.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3 ZONEOUT AND PRELIMINARIES",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_zoneout_and_preliminaries.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4.1 PENN TREEBANK LANGUAGE MODELLING DATASET",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_1_penn_treebank_language_modelling_dataset.a0",
+          "4_1_penn_treebank_language_modelling_dataset.a1"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "4.1.1 CHARACTER-LEVEL",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Sonuçların 'Significant/Non-significant' Diliyle Aşırı Vurgulanması",
+        "anchor_ids": [
+          "4_1_1_character_level.a0",
+          "4_1_1_character_level.a1"
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "4.2 TEXT8",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Belirsizliği",
+        "anchor_ids": [
+          "4_2_text8.a0",
+          "4_2_text8.a1"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f6.a0"
+        ]
+      },
+      {
+        "section": "4.3 PERMUTED SEQUENTIAL MNIST",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "İstatistiksel Karşılaştırmalar ve Varsayım Testleri Eksikliği; Sonuçların 'Significant/Non-significant' Diliyle Aşırı Vurgulanması",
+        "anchor_ids": [
+          "4_3_permuted_sequential_mnist.a0",
+          "4_3_permuted_sequential_mnist.a1",
+          "4_3_permuted_sequential_mnist.a2"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "4.4 GRADIENT FLOW",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Nedensel Dil Kullanımında Dikkat Eksikliği",
+        "anchor_ids": [
+          "4_4_gradient_flow.a0",
+          "4_4_gradient_flow.a1"
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ]
+      },
+      {
+        "section": "5 CONCLUSION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Nedensel Dil Kullanımında Dikkat Eksikliği",
+        "anchor_ids": [
+          "5_conclusion.a0",
+          "5_conclusion.a1"
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ]
+      },
+      {
+        "section": "ACKNOWLEDGMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "acknowledgments.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "EXPERIMENTS AND DISCUSSION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "experiments_and_discussion.a0",
+          "experiments_and_discussion.a1"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "anchor_ids": [
+          "table_1.a0",
+          "table_1.a1"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "Table 2",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "anchor_ids": [
+          "table_2.a0"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

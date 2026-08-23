@@ -1,0 +1,1674 @@
+{
+  "paper_id": "peerread:iclr2017-519",
+  "run_tag": "main",
+  "job_id": "123b62f2-46a4-47b2-a931-1e96a42057bf",
+  "elapsed_s": 398.4,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "RECURRENT NORMALIZATION PROPAGATION César Laurent, Nicolas Ballas & Pascal Vincent∗ Montreal Institute for Learning Algorithms (MILA) Département d’Informatique et de Recherche Opérationnelle",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 4592,
+      "reference_count": 26,
+      "parse_confidence": 0.68,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces 'Recurrent Normalization Propagation' (or 'Normalized LSTM'), a novel reparametrization for Long Short-Term Memory networks. The method aims to preserve the mean and variance of hidden states and memory cells across time, akin to Recurrent Batch Normalization (BN) and Layer Normalization (LN), but with lower computational overhead. The authors derive the method analytically, analyze its impact on gradient flow, and validate it on character-level language modeling and generative image modeling tasks, showing performance comparable or superior to existing normalization techniques but with significantly faster execution times.",
+    "strengths": [
+      {
+        "category": "Originality and Significance",
+        "points": [
+          "The proposed method is a clever and non-trivial adaptation of Normalization Propagation to the recurrent setting, which is a valuable contribution.",
+          "The focus on computational efficiency addresses a critical and practical bottleneck in training large recurrent models, making the work highly relevant to the community."
+        ]
+      },
+      {
+        "category": "Technical Soundness and Clarity",
+        "points": [
+          "The paper is well-structured and clearly written. The mathematical derivation of the Normalized LSTM in Section 3 is easy to follow.",
+          "The analysis of gradient propagation in Section 4 provides useful intuition and a valuable theoretical contribution regarding the role of the scaling parameters (γ) and their influence on learning dynamics."
+        ]
+      },
+      {
+        "category": "Empirical Evaluation",
+        "points": [
+          "The method is validated on two distinct and standard tasks (character-level language modeling on Penn Treebank and generative modeling with DRAW), demonstrating its versatility.",
+          "The experiments include strong baselines (BN, LN, Weight Norm), and the results convincingly support the central claims of the paper: competitive performance with improved computational speed."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Bibliographic Integrity",
+        "points": [
+          "A critical flaw is the state of the bibliography. As confirmed by the evidence pack, 22 of 26 citations could not be resolved by standard indexing services due to formatting errors or missing identifiers. While no evidence of fabrication or citation of retracted work was found, this level of bibliographic error severely hinders verification and contextualization. This must be corrected for the final version."
+        ]
+      },
+      {
+        "category": "Methodological Rigor",
+        "points": [
+          "The derivation relies on a strong assumption of independence between gate inputs and the cell state (acknowledged in footnote 1). While this is a common simplifying step, the paper would be stronger if it briefly discussed the potential impact or failure modes of this approximation.",
+          "The choice of the crucial γ hyperparameters seems ad-hoc and differs between experiments. The paper would benefit from a sensitivity analysis or a more principled explanation for how these values were chosen."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The manuscript's connection to the literature is weakened by significant issues in the reference list. An automated check revealed that 22 of the 26 references could not be found in major academic indexes based on the provided information. While many of these appear to be arXiv preprints, the lack of stable identifiers (like DOIs or correct, versioned arXiv IDs) and potential formatting errors hinders verification and follow-up reading. Please meticulously review every reference to ensure it is complete, correctly formatted, and points to the canonical version of the work.",
+        "evidence_ref": "Citation Integrity Summary: 22 of 26 references were not found in index."
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The independence assumption used to derive Var[ct] in Equation (8) is a key simplification. While the authors correctly acknowledge this, the paper would be more robust if it included a short discussion on the potential implications. For instance, are there specific model architectures or data types where the strong correlations between these variables would render the variance estimate inaccurate and harm performance?",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "The empirical results are promising, but the justification for hyperparameter settings, specifically the γ values, is missing. For the PTB experiment, γx=γh=2 and γc=1 are used, while for DRAW, all are set to 0.5. Given the analysis in Section 4 showing their importance, a brief ablation study or sensitivity analysis showing how performance changes with different γ values would significantly strengthen the paper's claims and provide valuable guidance for practitioners wishing to use this method.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you please elaborate on the methodology for selecting the initial γ values for each experiment? How sensitive is the model's performance and stability to these specific choices?",
+      "Regarding the independence assumption in Equation (8), have you performed any empirical analysis or do you have intuitions about tasks or conditions where this approximation might break down?",
+      "Given the large number of unresolved citations (22 of 26), could you confirm that you will review and update the entire bibliography to include DOIs, correct arXiv identifiers, and full publication details where available for the camera-ready version?"
+    ],
+    "overall_assessment": "This paper presents a strong and valuable contribution by developing a computationally efficient and novel normalization method for LSTMs. The method is elegant, well-motivated, and supported by solid empirical evidence showing competitive performance against strong baselines with significant speed improvements.\n\nHowever, the manuscript has several issues that require mandatory correction prior to publication. The most critical is the poor state of the bibliography; as confirmed by automated checks, 22 of 26 references are unresolvable due to formatting or missing identifiers. While this is a serious issue of scholarly hygiene, it is important to note that no fabricated or retracted papers were found, making this a correctable flaw. Additionally, the paper's rigor would be improved by a brief discussion on the limitations of the key independence assumption and by providing a justification or sensitivity analysis for the choice of the crucial γ hyperparameters.\n\nGiven the strength of the core contribution and the fact that the required revisions, while essential, do not invalidate the paper's findings, the recommendation is to accept. The authors are expected to address all points meticulously for the camera-ready version.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper proposes a novel and clever adaptation of an existing technique (Normalization Propagation) to a new and challenging domain (RNNs), which is a significant creative step.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.0,
+        "rationale": "The work addresses the important and practical problem of training RNNs efficiently. A faster, effective normalization scheme is of high value to the deep learning community."
+      },
+      {
+        "key": "claims_supported",
+        "score": 5.59,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: The main claims regarding performance and speed are well-supported by the experiments. The score is slightly tempered by the lack of justification for hyperparameter choices.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The theoretical derivation is generally sound but relies on a strong, acknowledged independence assumption whose impact is not fully explored.]"
+      },
+      {
+        "key": "clarity",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): No issues found in this dimension. [LLM'in kendi gerekçesi: The paper is very well-written, with a logical structure and clear explanations of the proposed method and its motivation.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.0,
+        "rationale": "The findings are of direct interest to researchers and practitioners working with recurrent neural networks. The code and method could be widely adopted."
+      },
+      {
+        "key": "contextualization",
+        "score": 6.0,
+        "rationale": "The paper attempts to cite relevant work, but the poor quality of the references (as noted in the evidence pack) severely hinders the reader's ability to place the work in its proper context."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 2.0,
+        "rationale": "Based on the evidence pack, an extremely high number of references (22/26) could not be automatically resolved. This indicates a significant problem with bibliographic hygiene that must be fixed. Crucially, the evidence pack found no fabricated or retracted papers, which is why this issue, while severe, is considered correctable."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 9.0,
+        "rationale": "The evidence pack did not identify any obviously missing seminal or mandatory citations in the field of RNN normalization."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity info. [LLM'in kendi gerekçesi: The evidence pack did not provide a statistical check. In the absence of detected inconsistencies, the score reflects that no red flags were raised, but a full verification was not performed.]"
+      }
+    ],
+    "final_score": 7.71,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 26,
+        "resolved": 4,
+        "not_found_in_index": 22,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "D. Arpit, Y. Zhou, B. U Kota, and V. Govindaraju. Normalization propagation: A parametric tech- nique for removing internal covariate shift in deep networks. arXiv preprint, 2016.",
+          "title": "Normalization propagation: A parametric tech- nique for removing internal covariate shift in deep networks",
+          "authors": [
+            "D. Arpit, Y. Zhou, B. U Kota",
+            "V. Govindaraju"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.30 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "J. L. Ba, J. R. Kiros, and G. E Hinton. Layer normalization. arXiv preprint, 2016.",
+          "title": "Layer normalization",
+          "authors": [
+            "J. L. Ba, J. R. Kiros",
+            "G. E Hinton"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.58 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "D. Bahdanau, K. Cho, and Y. Bengio. Neural machine translation by jointly learning to align and translate. ICLR, 2015. 8 Y. Bengio, P. Simard, and P. Frasconi. Learning long-term dependencies with gradient descent is difﬁcult. Neural Networks, IEEE Transactions on, 1994.",
+          "title": "Neural machine translation by jointly learning to align and translate",
+          "authors": [
+            "D. Bahdanau, K. Cho",
+            "Y. Bengio"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2133564696",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2133564696; 'Neural Machine Translation by Jointly Learning to Align and Translate').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "K. Cho, B. Van Merriënboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk, and Y. Bengio. Learning phrase representations using rnn encoder-decoder for statistical machine translation. arXiv preprint, 2014.",
+          "title": "Learning phrase representations using rnn encoder-decoder for statistical machine translation",
+          "authors": [
+            "K. Cho, B. Van Merriënboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk",
+            "Y. Bengio"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "T. Cooijmans, N. Ballas, C. Laurent, and A. Courville. Recurrent batch normalization. arXiv preprint, 2016.",
+          "title": "Recurrent batch normalization",
+          "authors": [
+            "T. Cooijmans, N. Ballas, C. Laurent",
+            "A. Courville"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.85 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "X. Glorot and Y. Bengio. Understanding the difﬁculty of training deep feedforward neural networks. In Aistats, volume 9, pp. 249–256, 2010.",
+          "title": "Understanding the difﬁculty of training deep feedforward neural networks",
+          "authors": [
+            "X. Glorot",
+            "Y. Bengio"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "K. Gregor, I. Danihelka, A. Graves, D. J. Rezende, and D. Wierstra. Draw: A recurrent neural network for image generation. arXiv preprint, 2015.",
+          "title": "Draw: A recurrent neural network for image generation",
+          "authors": [
+            "K. Gregor, I. Danihelka, A. Graves, D. J. Rezende",
+            "D. Wierstra"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "D. Ha, A. Dai, and Q. V Le. Hypernetworks. arXiv preprint, 2016.",
+          "title": "Hypernetworks",
+          "authors": [
+            "D. Ha, A. Dai",
+            "Q. V Le"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.74 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "K. M. Hermann, T. Kocisky, E. Grefenstette, L. Espeholt, W. Kay, M. Suleyman, and P. Blunsom. Teaching machines to read and comprehend. In NIPS, 2015.",
+          "title": "Teaching machines to read and comprehend",
+          "authors": [
+            "K. M. Hermann, T. Kocisky, E. Grefenstette, L. Espeholt, W. Kay, M. Suleyman",
+            "P. Blunsom"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "S. Hochreiter. Untersuchungen zu dynamischen neuronalen netzen. Master’s thesis, 1991.",
+          "title": "Untersuchungen zu dynamischen neuronalen netzen",
+          "authors": [
+            "S. Hochreiter"
+          ],
+          "year": 1991,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.26 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "S. Hochreiter and J. Schmidhuber. Long short-term memory. Neural computation, 9(8), 1997.",
+          "title": "Long short-term memory",
+          "authors": [
+            "S. Hochreiter",
+            "J. Schmidhuber"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "S. Ioffe and C. Szegedy. Batch normalization: Accelerating deep network training by reducing internal covariate shift. CoRR, abs/1502.03167, 2015.",
+          "title": "Batch normalization: Accelerating deep network training by reducing internal covariate shift",
+          "authors": [
+            "S. Ioffe",
+            "C. Szegedy"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "D. Kingma and J. Ba. Adam: A method for stochastic optimization. arXiv preprint, 2014.",
+          "title": "Adam: A method for stochastic optimization",
+          "authors": [
+            "D. Kingma",
+            "J. Ba"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W1522301498",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W1522301498; 'Adam: A Method for Stochastic Optimization').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "D. Krueger, T. Maharaj, J. Kramár, M. Pezeshki, N. Ballas, N. R. Ke, A. Goyal, Y. Bengio, H. Larochelle, A. Courville, et al. Zoneout: Regularizing rnns by randomly preserving hidden activations. arXiv preprint, 2016.",
+          "title": null,
+          "authors": [],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.2,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "H. Larochelle and I. Murray. The neural autoregressive distribution estimator. AISTATS, 2011.",
+          "title": "The neural autoregressive distribution estimator",
+          "authors": [
+            "H. Larochelle",
+            "I. Murray"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2135181320",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2135181320; 'The Neural Autoregressive Distribution Estimator').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "M. P. Marcus, M. Marcinkiewicz, and B. Santorini. Building a large annotated corpus of english: The penn treebank. Comput. Linguist., 1993.",
+          "title": "Building a large annotated corpus of english: The penn treebank",
+          "authors": [
+            "M. P. Marcus, M. Marcinkiewicz",
+            "B. Santorini"
+          ],
+          "year": 1993,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "T. Mikolov, I. Sutskever, A. Deoras, H. Le, S. Kombrink, and J. Cernocky. Subword language modeling with neural networks. preprint, 2012.",
+          "title": "Subword language modeling with neural networks",
+          "authors": [
+            "T. Mikolov, I. Sutskever, A. Deoras, H. Le, S. Kombrink",
+            "J. Cernocky"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "R. Pascanu, T. Mikolov, and Y. Bengio. On the difﬁculty of training recurrent neural networks. arXiv preprint, 2012.",
+          "title": "On the difﬁculty of training recurrent neural networks",
+          "authors": [
+            "R. Pascanu, T. Mikolov",
+            "Y. Bengio"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "T. Salimans and D. P Kingma. Weight normalization: A simple reparameterization to accelerate training of deep neural networks. arXiv preprint, 2016.",
+          "title": "Weight normalization: A simple reparameterization to accelerate training of deep neural networks",
+          "authors": [
+            "T. Salimans",
+            "D. P Kingma"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "S. Semeniuta, A. Severyn, and E. Barth. Recurrent dropout without memory loss. CoRR, abs/1603.05118, 2016.",
+          "title": "Recurrent dropout without memory loss",
+          "authors": [
+            "S. Semeniuta, A. Severyn",
+            "E. Barth"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2300605907",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2300605907; 'Recurrent Dropout Without Memory Loss').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "H. Shimodaira. Improving predictive inference under covariate shift by weighting the log-likelihood function. Journal of statistical planning and inference, 2000.",
+          "title": "Improving predictive inference under covariate shift by weighting the log-likelihood function",
+          "authors": [
+            "H. Shimodaira"
+          ],
+          "year": 2000,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Theano Development Team. Theano: A Python framework for fast computation of mathematical expressions. arXiv preprint, 2016.",
+          "title": "Theano: A Python framework for fast computation of mathematical expressions",
+          "authors": [
+            "Theano Development Team"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "B. van Merriënboer, D. Bahdanau, V. Dumoulin, D. Serdyuk, D. Warde-Farley, J. Chorowski, and Y. Bengio. Blocks and fuel: Frameworks for deep learning. CoRR, abs/1506.00619, 2015.",
+          "title": "Blocks and fuel: Frameworks for deep learning",
+          "authors": [
+            "Y. Bengio"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.47 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "T. P. Vogl, J. K. Mangis, A. K. Rigler, W. T. Zink, and D. L. Alkon. Accelerating the convergence of the back-propagation method. Biological Cybernetics, 59(4):257–263, 1988.",
+          "title": "Accelerating the convergence of the back-propagation method",
+          "authors": [
+            "T. P. Vogl, J. K. Mangis, A. K. Rigler, W. T. Zink",
+            "D. L. Alkon"
+          ],
+          "year": 1988,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.36 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "K. Xu, J. Ba, R. Kiros, A. Courville, R. Salakhutdinov, R. Zemel, and Y. Bengio. Show, attend and tell: Neural image caption generation with visual attention. arXiv preprint, 2015.",
+          "title": "Show, attend and tell: Neural image caption generation with visual attention",
+          "authors": [
+            "K. Xu, J. Ba, R. Kiros, A. Courville, R. Salakhutdinov, R. Zemel",
+            "Y. Bengio"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.36 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "L. Yao, A. Torabi, K. Cho, N. Ballas, C. Pal, H. Larochelle, and A. Courville. Describing videos by exploiting temporal structure. In ICCV, 2015. 9",
+          "title": "Describing videos by exploiting temporal structure",
+          "authors": [
+            "L. Yao, A. Torabi, K. Cho, N. Ballas, C. Pal, H. Larochelle",
+            "A. Courville"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1",
+        "dimension_engine:presentation_clarity:llm_unavailable"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "9f7075f7cbd6fed0f09f9dfb6ceb23555a9b68617840273d046647758222de94",
+          "request_time": "2026-08-22T17:38:25.809011Z",
+          "status": "ok",
+          "result_count": 4,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:38:26.555516Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "523ff452511338ee44a290acf772a7526f5d1fe69929510273bc4f8106fdcd76",
+          "request_time": "2026-08-22T17:38:28.141500Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:44:42.184529Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.8,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.9,
+      "rationale": "Belgenin kısa olması (yaklaşık 4500 kelime, 26 referans), yazar ve kurum bilgilerinin tek bir sayfada yer alması ve bölüm başlıklarının 'ABSTRACT, INTRODUCTION, CONCLUSION, REFERENCES' gibi tipik bir konferans bildirisi formatında olması 'conference_paper' olduğunu düşündürüyor. Çalışma, yeni bir LSTM parametrizasyonu önermekte ve bunu dil modelleme ve görüntü üretici modelleme görevlerinde deneysel olarak değerlendirmektedir, bu da 'computational_modeling' tasarımına işaret etmektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 85.75,
+      "recommended_decision": "accept",
+      "confidence": 0.7066666666666667,
+      "top_fatal_risks": [
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 1 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8625,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9333333333333332,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.86,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 1.0,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 64.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.5,
+        "why_it_matters": "No issues found in this dimension."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "3 concern(s): A very large proportion of the citations (22 out of 26) could not be automatically resolved by standard indexing services. This makes it difficult for readers to locate the cited works and properly situate this paper within the existing literature. This requires immediate and thorough attention. (Evidence: Citation Integrity Summary: 22 of 26 references were not found in index.); The derivation relies on a strong assumption of independence between gate inputs and the cell state (acknowledged in footnote 1). While this is a common simplifying step, the paper would be stronger if it briefly discussed the potential impact or failure modes of this approximation. Specifically, are there model architectures or data types where strong correlations between these variables would render the variance estimate inaccurate and harm performance?; The choice of the crucial γ hyperparameters seems ad-hoc and differs between experiments (e.g., γx=γh=2 and γc=1 for PTB vs. all 0.5 for DRAW). Given the analysis in Section 4 showing their importance, the paper would benefit significantly from a sensitivity analysis or a more principled explanation for how these values were chosen, or an ablation study showing how performance changes with different γ values.",
+        "key_objection": "A very large proportion of the citations (22 out of 26) could not be automatically resolved by standard indexing services. This makes it difficult for readers to locate the cited works and properly situate this paper within the existing literature. This requires immediate and thorough attention. (Evidence: Citation Integrity Summary: 22 of 26 references were not found in index.)",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "novelty_to_length_ratio.f0",
+          "novelty_to_length_ratio.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "reviewer_confidence.f0",
+          "reviewer_confidence.f1"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "2 concern(s): The paper relies on a strong assumption of independence between gate inputs and the cell state (acknowledged in footnote 1) for the derivation of Var[ct] in Equation (8). While this is a common simplification, the paper would be stronger if it briefly discussed the potential impact or failure modes of this approximation, especially in scenarios where these variables might be highly correlated.; The choice of the crucial γ hyperparameters appears ad-hoc and differs between experiments (e.g., γx=γh=2 and γc=1 for PTB vs. all 0.5 for DRAW). Given the analysis in Section 4 highlighting their importance, the paper would benefit from a sensitivity analysis or a more principled explanation for how these values were chosen, or an ablation study demonstrating their impact on performance.",
+        "key_objection": "The paper relies on a strong assumption of independence between gate inputs and the cell state (acknowledged in footnote 1) for the derivation of Var[ct] in Equation (8). While this is a common simplification, the paper would be stronger if it briefly discussed the potential impact or failure modes of this approximation, especially in scenarios where these variables might be highly correlated.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "3 concern(s): A significant number of references (22 out of 26) could not be automatically resolved by standard indexing services. This makes it difficult for readers to locate the cited works and properly situate this paper within the existing literature. Please meticulously review every reference to ensure it is complete, correctly formatted, and points to the canonical version of the work (e.g., including DOIs or correct, versioned arXiv IDs).; The derivation relies on a strong assumption of independence between gate inputs and the cell state (acknowledged in footnote 1). While this is a common simplifying step, the paper would be stronger if it briefly discussed the potential impact or failure modes of this approximation. For instance, are there specific model architectures or data types where strong correlations between these variables might render the variance estimate inaccurate and harm performance?; The choice of the crucial γ hyperparameters seems ad-hoc and differs between experiments (e.g., PTB uses γx=γh=2 and γc=1, while DRAW uses all 0.5). Given the analysis in Section 4 showing their importance, the paper would benefit from a sensitivity analysis or a more principled explanation for how these values were chosen. A brief ablation study showing how performance changes with different γ values would significantly strengthen the paper's claims and provide valuable guidance for practitioners.",
+        "key_objection": "A significant number of references (22 out of 26) could not be automatically resolved by standard indexing services. This makes it difficult for readers to locate the cited works and properly situate this paper within the existing literature. Please meticulously review every reference to ensure it is complete, correctly formatted, and points to the canonical version of the work (e.g., including DOIs or correct, versioned arXiv IDs).",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): The claim that '22 out of 26' citations could not be resolved is directly supported by the 'Citation Integrity Summary' in the evidence package.; The statement about 'lack of stable identifiers (like DOIs or correct, versioned arXiv IDs) and potential formatting errors' is a reasonable inference from the 'not_found_in_index' status for 22 references, as detailed in the 'References (status + evidence)' section. For example, reference [14] explicitly states 'Referansta DOI ve çözülebilir başlık yok'.; This statement is a direct quote from the evidence package and is therefore perfectly grounded. (+1 more)",
+        "key_objection": "The claim that '22 out of 26' citations could not be resolved is directly supported by the 'Citation Integrity Summary' in the evidence package.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "novelty_to_length_ratio.f0",
+          "novelty_to_length_ratio.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper introduces 'Recurrent Normalization Propagation' (or 'Normalized LSTM'), a novel reparametrization for Long Short-Term Memory networks. The method aims to preserve the mean and variance of hidden states and memory cells across time, akin to Recurrent Batch Normalization (BN) and Layer Normalization (LN), but with lower computational overhead. The authors derive the method analytically, analyze its impact on gradient flow, and validate it on character-level language modeling and generative image modeling tasks, showing performance comparable or superior to existing normalization techniques but with significantly faster execution times.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Deneysel Tasarımın Açık Tanımı",
+        "summary": "Makale, önerilen 'Normalized LSTM' modelinin performansını değerlendirmek için karakter düzeyinde dil modellemesi ve görüntü üretici modelleme görevlerinde deneysel bir tasarım kullanmaktadır. Bu tasarım, farklı normalizasyon yaklaşımlarını (Weight Norm, Batch Norm, Layer Norm) karşılaştırmak için uygundur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We evaluate our proposal on language modelling and image generative modelling tasks. We empirically show that it performs similarly or better than other recurrent normalization approaches, while being faster to execute."
+          },
+          {
+            "anchor_id": "5_experiments.a0",
+            "section": "5 EXPERIMENTS",
+            "quote": "The ﬁrst task we explore is character-level language modelling on the Penn Treebank corpus (Marcus et al., 1993). ... The second task we explore is a generative modelling task on binarized MNIST (Larochelle & Murray, 2011) using the Deep Recurrent Attentive Writer (DRAW) (Gregor et al., 2015) architecture."
+          }
+        ],
+        "reasoning_public": "Makale, önerilen yöntemin etkinliğini göstermek için kontrollü deneyler yürütmektedir. Bu, araştırma sorusuna doğrudan yanıt veren güçlü bir yaklaşımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Makalede, kullanılan veri setlerinin (Penn Treebank, binarized MNIST) örneklem büyüklükleri belirtilmiş olsa da, bu örneklem büyüklüklerinin istatistiksel güç analizi veya hassasiyet gerekçesiyle belirlendiğine dair herhangi bir bilgi bulunmamaktadır. Bu durum, elde edilen sonuçların genellenebilirliği ve istatistiksel güvenilirliği hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_character_level_language_modelling.a0",
+            "section": "5.1 CHARACTER-LEVEL LANGUAGE MODELLING",
+            "quote": "We empirically validate our proposal on character-level language modelling on the Penn Treebank corpus (Marcus et al., 1993) and on image generative modelling, applying our normalisation to the DRAW architecture (Gregor et al., 2015)."
+          },
+          {
+            "anchor_id": "5_2_draw.a0",
+            "section": "5.2 DRAW",
+            "quote": "The second task we explore is a generative modelling task on binarized MNIST (Larochelle & Murray, 2011) using the Deep Recurrent Attentive Writer (DRAW) (Gregor et al., 2015) architecture."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, örneklem büyüklüğünün uygun şekilde gerekçelendirilmesi, çalışmanın istatistiksel gücünü ve sonuçların güvenilirliğini sağlamak için kritik öneme sahiptir. Güç analizi yapılmaması, özellikle küçük etki büyüklüklerini tespit etme yeteneğini sorgulatabilir veya gereksiz yere büyük örneklemler kullanılmasına yol açabilir.",
+        "limitations": [
+          "Makalede doğrudan bir güç analizi veya örneklem büyüklüğü gerekçesi bulunmadığından, bu bulguya ilişkin kesin bir sayısal kanıt sunulamamaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Ölçüm Araçlarının ve Değişken Operasyonelleştirmesinin Açıklığı",
+        "summary": "Makale, karakter düzeyinde dil modellemesi için 'perplexity (bits-per-character)' ve görüntü üretici modelleme için 'test variational log likelihood (nats)' gibi standart ve iyi tanımlanmış ölçütleri kullanmaktadır. Bu ölçütlerin nasıl hesaplandığı ve ne anlama geldiği alan yazında yaygın olarak kabul görmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_character_level_language_modelling.a1",
+            "section": "5.1 CHARACTER-LEVEL LANGUAGE MODELLING",
+            "quote": "Table 1: Perplexity (bits-per-character) on sequences of length 100 from the Penn Treebank valida- tion set, and training time (seconds) per epoch."
+          },
+          {
+            "anchor_id": "5_2_draw.a1",
+            "section": "5.2 DRAW",
+            "quote": "Table 3: Test variational log likelihood (nats) after 200 epochs of training."
+          }
+        ],
+        "reasoning_public": "Standart ve iyi tanımlanmış ölçütlerin kullanılması, çalışmanın sonuçlarının diğer araştırmalarla karşılaştırılabilirliğini ve geçerliliğini artırır. Değişkenlerin operasyonelleştirilmesi (örneğin, 'perplexity' ve 'log likelihood' olarak) açık ve anlaşılırdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "İstatistiksel Test Seçiminin Uygunluğu",
+        "summary": "Makale, derin öğrenme modellerinin performansını karşılaştırmak için yaygın olarak kullanılan deneysel karşılaştırmalar ve performans metrikleri (perplexity, log likelihood) sunmaktadır. Bu tür bir çalışmada, istatistiksel testlerden ziyade doğrudan performans metriklerinin karşılaştırılması standart bir yaklaşımdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_character_level_language_modelling.a2",
+            "section": "5.1 CHARACTER-LEVEL LANGUAGE MODELLING",
+            "quote": "The results are presented in Table 1 and in Figure 2."
+          },
+          {
+            "anchor_id": "5_2_draw.a2",
+            "section": "5.2 DRAW",
+            "quote": "Table 3 shows the test variational log likelihood (nats) after 200 epochs of training."
+          }
+        ],
+        "reasoning_public": "Derin öğrenme alanında, yeni bir modelin etkinliğini göstermek için genellikle standart veri setleri üzerinde elde edilen performans metrikleri (örneğin, doğruluk, F1 skoru, perplexity) karşılaştırılır. Bu yaklaşım, modelin pratik faydasını doğrudan gösterir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Metin-Tablo-Figür Sayı Tutarlılığı",
+        "summary": "Makalede sunulan performans metrikleri (perplexity, log likelihood) ve eğitim süreleri, metin içinde yapılan atıflar, tablolar (Tablo 1, Tablo 2, Tablo 3) ve figürler (Şekil 2, Şekil 3) arasında tutarlılık göstermektedir. Örneğin, Tablo 1'deki perplexity değerleri ve eğitim süreleri metin içinde tartışılan sonuçlarla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_character_level_language_modelling.a3",
+            "section": "5.1 CHARACTER-LEVEL LANGUAGE MODELLING",
+            "quote": "As we can see in Figure 2 and in Table 1, Norm Prop compares really well against the other reparametrization. Also Norm Prop is roughly 30 % computationally faster2 than BN and LN."
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Model Validation Time Baseline 1.455 386 Weight Norm 1.438 402 Batch Norm 1.433 545 Layer Norm 1.439 530 Norm Prop 1.422 413"
+          }
+        ],
+        "reasoning_public": "Metin, tablo ve figürler arasındaki sayısal tutarlılık, raporlamanın doğruluğunu ve güvenilirliğini artırır. Bu, okuyucunun sunulan verileri kolayca takip etmesini ve anlamasını sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, farklı modellerin performans metriklerini (perplexity, log likelihood) sunarken, bu farkların istatistiksel olarak ne kadar anlamlı olduğunu gösteren güven aralıkları veya diğer belirsizlik ölçülerini raporlamamaktadır. Örneğin, Tablo 1 ve Tablo 3'teki değerler arasında gözlemlenen farkların rastlantısal mı yoksa gerçek bir etkiyi mi yansıttığı belirsizdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a1",
+            "section": "Table 1",
+            "quote": "Model Validation Time Baseline 1.455 386 Weight Norm 1.438 402 Batch Norm 1.433 545 Layer Norm 1.439 530 Norm Prop 1.422 413"
+          },
+          {
+            "anchor_id": "table_3.a0",
+            "section": "Table 3",
+            "quote": "Model DRAW Baseline (ours) 84.30 Layer Norm (Ba et al., 2016) 82.09 Weight Norm (ours) 81.98 Norm Prop (ours) 81.17"
+          }
+        ],
+        "reasoning_public": "Etki büyüklüğü ve güven aralıkları, gözlemlenen farkların pratik önemini ve istatistiksel güvenilirliğini değerlendirmek için kritik öneme sahiptir. Bu bilgilerin eksikliği, okuyucunun sonuçların genellenebilirliği ve sağlamlığı hakkında doğru bir yargıya varmasını engeller. Özellikle derin öğrenme modellerinde, küçük farklar bile büyük veri setlerinde istatistiksel olarak anlamlı olabilir, ancak pratik önemi olmayabilir.",
+        "limitations": [
+          "Makalede herhangi bir güven aralığı veya standart sapma değeri raporlanmadığından, bu bulguya ilişkin kesin bir sayısal kanıt sunulamamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Belirsizliği",
+        "summary": "Makalede, kullanılan veri setlerinde (Penn Treebank, binarized MNIST) eksik veri veya aykırı değerlerin varlığına ve bunların nasıl ele alındığına dair herhangi bir bilgi bulunmamaktadır. Derin öğrenme modellerinde bu tür durumlar genellikle ön işleme adımlarıyla ele alınsa da, şeffaf bir raporlama eksikliği mevcuttur.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Eksik veri ve aykırı değerlerin nasıl işlendiğinin açıklanması, çalışmanın şeffaflığını ve tekrar üretilebilirliğini artırır. Bu tür durumların uygun şekilde ele alınmaması, model performansını ve sonuçların genellenebilirliğini olumsuz etkileyebilir.",
+        "limitations": [
+          "Makalede eksik veri veya aykırı değer işleme stratejilerine dair doğrudan bir bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Disiplini",
+        "summary": "Makale, deneysel bir tasarım kullandığı ve farklı normalizasyon yöntemlerinin performans üzerindeki etkilerini karşılaştırdığı için nedensel dil kullanımı genellikle uygun ve disiplinlidir. 'Impact', 'effect', 'leads to' gibi ifadeler, kontrollü deneyler bağlamında kullanılmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "We also investigate the parametrization impact on the gradient ﬂows and present a way of initializing the weights accordingly."
+          },
+          {
+            "anchor_id": "1_introduction.a0",
+            "section": "1 INTRODUCTION",
+            "quote": "In addition, we investigate the impact of our parametrization, and more generally of normalized LSTM, on the vanishing and exploding gradient problems."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalarda, bağımsız değişkenlerin bağımlı değişkenler üzerindeki etkilerini tartışmak için nedensel dil kullanmak uygundur. Makale, bu tür bir dilin kullanımında dikkatli davranmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Tekrar Üretilebilirlik İçin Kod ve Veri Erişilebilirliği Eksikliği",
+        "summary": "Makale, deneylerde kullanılan bazı araçları (Theano, Blocks, Fuel) ve bir DRAW uygulamasının GitHub bağlantısını belirtse de, çalışmanın tam olarak tekrar üretilebilirliğini sağlayacak tüm kodların veya veri setlerinin açıkça erişilebilir olduğuna dair bir beyan bulunmamaktadır. Özellikle, 'ours' olarak belirtilen modellerin tam implementasyonları veya deney kurulum detayları eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "acknowledgments.a0",
+            "section": "ACKNOWLEDGMENTS",
+            "quote": "We used Theano (Theano Development Team, 2016), Blocks and Fuel (van Merriënboer et al., 2015) for our experiments. We also want to thanks Caglar Gulcehre and Tim Cooijmans for the talks and Jörg Bornschein for his DRAW implementation."
+          },
+          {
+            "anchor_id": "5_2_draw.a3",
+            "section": "5.2 DRAW",
+            "quote": "We use Jörg Bornschein’s implementation3, with the same hyper-parameters as Gregor et al. (2015), ie the read and write size are 2x2 and 5x5 respectively, the number of glimpses is 64, the LSTMs have 256 units and the dimension of z is 100. We use Adam with learning rate of 1e-2, exponential decay of 1e-3 and mini-batch size of 128. We use orthogonal initialization and force the norm of the lines of the matrices to be 1. For Norm Prop, we use γx = γh = γc = 0.5."
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmaların tekrar üretilebilirliği, bulguların doğrulanması ve bilginin ilerlemesi için temel bir gerekliliktir. Kod ve veri setlerinin erişilebilir olmaması, diğer araştırmacıların sonuçları bağımsız olarak doğrulamalarını veya üzerine inşa etmelerini zorlaştırır.",
+        "limitations": [
+          "Makalede doğrudan bir kod deposu bağlantısı veya tüm veri setlerine erişim bilgisi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Ana Sonuçların Belirsizlik Ölçüleri Olmadan Sunulması",
+        "summary": "Makale, ana sonuçları (perplexity, log likelihood) tablolar ve figürler aracılığıyla sunarken, bu sonuçların belirsizlik ölçülerini (örneğin, güven aralıkları veya standart sapmalar) içermemektedir. Bu durum, okuyucunun gözlemlenen farkların istatistiksel güvenilirliğini ve genellenebilirliğini değerlendirmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a2",
+            "section": "Table 1",
+            "quote": "Model Validation Time Baseline 1.455 386 Weight Norm 1.438 402 Batch Norm 1.433 545 Layer Norm 1.439 530 Norm Prop 1.422 413"
+          },
+          {
+            "anchor_id": "table_3.a1",
+            "section": "Table 3",
+            "quote": "Model DRAW Baseline (ours) 84.30 Layer Norm (Ba et al., 2016) 82.09 Weight Norm (ours) 81.98 Norm Prop (ours) 81.17"
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, ana sonuçların sadece nokta tahminleri olarak değil, aynı zamanda belirsizlik ölçüleriyle birlikte sunulması, bulguların sağlamlığı ve yorumlanabilirliği açısından kritik öneme sahiptir. Bu eksiklik, 'Effect size and uncertainty' boyutundaki bulguyla doğrudan ilişkilidir ve raporlama kalitesini düşürmektedir.",
+        "limitations": [
+          "Makalede ana sonuçlar için herhangi bir belirsizlik ölçüsü raporlanmamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Konusu ve Track Uyumu",
+        "summary": "Makale, derin öğrenme ve özellikle tekrarlayan sinir ağları (RNN'ler) bağlamında normalizasyon teknikleri üzerine odaklanmaktadır. Bu konu, genellikle makine öğrenimi, yapay zeka ve sinir ağları üzerine odaklanan akademik konferans ve dergilerin 'derin öğrenme', 'sinir ağları mimarileri' veya 'optimizasyon' gibi track'lerine mükemmel bir şekilde uymaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "We propose an LSTM parametrization that preserves the means and variances of the hidden states and memory cells across time. While having training beneﬁts similar to Recurrent Batch Normalization and Layer Normalization, it does not need to estimate statistics at each time step, therefore, requiring fewer computa- tions overall."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "Recurrent neural network have shown remarkably good performances for sequential modelling tasks including machine translation (Bahdanau et al., 2015), visual captioning (Xu et al., 2015; Yao et al., 2015) or question answering (Hermann et al., 2015). However, such models remain notoriously hard to train with gradient backpropagation."
+          }
+        ],
+        "reasoning_public": "Makale, LSTM'ler için yeni bir normalizasyon parametrizasyonu önermekte ve bunun eğitim faydalarını, hesaplama verimliliğini ve gradyan akışları üzerindeki etkisini incelemektedir. Bu, derin öğrenme araştırmalarının temel alanlarından biridir ve ilgili track'lerdeki araştırmacılar için büyük ilgi çekicidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yenilikçi Katkının Kapsamına Göre Makale Uzunluğu",
+        "summary": "Makale, mevcut normalizasyon yöntemlerine (Batch Normalization, Layer Normalization, Weight Normalization) dayalı olarak tekrarlayan sinir ağları için yeni bir normalizasyon yöntemi (Recurrent Normalization Propagation) önermektedir. Önerilen yöntem, teorik türetmeler ve iki farklı görevdeki deneysel sonuçlarla desteklenmektedir. Ancak, makalenin uzunluğu ve detay seviyesi, sunulan temel yeniliğin (Normalization Propagation'ın LSTM'e uyarlanması) derinliği göz önüne alındığında biraz fazla olabilir. Özellikle, öncül çalışmaların (BN-LSTM, Norm Prop) detaylı açıklamaları ve gradient analizi, makalenin ana katkısını gölgede bırakmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "While the long-term dependencies problem is unsolvable in absolute (Hochreiter, 1991; Bengio et al., 1994), different RNN parameterizations, such as LSTM or GRU (Hochreiter & Schmidhuber, 1997; Cho et al., 2014) can help mitigate it. Furthermore, the LSTM parametrization has been recently extended to include layer-wise normalization (Cooijmans et al., 2016; Ba et al., 2016), building upon Batch Normalization (BN) (Ioffe & Szegedy, 2015)."
+          },
+          {
+            "anchor_id": "2_pre_requisites.a0",
+            "section": "2 PRE-REQUISITES",
+            "quote": "Batch-Normalized Long Short-Term Memory (BN-LSTM) (Cooijmans et al., 2016) is a reparametrization of LSTM that takes advantage of Batch Normalization (BN) to address the Co-variate Shift (Shimodaira, 2000) occurring between time steps."
+          },
+          {
+            "anchor_id": "3_normalized_lstm.a0",
+            "section": "3 NORMALIZED LSTM",
+            "quote": "While Norm Prop properties are appealing for recurrent models, its application to LSTM is not straightforward due to the memory cell structure. In this section we show how to derive a LSTM reparametrization that preserves normalization of the state ht through time."
+          }
+        ],
+        "reasoning_public": "Makale, mevcut yöntemlerin dezavantajlarını gideren yeni bir normalizasyon tekniği sunmaktadır. Ancak, bu yeniliğin sunumu, öncül çalışmaların ve genel RNN sorunlarının (vanishing/exploding gradients) detaylı tekrarı nedeniyle uzamıştır. Bu durum, okuyucunun ana katkıyı hızlıca kavramasını zorlaştırabilir ve makalenin özgünlüğünü tam olarak vurgulamasını engelleyebilir. Daha kısa ve odaklanmış bir sunum, makalenin etkisini artırabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f1",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik Türetmelerin ve Deneysel Doğrulamanın Yeterliliği",
+        "summary": "Makale, önerilen Normalized LSTM'in teorik türetmelerini (özellikle varyans hesaplamaları) ve gradient analizi gibi önemli detayları sunarak, yöntemin bilimsel temelini sağlam bir şekilde oluşturmuştur. Ayrıca, iki farklı görevdeki (dil modellemesi ve görüntü üretimi) deneysel sonuçlarla yöntemin etkinliğini ve hız avantajını göstermiştir. Bu detay seviyesi, makalenin iddialarını desteklemek için yeterlidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_normalized_lstm.a1",
+            "section": "3 NORMALIZED LSTM",
+            "quote": "In this section we show how to derive a LSTM reparametrization that preserves normalization of the state ht through time."
+          },
+          {
+            "anchor_id": "4_gradient_propagation_in_normalized_lstm.a0",
+            "section": "4 GRADIENT PROPAGATION IN NORMALIZED LSTM",
+            "quote": "In this section we study the gradient ﬂow in the Normalized LSTM. Since this reparametrization is similar to the BN-LSTM, the analysis we do here can be transposed to the BN-LSTM case."
+          },
+          {
+            "anchor_id": "5_experiments.a1",
+            "section": "5 EXPERIMENTS",
+            "quote": "We empirically validate our proposal on character-level language modelling on the Penn Treebank corpus (Marcus et al., 1993) and on image generative modelling, applying our normalisation to the DRAW architecture (Gregor et al., 2015)."
+          }
+        ],
+        "reasoning_public": "Makalenin teorik derinliği ve deneysel doğrulama, sunulan yeniliğin geçerliliğini ve pratik faydalarını açıkça ortaya koymaktadır. Bu, makalenin bilimsel değerini artıran güçlü bir yöndür.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "DRAW Uygulaması İçin Harici Bağlantı Sağlanmış, Ancak Kendi Kodları Eksik",
+        "summary": "Makale, DRAW mimarisi için Jörg Bornschein'in GitHub deposuna bir bağlantı sağlamaktadır. Bu, deneylerin bir kısmının tekrar üretilebilirliğini artırsa da, makalede önerilen 'Normalized LSTM' modelinin kendi uygulamasının veya deneylerde kullanılan diğer modellerin (Baseline, Weight Norm, Layer Norm) kodlarının doğrudan sağlanmaması, çalışmanın tam tekrar üretilebilirliğini kısıtlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_2_draw.a4",
+            "section": "5.2 DRAW",
+            "quote": "We use Jörg Bornschein’s implementation3, with the same hyper-parameters as Gregor et al. (2015), ie the read and write size are 2x2 and 5x5 respectively, the number of glimpses is 64, the LSTMs have 256 units and the dimension of z is 100. We use Adam with learning rate of 1e-2, exponential decay of 1e-3 and mini-batch size of 128. We use orthogonal initialization and force the norm of the lines of the matrices to be 1. For Norm Prop, we use γx = γh = γc = 0.5. The test variational bound for the ﬁrst 100 epochs is presented in Figure 3.\n3https://github.com/jbornschein/draw"
+          }
+        ],
+        "reasoning_public": "Akademik çalışmalarda tekrar üretilebilirlik, bilimsel ilerleme için temel bir gerekliliktir. Yalnızca harici bir uygulamanın referans gösterilmesi, araştırmacıların makalede sunulan yöntemleri ve sonuçları bağımsız olarak doğrulamalarını zorlaştırır. Özellikle önerilen modelin ve karşılaştırma yapılan diğer modellerin tam kod tabanının eksikliği, gelecekteki araştırmacıların bu çalışmayı temel alarak ilerlemesini engeller.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "reproducibility_artifact.f0.a0",
+          "reproducibility_artifact.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f1",
+        "dimension": "reproducibility_artifact",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kullanılan Kütüphaneler Belirtilmiş",
+        "summary": "Makale, deneylerde kullanılan Theano, Blocks ve Fuel gibi derin öğrenme kütüphanelerini açıkça belirtmiştir. Bu bilgi, gelecekteki araştırmacıların benzer bir ortam kurmalarına yardımcı olabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "acknowledgments.a1",
+            "section": "ACKNOWLEDGMENTS",
+            "quote": "We used Theano (Theano Development Team, 2016), Blocks and Fuel (van Merriënboer et al., 2015) for our experiments."
+          }
+        ],
+        "reasoning_public": "Kullanılan yazılım kütüphanelerinin belirtilmesi, tekrar üretilebilirlik için önemli bir adımdır, çünkü bu, araştırmacıların doğru araçları kullanarak deneyleri yeniden oluşturmalarına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ana Katkının Net İfadesi",
+        "summary": "Makale, önerilen 'Recurrent Normalization Propagation' (Norm Prop) yönteminin temel katkısını ve diğer normalizasyon yöntemlerine göre avantajlarını (daha az hesaplama gereksinimi, hız) açıkça belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "By contrast, we propose an LSTM reparametrization that allows by construction to cheaply preserve the normalization of the hidden states through time. Our approach can be seen as the recurrent counterpart to the recent normalization propagation applied in feed-forward network (Arpit et al., 2016). It results in faster training convergence similar to Layer Normalization (LN) and Recurrent Batch Normalization while requiring fewer operations per time step and generalizing naturally to variable length sequences."
+          }
+        ],
+        "reasoning_public": "Giriş bölümünde, mevcut yöntemlerin (BN-LSTM, Layer Normalization) dezavantajları (ekstra hesaplamalar) vurgulanarak, önerilen yöntemin bu sorunları nasıl aştığı ve temel faydaları (hız, değişken uzunluktaki dizilere genelleme) net bir şekilde ortaya konmuştur. Bu, okuyucunun makalenin yeniliğini ve önemini hızlıca kavramasına yardımcı olur.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f1",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.85,
+        "title": "Geliştirilen Yöntemin Mekanizmasının Açıklığı",
+        "summary": "Makale, önerilen Normalized LSTM'in nasıl inşa edildiğini ve varyans koruma mekanizmasını adım adım, matematiksel denklemlerle destekleyerek açıklamaktadır. Bu, yöntemin teknik detaylarının anlaşılmasına büyük katkı sağlar.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "normalized_lstm.a0",
+            "section": "NORMALIZED LSTM",
+            "quote": "Using equations 5, 6 and 13, we propose the following reparametrization of the LSTM, simply called the Normalized LSTM     ĩt f̃t õt g̃t    = γx Wx ||Wx,i||2 xt + γh Wh ||Wh,i||2 ht−1 + b (15) ct = σ(ĩt) ⊙tanh(g̃t) + σ(f̃t) ⊙ct−1 (16) ht = 1 p Var[ht] \" σ(õt) ⊙tanh ( γcct p Var[ct] )# (17) where Var[ct] and Var[ht] are computed using equations 8 and 14, respectively."
+          }
+        ],
+        "reasoning_public": "3. Bölümde ('NORMALIZED LSTM'), yöntemin temelini oluşturan denklemler (5, 6, 13, 15-17) ve varyans hesaplamaları (8, 14) açıkça sunulmuştur. Bu detaylı açıklama, okuyucunun yöntemin iç işleyişini ve yenilikçi yönlerini kavramasına olanak tanır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Hususların ve Sınırlamaların Açıkça Belirtilmesi",
+        "summary": "Makale, çalışmanın potansiyel etik etkileri veya sosyal sonuçları hakkında herhangi bir tartışma içermemektedir. Ancak, bu tür bir tartışmanın bu tür bir teknik makale için standart bir beklenti olmadığı göz önüne alındığında, bu bir eksiklik olarak değerlendirilmemiştir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Derin öğrenme yöntemleri üzerine odaklanan bu tür teknik bir makalede, etik hususların veya geniş kapsamlı sosyal sınırlamaların ayrıntılı bir şekilde tartışılması genellikle beklenmez. Makale, metodolojik yeniliklere ve deneysel sonuçlara odaklanmaktadır. Bu nedenle, etik tartışmanın olmaması bir zayıflık olarak değil, makalenin kapsamının doğal bir sonucu olarak değerlendirilmiştir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_limitations.f1",
+        "dimension": "ethics_limitations",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Gelecek Çalışma Sınırlılıklarının Kısmi Tartışması",
+        "summary": "Makale, önerilen mimarinin gelecekteki potansiyel araştırma yönlerini ve mevcut sınırlılıklarını kısaca belirtmektedir, ancak bu tartışma daha derinlemesine yapılabilirdi.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "conclusion.a0",
+            "section": "CONCLUSION",
+            "quote": "Future work includes trying this architecture on more challenging tasks and also studying the impact of not keeping the variance estimates of the cell and the hidden states fixed during the learning process."
+          }
+        ],
+        "reasoning_public": "Makale, 'Future work includes trying this architecture on more challenging tasks and also studying the impact of not keeping the variance estimates of the cell and the hidden states fixed during the learning process.' ifadesiyle gelecek çalışmalara yönelik bazı sınırlılıkları ve araştırma alanlarını belirtmektedir. Bu, makalenin kendi kendine eleştirel bir bakış açısı sunduğunu gösterir. Ancak, bu sınırlılıkların mevcut deneysel sonuçlar üzerindeki potansiyel etkileri veya bu sınırlılıkların aşılması için daha somut yaklaşımlar hakkında daha fazla detay verilebilirdi.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Bölüm Numaralandırmasında Tutarsızlık",
+        "summary": "Makalenin sonuç bölümü, metin içinde 5. bölüm olarak belirtilirken, aslında 6. bölüm olarak numaralandırılmıştır. Bu durum, okuyucunun makale yapısını takip etmesini zorlaştırabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "The paper is structured as follows: section 2 provides a brief overview of the Batch-Normalized LSTM, in section 3 we derive our Normalized LSTM, section 4 investigates the impact of such normalization on the gradient ﬂow, section 5 presents some experimental results, and we conclude in section 5."
+          },
+          {
+            "anchor_id": "conclusion.a1",
+            "section": "CONCLUSION",
+            "quote": "6 CONCLUSION"
+          }
+        ],
+        "reasoning_public": "Makalenin iç referansları ile bölüm numaralandırması arasındaki tutarsızlık, okuyucunun belirli bölümlere hızlıca ulaşmasını veya makalenin akışını anlamasını engelleyebilir. Bu tür küçük hatalar, makalenin genel profesyonelliğini ve okunabilirliğini olumsuz etkiler.",
+        "limitations": [],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f1",
+        "dimension": "reviewer_confidence",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Açık ve Anlaşılır Dil Kullanımı",
+        "summary": "Makale, teknik konuları akademik jargon kullanmadan, net ve anlaşılır bir dille açıklamaktadır. Bu durum, okuyucunun konuyu kavramasını kolaylaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Karmaşık konuların sade bir dille açıklanması, makalenin daha geniş bir kitle tarafından anlaşılmasını sağlar ve bilginin yayılmasına katkıda bulunur. Bu, akademik bir yayının önemli bir güçlü yönüdür.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Tüm performans metrikleri için (perplexity, log likelihood) güven aralıklarını veya standart hataları raporlayın. Bu, gözlemlenen farkların istatistiksel anlamlılığını ve modelin sağlamlığını daha iyi değerlendirmeye olanak tanır. Birden fazla deneme yapıldıysa, ortalama ve standart sapma değerlerini belirtin.",
+        "acceptance_check": "Tablolarda ve metinde raporlanan tüm performans metrikleri için güven aralıkları veya standart sapmalar eklenmeli.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Ana sonuçları sunarken, her bir performans metriği için güven aralıklarını veya standart sapmaları ekleyin. Bu, okuyucunun sonuçların istatistiksel güvenilirliğini ve pratik önemini daha iyi anlamasına yardımcı olacaktır.",
+        "acceptance_check": "Ana sonuç tablolarında ve metinde belirsizlik ölçüleri (CI veya SD) bulunmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Çalışmanın istatistiksel gücünü veya hassasiyetini açıklayan bir bölüm ekleyin. Kullanılan veri setlerinin (Penn Treebank, binarized MNIST) örneklem büyüklüklerinin neden yeterli olduğunu veya gelecekteki çalışmalarda hangi örneklem büyüklüklerinin hedeflenmesi gerektiğini belirtin.",
+        "acceptance_check": "Makalede güç analizi veya hassasiyet gerekçesiyle örneklem büyüklüğü açıklaması bulunmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ACKNOWLEDGMENTS",
+        "instruction": "Tüm deneylerin tekrar üretilebilirliğini sağlamak için kullanılan kodları (örneğin, GitHub deposu aracılığıyla) ve veri setlerine erişim bilgilerini açıkça belirtin. Model implementasyonları ve eğitim scriptleri dahil edilmelidir.",
+        "acceptance_check": "Makalede kod ve veri setlerine erişim sağlayan bir bağlantı veya açıklama bulunmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES / Ekler",
+        "instruction": "Makalede önerilen 'Normalized LSTM' modelinin ve deneylerde kullanılan diğer tüm modellerin (Baseline, Weight Norm, Layer Norm) tam kaynak kodunu içeren bir GitHub deposu veya benzeri bir platformda erişilebilir bir kod paketi sağlamak.",
+        "acceptance_check": "Makalede belirtilen tüm modellerin (Normalized LSTM, Baseline, Weight Norm, Layer Norm) eğitim ve değerlendirme kodlarının, bağımlılıkları ve kurulum talimatlarıyla birlikte erişilebilir olması.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f0"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümündeki 'section 5' ifadesini 'section 6' olarak düzeltin veya sonuç bölümünün numarasını 5 olarak değiştirin.",
+        "acceptance_check": "Giriş bölümündeki sonuç bölümü referansının doğru bölüm numarasıyla eşleştiği doğrulanacaktır.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "CONCLUSION",
+        "instruction": "Sonuç bölümünde, belirtilen gelecek çalışma alanlarının mevcut çalışmanın hangi sınırlılıklarından kaynaklandığı ve bu sınırlılıkların aşılmasının potansiyel faydaları hakkında daha fazla açıklama ekleyin.",
+        "acceptance_check": "Sınırlılıklar ile gelecek çalışma önerileri arasındaki bağlantı daha net bir şekilde ifade edilmiş ve bu sınırlılıkların giderilmesinin makalenin katkısını nasıl artıracağı açıklanmış olmalı.",
+        "linked_finding_ids": [
+          "ethics_limitations.f1"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, PRE-REQUISITES",
+        "instruction": "Giriş ve öncül çalışmalar bölümlerindeki genel RNN sorunları ve mevcut normalizasyon yöntemlerinin detaylı açıklamalarını kısaltarak, makalenin ana katkısı olan Recurrent Normalization Propagation'ın özgünlüğüne ve yeniliğine daha fazla odaklanılmalıdır. Okuyucunun zaten bildiği temel kavramlar yerine, önerilen yöntemin temel farklılıkları ve avantajları daha belirgin hale getirilmelidir.",
+        "acceptance_check": "Giriş bölümü ve öncül çalışmaların özeti, makalenin ana katkısını daha hızlı ve net bir şekilde sunacak şekilde yeniden düzenlenmiş olmalıdır. Tekrarlayan bilgiler azaltılmalı ve yeni yöntemin benzersiz yönleri vurgulanmalıdır.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Veri ön işleme adımlarında eksik veri veya aykırı değerlerin nasıl ele alındığını açıklayın. Eğer bu tür durumlar veri setlerinde mevcut değilse veya özel bir işlem yapılmadıysa, bunu açıkça belirtin.",
+        "acceptance_check": "Makalede eksik veri ve aykırı değer işleme stratejilerine dair bir açıklama bulunmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "5.1 CHARACTER-LEVEL LANGUAGE MODELLING / 5.2 DRAW",
+        "instruction": "Deneylerde kullanılan veri setlerinin (Penn Treebank, binarized MNIST) işleme adımları ve kullanılan versiyonları hakkında daha detaylı bilgi sağlamak veya doğrudan erişim linkleri sunmak.",
+        "acceptance_check": "Veri setlerinin nasıl hazırlandığına dair açık talimatlar veya kullanılan spesifik versiyonlara bağlantılar sağlanması.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f0"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yenilikçi Katkının Kapsamına Göre Makale Uzunluğu; Bölüm Numaralandırmasında Tutarsızlık",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "reviewer_confidence.f0.a0"
+        ]
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Gelecek Çalışma Sınırlılıklarının Kısmi Tartışması; Bölüm Numaralandırmasında Tutarsızlık",
+        "anchor_ids": [
+          "conclusion.a0",
+          "conclusion.a1"
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f1.a0",
+          "reviewer_confidence.f0.a0"
+        ]
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1 INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "1_introduction.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "2 PRE-REQUISITES",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yenilikçi Katkının Kapsamına Göre Makale Uzunluğu",
+        "anchor_ids": [
+          "2_pre_requisites.a0"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0"
+        ]
+      },
+      {
+        "section": "3 NORMALIZED LSTM",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yenilikçi Katkının Kapsamına Göre Makale Uzunluğu",
+        "anchor_ids": [
+          "3_normalized_lstm.a0",
+          "3_normalized_lstm.a1"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0"
+        ]
+      },
+      {
+        "section": "4 GRADIENT PROPAGATION IN NORMALIZED LSTM",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_gradient_propagation_in_normalized_lstm.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "5 EXPERIMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "5_experiments.a0",
+          "5_experiments.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "5.1 CHARACTER-LEVEL LANGUAGE MODELLING",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "5_1_character_level_language_modelling.a0",
+          "5_1_character_level_language_modelling.a1",
+          "5_1_character_level_language_modelling.a2",
+          "5_1_character_level_language_modelling.a3"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "5.2 DRAW",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Tekrar Üretilebilirlik İçin Kod ve Veri Erişilebilirliği Eksikliği; DRAW Uygulaması İçin Harici Bağlantı Sağlanmış, Ancak Kendi Kodları Eksik",
+        "anchor_ids": [
+          "5_2_draw.a0",
+          "5_2_draw.a1",
+          "5_2_draw.a2",
+          "5_2_draw.a3",
+          "5_2_draw.a4"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f8.a0",
+          "reproducibility_artifact.f0.a0",
+          "reproducibility_artifact.f0.a1"
+        ]
+      },
+      {
+        "section": "ACKNOWLEDGMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Tekrar Üretilebilirlik İçin Kod ve Veri Erişilebilirliği Eksikliği",
+        "anchor_ids": [
+          "acknowledgments.a0",
+          "acknowledgments.a1"
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "NORMALIZED LSTM",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "normalized_lstm.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Table 1",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Ana Sonuçların Belirsizlik Ölçüleri Olmadan Sunulması",
+        "anchor_ids": [
+          "table_1.a0",
+          "table_1.a1",
+          "table_1.a2"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "Table 3",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Ana Sonuçların Belirsizlik Ölçüleri Olmadan Sunulması",
+        "anchor_ids": [
+          "table_3.a0",
+          "table_3.a1"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

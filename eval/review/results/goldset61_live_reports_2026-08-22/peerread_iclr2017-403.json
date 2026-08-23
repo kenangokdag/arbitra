@@ -1,0 +1,1934 @@
+{
+  "paper_id": "peerread:iclr2017-403",
+  "run_tag": "main",
+  "job_id": "1832bb7e-5c8b-449b-9077-5867429173d6",
+  "elapsed_s": 462.7,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "LIE-ACCESS NEURAL TURING MACHINES Greg Yang and Alexander M. Rush {gyang@college,srush@seas}.harvard.edu Harvard University",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "DISCUSSION",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 7044,
+      "reference_count": 20,
+      "parse_confidence": 0.63,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces Lie-Access Neural Turing Machines (LANTMs), a novel architecture for external neural memory. The core idea is to replace the common practice of creating 'soft' differentiable versions of discrete memory structures (like tapes or stacks) with a memory access mechanism grounded in the mathematics of Lie groups. The authors argue that Lie groups naturally provide desirable properties for relative indexing—differentiability, invertibility, and identity—which are lacking in some existing models. The proposed LANTM uses a controller to generate Lie group actions (e.g., shifts, rotations) that move a continuous head over a key-space manifold. Experiments on a range of algorithmic tasks demonstrate that LANTM and its spherical variant (SLANTM) outperform baselines, including standard LSTMs and simplified NTMs, particularly in generalizing to longer sequences. The work is supported by compelling qualitative analysis showing the models learn intuitive geometric data structures.",
+    "strengths": [
+      {
+        "category": "Originality and Significance",
+        "points": [
+          "The central contribution—using Lie groups to formalize differentiable relative memory access—is highly original and theoretically elegant. It provides a principled mathematical foundation for a problem often addressed with ad-hoc 'softening' techniques.",
+          "The paper convincingly argues why properties like invertibility are important for relative addressing and demonstrates that existing popular models may lack them, thus clearly motivating the need for a new approach."
+        ]
+      },
+      {
+        "category": "Empirical Evaluation",
+        "points": [
+          "The experimental setup is strong, testing the models on a diverse set of algorithmic tasks that effectively probe memory and generalization capabilities.",
+          "The inclusion of a generalization test on 2x length sequences is crucial and provides strong evidence for the proposed model's effectiveness over baselines, which largely fail this test.",
+          "The qualitative analysis presented in Figures 2, 3, and 4 is excellent. It offers valuable insight into the model's internal workings, visually demonstrating that the LANTM learns continuous representations of discrete data structures (e.g., lists, sorted arrays) as hypothesized."
+        ]
+      },
+      {
+        "category": "Clarity",
+        "points": [
+          "The paper is very well-written and structured. Complex mathematical concepts (Lie groups, manifolds) are introduced intuitively and are well-connected to the application domain.",
+          "The figures and tables are clear and effectively support the paper's claims. The visualizations of the memory access patterns are particularly insightful."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Bibliographic Accuracy",
+        "points": [
+          "The reference list requires a thorough review and correction. A significant number of citations are malformed or incomplete, making it difficult to locate the cited works. This detracts from the paper's scholarly quality and must be fixed for publication."
+        ]
+      },
+      {
+        "category": "Scalability and Practicality",
+        "points": [
+          "The paper notes that the current implementation has unbounded memory growth, which is a practical limitation for long-running tasks. While potential solutions are mentioned in the discussion, they are speculative and not implemented. An experimental demonstration of even a simple memory management strategy would significantly strengthen the work."
+        ]
+      },
+      {
+        "category": "Experimental Analysis",
+        "points": [
+          "The observation that models trained on the large sample set sometimes generalize worse than those trained on the small set is intriguing but not fully explored. A deeper analysis of this overfitting phenomenon would be beneficial.",
+          "The appendix experiments with 'action interpolation' show mixed results. A more integrated discussion of this mechanism and why it helps on some tasks but hurts on others (e.g., LANTM on ODD FIRST) would add value."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The bibliography needs significant revision for accuracy and completeness. As confirmed by the evidence pack, 17 out of 20 references could not be automatically resolved, indicating a systemic formatting issue. Several entries appear to conflate details from different papers. For example, reference [2] lists metadata for Graves et al. (2016) but provides an arXiv URL for Graves et al. (2014). Similarly, reference [6] lists authors Joulin & Mikolov but its metadata (DOI, etc.) resolves to Hochreiter & Schmidhuber (1997). Please conduct a thorough review of the entire reference list to ensure every entry is accurate, complete, and correctly formatted for the camera-ready version.",
+        "evidence_ref": "citation_integrity_summary: 17/20 not_found; ref[2], ref[6] malformed"
+      },
+      {
+        "area": "experimental",
+        "comment": "The performance degradation with the larger training set on some tasks is a key finding that warrants more discussion. The paper suggests the model finds an algorithm that only works for training sizes. Could you provide more analysis? For instance, does the learning curve show a clear peak and subsequent decline in generalization performance? Does this suggest a need for different regularization strategies when training on larger, more varied datasets?",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The discussion on unbounded storage is brief. To bolster the claim of this being a general-purpose mechanism, it would be very helpful to see an experiment with a memory constraint. For example, implementing a simple Least Recently Used (LRU) eviction policy, as mentioned, and showing that the model can still solve a task (perhaps with some performance trade-off) would make the framework's practical potential much more concrete.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you please clarify and correct the discrepancies in the bibliography, particularly for entries [2] and [6], which appear to merge details from multiple sources?",
+      "The qualitative analysis of successful runs is a major strength. Have you analyzed the memory access patterns for failure cases? What do the learned geometric structures look like when the model fails to generalize correctly?",
+      "You note that a simple tape mechanism added little to the RAM baseline, yet your LANTM models show significant gains. Do you attribute this performance leap primarily to the guaranteed invertibility and identity properties of the Lie group structure, or are other factors, such as the choice of weighting function (inverse-square vs. softmax), equally critical?",
+      "Regarding the combination with random access (Section 4.3), how important was this component? Have you run an ablation study without the random-access interpolation to quantify its contribution to the final performance?"
+    ],
+    "overall_assessment": "This is a strong, innovative, and well-executed paper that introduces a novel and promising approach to neural memory. The core idea of using Lie groups is theoretically sound and the empirical results are compelling, particularly the demonstrated generalization capabilities. The qualitative analysis provides excellent insight and strongly supports the paper's narrative. The work has the potential to inspire a new direction of research in memory-augmented networks. We recommend this paper for acceptance, contingent on the authors addressing a few key issues for the camera-ready version. The most pressing issue is the state of the bibliography, which contains numerous errors and requires a complete overhaul for scholarly rigor. Additionally, the paper would be substantially strengthened by a more concrete discussion and, if possible, experimental analysis of the model's scalability (i.e., the unbounded memory issue) and a deeper investigation into the observed overfitting on larger datasets. Addressing these points will ensure the final paper is as impactful as its core contribution.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity info. [LLM'in kendi gerekçesi: The core idea of using Lie groups for differentiable memory access is a fundamental and novel contribution, moving beyond simply making discrete structures continuous.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.5,
+        "rationale": "The work addresses a key limitation in existing memory-augmented networks (lack of structured relative addressing) and could open up new avenues for research in algorithmic learning and reasoning."
+      },
+      {
+        "key": "claims_supported",
+        "score": 4.42,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: The experimental results, especially the generalization tests and qualitative visualizations, provide strong support for the main claims regarding the model's effectiveness.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The theoretical motivation and experimental methodology are sound. The score is slightly tempered by the speculative nature of the discussion on practical limitations like unbounded memory.]"
+      },
+      {
+        "key": "clarity",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The paper is exceptionally well-written. It explains complex concepts clearly and uses figures effectively to build intuition and present results.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.5,
+        "rationale": "The paper, its ideas, and the public code are of high value to the community working on memory networks and algorithmic reasoning."
+      },
+      {
+        "key": "contextualization",
+        "score": 8.0,
+        "rationale": "The work is well-positioned against prior work like NTMs and Memory Networks. The score is slightly reduced due to the bibliographic issues which hinder a full appreciation of the context."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the evidence pack, the bibliography has severe issues. 17/20 references could not be resolved, and at least two entries ([2], [6]) are clearly malformed by mixing data from different papers. This requires a major cleanup for the final version.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any obvious omissions of seminal or highly relevant work in the field.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity info. [LLM'in kendi gerekçesi: The evidence pack did not report any statistical inconsistencies within the manuscript.]"
+      }
+    ],
+    "final_score": 8.53,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 20,
+        "resolved": 3,
+        "not_found_in_index": 17,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 5
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Alex Graves, Greg Wayne, and Ivo Danihelka. Neural Turing Machines. arXiv:1410.5401 [cs], October 2014.",
+          "title": "Neural Turing Machines",
+          "authors": [
+            "Alex Graves, Greg Wayne",
+            "Ivo Danihelka"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 2,
+          "raw": "URL http://arxiv.org/abs/1410.5401. arXiv: 1410.5401. Alex Graves, Greg Wayne, Malcolm Reynolds, Tim Harley, Ivo Danihelka, Agnieszka Grabska- Barwińska, Sergio Gómez Colmenarejo, Edward Grefenstette, Tiago Ramalho, John Agapiou, et al. Hybrid computing using a neural network with dynamic external memory. Nature, 538 (7626):471–476, 2016.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1410.5401. arXiv: 1410"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Edward Grefenstette, Karl Moritz Hermann, Mustafa Suleyman, and Phil Blunsom. Learning to Transduce with Unbounded Memory. arXiv:1506.02516 [cs], June 2015.",
+          "title": "Learning to Transduce with Unbounded Memory",
+          "authors": [
+            "Edward Grefenstette, Karl Moritz Hermann, Mustafa Suleyman",
+            "Phil Blunsom"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 4,
+          "raw": "URL http://arxiv. org/abs/1506.02516. arXiv: 1506.02516. Caglar Gulcehre, Sarath Chandar, Kyunghyun Cho, and Yoshua Bengio. Dynamic Neural Turing Machine with Soft and Hard Addressing Schemes. arXiv:1607.00036 [cs], June 2016.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv. org/abs/1506"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "URL http://arxiv.org/abs/1607.00036. arXiv: 1607.00036. Sepp Hochreiter and Jrgen Schmidhuber. Long Short-Term Memory. Neural Comput., 9(8):1735– 1780, November 1997.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1607.00036. arXiv: 1607"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "ISSN 0899-7667. doi: 10.1162/neco.1997.9.8.1735. URL http://dx. doi.org/10.1162/neco.1997.9.8.1735. Armand Joulin and Tomas Mikolov. Inferring Algorithmic Patterns with Stack-Augmented Recur- rent Nets. arXiv:1503.01007 [cs], March 2015.",
+          "title": null,
+          "authors": [
+            "ISSN 0899-7667"
+          ],
+          "year": 1997,
+          "doi": "10.1162/neco.1997.9.8.1735",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2064675550",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2064675550; 'Long Short-Term Memory').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "URL http://arxiv.org/abs/1503.01007. arXiv: 1503.01007. ukasz Kaiser and Ilya Sutskever. Neural GPUs Learn Algorithms. arXiv:1511.08228 [cs], Novem- ber 2015.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1503.01007. arXiv: 1503"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "URL http://arxiv.org/abs/1511.08228. arXiv: 1511.08228. Nal Kalchbrenner, Ivo Danihelka, and Alex Graves. Grid Long Short-Term Memory. arXiv:1507.01526 [cs], July 2015.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1511.08228. arXiv: 1511"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "URL http://arxiv.org/abs/1507.01526. arXiv: 1507.01526. Ankit Kumar, Ozan Irsoy, Peter Ondruska, Mohit Iyyer, James Bradbury, Ishaan Gulrajani, and Richard Socher. Ask Me Anything: Dynamic Memory Networks for Natural Language Process- ing. arXiv:1506.07285 [cs], June 2015.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1507.01526. arXiv: 1507"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "URL http://arxiv.org/abs/1506.07285. arXiv: 1506.07285. Karol Kurach, Marcin Andrychowicz, and Ilya Sutskever. Neural Random-Access Machines. arXiv:1511.06392 [cs], November 2015.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1506.07285. arXiv: 1506"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "URL http://arxiv.org/abs/1511.06392. arXiv: 1511.06392. John Lee. Introduction to Smooth Manifolds. Number 218 in Graduate Texts in Mathematics. Springer, 2 edition, 2012. ISBN 978-1-4419-9981-8.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1511.06392. arXiv: 1511"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "A. Marthinsen. Interpolation in Lie Groups. SIAM Journal on Numerical Analysis, 37(1):269–285, January 1999.",
+          "title": "Interpolation in Lie Groups",
+          "authors": [
+            "A. Marthinsen"
+          ],
+          "year": 1999,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 13,
+          "raw": "ISSN 0036-1429. doi: 10.1137/S0036142998338861. URL http://epubs. siam.org/doi/abs/10.1137/S0036142998338861. Alexander Miller, Adam Fisch, Jesse Dodge, Amir-Hossein Karimi, Antoine Bordes, and Jason Weston. Key-value memory networks for directly reading documents. CoRR, abs/1606.03126, 2016. URL http://arxiv.org/abs/1606.03126.",
+          "title": null,
+          "authors": [
+            "ISSN 0036-1429"
+          ],
+          "year": 2016,
+          "doi": "10.1137/S0036142998338861",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2089368666",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2089368666; 'Interpolation in Lie Groups').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Tatiana Shingel. Interpolation in special orthogonal groups. IMA Journal of Numerical Analysis, 29(3):731–745, July 2009.",
+          "title": "Interpolation in special orthogonal groups",
+          "authors": [
+            "Tatiana Shingel"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 15,
+          "raw": "ISSN 0272-4979, 1464-3642. doi: 10.1093/imanum/drn033. URL http://imajna.oxfordjournals.org/content/29/3/731. Sainbayar Sukhbaatar, Arthur Szlam, Jason Weston, and Rob Fergus. End-To-End Memory Net- works. arXiv:1503.08895 [cs], March 2015.",
+          "title": null,
+          "authors": [
+            "ISSN 0272-4979, 1464-3642"
+          ],
+          "year": 2015,
+          "doi": "10.1093/imanum/drn033",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2055970595",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2055970595; 'Interpolation in special orthogonal groups').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "URL http://arxiv.org/abs/1503.08895. arXiv: 1503.08895. Ilya Sutskever, Oriol Vinyals, and Quoc V. Le. Sequence to Sequence Learning with Neural Net- works. arXiv:1409.3215 [cs], September 2014.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1503.08895. arXiv: 1503"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "URL http://arxiv.org/abs/1409.3215. arXiv: 1409.3215. 10 Paul J. Werbos. Backpropagation through time: what it does and how to do it. Proceedings of the IEEE, 78(10):1550–1560, 1990.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1409.3215. arXiv: 1409"
+          ],
+          "year": 1990,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "URL http://ieeexplore.ieee.org/xpls/abs_all.jsp? arnumber=58337. Jason Weston, Sumit Chopra, and Antoine Bordes. Memory Networks. arXiv:1410.3916 [cs, stat], October 2014.",
+          "title": "Jason Weston, Sumit Chopra, and Antoine Bordes",
+          "authors": [
+            "URL http://ieeexplore.ieee.org/xpls/abs_all.jsp? arnumber=58337"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 19,
+          "raw": "URL http://arxiv.org/abs/1410.3916. arXiv: 1410.3916. Wojciech Zaremba and Ilya Sutskever. Reinforcement Learning Neural Turing Machines - Re- vised. arXiv:1505.00521 [cs], May 2015.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1410.3916. arXiv: 1410"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "URL http://arxiv.org/abs/1505.00521. arXiv: 1505.00521. 11",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/abs/1505.00521. arXiv: 1505"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.15,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [
+        {
+          "ref_index": 2,
+          "claim": "Therefore the weights wi = si exp(−d(q,ki)2/T ) P j sj exp(−d(q,kj)2/T ) = si exp(−2⟨q,ki⟩/T ) P j sj exp(−2⟨q,kj⟩/T ), which is the RAM weighting scheme. 6 Task Input Output Size k |V| 1 - COPY a1a2a3 · · · ak a1a2a3 · · · ak [2, 64] 128 2 - REVERSE a1a2a3 · · · ak akak−1ak−2 · · · a1 [2, 64] 128 3 - BIGRAM FLIP a1a2a3a4 · · · a2k−1a2k a2a1a4a3 · · · a2ka2k−1 [1, 16] 128 4 - DOUBLE a1a2 · · · ak 2 × |ak · · · a1| [2, 40] 10 5 - INTERLEAVED ADD a1a2a3a4 · · · a2k−1a2k |a2ka2k−2 · · · a2| + |a2k−1 · · · a1| [2, 16] 10 6 - ODD FIRST a1a2a3a4 · · · a2k−1a2k a1a3 · · · a2k−1a2a4 · · · a2k [1, 16] 128 7 - REPEAT COPY Na1 · · · a20 a1 · · · a20 · · · a1 · · · a20 (N times) N ∈[1, 5] 128 8 - PRIORITY SORT 5a52a29a9 · · · a1a2a3 · · · ak [2, 10] 128 (a) Task descriptions and parameters. |ak · · · a1| means the decimal number repesented by decimal digits ak · · · a1.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        },
+        {
+          "ref_index": 2,
+          "claim": "Therefore the weights wi = si exp(−d(q,ki)2/T ) P j sj exp(−d(q,kj)2/T ) = si exp(−2⟨q,ki⟩/T ) P j sj exp(−2⟨q,kj⟩/T ), which is the RAM weighting scheme. 6 Task Input Output Size k |V| 1 - COPY a1a2a3 · · · ak a1a2a3 · · · ak [2, 64] 128 2 - REVERSE a1a2a3 · · · ak akak−1ak−2 · · · a1 [2, 64] 128 3 - BIGRAM FLIP a1a2a3a4 · · · a2k−1a2k a2a1a4a3 · · · a2ka2k−1 [1, 16] 128 4 - DOUBLE a1a2 · · · ak 2 × |ak · · · a1| [2, 40] 10 5 - INTERLEAVED ADD a1a2a3a4 · · · a2k−1a2k |a2ka2k−2 · · · a2| + |a2k−1 · · · a1| [2, 16] 10 6 - ODD FIRST a1a2a3a4 · · · a2k−1a2k a1a3 · · · a2k−1a2a4 · · · a2k [1, 16] 128 7 - REPEAT COPY Na1 · · · a20 a1 · · · a20 · · · a1 · · · a20 (N times) N ∈[1, 5] 128 8 - PRIORITY SORT 5a52a29a9 · · · a1a2a3 · · · ak [2, 10] 128 (a) Task descriptions and parameters. |ak · · · a1| means the decimal number repesented by decimal digits ak · · · a1.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        },
+        {
+          "ref_index": 1,
+          "claim": "Therefore the weights wi = si exp(−d(q,ki)2/T ) P j sj exp(−d(q,kj)2/T ) = si exp(−2⟨q,ki⟩/T ) P j sj exp(−2⟨q,kj⟩/T ), which is the RAM weighting scheme. 6 Task Input Output Size k |V| 1 - COPY a1a2a3 · · · ak a1a2a3 · · · ak [2, 64] 128 2 - REVERSE a1a2a3 · · · ak akak−1ak−2 · · · a1 [2, 64] 128 3 - BIGRAM FLIP a1a2a3a4 · · · a2k−1a2k a2a1a4a3 · · · a2ka2k−1 [1, 16] 128 4 - DOUBLE a1a2 · · · ak 2 × |ak · · · a1| [2, 40] 10 5 - INTERLEAVED ADD a1a2a3a4 · · · a2k−1a2k |a2ka2k−2 · · · a2| + |a2k−1 · · · a1| [2, 16] 10 6 - ODD FIRST a1a2a3a4 · · · a2k−1a2k a1a3 · · · a2k−1a2a4 · · · a2k [1, 16] 128 7 - REPEAT COPY Na1 · · · a20 a1 · · · a20 · · · a1 · · · a20 (N times) N ∈[1, 5] 128 8 - PRIORITY SORT 5a52a29a9 · · · a1a2a3 · · · ak [2, 10] 128 (a) Task descriptions and parameters. |ak · · · a1| means the decimal number repesented by decimal digits ak · · · a1.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        },
+        {
+          "ref_index": 2,
+          "claim": "Therefore the weights wi = si exp(−d(q,ki)2/T ) P j sj exp(−d(q,kj)2/T ) = si exp(−2⟨q,ki⟩/T ) P j sj exp(−2⟨q,kj⟩/T ), which is the RAM weighting scheme. 6 Task Input Output Size k |V| 1 - COPY a1a2a3 · · · ak a1a2a3 · · · ak [2, 64] 128 2 - REVERSE a1a2a3 · · · ak akak−1ak−2 · · · a1 [2, 64] 128 3 - BIGRAM FLIP a1a2a3a4 · · · a2k−1a2k a2a1a4a3 · · · a2ka2k−1 [1, 16] 128 4 - DOUBLE a1a2 · · · ak 2 × |ak · · · a1| [2, 40] 10 5 - INTERLEAVED ADD a1a2a3a4 · · · a2k−1a2k |a2ka2k−2 · · · a2| + |a2k−1 · · · a1| [2, 16] 10 6 - ODD FIRST a1a2a3a4 · · · a2k−1a2k a1a3 · · · a2k−1a2a4 · · · a2k [1, 16] 128 7 - REPEAT COPY Na1 · · · a20 a1 · · · a20 · · · a1 · · · a20 (N times) N ∈[1, 5] 128 8 - PRIORITY SORT 5a52a29a9 · · · a1a2a3 · · · ak [2, 10] 128 (a) Task descriptions and parameters. |ak · · · a1| means the decimal number repesented by decimal digits ak · · · a1.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        },
+        {
+          "ref_index": 2,
+          "claim": "Therefore the weights wi = si exp(−d(q,ki)2/T ) P j sj exp(−d(q,kj)2/T ) = si exp(−2⟨q,ki⟩/T ) P j sj exp(−2⟨q,kj⟩/T ), which is the RAM weighting scheme. 6 Task Input Output Size k |V| 1 - COPY a1a2a3 · · · ak a1a2a3 · · · ak [2, 64] 128 2 - REVERSE a1a2a3 · · · ak akak−1ak−2 · · · a1 [2, 64] 128 3 - BIGRAM FLIP a1a2a3a4 · · · a2k−1a2k a2a1a4a3 · · · a2ka2k−1 [1, 16] 128 4 - DOUBLE a1a2 · · · ak 2 × |ak · · · a1| [2, 40] 10 5 - INTERLEAVED ADD a1a2a3a4 · · · a2k−1a2k |a2ka2k−2 · · · a2| + |a2k−1 · · · a1| [2, 16] 10 6 - ODD FIRST a1a2a3a4 · · · a2k−1a2k a1a3 · · · a2k−1a2a4 · · · a2k [1, 16] 128 7 - REPEAT COPY Na1 · · · a20 a1 · · · a20 · · · a1 · · · a20 (N times) N ∈[1, 5] 128 8 - PRIORITY SORT 5a52a29a9 · · · a1a2a3 · · · ak [2, 10] 128 (a) Task descriptions and parameters. |ak · · · a1| means the decimal number repesented by decimal digits ak · · · a1.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        },
+        {
+          "ref_index": 1,
+          "claim": "Therefore the weights wi = si exp(−d(q,ki)2/T ) P j sj exp(−d(q,kj)2/T ) = si exp(−2⟨q,ki⟩/T ) P j sj exp(−2⟨q,kj⟩/T ), which is the RAM weighting scheme. 6 Task Input Output Size k |V| 1 - COPY a1a2a3 · · · ak a1a2a3 · · · ak [2, 64] 128 2 - REVERSE a1a2a3 · · · ak akak−1ak−2 · · · a1 [2, 64] 128 3 - BIGRAM FLIP a1a2a3a4 · · · a2k−1a2k a2a1a4a3 · · · a2ka2k−1 [1, 16] 128 4 - DOUBLE a1a2 · · · ak 2 × |ak · · · a1| [2, 40] 10 5 - INTERLEAVED ADD a1a2a3a4 · · · a2k−1a2k |a2ka2k−2 · · · a2| + |a2k−1 · · · a1| [2, 16] 10 6 - ODD FIRST a1a2a3a4 · · · a2k−1a2k a1a3 · · · a2k−1a2a4 · · · a2k [1, 16] 128 7 - REPEAT COPY Na1 · · · a20 a1 · · · a20 · · · a1 · · · a20 (N times) N ∈[1, 5] 128 8 - PRIORITY SORT 5a52a29a9 · · · a1a2a3 · · · ak [2, 10] 128 (a) Task descriptions and parameters. |ak · · · a1| means the decimal number repesented by decimal digits ak · · · a1.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        },
+        {
+          "ref_index": 1,
+          "claim": "Therefore the weights wi = si exp(−d(q,ki)2/T ) P j sj exp(−d(q,kj)2/T ) = si exp(−2⟨q,ki⟩/T ) P j sj exp(−2⟨q,kj⟩/T ), which is the RAM weighting scheme. 6 Task Input Output Size k |V| 1 - COPY a1a2a3 · · · ak a1a2a3 · · · ak [2, 64] 128 2 - REVERSE a1a2a3 · · · ak akak−1ak−2 · · · a1 [2, 64] 128 3 - BIGRAM FLIP a1a2a3a4 · · · a2k−1a2k a2a1a4a3 · · · a2ka2k−1 [1, 16] 128 4 - DOUBLE a1a2 · · · ak 2 × |ak · · · a1| [2, 40] 10 5 - INTERLEAVED ADD a1a2a3a4 · · · a2k−1a2k |a2ka2k−2 · · · a2| + |a2k−1 · · · a1| [2, 16] 10 6 - ODD FIRST a1a2a3a4 · · · a2k−1a2k a1a3 · · · a2k−1a2a4 · · · a2k [1, 16] 128 7 - REPEAT COPY Na1 · · · a20 a1 · · · a20 · · · a1 · · · a20 (N times) N ∈[1, 5] 128 8 - PRIORITY SORT 5a52a29a9 · · · a1a2a3 · · · ak [2, 10] 128 (a) Task descriptions and parameters. |ak · · · a1| means the decimal number repesented by decimal digits ak · · · a1.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        },
+        {
+          "ref_index": 2,
+          "claim": "Therefore the weights wi = si exp(−d(q,ki)2/T ) P j sj exp(−d(q,kj)2/T ) = si exp(−2⟨q,ki⟩/T ) P j sj exp(−2⟨q,kj⟩/T ), which is the RAM weighting scheme. 6 Task Input Output Size k |V| 1 - COPY a1a2a3 · · · ak a1a2a3 · · · ak [2, 64] 128 2 - REVERSE a1a2a3 · · · ak akak−1ak−2 · · · a1 [2, 64] 128 3 - BIGRAM FLIP a1a2a3a4 · · · a2k−1a2k a2a1a4a3 · · · a2ka2k−1 [1, 16] 128 4 - DOUBLE a1a2 · · · ak 2 × |ak · · · a1| [2, 40] 10 5 - INTERLEAVED ADD a1a2a3a4 · · · a2k−1a2k |a2ka2k−2 · · · a2| + |a2k−1 · · · a1| [2, 16] 10 6 - ODD FIRST a1a2a3a4 · · · a2k−1a2k a1a3 · · · a2k−1a2a4 · · · a2k [1, 16] 128 7 - REPEAT COPY Na1 · · · a20 a1 · · · a20 · · · a1 · · · a20 (N times) N ∈[1, 5] 128 8 - PRIORITY SORT 5a52a29a9 · · · a1a2a3 · · · ak [2, 10] 128 (a) Task descriptions and parameters. |ak · · · a1| means the decimal number repesented by decimal digits ak · · · a1.",
+          "support": "unverifiable_from_abstract",
+          "support_level": "unresolved",
+          "evidence": "Kaynağın özeti yok veya çok kısa; iddia özetten teyit edilemez.",
+          "cited_abstract_excerpt": null
+        }
+      ],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:5",
+        "coverage:openalex_unavailable",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "f13f549c7c7eca55e34940f91aac5a1162fd731323eb3af7a81e1a146eb53cf7",
+          "request_time": "2026-08-22T18:28:03.189262Z",
+          "status": "degraded",
+          "result_count": 3,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "5/20 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "ff33e5c5d5410494acd1aec04677682cf893ae654b82874325879b831cdc81f2",
+          "request_time": "2026-08-22T18:28:04.109011Z",
+          "status": "ok",
+          "result_count": 8,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "3b78450a82f58ccb09b58d8712b896e4191dfe773c95a0afa5b8e7c0b25f77b9",
+          "request_time": "2026-08-22T18:28:06.119224Z",
+          "status": "failed",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "openalex search_works_raw failed: all 3 attempts failed; last=HTTPStatusError"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:35:33.562951Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belge başlığı, özet ve bölüm başlıkları (ABSTRACT, INTRODUCTION, DISCUSSION, CONCLUSION, REFERENCES) tipik bir akademik makale yapısını göstermektedir. Metin, yeni bir model (Lie-access memory) önermekte, bunu uygulamakta ve performansını değerlendirmektedir, bu da computational modeling çalışmasına işaret eder.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 83.2,
+      "recommended_decision": "accept",
+      "confidence": 0.6619354838709677,
+      "top_fatal_risks": [
+        "Genelleme İddiaları ve Sınırlı Kanıt",
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 2 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 38.0,
+        "severity": "major",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 52.0,
+        "severity": "moderate",
+        "confidence": 0.78,
+        "why_it_matters": "5 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "6 concern(s): The reference list contains numerous malformed or incomplete citations, making it difficult to verify sources. Specifically, references [2] and [6] appear to conflate details from multiple papers. Furthermore, 17 out of 20 references could not be resolved by an automated check, indicating a systemic issue with citation formatting and completeness. This significantly detracts from the scholarly quality and verifiability of the work.; The paper acknowledges the practical limitation of unbounded memory growth in the current implementation. While potential solutions are mentioned, the lack of any experimental demonstration of a memory management strategy (e.g., LRU eviction) leaves the claim of general applicability for long-running tasks speculative. This is a significant practical concern that needs to be addressed empirically.; The observation that models trained on larger datasets sometimes generalize worse than those trained on smaller sets is a critical finding that is not sufficiently explored. A deeper analysis, potentially including learning curves showing peak performance and subsequent decline, or a discussion of regularization strategies, is needed to understand this overfitting phenomenon. (+3 more)",
+        "key_objection": "The reference list contains numerous malformed or incomplete citations, making it difficult to verify sources. Specifically, references [2] and [6] appear to conflate details from multiple papers. Furthermore, 17 out of 20 references could not be resolved by an automated check, indicating a systemic issue with citation formatting and completeness. This significantly detracts from the scholarly quality and verifiability of the work.",
+        "confidence": 0.8333333333333334,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "revision-required",
+        "summary": "5 concern(s): The reference list contains numerous malformed or incomplete citations, making it difficult to verify sources. Specifically, references [2] and [6] appear to conflate details from different papers. Many references are to arXiv preprints without complete bibliographic information (journal, conference, DOI). This significantly detracts from the scholarly quality and verifiability of the work.; The paper notes that models trained on the large sample set sometimes generalize worse than those trained on the small set. This intriguing observation is not fully explored. A deeper analysis, potentially including learning curves showing generalization performance over training time or discussion of regularization strategies, would be beneficial.; The paper acknowledges the practical limitation of unbounded memory growth in the current implementation. While potential solutions are mentioned, an experimental demonstration of even a simple memory management strategy (e.g., LRU eviction) would significantly strengthen the work's claim of practical potential. (+2 more)",
+        "key_objection": "The reference list contains numerous malformed or incomplete citations, making it difficult to verify sources. Specifically, references [2] and [6] appear to conflate details from different papers. Many references are to arXiv preprints without complete bibliographic information (journal, conference, DOI). This significantly detracts from the scholarly quality and verifiability of the work.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "8 concern(s): The bibliography requires a thorough review and correction. Specifically, references [2] and [6] appear to conflate details from different papers. Additionally, many references are to arXiv preprints without complete bibliographic information (journal, conference, DOI), and the automated check indicated that 17 out of 20 entries could not be resolved. Please ensure all entries are accurate, complete, and correctly formatted.; The observation that models trained on the large sample set sometimes generalize worse than those trained on the small set is intriguing but not fully explored. A deeper analysis of this overfitting phenomenon would be beneficial. For instance, does the learning curve show a clear peak and subsequent decline in generalization performance? Does this suggest a need for different regularization strategies when training on larger, more varied datasets?; The paper notes that the current implementation has unbounded memory growth. To bolster the claim of this being a general-purpose mechanism, it would be very helpful to see an experimental demonstration of a simple memory management strategy, such as a Least Recently Used (LRU) eviction policy, and show that the model can still solve a task (perhaps with some performance trade-off). (+5 more)",
+        "key_objection": "The bibliography requires a thorough review and correction. Specifically, references [2] and [6] appear to conflate details from different papers. Additionally, many references are to arXiv preprints without complete bibliographic information (journal, conference, DOI), and the automated check indicated that 17 out of 20 entries could not be resolved. Please ensure all entries are accurate, complete, and correctly formatted.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "reject-leaning",
+        "summary": "5 concern(s): The claim that a 'significant number of citations are malformed or incomplete' is strongly supported by the evidence. The citation integrity summary shows 17 out of 20 references could not be found, and specific examples [2] and [6] are noted as malformed.; The reference [2] in the provided evidence package is listed as 'not_found_in_index' and the reason states 'Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı.' This means the specific claim about mixing metadata for Graves et al. (2014) and Graves et al. (2016) cannot be directly verified or refuted from the provided evidence, as the full content of the reference is not available.; The reference [6] in the provided evidence package is resolved to 'Long Short-Term Memory' by Hochreiter & Schmidhuber (1997). The claim that it 'combines details for Hochreiter & Schmidhuber (1997) with Joulin & Mikolov (2015)' is contradicted by the resolution, which only identifies the Hochreiter & Schmidhuber paper. The provided evidence does not show any combination with Joulin & Mikolov (2015) for reference [6]. (+2 more)",
+        "key_objection": "The claim that a 'significant number of citations are malformed or incomplete' is strongly supported by the evidence. The citation integrity summary shows 17 out of 20 references could not be found, and specific examples [2] and [6] are noted as malformed.",
+        "confidence": 0.6,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "citation_integrity.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper introduces Lie-Access Neural Turing Machines (LANTMs), a novel architecture for external neural memory. The core idea is to replace the common practice of creating 'soft' differentiable versions of discrete memory structures (like tapes or stacks) with a memory access mechanism grounded in the mathematics of Lie groups. The authors argue that Lie groups naturally provide desirable properties for relative indexing—differentiability, invertibility, and identity—which are lacking in some existing models. The proposed LANTM uses a controller to generate Lie group actions (e.g., shifts, rotations) that move a continuous head over a key-space manifold. Experiments on a range of algorithmic tasks demonstrate that LANTM and its spherical variant (SLANTM) outperform baselines, including standard LSTMs and simplified NTMs, particularly in generalizing to longer sequences. The work is supported by compelling qualitative analysis showing the models learn intuitive geometric data structures.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Tasarım ve Araştırma Sorusu Uyumu",
+        "summary": "Makale, Lie-access bellek sistemlerinin algoritmik öğrenme görevlerindeki etkinliğini ve geleneksel bellek sistemlerine kıyasla öğrendiği iç yapıları inceleyen deneysel bir tasarım kullanmaktadır. Araştırma soruları (a) Lie-access belleğin nasıl eğitilebileceği, (b) algoritmik öğrenme için etkili bir şekilde kullanılıp kullanılamayacağı ve (c) modelin öğrendiği iç yapıların neler olduğu açıkça belirtilmiştir ve deneysel kurulum bu soruları yanıtlamaya yöneliktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_experiments.a0",
+            "section": "5 EXPERIMENTS",
+            "quote": "We are particularly interested in: (a) how Lie-access memory can be trained, (b) whether it can be effectively utilized for algorithmic learning, and (c) what internal structures the model learns compared to systems based directly on soft discrete memory."
+          }
+        ],
+        "reasoning_public": "Araştırma soruları ile deneysel tasarım arasında güçlü bir uyum bulunmaktadır. Bu, çalışmanın hedeflerine ulaşma potansiyelini artırmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü Gerekçesi ve Güç Analizi Eksikliği",
+        "summary": "Çalışmada kullanılan örneklem büyüklükleri (16K ve 320K örnek) belirtilmiş olmasına rağmen, bu büyüklüklerin neden seçildiğine dair bir gerekçe veya istatistiksel güç analizi sunulmamıştır. Bu durum, elde edilen sonuçların genellenebilirliği ve istatistiksel güvenilirliği hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_experiments.a1",
+            "section": "5 EXPERIMENTS",
+            "quote": "We train each model in two regimes, one with a small number of samples (16K) and one with a large number of samples (320K). In the former case, the samples are iterated through 20 times, while in the latter, the samples are iterated through only once. Thus in both regimes, the total training times are the same."
+          }
+        ],
+        "reasoning_public": "İstatistiksel güç analizi veya örneklem büyüklüğü gerekçesi, bir çalışmanın belirli bir etki büyüklüğünü tespit etme yeteneğini değerlendirmek için kritik öneme sahiptir. Bu bilgi olmadan, negatif sonuçların gerçek bir etki yokluğundan mı yoksa yetersiz örneklem büyüklüğünden mi kaynaklandığını ayırt etmek zordur. Ayrıca, aşırı büyük örneklemler gereksiz kaynak tüketimine yol açabilirken, küçük örneklemler yanıltıcı sonuçlara neden olabilir.",
+        "limitations": [
+          "Belirtilen örneklem büyüklüklerinin, derin öğrenme modelleri için tipik olup olmadığına dair alan bilgisi eksikliği.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Değişken Operasyonelleştirme Açıklığı",
+        "summary": "Çalışmada kullanılan 'fine' ve 'coarse' skorlar, modellerin performansını değerlendirmek için açıkça tanımlanmıştır: 'fraction of tokens correctly predicted' ve 'fraction of all answers completely correctly predicted'. Bu operasyonelleştirmeler, modelin çıktı kalitesini hem token düzeyinde hem de tam cevap düzeyinde ölçmek için uygun görünmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_experiments.a2",
+            "section": "5 EXPERIMENTS",
+            "quote": "To evaluate the performance of the models, we compute the fraction of tokens correctly predicted and the fraction of all answers completely correctly predicted, respectively called ﬁne and coarse scores."
+          }
+        ],
+        "reasoning_public": "Ölçüm araçlarının ve değişkenlerin açıkça operasyonelleştirilmesi, çalışmanın şeffaflığını ve tekrar üretilebilirliğini artırır. Bu, okuyucuların sonuçları doğru bir şekilde yorumlamasına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "İstatistiksel Test Seçimi ve Varsayımlar",
+        "summary": "Çalışma, derin öğrenme modellerinin performansını karşılaştırmak için doğruluk yüzdelerini (fine ve coarse scores) kullanmaktadır. Bu tür bir karşılaştırma için istatistiksel testler yerine doğrudan performans metriklerinin raporlanması yaygın bir yaklaşımdır. Varsayım testleri veya çoklu karşılaştırma düzeltmeleri gibi geleneksel istatistiksel analiz planı unsurları, bu tür bir makine öğrenimi performans karşılaştırmasında genellikle uygulanmaz.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makine öğrenimi alanında, model performansının doğrudan metriklerle (doğruluk, F1 skoru vb.) karşılaştırılması standart bir uygulamadır. Bu bağlamda, geleneksel istatistiksel test varsayımları veya çoklu karşılaştırma düzeltmeleri genellikle geçerli değildir veya farklı bir şekilde ele alınır (örneğin, çapraz doğrulama ile).",
+        "limitations": [
+          "Makine öğrenimi performans karşılaştırmaları için istatistiksel testlerin uygulanabilirliği ve gerekliliği konusunda daha fazla bağlamsal bilgiye ihtiyaç duyulmaktadır."
+        ],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metin-Tablo-Figür Sayı Tutarlılığı",
+        "summary": "Makalede sunulan sonuçlar (Tablo 1b), metin içinde yapılan yorumlarla genel olarak tutarlıdır. Örneğin, 'LANTM is able to solve the 6-ODD FIRST problem when no other model can correctly solve 20% of the 2x instances' ifadesi, Tablo 1b'deki 6-ODD FIRST görevi için LANTM'nin yüksek skorları (99/91, 99/95) ve diğer modellerin düşük skorları (31/5, 46/4 vb.) ile desteklenmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_experiments.a3",
+            "section": "5 EXPERIMENTS",
+            "quote": "In particular, LANTM is able to solve the 6-ODD FIRST problem when no other model can correctly solve 20% of the 2x instances; SLANTM on the other hand is the only Lie access model able to solve the 7-REPEAT COPY problem."
+          }
+        ],
+        "reasoning_public": "Metin, tablo ve figürler arasındaki sayısal tutarlılık, çalışmanın güvenilirliğini ve raporlama kalitesini artırır. Okuyucuların sunulan verileri kolayca doğrulamasına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, modellerin performansını doğruluk yüzdeleri olarak raporlamaktadır (fine ve coarse scores). Ancak, bu performans metrikleri için güven aralıkları veya diğer belirsizlik ölçüleri (örneğin, standart sapma) sunulmamıştır. Bu durum, gözlemlenen performans farklılıklarının istatistiksel olarak anlamlı olup olmadığını veya rastgele varyasyondan kaynaklanıp kaynaklanmadığını değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1b.a0",
+            "section": "Table 1b",
+            "quote": "Main results. Numbers represent the accuracy percentages on the ﬁne/coarse evaluations on the out-of-sample 2× tasks."
+          }
+        ],
+        "reasoning_public": "Etki büyüklüğü ve belirsizlik ölçüleri, bir çalışmanın sonuçlarının pratik önemini ve güvenilirliğini değerlendirmek için esastır. Sadece nokta tahminleri sunmak, okuyucuların sonuçların kesinliği ve genellenebilirliği hakkında yanlış çıkarımlar yapmasına neden olabilir. Özellikle makine öğrenimi deneylerinde, model performansının varyasyonu önemli olabilir.",
+        "limitations": [
+          "Derin öğrenme modellerinin performans metrikleri için güven aralıklarının hesaplanmasının karmaşıklığı veya standart uygulamaları hakkında bilgi eksikliği.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejisi",
+        "summary": "Makalede eksik veri veya aykırı değerlerin nasıl ele alındığına dair açık bir açıklama bulunmamaktadır. Ancak, derin öğrenme modelleri genellikle eksik veriye karşı belirli stratejilerle (örneğin, girdi doldurma) veya aykırı değerlere karşı daha sağlam kayıp fonksiyonlarıyla eğitilir. Bu tür bir çalışmada, veri setinin yapısı gereği eksik veri sorunu tipik olarak ortaya çıkmaz.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Eksik veri ve aykırı değerlerin ele alınma şekli, sonuçların geçerliliğini etkileyebilir. Bu tür bilgilerin şeffaf bir şekilde raporlanması, çalışmanın güvenilirliğini artırır. Ancak, bu tür bir makine öğrenimi çalışmasında, veri setleri genellikle önceden temizlenmiş ve eksiksizdir.",
+        "limitations": [
+          "Derin öğrenme deneylerinde eksik veri ve aykırı değerlerin ele alınma şekillerinin standart uygulamaları hakkında daha fazla bağlamsal bilgiye ihtiyaç duyulmaktadır."
+        ],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Nedensel Dil Kullanımı",
+        "summary": "Makale, Lie-access bellek sistemlerinin performansını ve özelliklerini tanımlamakta ve karşılaştırmaktadır. Kullanılan dil, modellerin belirli görevlerde 'performans gösterdiği' veya 'öğrendiği' gibi ifadelerle sınırlıdır. Nedensel iddialarda bulunmaktan kaçınılmıştır; örneğin, 'Lie-access belleğin X'e neden olduğu' gibi ifadeler yerine 'Lie-access belleğin X üzerinde iyi performans gösterdiği' gibi ifadeler kullanılmıştır. Bu, deneysel bir karşılaştırma çalışması için uygun bir yaklaşımdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We ﬁnd that this approach is able to perform well on a range of algorithmic tasks."
+          },
+          {
+            "anchor_id": "5_experiments.a4",
+            "section": "5 EXPERIMENTS",
+            "quote": "The LANTM model is able to learn non-trivial algorithmic tasks such as copying and permutating sequences with higher accuracy than more traditional memory-based approaches, and signiﬁcantly better than ﬁxed memory LSTM models."
+          }
+        ],
+        "reasoning_public": "Nedensel dil disiplini, özellikle gözlemsel veya karşılaştırmalı çalışmalarda, sonuçların yanlış yorumlanmasını önlemek için önemlidir. Bu makalede, nedensel çıkarımlardan kaçınılması, raporlama kalitesini artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Tekrar Üretilebilirlik İçin Veri/Kod Erişimi",
+        "summary": "Makale, implementasyonların GitHub deposunda mevcut olduğunu belirtmektedir. Bu, kodun tekrar üretilebilirliği için önemli bir adımdır. Ancak, deneylerde kullanılan tam veri setlerinin veya veri üretim süreçlerinin (örneğin, rastgele tohumlar) açıkça belirtilip belirtilmediği tam olarak anlaşılamamıştır. Ön kayıt veya protokol uyumu gibi diğer tekrar üretilebilirlik unsurları belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "1_introduction.a0",
+            "section": "1 INTRODUCTION",
+            "quote": "1Our implementations are available at https://github.com/harvardnlp/lie-access-memory"
+          }
+        ],
+        "reasoning_public": "Kod ve veri erişimi, bilimsel araştırmanın şeffaflığı ve tekrar üretilebilirliği için kritik öneme sahiptir. Bu, diğer araştırmacıların sonuçları doğrulamasına ve üzerine inşa etmesine olanak tanır. Tam veri setlerinin veya üretim süreçlerinin eksikliği, sonuçların tam olarak tekrar üretilmesini zorlaştırabilir.",
+        "limitations": [
+          "GitHub deposunun içeriği incelenemediği için, kodun ve veri üretim scriptlerinin tam kapsamı hakkında kesin bir yargıya varılamamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Ana Sonuçların Raporlama Kalitesi",
+        "summary": "Ana sonuçlar (Tablo 1b), modellerin farklı görevlerdeki performansını doğruluk yüzdeleri olarak açıkça sunmaktadır. Ancak, bu sonuçlar için belirsizlik ölçüleri (güven aralıkları gibi) eksiktir. Ayrıca, 'significant/non-significant' gibi istatistiksel anlamlılık dilinden kaçınılmış olması olumlu bir yöndür, ancak belirsizlik ölçülerinin eksikliği, okuyucuların gözlemlenen farkların pratik önemini ve güvenilirliğini değerlendirmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1b.a1",
+            "section": "Table 1b",
+            "quote": "Main results. Numbers represent the accuracy percentages on the ﬁne/coarse evaluations on the out-of-sample 2× tasks."
+          }
+        ],
+        "reasoning_public": "Ana sonuçların etki büyüklüğü ve belirsizlik ölçüleriyle birlikte sunulması, raporlama kalitesinin temel bir göstergesidir. Bu, okuyucuların sonuçların hem istatistiksel hem de pratik önemini daha iyi anlamasına yardımcı olur. Belirsizlik ölçülerinin eksikliği, sonuçların yorumlanmasında belirsizlik yaratır.",
+        "limitations": [
+          "Derin öğrenme modellerinin performans metrikleri için güven aralıklarının hesaplanmasının karmaşıklığı veya standart uygulamaları hakkında bilgi eksikliği.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Lie-Access Bellek Yapısının Önerilmesi",
+        "summary": "Makale, mevcut nöral bellek sistemlerinin göreceli indeksleme için belirli bir yapıdan yoksun olduğunu savunarak, Lie gruplarına dayalı yeni bir bellek erişim mekanizması olan Lie-access belleği önermektedir. Bu yaklaşım, geleneksel ayrık bellek yapılarının (Turing makineleri gibi) temel özelliklerini (tersinirlik, özdeşlik) korurken farklılaşabilirlik sağlar.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "In this work, we argue that these neural memory systems lack speciﬁc structure important for relative indexing, and propose an alternative model, Lie-access memory, that is explicitly designed for the neural setting. In this paradigm, memory is accessed using a continuous head in a key-space manifold. The head is moved via Lie group actions, such as shifts or rotations, generated by a controller, and memory access is performed by linear smoothing in key space. We argue that Lie groups provide a natural generalization of discrete memory structures, such as Turing machines, as they provide inverse and identity operators while maintaining differentiability."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "We propose instead a class of memory access techniques based around Lie groups, i.e. groups with differentiable operations, which provide a natural structure for neural memory access. By deﬁnition, their differentiability satisﬁes the concerns of Criterion A. Additionally the group axioms provide identity, invertibility, and associativity, all of which are desirable properties for a relative indexing scheme (Criterion B), and all of which are satisﬁed by standard Turing machines. Notably though, simple group properties like invertibility are not satisﬁed by neural Turing machines, differentiable neural computers, or even by simple soft-tape machines."
+          }
+        ],
+        "reasoning_public": "Önerilen Lie-access bellek yapısı, nöral bellek sistemlerinde göreceli indeksleme sorununa yenilikçi bir çözüm sunmaktadır. Lie gruplarının matematiksel özelliklerini (diferansiyellenebilirlik, grup aksiyomları) bellek erişimine uygulamak, mevcut yaklaşımlardan (örn. NTM'lerdeki yumuşak bant kaydırma mekanizmalarının tersinirlik eksikliği) önemli bir ayrışma ve potansiyel bir ilerleme teşkil etmektedir. Bu, alana özgün ve teorik olarak sağlam bir katkıdır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Deneysel Doğrulama ve Karşılaştırmalı Analiz",
+        "summary": "Makale, önerilen Lie-access nöral Turing makinesi (LANTM) modelini çeşitli algoritmik görevlerde (kopyalama, tersine çevirme, öncelikli sıralama vb.) test ederek, geleneksel LSTM, RAM ve RAM/bant hibrit modellerine kıyasla üstün performans ve genelleme yeteneği sergilediğini göstermektedir. Özellikle, LANTM'nin bazı zorlu görevlerde diğer modellerin başaramadığı başarıları elde etmesi, yaklaşımın etkinliğini vurgulamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "We ﬁnd that this approach is able to perform well on a range of algorithmic tasks."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "The LANTM model is able to learn non-trivial algorithmic tasks such as copying and permutating sequences with higher accuracy than more traditional memory-based approaches, and signiﬁcantly better than ﬁxed memory LSTM models."
+          },
+          {
+            "anchor_id": "5_experiments.a5",
+            "section": "5 EXPERIMENTS",
+            "quote": "We found the inverse-square LANTM and SLANTM models to be the most effective, achieving > 90% generalization accuracy on most tasks, and together they solve all of the tasks here with > 90% coarse score. In particular, LANTM is able to solve the 6-ODD FIRST problem when no other model can correctly solve 20% of the 2x instances; SLANTM on the other hand is the only Lie access model able to solve the 7-REPEAT COPY problem."
+          }
+        ],
+        "reasoning_public": "Önerilen modelin deneysel olarak doğrulanması ve mevcut güçlü temellerle karşılaştırılması, çalışmanın özgün katkısını somutlaştırmaktadır. Özellikle, LANTM'nin 'ODD FIRST' gibi görevlerde diğer modellerden önemli ölçüde daha iyi performans göstermesi ve 'REPEAT COPY' gibi görevlerde yüksek genelleme yeteneği sergilemesi, Lie-access yaklaşımının pratik değerini ve yeniliğini ortaya koymaktadır. Bu, sadece teorik bir öneri olmaktan öte, deneysel olarak da desteklenen bir ilerlemedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Araştırma Sorusu ve Çalışma Tasarımı Arasında Güçlü Uyum",
+        "summary": "Makale, Lie-access bellek sistemlerinin geleneksel ayrık bellek yapılarına kıyasla göreceli indeksleme için daha uygun olup olmadığını net bir şekilde sorgulamakta ve bu soruyu deneysel bir yaklaşımla ele almaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "In this work, we argue that these neural memory systems lack speciﬁc structure important for relative indexing, and propose an alternative model, Lie-access memory, that is explicitly designed for the neural setting. ... We argue that Lie groups provide a natural generalization of discrete memory structures, such as Turing machines, as they provide inverse and identity operators while maintaining differentiability."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "This work questions the assumption that neural memory should mimic the structure of traditional discrete memory. We argue that a neural memory should provide the following: (A) differentiability for end-to-end training and (B) robust relative indexing (perhaps in addition to random-access)."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "To experiment with this approach, we implement a neural Turing machine with an LSTM controller and several versions of Lie-access memory, which we call Lie-access neural Turing machines (LANTM). ... The LANTM model is able to learn non-trivial algorithmic tasks such as copying and permutating sequences with higher accuracy than more traditional memory-based approaches, and signiﬁcantly better than ﬁxed memory LSTM models."
+          }
+        ],
+        "reasoning_public": "Makale, Lie gruplarının sinirsel bellek erişimi için doğal bir yapı sağladığı ve bu sayede farklılaştırılabilirlik ile birlikte kimlik ve tersinirlik gibi grup aksiyomlarını koruduğu hipotezini ortaya koymaktadır. Bu hipotez, LANTM'nin çeşitli algoritmik görevlerdeki performansını değerlendiren deneylerle doğrudan test edilmektedir. Çalışmanın tasarımı, bu araştırma sorusunu cevaplamak için uygun bir çerçeve sunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Lie Gruplarının Temel Teorik Çerçeve Olarak Kullanımı",
+        "summary": "Makale, Lie gruplarını sinirsel bellek sistemleri için temel bir teorik çerçeve olarak başarıyla kullanmaktadır. Bu yaklaşım, geleneksel ayrık bellek yapılarına kıyasla diferansiyellenebilirlik ve göreceli indeksleme için doğal bir yapı sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "We argue that Lie groups provide a natural generalization of discrete memory structures, such as Turing machines, as they provide inverse and identity operators while maintaining differentiability."
+          },
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "We propose instead a class of memory access techniques based around Lie groups, i.e. groups with differentiable operations, which provide a natural structure for neural memory access. By deﬁnition, their differentiability satisﬁes the concerns of Criterion A. Additionally the group axioms provide identity, invertibility, and associativity, all of which are desirable properties for a relative indexing scheme (Criterion B), and all of which are satisﬁed by standard Turing machines."
+          }
+        ],
+        "reasoning_public": "Makale, Lie gruplarının diferansiyellenebilirlik, tersinirlik ve birim eleman gibi özelliklerinin, sinirsel bellek sistemlerinde arzu edilen özellikler olduğunu açıkça belirtmekte ve bu teorik temeli önerilen Lie-access bellek modelinin tasarımına entegre etmektedir. Bu, teorik çerçevenin sadece bir süs olmaktan öte, yöntemin temelini oluşturduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Lie Grubu Aksiyonları ve Metrik Uyumluluğunun Yetersiz Açıklaması",
+        "summary": "Makale, Lie grubu aksiyonları ile bellek anahtar uzayındaki metrik arasındaki uyumluluk ilişkisinin önemini belirtse de, bu uyumluluğun neden gerekli olduğu ve pratikte nasıl sağlandığına dair daha derinlemesine bir açıklama sunmamaktadır. Bu durum, teorik çerçevenin belirli bir yönünün tam olarak anlaşılmasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4.a0",
+            "section": "4",
+            "quote": "This metric should satisfy a compatibility relation with the Lie group action. When points x, y ∈X are simultaneously moved by the same Lie group action v, their distance should stay the same (One possible mathematical formalization is that X should be a Riemannian manifold and the Lie group should be a subgroup of X’s isometry group.): d(vx, vy) = d(x, y). This condition ensures that if the machine writes a sequence of data along a “straight line” at points x, vx, v2x, . . . , vkx, then it can read the same sequence by emitting a read location y close to x and then follow the “v-trail” y, vy, v2y, . . . , vky."
+          }
+        ],
+        "reasoning_public": "Dipnot 3'te belirtilen 'd(vx, vy) = d(x, y)' koşulu, Lie grubu aksiyonlarının metrikle uyumlu olması gerektiğini vurgulamaktadır. Ancak, bu koşulun teorik önemi ve pratik uygulamadaki sonuçları (örneğin, bu koşul sağlanmadığında ne gibi sorunlar ortaya çıkacağı veya farklı Lie grupları ve metrikler için bu uyumluluğun nasıl garanti edileceği) daha detaylı açıklanabilirdi. Bu eksiklik, okuyucunun bu kritik teorik bağlantıyı tam olarak kavramasını engelleyebilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yüksek Oranda Çözülemeyen Atıflar",
+        "summary": "Makaledeki atıfların büyük bir kısmı otomatik sistemler tarafından çözülememiştir. Bu durum, çalışmanın literatürdeki konumunun doğrulanmasını ve ilgili kaynaklara erişimi zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makalede yer alan 20 atıftan sadece 3'ü otomatik sistemler tarafından başarıyla çözülebilmiştir. Geri kalan 17 atıf 'bulunamayan' olarak işaretlenmiştir. Bu durum, okuyucuların ve hakemlerin atıf yapılan kaynaklara kolayca erişmesini ve çalışmanın literatürdeki yerini teyit etmesini engellemektedir. Özellikle arXiv bağlantılarıyla verilen referansların çoğunun DOI veya çözülebilir başlık içermemesi, bu sorunun temel nedenidir. Bu durum, makalenin şeffaflığını ve doğrulanabilirliğini azaltmaktadır.",
+        "limitations": [
+          "Otomatik sistemlerin arXiv gibi platformlardaki bazı yayınları indekslemekte zorlanabileceği göz önünde bulundurulmuştur. Ancak bu kadar yüksek oranda çözülemeyen atıf, yine de bir iyileştirme alanı olduğunu göstermektedir."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Literatüre Başarılı Konumlandırma",
+        "summary": "Makale, Lie grupları kavramını nöral bellek sistemlerine uygulayarak mevcut literatürdeki boşluğu net bir şekilde tanımlamakta ve kendi katkısını bu bağlamda başarılı bir şekilde konumlandırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "This work questions the assumption that neural memory should mimic the structure of traditional discrete memory. We argue that a neural memory should provide the following: (A) differentiability for end-to-end training and (B) robust relative indexing (perhaps in addition to random-access). Surprisingly many neural memory systems fail one of these conditions, either lacking Criterion B, discussed below, or employing extensions like REINFORCE to work around lack of differentiability (Zaremba & Sutskever, 2015)."
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "We propose instead a class of memory access techniques based around Lie groups, i.e. groups with differentiable operations, which provide a natural structure for neural memory access. By deﬁnition, their differentiability satisﬁes the concerns of Criterion A. Additionally the group axioms provide identity, invertibility, and associativity, all of which are desirable properties for a relative indexing scheme (Criterion B), and all of which are satisﬁed by standard Turing machines. Notably though, simple group properties like invertibility are not satisﬁed by neural Turing machines, differentiable neural computers, or even by simple soft-tape machines."
+          }
+        ],
+        "reasoning_public": "Yazarlar, mevcut nöral bellek sistemlerinin (NTM'ler, MemNN'ler) geleneksel ayrık bellek yapılarını taklit etme eğiliminde olduğunu ve özellikle göreceli indeksleme için önemli olan belirli yapısal özelliklerden (tersinirlik, özdeşlik) yoksun olduğunu vurgulamaktadır. Lie gruplarının bu eksiklikleri nasıl giderebileceğini açıklayarak kendi yaklaşımlarının yeniliğini ve önemini açıkça ortaya koymuşlardır. Bu, çalışmanın literatüre yaptığı katkıyı net bir şekilde anlamayı sağlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genelleme İddiaları ve Sınırlı Kanıt",
+        "summary": "Makale, Lie-access bellek sistemlerinin 'bir dizi algoritmik görevde iyi performans gösterdiğini' iddia etse de, sunulan kanıtlar bu iddiayı yalnızca belirli, nispeten basit algoritmik görevlerle sınırlı tutmaktadır. Daha karmaşık veya gerçek dünya problemlerine genellenebilirliği destekleyecek kanıt eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "We ﬁnd that this approach is able to perform well on a range of algorithmic tasks."
+          },
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "The LANTM model is able to learn non-trivial algorithmic tasks such as copying and permutating sequences with higher accuracy than more traditional memory-based approaches, and signiﬁcantly better than ﬁxed memory LSTM models."
+          },
+          {
+            "anchor_id": "5_experiments.a6",
+            "section": "5 EXPERIMENTS",
+            "quote": "We experiment with Lie-access memory on a variety of algorithmic learning tasks."
+          }
+        ],
+        "reasoning_public": "Makale, Lie-access bellek sistemlerinin genel olarak algoritmik öğrenme görevlerinde başarılı olduğunu öne sürmektedir. Ancak, deneyler sadece COPY, REVERSE, BIGRAM FLIP gibi temel algoritmik görevler ve birkaç ek sentetik görev üzerinde yapılmıştır. Bu görevler, Lie-access belleklerin potansiyelini göstermekle birlikte, 'bir dizi algoritmik görevde iyi performans' iddiasını, özellikle daha karmaşık veya gerçek dünya uygulamaları bağlamında, tam olarak desteklememektedir. Bu tür bir genelleme iddiası için daha geniş ve çeşitli bir görev seti üzerinde kanıt sunulması gerekmektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Geri Çekilmiş Çalışmaların Kullanımı ve Etik Yorumlama",
+        "summary": "Makale, 'geri çekilmiş' olarak işaretlenmiş bir referansı (Graves et al., 2016) kullanmaktadır. Bu durum, ilgili iddiaların geçerliliği ve makalenin literatürle etkileşiminin güncelliği açısından bir belirsizlik yaratmaktadır. Geri çekilmiş bir çalışmaya atıf yapılması, bu çalışmanın bulgularının güvenilirliği hakkında soru işaretleri doğurur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a8",
+            "section": "INTRODUCTION",
+            "quote": "Recent work on neural Turing machines (NTMs) (Graves et al., 2014; 2016) and memory networks (MemNNs) (Weston et al., 2014) has repopularized the use of explicit external memory in neural networks..."
+          },
+          {
+            "anchor_id": "4_lie_access_neural_turing_machines.a0",
+            "section": "4 LIE-ACCESS NEURAL TURING MACHINES",
+            "quote": "The Markov kernel convolutional soft head shift mechanism proposed in Graves et al. (2014) and sketched in Section 2 does not in general have inverses. Indeed, the authors reported problems with the soft head losing “sharpness” over time, which they dealt with by sharpening coefﬁcients. In the followup work, Graves et al. (2016) utilize a temporal memory link matrix for actions."
+          }
+        ],
+        "reasoning_public": "Makale, 'Graves et al., 2016' çalışmasına birden fazla yerde atıfta bulunmaktadır. Ancak, bu çalışma 'geri çekilmiş' olarak işaretlenmiştir. Geri çekilmiş bir çalışmanın bulgularına dayanarak yapılan iddialar, bu bulguların artık geçerli kabul edilmemesi nedeniyle zayıflar. Makalenin bu referansı kullanırken geri çekilme durumunu belirtmemesi veya alternatif, güncel referanslar sunmaması, literatürle etkileşimde bir eksiklik olarak değerlendirilebilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Sonuçların Detaylı Sunumu",
+        "summary": "Makale, deneysel sonuçları ve karşılaştırmaları detaylı tablolar (Tablo 1b) ve nitel analizler (Şekil 2, 3, 4) aracılığıyla açıkça sunarak, iddialarını destekleyici güçlü kanıtlar sağlamaktadır. Özellikle farklı bellek sistemlerinin ve okuma hesaplamalarının performans karşılaştırmaları, Lie-access modellerinin etkinliğini göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_experiments.a7",
+            "section": "5 EXPERIMENTS",
+            "quote": "Main results comparing the different memory systems and read computations on a series of tasks are shown in Table 1b. Consistent with previous work the ﬁxed-memory LSTM system fails consistently when required to generalize to the 2x samples..."
+          },
+          {
+            "anchor_id": "5_experiments.a8",
+            "section": "5 EXPERIMENTS",
+            "quote": "The last four columns illustrate the performance of the LANTM models. We found the inverse-square LANTM and SLANTM models to be the most effective, achieving > 90% generalization accuracy on most tasks, and together they solve all of the tasks here with > 90% coarse score."
+          },
+          {
+            "anchor_id": "6_discussion.a0",
+            "section": "6 DISCUSSION",
+            "quote": "Figure 2 shows two diagrams of the LANTM model of the tasks of priority sort and repeat copy. Figure 3 shows two diagrams of the SLANTM model for the same two tasks."
+          }
+        ],
+        "reasoning_public": "Makale, LANTM ve SLANTM modellerinin çeşitli algoritmik görevlerdeki performansını, LSTM, RAM ve RAM/Tape gibi temel modellerle karşılaştıran kapsamlı bir tablo sunmaktadır. Bu tablo, hem küçük hem de büyük örneklem rejimlerindeki başarı oranlarını (fine/coarse scores) göstererek, Lie-access modellerinin üstünlüğünü sayısal olarak desteklemektedir. Ayrıca, Şekil 2, 3 ve 4'teki nitel analizler, modellerin bellek erişim desenlerini ve öğrenme stratejilerini görselleştirerek, Lie gruplarının bellek erişimindeki rolüne dair somut kanıtlar sunmaktadır. Bu detaylı sunum, makalenin temel iddialarını güçlü bir şekilde desteklemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yüksek Oranda Çözülemeyen Atıf Kaynakları",
+        "summary": "Makaledeki atıfların büyük bir kısmı otomatik sistemler tarafından çözülememiştir. Bu durum, makalenin referanslarının doğrulanabilirliğini ve erişilebilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makalede yer alan 20 referanstan yalnızca 3'ü otomatik sistemler tarafından başarıyla çözülebilmiştir. Geri kalan 17 referansın çoğu, DOI veya çözülebilir başlık gibi standart tanımlayıcıların eksikliği nedeniyle indekslerde bulunamamıştır. Bu durum, okuyucuların ve hakemlerin atıf yapılan kaynaklara kolayca erişmesini ve makaledeki iddiaların doğruluğunu teyit etmesini zorlaştırmaktadır. Özellikle arXiv bağlantıları gibi geçici veya standart dışı referans formatlarının yaygın kullanımı, bu soruna katkıda bulunmaktadır. Her ne kadar 'bulunamayan' durumu tek başına bir 'uydurma' kanıtı olmasa da, bu kadar yüksek oranda çözülemeyen referans, genel şeffaflık ve doğrulanabilirlik açısından bir zayıflık teşkil etmektedir.",
+        "limitations": [
+          "Otomatik sistemlerin 'bulunamayan' olarak işaretlediği bazı referanslar, aslında geçerli ancak indekslenmemiş veya geçici bir platformda (örn. arXiv) yayınlanmış olabilir. Bu durum, referansların içeriğinin yanlış olduğu anlamına gelmez, sadece doğrulanabilirliklerinin zor olduğu anlamına gelir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0",
+          "citation_integrity.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "citation_integrity.f1",
+        "dimension": "citation_integrity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Atıf Bağlamı Doğruluğu",
+        "summary": "Makaledeki atıfların metin içi kullanım bağlamı, otomatik sistemler tarafından herhangi bir çelişki veya uydurma içermediği tespit edilmiştir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Sağlanan kanıt paketine göre, makaledeki atıfların metin içi iddiaları ile kaynakların özetleri arasında herhangi bir çelişki ('contradicted') veya uydurma ('fabricated') bulgusu tespit edilmemiştir. Bu durum, yazarların atıf yaptıkları kaynakları doğru bir şekilde temsil etme çabasını göstermektedir.",
+        "limitations": [
+          "Bu değerlendirme, yalnızca otomatik sistemler tarafından sağlanan özetler üzerinden yapılmıştır. Kaynakların tam metinlerinin incelenmesi, daha derinlemesine bir bağlam doğruluğu analizi sağlayabilir."
+        ],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Eksik Hiperparametre Detayları",
+        "summary": "Makale, deneylerde kullanılan hiperparametrelerin tam listesini veya seçim yöntemlerini ana metinde yeterince detaylandırmamaktadır. 'Diğer parametreler ızgara aramasıyla bulundu' ifadesi, bu parametrelerin ne olduğu veya ızgara aramasının nasıl yapıldığı hakkında bilgi vermemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "Other parameters such as learning rate, decay, and intialization are found through grid search. Further hyperparameter details are give in the appendix."
+          }
+        ],
+        "reasoning_public": "Bilimsel çalışmaların tekrarlanabilirliği için deney kurulumunun tüm detaylarının, özellikle hiperparametrelerin açıkça belirtilmesi esastır. Bu eksiklik, okuyucuların veya diğer araştırmacıların sonuçları doğrulamak veya üzerine inşa etmek için deneyi yeniden oluşturmasını zorlaştırır.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Model Mimarisi Detaylarının Eksikliği",
+        "summary": "Makale, 'LSTM baseline' için katman ve hücre sayısı gibi detaylar verirken, 'RAM', 'RAM/Tape' ve 'LANTM' modelleri için LSTM kontrolcüsünün katman ve hücre sayısı gibi temel mimari detaylarını tam olarak belirtmemektedir. Sadece 'single-layer, 50-cell LSTM controller' ifadesi geçmektedir, ancak bu tüm modeller için mi geçerli, yoksa sadece LANTM için mi olduğu net değildir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a1",
+            "section": "EXPERIMENTS",
+            "quote": "For all tasks, the LSTM baseline has 1 to 4 layers, each with 256 cells. Each of the other models has a single-layer, 50-cell LSTM controller, with memory width (i.e. the size of each memory vector) 20."
+          }
+        ],
+        "reasoning_public": "Karşılaştırmalı deneylerde, tüm modellerin mimari detaylarının açıkça belirtilmesi, sonuçların geçerliliği ve tekrarlanabilirliği açısından kritik öneme sahiptir. Bu eksiklik, okuyucuların farklı modeller arasındaki performans farklarını doğru bir şekilde yorumlamasını engeller.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f2",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deney Kurulumunun Açıkça Belirtilmesi",
+        "summary": "Makale, deney kurulumunu (encoder-decoder yapısı, eğitim ve test rejimleri, değerlendirme metrikleri) açık ve anlaşılır bir şekilde açıklamaktadır. Özellikle 'teacher forcing' kullanılmaması ve 'fine/coarse scores' gibi metriklerin tanımlanması takdire şayandır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a2",
+            "section": "EXPERIMENTS",
+            "quote": "Our experiments utilize an LSTM controller in a version of the encoder-decoder setup (Sutskever et al., 2014), i.e. an encoding input pass followed by a decoding output pass. The encoder reads and writes memories at each step; the decoder only reads memories. The encoder is given ⟨s⟩, followed by an the input sequence, and then ⟨/s⟩to terminate input. The decoder is not re-fed its output or the correct symbol, i.e. we do not use teacher forcing, so x(t) is a ﬁxed placeholder input symbol. The decoder must correctly emit an end-of-output symbol ⟨/e⟩to terminate."
+          },
+          {
+            "anchor_id": "experiments.a3",
+            "section": "EXPERIMENTS",
+            "quote": "To evaluate the performance of the models, we compute the fraction of tokens correctly predicted and the fraction of all answers completely correctly predicted, respectively called ﬁne and coarse scores."
+          }
+        ],
+        "reasoning_public": "Deney kurulumunun şeffaf bir şekilde raporlanması, çalışmanın anlaşılırlığını ve tekrarlanabilirliğini artırır. Bu, okuyucuların metodolojiyi kavramasına ve sonuçları doğru bir şekilde yorumlamasına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Kod Paylaşımı Belirtilmiş Ancak Veri Seti ve Etik Onay Bilgisi Eksik",
+        "summary": "Makale, uygulamanın GitHub deposunda mevcut olduğunu belirtse de, kullanılan veri setlerinin (eğer özel olarak oluşturulmuşsa) nasıl erişilebileceği veya üretilebileceği hakkında bilgi vermemektedir. Ayrıca, insan deneklerle ilgili bir çalışma olmamasına rağmen, genel akademik uygulamalarda etik onay beyanının bulunmaması bir eksikliktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a9",
+            "section": "INTRODUCTION",
+            "quote": "Our implementations are available at https://github.com/harvardnlp/lie-access-memory"
+          }
+        ],
+        "reasoning_public": "Tekrar üretilebilirlik için kodun yanı sıra kullanılan veri setlerinin de erişilebilir veya yeniden oluşturulabilir olması önemlidir. Makalede bu konuda bir açıklama bulunmamaktadır. Her ne kadar bu çalışma insan denekleri içermese de, etik onay beyanının olmaması, akademik yayıncılık standartları açısından bir iyileştirme alanıdır.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0",
+          "ethics_reproducibility.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod Paylaşımı Sağlanmıştır",
+        "summary": "Makale, uygulamanın GitHub deposunda mevcut olduğunu açıkça belirtmektedir, bu da tekrar üretilebilirliği destekleyen olumlu bir adımdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a10",
+            "section": "INTRODUCTION",
+            "quote": "Our implementations are available at https://github.com/harvardnlp/lie-access-memory"
+          }
+        ],
+        "reasoning_public": "Kodun açıkça paylaşılması, diğer araştırmacıların çalışmayı doğrulamasına, üzerine inşa etmesine ve sonuçları yeniden üretmesine olanak tanır, bu da akademik şeffaflık ve tekrar üretilebilirlik için kritik bir unsurdur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Genel Yapı ve Akış Netliği",
+        "summary": "Makale, girişten sonuç bölümüne kadar mantıklı bir akışa sahiptir ve bölümler arası geçişler anlaşılırdır. Soyut, giriş, arka plan, yöntemler, deneyler, tartışma ve sonuç bölümleri standart bir akademik makale yapısını takip etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "External neural memory structures have recently become a popular tool for algorithmic deep learning (Graves et al., 2014; Weston et al., 2014). These models generally utilize differentiable versions of traditional discrete memory-access structures (random access, stacks, tapes) to provide the storage necessary for computational tasks. In this work, we argue that these neural memory systems lack speciﬁc structure important for relative indexing, and propose an alternative model, Lie-access memory, that is explicitly designed for the neural setting."
+          },
+          {
+            "anchor_id": "introduction.a11",
+            "section": "INTRODUCTION",
+            "quote": "Recent work on neural Turing machines (NTMs) (Graves et al., 2014; 2016) and memory networks (MemNNs) (Weston et al., 2014) has repopularized the use of explicit external memory in neural networks and demonstrated that these networks can be effectively trained in an end-to-end fash-ion."
+          },
+          {
+            "anchor_id": "conclusion.a0",
+            "section": "CONCLUSION",
+            "quote": "In this work, we introduced Lie-access memory, a novel neural memory architecture that uses Lie group actions to provide differentiable relative indexing. We showed that this approach is able to learn a variety of algorithmic tasks, often outperforming existing neural memory systems."
+          }
+        ],
+        "reasoning_public": "Makalenin genel yapısı, okuyucunun konuyu adım adım anlamasına yardımcı olacak şekilde düzenlenmiştir. Her bölüm, bir önceki bölümle bağlantılı olarak yeni bilgileri sunar ve karmaşık konuları anlaşılır bir dille açıklar.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Dil ve Anlaşılırlık",
+        "summary": "Makalenin dili genel olarak net ve anlaşılırdır. Teknik terimler uygun şekilde tanımlanmış ve karmaşık kavramlar örneklerle desteklenmiştir. Jargon kullanımı, hedef kitleye uygun düzeydedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_lie_groups_for_memory.a0",
+            "section": "3 LIE GROUPS FOR MEMORY",
+            "quote": "The notion of “differentiable” groups is well-studied in mathematics, where they are known as Lie groups, and “differentiable group actions” are correspondingly called Lie group actions. In our case, using Lie group actions as generalized head movements on a general key space (more accu-rately, manifolds) would most importantly mean that we can take derivatives of these movements and perform the usual backpropagation algorithm."
+          },
+          {
+            "anchor_id": "4_1_addressing_procedure.a0",
+            "section": "4.1 ADDRESSING PROCEDURE",
+            "quote": "For instance, consider two possible Lie groups: (1) A shift group R2 acting additively on R2. This means that A = R2 so that a(h) = (α, β) acts upon a head q = (x, y) by, a(h) · q = (α, β) + (x, y) = (x + α, y + β)."
+          }
+        ],
+        "reasoning_public": "Yazarlar, karmaşık matematiksel ve bilgisayar bilimi kavramlarını, alan dışından okuyucuların bile temel fikirleri kavrayabileceği bir açıklıkla sunmayı başarmışlardır. Özellikle Lie grupları gibi soyut matematiksel konuların, sinir ağları bağlamında nasıl kullanıldığının açıklanması başarılıdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Görsel ve Tablo Açıklamaları",
+        "summary": "Şekil ve tablo açıklamaları genellikle yeterli olsa da, bazı şekillerin metin içinde daha detaylı referans edilmesi ve bulguların yorumlanması okuyucunun anlamasını kolaylaştırabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "discussion.a0",
+            "section": "DISCUSSION",
+            "quote": "Figure 2 shows two diagrams of the LANTM model of the tasks of priority sort and repeat copy. Figure 3 shows two diagrams of the SLANTM model for the same two tasks."
+          },
+          {
+            "anchor_id": "figure_2.a0",
+            "section": "Figure 2",
+            "quote": "Interestingly, we note that, instead of writing to memory, the controller remembers the item 119 itself."
+          }
+        ],
+        "reasoning_public": "Şekil 2 ve Şekil 3 gibi karmaşık görselleştirmeler, makalenin 'Qualitative Analysis' bölümünde açıklanmaktadır. Ancak, bu şekillerin metin içinde daha doğrudan ve adım adım yorumlanması, okuyucunun görseldeki detayları daha kolay takip etmesini sağlayabilir. Örneğin, Şekil 2(a)'daki 'ilginç bir not' gibi ifadeler yerine, gözlemin neden önemli olduğu daha açık belirtilebilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Hedef Mekana Uygunluk",
+        "summary": "Makale, sinir ağları, harici bellek yapıları ve algoritmik öğrenme konularını ele alarak, bu alandaki konferans ve dergilerin kapsamına uygun bir araştırma sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "External neural memory structures have recently become a popular tool for algorithmic deep learning (Graves et al., 2014; Weston et al., 2014). These models generally utilize differentiable versions of traditional discrete memory-access structures (random access, stacks, tapes) to provide the storage necessary for computational tasks. In this work, we argue that these neural memory systems lack speciﬁc structure important for relative indexing, and propose an alternative model, Lie-access memory, that is explicitly designed for the neural setting."
+          },
+          {
+            "anchor_id": "introduction.a12",
+            "section": "INTRODUCTION",
+            "quote": "Recent work on neural Turing machines (NTMs) (Graves et al., 2014; 2016) and memory networks (MemNNs) (Weston et al., 2014) has repopularized the use of explicit external memory in neural networks and demonstrated that these networks can be effectively trained in an end-to-end fash-ion."
+          }
+        ],
+        "reasoning_public": "Makale, sinirsel Turing makineleri ve bellek ağları gibi güncel ve popüler konuları işlemektedir. Önerilen Lie-access bellek modeli, bu alandaki mevcut yaklaşımların sınırlılıklarına değinmekte ve yeni bir çözüm önermektedir. Deneysel sonuçlar, modelin algoritmik görevlerdeki performansını göstermektedir. Bu konular, yapay zeka ve makine öğrenimi alanındaki önde gelen konferans ve dergilerin ilgi alanına girmektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referanslar için DOI (Digital Object Identifier) veya diğer kalıcı ve çözülebilir tanımlayıcıları (örn. ISBN) ekleyin. Özellikle arXiv bağlantıları için, yayınlanmış versiyonların DOI'lerini tercih edin.",
+        "acceptance_check": "Tüm referansların OpenAlex veya benzeri akademik indekslerde çözülebilir olması ve DOI içermesi.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, INTRODUCTION, DISCUSSION",
+        "instruction": "Soyut ve Giriş bölümlerindeki 'bir dizi algoritmik görev' veya 'çeşitli algoritmik öğrenme görevleri' gibi ifadeler, deneylerde kullanılan görevlerin sentetik ve temel niteliğini yansıtacak şekilde daha dikkatli bir dille sınırlandırılmalıdır. Alternatif olarak, iddiayı desteklemek için daha karmaşık veya gerçek dünya algoritmik görevler üzerinde ek deneyler sunulmalıdır.",
+        "acceptance_check": "Genelleme iddialarının, sunulan deneysel kanıtların kapsamını doğru bir şekilde yansıttığından emin olunması veya iddiaları destekleyecek ek kanıtların eklenmesi.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Experiments",
+        "instruction": "Kullanılan veri setlerinin (örneğin, sentetik olarak üretilmişse üretim süreci, halka açık ise kaynakları) nasıl erişilebileceği veya yeniden oluşturulabileceği hakkında 'Experiments' veya 'Appendix' bölümünde detaylı bilgi eklenmelidir.",
+        "acceptance_check": "Veri setlerine erişim veya üretim yöntemleri hakkında açık bir açıklama eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların DOI'lerini veya kalıcı, çözülebilir bağlantılarını (örn. yayıncı sayfaları) ekleyin. Özellikle arXiv bağlantıları için, mümkünse yayınlanmış versiyonların referanslarını kullanın.",
+        "acceptance_check": "Tüm referansların OpenAlex veya benzeri akademik veritabanlarında çözülebilir olması ve DOI içermesi.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Çalışmanın hedeflenen etki büyüklüğünü tespit etmek için gerekli minimum örneklem büyüklüğünü belirten bir güç analizi veya benzeri bir gerekçe ekleyin. Alternatif olarak, mevcut örneklem büyüklüklerinin neden uygun olduğunu açıklayın (örneğin, hesaplama kısıtlamaları, literatürdeki benzer çalışmalar).",
+        "acceptance_check": "Örneklem büyüklüğü seçimini gerekçelendiren bir paragrafın eklenmesi veya güç analizi sonuçlarının sunulması.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Table 1b",
+        "instruction": "Tablo 1b'deki performans skorları için güven aralıkları (örneğin, %95 güven aralığı) veya standart sapmalar gibi belirsizlik ölçülerini ekleyin. Bu, modeller arasındaki farkların istatistiksel olarak ne kadar güvenilir olduğunu anlamak için kritik olacaktır.",
+        "acceptance_check": "Performans skorlarının yanında belirsizlik ölçülerinin (örn. CI) raporlanması.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Table 1b",
+        "instruction": "Tablo 1b'deki performans skorları için güven aralıkları veya standart sapmalar gibi belirsizlik ölçülerini ekleyin. Bu, okuyucuların modeller arasındaki farkların güvenilirliğini daha iyi değerlendirmesine olanak tanıyacaktır.",
+        "acceptance_check": "Performans skorlarının yanında belirsizlik ölçülerinin (örn. CI) raporlanması.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Ek'te veya ana metinde, kullanılan tüm hiperparametrelerin (öğrenme oranı, bozunma, başlatma yöntemleri vb.) ve ızgara aramasının nasıl yapıldığına dair detaylı bir tablo veya açıklama eklenmelidir. Bu, arama aralıklarını, seçilen değerleri ve seçim kriterlerini içermelidir.",
+        "acceptance_check": "Ek'te veya ana metinde tüm hiperparametrelerin ve seçim yöntemlerinin açıkça belirtildiği bir bölümün eklenmesi.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Tüm baseline ve önerilen modellerin (LSTM, RAM, RAM/Tape, LANTM, SLANTM) LSTM kontrolcüleri ve bellek yapıları dahil olmak üzere mimari detayları (katman sayısı, hücre sayısı, bellek genişliği vb.) açıkça ve ayrı ayrı belirtilmelidir.",
+        "acceptance_check": "Her bir modelin mimari detaylarının net bir şekilde listelendiği bir bölümün eklenmesi.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f1"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "4",
+        "instruction": "Lie grubu aksiyonları ile metrik arasındaki uyumluluk ilişkisinin teorik önemini ve pratik çıkarımlarını daha ayrıntılı açıklayın. Bu uyumluluğun sağlanmamasının olası sonuçlarını veya farklı Lie grupları ve metrikler için bu uyumluluğun nasıl garanti edildiğini tartışın.",
+        "acceptance_check": "Metrik uyumluluğunun neden kritik olduğu ve bunun modelin performansı veya teorik sağlamlığı üzerindeki etkileri açıkça belirtilmiş mi?",
+        "linked_finding_ids": [
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Referans listesindeki formatlama hatalarını veya eksik bilgileri (yazar adları, yayın adı, cilt, sayı, sayfa aralığı vb.) kontrol edin ve düzeltin. Özellikle 'not_found_in_index' olarak işaretlenen referansları manuel olarak doğrulayın.",
+        "acceptance_check": "Referans listesinin APA, IEEE gibi standart bir formatlama stiline uygun olması ve tüm gerekli bilgileri içermesi.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, 4 LIE-ACCESS NEURAL TURING MACHINES, REFERENCES",
+        "instruction": "Geri çekilmiş olan 'Graves et al., 2016' referansının kullanıldığı yerler gözden geçirilmeli ve bu referansın yerine güncel ve geçerli alternatif çalışmalar bulunarak atıflar güncellenmelidir. Eğer bu çalışmanın belirli bir yönü hala geçerliyse, geri çekilme durumu belirtilmeli ve neden hala atıfta bulunulduğu açıklanmalıdır.",
+        "acceptance_check": "Geri çekilmiş referansların kaldırılması veya kullanımının gerekçelendirilmesi ve güncel, geçerli literatürle değiştirilmesi.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "Introduction",
+        "instruction": "Makalenin 'Introduction' veya 'Conclusion' bölümüne, bu çalışmanın insan denekleri içermediği ve bu nedenle etik onay gerektirmediği yönünde kısa bir beyan eklenebilir. Eğer insan denekler kullanıldıysa, etik kurul onayı ve rıza süreçleri hakkında bilgi verilmelidir.",
+        "acceptance_check": "Etik onay durumu hakkında kısa bir beyan eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Deneylerde kullanılan veri setlerinin nasıl oluşturulduğuna dair daha fazla detay (örneğin, kullanılan rastgele tohumlar, veri üretim scriptleri) veya veri setlerinin kendilerine erişim sağlayın. Bu, deneylerin tam olarak tekrar üretilebilirliğini artıracaktır.",
+        "acceptance_check": "Veri üretim detaylarının veya veri setlerine erişim bilgilerinin eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f2.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Şekil 2 ve Şekil 3 gibi anahtar görselleştirmelerin metin içindeki açıklamalarını genişleterek, görseldeki her bir bileşenin ne anlama geldiğini ve bulguların ana argümanı nasıl desteklediğini daha açık bir şekilde belirtin.",
+        "acceptance_check": "Görsel açıklamaları, görseldeki tüm önemli detayları kapsayacak ve makalenin ana argümanıyla bağlantısını netleştirecek şekilde güncellenmiş olmalı.",
+        "linked_finding_ids": [
+          "writing_structure.f2"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleme İddiaları ve Sınırlı Kanıt",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleme İddiaları ve Sınırlı Kanıt; Geri Çekilmiş Çalışmaların Kullanımı ve Etik Yorumlama; Kod Paylaşımı Belirtilmiş Ancak Veri Seti ve Etik Onay Bilgisi Eksik",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a10",
+          "introduction.a11",
+          "introduction.a12",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8",
+          "introduction.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f1.a0",
+          "ethics_reproducibility.f0.a0",
+          "ethics_reproducibility.f0.a1"
+        ]
+      },
+      {
+        "section": "DISCUSSION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "discussion.a0"
+        ],
+        "action_item_ids": [
+          "writing_structure.f2.a0"
+        ]
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "conclusion.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1 INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Tekrar Üretilebilirlik İçin Veri/Kod Erişimi",
+        "anchor_ids": [
+          "1_introduction.a0"
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "3 LIE GROUPS FOR MEMORY",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_lie_groups_for_memory.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Lie Grubu Aksiyonları ve Metrik Uyumluluğunun Yetersiz Açıklaması",
+        "anchor_ids": [
+          "4.a0"
+        ],
+        "action_item_ids": [
+          "theoretical_framing.f1.a0"
+        ]
+      },
+      {
+        "section": "4 LIE-ACCESS NEURAL TURING MACHINES",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Geri Çekilmiş Çalışmaların Kullanımı ve Etik Yorumlama",
+        "anchor_ids": [
+          "4_lie_access_neural_turing_machines.a0"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "4.1 ADDRESSING PROCEDURE",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_1_addressing_procedure.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "5 EXPERIMENTS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleme İddiaları ve Sınırlı Kanıt",
+        "anchor_ids": [
+          "5_experiments.a0",
+          "5_experiments.a1",
+          "5_experiments.a2",
+          "5_experiments.a3",
+          "5_experiments.a4",
+          "5_experiments.a5",
+          "5_experiments.a6",
+          "5_experiments.a7",
+          "5_experiments.a8"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "6 DISCUSSION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "6_discussion.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Eksik Hiperparametre Detayları; Model Mimarisi Detaylarının Eksikliği",
+        "anchor_ids": [
+          "experiments.a0",
+          "experiments.a1",
+          "experiments.a2",
+          "experiments.a3"
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0",
+          "reporting_guideline_compliance.f1.a0"
+        ]
+      },
+      {
+        "section": "Figure 2",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "figure_2.a0"
+        ],
+        "action_item_ids": [
+          "writing_structure.f2.a0"
+        ]
+      },
+      {
+        "section": "Table 1b",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Ana Sonuçların Raporlama Kalitesi",
+        "anchor_ids": [
+          "table_1b.a0",
+          "table_1b.a1"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

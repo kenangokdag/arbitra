@@ -1,0 +1,1951 @@
+{
+  "paper_id": "peerread:iclr2017-331",
+  "run_tag": "main",
+  "job_id": "59fc459c-43f0-4721-9cb3-c60549b65352",
+  "elapsed_s": 358.4,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "LEARNING INVARIANT FEATURE SPACES TO TRANS- FER SKILLS WITH REINFORCEMENT LEARNING Abhishek Gupta†∗, Coline Devin†∗, YuXuan Liu†, Pieter Abbeel†‡, Sergey Levine† † UC Berkeley, Department of Electrical Engineering and Computer Science",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RELATED WORK",
+        "REFERENCES"
+      ],
+      "word_count": 7920,
+      "reference_count": 36,
+      "parse_confidence": 0.668,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces a novel method for transferring reinforcement learning skills between morphologically different agents, such as robots with varying numbers of links or different actuation mechanisms. The core idea is to learn an 'invariant feature space' by leveraging shared 'proxy skills' that both agents have already mastered. This shared space is then used to provide a guiding reward signal to a target agent learning a new skill from a source agent. The approach is well-motivated, addressing a significant challenge in robotics and RL. The experimental validation is strong, demonstrating successful transfer in challenging simulated tasks with sparse rewards. However, the manuscript is critically undermined by severe issues in its bibliography, with the vast majority of citations being unresolvable. This fundamental flaw requires comprehensive correction before the paper can be considered for publication.",
+    "strengths": [
+      {
+        "category": "Novelty and Importance",
+        "points": [
+          "The paper tackles the important and difficult problem of skill transfer across agents with different morphologies, a key step towards more general and flexible robotic learning.",
+          "The formulation using 'proxy tasks' to build the shared representation is practical and reflects a realistic scenario where robots would have a repertoire of existing skills."
+        ]
+      },
+      {
+        "category": "Technical Soundness",
+        "points": [
+          "The use of a dual objective, combining a similarity loss with an autoencoder reconstruction loss, is a well-reasoned approach to prevent the learning of degenerate, uninformative feature spaces.",
+          "The application of the learned feature space via a reward shaping term is a practical and effective way to guide exploration for the target agent, which is particularly valuable in the demonstrated sparse-reward settings."
+        ]
+      },
+      {
+        "category": "Experimental Evaluation",
+        "points": [
+          "The experiments are thoughtfully designed to test the method's capabilities across different kinds of morphological dissimilarity (number of links, actuation type).",
+          "The inclusion of a vision-based transfer experiment (Section 5.4) significantly broadens the demonstrated applicability of the method to high-dimensional, raw sensory inputs.",
+          "The comparison against a range of relevant baselines (CCA, UMA, direct mapping) effectively highlights the performance benefits of the proposed non-linear embedding approach."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Scholarly Rigor",
+        "points": [
+          "The manuscript suffers from a critical lack of citation integrity. A vast majority of the references in the bibliography are not formatted in a way that allows for automated discovery and verification. This prevents readers and reviewers from easily accessing the cited works, undermining the paper's scholarly foundation."
+        ]
+      },
+      {
+        "category": "Reproducibility",
+        "points": [
+          "While the overall method is clear, some implementation details that are crucial for reproducibility could be expanded. For instance, more specifics on the neural network architectures (including decoders), the schedule for decaying the transfer reward weight (alpha), and hyperparameter settings would be beneficial."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The most significant issue with this manuscript is the state of its bibliography. Of the 36 listed references, 34 could not be programmatically resolved against major academic indices. This is not a minor formatting issue; it suggests a systemic problem that hinders verification and follow-up. The authors must undertake a thorough review of their entire reference list, ensuring each entry is complete, correct, and ideally includes a DOI or a stable link (e.g., to arXiv or an OpenAlex ID). Without this, the paper does not meet the standards for scholarly publication.",
+        "evidence_ref": "Citation Integrity Summary: 34 of 36 references were not found in the index (e.g., ref[1], ref[2], ref[4]...)."
+      },
+      {
+        "area": "experimental",
+        "comment": "The annealing of the transfer reward weight `alpha` is mentioned as a useful technique but is not detailed. Please clarify how this was implemented. Was it a pre-set schedule (e.g., linear decay over iterations), or was it adapted based on the agent's performance? This detail is important for understanding the dynamics of the learning process.",
+        "evidence_ref": null
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The paper notes that an adversarial approach (e.g., Ganin et al., 2016) could be an alternative for learning the invariant embedding. This is a good observation. To strengthen the paper, it would be helpful to briefly discuss why the current autoencoder-based approach was chosen. Are there theoretical or practical advantages (e.g., training stability, simplicity) that motivated this design choice over an adversarial one?",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you elaborate on the conditions under which the Dynamic Time Warping (DTW) alignment procedure is expected to significantly outperform the simpler time-based alignment? The results in Figure 8 show similar performance, so understanding the expected breaking point would be valuable.",
+      "How sensitive is the quality of the learned feature space to the choice of proxy tasks? For example, if the proxy tasks involve slow, quasi-static movements, can the resulting space still be effectively used to transfer a highly dynamic skill?",
+      "What is the computational overhead of the EM-style alignment procedure compared to the direct time-based alignment, both during the embedding training phase and at test time?"
+    ],
+    "overall_assessment": "The paper presents a compelling and well-executed study on a central problem in reinforcement learning. The core scientific contribution is strong, and the experimental results convincingly demonstrate the effectiveness of the proposed method. The work is novel, significant, and clearly presented. However, the manuscript in its current form is not publishable due to a near-total failure of citation hygiene. This is a critical but fixable flaw. A major revision is required to meticulously correct the entire bibliography and address minor points regarding experimental details. If these issues are resolved, the paper would represent a strong contribution to the field.",
+    "verdict": "major_revision",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The approach of learning an invariant feature space via proxy tasks is a novel and elegant formulation for the cross-morphology transfer problem.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "Addresses a grand challenge in robotics and RL. Enabling transfer between physically different agents is crucial for building general-purpose learning systems."
+      },
+      {
+        "key": "claims_supported",
+        "score": 5.59,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: The claims are well-supported by a series of carefully designed experiments that show clear performance gains over relevant baselines.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The methodology is technically sound, with a well-motivated loss function that cleverly avoids degenerate solutions.]"
+      },
+      {
+        "key": "clarity",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is generally well-written and easy to follow, but could benefit from more specific implementation details for better reproducibility.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.5,
+        "rationale": "The method and findings are of high interest to the RL and robotics communities. The code and videos also add significant value."
+      },
+      {
+        "key": "contextualization",
+        "score": 3.0,
+        "rationale": "The paper's connection to the existing literature is critically broken. With 34 of 36 references being unresolvable, it is impossible for a reader to place the work in its proper scholarly context."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 1.5,
+        "rationale": "Based on the evidence pack, 34 out of 36 references could not be resolved. This is a critical failure in scholarly practice that must be addressed."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 9.0,
+        "rationale": "The evidence pack did not identify any obvious missing seminal or mandatory works, suggesting the literature review is adequate in scope."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack reported no statistical inconsistencies in the manuscript.]"
+      }
+    ],
+    "final_score": 7.07,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 36,
+        "resolved": 2,
+        "not_found_in_index": 34,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Haitham Bou Ammar and Matthew E. Taylor. Reinforcement learning transfer via common sub- spaces. In Adaptive and Learning Agents: International Workshop, 2012.",
+          "title": "Reinforcement learning transfer via common sub- spaces",
+          "authors": [
+            "Haitham Bou Ammar",
+            "Matthew E. Taylor"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Haitham Bou Ammar, Eric Eaton, Paul Ruvolo, and Matthew Taylor. Unsupervised cross-domain transfer in policy gradient reinforcement learning via manifold alignment. In AAAI Conference on Artiﬁcial Intelligence, 2015a.",
+          "title": "Unsupervised cross-domain transfer in policy gradient reinforcement learning via manifold alignment",
+          "authors": [
+            "Haitham Bou Ammar, Eric Eaton, Paul Ruvolo",
+            "Matthew Taylor"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.65 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Haitham Bou Ammar, Eric Eaton, Paul Ruvolo, and Matthew E Taylor. Unsupervised cross-domain transfer in policy gradient reinforcement learning via manifold alignment. In Proc. of AAAI, 2015b.",
+          "title": "Unsupervised cross-domain transfer in policy gradient reinforcement learning via manifold alignment",
+          "authors": [
+            "Haitham Bou Ammar, Eric Eaton, Paul Ruvolo",
+            "Matthew E Taylor"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.65 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Shai Ben-David and Reba Schuller. Exploiting task relatedness for multiple task learning. In Learn- ing Theory and Kernel Machines, pp. 567–580. Springer, 2003.",
+          "title": "Exploiting task relatedness for multiple task learning",
+          "authors": [
+            "Shai Ben-David",
+            "Reba Schuller"
+          ],
+          "year": 2003,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.58 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Alexander Braylan, Mark Hollenbeck, Elliot Meyerson, and Risto Miikkulainen. Reuse of neural modules for general video game playing. CoRR, abs/1512.01537, 2015.",
+          "title": "Reuse of neural modules for general video game playing",
+          "authors": [
+            "Alexander Braylan, Mark Hollenbeck, Elliot Meyerson",
+            "Risto Miikkulainen"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.33 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Rich Caruana. Multitask learning. Machine Learning, 1997.",
+          "title": "Multitask learning",
+          "authors": [
+            "Rich Caruana"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2913340405",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2913340405; 'Multitask Learning').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Sumit Chopra, Raia Hadsell, and Yann LeCun. Learning a similarity metric discriminatively, with application to face veriﬁcation. In Computer Vision and Pattern Recognition, 2005.",
+          "title": "Learning a similarity metric discriminatively, with application to face veriﬁcation",
+          "authors": [
+            "Sumit Chopra, Raia Hadsell",
+            "Yann LeCun"
+          ],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "CVPR 2005.",
+          "title": null,
+          "authors": [],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.2,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "IEEE Computer Society Conference on, volume 1, pp. 539–546. IEEE, 2005.",
+          "title": null,
+          "authors": [
+            "IEEE Computer Society Conference on, volume 1, pp"
+          ],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Shreyansh Daftry, J. Andrew Bagnell, and Martial Hebert. Learning transferable policies for monoc- ular reactive MAV control. In International Symposium on Experimental Robotics (ISER), 2016.",
+          "title": "Learning transferable policies for monoc- ular reactive MAV control",
+          "authors": [
+            "Shreyansh Daftry, J. Andrew Bagnell",
+            "Martial Hebert"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.24 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Coline Devin, Abhishek Gupta, Trevor Darrell, Pieter Abbeel, and Sergey Levine. Learning modular neural network policies for multi-task and multi-robot transfer. arXiv preprint arXiv:1609.07088, 2016.",
+          "title": "Learning modular neural network policies for multi-task and multi-robot transfer",
+          "authors": [
+            "Coline Devin, Abhishek Gupta, Trevor Darrell, Pieter Abbeel",
+            "Sergey Levine"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "P. F. Ferrari, S. Rozzi, and L. Fogassi. Mirror neurons responding to observation of actions made with tools in monkey ventral premotor cortex. Journal of Cognitive Neuroscience, 17(2), 2005.",
+          "title": "Mirror neurons responding to observation of actions made with tools in monkey ventral premotor cortex",
+          "authors": [
+            "P. F. Ferrari, S. Rozzi",
+            "L. Fogassi"
+          ],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Yaroslav Ganin, Evgeniya Ustinova, Hana Ajakan, Pascal Germain, Hugo Larochelle, Francois Laviolette, Mario Marchand, and Victor Lempitsky. Domain-adversarial training of neural net- works. Journal of Machine Learning Research, 17, 2016.",
+          "title": "Domain-adversarial training of neural net- works",
+          "authors": [
+            "Victor Lempitsky"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Chinmay Hegde, Michael Wakin, and Richard Baraniuk. Random projections for manifold learning. In Advances in neural information processing systems, pp. 641–648, 2008.",
+          "title": "Random projections for manifold learning",
+          "authors": [
+            "Chinmay Hegde, Michael Wakin",
+            "Richard Baraniuk"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.55 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Harold Hotelling. Relations between two sets of variates. Biometrika, 28, 1936. 11 D. P. Kingma and J. Ba. Adam: A method for stochastic optimization. In International Conference on Learning Representations, 2015.",
+          "title": "Relations between two sets of variates",
+          "authors": [
+            "Harold Hotelling"
+          ],
+          "year": 1936,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2025341678",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2025341678; 'RELATIONS BETWEEN TWO SETS OF VARIATES').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "George Konidaris. A framework for transfer in reinforcement learning. In ICML-06 Workshop on Structural Knowledge Transfer for Machine Learning, 2006.",
+          "title": "A framework for transfer in reinforcement learning",
+          "authors": [
+            "George Konidaris"
+          ],
+          "year": 2006,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.66 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "George Konidaris and Andrew Barto. Autonomous shaping: knowledge transfer in reinforcement learning. In International Conference on Machine Learning (ICML), pp. 489–496, 2006.",
+          "title": "Autonomous shaping: knowledge transfer in reinforcement learning",
+          "authors": [
+            "George Konidaris",
+            "Andrew Barto"
+          ],
+          "year": 2006,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.64 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Sergey Levine and Pieter Abbeel. Learning neural network policies with guided policy search under unknown dynamics. In Advances in Neural Information Processing Systems, 2014.",
+          "title": "Learning neural network policies with guided policy search under unknown dynamics",
+          "authors": [
+            "Sergey Levine",
+            "Pieter Abbeel"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Sergey Levine, Chelsea Finn, Trevor Darrell, and Pieter Abbeel. End-to-end training of deep visuo- motor policies. Journal of Machine Learning Research, 17:1–40, 2016.",
+          "title": "End-to-end training of deep visuo- motor policies",
+          "authors": [
+            "Sergey Levine, Chelsea Finn, Trevor Darrell",
+            "Pieter Abbeel"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.47 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Weiwei Li and Emanuel Todorov. Iterative linear quadratic regulator design for nonlinear biological movement systems. In ICINCO (1), 2004.",
+          "title": "Iterative linear quadratic regulator design for nonlinear biological movement systems",
+          "authors": [
+            "Weiwei Li",
+            "Emanuel Todorov"
+          ],
+          "year": 2004,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.47 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Timothy P. Lillicrap, Jonathan J. Hunt, Alexander Pritzel, Nicolas Heess, Tom Erez, Yuval Tassa, David Silver, and Daan Wierstra. Continuous control with deep reinforcement learning. CoRR, abs/1509.02971, 2015.",
+          "title": "Continuous control with deep reinforcement learning",
+          "authors": [
+            "Daan Wierstra"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Andrew Meltzoff. Born to learn: What infants learn from watching us. Skillman, NJ: Pediatric Institute Publication, 1999.",
+          "title": "Born to learn: What infants learn from watching us",
+          "authors": [
+            "Andrew Meltzoff"
+          ],
+          "year": 1999,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.30 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Meinard Müller. Dynamic time warping. Information retrieval for music and motion, pp. 69–84, 2007.",
+          "title": "Dynamic time warping",
+          "authors": [
+            "Meinard Müller"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "Sinno Jialin Pan and Qiang Yang. A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10):1345–1359, 2010.",
+          "title": "A survey on transfer learning",
+          "authors": [
+            "Sinno Jialin Pan",
+            "Qiang Yang"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "Kaizad V Raimalwala, Bruce A Francis, and Angela P Schoellig. A preliminary study of transfer learning between unicycle robots. In 2016 AAAI Spring Symposium Series, 2016.",
+          "title": "A preliminary study of transfer learning between unicycle robots",
+          "authors": [
+            "Kaizad V Raimalwala, Bruce A Francis",
+            "Angela P Schoellig"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.32 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "Giacomo Rizzolatti and Laila Craighero. The mirror neuron system. Annual Review of Neuro- science, 27:169–192, 2004.",
+          "title": "The mirror neuron system",
+          "authors": [
+            "Giacomo Rizzolatti",
+            "Laila Craighero"
+          ],
+          "year": 2004,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.91 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 27,
+          "raw": "Andrei A. Rusu, Neil C. Rabinowitz, Guillaume Desjardins, Hubert Soyer, James Kirkpatrick, Koray Kavukcuoglu, Razvan Pascanu, and Raia Hadsell. Progressive neural networks. CoRR, abs/1606.04671, 2016a.",
+          "title": "Progressive neural networks",
+          "authors": [
+            "Raia Hadsell"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 28,
+          "raw": "Andrei A Rusu, Matej Vecerik, Thomas Rothörl, Nicolas Heess, Razvan Pascanu, and Raia Hadsell. Sim-to-real robot learning from pixels with progressive nets. arXiv preprint arXiv:1610.04286, 2016b.",
+          "title": "Sim-to-real robot learning from pixels with progressive nets",
+          "authors": [
+            "Andrei A Rusu, Matej Vecerik, Thomas Rothörl, Nicolas Heess, Razvan Pascanu",
+            "Raia Hadsell"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.55 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 29,
+          "raw": "Matthew Taylor, Peter Stone, and Yaxin Liu. Transfer learning via inter-task mappings for temporal difference learning. Journal of Machine Learning Research, 8(1):2125–2167, 2007.",
+          "title": "Transfer learning via inter-task mappings for temporal difference learning",
+          "authors": [
+            "Matthew Taylor, Peter Stone",
+            "Yaxin Liu"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 30,
+          "raw": "Matthew E. Taylor and Peter Stone. Transfer learning for reinforcement learning domains: A survey. Journal of Machine Learning Research, 10:1633–1685, 2009.",
+          "title": "Transfer learning for reinforcement learning domains: A survey",
+          "authors": [
+            "Matthew E. Taylor",
+            "Peter Stone"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.69 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 31,
+          "raw": "Matthew E. Taylor, Nicholas K. Jong, and Peter Stone. Transferring instances for model-based reinforcement learning. In Proceedings of the European Conference on Machine Learning and Principles and Practice of Knowledge Discovery in Databases (ECML PKDD), 2008.",
+          "title": "Transferring instances for model-based reinforcement learning",
+          "authors": [
+            "Matthew E. Taylor, Nicholas K. Jong",
+            "Peter Stone"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.65 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 32,
+          "raw": "E. Todorov, T. Erez, and Y. Tassa. MuJoCo: A physics engine for model-based control. In Interna- tional Conference on Intelligent Robots and Systems (IROS), 2012.",
+          "title": "MuJoCo: A physics engine for model-based control",
+          "authors": [
+            "E. Todorov, T. Erez",
+            "Y. Tassa"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 33,
+          "raw": "Eric Tzeng, Judy Hoffman, Trevor Darrell, and Kate Saenko. Simultaneous deep transfer across domains and tasks. In International Conference in Computer Vision (ICCV), 2015.",
+          "title": "Simultaneous deep transfer across domains and tasks",
+          "authors": [
+            "Eric Tzeng, Judy Hoffman, Trevor Darrell",
+            "Kate Saenko"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 34,
+          "raw": "M. A. Umilta, L. Escola, I. Intskirveli, F. Grammont, M. Rochat, F. Caruana, A. Jezzini, V. Gallese, and G. Rizzolatti. When pliers become ﬁngers in the monkey motor system. Proceedings of the National Academy of Sciences, 105(6):2209–2213, 2008. 12 Chang Wang and Sridhar Mahadevan. Manifold alignment without correspondence. In IJCAI, volume 2, pp. 3, 2009.",
+          "title": "When pliers become ﬁngers in the monkey motor system",
+          "authors": [
+            "G. Rizzolatti"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 35,
+          "raw": "Eric P. Xing, Andrew Y. Ng, Michael I. Jordan, and Stuart Russell. Distance metric learning, with ap- plication to clustering with side-information. In Proceedings of the 15th International Conference on Neural Information Processing Systems, NIPS’02, pp. 521–528, Cambridge, MA, USA, 2002.",
+          "title": "Distance metric learning, with ap- plication to clustering with side-information",
+          "authors": [
+            "Eric P. Xing, Andrew Y. Ng, Michael I. Jordan",
+            "Stuart Russell"
+          ],
+          "year": 2002,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 36,
+          "raw": "MIT Press. URL http://dl.acm.org/citation.cfm?id=2968618.2968683. 13 7",
+          "title": null,
+          "authors": [
+            "MIT Press"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.15,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "deb72277d3da7cf291a0bf50025d8ee896a28c0c8fac5a0777dd5b13e66b268d",
+          "request_time": "2026-08-22T17:32:27.333441Z",
+          "status": "ok",
+          "result_count": 2,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:32:28.142478Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "fcfdcf3b634148a3e6361b2957da621a5a42314c2ef9b4db997e4d55bbd8f97f",
+          "request_time": "2026-08-22T17:32:29.193543Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:37:56.101332Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin kısa olması (yaklaşık 7920 kelime, 36 referans) ve sadece 'ABSTRACT, INTRODUCTION, RELATED WORK, REFERENCES' gibi temel bölümler içermesi, bir konferans bildirisi olabileceğini düşündürüyor. Çalışma, 'reinforcement learning' algoritmalarını ve 'simulated robotic manipulation skills' ifadelerini kullanarak hesaplamalı modelleme ve simülasyon tabanlı bir tasarım olduğunu gösteriyor.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 76.0,
+      "recommended_decision": "major_revision",
+      "confidence": 0.7000000000000001,
+      "top_fatal_risks": [
+        "Ana Sonuçların Etki Büyüklüğü ve Belirsizlikle Sunulmaması",
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 2 major issue(s) detected; recommended decision: major_revision."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.86,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 46.0,
+        "severity": "major",
+        "confidence": 0.86,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): The manuscript suffers from a critical lack of citation integrity. Out of 36 listed references, 34 could not be programmatically resolved against major academic indices. This is not a minor formatting issue; it suggests a systemic problem that hinders verification and follow-up. The authors must undertake a thorough review of their entire reference list, ensuring each entry is complete, correct, and ideally includes a DOI or a stable link (e.g., to arXiv or an OpenAlex ID). Without this, the paper does not meet the standards for scholarly publication. (Evidence: Citation Integrity Summary: 34 of 36 references were not found in the index (e.g., ref[1], ref[2], ref[4]...)); The annealing of the transfer reward weight `alpha` is mentioned as a useful technique but is not detailed. Please clarify how this was implemented. Was it a pre-set schedule (e.g., linear decay over iterations), or was it adapted based on the agent's performance? This detail is important for understanding the dynamics of the learning process.; The paper notes that an adversarial approach (e.g., Ganin et al., 2016) could be an alternative for learning the invariant embedding. This is a good observation. To strengthen the paper, it would be helpful to briefly discuss why the current autoencoder-based approach was chosen. Are there theoretical or practical advantages (e.g., training stability, simplicity) that motivated this design choice over an adversarial one? (+1 more)",
+        "key_objection": "The manuscript suffers from a critical lack of citation integrity. Out of 36 listed references, 34 could not be programmatically resolved against major academic indices. This is not a minor formatting issue; it suggests a systemic problem that hinders verification and follow-up. The authors must undertake a thorough review of their entire reference list, ensuring each entry is complete, correct, and ideally includes a DOI or a stable link (e.g., to arXiv or an OpenAlex ID). Without this, the paper does not meet the standards for scholarly publication. (Evidence: Citation Integrity Summary: 34 of 36 references were not found in the index (e.g., ref[1], ref[2], ref[4]...))",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "novelty_to_length_ratio.f0",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f6",
+          "quant.f7",
+          "quant.f8",
+          "reviewer_confidence.f0",
+          "reviewer_confidence.f1"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "5 concern(s): The manuscript mentions the annealing of the transfer reward weight 'alpha' but lacks specific details on its implementation. Clarification is needed on whether a pre-set schedule (e.g., linear decay) or an adaptive approach was used, as this detail is crucial for understanding the learning dynamics and for reproducibility.; The paper notes that an adversarial approach could be an alternative for learning the invariant embedding. While this is a good observation, it would strengthen the paper to briefly discuss the theoretical or practical advantages (e.g., training stability, simplicity) that motivated the choice of the current autoencoder-based approach over an adversarial one.; The manuscript should elaborate on the conditions under which the Dynamic Time Warping (DTW) alignment procedure is expected to significantly outperform simpler time-based alignment. Given that Figure 8 shows similar performance, understanding the expected breaking point or specific scenarios where DTW offers a clear advantage would be valuable. (+2 more)",
+        "key_objection": "The manuscript mentions the annealing of the transfer reward weight 'alpha' but lacks specific details on its implementation. Clarification is needed on whether a pre-set schedule (e.g., linear decay) or an adaptive approach was used, as this detail is crucial for understanding the learning dynamics and for reproducibility.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4",
+          "quant.f5"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "reject-leaning",
+        "summary": "3 concern(s): The vast majority of references (34 out of 36) could not be programmatically resolved. This indicates a critical issue with the formatting and completeness of the bibliography, making it difficult for readers and reviewers to verify cited works. Authors must meticulously correct all entries, ensuring they are complete, accurate, and ideally include DOIs or stable links.; The annealing schedule for the transfer reward weight 'alpha' is mentioned but not detailed. Please provide specifics on how this was implemented (e.g., linear decay, adaptive schedule) to enhance reproducibility.; The paper notes that an adversarial approach could be an alternative for learning the invariant embedding. Briefly discuss the rationale behind choosing the current autoencoder-based approach over an adversarial one (e.g., advantages in stability, simplicity, or theoretical guarantees).",
+        "key_objection": "The vast majority of references (34 out of 36) could not be programmatically resolved. This indicates a critical issue with the formatting and completeness of the bibliography, making it difficult for readers and reviewers to verify cited works. Authors must meticulously correct all entries, ensuring they are complete, accurate, and ideally include DOIs or stable links.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): The statement 'vast majority of citations being unresolvable' is accurate. The evidence pack shows 34 out of 36 references were not found in the index.; The statement 'vast majority of the references... are not formatted in a way that allows for automated discovery and verification' is accurate. The evidence pack shows 34 out of 36 references were not found in the index, with specific notes for some (e.g., [8], [9], [36]) indicating missing DOIs or resolvable titles.; This statement is directly supported by the 'Citation Integrity Summary' in the evidence pack, which states 'total=36, resolved=2, not_found=34'. (+1 more)",
+        "key_objection": "The statement 'vast majority of citations being unresolvable' is accurate. The evidence pack shows 34 out of 36 references were not found in the index.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "minor-concerns",
+        "summary": "1 concern(s): The draft praises the paper's novelty ('The paper tackles the important and difficult problem... The proposed method... is an elegant and powerful conceptual contribution.') without sufficient grounding in the provided evidence. While the problem is important, the claim of 'novelty' for the specific method is not explicitly supported or challenged by the 'Kapsama Boşlukları' (Coverage Gaps) section of the evidence package, which states 'Tespit edilen kapsama boşluğu yok.' This means there are no identified seminal works that the paper missed, which could either imply true novelty or simply that the evidence package didn't contain information to challenge it. However, the draft's strong assertion of novelty should ideally be backed by a more explicit comparison to existing literature within the evidence, rather than just the absence of identified gaps.",
+        "key_objection": "The draft praises the paper's novelty ('The paper tackles the important and difficult problem... The proposed method... is an elegant and powerful conceptual contribution.') without sufficient grounding in the provided evidence. While the problem is important, the claim of 'novelty' for the specific method is not explicitly supported or challenged by the 'Kapsama Boşlukları' (Coverage Gaps) section of the evidence package, which states 'Tespit edilen kapsama boşluğu yok.' This means there are no identified seminal works that the paper missed, which could either imply true novelty or simply that the evidence package didn't contain information to challenge it. However, the draft's strong assertion of novelty should ideally be backed by a more explicit comparison to existing literature within the evidence, rather than just the absence of identified gaps.",
+        "confidence": 0.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "major-revision",
+        "summary": "This paper introduces a novel method for transferring reinforcement learning skills between morphologically different agents, such as robots with varying numbers of links or different actuation mechanisms. The core idea is to learn an 'invariant feature space' by leveraging shared 'proxy skills' that both agents have already mastered. This shared space is then used to provide a guiding reward signal to a target agent learning a new skill from a source agent. The approach is well-motivated, addressing a significant challenge in robotics and RL. The experimental validation is strong, demonstrating successful transfer in challenging simulated tasks with sparse rewards. However, the manuscript is critically undermined by severe issues in its bibliography, with the vast majority of citations being unresolvable. This fundamental flaw requires comprehensive correction before the paper can be considered for publication.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Simülasyon Tabanlı Deneysel Tasarım",
+        "summary": "Çalışma, pekiştirmeli öğrenme algoritmalarının morfolojik olarak farklı ajanlar arasında bilgi aktarımını incelemek için simülasyon tabanlı deneysel bir tasarım kullanmaktadır. Bu tasarım, kontrol edilebilir ortamlar ve tekrarlanabilirlik açısından avantajlar sunar.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We evaluate our transfer learning algorithm in two simulated robotic manipulation skills, and illustrate that we can transfer knowledge between simulated robotic arms with dif- ferent numbers of links, as well as simulated arms with different actuation mech- anisms, where one robot is torque-driven while the other is tendon-driven."
+          },
+          {
+            "anchor_id": "5_experiments.a0",
+            "section": "5 EXPERIMENTS",
+            "quote": "Our experiments aim to evaluate how well common feature space learning can transfer skills between morphologically different agents. The experiments were performed in simulation using the MuJoCo physics simulator (Todorov et al., 2012), in order to explore a variety of different robots and actuation mechanisms."
+          }
+        ],
+        "reasoning_public": "Pekiştirmeli öğrenme ve robotik alanında, simülasyonlar karmaşık sistemlerin ve algoritmaların test edilmesi için standart bir yaklaşımdır. Bu tasarım, gerçek dünya kısıtlamaları olmadan farklı robot morfolojileri ve görevler üzerinde kontrollü deneyler yapılmasına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Çalışma, simülasyon deneylerinde kullanılan 'episodes' veya 'iterations' sayısı hakkında bilgi verse de (örn. '75 iterations of training'), bu sayıların istatistiksel güç analizi veya hassasiyet gerekçesiyle belirlenip belirlenmediği açıklanmamıştır. Bu durum, elde edilen sonuçların genellenebilirliği ve güvenilirliği hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Table 1: Maximum success rate of “no transfer” method over 75 iterations of training shown for the 3 tasks considered in Sections 5.2, 5.3, and 5.4. Because the target environments s"
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, örneklem büyüklüğünün (bu durumda simülasyon denemelerinin sayısı) istatistiksel olarak anlamlı ve güvenilir sonuçlar elde etmek için yeterli olup olmadığının gerekçelendirilmesi önemlidir. Güç analizi veya hassasiyet gerekçesi, beklenen etki büyüklüğünü tespit etmek için gereken minimum örneklem sayısını belirlemeye yardımcı olur. Bu tür bir gerekçelendirme olmadan, sonuçların şans eseri mi yoksa gerçek bir etkiyi mi yansıttığı belirsiz kalır.",
+        "limitations": [
+          "Makalede, simülasyon denemelerinin sayısı dışında örneklem büyüklüğü veya güç analizi ile ilgili herhangi bir bilgi bulunmamaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Operasyonelleştirme Açıklığı",
+        "summary": "Çalışma, 'invariant feature spaces' (değişmez özellik uzayları) ve 'skill transfer' (beceri aktarımı) gibi temel kavramları, matematiksel formülasyonlar (f ve g fonksiyonları) ve deneysel kurulumlar (simüle edilmiş robot kolları, farklı bağlantı sayıları, farklı aktüasyon mekanizmaları) aracılığıyla açıkça operasyonelleştirmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Our method uses the skills that were learned by both agents to train invariant feature spaces that can then be used to transfer other skills from one agent to another."
+          },
+          {
+            "anchor_id": "3_problem_formulation_and_assumptions.a0",
+            "section": "3 PROBLEM FORMULATION AND ASSUMPTIONS",
+            "quote": "We formalize our transfer problem in a general way by considering a source domain and a target domain, denoted DS and DT, which each correspond to Markov decision processes (MDPs) DS = (SS,AS,TS,RS) and DT = (ST,AT,TT,RT), each with its own state space S , action space A , dynamics or transition function T, and reward function R."
+          },
+          {
+            "anchor_id": "4_learning_common_feature_spaces_for_skill_transfer.a0",
+            "section": "4 LEARNING COMMON FEATURE SPACES FOR SKILL TRANSFER",
+            "quote": "We wish to ﬁnd functions f and g such that, for states sSp and sT p along the optimal policies πSp∗ and πT p∗, f and g approximately satisfy p(f(sSp,r)) = p(g(sT p,r))."
+          }
+        ],
+        "reasoning_public": "Kavramların açıkça operasyonelleştirilmesi, araştırmanın anlaşılabilirliği ve tekrarlanabilirliği için kritik öneme sahiptir. Bu çalışma, soyut kavramları somut ölçülebilir ve manipüle edilebilir değişkenlere dönüştürme konusunda başarılıdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Derin Öğrenme ve Pekiştirmeli Öğrenme Metodolojisi",
+        "summary": "Çalışma, derin öğrenme (sinir ağları) ve pekiştirmeli öğrenme algoritmalarını kullanarak karmaşık, doğrusal olmayan ilişkileri modellemeyi amaçlamaktadır. Bu tür modellerin varsayımları genellikle veri dağılımı veya bağımsızlık gibi geleneksel istatistiksel test varsayımlarından farklıdır ve genellikle modelin performans metrikleri üzerinden değerlendirilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "1_introduction.a0",
+            "section": "1 INTRODUCTION",
+            "quote": "Since the mapping from the state spaces of each agent into the invariant feature space might be complex and nonlinear, we use deep neural networks to represent the mappings, and we present an algorithm that can learn these mappings from the shared previously acquired skills."
+          },
+          {
+            "anchor_id": "4_1_learning_the_embedding_functions_from_a_proxy_task.a0",
+            "section": "4.1 LEARNING THE EMBEDDING FUNCTIONS FROM A PROXY TASK",
+            "quote": "As f and g are parametrized as neural networks, we can optimize them using the similarity loss metric introduced by Chopra et al. (2005): Lsim(sSp,sT p;θ f ,θg) = ||f(sSp,r;θ f )−g(sT p,r;θg)||2."
+          },
+          {
+            "anchor_id": "5_experiments.a1",
+            "section": "5 EXPERIMENTS",
+            "quote": "The embedding functions f and g in our experiments are 3 layer neural networks with 60 hidden units each and ReLu non-linearities. They are trained end-to-end with standard backpropagation using the ADAM optimizer (Kingma & Ba, 2015)."
+          }
+        ],
+        "reasoning_public": "Derin öğrenme modelleri, geleneksel istatistiksel testlerin varsayımlarını doğrudan karşılamaz. Bunun yerine, modelin performansı (örn. başarı oranı, hata kareleri ortalaması) ve genelleme yeteneği, modelin uygunluğunu değerlendirmek için kullanılır. Bu bağlamda, model seçimi veri tipine ve araştırma sorusuna uygundur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Çoklu Karşılaştırma Riski ve Düzeltme Eksikliği",
+        "summary": "Çalışma, kendi yöntemini ('our method') çeşitli doğrusal ve doğrusal olmayan yöntemlerle (örn. 'no transfer', CCA, UMA, KCCA, 'direct mapping') karşılaştırmaktadır. Bu çoklu karşılaştırmalar, istatistiksel olarak anlamlı sonuçların şans eseri elde edilme olasılığını artırır. Ancak, bu riskin ele alındığına dair (örn. Bonferroni düzeltmesi gibi) bir bilgi verilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_methods_used_for_comparison.a0",
+            "section": "5.1 METHODS USED FOR COMPARISON",
+            "quote": "In the following experiments, we compare our method with other methods. The simplest one, re- ferred to as “no transfer”, aims to learn the target task from scratch. This method generally cannot succeed in sparse reward environments without a large number of episodes. Table 1 shows that, without transfer, the tasks are not learned even with 3-4 times more experience. We also compare to several linear methods, including random projections, canonical correlation analysis (CCA), and unsupervised manifold alignment (UMA)."
+          }
+        ],
+        "reasoning_public": "Birden fazla istatistiksel karşılaştırma yapıldığında, Tip I hata oranının (yanlış pozitif) artma riski vardır. Bu riski azaltmak için çoklu karşılaştırma düzeltmeleri (örneğin Bonferroni, Holm, Benjamini-Hochberg) uygulanması gerekir. Bu tür düzeltmelerin yapılmaması, bazı karşılaştırmalarda elde edilen 'anlamlı' sonuçların gerçek bir etkiyi yansıtmama olasılığını artırır.",
+        "limitations": [
+          "Makalede çoklu karşılaştırma düzeltmelerine ilişkin herhangi bir bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "statistical_consistency",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "İstatistiksel Tutarlılık Kontrolü Yapılamadı (Raporlama Eksikliği)",
+        "summary": "Makalede, p-değerleri, test istatistikleri veya güven aralıkları gibi geleneksel istatistiksel sonuçlar raporlanmamıştır. Bu nedenle, metin, tablo ve figürler arasındaki sayısal tutarlılık veya p-değeri tutarlılık kontrolü yapılamamıştır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Pekiştirmeli öğrenme ve derin öğrenme çalışmalarında, geleneksel istatistiksel testler yerine genellikle performans metrikleri (örn. başarı oranı, ortalama ödül) ve bunların görselleştirmeleri (eğriler, grafikler) raporlanır. Ancak, bu metrikler için belirsizlik ölçüleri (örn. standart sapma, güven aralıkları) veya istatistiksel karşılaştırmalar yapılıyorsa ilgili test istatistikleri ve p-değerleri raporlanmadığında, sonuçların güvenilirliği ve tekrarlanabilirliği hakkında tam bir değerlendirme yapmak zordur. Bu durum, bir raporlama eksikliği olarak değerlendirilmelidir.",
+        "limitations": [
+          "Makalede geleneksel istatistiksel test sonuçları (p-değerleri, test istatistikleri, df) raporlanmadığı için istatistiksel tutarlılık kontrolü yapılamamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "effect_size",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Çalışma, farklı yöntemlerin performansını karşılaştıran sonuçlar sunsa da (örn. 'success rate' - Tablo 1), bu performans farklarının etki büyüklükleri veya güven aralıkları gibi belirsizlik ölçüleri raporlanmamıştır. Bu durum, gözlemlenen farkların pratik önemini ve istatistiksel güvenilirliğini değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a1",
+            "section": "Table 1",
+            "quote": "Table 1: Maximum success rate of “no transfer” method over 75 iterations of training shown for the 3 tasks considered in Sections 5.2, 5.3, and 5.4. Because the target environments s"
+          }
+        ],
+        "reasoning_public": "Etki büyüklüğü, gözlemlenen bir etkinin pratik önemini gösterir ve istatistiksel anlamlılıktan bağımsızdır. Güven aralıkları ise parametre tahminlerinin belirsizliğini nicel olarak ifade eder. Bu ölçümlerin eksikliği, okuyucunun sonuçların gerçek dünya uygulamaları için ne kadar önemli olduğunu veya sonuçların ne kadar güvenilir olduğunu anlamasını engeller. Özellikle 'no transfer' yönteminin başarı oranının %0.0 olarak raporlandığı durumlarda bile, bu sıfır değerin etrafındaki belirsizliğin belirtilmesi önemlidir.",
+        "limitations": [
+          "Makalede raporlanan başarı oranları için etki büyüklüğü veya güven aralıkları gibi belirsizlik ölçüleri bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Eksikliği",
+        "summary": "Çalışma, simülasyon ortamında veri toplandığı için eksik veri veya aykırı değerlerin nasıl ele alındığına dair spesifik bir strateji belirtmemiştir. Simülasyonlarda eksik veri genellikle daha az yaygın olsa da, başarısız denemeler veya algoritmik hatalar nedeniyle oluşabilir. Aykırı değerler ise öğrenme süreçlerini etkileyebilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Her ne kadar simülasyon ortamında veri toplansa da, algoritmik hatalar, simülasyonun çökmesi veya belirli bir denemenin tamamlanamaması gibi durumlar eksik verilere yol açabilir. Ayrıca, öğrenme eğrilerindeki ani sıçramalar veya düşüşler aykırı değerler olarak yorumlanabilir ve modelin eğitimini etkileyebilir. Bu tür durumların nasıl yönetildiğinin açıklanması, çalışmanın sağlamlığını artırır.",
+        "limitations": [
+          "Makalede eksik veri veya aykırı değer işleme stratejilerine ilişkin herhangi bir bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Disiplini",
+        "summary": "Çalışma, 'transfer skills' (beceri aktarımı) ve 'learn invariant feature spaces' (değişmez özellik uzayları öğrenme) gibi ifadelerle kendi yönteminin belirli sonuçlara yol açtığını iddia etmektedir. Bu iddialar, kontrollü simülasyon deneyleri ve karşılaştırmalı analizlerle desteklenmektedir, bu da nedensel dil kullanımını uygun kılmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "We introduce a problem formulation where two agents are tasked with learning multiple skills by sharing information. Our method uses the skills that were learned by both agents to train invariant feature spaces that can then be used to transfer other skills from one agent to another."
+          },
+          {
+            "anchor_id": "1_introduction.a1",
+            "section": "1 INTRODUCTION",
+            "quote": "Can we enable robots and other autonomous agents to transfer knowledge from other agents with different morphologies by learning such invariant representations?"
+          }
+        ],
+        "reasoning_public": "Deneysel tasarımlar, değişkenler arasındaki nedensel ilişkileri incelemek için idealdir. Bu çalışmada, farklı yöntemlerin performansları karşılaştırılarak, önerilen yöntemin beceri aktarımını nasıl 'sağladığı' veya 'iyileştirdiği' gösterilmektedir. Bu bağlamda, nedensel dil kullanımı uygun ve disiplinlidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Veri ve Kod Erişilebilirliği Eksikliği",
+        "summary": "Çalışma, deneylerin videolarının bir web sitesinde (https://sites.google.com/site/invariantfeaturetransfer/) mevcut olacağını belirtse de, deneylerde kullanılan veri setlerine veya kodlara doğrudan erişim sağlanmamıştır. Bu durum, çalışmanın tam olarak tekrarlanabilirliğini kısıtlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_experiments.a2",
+            "section": "5 EXPERIMENTS",
+            "quote": "Videos of our experiment will be available at https://sites.google.com/ site/invariantfeaturetransfer/ For details of the reinforcement learning algorithm used, refer to Appendix A."
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmanın temel prensiplerinden biri tekrarlanabilirliktir. Veri ve kodun açıkça erişilebilir olması, diğer araştırmacıların sonuçları doğrulamasına, metodolojiyi anlamasına ve üzerine inşa etmesine olanak tanır. Sadece videoların sağlanması, metodolojinin detaylarını ve sonuçların doğruluğunu tam olarak kontrol etmek için yeterli değildir.",
+        "limitations": [
+          "Makalede veri setlerine veya kodlara doğrudan erişim bağlantısı bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f10",
+        "dimension": "reporting_quality",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Ana Sonuçların Etki Büyüklüğü ve Belirsizlikle Sunulmaması",
+        "summary": "Çalışma, ana sonuçlarını (örn. farklı yöntemlerin başarı oranları) sunarken, bu sonuçların etki büyüklüklerini ve güven aralıkları gibi belirsizlik ölçülerini raporlamamıştır. Örneğin, Tablo 1'de 'no transfer' yönteminin başarı oranı %0.0 olarak verilse de, bu değerin istatistiksel belirsizliği belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a2",
+            "section": "Table 1",
+            "quote": "Table 1: Maximum success rate of “no transfer” method over 75 iterations of training shown for the 3 tasks considered in Sections 5.2, 5.3, and 5.4. Because the target environments s"
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, ana sonuçların sadece nokta tahminleri olarak değil, aynı zamanda etki büyüklükleri ve belirsizlik ölçüleri (örn. güven aralıkları) ile birlikte sunulması, sonuçların pratik önemini ve istatistiksel güvenilirliğini daha iyi anlamayı sağlar. Bu eksiklik, okuyucunun sonuçları tam olarak yorumlamasını ve farklı yöntemler arasındaki farkların gerçek anlamını değerlendirmesini zorlaştırır.",
+        "limitations": [
+          "Makalede ana sonuçlar için etki büyüklüğü veya güven aralıkları gibi belirsizlik ölçüleri bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f10.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f11",
+        "dimension": "reporting_quality",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Anlamlılık Dili Kullanımı",
+        "summary": "Makalede 'significant' veya 'non-significant' gibi istatistiksel anlamlılık terimleri doğrudan kullanılmamıştır. Bunun yerine, yöntemlerin performansları başarı oranları ve görselleştirilmiş öğrenme eğrileri üzerinden karşılaştırılmıştır. Bu, p-değeri avcılığını önleyen olumlu bir yaklaşımdır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "P-değerlerine aşırı odaklanmak yerine, etki büyüklükleri ve pratik önem üzerine yoğunlaşmak, daha sağlam ve yorumlanabilir bilimsel sonuçlar elde edilmesine yardımcı olur. Bu çalışma, bu açıdan iyi bir raporlama kalitesi sergilemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Konferansın Kapsamına Uygun",
+        "summary": "Makale, pekiştirmeli öğrenme ve robotik alanlarında beceri transferi ve değişmez özellik uzayları öğrenimi konularını ele almaktadır. Bu konular, genellikle yapay zeka ve makine öğrenimi konferanslarının 'Pekiştirmeli Öğrenme' veya 'Robotik' gibi oturumlarıyla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we examine how reinforcement learning algorithms can transfer knowledge between morphologically different agents (e.g., different robots). We introduce a problem formulation where two agents are tasked with learning multiple skills by sharing information. Our method uses the skills that were learned by both agents to train invariant feature spaces that can then be used to transfer other skills from one agent to another."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "Can we enable robots and other autonomous agents to transfer knowledge from other agents with different morphologies by learning such invariant representations?"
+          },
+          {
+            "anchor_id": "related_work.a0",
+            "section": "RELATED WORK",
+            "quote": "Transfer learning has long been recognized as an important direction in robotics and reinforcement learning (Taylor & Stone (2009))."
+          }
+        ],
+        "reasoning_public": "Makalenin ana konusu, morfolojik olarak farklı ajanlar arasında beceri transferi için değişmez özellik uzaylarının öğrenilmesi olup, bu, pekiştirmeli öğrenme ve robotik alanlarındaki güncel araştırma eğilimleriyle örtüşmektedir. Bu tür çalışmalar, konferansın ilgili oturumlarına önemli katkılar sağlayabilir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yenilik ve Kapsam Dengesi",
+        "summary": "Makale, pekiştirmeli öğrenmede morfolojik olarak farklı ajanlar arasında beceri transferi için değişmez özellik uzayları öğrenme konusunda yeni bir formülasyon ve algoritma sunmaktadır. Ancak, sunulan temel fikirler ve deneysel değerlendirmeler, makalenin uzunluğu ve detay seviyesi göz önüne alındığında, bazı yerlerde daha fazla derinlik veya daha geniş bir etki analizi gerektirebilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "We introduce a problem formulation where two agents are tasked with learning multiple skills by sharing information. Our method uses the skills that were learned by both agents to train invariant feature spaces that can then be used to transfer other skills from one agent to another. The process of learning these invariant feature spaces can be viewed as a kind of “analogy making,” or implicit learning of partial correspondences between two distinct domains."
+          },
+          {
+            "anchor_id": "1_introduction.a2",
+            "section": "1 INTRODUCTION",
+            "quote": "The main contributions of our work are a formulation of the multi-skill transfer problem, a deﬁnition of the common feature space, and an algorithm that can be used to learn the maximally informative feature space for transfer between two agents (e.g., two robots with different morphologies)."
+          },
+          {
+            "anchor_id": "2_related_work.a0",
+            "section": "2 RELATED WORK",
+            "quote": "The main difference from our work is that Ammar et al. (2015a) assume the presence of a feature mapping that provides distances between states, and use these (hand designed) features to assign correspondences between states in the different domains. In contrast, we assume that good correspondences in episodic tasks can be extracted through time alignment, and focus on learning the feature mapping itself."
+          }
+        ],
+        "reasoning_public": "Makale, morfolojik farklılıklara sahip robotlar arasında beceri transferi için değişmez özellik uzayları öğrenme fikrini ortaya koymaktadır. Bu, robotik ve pekiştirmeli öğrenme alanında önemli bir problemdir. Önerilen yöntem (ortak özellik uzayı öğrenimi ve transfer için ödül şekillendirme), literatürdeki mevcut yaklaşımlara (doğrudan durum uzayı eşlemesi, doğrusal yöntemler) kıyasla yenilikçi bir bakış açısı sunmaktadır. Özellikle, derin öğrenme tabanlı eşleme fonksiyonları ve dinamik zaman bükme (DTW) ile birleştirilmiş alternatif optimizasyon yaklaşımı, bu alandaki mevcut sınırlamaları aşma potansiyeli taşımaktadır. Ancak, makalenin genel uzunluğu ve sunulan deneysel sonuçların kapsamı göz önüne alındığında, bazı temel kavramların daha detaylı açıklanması veya yöntemin daha geniş bir uygulama yelpazesinde test edilmesi, sunulan yeniliğin etkisini daha da güçlendirebilirdi. Örneğin, 'analoji kurma' veya 'kısmi yazışmaların örtük öğrenimi' gibi kavramlar soyut kalmakta ve yöntemin bu kavramlarla nasıl somutlaştığı daha derinlemesine incelenebilirdi. Ayrıca, 'proxy skill' seçimi ve bunun transfer başarısı üzerindeki etkisi gibi pratik hususlar daha fazla vurgulanabilirdi.",
+        "limitations": [],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ek Materyallerin Erişilebilirliği",
+        "summary": "Makale, deneylerin videolarının çevrimiçi olarak erişilebilir olacağını belirtmektedir, bu da çalışmanın görsel olarak doğrulanmasına yardımcı olur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "Videos of our experiment will be available at https://sites.google.com/site/invariantfeaturetransfer/"
+          }
+        ],
+        "reasoning_public": "Çalışmanın deneysel sonuçlarını destekleyen görsel materyallerin sağlanması, okuyucuların ve diğer araştırmacıların metodolojiyi ve elde edilen sonuçları daha iyi anlamalarına olanak tanır. Bu, çalışmanın şeffaflığını ve tekrar üretilebilirliğini artırır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f1",
+        "dimension": "reproducibility_artifact",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Kod ve Veri Erişilebilirliğinin Eksikliği",
+        "summary": "Makale, deneylerde kullanılan kod veya veri setlerinin erişilebilirliği hakkında bilgi vermemektedir. Bu durum, çalışmanın tam olarak tekrar üretilmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmaların temel prensiplerinden biri, sonuçların bağımsız olarak doğrulanabilmesidir. Kod ve veri setlerinin paylaşılmaması, diğer araştırmacıların aynı deneyleri tekrarlamasını, sonuçları doğrulamalarını veya yöntemleri geliştirmelerini engeller. Bu, çalışmanın şeffaflığını ve bilimsel etkisini sınırlar.",
+        "limitations": [
+          "Makalede kod veya veri paylaşımına dair herhangi bir ifade bulunmadığından, bu durumun kasıtlı bir tercih mi yoksa sadece belirtilmemiş bir eksiklik mi olduğu net değildir."
+        ],
+        "action_item_ids": [
+          "reproducibility_artifact.f1.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "presentation_clarity.f0",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Şekil 1'deki Metin Boyutu ve Okunabilirlik Sorunu",
+        "summary": "Şekil 1'deki metinler, özellikle denklemler ve etiketler, çok küçük ve okunması zor. Bu durum, okuyucunun diyagramı anlamasını güçleştiriyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_learning_common_feature_spaces_for_skill_transfer.a1",
+            "section": "4 LEARNING COMMON FEATURE SPACES FOR SKILL TRANSFER",
+            "quote": "Figure 1: The two embedding functions f and g are trained with a contrastive loss be- tween the domains, along with decoders that optimize autoencoder losses."
+          }
+        ],
+        "reasoning_public": "Şekiller, karmaşık kavramları görsel olarak açıklamak için kritik öneme sahiptir. Metinlerin okunaksız olması, okuyucunun diyagramın amacını ve detaylarını kavramasını engeller, bu da makalenin anlaşılırlığını olumsuz etkiler.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f1",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Şekil 2 ve Şekil 3'ün Tekrarlayan İçeriği",
+        "summary": "Şekil 2 ve Şekil 3, aynı robotun aynı görevi (düğmeye basma) gerçekleştirdiği görselleri sunuyor. Bu durum, makalede gereksiz tekrar yaratıyor ve sayfa alanını verimsiz kullanıyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_experiments.a3",
+            "section": "5 EXPERIMENTS",
+            "quote": "Figure 2: The 3 and 4 link robots per- forming the button pressing task, which we use to evaluate the performance of our transfer method."
+          },
+          {
+            "anchor_id": "5_2_transfer_between_robots_with_different_numbers_of_links.a0",
+            "section": "5.2 TRANSFER BETWEEN ROBOTS WITH DIFFERENT NUMBERS OF LINKS",
+            "quote": "Figure 3: The 4-link robot pushing the button. Note that the reward function only tells the agent how far the button has been depressed, and provides no information to indicate that the arm should reach for the button."
+          }
+        ],
+        "reasoning_public": "Görsel materyallerin etkin kullanımı, makalenin akıcılığı ve bilgi yoğunluğu açısından önemlidir. Aynı bilginin farklı şekillerde tekrar edilmesi, okuyucunun dikkatini dağıtabilir ve makalenin genel kalitesini düşürebilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f2",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Genel Akış ve Bölüm Başlıkları Netliği",
+        "summary": "Makalenin genel akışı mantıklı ve bölüm başlıkları içeriği iyi yansıtıyor. Bu durum, okuyucunun makaleyi takip etmesini kolaylaştırıyor.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Net bir yapı ve açıklayıcı bölüm başlıkları, okuyucunun makalenin ana argümanlarını ve metodolojisini anlamasına yardımcı olur. Bu, makalenin genel okunabilirliğini ve erişilebilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ana Katkıların Açıkça İfade Edilmesi",
+        "summary": "Makale, ana katkılarını hem özette hem de giriş bölümünde açık ve özlü bir şekilde belirtmektedir. Bu, okuyucunun çalışmanın yeniliğini ve önemini hızlıca kavramasına yardımcı olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "We introduce a problem formulation where two agents are tasked with learning multiple skills by sharing information. Our method uses the skills that were learned by both agents to train invariant feature spaces that can then be used to transfer other skills from one agent to another."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "The main contributions of our work are a formulation of the multi-skill transfer problem, a deﬁnition of the common feature space, and an algorithm that can be used to learn the maximally informative feature space for transfer between two agents (e.g., two robots with different morphologies)."
+          }
+        ],
+        "reasoning_public": "Çalışmanın temel yenilikleri ve literatüre katkıları, makalenin başında net bir şekilde sunulduğunda, okuyucunun makalenin geri kalanını daha iyi anlamasına ve çalışmanın değerini takdir etmesine olanak tanır. Bu, akademik bir makale için önemli bir güçlü yöndür.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Etik Hususların Eksikliği",
+        "summary": "Makale, yapay zeka ve robotik alanındaki etik hususlara veya potansiyel toplumsal etkilere değinmemektedir. Özellikle robotik sistemlerin otonom öğrenme ve beceri transferi yetenekleri göz önüne alındığında, bu tür konuların tartışılması önemlidir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Yapay zeka ve robotik alanındaki araştırmalar, etik ve toplumsal etkileri giderek daha fazla dikkate almayı gerektirmektedir. Çalışmanın robotların beceri transferi yeteneklerini artırması, gelecekteki uygulamalar için önemli çıkarımlar barındırabilir. Bu nedenle, potansiyel riskler, sorumluluklar veya kötüye kullanım senaryoları gibi etik boyutların ele alınması, araştırmanın bütünlüğü ve toplumsal kabulü açısından faydalı olacaktır.",
+        "limitations": [
+          "Makalenin odak noktası teknik bir problem çözümü olduğundan, etik tartışmaların kapsamı sınırlı tutulabilir."
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_limitations.f1",
+        "dimension": "ethics_limitations",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Çalışmanın Sınırlılıklarının Kapsamlı Tartışmasının Eksikliği",
+        "summary": "Makale, önerilen yöntemin mevcut sınırlılıklarını ve gelecekteki araştırma yönlerini yeterince detaylı bir şekilde tartışmamaktadır. Özellikle simülasyon ortamında elde edilen sonuçların gerçek dünya robotlarına aktarılabilirliği ve yöntemin genellenebilirliği gibi konular daha derinlemesine ele alınmalıdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "We evaluate our transfer learning algorithm in two simulated robotic manipulation skills, and illustrate that we can transfer knowledge between simulated robotic arms with dif- ferent numbers of links, as well as simulated arms with different actuation mech- anisms, where one robot is torque-driven while the other is tendon-driven."
+          },
+          {
+            "anchor_id": "5_experiments.a4",
+            "section": "5 EXPERIMENTS",
+            "quote": "Our experiments aim to evaluate how well common feature space learning can transfer skills between morphologically different agents. The experiments were performed in simulation using the MuJoCo physics simulator (Todorov et al., 2012), in order to explore a variety of different robots and actuation mechanisms."
+          }
+        ],
+        "reasoning_public": "Akademik bir çalışmada, önerilen yöntemin güçlü yönlerinin yanı sıra zayıf yönlerinin ve sınırlılıklarının da açıkça belirtilmesi, araştırmanın şeffaflığı ve güvenilirliği açısından kritik öneme sahiptir. Bu, okuyucuların çalışmanın kapsamını ve uygulanabilirliğini daha iyi anlamasına yardımcı olur ve gelecekteki araştırmalar için yol gösterir.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_limitations.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Sınırlı Metin Kapsamı Nedeniyle Kapsamlı Değerlendirme Zorluğu",
+        "summary": "Makalenin yalnızca bir kısmının (ABSTRACT, INTRODUCTION, RELATED WORK, REFERENCES ve METHODOLOGY'nin bir kısmı) sağlanmış olması, çalışmanın tamamına yönelik güvenilir bir değerlendirme yapmayı zorlaştırmaktadır. Özellikle deneyler, sonuçlar ve tartışma bölümlerinin eksikliği, metodolojinin etkinliği ve bulguların genellenebilirliği hakkında tam bir yargıya varmayı engellemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bir akademik makalenin tam olarak değerlendirilebilmesi için tüm bölümlerinin (giriş, ilgili çalışmalar, metodoloji, deneyler, sonuçlar, tartışma ve sonuç) incelenmesi esastır. Eksik bölümler, metodolojinin uygulanışını, deneysel kurulumun detaylarını, elde edilen sonuçların geçerliliğini ve çalışmanın literatüre katkısını tam olarak anlamayı engeller. Bu durum, hakemin çalışmanın genel kalitesi ve güvenilirliği hakkında kesin bir yargıya varmasını kısıtlar.",
+        "limitations": [
+          "Sağlanan metin, makalenin tamamını temsil etmediği için, bu değerlendirme yalnızca mevcut bölümlerle sınırlıdır ve makalenin genel kalitesi hakkında nihai bir yargı içermemektedir."
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reviewer_confidence.f1",
+        "dimension": "reviewer_confidence",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metodoloji ve İlgili Çalışmalar Bölümlerinin Açıklığı",
+        "summary": "Mevcut 'RELATED WORK' ve 'PROBLEM FORMULATION AND ASSUMPTIONS' bölümleri, çalışmanın bağlamını ve temel varsayımlarını net bir şekilde ortaya koymaktadır. Bu bölümler, hakemin çalışmanın temelini anlamasına yardımcı olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a1",
+            "section": "RELATED WORK",
+            "quote": "Transfer learning has long been recognized as an important direction in robotics and reinforcement learning (Taylor & Stone (2009)). Konidaris & Barto (2006) learned value functions on subsets of the state representation that were shared between tasks, providing a shaping reward in the target task."
+          },
+          {
+            "anchor_id": "problem_formulation_and_assumptions.a0",
+            "section": "PROBLEM FORMULATION AND ASSUMPTIONS",
+            "quote": "We formalize our transfer problem in a general way by considering a source domain and a target domain, denoted DS and DT, which each correspond to Markov decision processes (MDPs) DS = (SS,AS,TS,RS) and DT = (ST,AT,TT,RT), each with its own state space S , action space A , dynamics or transition function T, and reward function R."
+          }
+        ],
+        "reasoning_public": "İlgili çalışmalar bölümü, makalenin literatürdeki yerini ve önceki çalışmalardan farkını anlamak için kritik öneme sahiptir. Problem formülasyonu ise çalışmanın kapsamını ve ele alınan sorunu netleştirir. Bu bölümlerin iyi yazılmış olması, hakemin çalışmanın temel argümanlarını ve yeniliklerini kavramasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "quant.f10.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Tüm ana sonuçlar için etki büyüklüklerini ve güven aralıklarını veya standart sapmaları raporlayın. Bu, özellikle Tablo 1'deki başarı oranları ve diğer performans metrikleri için geçerlidir.",
+        "acceptance_check": "Tüm ana sonuçlar için etki büyüklükleri ve belirsizlik ölçüleri (örn. CI, SD) raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f10"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Tüm performans metrikleri (örn. başarı oranları) için etki büyüklüklerini ve güven aralıklarını veya standart sapmaları raporlayın. Bu, özellikle farklı yöntemler arasındaki karşılaştırmalar için kritik öneme sahiptir.",
+        "acceptance_check": "Tüm nicel sonuçlar için etki büyüklükleri ve belirsizlik ölçüleri (örn. CI, SD) raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a0",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "Tüm Makale",
+        "instruction": "Makalenin tamamı (özellikle 'Experiments', 'Results' ve 'Discussion' bölümleri) değerlendirme için sunulmalıdır.",
+        "acceptance_check": "Makalenin tüm bölümlerinin eksiksiz olarak sunulması.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "CONCLUSION",
+        "instruction": "Makalenin 'Sonuç' veya ayrı bir 'Sınırlılıklar ve Gelecek Çalışmalar' bölümünde, yöntemin simülasyon ortamında test edilmesinin gerçek dünya robotlarına aktarılmasındaki zorluklar, farklı morfolojilere sahip daha karmaşık robotlara genellenebilirlik, proxy görevlerinin seçimi ve veri gereksinimleri gibi sınırlılıkları detaylı olarak tartışın. Ayrıca, bu sınırlılıkların üstesinden gelmek için potansiyel gelecek araştırma yönlerini belirtin.",
+        "acceptance_check": "Çalışmanın sınırlılıklarını ve gelecek araştırma yönlerini detaylandıran yeni bir bölüm veya paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "ethics_limitations.f1"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "ABSTRACT, INTRODUCTION, PROBLEM FORMULATION AND ASSUMPTIONS",
+        "instruction": "Makalenin 'analoji kurma' veya 'kısmi yazışmaların örtük öğrenimi' gibi daha soyut kavramları, önerilen algoritmanın spesifik mekanizmalarıyla daha somut bir şekilde ilişkilendiren ek açıklamalar veya örnekler eklenmelidir. Bu, okuyucunun yöntemin temel yeniliğini daha iyi kavramasına yardımcı olacaktır.",
+        "acceptance_check": "Soyut kavramların algoritmanın adımlarıyla açıkça ilişkilendirildiği ve somutlaştırıldığı yeni metin parçaları eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "4 LEARNING COMMON FEATURE SPACES FOR SKILL TRANSFER",
+        "instruction": "Şekil 1'deki metin boyutlarını artırarak ve gerekirse diyagramın düzenini yeniden ayarlayarak okunabilirliği iyileştirin. Özellikle denklemlerin ve ok etiketlerinin net bir şekilde okunabildiğinden emin olun.",
+        "acceptance_check": "Şekil 1'deki tüm metinlerin ve denklemlerin kolayca okunabilir olması.",
+        "linked_finding_ids": [
+          "presentation_clarity.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "5 EXPERIMENTS, 5.2 TRANSFER BETWEEN ROBOTS WITH DIFFERENT NUMBERS OF LINKS",
+        "instruction": "Şekil 2 ve Şekil 3'ü birleştirerek veya birini çıkararak görsel tekrarı azaltın. Eğer iki görsel arasında önemli bir fark varsa, bu farkı vurgulayacak şekilde tek bir şekil altında birleştirin veya açıklamalarını netleştirin.",
+        "acceptance_check": "Aynı görevi gösteren görsellerin tek bir şekil altında birleştirilmesi veya gereksiz olanın çıkarılması.",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Simülasyon deneylerinde kullanılan episode/iteration sayılarının neden yeterli olduğunu açıklayan bir gerekçe ekleyin. Bu, bir güç analizi veya beklenen etki büyüklüğünü tespit etmek için gereken minimum deneme sayısına ilişkin bir tartışma olabilir.",
+        "acceptance_check": "Deney sayılarının istatistiksel gerekçesi veya hassasiyet analizi metinde açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Deneylerde kullanılan veri setlerini (veya veri üretim kodunu) ve algoritma kodunu açık bir depoda (örn. GitHub) erişilebilir hale getirin.",
+        "acceptance_check": "Veri ve kod için erişilebilir bir bağlantı (örn. GitHub deposu) makalede belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Deneylerde kullanılan kod ve veri setlerinin (veya sentetik veri üretim kodunun) bir GitHub deposu veya benzeri bir platform üzerinden erişilebilir hale getirilmesi önerilir. Bu, çalışmanın tekrar üretilebilirliğini ve şeffaflığını önemli ölçüde artıracaktır.",
+        "acceptance_check": "Makalede, kod ve veri setlerinin erişilebilir olduğu bir bağlantı veya açıklama eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f0.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Makalenin 'Giriş' veya 'Sonuç' bölümüne, çalışmanın etik boyutlarını ve potansiyel toplumsal etkilerini tartışan kısa bir paragraf ekleyin. Örneğin, otonom sistemlerin karar alma süreçleri, güvenlik veya işgücü üzerindeki etkileri gibi konulara değinilebilir.",
+        "acceptance_check": "Makalede etik hususlara değinen bir paragrafın bulunması.",
+        "linked_finding_ids": [
+          "ethics_limitations.f0"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "PROBLEM FORMULATION AND ASSUMPTIONS, EXPERIMENTS",
+        "instruction": "Proxy becerilerin seçimi ve bunların transfer başarısı üzerindeki etkisi hakkında daha fazla tartışma eklenebilir. Farklı proxy becerilerinin ortak özellik uzayının öğrenilmesi üzerindeki etkileri veya ideal proxy becerilerinin özellikleri hakkında rehberlik sağlanabilir.",
+        "acceptance_check": "Proxy beceri seçimi ve etkisi üzerine ek bir paragraf veya alt bölüm eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f4.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "5.1 METHODS USED FOR COMPARISON",
+        "instruction": "Farklı yöntemler arasındaki karşılaştırmalarda çoklu karşılaştırma düzeltmelerinin uygulanıp uygulanmadığını açıklayın. Uygulanmadıysa, bunun potansiyel etkilerini tartışın.",
+        "acceptance_check": "Çoklu karşılaştırma düzeltmeleri veya bu konudaki bir tartışma metinde yer almalı.",
+        "linked_finding_ids": [
+          "quant.f4"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Performans metrikleri (örn. başarı oranları) için belirsizlik ölçülerini (örn. standart sapma, standart hata veya güven aralıkları) raporlayın. Eğer istatistiksel karşılaştırmalar yapılıyorsa, ilgili test istatistiklerini ve p-değerlerini de ekleyin.",
+        "acceptance_check": "Performans metrikleri yanında belirsizlik ölçüleri veya istatistiksel test sonuçları (varsa) raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Simülasyon deneylerinde eksik veri veya aykırı değerlerin (varsa) nasıl ele alındığına dair bir açıklama ekleyin. Örneğin, başarısız denemelerin nasıl değerlendirildiği veya öğrenme eğrilerindeki anormalliklerin nasıl yönetildiği belirtilebilir.",
+        "acceptance_check": "Eksik veri ve aykırı değer işleme stratejileri (veya bunların neden geçerli olmadığı) metinde açıklanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Çalışmanın Sınırlılıklarının Kapsamlı Tartışmasının Eksikliği; Yenilik ve Kapsam Dengesi",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6"
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f1.a0",
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "related_work.a0",
+          "related_work.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1 INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yenilik ve Kapsam Dengesi",
+        "anchor_ids": [
+          "1_introduction.a0",
+          "1_introduction.a1",
+          "1_introduction.a2"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1"
+        ]
+      },
+      {
+        "section": "2 RELATED WORK",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yenilik ve Kapsam Dengesi",
+        "anchor_ids": [
+          "2_related_work.a0"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1"
+        ]
+      },
+      {
+        "section": "3 PROBLEM FORMULATION AND ASSUMPTIONS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_problem_formulation_and_assumptions.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4 LEARNING COMMON FEATURE SPACES FOR SKILL TRANSFER",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Şekil 1'deki Metin Boyutu ve Okunabilirlik Sorunu",
+        "anchor_ids": [
+          "4_learning_common_feature_spaces_for_skill_transfer.a0",
+          "4_learning_common_feature_spaces_for_skill_transfer.a1"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ]
+      },
+      {
+        "section": "4.1 LEARNING THE EMBEDDING FUNCTIONS FROM A PROXY TASK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_1_learning_the_embedding_functions_from_a_proxy_task.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "5 EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Çalışmanın Sınırlılıklarının Kapsamlı Tartışmasının Eksikliği; Şekil 2 ve Şekil 3'ün Tekrarlayan İçeriği; Veri ve Kod Erişilebilirliği Eksikliği",
+        "anchor_ids": [
+          "5_experiments.a0",
+          "5_experiments.a1",
+          "5_experiments.a2",
+          "5_experiments.a3",
+          "5_experiments.a4"
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f1.a0",
+          "presentation_clarity.f1.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "5.1 METHODS USED FOR COMPARISON",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Çoklu Karşılaştırma Riski ve Düzeltme Eksikliği",
+        "anchor_ids": [
+          "5_1_methods_used_for_comparison.a0"
+        ],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ]
+      },
+      {
+        "section": "5.2 TRANSFER BETWEEN ROBOTS WITH DIFFERENT NUMBERS OF LINKS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Şekil 2 ve Şekil 3'ün Tekrarlayan İçeriği",
+        "anchor_ids": [
+          "5_2_transfer_between_robots_with_different_numbers_of_links.a0"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "experiments.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "PROBLEM FORMULATION AND ASSUMPTIONS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "problem_formulation_and_assumptions.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Table 1",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Ana Sonuçların Etki Büyüklüğü ve Belirsizlikle Sunulmaması; Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "anchor_ids": [
+          "table_1.a0",
+          "table_1.a1",
+          "table_1.a2"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f10.a0",
+          "quant.f6.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Discussion",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Discussion' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "major_revision"
+}

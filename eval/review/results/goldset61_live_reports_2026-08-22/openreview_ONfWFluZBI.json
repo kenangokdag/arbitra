@@ -1,0 +1,8 @@
+{
+  "paper_id": "openreview:ONfWFluZBI",
+  "run_tag": "main",
+  "job_id": "9283f9cc-6f1c-4378-a87e-5f5aaaea848c",
+  "elapsed_s": 46.6,
+  "final_status": "failed",
+  "error": "SupabaseQueryError: supabase call failed: RemoteProtocolError"
+}

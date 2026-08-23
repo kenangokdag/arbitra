@@ -1,0 +1,1743 @@
+{
+  "paper_id": "peerread:iclr2017-778",
+  "run_tag": "main",
+  "job_id": "d6625dd6-1db7-41e5-a03e-a5dfc40688d9",
+  "elapsed_s": 374.8,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "TERNARY WEIGHT DECOMPOSITION AND BINARY AC- TIVATION ENCODING FOR FAST AND COMPACT NEU- RAL NETWORK Mitsuru Ambai & Takuya Matsumoto",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RELATED WORK",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 5439,
+      "reference_count": 20,
+      "parse_confidence": 0.685,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces a novel method for deep neural network compression and acceleration at test-time. The core idea is a dual decomposition: weights are factorized into a ternary matrix and a real-valued coefficient matrix for memory savings, while activations are encoded as a weighted sum of binary vectors to enable fast computation via logical operations. The authors demonstrate the method's effectiveness on three distinct tasks (digit classification, large-scale image classification, and face recognition) using established architectures like LeNet-5, VGG-16, and VGG-Face. The experimental results are compelling, showing significant speedups (up to 15x) and compression (down to 5.2% of original size) with a modest and controllable drop in accuracy.",
+    "strengths": [
+      {
+        "category": "Novelty and Importance",
+        "points": [
+          "The problem addressed—reducing the computational and memory footprint of DNNs—is of high practical importance for deploying models on resource-constrained devices. The reported performance gains are substantial.",
+          "The method's design as a post-processing step that does not require end-to-end retraining is a significant practical advantage, making it broadly applicable to pre-trained models."
+        ]
+      },
+      {
+        "category": "Experimental Rigor",
+        "points": [
+          "The evaluation is comprehensive, covering three different network architectures and application domains, which demonstrates the generalizability of the approach.",
+          "The paper provides a clear analysis of the trade-offs between performance (speed/compression) and accuracy by varying the key hyperparameters (kx and kw).",
+          "The results are impressive, particularly the 15x acceleration on the VGG-16 fully connected layers for a minor 1.43% increase in top-5 error, which strongly supports the paper's central claims."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Scholarly Practice",
+        "points": [
+          "The reference list is in a critical state. A vast majority of the citations are not formatted in a way that allows them to be programmatically resolved against standard academic indices. This is a major flaw that hinders verification and situating the work within the literature."
+        ]
+      },
+      {
+        "category": "Clarity and Completeness",
+        "points": [
+          "The procedure for pre-computing the canonical activation coefficients (cx and bx) could be described in more detail. The rationale for choosing the sampling parameters (NT and n) and the method's sensitivity to them are not discussed.",
+          "The claim that the method makes it 'easier to deploy a deep network on... specialized hardware' is asserted but not substantiated. A brief discussion of implementation considerations (e.g., logic gate estimates, on-chip memory for the lookup table) would make this claim more concrete."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The most significant issue with this manuscript is the state of the bibliography. The paper cites 20 sources, but 19 of them could not be found in major bibliographic databases based on the provided information. This includes foundational works like the VGG paper (Simonyan & Zisserman, 2015), the ImageNet challenge paper (Russakovsky et al., 2015), and the Batch Normalization paper (Ioffe & Szegedy, 2015). While the text correctly identifies the relevance of these works, the broken citations make it nearly impossible for a reader to locate them. This is a critical issue of scholarly diligence that must be fully rectified before the paper can be considered for publication.",
+        "evidence_ref": "Citation Integrity Summary: 19 of 20 references are 'not_found_in_index'."
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The description of the binary activation encoding in Section 4 is good, but the pre-computation of canonical coefficients cx and bx is a key step for test-time efficiency. Please elaborate on how the parameters NT=1000 and n=10 were chosen. It would be valuable to include a brief sensitivity analysis or discussion on how these choices impact the final performance, as this seems crucial for practitioners to replicate or adapt the method.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The paper claims the method is well-suited for specialized hardware (FPGAs/ASICs). This is a strong selling point. To strengthen this, consider adding a short paragraph discussing the hardware implementation implications. For example, what is the size of the lookup table (L=4096) in terms of on-chip memory? How do the required logical operations (AND, XOR, bitcount) map to hardware resources compared to floating-point multipliers? This would provide a more tangible link between the algorithm and its hardware benefits.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you please perform a complete and thorough revision of the reference list to ensure every entry is accurate, complete, and correctly formatted so that it can be easily located by readers and indexing services?",
+      "Regarding the pre-computation of activation coefficients (cx, bx), what is the sensitivity of the model's performance to the choice of NT (number of training data samples) and n (elements sampled from each activation vector)?",
+      "What is the offline computational cost (e.g., wall-clock time) of the ternary weight decomposition (Algorithm 1) for a large layer like the first fully connected layer of VGG-16?",
+      "The use of a lookup table with L=4096 entries is key to the fast activation encoding. Could you comment on the memory footprint of this table and its implications for deployment on cache-limited hardware?"
+    ],
+    "overall_assessment": "The paper presents a technically sound and highly promising method for DNN acceleration and compression. The core contribution is valuable, and the experimental results are strong and well-documented, demonstrating significant practical benefits. The work is a valuable contribution to the field. However, the manuscript has one significant flaw: the bibliography is in a state that prevents automated verification of nearly all sources (19 of 20 references could not be resolved). While this is a serious issue of scholarly presentation that must be fully corrected before publication, the reviewers believe the technical and experimental strengths of the work merit acceptance, conditional on a thorough correction of the reference list. Additionally, minor clarifications regarding hyperparameter selection and hardware implementation details would further strengthen the paper.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The specific combination of existing techniques (ternary weights, binary activations) is effectively applied to the problem, though the individual components have precedents in the literature.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "Addresses the highly relevant problem of model compression. The reported speedups and compression ratios are significant and of great interest to the community."
+      },
+      {
+        "key": "claims_supported",
+        "score": 5.59,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: The primary claims of speedup and compression are very well supported by extensive experiments. The claim about hardware suitability is less substantiated.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The proposed algorithms are well-defined, and the experimental methodology is rigorous and appropriate for the claims being made.]"
+      },
+      {
+        "key": "clarity",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is generally well-written and easy to follow, but some key details regarding hyperparameter selection for activation encoding could be clearer.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.5,
+        "rationale": "The method is practical and, as a post-processing step, could be widely adopted. Its value would be very high if the code were made available."
+      },
+      {
+        "key": "contextualization",
+        "score": 4.0,
+        "rationale": "The text discusses relevant related work, but the context is severely undermined by a broken reference list that prevents readers from accessing the cited papers."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 1.0,
+        "rationale": "Critical failure. The evidence pack shows 19 out of 20 references could not be resolved, indicating a systemic problem with the bibliography that is unacceptable for publication in its current state."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.0,
+        "rationale": "The evidence pack did not identify any major seminal works that were omitted from the discussion in the related work section."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity info. [LLM'in kendi gerekçesi: The evidence pack did not report any inconsistencies between the statistics mentioned in the text and their underlying data.]"
+      }
+    ],
+    "final_score": 7.24,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 20,
+        "resolved": 1,
+        "not_found_in_index": 19,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Mitsuru Ambai and Ikuro Sato. SPADE : Scalar Product Accelerator by Integer Decomposition. ECCV, pp. 267–281, 2014.",
+          "title": "SPADE : Scalar Product Accelerator by Integer Decomposition",
+          "authors": [
+            "Mitsuru Ambai",
+            "Ikuro Sato"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.38 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "BVLC. Model Zoo: https://github.com/BVLC/caffe/wiki/Model-Zoo. Misha Denil, Babak Shakibi, Laurent Dinh, Marc’Aurelio Ranzato, and Nando de Freitas. Predicting Parameters in Deep Learning. NIPS, pp. 2148–2156, 2013.",
+          "title": "Model Zoo: https://github.com/BVLC/caffe/wiki/Model-Zoo. Misha Denil, Babak Shakibi, Laurent Dinh, Marc’Aurelio Ranzato, and Nando de Freitas",
+          "authors": [
+            "BVLC"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Song Han, Jeff Pool, John Tran, and William J Dally. Learning both Weights and Connections for Efﬁcient Neural Networks. NIPS, pp. 1135–1143, 2015.",
+          "title": "Learning both Weights and Connections for Efﬁcient Neural Networks",
+          "authors": [
+            "Song Han, Jeff Pool, John Tran",
+            "William J Dally"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Song Han, Huizi Mao, and William J. Dally. Deep Compression - Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding. ICLR, 2016.",
+          "title": "Deep Compression - Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding",
+          "authors": [
+            "Song Han, Huizi Mao",
+            "William J. Dally"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2119144962",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2119144962; 'Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Sam Hare, Amir Saffari, and Philip H. S. Torr. Efﬁcient Online Structured Output Learning for Keypoint-Based Object Tracking. CVPR, pp. 1894–1901, 2012.",
+          "title": "Efﬁcient Online Structured Output Learning for Keypoint-Based Object Tracking",
+          "authors": [
+            "Sam Hare, Amir Saffari",
+            "Philip H. S. Torr"
+          ],
+          "year": 1901,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Geoffrey Hinton, Oriol Vinyals, and Jeff Dean. Distilling the Knowledge in a Neural Network. Deep Learning and Representation Learning Workshop, 2014.",
+          "title": "Distilling the Knowledge in a Neural Network",
+          "authors": [
+            "Geoffrey Hinton, Oriol Vinyals",
+            "Jeff Dean"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.56 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Gary B. Huang, Manu Ramesh, Tamara Berg, and Erik Learned-Miller. Labeled Faces in the Wild: a Database for Studying Face Recognition in Unconstrained Environments. University of Massachusetts Amherst Technical Report, (07-49), 2007.",
+          "title": "Labeled Faces in the Wild: a Database for Studying Face Recognition in Unconstrained Environments",
+          "authors": [
+            "Gary B. Huang, Manu Ramesh, Tamara Berg",
+            "Erik Learned-Miller"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Sergey Ioffe and Christian Szegedy. Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift. In ICML, pp. 81–87, 2015.",
+          "title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+          "authors": [
+            "Sergey Ioffe",
+            "Christian Szegedy"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Max Jaderberg, Andrea Vedaldi, and Andrew Zisserman. Speeding up Convolutional Neural Networks with Low Rank Expansions. BMVC, 2014.",
+          "title": "Speeding up Convolutional Neural Networks with Low Rank Expansions",
+          "authors": [
+            "Max Jaderberg, Andrea Vedaldi",
+            "Andrew Zisserman"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.67 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-Based Learning Applied to Document Recognition. Proceedings of the IEEE, 86(11):2278–2323, 1998.",
+          "title": "Gradient-Based Learning Applied to Document Recognition",
+          "authors": [
+            "Yann LeCun, Léon Bottou, Yoshua Bengio",
+            "Patrick Haffner"
+          ],
+          "year": 1998,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Michael Mathieu, Mikael Henaff, and Yann LeCun. Fast Training of Convolutional Networks through FFTs. ICLR, 2014.",
+          "title": "Fast Training of Convolutional Networks through FFTs",
+          "authors": [
+            "Michael Mathieu, Mikael Henaff",
+            "Yann LeCun"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.55 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Omkar M. Parkhi, Andrea Vedaldi, and Andrew Zisserman. Deep Face Recognition. BMVC, 2015.",
+          "title": "Deep Face Recognition",
+          "authors": [
+            "Omkar M. Parkhi, Andrea Vedaldi",
+            "Andrew Zisserman"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.35 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Mohammad Rastegari, Vicente Ordonez, Joseph Redmon, and Ali Farhadi. XNOR-Net: ImageNet Classiﬁcation Using Binary Convolutional Neural Networks. ECCV, pp. 525–542, 2016.",
+          "title": "XNOR-Net: ImageNet Classiﬁcation Using Binary Convolutional Neural Networks",
+          "authors": [
+            "Mohammad Rastegari, Vicente Ordonez, Joseph Redmon",
+            "Ali Farhadi"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Olga Russakovsky, Jia Deng, Hao Su, Jonathan Krause, Sanjeev Satheesh, Sean Ma, Zhiheng Huang, Andrej Karpathy, Aditya Khosla, Michael Bernstein, Alexander C. Berg, and Li Fei-Fei. ImageNet Large Scale Visual Recognition Challenge. IJCV, 115(3):211–252, 2015.",
+          "title": "ImageNet Large Scale Visual Recognition Challenge",
+          "authors": [
+            "Li Fei-Fei"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.56 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Karen Simonyan and Andrew Zisserman. Very Deep Convolutional Networks for Large-Scale Image Recognition. ICLR, 2015.",
+          "title": "Very Deep Convolutional Networks for Large-Scale Image Recognition",
+          "authors": [
+            "Karen Simonyan",
+            "Andrew Zisserman"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.65 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Vincent Vanhoucke, Andrew Senior, and Mark Z. Mao. Improving the Speed of Neural Networks on CPUs. Deep Learning and Unsupervised Feature Learning Workshop, 2011.",
+          "title": "Improving the Speed of Neural Networks on CPUs",
+          "authors": [
+            "Vincent Vanhoucke, Andrew Senior",
+            "Mark Z. Mao"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Andrea Vedaldi and Karel Lenc. MatConvNet: Convolutional Neural Networks for MATLAB. Proceeding of the ACM International Conference on Multimedia, pp. 689–692, 2015.",
+          "title": "MatConvNet: Convolutional Neural Networks for MATLAB",
+          "authors": [
+            "Andrea Vedaldi",
+            "Karel Lenc"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.58 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Zichao Yang, Marcin Moczulski, Misha Denil, Nando de Freitas, Alex Smola, Le Song, and Ziyu Wang. Deep Fried Convnets. ICCV, pp. 1476–1483, 2015.",
+          "title": "Deep Fried Convnets",
+          "authors": [
+            "Ziyu Wang"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.33 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Yamauchi Yuji, Ambai Mitsuru, Sato Ikuro, Yoshida Yuichi, Fujiyoshi Hironobu, and Yamashita Takayoshi. Asymmetric Feature Representation for Object Recognition in Client Server System. ACCV, pp. 598–612, 2014.",
+          "title": "Asymmetric Feature Representation for Object Recognition in Client Server System",
+          "authors": [
+            "Yamauchi Yuji, Ambai Mitsuru, Sato Ikuro, Yoshida Yuichi, Fujiyoshi Hironobu",
+            "Yamashita Takayoshi"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Xiangyu Zhang, Jianhua Zou, Kaiming He, and Jian Sun. Accelerating Very Deep Convolutional Networks for Classiﬁcation and Detection. PAMI, 2015. 9",
+          "title": "Accelerating Very Deep Convolutional Networks for Classiﬁcation and Detection",
+          "authors": [
+            "Xiangyu Zhang, Jianhua Zou, Kaiming He",
+            "Jian Sun"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.32 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "4dce7d4071de51a5bb246444d7f83ffce5769b16439b6e80da3a68951bae1a42",
+          "request_time": "2026-08-22T18:08:59.024677Z",
+          "status": "ok",
+          "result_count": 1,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:09:00.006372Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "d97e61130db06026bf26a3b2728a082cb4ed9d5f9c225f2ae90d37037a2c3316",
+          "request_time": "2026-08-22T18:09:00.886528Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:15:00.048511Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.8,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.7,
+      "rationale": "Belgenin kısa kelime sayısı, sınırlı bölüm başlıkları (ABSTRACT, INTRODUCTION, RELATED WORK, CONCLUSION, REFERENCES) ve yazar bilgilerinde 'Denso IT Laboratory, Inc.' gibi bir şirketin yer alması, bunun bir konferans bildirisi olabileceğini düşündürüyor. Çalışma tasarımı, derin öğrenme modellerinin performansını artırmaya yönelik yeni bir yöntem (ternary weight decomposition) önermesi ve bunu deneysel olarak (CNN, VGG-16, VGG-Face) test etmesi nedeniyle 'computational_modeling' olarak sınıflandırılmıştır.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 78.875,
+      "recommended_decision": "accept",
+      "confidence": 0.7272,
+      "top_fatal_risks": [
+        "Belirsizlik Ölçülerinin Eksikliği",
+        "Tekrar Üretilebilirlik İçin Veri/Kod Eksikliği",
+        "Tekrar Üretim İçin Kod ve Veri Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 3 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 1.0,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 33.0,
+        "severity": "major",
+        "confidence": 0.8,
+        "why_it_matters": "4 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): The reference list is in a critical state. 19 out of 20 citations could not be programmatically resolved against standard academic indices. This is a major flaw that hinders verification and situating the work within the literature. This includes foundational works like the VGG paper, ImageNet challenge paper, and Batch Normalization paper. This fundamental lack of scholarly diligence must be fully rectified.; The procedure for pre-computing the canonical activation coefficients (cx and bx) lacks sufficient detail. Specifically, the rationale for choosing the sampling parameters (NT=1000 and n=10) is not discussed, nor is the method's sensitivity to these choices. This is crucial for reproducibility and practical application.; The claim that the method makes it 'easier to deploy a deep network on... specialized hardware' is asserted but not substantiated with concrete details. There is no discussion of implementation considerations such as the memory footprint of the lookup table (L=4096) or how the required logical operations map to hardware resources compared to floating-point operations. (+1 more)",
+        "key_objection": "The reference list is in a critical state. 19 out of 20 citations could not be programmatically resolved against standard academic indices. This is a major flaw that hinders verification and situating the work within the literature. This includes foundational works like the VGG paper, ImageNet challenge paper, and Batch Normalization paper. This fundamental lack of scholarly diligence must be fully rectified.",
+        "confidence": 0.75,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "novelty_to_length_ratio.f0",
+          "novelty_to_length_ratio.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "reviewer_confidence.f0",
+          "reviewer_confidence.f1",
+          "reviewer_confidence.f2"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "revision-required",
+        "summary": "2 concern(s): The description of the pre-computation process for canonical activation coefficients (cx and bx) lacks sufficient detail. Specifically, the rationale for choosing the sampling parameters (NT=1000 and n=10) is not discussed, nor is the method's sensitivity to these choices. This omission makes it difficult for practitioners to replicate or adapt the method effectively.; The claim that the method makes it 'easier to deploy a deep network on... specialized hardware' is asserted without sufficient substantiation. There is no discussion of implementation considerations such as logic gate estimates, on-chip memory requirements for the lookup table (L=4096), or a comparison of hardware resources needed versus floating-point operations. This weakens the practical implications of the method for hardware deployment.",
+        "key_objection": "The description of the pre-computation process for canonical activation coefficients (cx and bx) lacks sufficient detail. Specifically, the rationale for choosing the sampling parameters (NT=1000 and n=10) is not discussed, nor is the method's sensitivity to these choices. This omission makes it difficult for practitioners to replicate or adapt the method effectively.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "reject-leaning",
+        "summary": "3 concern(s): The reference list is in a critical state. 19 out of 20 citations could not be programmatically resolved against standard academic indices. This is a major flaw that hinders verification and situating the work within the literature. For example, foundational works like the VGG paper (Simonyan & Zisserman, 2015), the ImageNet challenge paper (Russakovsky et al., 2015), and the Batch Normalization paper (Ioffe & Szegedy, 2015) are cited but cannot be found based on the provided information. This must be fully rectified.; The procedure for pre-computing the canonical activation coefficients (cx and bx) could be described in more detail. Specifically, the rationale for choosing the sampling parameters (NT=1000 and n=10) and the method's sensitivity to them are not discussed. A brief sensitivity analysis or discussion on how these choices impact the final performance would be valuable for practitioners.; The claim that the method makes it 'easier to deploy a deep network on... specialized hardware' is asserted but not sufficiently substantiated. A brief discussion of implementation considerations (e.g., the memory footprint of the lookup table (L=4096), how logical operations map to hardware resources compared to floating-point multipliers) would make this claim more concrete and tangible.",
+        "key_objection": "The reference list is in a critical state. 19 out of 20 citations could not be programmatically resolved against standard academic indices. This is a major flaw that hinders verification and situating the work within the literature. For example, foundational works like the VGG paper (Simonyan & Zisserman, 2015), the ImageNet challenge paper (Russakovsky et al., 2015), and the Batch Normalization paper (Ioffe & Szegedy, 2015) are cited but cannot be found based on the provided information. This must be fully rectified.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): The statement 'A vast majority of the citations are not formatted in a way that allows them to be programmatically resolved against standard academic indices' is accurate. The evidence package shows that 19 out of 20 references were 'not_found_in_index'.; This statement is directly supported by the 'Citation Integrity Summary' which states 'total=20, resolved=1, not_found=19'.; The evidence package confirms that references [15] 'Very Deep Convolutional Networks for Large-Scale Image Recognition' (VGG paper), [14] 'ImageNet Large Scale Visual Recognition Challenge' (ImageNet challenge paper), and [8] 'Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift' (Batch Normalization paper) were all 'not_found_in_index'. (+1 more)",
+        "key_objection": "The statement 'A vast majority of the citations are not formatted in a way that allows them to be programmatically resolved against standard academic indices' is accurate. The evidence package shows that 19 out of 20 references were 'not_found_in_index'.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "revision-required",
+        "summary": "1 concern(s): The reviewer's claim of 'novel approach' and 'unified framework' for combining matrix factorization and integer decomposition is not sufficiently grounded. While the combination might be novel, the individual components (matrix factorization for weight compression, binary/ternary representations for activations/weights) have a long history in neural network compression. The report praises novelty without explicitly comparing it to the closest prior art in a detailed manner, which is crucial for substantiating such a strong claim.",
+        "key_objection": "The reviewer's claim of 'novel approach' and 'unified framework' for combining matrix factorization and integer decomposition is not sufficiently grounded. While the combination might be novel, the individual components (matrix factorization for weight compression, binary/ternary representations for activations/weights) have a long history in neural network compression. The report praises novelty without explicitly comparing it to the closest prior art in a detailed manner, which is crucial for substantiating such a strong claim.",
+        "confidence": 0.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "novelty_to_length_ratio.f0",
+          "novelty_to_length_ratio.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper introduces a novel method for deep neural network compression and acceleration at test-time. The core idea is a dual decomposition: weights are factorized into a ternary matrix and a real-valued coefficient matrix for memory savings, while activations are encoded as a weighted sum of binary vectors to enable fast computation via logical operations. The authors demonstrate the method's effectiveness on three distinct tasks (digit classification, large-scale image classification, and face recognition) using established architectures like LeNet-5, VGG-16, and VGG-Face. The experimental results are compelling, showing significant speedups (up to 15x) and compression (down to 5.2% of original size) with a modest and controllable drop in accuracy.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Deneysel Tasarımın Açık Tanımı",
+        "summary": "Makale, derin öğrenme modellerinin sıkıştırılması ve hızlandırılması üzerine deneysel bir çalışma sunmaktadır. Tasarım, farklı ağ mimarileri (CNN, VGG-16, VGG-Face) üzerinde önerilen yöntemin performansını değerlendirmeyi amaçlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "In our experiments, we tested our method on three different networks: a CNN for handwritten digits, VGG-16 model for ImageNet classiﬁcation, and VGG-Face for large-scale face recognition."
+          },
+          {
+            "anchor_id": "5_experiments.a0",
+            "section": "5 EXPERIMENTS",
+            "quote": "We tested our method on three different convolutional neural networks: CNN for handwritten digits (LeCun et al., 1998), VGG-16 for ImageNet classiﬁcation (Simonyan & Zisserman, 2015), and VGG-Face for large-scale face recognition (Parkhi et al., 2015)."
+          }
+        ],
+        "reasoning_public": "Çalışmanın amacı ve kullanılan yöntemler, deneysel bir yaklaşımla uyumlu bir şekilde sunulmuştur. Bu, araştırmanın temelini sağlamlaştırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Çalışma, farklı ağ mimarileri ve veri kümeleri üzerinde deneyler yapmasına rağmen, kullanılan örneklem büyüklüklerinin (örneğin, eğitim ve test veri setlerinin boyutu dışında, hiperparametre optimizasyonu için kullanılan 'n' ve 'NT' değerleri gibi) neden seçildiğine dair bir gerekçe veya istatistiksel güç analizi sunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_cnn_for_handwritten_digits.a0",
+            "section": "5.1 CNN FOR HANDWRITTEN DIGITS",
+            "quote": "We applied our method to the ﬁrst fully connected layer (fc1024-640) and set n = 10 and NT = 1000 to learn cx and bx from randomly chosen nNT activations."
+          },
+          {
+            "anchor_id": "5_2_vgg_16_for_imagenet_classification_task.a0",
+            "section": "5.2 VGG-16 FOR IMAGENET CLASSIFICATION TASK",
+            "quote": "We set n = 10 and NT = 1000 to learn cx and bx from randomly chosen nNT activations."
+          },
+          {
+            "anchor_id": "5_3_vgg_face_for_face_recognition_task.a0",
+            "section": "5.3 VGG-FACE FOR FACE RECOGNITION TASK",
+            "quote": "We set n = 10 and NT = 1000 to learn cx and bx from randomly chosen nNT activations."
+          }
+        ],
+        "reasoning_public": "Örneklem büyüklüğünün gerekçelendirilmemesi veya güç analizi yapılmaması, elde edilen sonuçların genellenebilirliği ve istatistiksel güvenilirliği hakkında soru işaretleri yaratabilir. Özellikle 'n' ve 'NT' gibi parametrelerin seçimi, modelin performansını etkileyebilir ve bu seçimlerin rastgele mi yoksa belirli bir metodolojiye göre mi yapıldığı belirsizdir.",
+        "limitations": [
+          "Derin öğrenme modellerinde geleneksel istatistiksel güç analizi yöntemlerinin uygulanabilirliği sınırlı olabilir.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Ölçüm Araçları ve Değişken Operasyonelleştirmenin Açıklığı",
+        "summary": "Çalışmada kullanılan performans metrikleri (hata oranı, top-5 hata oranı, EER, bellek sıkıştırma oranı, hızlanma oranı) ve bunların nasıl hesaplandığı açıkça belirtilmiştir. Özellikle 'n' ve 'NT' gibi parametrelerin aktivasyon vektörlerinin öğrenilmesinde nasıl kullanıldığı açıklanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "15× acceleration and memory compression up to 5.2% were achieved with only a 1.43% increase in the top-5 error."
+          },
+          {
+            "anchor_id": "5_experiments.a1",
+            "section": "5 EXPERIMENTS",
+            "quote": "To compute memory compression rate, a size of W and a total size of Mw and Cw were compared. To obtain a fair evaluation of computation time, a test-time code of forward propagation was implemented without using any parallelization scheme, e.g., multi-threading or SIMD, and was used for both compressed and uncompressed networks."
+          },
+          {
+            "anchor_id": "5_3_vgg_face_for_face_recognition_task.a1",
+            "section": "5.3 VGG-FACE FOR FACE RECOGNITION TASK",
+            "quote": "The EER is deﬁned as an error rate at the ROC operating point where the false positive and false negative rates are equal."
+          }
+        ],
+        "reasoning_public": "Performans metriklerinin ve temel değişkenlerin operasyonelleştirilmesinin net bir şekilde tanımlanması, çalışmanın şeffaflığını ve tekrarlanabilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "İstatistiksel Test Seçimi ve Varsayımlar",
+        "summary": "Çalışma, derin öğrenme modellerinin performansını değerlendirmek için hata oranları, hızlanma oranları ve bellek sıkıştırma oranları gibi nicel metrikleri kullanmaktadır. Bu metrikler, önerilen yöntemin etkinliğini göstermek için uygun görünmektedir. Varsayım testleri veya çoklu karşılaştırma riskleri gibi geleneksel istatistiksel analiz planı unsurları, bu tür bir mühendislik çalışmasının doğası gereği doğrudan uygulanmamıştır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Derin öğrenme alanındaki bu tür çalışmalar genellikle istatistiksel hipotez testlerinden ziyade deneysel performans karşılaştırmalarına odaklanır. Kullanılan metrikler, yöntemin pratik faydalarını değerlendirmek için uygundur.",
+        "limitations": [
+          "Bu tür bir mühendislik çalışmasında geleneksel istatistiksel varsayım testleri veya çoklu karşılaştırma düzeltmeleri genellikle uygulanmaz."
+        ],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Metin-Tablo-Figür Sayı Tutarlılığı",
+        "summary": "Makalede sunulan metin, tablo ve figürlerdeki sayısal değerler arasında genel bir tutarlılık gözlemlenmiştir. Örneğin, VGG-16 için belirtilen hızlanma ve sıkıştırma oranları metin ve tablolarda uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "In particular, when we applied our method to three fully connected layers in the VGG-16, 15× acceleration and memory compression up to 5.2% were achieved with only a 1.43% increase in the top-5 error."
+          },
+          {
+            "anchor_id": "table_3.a0",
+            "section": "Table 3",
+            "quote": "total ... 24.4 ... 5.2% ... 11.4 ... 15.0×"
+          },
+          {
+            "anchor_id": "table_3.a1",
+            "section": "Table 3",
+            "quote": "Top-5 error (%) ... 13.4 ... 14.8"
+          }
+        ],
+        "reasoning_public": "Sayısal verilerin metin, tablo ve figürler arasında tutarlı olması, raporlamanın kalitesini ve güvenilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Çalışma, hızlanma oranları, bellek sıkıştırma oranları ve hata oranlarındaki artış gibi etki büyüklüklerini raporlamaktadır. Ancak, bu etki büyüklükleri için güven aralıkları veya diğer belirsizlik ölçüleri (örneğin, standart sapma, standart hata) sunulmamıştır. Bu durum, sonuçların değişkenliği ve genellenebilirliği hakkında bilgi eksikliğine yol açmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "15× acceleration and memory compression up to 5.2% were achieved with only a 1.43% increase in the top-5 error."
+          },
+          {
+            "anchor_id": "table_3.a2",
+            "section": "Table 3",
+            "quote": "Best balanced parameters for decomposing three fully connected layers of VGG-16."
+          }
+        ],
+        "reasoning_public": "Etki büyüklüklerinin belirsizlik ölçüleri olmadan raporlanması, okuyucunun sonuçların ne kadar güvenilir veya tekrarlanabilir olduğunu değerlendirmesini zorlaştırır. Özellikle farklı ağ mimarileri ve veri setleri üzerinde yapılan deneylerde, bu tür belirsizliklerin raporlanması önemlidir.",
+        "limitations": [
+          "Derin öğrenme deneylerinde her bir konfigürasyon için birden fazla tekrar yapmak zaman ve kaynak açısından maliyetli olabilir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejisi",
+        "summary": "Makale, eksik veri veya aykırı değerlerin nasıl ele alındığına dair spesifik bir strateji belirtmemektedir. Ancak, derin öğrenme bağlamında, veri setleri genellikle eksiksiz kabul edilir ve aykırı değerler, modelin genelleme yeteneğini etkileyebilecek gürültü olarak ele alınır. Çalışma, 'n' ve 'NT' parametreleri ile rastgele örnekleme yaparak aktivasyon vektörlerini öğrenme sürecini açıklamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_binary_activation_encoding.a0",
+            "section": "4 BINARY ACTIVATION ENCODING",
+            "quote": "First, NT different activation vectors T ∈{xi}NT i=1 are collected from randomly chosen NT training data. Second, n elements are randomly sampled from xi. The sampled nNT elements are concatenated to form a vector x̂ ∈RnNT ."
+          }
+        ],
+        "reasoning_public": "Bu tür bir çalışmada eksik veri veya aykırı değer işleme stratejilerinin açıkça belirtilmemesi yaygındır, çünkü genellikle veri setleri bu tür sorunlardan arındırılmış olarak kabul edilir. Rastgele örnekleme, potansiyel aykırı değerlerin etkisini azaltmaya yardımcı olabilir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Disiplini",
+        "summary": "Makale, önerilen yöntemin (TERNARY WEIGHT DECOMPOSITION AND BINARY ACTIVATION ENCODING) ağ performansını (hızlanma, sıkıştırma, hata oranı artışı) nasıl 'etkilediğini' veya 'sağladığını' açıklarken nedensel bir dil kullanmaktadır. Bu, deneysel bir çalışma olduğu ve yöntemin doğrudan sonuçları üzerinde kontrol sahibi olduğu için uygun bir kullanımdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "This paper aims to reduce test-time computational load of a deep neural network."
+          },
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "15× acceleration and memory compression up to 5.2% were achieved with only a 1.43% increase in the top-5 error."
+          },
+          {
+            "anchor_id": "6_conclusion.a0",
+            "section": "6 CONCLUSION",
+            "quote": "Our experiments revealed that the proposed compression model is available not only for multi-class recognition but also for feature embedding."
+          }
+        ],
+        "reasoning_public": "Deneysel tasarımlarda, müdahalenin (önerilen yöntem) sonuçlar üzerindeki nedensel etkisini belirtmek uygun ve beklenen bir durumdur. Makale bu disiplini korumaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Tekrar Üretilebilirlik İçin Veri/Kod Eksikliği",
+        "summary": "Makale, deneylerde kullanılan veri setlerini (MNIST, ImageNet, LFW) ve temel ağ mimarilerini (LeNet-5, VGG-16, VGG-Face) belirtmesine rağmen, önerilen yöntemin uygulanması için kullanılan kodun veya detaylı implementasyon adımlarının (örneğin, optimizasyon algoritmalarının spesifik ayarları, başlangıç ağırlıkları) kamuya açık olup olmadığına dair bilgi vermemektedir. Bu durum, çalışmanın tam olarak tekrar üretilebilirliğini kısıtlamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmalarda tekrar üretilebilirlik, bulguların doğrulanması ve bilimin ilerlemesi için kritik öneme sahiptir. Kod ve veri paylaşımının eksikliği, diğer araştırmacıların sonuçları bağımsız olarak doğrulamalarını veya üzerine inşa etmelerini engeller.",
+        "limitations": [
+          "Kod paylaşımı, fikri mülkiyet veya ticari sırlar nedeniyle her zaman mümkün olmayabilir."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0",
+          "quant.f8.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Sonuçların Raporlanmasında 'Significant' Dili Kullanımı",
+        "summary": "Makale, 'significant redundancy' gibi ifadeler kullanarak istatistiksel anlamlılık çağrıştıran bir dil kullanmaktadır. Ancak, bu ifadeler genellikle istatistiksel test sonuçlarına dayanmamakta, daha çok gözlemsel veya nitel bir değerlendirme olarak sunulmaktadır. Bu durum, okuyucuda yanlış bir istatistiksel kesinlik algısı yaratabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "1_1_related_work.a0",
+            "section": "1.1 RELATED WORK",
+            "quote": "It was pointed out by Denil et al. (2013) that network weights have a signiﬁcant redundancy."
+          }
+        ],
+        "reasoning_public": "İstatistiksel testler yapılmadığında 'significant' gibi terimlerin kullanılması, raporlama kalitesini düşürebilir ve bulguların yorumlanmasında kafa karışıklığına yol açabilir. Özellikle 'significant redundancy' gibi ifadeler, nicel bir kanıt olmadan kullanıldığında yanıltıcı olabilir.",
+        "limitations": [
+          "Bu ifade, alandaki literatürde yaygın olarak kullanılan bir terim olabilir ve doğrudan bu makalenin kendi istatistiksel analizini yansıtmayabilir."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Konusu ve Hedef Kitle Uyumu",
+        "summary": "Makale, derin öğrenme modellerinin sıkıştırılması ve hızlandırılması konusunu ele almaktadır. Bu konu, 'Hızlı ve Kompakt Sinir Ağı' başlığıyla belirtildiği gibi, yapay zeka ve makine öğrenimi alanındaki güncel araştırma trendleriyle uyumludur ve ilgili konferans veya dergi track'lerine uygun düşmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "This paper aims to reduce test-time computational load of a deep neural network."
+          },
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "This makes it easier to deploy a deep network on low-power CPUs or to design specialized hardware."
+          }
+        ],
+        "reasoning_public": "Makale, derin sinir ağlarının test zamanı hesaplama yükünü azaltmayı hedefleyen bir yöntem sunmaktadır. Bu, özellikle düşük güç tüketimli cihazlarda veya özel donanımlarda derin öğrenme modellerinin dağıtımını kolaylaştırma potansiyeli taşımaktadır. Bu tür konular, genellikle yapay zeka, makine öğrenimi, bilgisayar mimarisi ve gömülü sistemler gibi alanlardaki konferans ve dergilerin ilgi alanına girmektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yenilik ve Kapsam Dengesi",
+        "summary": "Makale, mevcut yöntemlerin birleştirilmesi ve yeni bir aktivasyon kodlama tekniği sunarak önemli bir katkı sağlamaktadır. Ancak, sunulan deneysel sonuçların derinliği ve analizi, makalenin uzunluğuna kıyasla daha fazla detaylandırılabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "In a manner of speaking, our method is a uniﬁed framework of matrix/tensor factorization and integer decomposition reviewed in the above and inherits both their advantages."
+          },
+          {
+            "anchor_id": "abstract.a8",
+            "section": "ABSTRACT",
+            "quote": "Unlike previous methods which factorize a weight matrix into multiple real-valued matrices, our method factorizes both weights and activations into integer and non-integer components."
+          }
+        ],
+        "reasoning_public": "Makale, ağırlık matrisi çarpanlara ayırma ve tamsayı ayrıştırma yaklaşımlarını birleştirerek yeni bir hibrit sıkıştırma modeli önermektedir. Bu birleşim ve özellikle ikili aktivasyon kodlama mekanizması, alanda yeni bir bakış açısı sunmaktadır. Ancak, deneysel bölümdeki bazı analizler (örneğin, farklı katmanlar için parametre seçiminin nedenleri veya hata artışının altında yatan mekanizmalar) daha derinlemesine incelenebilir. Bu, makalenin sunduğu yeniliğin etkisini daha iyi vurgulayabilir ve okuyucunun yöntemin güçlü ve zayıf yönlerini daha iyi anlamasına yardımcı olabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f1",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yöntemin Özgünlüğü ve Potansiyeli",
+        "summary": "Makale, ağırlık ve aktivasyonları tamsayı ve tamsayı olmayan bileşenlere ayırarak derin öğrenme modellerinin sıkıştırılması ve hızlandırılması için özgün bir yaklaşım sunmaktadır. Bu, mevcut literatürdeki iki farklı sıkıştırma stratejisini birleştirmesi açısından kayda değerdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a9",
+            "section": "ABSTRACT",
+            "quote": "In our method, the real-valued weight matrix is approximated by a multiplication of a ternary matrix and a real-valued co-efﬁcient matrix. Since the ternary matrix consists of three integer values, {−1, 0, +1}, it only consumes 2 bits per element. At test-time, an activation vector that passed from a previous layer is also transformed into a weighted sum of binary vectors, {−1, +1}, which enables fast feed-forward propagation based on simple logical operations: AND, XOR, and bit count."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "In a manner of speaking, our method is a uniﬁed framework of matrix/tensor factorization and integer decomposition reviewed in the above and inherits both their advantages."
+          }
+        ],
+        "reasoning_public": "Önerilen yöntem, ağırlık matrisini üçlü bir matris ve gerçek değerli bir katsayı matrisine ayırırken, aktivasyonları ikili vektörlerin ağırlıklı toplamına dönüştürerek hem bellek sıkıştırması hem de hesaplama hızlandırması sağlamaktadır. Özellikle, aktivasyonların mantıksal işlemlerle hızlı ileri beslemeye olanak tanıyan ikili kodlaması, düşük güçlü CPU'larda veya özel donanımlarda dağıtımı kolaylaştıran yenilikçi bir özelliktir. Bu, makalenin temel katkısını ve yeniliğini açıkça ortaya koymaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Tekrar Üretim İçin Kod ve Veri Eksikliği",
+        "summary": "Makale, önerilen yöntemin deneysel sonuçlarını detaylı bir şekilde sunmasına rağmen, bu sonuçların bağımsız olarak doğrulanabilmesi için gerekli olan kod veya veri setlerine erişim sağlamamaktadır. Bu durum, çalışmanın tekrar üretilebilirliğini ciddi şekilde kısıtlamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik araştırmalarda tekrar üretilebilirlik, bir çalışmanın güvenilirliğini ve bilimsel geçerliliğini sağlamak için temel bir gerekliliktir. Yöntemin ve deneylerin detaylı açıklamaları olsa bile, kod ve veri setlerinin eksikliği, diğer araştırmacıların sonuçları bağımsız olarak doğrulamasını veya üzerine inşa etmesini engeller. Bu, makalenin bilimsel etkisini ve şeffaflığını azaltır.",
+        "limitations": [],
+        "action_item_ids": [
+          "reproducibility_artifact.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reproducibility_artifact.f1",
+        "dimension": "reproducibility_artifact",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Deneysel Ortam Detaylarının Kısmi Eksikliği",
+        "summary": "Deneylerin yapıldığı donanım ortamı (Intel Core i7-5500U 2.40-GHz işlemci) belirtilmiş olsa da, kullanılan yazılım ortamı (işletim sistemi, kütüphane versiyonları vb.) hakkında daha fazla detay, sonuçların daha doğru bir şekilde tekrar üretilmesine yardımcı olacaktır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "We used an Intel Core i7-5500U 2.40-GHz processor."
+          }
+        ],
+        "reasoning_public": "Yazılım ortamının spesifik detayları, özellikle derin öğrenme gibi hızla gelişen alanlarda, sonuçların tekrar üretilebilirliği için önemlidir. Farklı kütüphane versiyonları veya işletim sistemleri, performans ve doğruluk üzerinde beklenmedik etkilere sahip olabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reproducibility_artifact.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f0",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Figure 1'in Açıklayıcılığı Yetersiz",
+        "summary": "Figure 1, önerilen ağ sıkıştırma modelini görsel olarak özetlemeyi amaçlasa da, diyagramdaki okların ve bileşenlerin tam olarak neyi temsil ettiği metinde yeterince açıklanmamıştır. Özellikle 'real-valued', '{-1, +1}', '{-1, 0, +1}' gibi etiketlerin diyagramdaki akışla nasıl ilişkilendiği belirsizdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Our method is outlined in Figure 1. The main idea is to factorize both weights and activations into integer and non-integer components."
+          }
+        ],
+        "reasoning_public": "Bir modelin görsel özeti, okuyucunun karmaşık bir süreci hızlıca anlamasına yardımcı olmalıdır. Mevcut haliyle, Figure 1'deki bazı etiketler ve akışlar, metindeki açıklamalarla tam olarak örtüşmediği için kafa karışıklığına yol açabilir ve modelin anlaşılmasını zorlaştırabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f1",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Tablo 1 ve 2'nin Metinle Entegrasyonu",
+        "summary": "Tablo 1 (Number of operations) ve Tablo 2 (Memory consumption) önemli bilgiler sunsa da, bu tabloların metin içinde nasıl okunması gerektiği veya ana bulgularının ne olduğu yeterince vurgulanmamıştır. Okuyucunun bu tabloları yorumlaması için daha fazla rehberliğe ihtiyaç vardır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "network_compression_model.a0",
+            "section": "NETWORK COMPRESSION MODEL",
+            "quote": "The time and space complexity are summarized in Tables 1 and 2. As can be seen from Table 1, most of the ﬂoating operations are replaced with logical operations. In this table, B means the bit width of a variable used in the logical operations, e.g., B = 64 if a type of unsigned long long is used in C/C++ language. Table 2 suggests that if kw is sufﬁciently smaller than DI and DO, the total size of Mw and Cw is reduced compared to the original parameterization."
+          }
+        ],
+        "reasoning_public": "Veri tabloları, makalenin temel iddialarını destekleyen nicel kanıtlar sunar. Bu tabloların metinle daha iyi entegre edilmesi, okuyucunun sunulan verileri anlamasını ve argümanlarla ilişkilendirmesini kolaylaştırır. Mevcut haliyle, tabloların önemi ve çıkarımları okuyucu tarafından gözden kaçırılabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f2",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Sonuç Grafikleri Açık ve Bilgilendirici",
+        "summary": "Figure 2, 3 ve 4'teki deneysel sonuç grafikleri (MNIST, VGG-16, VGG-Face için hata oranları ve hızlanma/sıkıştırma oranları), farklı parametre ayarlarının performans üzerindeki etkisini açıkça göstermektedir. Grafikler iyi etiketlenmiş ve kolayca yorumlanabilir durumdadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Deneysel sonuçların görselleştirilmesi, okuyucunun karmaşık veri setlerini ve eğilimleri hızlıca kavramasına olanak tanır. Bu grafikler, makalenin deneysel bulgularını etkili bir şekilde sunarak argümanların anlaşılmasına önemli katkı sağlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ana Katkıların Açıkça İfade Edilmesi",
+        "summary": "Makale, önerilen yöntemin temel bileşenlerini ve bunların önceki çalışmalardan farkını net bir şekilde ortaya koymaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a10",
+            "section": "ABSTRACT",
+            "quote": "Unlike previous methods which factorize a weight matrix into multiple real-valued matrices, our method factorizes both weights and activations into integer and non-integer components."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "The main idea is to factorize both weights and activations into integer and non-integer components. Our method is composed of two building blocks, as shown below. 1. Ternary weight decomposition for memory compression: ... 2. Binary activation encoding for fast feed-forward propagation: ..."
+          }
+        ],
+        "reasoning_public": "Yazar, ağırlık matrisinin ve aktivasyon vektörünün nasıl ayrıştırıldığını ve bu ayrıştırmanın hız ve bellek sıkıştırma açısından ne gibi avantajlar sağladığını açıkça belirtmiştir. Özellikle, önceki yöntemlerin aksine hem ağırlıkları hem de aktivasyonları tamsayı ve tamsayı olmayan bileşenlere ayırma yaklaşımı vurgulanmıştır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f1",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Önceki Çalışmalarla İlişkinin Netleştirilmesi",
+        "summary": "Makale, önerilen yöntemin matris/tensör çarpanlara ayırma ve tamsayı ayrıştırma gibi iki ana literatür alanını birleştiren bir çerçeve olduğunu açıkça belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a0",
+            "section": "RELATED WORK",
+            "quote": "In a manner of speaking, our method is a uniﬁed framework of matrix/tensor factorization and integer decomposition reviewed in the above and inherits both their advantages."
+          }
+        ],
+        "reasoning_public": "Yazar, kendi yöntemlerinin ilgili çalışma alanlarındaki yerini ve bu alanlardaki avantajları nasıl birleştirdiğini açıklayarak katkının özgünlüğünü pekiştirmiştir. Bu, okuyucunun çalışmanın literatürdeki konumunu anlamasına yardımcı olmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çalışmanın Sınırlılıkları Açıkça Belirtilmiş",
+        "summary": "Makale, önerilen sıkıştırma modelinin performansını ve potansiyel uygulama alanlarını tartışırken, modelin mevcut sınırlılıklarını ve gelecekteki iyileştirme alanlarını açıkça belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "conclusion.a0",
+            "section": "CONCLUSION",
+            "quote": "We proposed a network compression model that consists of two components: ternary matrix decom-position and binary activation encoding. Our experiments revealed that the proposed compression model is available not only for multi-class recognition but also for feature embedding. Since our approach is post-processing for a pre-trained model, it is promising that recent networks designed for semantic segmentation, describing images, stereo matching, depth estimation, and much more can also be compressed with our method. For future work, we plan to improve approximation error further by investigating the discrete optimization algorithm."
+          },
+          {
+            "anchor_id": "5_2_vgg_16_for_imagenet_classification_task.a1",
+            "section": "5.2 VGG-16 FOR IMAGENET CLASSIFICATION TASK",
+            "quote": "Although the error rates rapidly increased when kw took much smaller values, we found that this could be improved by tuning kw of the third layer. More speciﬁcally, we additionally tested the following cases. While kw was set to DO/2, DO/4, DO/8, and DO/16 for the ﬁrst and second layers, kw was ﬁxed to DO for the third layer. The kx was set to 4. This is plotted with a red line in Figure 3. In this way, the memory compression rate and acceleration rate noticeably improved. Setting appropriate parameters for each layer is important to improve the total performance."
+          }
+        ],
+        "reasoning_public": "Yazarlar, modelin farklı ağ türleri ve görevler üzerindeki etkilerini detaylı deneylerle göstermiş ve özellikle hata oranlarındaki artışlar gibi ödünleşimleri vurgulamışlardır. Ayrıca, gelecekteki çalışmalarda optimizasyon algoritmalarının iyileştirilmesi gerektiğini belirterek, araştırmanın devam eden doğasını kabul etmişlerdir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f1",
+        "dimension": "ethics_limitations",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Etik Hususların Eksikliği",
+        "summary": "Makale, derin öğrenme modellerinin sıkıştırılması ve hızlandırılması üzerine odaklanırken, bu teknolojinin potansiyel etik etkileri veya kötüye kullanım riskleri hakkında herhangi bir tartışma içermemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Derin öğrenme modellerinin daha erişilebilir ve düşük güçlü cihazlarda çalışabilir hale gelmesi, bu teknolojilerin yaygınlaşmasını sağlayabilir. Bu durum, yüz tanıma gibi hassas uygulamalarda gizlilik, gözetim veya ayrımcılık gibi etik sorunları gündeme getirebilir. Makalede bu tür potansiyel etkilerin ele alınmaması, çalışmanın toplumsal bağlamdaki sorumluluklarını göz ardı ettiğini düşündürmektedir.",
+        "limitations": [
+          "Makalenin teknik doğası göz önüne alındığında, etik tartışmaların kapsamının ne kadar derin olması gerektiği konusunda bir belirsizlik bulunmaktadır."
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f1.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Deneysel Kurulum Detaylarında Eksiklikler",
+        "summary": "Makale, deneysel kurulumun bazı önemli detaylarını eksik bırakarak sonuçların tekrarlanabilirliğini ve genellenebilirliğini değerlendirmeyi zorlaştırmaktadır. Özellikle, 'n' ve 'NT' parametrelerinin seçimi ve bunların sonuçlar üzerindeki potansiyel etkisi yeterince açıklanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_cnn_for_handwritten_digits.a1",
+            "section": "5.1 CNN FOR HANDWRITTEN DIGITS",
+            "quote": "We applied our method to the ﬁrst fully connected layer (fc1024-640) and set n = 10 and NT = 1000 to learn cx and bx from randomly chosen nNT activations."
+          },
+          {
+            "anchor_id": "5_2_vgg_16_for_imagenet_classification_task.a2",
+            "section": "5.2 VGG-16 FOR IMAGENET CLASSIFICATION TASK",
+            "quote": "We set n = 10 and NT = 1000 to learn cx and bx from randomly chosen nNT activations."
+          },
+          {
+            "anchor_id": "5_3_vgg_face_for_face_recognition_task.a2",
+            "section": "5.3 VGG-FACE FOR FACE RECOGNITION TASK",
+            "quote": "We set n = 10 and NT = 1000 to learn cx and bx from randomly chosen nNT activations."
+          }
+        ],
+        "reasoning_public": "Makalede, 'n' ve 'NT' parametrelerinin 'rastgele seçilmiş nNT aktivasyondan cx ve bx öğrenmek için' kullanıldığı belirtilmektedir. Ancak bu parametrelerin seçimi için bir gerekçe sunulmamış ve bu seçimlerin deneysel sonuçları nasıl etkileyebileceği tartışılmamıştır. Bu durum, okuyucunun deneyleri tekrarlamasını veya farklı veri kümeleri/modeller üzerinde benzer sonuçlar elde edip edemeyeceğini değerlendirmesini engellemektedir. Bu parametrelerin hassasiyeti ve optimizasyonunun sonuçlar üzerindeki etkisi belirsiz kalmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f1",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Karşılaştırmalı Analiz Eksikliği",
+        "summary": "Makale, önerilen yöntemin mevcut diğer sıkıştırma ve hızlandırma teknikleriyle doğrudan ve nicel bir karşılaştırmasını sunmamaktadır. Bu durum, okuyucunun önerilen yöntemin literatürdeki yerini ve rekabetçi avantajlarını tam olarak değerlendirmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "1_1_related_work.a1",
+            "section": "1.1 RELATED WORK",
+            "quote": "There have been extensive studies on accelerating and compressing deep neural networks, e.g., on an FFT-based method (Mathieu et al., 2014), re-parameterization of a weight matrix (Yang et al., 2015), pruning network connection (Han et al., 2015; 2016), and hardware-speciﬁc optimization (Vanhoucke et al., 2011)."
+          },
+          {
+            "anchor_id": "1_1_related_work.a2",
+            "section": "1.1 RELATED WORK",
+            "quote": "In a manner of speaking, our method is a uniﬁed framework of matrix/tensor factorization and integer decomposition reviewed in the above and inherits both their advantages."
+          }
+        ],
+        "reasoning_public": "İlgili Çalışmalar bölümünde çeşitli sıkıştırma yöntemlerinden bahsedilse de (örn. FFT tabanlı yöntemler, ağırlık matrisi yeniden parametrizasyonu, budama, donanıma özel optimizasyonlar), önerilen yöntemin bu yaklaşımlara göre performans, sıkıştırma oranı veya hızlandırma açısından nicel bir karşılaştırması yapılmamıştır. Bu eksiklik, önerilen yöntemin literatürdeki konumunu ve gerçek dünya uygulamalarındaki potansiyel üstünlüklerini belirlemede belirsizlik yaratmaktadır. Okuyucu, bu yöntemin diğer popüler yöntemlere kıyasla ne kadar iyi olduğunu anlamakta zorlanmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "reviewer_confidence.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f2",
+        "dimension": "reviewer_confidence",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Sonuçların Tutarlılığı",
+        "summary": "Makale, farklı ağ mimarileri ve görevler üzerinde (MNIST, VGG-16, VGG-Face) tutarlı bir şekilde deneysel sonuçlar sunarak önerilen yöntemin genellenebilirliğini ve etkinliğini desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a11",
+            "section": "ABSTRACT",
+            "quote": "In our experiments, we tested our method on three different networks: a CNN for handwritten digits, VGG-16 model for ImageNet classiﬁcation, and VGG-Face for large-scale face recognition."
+          },
+          {
+            "anchor_id": "6_conclusion.a1",
+            "section": "6 CONCLUSION",
+            "quote": "Our experiments revealed that the proposed compression model is available not only for multi-class recognition but also for feature embedding."
+          }
+        ],
+        "reasoning_public": "Yazarlar, önerilen sıkıştırma modelini üç farklı derin öğrenme senaryosunda (el yazısı rakam tanıma, ImageNet sınıflandırması ve yüz tanıma) başarıyla uygulamışlardır. Her bir senaryo için detaylı sonuçlar (hata oranındaki artış, hızlanma ve bellek sıkıştırma oranları) sunulmuştur. Bu geniş kapsamlı deneyler, yöntemin farklı bağlamlarda uygulanabilirliğini ve performansını göstermektedir, bu da bulguların güvenilirliğini artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Önerilen yöntemin implementasyon kodunu (örneğin, GitHub deposu linki) veya detaylı algoritmik adımları ve kullanılan tüm hiperparametreleri açıkça belirtin. Bu, 'Yöntem' veya 'Deneyler' bölümünde yapılabilir.",
+        "acceptance_check": "Makalede kod deposuna bir bağlantı veya yöntemin tüm adımlarını ve parametrelerini içeren detaylı bir ek bulunmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f0.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "CONCLUSION",
+        "instruction": "Yöntemin uygulanması ve deneylerin yürütülmesi için kullanılan tüm kodları (tercihen bir GitHub deposu gibi herkese açık bir platformda) ve deneylerde kullanılan özel veri setlerini veya bunların nasıl elde edileceğine dair açık talimatları sağlamalıdır.",
+        "acceptance_check": "Makalede, kod ve veri setlerine erişim sağlayan bir bağlantı veya ek materyal bölümü eklenmeli ve bu kaynaklar işlevsel olmalıdır.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "CONCLUSION",
+        "instruction": "Sonuç veya Giriş bölümüne, sıkıştırma ve hızlandırma tekniklerinin yaygınlaşmasının potansiyel etik sonuçları (örn. gizlilik, gözetim, ayrımcılık) hakkında kısa bir tartışma ekleyin. Bu teknolojinin sorumlu kullanımına dair bir not düşülebilir.",
+        "acceptance_check": "Etik hususlara dair en az bir paragrafın eklenip eklenmediği kontrol edilecek.",
+        "linked_finding_ids": [
+          "ethics_limitations.f1"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Deneysel sonuçların tartışıldığı bölümlerde (özellikle VGG-16 ve VGG-Face deneyleri), farklı parametre seçimlerinin (kx, kw) performans üzerindeki etkileri ve gözlemlenen hata artışlarının altında yatan nedenler hakkında daha detaylı bir analiz eklenmelidir. Örneğin, 'kw = DO/4' durumunda VGG-16'da neden hala iyi performans gösterildiği veya VGG-Face'te 'kx = 1' durumunun neden daha az etki yarattığı açıklanabilir.",
+        "acceptance_check": "Deneysel sonuçların yorumlandığı kısımlara eklenen derinlemesine analizler ve açıklamalar.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION",
+        "instruction": "Figure 1'deki her bir bileşenin (özellikle oklar ve etiketler) neyi temsil ettiğini ve modelin genel akışına nasıl katkıda bulunduğunu açıklayan daha detaylı bir figür açıklaması ekleyin. Gerekirse diyagramı daha açıklayıcı hale getirmek için revize edin.",
+        "acceptance_check": "Figure 1'in açıklaması okunduğunda, diyagramdaki her bir elemanın işlevi ve modeldeki rolü net bir şekilde anlaşılmalıdır.",
+        "linked_finding_ids": [
+          "presentation_clarity.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Hiperparametreler 'n' ve 'NT' için seçilen değerlerin (10 ve 1000) deneysel veya teorik bir gerekçesini ekleyin. Bu değerlerin modelin performansına etkisini gösteren bir duyarlılık analizi veya ön çalışma sonuçları sunulabilir.",
+        "acceptance_check": "Makalede 'n' ve 'NT' değerlerinin seçimine dair açık bir gerekçe veya bu seçimlerin sonuçlar üzerindeki etkisini gösteren bir analiz bulunmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Raporlanan tüm etki büyüklükleri (hızlanma oranları, bellek sıkıştırma oranları, hata oranlarındaki artışlar) için güven aralıkları veya standart sapma/standart hata gibi belirsizlik ölçülerini ekleyin. Bu, deneylerin birden fazla tekrarı veya farklı başlangıç ağırlıkları ile elde edilen sonuçların dağılımını yansıtabilir.",
+        "acceptance_check": "Tablo ve metinlerdeki tüm nicel sonuçlar için belirsizlik ölçüleri (örn. ± standart sapma) bulunmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Deneylerin başlangıç koşulları (örneğin, rastgele tohumlar, ağırlık başlatma stratejileri) hakkında daha fazla bilgi sağlayın, böylece sonuçların deterministik olarak tekrar üretilmesi mümkün olabilir.",
+        "acceptance_check": "Başlangıç koşulları ve rastgele tohumlar hakkında bilgi verilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Makalede 'n' ve 'NT' parametrelerinin seçimi için bir gerekçe sunulmalı ve bu parametrelerin deneysel sonuçlar üzerindeki potansiyel etkisi tartışılmalıdır. Bu parametrelerin hassasiyeti ve optimizasyonunun sonuçlar üzerindeki etkisi açıklanmalıdır.",
+        "acceptance_check": "Parametre seçimlerinin gerekçeleri ve hassasiyet analizleri makaleye eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f1.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Önerilen yöntemin, ilgili çalışmalarda bahsedilen diğer önde gelen ağ sıkıştırma ve hızlandırma teknikleriyle (örn. budama, niceleme, düşük rank ayrıştırma) nicel bir karşılaştırması yapılmalıdır. Bu karşılaştırma, benzer deneysel koşullar altında (aynı veri kümeleri, modeller) performans, sıkıştırma oranı ve hızlandırma metriklerini içermelidir.",
+        "acceptance_check": "Karşılaştırmalı tablolar veya grafikler eklenmiş ve önerilen yöntemin rekabetçi avantajları açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f1"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "CONCLUSION",
+        "instruction": "Yöntemin sınırlamaları ve gelecekteki çalışma alanları bölümünde, mevcut yaklaşımın hangi senaryolarda en iyi performansı gösterdiği ve hangi durumlarda zorluklarla karşılaşılabileceği daha açık bir şekilde belirtilmelidir. Bu, makalenin kapsamını ve yeniliğini daha iyi konumlandıracaktır.",
+        "acceptance_check": "Sınırlamalar ve gelecekteki çalışmalar bölümüne eklenen netleştirilmiş ifadeler.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "NETWORK COMPRESSION MODEL",
+        "instruction": "Tablo 1 ve Tablo 2'deki anahtar bulguları ve çıkarımları daha açık bir şekilde tartışın. Örneğin, 'most of the floating operations are replaced with logical operations' ifadesini destekleyen somut sayılar veya oranlar sunarak okuyucunun tabloları daha iyi yorumlamasına yardımcı olun.",
+        "acceptance_check": "Tabloların metin içinde daha detaylı bir şekilde analiz edildiği ve anahtar sonuçların vurgulandığı görülmelidir.",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "6 CONCLUSION",
+        "instruction": "Eğer mümkünse, deneylerde kullanılan veri setlerinin (MNIST, ImageNet, LFW) örneklem büyüklüklerinin, elde edilen etki büyüklüklerini tespit etmek için yeterli istatistiksel gücü sağlayıp sağlamadığına dair bir tartışma ekleyin. Derin öğrenme bağlamında bu tür bir güç analizi zor olsa da, en azından bu konudaki sınırlılıklar belirtilmelidir.",
+        "acceptance_check": "Makalede istatistiksel güç analizi eksikliğine dair bir not veya bu konudaki sınırlılıkların belirtildiği bir bölüm bulunmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "6 CONCLUSION",
+        "instruction": "Eğer birden fazla deneme yapılmadıysa, bu sınırlılığı 'Tartışma' veya 'Sonuç' bölümünde açıkça belirtin ve gelecekteki çalışmalarda bu belirsizliklerin ele alınması gerektiğini vurgulayın.",
+        "acceptance_check": "Belirsizlik ölçülerinin eksikliğine dair bir sınırlılık beyanı bulunmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "1.1 RELATED WORK",
+        "instruction": "İstatistiksel testlere dayanmayan ifadelerde 'significant' gibi terimler yerine 'considerable', 'notable' veya 'substantial' gibi daha nötr kelimeler kullanın. Eğer bir istatistiksel test yapıldıysa, ilgili p-değeri ve etki büyüklüğü raporlanmalıdır.",
+        "acceptance_check": "Makalede istatistiksel testlere dayanmayan 'significant' kelimesi yerine daha uygun bir ifade kullanılmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Deneylerin yapıldığı yazılım ortamı (örneğin, Python versiyonu, TensorFlow/PyTorch versiyonu, CUDA versiyonu vb.) hakkında ek bilgiler sağlamalıdır.",
+        "acceptance_check": "Makalenin deneyler bölümüne yazılım ortamı detayları eklenmelidir.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Belirsizlik Ölçülerinin Eksikliği; Yenilik ve Kapsam Dengesi",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a10",
+          "abstract.a11",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7",
+          "abstract.a8",
+          "abstract.a9"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1",
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yenilik ve Kapsam Dengesi; Figure 1'in Açıklayıcılığı Yetersiz",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1",
+          "presentation_clarity.f0.a0"
+        ]
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "related_work.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "conclusion.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1.1 RELATED WORK",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Sonuçların Raporlanmasında 'Significant' Dili Kullanımı; Karşılaştırmalı Analiz Eksikliği",
+        "anchor_ids": [
+          "1_1_related_work.a0",
+          "1_1_related_work.a1",
+          "1_1_related_work.a2"
+        ],
+        "action_item_ids": [
+          "quant.f9.a0",
+          "reviewer_confidence.f1.a0"
+        ]
+      },
+      {
+        "section": "4 BINARY ACTIVATION ENCODING",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_binary_activation_encoding.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "5 EXPERIMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "5_experiments.a0",
+          "5_experiments.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "5.1 CNN FOR HANDWRITTEN DIGITS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Deneysel Kurulum Detaylarında Eksiklikler",
+        "anchor_ids": [
+          "5_1_cnn_for_handwritten_digits.a0",
+          "5_1_cnn_for_handwritten_digits.a1"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1",
+          "reviewer_confidence.f0.a0"
+        ]
+      },
+      {
+        "section": "5.2 VGG-16 FOR IMAGENET CLASSIFICATION TASK",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Deneysel Kurulum Detaylarında Eksiklikler",
+        "anchor_ids": [
+          "5_2_vgg_16_for_imagenet_classification_task.a0",
+          "5_2_vgg_16_for_imagenet_classification_task.a1",
+          "5_2_vgg_16_for_imagenet_classification_task.a2"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1",
+          "reviewer_confidence.f0.a0"
+        ]
+      },
+      {
+        "section": "5.3 VGG-FACE FOR FACE RECOGNITION TASK",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Deneysel Kurulum Detaylarında Eksiklikler",
+        "anchor_ids": [
+          "5_3_vgg_face_for_face_recognition_task.a0",
+          "5_3_vgg_face_for_face_recognition_task.a1",
+          "5_3_vgg_face_for_face_recognition_task.a2"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1",
+          "reviewer_confidence.f0.a0"
+        ]
+      },
+      {
+        "section": "6 CONCLUSION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "6_conclusion.a0",
+          "6_conclusion.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "experiments.a0"
+        ],
+        "action_item_ids": [
+          "reproducibility_artifact.f1.a0"
+        ]
+      },
+      {
+        "section": "NETWORK COMPRESSION MODEL",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Tablo 1 ve 2'nin Metinle Entegrasyonu",
+        "anchor_ids": [
+          "network_compression_model.a0"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ]
+      },
+      {
+        "section": "Table 3",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Belirsizlik Ölçülerinin Eksikliği",
+        "anchor_ids": [
+          "table_3.a0",
+          "table_3.a1",
+          "table_3.a2"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

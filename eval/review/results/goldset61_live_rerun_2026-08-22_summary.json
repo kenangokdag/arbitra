@@ -1,0 +1,94 @@
+{
+  "n_entries_total": 61,
+  "n_reports_ok": 43,
+  "n_reports_failed": 18,
+  "verdict_accuracy": {
+    "n": 43,
+    "exact": 31,
+    "within_one": 34,
+    "exact_accuracy": 0.7209302325581395,
+    "within_one_accuracy": 0.7906976744186046
+  },
+  "dimension_agreements": [
+    {
+      "dimension": "originality",
+      "n": 19,
+      "spearman": 0.0596,
+      "pearson": 0.0767,
+      "mean_abs_diff": 3.5389,
+      "mean_signed_diff": 3.4253
+    },
+    {
+      "dimension": "importance",
+      "n": 3,
+      "spearman": 1.0,
+      "pearson": 1.0,
+      "mean_abs_diff": 3.0,
+      "mean_signed_diff": 3.0
+    },
+    {
+      "dimension": "claims_supported",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "mean_abs_diff": null,
+      "mean_signed_diff": null
+    },
+    {
+      "dimension": "soundness",
+      "n": 16,
+      "spearman": -0.312,
+      "pearson": -0.325,
+      "mean_abs_diff": 3.3119,
+      "mean_signed_diff": 2.9194
+    },
+    {
+      "dimension": "clarity",
+      "n": 18,
+      "spearman": -0.0568,
+      "pearson": 0.0125,
+      "mean_abs_diff": 1.5294,
+      "mean_signed_diff": -0.0694
+    },
+    {
+      "dimension": "community_value",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "mean_abs_diff": null,
+      "mean_signed_diff": null
+    },
+    {
+      "dimension": "contextualization",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "mean_abs_diff": null,
+      "mean_signed_diff": null
+    },
+    {
+      "dimension": "citation_integrity",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "mean_abs_diff": null,
+      "mean_signed_diff": null
+    },
+    {
+      "dimension": "coverage_completeness",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "mean_abs_diff": null,
+      "mean_signed_diff": null
+    },
+    {
+      "dimension": "statistical_consistency",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "mean_abs_diff": null,
+      "mean_signed_diff": null
+    }
+  ]
+}

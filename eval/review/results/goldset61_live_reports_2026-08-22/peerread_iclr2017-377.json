@@ -1,0 +1,2204 @@
+{
+  "paper_id": "peerread:iclr2017-377",
+  "run_tag": "main",
+  "job_id": "edc392c7-09cc-436d-a766-b777ae6e7985",
+  "elapsed_s": 494.2,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "LEARNING TO PERFORM PHYSICS EXPERIMENTS VIA DEEP REINFORCEMENT LEARNING Misha Denil1 Pulkit Agrawal2",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RELATED WORK",
+        "REFERENCES"
+      ],
+      "word_count": 9292,
+      "reference_count": 42,
+      "parse_confidence": 0.685,
+      "parse_warnings": []
+    },
+    "summary": "This paper investigates whether deep reinforcement learning agents can learn to perform 'experiments' to infer latent physical properties of objects, such as mass and cohesion, without being endowed with prior knowledge of physics. The authors introduce two simulated environments, 'Which is Heavier' and 'Towers', where an agent must actively interact with objects to gather information before answering a question about their properties. The core finding is that agents trained with a standard RL algorithm (A3C) learn non-trivial, adaptive strategies that balance information gathering and decision-making, often outperforming random interaction policies. The paper explicitly frames itself not as an algorithmic contribution, but as a conceptual one, demonstrating a key capability for more general AI.",
+    "strengths": [
+      {
+        "category": "Conceptual Contribution",
+        "points": [
+          "The paper's primary strength is its clear and important conceptual framing. By focusing on learning *how* to discover properties through interaction, rather than just predicting them from passive observation, it addresses a fundamental aspect of intelligence.",
+          "The explicit positioning in Section 2 ('WHAT IS THIS PAPER ABOUT?') is commendable. It manages expectations effectively and highlights the work's goal of exploring a capability, which is a valuable contribution in itself."
+        ]
+      },
+      {
+        "category": "Experimental Design",
+        "points": [
+          "The two environments, 'Which is Heavier' and 'Towers', are simple yet cleverly designed to isolate the problem of inferring hidden properties through interaction.",
+          "The systematic manipulation of task difficulty (the β parameter for mass gaps) and environmental physics (the 'control time step') provides strong, interpretable evidence that the learned policies are genuinely adaptive and not just simple, open-loop heuristics."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The manuscript is exceptionally well-written and easy to follow. The motivation, methods, and results are presented with great clarity.",
+          "Figures are informative and well-supported by the text. For example, Figure 3 effectively visualizes how agent strategies change with both problem-level and instance-level difficulty."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Generalization and Scope",
+        "points": [
+          "The work is demonstrated in two constrained, task-specific environments. While effective for the core demonstration, the manuscript provides no empirical evidence on how the learned 'experimentation' skills would transfer to more complex, unstructured settings or to entirely new tasks, a point the authors acknowledge.",
+          "The reliance on millions of training steps for these relatively simple tasks highlights a significant data inefficiency. This limits the immediate applicability to real-world robotics, and the paper lacks a discussion or comparison with more sample-efficient methods that would be needed for practical deployment."
+        ]
+      },
+      {
+        "category": "Algorithmic Contribution",
+        "points": [
+          "As the authors state, the paper does not introduce a new algorithm. While the conceptual contribution is strong, some may view the use of a standard RL algorithm on novel tasks as more of a task-design contribution than a methodological advance in RL."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "experimental",
+        "comment": "The 'Individual strategy differentiation' experiment (Section 5.3, Figure 3 right) is particularly compelling. Showing that a single, trained agent dynamically allocates more time (i.e., actions) to more difficult instances (those with a smaller mass gap) is strong evidence of a sophisticated, closed-loop policy. This goes well beyond learning a fixed sequence of actions.",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "Similarly, the 'Waiting for information' experiment in the Towers environment (Section 6.3, Figure 5 right) is a very effective demonstration. The finding that episode duration in real-time remains relatively constant as the control time step changes indicates the agent is waiting for a specific state of the world (e.g., the tower to settle) rather than simply executing a policy for a fixed number of steps.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "This work serves as an excellent position paper backed by solid empirical results. It provides the community with a clear framework and well-designed benchmarks for studying intuitive physics in an active, embodied context, moving beyond the passive analysis of video frames.",
+        "evidence_ref": null
+      },
+      {
+        "area": "related_work",
+        "comment": "The literature review is thorough and does an excellent job of situating this work. It correctly distinguishes the paper's focus on active interaction from prior work on passive physical prediction (e.g., Wu et al., 2015; 2016) and active vision for semantic classification (e.g., Jayaraman & Grauman, 2016).",
+        "evidence_ref": null
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "An automated check of the bibliography was performed. However, due to a technical error in the lookup service, none of the 42 references could be programmatically verified. Therefore, I cannot confirm their correctness or comment on citation hygiene. It is important to note that this is not evidence of any issues, but simply an incomplete check.",
+        "evidence_ref": "ref[1-42] not_found_in_index"
+      }
+    ],
+    "questions": [
+      "Have you considered a transfer learning experiment? For instance, could an agent pre-trained on a difficult version of 'Which is Heavier' (e.g., β=3) adapt more quickly to an easier version (β=10) than an agent trained from scratch? This could shed light on whether the agent is learning a general 'strategy for mass comparison' or a policy tightly coupled to a specific mass distribution.",
+      "In Figure 2, performance on the hardest task (β=3) plateaus significantly below perfect accuracy. The paper reasonably attributes this to instances with near-zero mass gaps. Is it possible to quantify a theoretical performance limit for an 'optimal experimenter' given the agent's fixed action force and observation noise? This could help distinguish between limitations of the learning algorithm versus fundamental unsolvability of certain instances.",
+      "The observation that the 'fist' actuator leads to faster learning than 'direct' actuation is interesting. The paper hypothesizes this is due to the ability to affect multiple blocks at once. An alternative hypothesis could be that it simplifies the exploration problem (e.g., moving one object in a 2D plane vs. selecting one of 20 discrete pokes). Could you elaborate on this finding, as it seems to have implications for designing agent embodiments and action spaces?"
+    ],
+    "overall_assessment": "This is a strong, well-executed, and clearly communicated paper that addresses a fundamental question in artificial intelligence: how can agents learn about the physical world through interaction? The authors present a compelling case, supported by clean and insightful experiments, that deep reinforcement learning can be used to develop agents that learn to 'experiment' to uncover latent properties. The contribution is primarily conceptual and empirical rather than algorithmic, but it is significant and thought-provoking. The paper's self-awareness of its limitations (scope, data efficiency) is a further strength. It provides a solid foundation and a set of valuable benchmarks for future work in this important area.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity info. [LLM'in kendi gerekçesi: The framing of intuitive physics as an active experimentation problem for a model-free RL agent is highly original and distinct from prior work on passive prediction.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The problem is of fundamental importance for creating more capable and general AI agents that can operate in the physical world. This work provides a clear path for research in this direction."
+      },
+      {
+        "key": "claims_supported",
+        "score": 3.34,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: The claims are carefully scoped and directly supported by well-designed experiments. The link between experimental manipulations and the resulting agent behavior is very strong.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The methodology is sound and the experimental design is excellent. The score is slightly tempered by the acknowledged lack of focus on data efficiency, which is a key aspect of soundness for practical applications.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is a model of clarity. The explicit framing in Section 2, the clear prose, and the informative figures make the work exceptionally easy to understand.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.0,
+        "rationale": "This paper provides valuable tasks, a conceptual framework, and strong baseline results that are likely to inspire significant follow-up work."
+      },
+      {
+        "key": "contextualization",
+        "score": 9.5,
+        "rationale": "The related work section is comprehensive and expertly positions the paper within the broader landscape of intuitive physics, active sensing, and deep learning."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack indicates that an automated check failed to resolve any of the 42 references due to a technical service error. While this is not evidence of fabrication or other issues, it means no positive verification could be performed. The score reflects this complete lack of verification data, not a detected flaw.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missing seminal works, and the related work section appears comprehensive and well-researched for its time.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack reported no statistical inconsistencies. The paper's claims are supported by direct empirical measurements from simulation, not complex statistical tests that would be subject to such errors.]"
+      }
+    ],
+    "final_score": 8.61,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 42,
+        "resolved": 0,
+        "not_found_in_index": 42,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 42
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Pulkit Agrawal, João Carreira, and Jitendra Malik. Learning to see by moving. In IEEE International Confer- ence on Computer Vision, pp. 37–45, 2015.",
+          "title": "Learning to see by moving",
+          "authors": [
+            "Pulkit Agrawal, João Carreira",
+            "Jitendra Malik"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 2,
+          "raw": "Pulkit Agrawal, Ashvin Nair, Pieter Abbeel, and Jitendra Malik. Learning to poke by poking: Experiential learning of intuitive physics. In Neural Information Processing Systems, 2016.",
+          "title": "Learning to poke by poking: Experiential learning of intuitive physics",
+          "authors": [
+            "Pulkit Agrawal, Ashvin Nair, Pieter Abbeel",
+            "Jitendra Malik"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 3,
+          "raw": "John-Alexander M Assael, Niklas Wahlström, Thomas B Schön, and Marc Peter Deisenroth. Data- efﬁcient learning of feedback policies from image pixels using deep dynamical models. arXiv preprint arXiv:1510.02173, 2015.",
+          "title": "Data- efﬁcient learning of feedback policies from image pixels using deep dynamical models",
+          "authors": [
+            "John-Alexander M Assael, Niklas Wahlström, Thomas B Schön",
+            "Marc Peter Deisenroth"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 4,
+          "raw": "Jean-Yves Audibert and Sébastien Bubeck. Best arm identiﬁcation in multi-armed bandits. In Conference on Learning Theory, pp. 13–p, 2010.",
+          "title": "Best arm identiﬁcation in multi-armed bandits",
+          "authors": [
+            "Jean-Yves Audibert",
+            "Sébastien Bubeck"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 5,
+          "raw": "Sven Bambach, David J Crandall, Linda B Smith, and Chen Yu. Active viewing in toddlers facilitates visual object learning: An egocentric vision approach. CogSci, 2016.",
+          "title": "Active viewing in toddlers facilitates visual object learning: An egocentric vision approach",
+          "authors": [
+            "Sven Bambach, David J Crandall, Linda B Smith",
+            "Chen Yu"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 6,
+          "raw": "Peter W Battaglia, Jessica B Hamrick, and Joshua B Tenenbaum. Simulation as an engine of physical scene understanding. Proceedings of the National Academy of Sciences, 110(45):18327–18332, 2013.",
+          "title": "Simulation as an engine of physical scene understanding",
+          "authors": [
+            "Peter W Battaglia, Jessica B Hamrick",
+            "Joshua B Tenenbaum"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 7,
+          "raw": "Vincent Delaitre, David F Fouhey, Ivan Laptev, Josef Sivic, Abhinav Gupta, and Alexei A Efros. Scene se- mantics from long-term observation of people. In European Conference on Computer Vision, pp. 284–298. Springer, 2012.",
+          "title": "Scene se- mantics from long-term observation of people",
+          "authors": [
+            "Vincent Delaitre, David F Fouhey, Ivan Laptev, Josef Sivic, Abhinav Gupta",
+            "Alexei A Efros"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 8,
+          "raw": "Carl Doersch, Abhinav Gupta, and Alexei A Efros. Unsupervised visual representation learning by context prediction. In Proceedings of the IEEE International Conference on Computer Vision, pp. 1422–1430, 2015.",
+          "title": "Unsupervised visual representation learning by context prediction",
+          "authors": [
+            "Carl Doersch, Abhinav Gupta",
+            "Alexei A Efros"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 9,
+          "raw": "David F Fouhey, Vincent Delaitre, Abhinav Gupta, Alexei A Efros, Ivan Laptev, and Josef Sivic. People watching: Human actions as a cue for single view geometry. International Journal of Computer Vision, 110 (3):259–274, 2014.",
+          "title": "People watching: Human actions as a cue for single view geometry",
+          "authors": [
+            "David F Fouhey, Vincent Delaitre, Abhinav Gupta, Alexei A Efros, Ivan Laptev",
+            "Josef Sivic"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 10,
+          "raw": "Katerina Fragkiadaki, Pulkit Agrawal, Sergey Levine, and Jitendra Malik. Learning visual predictive models of physics for playing billiards. ICLR, 2016.",
+          "title": "Learning visual predictive models of physics for playing billiards",
+          "authors": [
+            "Katerina Fragkiadaki, Pulkit Agrawal, Sergey Levine",
+            "Jitendra Malik"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 11,
+          "raw": "Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio. Generative adversarial nets. In Advances in Neural Information Process- ing Systems, pp. 2672–2680, 2014.",
+          "title": "Generative adversarial nets",
+          "authors": [
+            "Yoshua Bengio"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 12,
+          "raw": "Alison Gopnik. Scientiﬁc thinking in young children: Theoretical advances, empirical research, and policy implications. Science, 337(6102):1623–1627, 2012.",
+          "title": "Scientiﬁc thinking in young children: Theoretical advances, empirical research, and policy implications",
+          "authors": [
+            "Alison Gopnik"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 13,
+          "raw": "Jessica Hamrick, Peter Battaglia, and Joshua B Tenenbaum. Internal physics models guide probabilistic judg- ments about object dynamics. In Proceedings of the 33rd annual conference of the cognitive science society, 13 pp. 1545–1550. Cognitive Science Society Austin, TX, 2011.",
+          "title": "Internal physics models guide probabilistic judg- ments about object dynamics",
+          "authors": [
+            "Jessica Hamrick, Peter Battaglia",
+            "Joshua B Tenenbaum"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 14,
+          "raw": "Jessica B Hamrick, Peter W Battaglia, Thomas L Grifﬁths, and Joshua B Tenenbaum. Inferring mass in complex scenes by mental simulation. Cognition, 157:61–76, 2016.",
+          "title": "Inferring mass in complex scenes by mental simulation",
+          "authors": [
+            "Jessica B Hamrick, Peter W Battaglia, Thomas L Grifﬁths",
+            "Joshua B Tenenbaum"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 15,
+          "raw": "Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In Conference on Computer Vision and Pattern Recognition, 2016.",
+          "title": "Deep residual learning for image recognition",
+          "authors": [
+            "Kaiming He, Xiangyu Zhang, Shaoqing Ren",
+            "Jian Sun"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 16,
+          "raw": "Mary Hegarty. Mechanical reasoning by mental simulation. Trends in cognitive sciences, 8(6):280–5, 2004.",
+          "title": "Mechanical reasoning by mental simulation",
+          "authors": [
+            "Mary Hegarty"
+          ],
+          "year": 2004,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 17,
+          "raw": "Geoffrey E. Hinton, Li Deng, Dong Yu, George E. Dahl, Abdel-rahman Mohamed, Navdeep Jaitly, Andrew Senior, Vincent Vanhoucke, Patrick Nguyen, Tara N. Sainath, and Brian Kingsbury. Deep neural networks for acoustic modeling in speech recognition: The shared views of four research groups. IEEE Signal Processing Magazine, 29(6):82–97, 2012.",
+          "title": "Deep neural networks for acoustic modeling in speech recognition: The shared views of four research groups",
+          "authors": [
+            "Brian Kingsbury"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 18,
+          "raw": "Dinesh Jayaraman and Kristen Grauman. Learning image representations tied to ego-motion. In Proceedings of the IEEE International Conference on Computer Vision, pp. 1413–1421, 2015.",
+          "title": "Learning image representations tied to ego-motion",
+          "authors": [
+            "Dinesh Jayaraman",
+            "Kristen Grauman"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 19,
+          "raw": "Dinesh Jayaraman and Kristen Grauman. Look-ahead before you leap: End-to-end active recognition by fore- casting the effect of motion. In European Conference on Computer Vision, pp. 489–505, 2016.",
+          "title": "Look-ahead before you leap: End-to-end active recognition by fore- casting the effect of motion",
+          "authors": [
+            "Dinesh Jayaraman",
+            "Kristen Grauman"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 20,
+          "raw": "Diederik P Kingma and Max Welling. Auto-encoding variational bayes. In International Conference on Learn- ing Representations, 2014.",
+          "title": "Auto-encoding variational bayes",
+          "authors": [
+            "Diederik P Kingma",
+            "Max Welling"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 21,
+          "raw": "Alex Krizhevsky, Ilya Sutskever, and Geoffrey E Hinton. Imagenet classiﬁcation with deep convolutional neural networks. In Advances in neural information processing systems, pp. 1097–1105, 2012.",
+          "title": "Imagenet classiﬁcation with deep convolutional neural networks",
+          "authors": [
+            "Alex Krizhevsky, Ilya Sutskever",
+            "Geoffrey E Hinton"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 22,
+          "raw": "Brenden M Lake, Ruslan Salakhutdinov, and Joshua B Tenenbaum. Human-level concept learning through probabilistic program induction. Science, 350(6266):1332–1338, 2015.",
+          "title": "Human-level concept learning through probabilistic program induction",
+          "authors": [
+            "Brenden M Lake, Ruslan Salakhutdinov",
+            "Joshua B Tenenbaum"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 23,
+          "raw": "Adam Lerer, Sam Gross, and Rob Fergus. Learning physical intuition of block towers by example. In Interna- tional Conference on Machine Learning, pp. 430–438, 2016.",
+          "title": "Learning physical intuition of block towers by example",
+          "authors": [
+            "Adam Lerer, Sam Gross",
+            "Rob Fergus"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 24,
+          "raw": "Sergey Levine, Peter Pastor, Alex Krizhevsky, and Deirdre Quillen. Learning hand-eye coordination for robotic grasping with deep learning and large-scale data collection. arXiv preprint arXiv:1603.02199, 2016.",
+          "title": "Learning hand-eye coordination for robotic grasping with deep learning and large-scale data collection",
+          "authors": [
+            "Sergey Levine, Peter Pastor, Alex Krizhevsky",
+            "Deirdre Quillen"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 25,
+          "raw": "Volodymyr Mnih, Adria Puigdomenech Badia, Mehdi Mirza, Alex Graves, Timothy P Lillicrap, Tim Harley, David Silver, and Koray Kavukcuoglu. Asynchronous methods for deep reinforcement learning. arXiv preprint arXiv:1602.01783, 2016.",
+          "title": "Asynchronous methods for deep reinforcement learning",
+          "authors": [
+            "Koray Kavukcuoglu"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 26,
+          "raw": "Roozbeh Mottaghi, Mohammad Rastegari, Abhinav Gupta, and Ali Farhadi. “what happens if. . . ” learning to predict the effect of forces in images. In European Conference on Computer Vision, pp. 269–285, 2016.",
+          "title": "“what happens if",
+          "authors": [
+            "Roozbeh Mottaghi, Mohammad Rastegari, Abhinav Gupta",
+            "Ali Farhadi"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 27,
+          "raw": "Junhyuk Oh, Xiaoxiao Guo, Honglak Lee, Richard Lewis, and Satinder Singh. Action-conditional video pre- diction using deep networks in Atari games. In Neural Information Processing Systems, pp. 2863–2871, 2015.",
+          "title": "Action-conditional video pre- diction using deep networks in Atari games",
+          "authors": [
+            "Junhyuk Oh, Xiaoxiao Guo, Honglak Lee, Richard Lewis",
+            "Satinder Singh"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 28,
+          "raw": "Andrew Owens, Phillip Isola, Josh McDermott, Antonio Torralba, Edward H Adelson, and William T Freeman. Visually indicated sounds. arXiv preprint arXiv:1512.08512, 2015.",
+          "title": "Visually indicated sounds",
+          "authors": [
+            "Andrew Owens, Phillip Isola, Josh McDermott, Antonio Torralba, Edward H Adelson",
+            "William T Freeman"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 29,
+          "raw": "Andrew Owens, Jiajun Wu, Josh H McDermott, William T Freeman, and Antonio Torralba. Ambient sound pro- vides supervision for visual learning. In European Conference on Computer Vision, pp. 801–816. Springer, 2016.",
+          "title": "Ambient sound pro- vides supervision for visual learning",
+          "authors": [
+            "Andrew Owens, Jiajun Wu, Josh H McDermott, William T Freeman",
+            "Antonio Torralba"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 30,
+          "raw": "Lerrel Pinto and Abhinav Gupta. Supersizing self-supervision: Learning to grasp from 50k tries and 700 robot hours. In IEEE International Conference on Robotics and Automation, pp. 3406–3413, 2016.",
+          "title": "Supersizing self-supervision: Learning to grasp from 50k tries and 700 robot hours",
+          "authors": [
+            "Lerrel Pinto",
+            "Abhinav Gupta"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 31,
+          "raw": "Lerrel Pinto, Dhiraj Gandhi, Yuanfeng Han, Yong-Lae Park, and Abhinav Gupta. The curious robot: Learning visual representations via physical interactions. In European Conference on Computer Vision, pp. 3–18, 2016.",
+          "title": "The curious robot: Learning visual representations via physical interactions",
+          "authors": [
+            "Lerrel Pinto, Dhiraj Gandhi, Yuanfeng Han, Yong-Lae Park",
+            "Abhinav Gupta"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 32,
+          "raw": "MarcAurelio Ranzato, Arthur Szlam, Joan Bruna, Michael Mathieu, Ronan Collobert, and Sumit Chopra. Video (language) modeling: a baseline for generative models of natural videos. arXiv preprint arXiv:1412.6604, 2014.",
+          "title": "Video (language) modeling: a baseline for generative models of natural videos",
+          "authors": [
+            "MarcAurelio Ranzato, Arthur Szlam, Joan Bruna, Michael Mathieu, Ronan Collobert",
+            "Sumit Chopra"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 33,
+          "raw": "Linda Smith and Michael Gasser. The development of embodied cognition: Six lessons from babies. Artiﬁcial life, 11(1-2):13–29, 2005.",
+          "title": "The development of embodied cognition: Six lessons from babies",
+          "authors": [
+            "Linda Smith",
+            "Michael Gasser"
+          ],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 34,
+          "raw": "Elizabeth S Spelke and Katherine D Kinzler. Core knowledge. Developmental science, 10(1):89–96, 2007.",
+          "title": "Core knowledge",
+          "authors": [
+            "Elizabeth S Spelke",
+            "Katherine D Kinzler"
+          ],
+          "year": 2007,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 35,
+          "raw": "Nitish Srivastava, Elman Mansimov, and Ruslan Salakhutdinov. Unsupervised learning of video representations using lstms. CoRR, abs/1502.04681, 2, 2015.",
+          "title": "Unsupervised learning of video representations using lstms",
+          "authors": [
+            "Nitish Srivastava, Elman Mansimov",
+            "Ruslan Salakhutdinov"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 36,
+          "raw": "Russell Stewart and Stefano Ermon. Label-free supervision of neural networks with physics and domain knowl- edge. arXiv preprint arXiv:1609.05566, 2016.",
+          "title": "Label-free supervision of neural networks with physics and domain knowl- edge",
+          "authors": [
+            "Russell Stewart",
+            "Stefano Ermon"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 37,
+          "raw": "Richard S Sutton, Joseph Modayil, Michael Delp, Thomas Degris, Patrick M Pilarski, Adam White, and Doina Precup. Horde: A scalable real-time architecture for learning knowledge from unsupervised sensorimotor interaction. In The 10th International Conference on Autonomous Agents and Multiagent Systems-Volume 2, pp. 761–768. International Foundation for Autonomous Agents and Multiagent Systems, 2011.",
+          "title": "Horde: A scalable real-time architecture for learning knowledge from unsupervised sensorimotor interaction",
+          "authors": [
+            "Doina Precup"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 38,
+          "raw": "Aaron van den Oord, Nal Kalchbrenner, and Koray Kavukcuoglu. Pixel recurrent neural networks. arXiv preprint arXiv:1601.06759, 2016. 14 Manuel Watter, Jost Springenberg, Joschka Boedecker, and Martin Riedmiller. Embed to control: A locally linear latent dynamics model for control from raw images. In Advances in Neural Information Processing Systems, pp. 2746–2754, 2015.",
+          "title": "Pixel recurrent neural networks",
+          "authors": [
+            "Aaron van den Oord, Nal Kalchbrenner",
+            "Koray Kavukcuoglu"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 39,
+          "raw": "Jiajun Wu, Ilker Yildirim, Joseph J Lim, Bill Freeman, and Josh Tenenbaum. Galileo: Perceiving physical object properties by integrating a physics engine with deep learning. In Neural Information Processing Systems. 2015.",
+          "title": "Galileo: Perceiving physical object properties by integrating a physics engine with deep learning",
+          "authors": [
+            "Jiajun Wu, Ilker Yildirim, Joseph J Lim, Bill Freeman",
+            "Josh Tenenbaum"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 40,
+          "raw": "Jiajun Wu, Joseph J. Lim, Hongyi Zhang, Joshua B. Tenenbaum, and William T. Freeman. Physics 101: Learning physical object properties from unlabeled videos. In British Machine Vision Conference, 2016.",
+          "title": "Physics 101: Learning physical object properties from unlabeled videos",
+          "authors": [
+            "Jiajun Wu, Joseph J. Lim, Hongyi Zhang, Joshua B. Tenenbaum",
+            "William T. Freeman"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 41,
+          "raw": "Tianfan Xue, Jiajun Wu, Katherine L. Bouman, and William T. Freeman. Visual dynamics: Probabilistic future frame synthesis via cross convolutional networks. arXiv preprint arXiv 1607.02586, 2016.",
+          "title": "Visual dynamics: Probabilistic future frame synthesis via cross convolutional networks",
+          "authors": [
+            "Tianfan Xue, Jiajun Wu, Katherine L. Bouman",
+            "William T. Freeman"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 42,
+          "raw": "Richard Zhang, Phillip Isola, and Alexei A Efros. Colorful image colorization. arXiv preprint arXiv:1603.08511, 2016. 15",
+          "title": "Colorful image colorization",
+          "authors": [
+            "Richard Zhang, Phillip Isola",
+            "Alexei A Efros"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:42",
+        "coverage:openalex_unavailable",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "7cc1f9317bac81db738e2778dc8eeab17148d4acd100bc77f6e903b57a933365",
+          "request_time": "2026-08-22T18:25:09.788319Z",
+          "status": "degraded",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "42/42 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:25:10.729930Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "5e03f2a47ba6c7843b91fd79a883716293a351b8e24c6b33d5429443b641a09a",
+          "request_time": "2026-08-22T18:25:12.921263Z",
+          "status": "failed",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "openalex search_works_raw failed: all 3 attempts failed; last=HTTPStatusError"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=preprint.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:32:08.060770Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "preprint",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin başlığında 'Deep Reinforcement Learning' geçmesi ve 'DeepMind' gibi araştırma kurumlarının yazarlar arasında yer alması, bunun bir preprint veya konferans bildirisi olabileceğini düşündürüyor. Bölüm başlıkları (ABSTRACT, INTRODUCTION, RELATED WORK, REFERENCES) tipik bir akademik makale yapısını yansıtıyor. Çalışma tasarımı olarak 'computational_modeling' seçildi çünkü başlık ve özet, derin pekiştirmeli öğrenme kullanarak fizik deneylerini simüle etme ve öğrenme üzerine odaklandığını gösteriyor.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 81.2,
+      "recommended_decision": "accept",
+      "confidence": 0.7186666666666668,
+      "top_fatal_risks": [
+        "Genel Yapay Zeka Yetenekleri Hakkında Aşırı Genelleme",
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "Veri ve Kod Erişilebilirliği Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 3 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 26.0,
+        "severity": "major",
+        "confidence": 0.8833333333333333,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.8250000000000001,
+        "why_it_matters": "4 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "4 concern(s): The paper acknowledges the reliance on 'millions of training steps' for relatively simple tasks. While acknowledged, this is a significant methodological limitation for practical applicability. The lack of discussion or exploration of sample-efficient RL methods, even as a comparative baseline or future work direction, leaves a gap in understanding the feasibility of scaling this approach.; The paper demonstrates learned 'experimentation' skills in two constrained environments. The question of how these skills transfer to more complex, unstructured settings or entirely new tasks is raised in the 'questions' section of the draft, but the manuscript itself does not provide any empirical evidence or detailed discussion on potential transfer mechanisms or limitations. This leaves the generalizability of the learned strategies largely unaddressed.; The draft mentions 'systematic manipulation of task difficulty' and 'interpretable evidence' but does not explicitly state whether statistical power analyses were conducted for the experimental designs, nor does it detail the statistical significance of observed performance differences between agents or conditions. Without this, it's difficult to definitively assess the robustness of the findings, especially for subtle differences in agent behavior. (+1 more)",
+        "key_objection": "The paper acknowledges the reliance on 'millions of training steps' for relatively simple tasks. While acknowledged, this is a significant methodological limitation for practical applicability. The lack of discussion or exploration of sample-efficient RL methods, even as a comparative baseline or future work direction, leaves a gap in understanding the feasibility of scaling this approach.",
+        "confidence": 0.5,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "research_question_fit.f0",
+          "research_question_fit.f1"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "1 concern(s): The automated check of the bibliography encountered a technical error, preventing verification of the 42 references. While this is not an indication of issues with the references themselves, it means I cannot confirm their correctness or comment on citation hygiene. Please ensure all references are correctly formatted and resolvable.",
+        "key_objection": "The automated check of the bibliography encountered a technical error, preventing verification of the 42 references. While this is not an indication of issues with the references themselves, it means I cannot confirm their correctness or comment on citation hygiene. Please ensure all references are correctly formatted and resolvable.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "revision-required",
+        "summary": "2 concern(s): The reviewer's statement 'none of the 42 references could be programmatically verified' is accurate based on the evidence package. However, the subsequent rationale for the 'citation_integrity' score ('As there is no evidence of fabricated or retracted citations, the score reflects this lack of negative signals, while acknowledging the check was incomplete.') is a judgment call that goes beyond the strict interpretation of 'no evidence of issues'. While it's true there's no *positive* evidence of fabrication/retraction, the complete inability to verify *any* citation means there's also no positive evidence of their correctness. Assigning a score of 8.0 implies a level of confidence that is not fully supported by the 'not_found_in_index' status for all references, even if due to a technical error. The statement 'no evidence of any issues' is technically correct, but the score implies a stronger positive assessment than warranted by the lack of verification.; The rationale for the 'citation_integrity' score (8.0) states: 'The evidence pack reported an inability to verify citations due to a technical error, not due to any detected issues. As there is no evidence of fabricated or retracted citations, the score reflects this lack of negative signals, while acknowledging the check was incomplete.' While the technical error is acknowledged, assigning a relatively high score of 8.0 when *none* of the 42 references could be verified (even if due to a technical error) is problematic. A complete lack of verification, regardless of the reason, means the integrity of the citations remains unconfirmed. A score reflecting 'no issues found' should ideally be based on successful verification, not merely the absence of detected problems when verification failed entirely. This score overstates the confirmed integrity of the citations.",
+        "key_objection": "The rationale for the 'citation_integrity' score (8.0) states: 'The evidence pack reported an inability to verify citations due to a technical error, not due to any detected issues. As there is no evidence of fabricated or retracted citations, the score reflects this lack of negative signals, while acknowledging the check was incomplete.' While the technical error is acknowledged, assigning a relatively high score of 8.0 when *none* of the 42 references could be verified (even if due to a technical error) is problematic. A complete lack of verification, regardless of the reason, means the integrity of the citations remains unconfirmed. A score reflecting 'no issues found' should ideally be based on successful verification, not merely the absence of detected problems when verification failed entirely. This score overstates the confirmed integrity of the citations.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "research_question_fit.f1",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper investigates whether deep reinforcement learning agents can learn to perform 'experiments' to infer latent physical properties of objects, such as mass and cohesion, without being endowed with prior knowledge of physics. The authors introduce two simulated environments, 'Which is Heavier' and 'Towers', where an agent must actively interact with objects to gather information before answering a question about their properties. The core finding is that agents trained with a standard RL algorithm (A3C) learn non-trivial, adaptive strategies that balance information gathering and decision-making, often outperforming random interaction policies. The paper explicitly frames itself not as an algorithmic contribution, but as a conceptual one, demonstrating a key capability for more general AI.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Deneysel Tasarımın Açık Tanımı",
+        "summary": "Makale, derin pekiştirmeli öğrenme ajanlarının fizik deneyleri yapmayı öğrenme yeteneğini değerlendirmek için tasarlanmış iki farklı simüle edilmiş ortam (Which is Heavier ve Towers) kullanarak deneysel bir yaklaşım benimsemektedir. Bu tasarım, araştırma sorularıyla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "In this work we introduce a basic set of tasks that require agents to estimate properties such as mass and cohesion of objects in an interactive simulated environment where they can manipulate the objects and observe the consequences."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "We investigate the ability of agents to learn to perform experiments to infer object properties through two environments—Which is Heavier and Towers."
+          }
+        ],
+        "reasoning_public": "Çalışma, yapay ajanların etkileşim yoluyla nesnelerin gizli fiziksel özelliklerini nasıl öğrenebileceğini incelemektedir. Simüle edilmiş ortamlar ve kontrollü deneyler, bu tür bir araştırmanın temelini oluşturur ve nedensel çıkarımlar yapılmasına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Çalışma, 'Which is Heavier' ortamında her zorluk seviyesi için 10 rastgele tohumdan başlatılan ajanların en iyi %50'sini kullandığını belirtirken, 'Population strategy differentiation' deneyinde her zorluk için üç ajan eğittiğini belirtmektedir. Ancak, bu örneklem büyüklüklerinin neden seçildiğine dair bir gerekçe, güç analizi veya hassasiyet analizi sunulmamıştır. Bu durum, bulguların genellenebilirliği ve istatistiksel gücü hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_3_experiments.a0",
+            "section": "5.3 EXPERIMENTS",
+            "quote": "Each plot shows the top 50% of agents started from 10 random seeds with identical hyperparameter settings."
+          },
+          {
+            "anchor_id": "population_strategy_differentiation.a0",
+            "section": "Population strategy differentiation",
+            "quote": "We trained three agents for each difﬁculty and show results aggregated across the different replicas."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, örneklem büyüklüğünün uygun şekilde gerekçelendirilmesi, elde edilen sonuçların istatistiksel gücünü ve genellenebilirliğini sağlamak için kritik öneme sahiptir. Güç analizi, belirli bir etki büyüklüğünü tespit etmek için gereken minimum örneklem büyüklüğünü belirlerken, hassasiyet analizi, belirli bir örneklem büyüklüğüyle elde edilebilecek güven aralığının genişliğini değerlendirir. Bu tür bir gerekçelendirmenin eksikliği, bulguların tesadüfi olma veya gerçek etkileri gözden kaçırma riskini artırabilir.",
+        "limitations": [
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Değişken Operasyonelleştirmesinin Açıklığı",
+        "summary": "Çalışma, 'Which is Heavier' ortamında kütlelerin nasıl atandığını (Beta dağılımı ile β parametresi kullanılarak) ve 'Towers' ortamında kulelerin nasıl oluşturulduğunu (farklı blok alt kümelerinin birleştirilmesiyle) açıkça operasyonelleştirmektedir. Ayrıca, 'zorluk' kavramı hem problem seviyesinde (β ile kontrol edilen kütle boşluğu dağılımı) hem de örneklem seviyesinde (tek bir bölümdeki kütle boşluğunun boyutu) tanımlanmıştır. Başarı olasılığı ve bölüm uzunluğu gibi ölçümler de net bir şekilde açıklanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_environment.a0",
+            "section": "5.1 ENVIRONMENT",
+            "quote": "We sample the mass of the heavy block from Beta(β, 1) and the mass of the light blocks from Beta(1, β). The single parameter β effectively controls the distribution of mass gaps (and thus controls the difﬁculty), with large values of β leading to easier problems."
+          },
+          {
+            "anchor_id": "5_1_environment.a1",
+            "section": "5.1 ENVIRONMENT",
+            "quote": "We distinguish between problem level and instance level difﬁculty for this domain."
+          },
+          {
+            "anchor_id": "5_3_experiments.a1",
+            "section": "5.3 EXPERIMENTS",
+            "quote": "The y-axes show the probability of the agent producing the correct answer before the episode times out."
+          }
+        ],
+        "reasoning_public": "Değişkenlerin açık ve detaylı operasyonelleştirilmesi, çalışmanın tekrarlanabilirliğini ve bulguların yorumlanabilirliğini artırır. Bu, okuyucuların araştırmacıların neyi ölçtüğünü ve nasıl ölçtüğünü tam olarak anlamalarını sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Varsayım Testlerinin Eksikliği",
+        "summary": "Makale, istatistiksel analizler için kullanılan yöntemleri (örneğin, OLS ile doğrusal trend uyumu) belirtirken, bu yöntemlerin altında yatan varsayımların (örneğin, doğrusallık, hata terimlerinin normal dağılımı, homoskedastisite) test edilip edilmediğine dair bilgi vermemektedir. Özellikle 'Episode lengths as a function of the normalized mass gap' grafiğinde (Şekil 3, sağ panel) OLS ile doğrusal bir trend uyumu gösterilmektedir, ancak bu modelin varsayımlarının karşılandığına dair bir kanıt sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "individual_strategy_differentiation.a0",
+            "section": "Individual strategy differentiation",
+            "quote": "The black dots show individual episodes, and the red line shows a linear trend ﬁt by OLS and error bars show a histogram estimate of standard deviations."
+          }
+        ],
+        "reasoning_public": "İstatistiksel modellerin geçerliliği, altında yatan varsayımların karşılanmasına bağlıdır. Bu varsayımların test edilmemesi veya raporlanmaması, elde edilen sonuçların güvenilirliğini ve yorumlanabilirliğini zayıflatır. Varsayımların ihlali, yanlış çıkarımlara yol açabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Metin-Tablo-Figür Tutarlılığı",
+        "summary": "Makale, metin içinde bahsedilen deney sonuçlarını ve gözlemleri, Şekil 1, Şekil 2, Şekil 3 ve Şekil 4 gibi figürlerle tutarlı bir şekilde sunmaktadır. Örneğin, Şekil 2'deki öğrenme eğrileri, metindeki 'Success in learning' bölümünde açıklanan başarı olasılığı ve zorluk seviyeleriyle uyumludur. Şekil 3'teki histogramlar ve kütle boşluğu-bölüm uzunluğu ilişkisi de ilgili metin bölümleriyle tutarlıdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_3_experiments.a2",
+            "section": "5.3 EXPERIMENTS",
+            "quote": "Representative learning curves for each condition are shown in Figure 2."
+          },
+          {
+            "anchor_id": "population_strategy_differentiation.a1",
+            "section": "Population strategy differentiation",
+            "quote": "The left plot in Figure 3 shows histograms of the episode lengths broken down by task difﬁculty."
+          },
+          {
+            "anchor_id": "randomized_interaction.a0",
+            "section": "Randomized interaction",
+            "quote": "Figure 4 compares the learned interaction policies to the randomized interaction baselines."
+          }
+        ],
+        "reasoning_public": "Metin, tablo ve figürler arasındaki tutarlılık, bilimsel raporlamanın temel bir gerekliliğidir. Bu, okuyucuların sunulan bilgileri kolayca takip etmesini ve anlamasını sağlar, ayrıca çalışmanın güvenilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, ajanların öğrenme performansını ve farklı stratejilerin etkinliğini gösteren grafikler sunsa da (örn. başarı olasılığı, bölüm uzunlukları), bu etkilerin büyüklüğünü nicel olarak ifade eden etki büyüklüğü ölçümleri (Cohen's d, eta-kare vb.) veya güven aralıkları (CI) raporlamamaktadır. Şekil 3'teki OLS uyumunda hata çubukları gösterilse de, bu genellikle standart sapma tahmini olarak belirtilmiştir, güven aralığı olarak değil. Bu durum, gözlemlenen farklılıkların pratik önemini değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "individual_strategy_differentiation.a1",
+            "section": "Individual strategy differentiation",
+            "quote": "The black dots show individual episodes, and the red line shows a linear trend ﬁt by OLS and error bars show a histogram estimate of standard deviations."
+          }
+        ],
+        "reasoning_public": "Etki büyüklüğü ölçümleri, istatistiksel olarak anlamlı bulunan bir etkinin pratik önemini nicel olarak ifade eder. Güven aralıkları ise parametre tahminlerinin belirsizliğini gösterir. Bu ölçümlerin eksikliği, okuyucuların bulguların gerçek dünyadaki veya teorik bağlamdaki önemini tam olarak anlamasını engeller ve sadece p-değerlerine dayalı çıkarımlara yol açabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Eksik Veri İşleme Stratejisinin Kısmi Açıklığı",
+        "summary": "Makale, 'Which is Heavier' ortamında 'episodes terminating in timeout have been excluded' ve 'very small proportion of episodes that terminate by timeout' ifadeleriyle zaman aşımı nedeniyle sonlanan bölümlerin analizden çıkarıldığını belirtmektedir. Ancak, bu 'çok küçük oranın' nicel bir değeri verilmemiştir ve bu eksik verilerin potansiyel etkisi veya bu dışlama stratejisinin gerekçesi tam olarak açıklanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "individual_strategy_differentiation.a2",
+            "section": "Individual strategy differentiation",
+            "quote": "We again exclude from analysis the very small proportion of episodes that terminate by timeout."
+          },
+          {
+            "anchor_id": "randomized_interaction.a1",
+            "section": "Randomized interaction",
+            "quote": "episodes terminating in timeout have been excluded"
+          }
+        ],
+        "reasoning_public": "Eksik verilerin nasıl ele alındığı ve bu kararların potansiyel etkileri, çalışmanın güvenilirliği ve genellenebilirliği açısından önemlidir. Eksik veri oranının ve dışlama stratejisinin şeffaf bir şekilde raporlanması, okuyucuların bulguların sağlamlığını değerlendirmesine yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Disiplini",
+        "summary": "Çalışma, simüle edilmiş ortamlar ve kontrollü deneyler kullandığı için nedensel dil kullanımı genellikle uygun ve disiplinlidir. Ajanların belirli eylemlerinin (örneğin, etkileşim) sonuçları (örneğin, gizli özellikleri öğrenme) üzerindeki etkileri açıkça tartışılmaktadır. 'We found that deep reinforcement learning methods can learn to perform the experiments necessary to discover such hidden properties' gibi ifadeler, deneysel tasarımın izin verdiği nedensel çıkarımlarla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "We found that deep reinforcement learning methods can learn to perform the experiments necessary to discover such hidden properties."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "To this end we show that we can build agents that can learn to experiment so as to learn representations that are informative about physical properties of objects, using deep reinforcement learning."
+          }
+        ],
+        "reasoning_public": "Deneysel tasarımlar, değişkenler arasındaki nedensel ilişkileri incelemek için güçlü bir temel sağlar. Bu çalışmada, ajanların davranışları ve ortamın özellikleri manipüle edildiği için, gözlemlenen sonuçlar üzerindeki nedensel etkileri tartışmak uygundur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Veri ve Kod Erişilebilirliği Eksikliği",
+        "summary": "Makale, deneylerde kullanılan veri setlerine veya ajanların eğitiminde kullanılan kodlara erişim hakkında herhangi bir bilgi sağlamamaktadır. Bu durum, çalışmanın tekrarlanabilirliğini önemli ölçüde kısıtlamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmanın temel prensiplerinden biri tekrarlanabilirliktir. Veri ve kodun erişilebilir olması, diğer araştırmacıların bulguları doğrulamasına, metodolojiyi geliştirmesine ve gelecekteki çalışmalara temel oluşturmasına olanak tanır. Özellikle derin öğrenme ve pekiştirmeli öğrenme gibi alanlarda, karmaşık modellerin ve eğitim süreçlerinin şeffaflığı kritik öneme sahiptir.",
+        "limitations": [
+          "Makalede veri veya kod erişilebilirliği hakkında herhangi bir ifade bulunmadığından, bu bulgu global_issue olarak işaretlenmiştir."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Ana Sonuçlarda Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, ajanların başarı olasılığı ve bölüm uzunlukları gibi ana sonuçları grafikler aracılığıyla sunsa da, bu sonuçlar için güven aralıkları veya diğer belirsizlik ölçüleri (örneğin, ortalamaların standart hataları) genellikle raporlanmamıştır. Şekil 2'deki 'top 50% of agents' ve 'median performance' ifadeleri, bir tür özetleme sağlasa da, bu performansın ne kadar değişken olduğunu veya gerçek ortalamanın nerede olabileceğini gösteren nicel belirsizlik ölçüleri eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_3_experiments.a3",
+            "section": "5.3 EXPERIMENTS",
+            "quote": "Each plot shows the top 50% of agents started from 10 random seeds with identical hyperparameter settings. The light lines show learning curves from individual agents, and the dark lines show the median performance across the displayed runs for each difﬁculty."
+          }
+        ],
+        "reasoning_public": "Ana sonuçların sadece nokta tahminleri olarak sunulması, okuyucuların bu tahminlerin ne kadar güvenilir olduğunu veya farklı deney tekrarları arasındaki değişkenliği değerlendirmesini zorlaştırır. Belirsizlik ölçüleri, bulguların sağlamlığı hakkında daha eksiksiz bir resim sunar.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çalışmanın Özgün Yaklaşımı ve Katkısı Açıkça Belirtilmiş",
+        "summary": "Makale, mevcut derin pekiştirmeli öğrenme yöntemlerini kullanarak yapay ajanların fiziksel deneyler yapmayı öğrenme yeteneğini araştırmaktadır. Bu, yeni bir model veya algoritma sunmaktan ziyade, mevcut yöntemlerin yeni bir problem alanına uygulanması ve bu alandaki öğrenme stratejilerinin incelenmesi üzerine odaklanarak özgün bir katkı sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "what_is_this_paper_about.a0",
+            "section": "WHAT IS THIS PAPER ABOUT?",
+            "quote": "This is an unusual paper in that it does not present a new model or propose a new algorithm. There is a reinforcement learning task at the core of each of our experiments, but the algorithm and models we use to solve it are not new, and many other existing approaches should be expected to perform equally well if they were to be substituted in the same setting."
+          },
+          {
+            "anchor_id": "what_is_this_paper_about.a1",
+            "section": "WHAT IS THIS PAPER ABOUT?",
+            "quote": "This paper is a step towards agents that understand objects and intuitive reasoning in physical worlds."
+          }
+        ],
+        "reasoning_public": "Makale, kendi özgünlüğünü ve katkısını net bir şekilde tanımlamıştır. Özellikle, yeni bir model veya algoritma sunmadığını, bunun yerine mevcut yöntemlerin fiziksel deneyler yapmayı öğrenen ajanlar geliştirmeye yönelik bir adım olduğunu vurgulamaktadır. Bu yaklaşım, yapay zeka alanında 'neden' ve 'nasıl' sorularına odaklanarak, sadece performans artışına değil, aynı zamanda ajanların dünyayı anlama biçimlerine dair içgörüler sunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Etkileşim Odaklı Öğrenme ve Gizli Özelliklerin Keşfi",
+        "summary": "Makale, ajanların nesnelerin görünür olmayan fiziksel özelliklerini (kütle, kohezyon gibi) etkileşim yoluyla öğrenme yeteneğini değerlendiren yeni görevler sunmaktadır. Bu, geleneksel olarak görsel algıya dayalı yaklaşımlardan farklılaşarak, aktif deney yapmanın önemini vurgulamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "In this work we introduce a basic set of tasks that require agents to estimate properties such as mass and cohesion of objects in an interactive simulated environment where they can manipulate the objects and observe the consequences."
+          },
+          {
+            "anchor_id": "what_is_this_paper_about.a2",
+            "section": "WHAT IS THIS PAPER ABOUT?",
+            "quote": "This paper introduces tasks where we can evaluate the ability of agents to learn about these “hidden” properties of objects."
+          },
+          {
+            "anchor_id": "what_is_this_paper_about.a3",
+            "section": "WHAT IS THIS PAPER ABOUT?",
+            "quote": "One of the contributions of this paper is to show that our agents can still learn about properties of objects, even when the connection between material appearance and physical properties is broken. This setting allows us to show that our agents are not merely learning that blocks are heavy; they are learning how to check if blocks are heavy."
+          }
+        ],
+        "reasoning_public": "Çalışma, ajanların dünyayı pasif gözlem yerine aktif etkileşimle anlaması gerektiği fikrini temel almaktadır. Bu, özellikle nesnelerin gizli özelliklerini (görsel olarak anlaşılamayan) keşfetme bağlamında önemli bir özgünlük taşır. Makale, bu tür görevlerin tasarlanmasının ve ajanların bu görevlerdeki performansının incelenmesinin, yapay zeka alanında daha sağlam ve genellenebilir ajanlar geliştirmek için kritik olduğunu göstermektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve İyi Tanımlanmış Araştırma Sorusu",
+        "summary": "Makale, derin pekiştirmeli öğrenme ajanlarının fiziksel deneyler yaparak nesnelerin gizli özelliklerini öğrenme yeteneğini araştırmaktadır. Araştırma sorusu net bir şekilde ifade edilmiş ve çalışmanın tasarımıyla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "In this work we introduce a basic set of tasks that require agents to estimate properties such as mass and cohesion of objects in an interactive simulated environment where they can manipulate the objects and observe the consequences."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "While we draw inspiration from child development, it must be emphasized that our purpose is not to provide an account of learning and thinking in humans, but rather to explore how similar types of understanding might be learned by artiﬁcial agents in a grounded way."
+          }
+        ],
+        "reasoning_public": "Makale, yapay zeka sistemlerinin çocukların bilimsel sezgilerine rakip olup olamayacağı genel sorusundan yola çıkarak, ajanların etkileşimli simüle edilmiş bir ortamda nesnelerin kütle ve kohezyon gibi özelliklerini tahmin etme yeteneğini incelemektedir. Bu, çalışmanın temel amacını açıkça ortaya koymaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f1",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Çalışma Tasarımı Araştırma Sorusunu Destekliyor",
+        "summary": "Makale, araştırma sorusunu cevaplamak için 'Which is Heavier' ve 'Towers' olmak üzere iki farklı ortam tasarlamıştır. Bu ortamlar, ajanların nesnelerin görünmeyen fiziksel özelliklerini etkileşim yoluyla öğrenmesini gerektirecek şekilde özel olarak yapılandırılmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "We investigate the ability of agents to learn to perform experiments to infer object properties through two environments—Which is Heavier and Towers."
+          },
+          {
+            "anchor_id": "5_1_environment.a2",
+            "section": "5.1 ENVIRONMENT",
+            "quote": "The Which is Heavier environment is designed to ask a question about the relative masses of different objects in a scene. We assign masses to objects in a way that is uncorrelated with their appearance in order to ensure that the task is not solvable without interaction."
+          },
+          {
+            "anchor_id": "6_1_environment.a0",
+            "section": "6.1 ENVIRONMENT",
+            "quote": "The Towers environment is designed to ask agents to count the number of cohesive rigid bodies in a scene. The environment is designed so that in its initial conﬁguration it is not possible to determine the number of rigid bodies from vision or features alone."
+          }
+        ],
+        "reasoning_public": "Tasarlanan ortamlar, ajanların sadece görsel ipuçlarına dayanarak değil, nesnelerle etkileşime girerek ve sonuçları gözlemleyerek gizli özellikleri (kütle, kohezyon) öğrenmesini zorunlu kılmaktadır. Bu yaklaşım, makalenin temel araştırma sorusu olan 'ajanların deney yaparak gizli özellikleri öğrenme yeteneği' ile doğrudan uyumludur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çocuk Gelişimi ve Bilimsel Deney Benzetmesi ile Güçlü Teorik Çerçeve",
+        "summary": "Makale, çocukların öğrenme süreçleri ve bilim insanlarının deney yapma yaklaşımları arasındaki paralellikleri kullanarak çalışmasına sağlam bir teorik temel sağlamaktadır. Bu benzetme, pekiştirmeli öğrenme ajanlarının fiziksel özellikleri keşfetme yeteneğini inceleme motivasyonunu açıkça ortaya koymaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "Our work is inspired by empirical ﬁndings and theories in psychology indicating that infant learning and thinking is similar to that of adult scientists (Gopnik, 2012). One important view in developmental science is that babies are endowed with a small number of separable systems of core knowledge for reasoning about objects, actions, number, space, and possibly social interactions (Spelke & Kinzler, 2007)."
+          },
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "It is quite possible that this process of actively engaging with objects and watching the consequences of their actions helps infants understand different physical properties of the object which cannot be observed directly using their sensory systems. It seems infants run a series of “physical” experiments to enhance their knowledge about the world (Gopnik, 2012)."
+          }
+        ],
+        "reasoning_public": "Makale, yapay zeka ajanlarının nesnelerin fiziksel özelliklerini etkileşim yoluyla öğrenmesini, çocukların dünyayı keşfetme biçimleri ve bilim insanlarının deney yapma süreçleriyle ilişkilendirerek güçlü bir teorik çerçeve sunmaktadır. Bu, çalışmanın amacını ve yöntemini anlamlandırmak için sağlam bir zemin oluşturur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Pekiştirmeli Öğrenme ve Deney Tasarımı İlişkisi",
+        "summary": "Makale, deney yapma problemini pekiştirmeli öğrenme çerçevesinde 'soru sorma' ve 'cevaplama' olarak yeniden tanımlayarak, bu kavramların literatürdeki genel kullanımından farklılaştığını açıkça belirtmektedir. Bu, çalışmanın metodolojik yaklaşımının teorik temellerini güçlendirmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_answering_questions_through_interaction.a0",
+            "section": "3 ANSWERING QUESTIONS THROUGH INTERACTION",
+            "quote": "We pose the problem of experimentation as that of answering questions about non-visual properties of objects present in the environment. We design environments that ask questions about these properties by providing rewards when the agent is able to infer them correctly, and we train agents to answer these questions using reinforcement learning."
+          },
+          {
+            "anchor_id": "3_answering_questions_through_interaction.a1",
+            "section": "3 ANSWERING QUESTIONS THROUGH INTERACTION",
+            "quote": "Our use of “questions” and “answers” differs from how these terms are used elsewhere in the literature. Sutton et al. (2011) talk about a value function as a question, and the agent provides an answer in the form of an approximation of the value. The answer incorporates the agent’s knowledge, and the match between the actual value and the agent’s approximation grounds what it means for this knowledge to be accurate."
+          }
+        ],
+        "reasoning_public": "Yazarlar, deney yapmayı, ajanların görsel olmayan nesne özelliklerini keşfetmek için etkileşimde bulunarak 'sorulara cevap vermesi' olarak kavramsallaştırmaktadır. Bu, pekiştirmeli öğrenme paradigmasını, bilgi toplama ve karar verme arasındaki dengeyi incelemek için uygun bir teorik araç olarak konumlandırır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Literatür Taramasının Doğrulanabilirliği",
+        "summary": "Makalede atıfta bulunulan 42 referansın tamamı otomatik indeksleme sistemleri tarafından bulunamamıştır. Bu durum, makalenin literatürdeki konumunun ve dayandığı önceki çalışmaların doğrulanabilirliğini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik bir çalışmanın güvenilirliği ve etkisi, atıfta bulunduğu kaynakların kolayca erişilebilir ve doğrulanabilir olmasıyla artar. Tüm referansların indekslerde bulunamaması, okuyucuların makalenin argümanlarını destekleyen temel çalışmaları incelemesini engeller ve literatürdeki konumunu değerlendirmeyi güçleştirir. Bu durum, makalenin şeffaflığını ve bilimsel topluluk içindeki etkileşimini olumsuz etkileyebilir.",
+        "limitations": [
+          "Kanıt paketindeki 'not_found_in_index' durumu, OpenAlex'in geçici bir servis hatasından kaynaklanmış olabilir ve referansların gerçekten mevcut olmadığı anlamına gelmez. Bu nedenle, referansların içeriği veya bağlamı hakkında bir değerlendirme yapılamamıştır."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "İlham Kaynaklarının Açıkça Belirtilmesi",
+        "summary": "Makale, çocuk gelişimi ve bilişsel bilimlerden aldığı ilhamı açıkça belirtmekte ve kendi çalışmasının bu alandaki yerini net bir şekilde tanımlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "Our work is inspired by empirical ﬁndings and theories in psychology indicating that infant learning and thinking is similar to that of adult scientists (Gopnik, 2012). One important view in developmental science is that babies are endowed with a small number of separable systems of core knowledge for reasoning about objects, actions, number, space, and possibly social interactions (Spelke & Kinzler, 2007)."
+          },
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "While we draw inspiration from child development, it must be emphasized that our purpose is not to provide an account of learning and thinking in humans, but rather to explore how similar types of understanding might be learned by artiﬁcial agents in a grounded way."
+          }
+        ],
+        "reasoning_public": "Çalışmanın ilham kaynaklarını ve kendi kapsamını net bir şekilde ortaya koyması, okuyucuların makalenin hedeflerini ve sınırlılıklarını anlamasına yardımcı olur. Bu, çalışmanın literatürdeki konumunu güçlendirir ve yanlış yorumlamaların önüne geçer.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genel Yapay Zeka Yetenekleri Hakkında Aşırı Genelleme",
+        "summary": "Makale, mevcut yapay zeka sistemlerinin Go, Atari ve doğal dil işlemedeki 'süper insan' performansına rağmen, 'küçük bir çocuğun bilimsel sezgisine' rakip olamadığına dair genel bir iddiada bulunuyor. Ancak, bu iddiayı destekleyecek doğrudan bir kanıt veya analiz sunulmuyor. Çalışma, fizik deneyleri yapmayı öğrenen pekiştirmeli öğrenme ajanlarına odaklanırken, bu geniş karşılaştırma makalenin kapsamının ötesine geçiyor ve kanıtlanmamış bir genelleme içeriyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "Recent advances in artiﬁcial intelligence have yielded machines that can achieve superhuman perfor-mance in Go, Atari, natural language processing, and complex control problems; however, it is not clear that these systems can rival the scientiﬁc intuition of even a young child."
+          },
+          {
+            "anchor_id": "introduction.a8",
+            "section": "INTRODUCTION",
+            "quote": "Despite impressive advances in artiﬁcial intelligence that have led to superhuman performance in Go, Atari and natural language processing, it is still unclear if these systems behind these advances can rival the scientiﬁc intuition of even a small child."
+          }
+        ],
+        "reasoning_public": "Makale, kendi çalışmasının kapsamını aşan ve doğrudan desteklenmeyen geniş bir iddia ortaya koymaktadır. Mevcut yapay zeka sistemlerinin belirli alanlardaki başarısını kabul ederken, 'bilimsel sezgi' gibi karmaşık ve ölçülmesi zor bir kavramda yetersiz kaldıklarını belirtmek, bu yetersizliğin nedenlerini veya bu karşılaştırmanın nasıl yapıldığını açıklayan somut bir kanıt olmadan aşırı bir genellemedir. Bu durum, okuyucuyu yanlış yönlendirebilir ve makalenin ana katkısından uzaklaştırabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Wu et al. (2015) ile Karşılaştırmada Eksiklik",
+        "summary": "Makale, Wu et al. (2015) çalışmasından farklı olarak, ajanların nesnelerin fiziksel özellikleri veya fizik yasaları hakkında önceden bilgiye sahip olmadığını ve bu nedenle öğrenmek için nesnelerle etkileşime girmesi gerektiğini belirtiyor. Ancak, Wu et al. (2015) çalışmasının tam olarak hangi varsayımları yaptığı ve bu varsayımların mevcut çalışmadaki 'ön bilgi eksikliği' iddiasıyla nasıl çeliştiği yeterince detaylandırılmamıştır. Bu, okuyucunun iki çalışma arasındaki temel farkı tam olarak anlamasını zorlaştırıyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a9",
+            "section": "INTRODUCTION",
+            "quote": "Unlike Wu et al. (2015), we assume that the agent has no prior knowledge about physical properties of objects, or the laws of physics, and hence must interact with the objects in order to learn to answer questions about these properties."
+          }
+        ],
+        "reasoning_public": "İki çalışma arasındaki temel metodolojik farkın net bir şekilde ortaya konulması, mevcut çalışmanın yeniliğini ve katkısını vurgulamak için önemlidir. Wu et al. (2015) çalışmasının 'ön bilgi' varsayımlarının daha açık bir şekilde belirtilmesi, bu iddianın kanıt temelini güçlendirecektir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Öğrenilen Politikaların Rastgele Temel Çizgilerinden Daha İyi Performans Göstermesi",
+        "summary": "Makale, öğrenilen etkileşim politikalarının rastgele temel çizgilerine kıyasla daha doğru tahminlere yol açtığını ve daha güvenilir sonuçlar ürettiğini açıkça belirtmekte ve bu iddiayı Figure 4'teki verilerle desteklemektedir. Bu, makalenin temel bulgularından biridir ve sunulan kanıtlarla iyi bir şekilde uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "We also compare our learned experimentation policies to randomized baselines and show that the learned policies lead to better predictions."
+          },
+          {
+            "anchor_id": "5_3_experiments.a4",
+            "section": "5.3 EXPERIMENTS",
+            "quote": "Finally, we conduct an experiment comparing our learned information gathering policies to a ran-domized baseline method. This experiment shows that agents more reliably produce the correct label by following their learned interaction policies than by observing the environment being driven by random actions."
+          },
+          {
+            "anchor_id": "randomized_interaction.a2",
+            "section": "Randomized interaction",
+            "quote": "However, the learned interaction policies produce more accurate labels across all permutations."
+          }
+        ],
+        "reasoning_public": "Bu bulgu, makalenin ana katkılarından birini oluşturmakta ve pekiştirmeli öğrenmenin fiziksel deneyler yapma yeteneğini geliştirmedeki etkinliğini göstermektedir. Veriler, öğrenilen politikaların rastgele yaklaşımlara göre üstünlüğünü açıkça ortaya koymaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Referansların Doğrulanabilirliğinde Eksiklik",
+        "summary": "Makaledeki tüm referanslar otomatik sistemler tarafından indekslerde bulunamamıştır, bu da okuyucuların kaynakları doğrulamalarını ve daha derinlemesine incelemelerini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda referansların kolayca erişilebilir ve doğrulanabilir olması, araştırmanın şeffaflığı ve güvenilirliği açısından kritik öneme sahiptir. Referansların indekslerde bulunamaması, okuyucuların atıfta bulunulan çalışmaları kontrol etmesini veya ilgili literatürü daha fazla keşfetmesini engeller. Bu durum, makalenin argümanlarının dayandığı temellerin sağlamlığını değerlendirmeyi zorlaştırabilir.",
+        "limitations": [
+          "Sağlanan kanıt paketi, referansların bulunamamasının OpenAlex servis hatasından kaynaklandığını belirtmektedir. Bu durum, referansların aslında mevcut olduğu ancak otomatik sistem tarafından geçici olarak erişilemediği anlamına gelebilir. Bu nedenle, referansların içeriğinde bir hata olduğu kesin olarak iddia edilemez, ancak doğrulanabilirlik sorunu devam etmektedir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Raporlama Kılavuzlarına Uyum Eksikliği",
+        "summary": "Makale, derin pekiştirmeli öğrenme deneylerini raporlamak için özel bir kılavuza atıfta bulunmamakta veya bu tür bir kılavuzun gerektirdiği yapılandırılmış raporlama öğelerini açıkça sunmamaktadır. Bu durum, çalışmanın şeffaflığını ve tekrarlanabilirliğini olumsuz etkileyebilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Derin pekiştirmeli öğrenme (DRL) alanındaki deneysel çalışmaların karmaşıklığı göz önüne alındığında, metodoloji, deney kurulumu, hiperparametreler ve sonuçların raporlanması için belirli kılavuzlara uyulması, çalışmanın anlaşılabilirliği ve tekrarlanabilirliği açısından kritik öneme sahiptir. Makale, bu tür bir kılavuza atıfta bulunmadığı veya bu kılavuzların önerdiği yapılandırılmış bölümleri (örneğin, belirli bir DRL raporlama şablonu) kullanmadığı için, okuyucuların deneyleri tam olarak anlaması ve yeniden üretmesi zorlaşabilir.",
+        "limitations": [
+          "Derin pekiştirmeli öğrenme alanına özgü evrensel olarak kabul görmüş tek bir raporlama kılavuzu bulunmayabilir, bu da uyumun değerlendirilmesini zorlaştırır. Ancak, genel iyi uygulama prensipleri mevcuttur."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Deney Tasarımının Açıklığı",
+        "summary": "Makale, 'Which is Heavier' ve 'Towers' ortamlarındaki deney tasarımlarını, özellikle değişkenlerin kontrolü (örneğin, β parametresi ile zorluk kontrolü) ve ölçüm metrikleri (başarı olasılığı, bölüm uzunluğu) açısından oldukça açık bir şekilde açıklamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_environment.a3",
+            "section": "5.1 ENVIRONMENT",
+            "quote": "We use the following scheme for controlling the difﬁculty of the Which is Heavier environment. First we select one of the blocks uniformly at random to be the “heavy” block and designate the remaining three as “light” blocks. We sample the mass of the heavy block from Beta(β, 1) and the mass of the light blocks from Beta(1, β). The single parameter β effectively controls the distribution of mass gaps (and thus controls the difﬁculty), with large values of β leading to easier problems."
+          },
+          {
+            "anchor_id": "5_3_experiments.a5",
+            "section": "5.3 EXPERIMENTS",
+            "quote": "The y-axes show the probability of the agent producing the correct answer before the episode times out. Each plot shows the top 50% of agents started from 10 random seeds with identical hyperparameter settings."
+          }
+        ],
+        "reasoning_public": "Çalışma, deney ortamlarının nasıl kurulduğunu, hangi parametrelerin manipüle edildiğini (örn. β değeri ile kütle farkı dağılımı) ve başarı metriklerinin nasıl tanımlandığını (örn. 'Success Probability' ve 'Episode Length') detaylı bir şekilde sunarak, okuyucunun deneylerin mantığını ve sonuçların nasıl elde edildiğini anlamasına yardımcı olmaktadır. Bu açıklık, iyi bir raporlama pratiğinin önemli bir göstergesidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Kod ve Veri Paylaşımının Eksikliği",
+        "summary": "Makale, çalışmada kullanılan kod veya veri setlerinin kamuya açık olup olmadığına dair herhangi bir bilgi içermemektedir. Bu durum, araştırmanın tekrar üretilebilirliğini ve şeffaflığını olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmaların temel prensiplerinden biri, sonuçların bağımsız olarak doğrulanabilmesi ve tekrar üretilebilmesidir. Kod ve veri paylaşımı, bu doğrulamayı sağlamanın en etkili yollarından biridir. Özellikle derin pekiştirmeli öğrenme gibi karmaşık sistemlerde, kullanılan algoritmaların ve eğitim süreçlerinin detaylı bir şekilde incelenebilmesi için kodun erişilebilir olması büyük önem taşır. Verilerin paylaşılmaması ise, aynı deneylerin farklı araştırmacılar tarafından tekrarlanmasını veya sonuçların farklı veri setleri üzerinde test edilmesini engeller.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Onay ve Rıza Beyanının Gerekli Olmaması",
+        "summary": "Çalışma, insan denekler veya hassas veriler içermediği için etik onay veya rıza beyanı gerektirmemektedir. Bu durum, çalışmanın doğası gereği beklenen bir durumdur.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makale, tamamen yapay zeka modelleri ve simülasyon ortamları üzerine odaklanmıştır. İnsan katılımcılarla doğrudan bir etkileşim veya kişisel veri kullanımı söz konusu değildir. Bu nedenle, etik kurul onayı veya katılımcı rızası gibi gereklilikler bu tür bir araştırma için geçerli değildir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Bölüm Başlıklarının Kapsayıcılığı",
+        "summary": "Makalenin 'WHAT IS THIS PAPER ABOUT?' başlıklı bölümü, içeriğini tam olarak yansıtmamaktadır. Bu başlık, bölümün sadece bir kısmını kapsayan bir soru cümlesi olup, bölümün genel amacını ve içeriğini yeterince açıklamamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "what_is_this_paper_about.a4",
+            "section": "WHAT IS THIS PAPER ABOUT?",
+            "quote": "2 WHAT IS THIS PAPER ABOUT? This is an unusual paper in that it does not present a new model or propose a new algorithm. There is a reinforcement learning task at the core of each of our experiments, but the algorithm and models we use to solve it are not new, and many other existing approaches should be expected to perform equally well if they were to be substituted in the same setting."
+          }
+        ],
+        "reasoning_public": "Akademik makalelerde bölüm başlıkları, okuyucuya bölümün içeriği hakkında net ve özlü bir fikir vermelidir. 'WHAT IS THIS PAPER ABOUT?' gibi bir soru cümlesi, bölümün tanıtıcı niteliğini tam olarak yansıtmamakta ve okuyucunun beklentilerini karşılamakta yetersiz kalmaktadır. Bu durum, makalenin yapısal netliğini ve profesyonel görünümünü olumsuz etkileyebilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Giriş Bölümünün Akıcılığı ve Netliği",
+        "summary": "Giriş bölümü, çalışmanın motivasyonunu ve temel ilham kaynaklarını (çocuk gelişimi ve bilimsel deneyler) açıkça belirtmekte ve okuyucuyu konuya başarılı bir şekilde hazırlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a10",
+            "section": "INTRODUCTION",
+            "quote": "Our work is inspired by empirical ﬁndings and theories in psychology indicating that infant learning and thinking is similar to that of adult scientists (Gopnik, 2012). ... While we draw inspiration from child development, it must be emphasized that our purpose is not to provide an account of learning and thinking in humans, but rather to explore how similar types of understanding might be learned by artiﬁcial agents in a grounded way."
+          }
+        ],
+        "reasoning_public": "Giriş bölümü, makalenin geri kalanına sağlam bir temel oluşturarak okuyucunun çalışmanın amacını ve bağlamını anlamasına yardımcı olur. Bu makalede, çocuk gelişiminden ilham alınarak yapay zeka ajanlarının fiziksel özellikleri öğrenme yeteneğinin araştırılması net bir şekilde ifade edilmiştir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çalışma Alanı ve Yaklaşım Uygunluğu",
+        "summary": "Makale, derin pekiştirmeli öğrenme kullanarak fizik deneyleri yapmayı öğrenen yapay zeka ajanlarını inceleyerek, yapay zeka ve bilişsel bilimler arasındaki kesişim noktasında yer almaktadır. Bu, yapay zeka alanındaki konferanslar ve dergiler için uygun bir konudur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "We found that deep reinforcement learning methods can learn to perform the experiments necessary to discover such hidden properties."
+          },
+          {
+            "anchor_id": "introduction.a11",
+            "section": "INTRODUCTION",
+            "quote": "While we draw inspiration from child development, it must be emphasized that our purpose is not to provide an account of learning and thinking in humans, but rather to explore how similar types of understanding might be learned by artiﬁcial agents in a grounded way."
+          }
+        ],
+        "reasoning_public": "Makale, yapay zeka ajanlarının fiziksel dünyayı anlamak için nasıl deneyler yapabileceğini araştırıyor. Bu, makine öğrenimi, pekiştirmeli öğrenme ve yapay zeka alanlarındaki güncel araştırma eğilimleriyle uyumludur. Özellikle, 'Deep Reinforcement Learning' başlığı, bu alandaki bir venue için doğrudan bir eşleşme olduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f1",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Yenilik ve Katkı Beyanı",
+        "summary": "Makale, yeni bir model veya algoritma sunmadığını açıkça belirtmekle birlikte, mevcut derin pekiştirmeli öğrenme yöntemlerinin fiziksel deneyler yapma yeteneğini keşfetme ve bu alandaki ajanların davranışlarını analiz etme üzerine odaklanmaktadır. Bu yaklaşım, belirli bir alandaki temel yeteneklerin sınırlarını ve potansiyelini anlamaya yönelik araştırmalar için uygun olabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "what_is_this_paper_about.a5",
+            "section": "WHAT IS THIS PAPER ABOUT?",
+            "quote": "This is an unusual paper in that it does not present a new model or propose a new algorithm. There is a reinforcement learning task at the core of each of our experiments, but the algorithm and models we use to solve it are not new, and many other existing approaches should be expected to perform equally well if they were to be substituted in the same setting."
+          }
+        ],
+        "reasoning_public": "Makale, 'WHAT IS THIS PAPER ABOUT?' başlıklı bölümde, yeni bir model veya algoritma sunmadığını, ancak mevcut yöntemlerin belirli bir problem alanındaki uygulamalarını ve sonuçlarını incelediğini açıkça belirtmektedir. Bu tür bir çalışma, metodolojik yenilikten ziyade problem alanının keşfine ve mevcut yöntemlerin yeteneklerinin gösterilmesine odaklanan venue'lar için uygun olabilir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, INTRODUCTION",
+        "instruction": "Yapay zeka sistemlerinin 'bilimsel sezgi' konusundaki yetersizliğine dair iddialar, ya doğrudan bu iddiayı destekleyen kanıtlar (örneğin, çocukların ve yapay zeka sistemlerinin karşılaştırıldığı spesifik deneyler) ile desteklenmeli ya da bu tür geniş genellemelerden kaçınılmalıdır. Makalenin odak noktası olan pekiştirmeli öğrenme ajanlarının fizik deneyleri yapma yeteneği ile sınırlı kalınmalıdır.",
+        "acceptance_check": "Genel yapay zeka yetenekleri hakkındaki iddialar ya somut kanıtlarla desteklenmiş ya da makalenin spesifik katkısıyla uyumlu hale getirilmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "5.3 EXPERIMENTS",
+        "instruction": "Her deney için kullanılan ajan sayısının veya rastgele tohum sayısının neden seçildiğine dair bir gerekçe ekleyin. Bu, bir güç analizi veya hassasiyet analizi şeklinde olabilir.",
+        "acceptance_check": "Örneklem büyüklüğü gerekçesi veya güç/hassasiyet analizi sonuçları metne eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "5.3 EXPERIMENTS",
+        "instruction": "Ana sonuçlar için (örneğin, öğrenilen politikaların randomize politikalara göre daha iyi tahminler yapması, farklı zorluk seviyelerinde strateji farklılaşması) etki büyüklüğü ölçümleri (örn. başarı olasılığındaki farkın büyüklüğü) ve güven aralıkları raporlayın. Özellikle Şekil 4'teki karşılaştırmalar için bu ölçümler kritik öneme sahiptir.",
+        "acceptance_check": "Ana bulgular için etki büyüklüğü ve güven aralığı değerleri metne veya ilgili figürlere eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION",
+        "instruction": "Deneylerde kullanılan veri setlerine (veya simülasyon ortamlarının detaylı açıklamalarına) ve ajanların eğitiminde kullanılan kodlara (örneğin, GitHub deposu aracılığıyla) erişim bilgilerini ekleyin. Bu, çalışmanın tekrarlanabilirliğini artıracaktır.",
+        "acceptance_check": "Veri ve kod erişim bilgileri (örn. URL) makaleye eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların DOI'lerini veya tam yayın bilgilerini (dergi adı, cilt, sayı, sayfa aralığı, yayın yılı) ekleyerek referans listesini güncelleyin. Özellikle OpenAlex gibi indeksleme hizmetlerinde bulunamayan referanslar için bu bilgiler kritik öneme sahiptir.",
+        "acceptance_check": "Referans listesindeki her bir girişin, okuyucuların ilgili kaynağı kolayca bulmasını sağlayacak yeterli ve doğru bilgilere sahip olması.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Wu et al. (2015) çalışmasının, ajanların fiziksel özellikler veya yasalar hakkında hangi tür 'ön bilgiye' sahip olduğunu daha açık bir şekilde açıklayın. Bu, mevcut çalışmanın bu konuda nasıl farklılaştığını ve bunun neden önemli bir katkı olduğunu daha iyi vurgulayacaktır.",
+        "acceptance_check": "Wu et al. (2015) ile karşılaştırma, önceki çalışmanın varsayımları hakkında daha fazla detay içermeli.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "RELATED WORK",
+        "instruction": "Makaleye, kullanılan kod ve veri setlerinin (örneğin, GitHub deposu, veri havuzu bağlantısı) nerede bulunabileceğine dair bir bölüm eklenmelidir. Eğer paylaşılamıyorsa, bunun nedenleri açıklanmalıdır.",
+        "acceptance_check": "Makalede kod ve veri paylaşımına ilişkin açık bir ifade veya bağlantı bulunmalıdır.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların DOI'lerini veya tam yayın bilgilerini (dergi adı, cilt, sayı, sayfa aralığı, yayın yılı) kontrol edin ve güncelleyin. Özellikle OpenAlex gibi indeksleme hizmetlerinde bulunamayan referanslar için alternatif erişim yolları (örneğin, arXiv linkleri) sağlamayı düşünün.",
+        "acceptance_check": "Tüm referansların güncel ve doğru yayın bilgileriyle güncellendiği ve en azından büyük bir kısmının OpenAlex veya benzeri akademik indekslerde bulunabilir olduğu doğrulanmalıdır.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "Individual strategy differentiation",
+        "instruction": "OLS regresyonu gibi istatistiksel analizler için kullanılan yöntemlerin varsayımlarının nasıl test edildiğini ve sonuçlarını açıklayın. Varsayımlar karşılanmıyorsa, alternatif bir analiz yöntemi veya varsayım ihlallerinin sonuçlar üzerindeki potansiyel etkileri tartışılmalıdır.",
+        "acceptance_check": "Varsayım testlerinin sonuçları veya varsayım ihlallerinin tartışılması metne eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "5.3 EXPERIMENTS",
+        "instruction": "Ana sonuçları sunarken (özellikle başarı olasılığı ve bölüm uzunlukları gibi performans metrikleri için), ortalamaların güven aralıklarını veya standart hatalarını ekleyin. Bu, figürlerde hata çubukları olarak veya metin içinde sayısal değerler olarak sunulabilir.",
+        "acceptance_check": "Ana sonuçlar için belirsizlik ölçüleri (örn. CI, SE) raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, AGENT ARCHITECTURE AND TRAINING, EXPERIMENTS",
+        "instruction": "Makalenin, derin pekiştirmeli öğrenme deneyleri için önerilen raporlama kılavuzlarına (örneğin, 'Reproducibility Checklist for Machine Learning Research' veya benzeri) uygunluğunu değerlendirin ve eksik kalan temel bilgileri (örneğin, tüm hiperparametreler, eğitim süreleri, kullanılan donanım detayları) ekleyin. Eğer belirli bir kılavuz takip edildiyse, bunu 'Metodoloji' veya 'Giriş' bölümünde belirtin.",
+        "acceptance_check": "Makalede, DRL deneyleri için kabul görmüş bir raporlama kılavuzuna atıf yapılmış ve bu kılavuzun temel gereksinimleri karşılanmış olmalı; veya kılavuz belirtilmese bile, deneylerin tekrarlanabilirliği için gerekli tüm detaylar (hiperparametreler, eğitim ortamı, donanım vb.) açıkça sunulmuş olmalıdır.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "WHAT IS THIS PAPER ABOUT?",
+        "instruction": "Bölüm başlığını, bölümün içeriğini daha iyi yansıtacak şekilde değiştirin. Örneğin, 'Paper's Contribution and Scope' veya 'Motivation and Approach' gibi daha açıklayıcı bir başlık kullanılabilir.",
+        "acceptance_check": "Yeni başlık, bölümün ana fikrini ve kapsamını net bir şekilde ifade etmelidir.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Individual strategy differentiation",
+        "instruction": "Zaman aşımı nedeniyle analizden çıkarılan bölümlerin tam oranını belirtin ve bu dışlamanın sonuçlar üzerindeki potansiyel etkilerini kısaca tartışın. Bu dışlama stratejisinin neden uygun görüldüğüne dair ek gerekçeler sunulabilir.",
+        "acceptance_check": "Dışlanan veri oranı ve gerekçesi metne eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genel Yapay Zeka Yetenekleri Hakkında Aşırı Genelleme",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genel Yapay Zeka Yetenekleri Hakkında Aşırı Genelleme; Wu et al. (2015) ile Karşılaştırmada Eksiklik",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a10",
+          "introduction.a11",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8",
+          "introduction.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "3 ANSWERING QUESTIONS THROUGH INTERACTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_answering_questions_through_interaction.a0",
+          "3_answering_questions_through_interaction.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "5.1 ENVIRONMENT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "5_1_environment.a0",
+          "5_1_environment.a1",
+          "5_1_environment.a2",
+          "5_1_environment.a3"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "5.3 EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Ana Sonuçlarda Belirsizlik Ölçülerinin Eksikliği",
+        "anchor_ids": [
+          "5_3_experiments.a0",
+          "5_3_experiments.a1",
+          "5_3_experiments.a2",
+          "5_3_experiments.a3",
+          "5_3_experiments.a4",
+          "5_3_experiments.a5"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "6.1 ENVIRONMENT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "6_1_environment.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Individual strategy differentiation",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Varsayım Testlerinin Eksikliği; Eksik Veri İşleme Stratejisinin Kısmi Açıklığı",
+        "anchor_ids": [
+          "individual_strategy_differentiation.a0",
+          "individual_strategy_differentiation.a1",
+          "individual_strategy_differentiation.a2"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f5.a0",
+          "quant.f6.a0"
+        ]
+      },
+      {
+        "section": "Population strategy differentiation",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "population_strategy_differentiation.a0",
+          "population_strategy_differentiation.a1"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "Randomized interaction",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Eksik Veri İşleme Stratejisinin Kısmi Açıklığı",
+        "anchor_ids": [
+          "randomized_interaction.a0",
+          "randomized_interaction.a1",
+          "randomized_interaction.a2"
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ]
+      },
+      {
+        "section": "WHAT IS THIS PAPER ABOUT?",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Bölüm Başlıklarının Kapsayıcılığı",
+        "anchor_ids": [
+          "what_is_this_paper_about.a0",
+          "what_is_this_paper_about.a1",
+          "what_is_this_paper_about.a2",
+          "what_is_this_paper_about.a3",
+          "what_is_this_paper_about.a4",
+          "what_is_this_paper_about.a5"
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Discussion",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Discussion' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "preprint",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

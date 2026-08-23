@@ -1,0 +1,2327 @@
+{
+  "paper_id": "peerread:iclr2017-376",
+  "run_tag": "main",
+  "job_id": "8ead0c05-9e0a-4247-9284-eb1321f6d199",
+  "elapsed_s": 563.6,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "CAPACITY AND TRAINABILITY IN RECURRENT NEURAL NETWORKS Jasmine Collins∗, Jascha Sohl-Dickstein & David Sussillo Google Brain",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RELATED WORK",
+        "RESULTS",
+        "DISCUSSION",
+        "ACKNOWLEDGEMENTS",
+        "REFERENCES"
+      ],
+      "word_count": 9019,
+      "reference_count": 42,
+      "parse_confidence": 0.682,
+      "parse_warnings": []
+    },
+    "summary": "This paper presents a large-scale empirical study to disentangle two fundamental properties of Recurrent Neural Networks (RNNs): their capacity to store information and their trainability. By conducting an exhaustive set of experiments across six different RNN architectures (including two novel ones), four depths, and multiple tasks, the authors compellingly argue that most common RNNs have nearly identical information storage capacity. They quantify this as approximately 5 bits per parameter for task-specific information and one real number per hidden unit for input history. The key conclusion is that the widely observed performance differences between architectures like LSTMs and vanilla RNNs stem not from differences in capacity, but from vast differences in trainability, with gated architectures being significantly easier to optimize. The work provides a clear and valuable framework for understanding and choosing RNN architectures.",
+    "strengths": [
+      {
+        "category": "Significance and Originality",
+        "points": [
+          "The paper addresses a fundamental and highly practical question in the field: are popular RNN architectures like LSTM superior due to higher capacity or better trainability? The effort to systematically disentangle these factors is a significant and original contribution.",
+          "The finding that different architectures converge on a similar per-parameter capacity limit (approx. 5 bits/parameter) provides a simple, quantitative, and memorable rule of thumb that is of great value to the community.",
+          "The introduction of two novel architectures, UGRNN and +RNN, and their comparative analysis adds to the comprehensiveness of the study.",
+          "The conclusion that practitioners should choose architectures based on their training budget and task difficulty (e.g., vanilla RNN for large training/small inference budgets, GRU/+RNN for difficult tasks) is a clear, actionable takeaway that provides immense value."
+        ]
+      },
+      {
+        "category": "Methodological Rigor",
+        "points": [
+          "The experimental setup is exceptionally thorough. The use of a sophisticated hyperparameter (HP) tuner over thousands of full training runs for each configuration lends strong credibility to the claim that the results represent the near-optimal performance of each architecture, rather than artifacts of suboptimal tuning.",
+          "The study design effectively isolates the variables of interest by using a diverse set of tasks, ranging from pure memorization (to measure capacity) to difficult algorithmic problems (to measure trainability).",
+          "The normalization of results by parameter count instead of unit count is well-justified and provides a much more insightful comparison between architectures, as demonstrated in Figure 3d."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Bibliographic Integrity",
+        "points": [
+          "The reference list is in a state that is unacceptable for publication. A very high number of citations (36 out of 42) could not be programmatically resolved against major academic indices, as confirmed by the evidence package. This suggests widespread issues with formatting, missing DOIs, or citation of non-archival versions. A clean, verifiable bibliography is an essential requirement."
+        ]
+      },
+      {
+        "category": "Clarity and Scope",
+        "points": [
+          "While the '5 bits per parameter' finding is a powerful headline result, it is derived from a specific memorization task. The paper asserts this is also the bottleneck in more complex tasks like language modeling, but the evidence for this specific quantitative value in those tasks is less direct. A more nuanced statement about its generalizability would strengthen the claim.",
+          "The trainability experiments (Figure 4) are compelling, but the y-axis (Median/Minimum evaluation error) can be hard to interpret without a clear baseline or chance-level performance metric for the parenthesis and arithmetic tasks."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The manuscript's bibliography is in a state that is not acceptable for publication and must be thoroughly revised. The automated check indicates that 36 of the 42 references could not be found in standard academic databases. This severely hinders the reader's ability to verify your claims and understand the context of your work. Please review every entry to ensure it is correct, complete, and includes a DOI or stable archival link (e.g., to a published conference proceeding or journal) wherever possible. For example, the evidence pack confirms that seminal works like Hochreiter & Schmidhuber (1997) are listed as unresolvable, which is certainly due to a formatting or data issue in the reference list.",
+        "evidence_ref": "Citation Integrity Summary: 36 of 42 references were 'not_found_in_index'."
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The use of extensive, automated hyperparameter optimization is a major strength of this paper and a model for how such comparative studies should be conducted. It provides strong evidence that the comparisons are fair and that the reported performance levels are close to the true potential of each architecture, thus supporting your core claims about capacity vs. trainability.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The conclusion that practitioners should choose architectures based on their training budget and task difficulty (e.g., vanilla RNN for large training/small inference budgets, GRU/+RNN for difficult tasks) is a clear, actionable takeaway. This provides immense value to the community beyond the purely scientific findings.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "The finding that ReLU activations significantly reduce per-parameter capacity (Figure 2a) is intriguing. Do you have a hypothesis for why this is the case? Is it because the non-saturating nature of ReLU is less suited to the bounded information storage required by the memorization task compared to tanh?",
+      "Your analysis of random HP trials (Figure 5) is very useful for practitioners. Beyond the final performance, did you observe if the *optimal HP regions* were qualitatively different between architectures? For example, did the vanilla RNN require a much narrower or more specific range of learning rates to achieve its best performance compared to the GRU or LSTM?",
+      "The paper notes that the +RNN was inspired in part by Highway Networks. Given its strong performance in deep settings, could you elaborate on the intuition for why coupling the gates across both the recurrent and depth dimensions is so effective for trainability in very deep stacks?"
+    ],
+    "overall_assessment": "This is a landmark paper that makes a significant contribution to our understanding of recurrent neural networks. The core thesis—that performance differences are driven by trainability, not capacity—is convincingly supported by an exceptionally rigorous and large-scale set of experiments. The findings are important, clearly presented, and have high practical value for the machine learning community. The work is of high quality and impact. However, the submission is marred by a critical but correctable flaw: the bibliography is in a poor state, with the vast majority of references being unresolvable. While this is a serious issue of presentation, it does not undermine the scientific substance of the work. Given the exceptional strength of the core contribution, I recommend acceptance, with the strong stipulation that the authors must perform a complete and thorough revision of the reference list to meet publication standards before the final version is published.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity info. [LLM'in kendi gerekçesi: The experimental design to disentangle capacity and trainability is highly original and addresses a fundamental question in a novel way.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The findings are very important for both researchers and practitioners working with RNNs, providing clear guidance on architecture selection and a new mental model for their behavior."
+      },
+      {
+        "key": "claims_supported",
+        "score": 3.34,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: The claims are overwhelmingly supported by extensive and rigorous experiments. A minor deduction for the slight over-generalization of the '5 bits/parameter' figure to all tasks without direct measurement.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The methodology, particularly the massive hyperparameter search, is exceptionally sound and ensures the fairness of the architectural comparisons.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is very well-written, with clear explanations and informative figures that effectively convey the main results.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.5,
+        "rationale": "The paper provides immediately useful insights and actionable advice for practitioners, which is of immense value to the broader community."
+      },
+      {
+        "key": "contextualization",
+        "score": 6.0,
+        "rationale": "Conceptually, the work is well-situated. However, the poor state of the bibliography significantly weakens its connection to the cited literature, making it difficult for readers to verify context."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the evidence pack, 36 out of 42 references could not be programmatically resolved. This is a critical flaw in the submitted manuscript that hinders verifiability and must be corrected.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missed seminal works. The paper appears to cover the relevant literature, though the poor citation integrity makes this difficult to fully confirm.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack reported no statistical inconsistencies. The paper's use of descriptive statistics and visualizations is appropriate for the experimental findings.]"
+      }
+    ],
+    "final_score": 8.2,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 42,
+        "resolved": 6,
+        "not_found_in_index": 36,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Dario Amodei, Rishita Anubhai, Eric Battenberg, Carl Case, Jared Casper, Bryan C. Catanzaro, Jingdong Chen, Mike Chrzanowski, Adam Coates, Greg Diamos, Erich Elsen, Jesse Engel, Linxi Fan, Christopher Fougner, Tony Han, Awni Y. Hannun, Billy Jun, Patrick LeGresley, Libby Lin, Sharan Narang, Andrew Y. Ng, Sherjil Ozair, Ryan Prenger, Jonathan Raiman, Sanjeev Satheesh, David Seetapun, Shubho Sengupta, Yi Wang, Zhiqian Wang, Chong Wang, Bo Xiao, Dani Yogatama, Jun Zhan, and Zhenyao Zhu. Deep speech 2: End-to-end speech recognition in english and mandarin. CoRR, abs/1512.02595, 2015. URL http://arxiv.org/abs/1512.02595.",
+          "title": "Deep speech 2: End-to-end speech recognition in english and mandarin",
+          "authors": [
+            "Zhenyao Zhu"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473, 2014.",
+          "title": "Neural machine translation by jointly learning to align and translate",
+          "authors": [
+            "Dzmitry Bahdanau, Kyunghyun Cho",
+            "Yoshua Bengio"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Pierre Baldi and Santosh S Venkatesh. Number of stable points for spin-glasses and neural networks of higher orders. Physical Review Letters, 58(9):913, 1987.",
+          "title": "Number of stable points for spin-glasses and neural networks of higher orders",
+          "authors": [
+            "Pierre Baldi",
+            "Santosh S Venkatesh"
+          ],
+          "year": 1987,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Thomas M Bartol, Cailey Bromer, Justin Kinney, Michael A Chirillo, Jennifer N Bourne, Kristen M Harris, and Terrence J Sejnowski. Nanoconnectomic upper bound on the variability of synaptic plasticity. eLife, 4: e10778, 2016. 11 Adam S Charles, Han Lun Yap, and Christopher J Rozell. Short-term memory capacity in networks via the restricted isometry property. Neural computation, 26(6):1198–1235, 2014.",
+          "title": "Nanoconnectomic upper bound on the variability of synaptic plasticity",
+          "authors": [
+            "Terrence J Sejnowski"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2195210638",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2195210638; 'Nanoconnectomic upper bound on the variability of synaptic plasticity').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Kyunghyun Cho, Bart Van Merriënboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi Bougares, Holger Schwenk, and Yoshua Bengio. Learning phrase representations using rnn encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078, 2014.",
+          "title": "Learning phrase representations using rnn encoder-decoder for statistical machine translation",
+          "authors": [
+            "Yoshua Bengio"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2157331557",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2157331557; 'Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Junyoung Chung, Caglar Gulcehre, KyungHyun Cho, and Yoshua Bengio. Empirical evaluation of gated recurrent neural networks on sequence modeling. arXiv preprint arXiv:1412.3555, 2014.",
+          "title": "Empirical evaluation of gated recurrent neural networks on sequence modeling",
+          "authors": [
+            "Junyoung Chung, Caglar Gulcehre, KyungHyun Cho",
+            "Yoshua Bengio"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.58 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Thomas M Cover. Geometrical and statistical properties of systems of linear inequalities with applications in pattern recognition. IEEE transactions on electronic computers, (3):326–334, 1965.",
+          "title": "Geometrical and statistical properties of systems of linear inequalities with applications in pattern recognition",
+          "authors": [
+            "Thomas M Cover"
+          ],
+          "year": 1965,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.24 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Thomas Desautels, Andreas Krause, and Joel W Burdick. Parallelizing exploration-exploitation tradeoffs in gaussian process bandit optimization. The Journal of Machine Learning Research, 15(1):3873–3923, 2014.",
+          "title": "Parallelizing exploration-exploitation tradeoffs in gaussian process bandit optimization",
+          "authors": [
+            "Thomas Desautels, Andreas Krause",
+            "Joel W Burdick"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Kenji Doya. Universality of fully connected recurrent neural networks. Dept. of Biology, UCSD, Tech. Rep, 1993.",
+          "title": "Universality of fully connected recurrent neural networks",
+          "authors": [
+            "Kenji Doya"
+          ],
+          "year": 1993,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Jakob Foerster, Justin Gilmer, Jan Chorowski, Jascha Sohl-Dickstein, and David Sussillo. Intelligible language modeling with input switched afﬁne networks. ICLR 2017 submission, 2016.",
+          "title": "Intelligible language modeling with input switched afﬁne networks",
+          "authors": [
+            "Jakob Foerster, Justin Gilmer, Jan Chorowski, Jascha Sohl-Dickstein",
+            "David Sussillo"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Surya Ganguli, Dongsung Huh, and Haim Sompolinsky. Memory traces in dynamical systems. Proceedings of the National Academy of Sciences, 105(48):18970–18975, 2008.",
+          "title": "Memory traces in dynamical systems",
+          "authors": [
+            "Surya Ganguli, Dongsung Huh",
+            "Haim Sompolinsky"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Elizabeth Gardner. The space of interactions in neural network models. Journal of physics A: Mathematical and general, 21(1):257, 1988.",
+          "title": "The space of interactions in neural network models",
+          "authors": [
+            "Elizabeth Gardner"
+          ],
+          "year": 1988,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.39 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Felix A. Gers, Jurgen Schmidhuber, and Fred Cummins. Learning to forget: Continual prediction with lstm. Artiﬁcial Neural Networks, ICANN 99. Ninth International Conference on (Conf. Publ. No. 470), 2:850–855, 1999.",
+          "title": "Learning to forget: Continual prediction with lstm",
+          "authors": [
+            "Felix A. Gers, Jurgen Schmidhuber",
+            "Fred Cummins"
+          ],
+          "year": 1999,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Alex Graves, Marcus Liwicki, Santiago Fernández, Roman Bertolami, Horst Bunke, and Jürgen Schmidhuber. A novel connectionist system for unconstrained handwriting recognition. Pattern Analysis and Machine Intelligence, IEEE Transactions on, 31(5):855–868, 2009.",
+          "title": "A novel connectionist system for unconstrained handwriting recognition",
+          "authors": [
+            "Alex Graves, Marcus Liwicki, Santiago Fernández, Roman Bertolami, Horst Bunke",
+            "Jürgen Schmidhuber"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Klaus Greff, Rupesh Kumar Srivastava, Jan Koutník, Bas R Steunebrink, and Jürgen Schmidhuber. Lstm: A search space odyssey. arXiv preprint arXiv:1503.04069, 2015.",
+          "title": "Lstm: A search space odyssey",
+          "authors": [
+            "Klaus Greff, Rupesh Kumar Srivastava, Jan Koutník, Bas R Steunebrink",
+            "Jürgen Schmidhuber"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.24 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Karol Gregor, Ivo Danihelka, Alex Graves, and Daan Wierstra. Draw: A recurrent neural network for image generation. arXiv preprint arXiv:1502.04623, 2015.",
+          "title": "Draw: A recurrent neural network for image generation",
+          "authors": [
+            "Karol Gregor, Ivo Danihelka, Alex Graves",
+            "Daan Wierstra"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Song Han, Huizi Mao, and William J Dally. Deep compression: Compressing deep neural networks with pruning, trained quantization and huffman coding. arXiv preprint arXiv:1510.00149, 2015.",
+          "title": "Deep compression: Compressing deep neural networks with pruning, trained quantization and huffman coding",
+          "authors": [
+            "Song Han, Huizi Mao",
+            "William J Dally"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2119144962",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2119144962; 'Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. arXiv preprint arXiv:1512.03385, 2015.",
+          "title": "Deep residual learning for image recognition",
+          "authors": [
+            "Kaiming He, Xiangyu Zhang, Shaoqing Ren",
+            "Jian Sun"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation, 9(8):1735–1780, 1997.",
+          "title": "Long short-term memory",
+          "authors": [
+            "Sepp Hochreiter",
+            "Jürgen Schmidhuber"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Itay Hubara, Daniel Soudry, and Ran El Yaniv. Binarized neural networks. arXiv preprint arXiv:1602.02505, 2016.",
+          "title": "Binarized neural networks",
+          "authors": [
+            "Itay Hubara, Daniel Soudry",
+            "Ran El Yaniv"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.58 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Herbert Jaeger and Harald Haas. Harnessing nonlinearity: Predicting chaotic systems and saving energy in wireless communication. science, 304(5667):78–80, 2004.",
+          "title": "Harnessing nonlinearity: Predicting chaotic systems and saving energy in wireless communication",
+          "authors": [
+            "Herbert Jaeger",
+            "Harald Haas"
+          ],
+          "year": 2004,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Rafal Jozefowicz, Wojciech Zaremba, and Ilya Sutskever. An empirical exploration of recurrent network architectures. In Proceedings of the 32nd International Conference on Machine Learning (ICML-15), pp. 2342–2350, 2015.",
+          "title": "An empirical exploration of recurrent network architectures",
+          "authors": [
+            "Rafal Jozefowicz, Wojciech Zaremba",
+            "Ilya Sutskever"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Rafal Józefowicz, Oriol Vinyals, Mike Schuster, Noam Shazeer, and Yonghui Wu. Exploring the limits of language modeling. CoRR, abs/1602.02410, 2016. URL http://arxiv.org/abs/1602.02410.",
+          "title": "Exploring the limits of language modeling",
+          "authors": [
+            "Rafal Józefowicz, Oriol Vinyals, Mike Schuster, Noam Shazeer",
+            "Yonghui Wu"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "Andrej Karpathy, Justin Johnson, and Fei-Fei Li. Visualizing and understanding recurrent networks. arXiv preprint arXiv:1506.02078, 2015.",
+          "title": "Visualizing and understanding recurrent networks",
+          "authors": [
+            "Andrej Karpathy, Justin Johnson",
+            "Fei-Fei Li"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.76 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "Diederik P. Kingma and Jimmy Ba. Adam: A method for stochastic optimization. CoRR, abs/1412.6980, 2014.",
+          "title": "Adam: A method for stochastic optimization",
+          "authors": [
+            "Diederik P. Kingma",
+            "Jimmy Ba"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W1522301498",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W1522301498; 'Adam: A Method for Stochastic Optimization').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "URL http://arxiv.org/abs/1412.6980. 12 Pascal Koiran and Eduardo D Sontag. Vapnik-chervonenkis dimension of recurrent neural networks. Discrete Applied Mathematics, 86(1):63–79, 1998.",
+          "title": "Vapnik-chervonenkis dimension of recurrent neural networks",
+          "authors": [
+            "URL http://arxiv.org/abs/1412.6980. 12 Pascal Koiran",
+            "Eduardo D Sontag"
+          ],
+          "year": 1998,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 27,
+          "raw": "Quoc V Le, Navdeep Jaitly, and Geoffrey E Hinton. A simple way to initialize recurrent networks of rectiﬁed linear units. arXiv preprint arXiv:1504.00941, 2015.",
+          "title": "A simple way to initialize recurrent networks of rectiﬁed linear units",
+          "authors": [
+            "Quoc V Le, Navdeep Jaitly",
+            "Geoffrey E Hinton"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 28,
+          "raw": "Wolfgang Maass, Thomas Natschläger, and Henry Markram. Real-time computing without stable states: A new framework for neural computation based on perturbations. Neural computation, 14(11):2531–2560, 2002.",
+          "title": "Real-time computing without stable states: A new framework for neural computation based on perturbations",
+          "authors": [
+            "Wolfgang Maass, Thomas Natschläger",
+            "Henry Markram"
+          ],
+          "year": 2002,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.36 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 29,
+          "raw": "Matt Mahoney. Large text compression benchmark: About the test data, 2011.",
+          "title": "Large text compression benchmark: About the test data, 2011",
+          "authors": [
+            "Matt Mahoney"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 30,
+          "raw": "URL http://mattmahoney. net/dc/textdata. [Online; accessed 15-November-2016]. Valerio Mante, David Sussillo, Krishna V Shenoy, and William T Newsome. Context-dependent computation by recurrent dynamics in prefrontal cortex. Nature, 503(7474):78–84, 2013.",
+          "title": "[Online; accessed 15-November-2016]",
+          "authors": [
+            "URL http://mattmahoney. net/dc/textdata"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 31,
+          "raw": "James Martens and Ilya Sutskever. Learning recurrent neural networks with hessian-free optimization. In Proceedings of the 28th International Conference on Machine Learning (ICML-11), pp. 1033–1040, 2011.",
+          "title": "Learning recurrent neural networks with hessian-free optimization",
+          "authors": [
+            "James Martens",
+            "Ilya Sutskever"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 32,
+          "raw": "Chris Piech, Jonathan Bassen, Jonathan Huang, Surya Ganguli, Mehran Sahami, Leonidas J Guibas, and Jascha Sohl-Dickstein. Deep knowledge tracing. In Advances in Neural Information Processing Systems, pp. 505–513, 2015.",
+          "title": "Deep knowledge tracing",
+          "authors": [
+            "Jascha Sohl-Dickstein"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.71 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 33,
+          "raw": "Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc V. Le, Geoffrey E. Hinton, and Jeff Dean. Outrageously large neural networks: The sparsely-gated mixture-of-experts layer. CoRR, abs/1701.06538, 2017. URL http://arxiv.org/abs/1701.06538.",
+          "title": "Outrageously large neural networks: The sparsely-gated mixture-of-experts layer",
+          "authors": [
+            "Jeff Dean"
+          ],
+          "year": 2017,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2581624817",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2581624817; 'Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 34,
+          "raw": "Jasper Snoek, Hugo Larochelle, and Ryan P Adams. Practical bayesian optimization of machine learning algorithms. In Advances in neural information processing systems, pp. 2951–2959, 2012.",
+          "title": "Practical bayesian optimization of machine learning algorithms",
+          "authors": [
+            "Jasper Snoek, Hugo Larochelle",
+            "Ryan P Adams"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 35,
+          "raw": "Rupesh Kumar Srivastava, Klaus Greff, and Jürgen Schmidhuber. Highway networks. arXiv preprint arXiv:1505.00387, 2015.",
+          "title": "Highway networks",
+          "authors": [
+            "Rupesh Kumar Srivastava, Klaus Greff",
+            "Jürgen Schmidhuber"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.76 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 36,
+          "raw": "David Sussillo and Omri Barak. Opening the black box: low-dimensional dynamics in high-dimensional recurrent neural networks. Neural computation, 25(3):626–649, 2013.",
+          "title": "Opening the black box: low-dimensional dynamics in high-dimensional recurrent neural networks",
+          "authors": [
+            "David Sussillo",
+            "Omri Barak"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.47 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 37,
+          "raw": "Ilya Sutskever, Oriol Vinyals, and Quoc V Le. Sequence to sequence learning with neural networks. In Advances in neural information processing systems, pp. 3104–3112, 2014.",
+          "title": "Sequence to sequence learning with neural networks",
+          "authors": [
+            "Ilya Sutskever, Oriol Vinyals",
+            "Quoc V Le"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 38,
+          "raw": "Tijmen Tieleman and Geoffrey. Hinton. Lecture 6.5-rmsprop: Divide the gradient by a running average of its recent magnitude. COURSERA: Neural Networks for Machine Learning, 4, 2012.",
+          "title": null,
+          "authors": [
+            "Tijmen Tieleman",
+            "Geoffrey"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 39,
+          "raw": "Olivia L White, Daniel D Lee, and Haim Sompolinsky. Short-term memory in orthogonal neural networks. Physical review letters, 92(14):148102, 2004.",
+          "title": "Short-term memory in orthogonal neural networks",
+          "authors": [
+            "Olivia L White, Daniel D Lee",
+            "Haim Sompolinsky"
+          ],
+          "year": 2004,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 40,
+          "raw": "Zichao Yang, Marcin Moczulski, Misha Denil, Nando de Freitas, Alex Smola, Le Song, and Ziyu Wang. Deep fried convnets. In Proceedings of the IEEE International Conference on Computer Vision, pp. 1476–1483, 2015.",
+          "title": "Deep fried convnets",
+          "authors": [
+            "Ziyu Wang"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.33 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 41,
+          "raw": "Guo-Bing Zhou, Jianxin Wu, Chen-Lin Zhang, and Zhi-Hua Zhou. Minimal gated unit for recurrent neural networks. International Journal of Automation and Computing, 13(3):226–234, 2016.",
+          "title": "Minimal gated unit for recurrent neural networks",
+          "authors": [
+            "Guo-Bing Zhou, Jianxin Wu, Chen-Lin Zhang",
+            "Zhi-Hua Zhou"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.72 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 42,
+          "raw": "ISSN 1751-8520. doi: 10.1007/s11633-016-1006-2. URL http://dx.doi.org/10.1007/s11633-016-1006-2. 13",
+          "title": null,
+          "authors": [
+            "ISSN 1751-8520"
+          ],
+          "year": null,
+          "doi": "10.1007/s11633-016-1006-2",
+          "venue": null,
+          "parse_confidence": 0.5,
+          "status": "resolved",
+          "openalex_id": "W2319453305",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2319453305; 'Minimal gated unit for recurrent neural networks').",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "11467d6341673d3ad87108e9dd2ae6cae558c3ab29cec513db5a8cc11494630a",
+          "request_time": "2026-08-22T18:00:29.257193Z",
+          "status": "ok",
+          "result_count": 6,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:00:30.363865Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "4a8dd225ac51a8793569b2adc6915b507ee6c694072e084324161e10e4277df0",
+          "request_time": "2026-08-22T18:00:31.586964Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:09:19.264269Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belge başlığı, özet ve bölüm başlıkları (ABSTRACT, INTRODUCTION, RELATED WORK, RESULTS, DISCUSSION, ACKNOWLEDGEMENTS, REFERENCES) tipik bir araştırma makalesi yapısını göstermektedir. 'Google Brain' yazarların kurumsal bağlantısı ve 'Recurrent Neural Networks' konusu, deneysel sonuçlar ve yeni mimariler önermesi hesaplamalı modelleme çalışmasına işaret etmektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 79.0,
+      "recommended_decision": "accept",
+      "confidence": 0.802,
+      "top_fatal_risks": [
+        "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi",
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "Tekrar Üretilebilirlik İçin Veri ve Kod Erişilebilirliğinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 3 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 26.0,
+        "severity": "major",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 46.0,
+        "severity": "major",
+        "confidence": 0.82,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "3 concern(s): The reference list is critically flawed. 36 out of 42 citations could not be programmatically resolved against major academic indices. This indicates widespread issues with formatting, missing DOIs, or citation of non-archival versions, making it impossible to verify the cited works. This must be thoroughly revised to ensure all references are correct, complete, and resolvable.; The '5 bits per parameter' finding, while compelling, is primarily derived from a specific memorization task. The paper asserts its generalizability to more complex tasks like language modeling, but direct quantitative evidence for this specific value in those contexts is less clear. A more nuanced discussion on the generalizability of this specific quantitative value across different task complexities would strengthen the claim.; In the trainability experiments (Figure 4), the y-axis (Median/Minimum evaluation error) for the parenthesis and arithmetic tasks lacks a clear baseline or chance-level performance metric. This makes it difficult to fully interpret the magnitude of the reported errors and the practical significance of the performance differences between architectures.",
+        "key_objection": "The reference list is critically flawed. 36 out of 42 citations could not be programmatically resolved against major academic indices. This indicates widespread issues with formatting, missing DOIs, or citation of non-archival versions, making it impossible to verify the cited works. This must be thoroughly revised to ensure all references are correct, complete, and resolvable.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "2 concern(s): The paper states that the experimental setup is exceptionally thorough and uses a sophisticated hyperparameter (HP) tuner over thousands of full training runs. While this is a strength, the specific details of the hyperparameter tuning process (e.g., the search space for each hyperparameter, the optimization algorithm used by the tuner, the number of trials per configuration, and the stopping criteria) are not explicitly mentioned in the provided summary or strengths. Without these details, it's difficult to fully assess the rigor and reproducibility of the tuning process, which is crucial for validating the claim of 'near-optimal performance.'; The y-axis for trainability experiments (Figure 4) is described as 'Median/Minimum evaluation error' and the reviewer notes it can be hard to interpret without a clear baseline or chance-level performance metric. This is a methodological clarity issue. For error metrics, providing a baseline (e.g., random guess performance) or the maximum possible error would significantly aid interpretation and allow readers to gauge the practical significance of the reported errors.",
+        "key_objection": "The paper states that the experimental setup is exceptionally thorough and uses a sophisticated hyperparameter (HP) tuner over thousands of full training runs. While this is a strength, the specific details of the hyperparameter tuning process (e.g., the search space for each hyperparameter, the optimization algorithm used by the tuner, the number of trials per configuration, and the stopping criteria) are not explicitly mentioned in the provided summary or strengths. Without these details, it's difficult to fully assess the rigor and reproducibility of the tuning process, which is crucial for validating the claim of 'near-optimal performance.'",
+        "confidence": 0.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The reference list requires substantial revision. A very high number of citations (36 out of 42) could not be programmatically resolved against major academic indices. This suggests widespread issues with formatting, missing DOIs, or citation of non-archival versions. A clean, verifiable bibliography is essential for scientific work. For example, seminal works like Hochreiter & Schmidhuber (1997) and many others are listed as unresolvable, which is certainly due to a formatting or data issue in the reference list.; While the '5 bits per parameter' finding is a powerful headline result, it is derived from a specific memorization task. The paper asserts this is also the bottleneck in more complex tasks like language modeling, but the evidence for this specific quantitative value in those tasks is less direct. A more nuanced statement about its generalizability would strengthen the claim.; The trainability experiments (Figure 4) are compelling, but the y-axis (Median/Minimum evaluation error) can be hard to interpret without a clear baseline or chance-level performance metric for the parenthesis and arithmetic tasks.",
+        "key_objection": "The reference list requires substantial revision. A very high number of citations (36 out of 42) could not be programmatically resolved against major academic indices. This suggests widespread issues with formatting, missing DOIs, or citation of non-archival versions. A clean, verifiable bibliography is essential for scientific work. For example, seminal works like Hochreiter & Schmidhuber (1997) and many others are listed as unresolvable, which is certainly due to a formatting or data issue in the reference list.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "reject-leaning",
+        "summary": "3 concern(s): The claim that 36 out of 42 citations could not be programmatically resolved is directly supported by the 'Citation Integrity Summary' in the evidence package.; The evidence package indicates that reference [19] 'Long short-term memory' (Hochreiter & Schmidhuber, 1997) was 'not_found_in_index'. This supports the claim that seminal works are unresolvable.; The claim that 36 out of 42 references could not be programmatically resolved is directly supported by the 'Citation Integrity Summary' in the evidence package.",
+        "key_objection": "The claim that 36 out of 42 citations could not be programmatically resolved is directly supported by the 'Citation Integrity Summary' in the evidence package.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper presents a large-scale empirical study to disentangle two fundamental properties of Recurrent Neural Networks (RNNs): their capacity to store information and their trainability. By conducting an exhaustive set of experiments across six different RNN architectures (including two novel ones), four depths, and multiple tasks, the authors compellingly argue that most common RNNs have nearly identical information storage capacity. They quantify this as approximately 5 bits per parameter for task-specific information and one real number per hidden unit for input history. The key conclusion is that the widely observed performance differences between architectures like LSTMs and vanilla RNNs stem not from differences in capacity, but from vast differences in trainability, with gated architectures being significantly easier to optimize. The work provides a clear and valuable framework for understanding and choosing RNN architectures.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Deneysel Tasarımın Açıkça Tanımlanması",
+        "summary": "Makale, RNN mimarilerinin kapasite ve eğitilebilirliğini değerlendirmek için deneysel bir tasarım kullanmaktadır. Bu tasarım, araştırma sorularıyla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We show experimentally that all common RNN architectures achieve nearly the same per-task and per-unit capacity bounds with careful training, for a variety of tasks and stacking depths."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "Here we provide evidence that the observed superiority of gated models over vanilla RNN models is almost exclusively driven by trainability. First we describe two types of capacity bottlenecks that various RNN architectures might be expected to suffer from: parameter efficiency related to learning the task, and the ability to remember input history. Next, we describe our experimental setup where we disentangle the effects of these two bottlenecks, including training with extremely thorough hyperparameter (HP) optimization. Finally, we describe our capacity experiment results (per-parameter and per-unit), as well as the results of trainability experiments (training on extremely hard tasks where gated models might reasonably be expected to perform better)."
+          }
+        ],
+        "reasoning_public": "Makale, farklı RNN mimarilerinin performansını karşılaştırmak için kontrollü deneyler yürütmektedir. Bu, belirlenen araştırma sorularına doğrudan yanıt vermek için uygun bir yaklaşımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Gerekçesinin Eksikliği",
+        "summary": "Makale, deneylerde kullanılan model boyutları (parametre sayıları) ve derinlikler hakkında bilgi vermesine rağmen, bu örneklem büyüklüklerinin neden seçildiğine dair bir gerekçe veya istatistiksel güç analizi sunmamaktadır. Bu durum, elde edilen sonuçların genellenebilirliği ve güvenilirliği hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "1_2_experimental_setup.a0",
+            "section": "1.2 EXPERIMENTAL SETUP",
+            "quote": "For each of our 6 tasks, 6 RNN variants, 4 depths, and 6+ model sizes, we ran the HP tuner in order to optimize the relevant loss function. Typically this resulted in many hundreds to several thousands of HP evaluations, each of which was a full training run up to millions of training steps. Taken together, this amounted to CPU-millennia worth of computation."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, örneklem büyüklüğünün (bu durumda model parametre sayısı ve derinliği) belirlenmesi ve gerekçelendirilmesi, sonuçların istatistiksel gücünü ve geçerliliğini sağlamak için kritik öneme sahiptir. Güç analizi, belirli bir etki büyüklüğünü tespit etmek için gereken minimum örneklem büyüklüğünü belirlemeye yardımcı olur. Bu tür bir gerekçelendirmenin eksikliği, sonuçların tesadüfi olup olmadığı veya gerçek etkileri yansıtıp yansıtmadığı konusunda şüphe uyandırabilir.",
+        "limitations": [
+          "Makalede güç analizi veya örneklem büyüklüğü gerekçesiyle ilgili herhangi bir bilgi bulunmamaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Kapasite ve Eğitilebilirlik Ölçümlerinin Açık Operasyonelleştirilmesi",
+        "summary": "Makale, 'kapasite' ve 'eğitilebilirlik' gibi temel kavramları deneysel olarak ölçmek için kullanılan yöntemleri (örneğin, 'bits per parameter' ve 'HP optimization iteration'a göre hata değişimi) açıkça operasyonelleştirmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_1_1_experimental_setup.a0",
+            "section": "2.1.1 EXPERIMENTAL SETUP",
+            "quote": "From this mutual information we compute bits per parameter, which provides a normalized measurement of how much the RNN learned about the task."
+          },
+          {
+            "anchor_id": "4_tasks_that_are_very_hard_to_learn.a0",
+            "section": "4 TASKS THAT ARE VERY HARD TO LEARN",
+            "quote": "The results of the HP optimizations are shown in Figure 4a-4h for the parentheses task, and in Figure 4i-4p for the arithmetic task. These tasks show that, while it is possible for a vanilla RNN to learn these tasks reasonably well, it is far more difficult than for a gated architecture."
+          }
+        ],
+        "reasoning_public": "Araştırmanın temelini oluşturan soyut kavramların somut, ölçülebilir değişkenlere dönüştürülmesi, çalışmanın tekrarlanabilirliği ve geçerliliği için esastır. Makale, bu operasyonelleştirmeleri detaylı bir şekilde açıklayarak şeffaflık sağlamıştır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Varsayım Testlerinin ve Çoklu Karşılaştırma Risklerinin Belirsizliği",
+        "summary": "Makale, hiperparametre optimizasyonu ve farklı mimarilerin karşılaştırılması için kapsamlı bir deneysel kurulum sunsa da, kullanılan istatistiksel analizlerin (örneğin, ortalama veya minimum hata değerlerinin karşılaştırılması) altında yatan varsayımların test edilip edilmediği veya çoklu karşılaştırma risklerinin nasıl ele alındığı açıkça belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_1_2_results.a0",
+            "section": "2.1.2 RESULTS",
+            "quote": "To quantify these differences we constructed a table showing the change in the number of parameters one would need to switch from one architecture to another, while maintaining equivalent capacity (Figure 1i)."
+          },
+          {
+            "anchor_id": "4_tasks_that_are_very_hard_to_learn.a1",
+            "section": "4 TASKS THAT ARE VERY HARD TO LEARN",
+            "quote": "The results of the HP optimizations are shown in Figure 4a-4h for the parentheses task, and in Figure 4i-4p for the arithmetic task."
+          }
+        ],
+        "reasoning_public": "Birden fazla mimari ve görev üzerinde yapılan karşılaştırmalar, çoklu karşılaştırma sorununa yol açabilir ve Tip I hata oranını artırabilir. Ayrıca, kullanılan istatistiksel yöntemlerin (örneğin, ortalama değerlerin karşılaştırılması) geçerliliği, verilerin dağılımı gibi temel varsayımların karşılanmasına bağlıdır. Bu varsayımların test edilip edilmediğinin belirtilmemesi, sonuçların güvenilirliği hakkında soru işaretleri yaratır.",
+        "limitations": [
+          "Makalede varsayım testleri veya çoklu karşılaştırma düzeltmeleri hakkında bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Metin ve Şekiller Arasında Sayısal Tutarlılık",
+        "summary": "Makale, metin içinde bahsedilen sayısal değerler (örneğin, '5 bits per parameter') ile ilgili şekiller (örneğin, Figure 1) arasında genel bir tutarlılık sergilemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "They can store an amount of task information which is linear in the number of parameters, and is approximately 5 bits per parameter."
+          },
+          {
+            "anchor_id": "2_1_2_results.a1",
+            "section": "2.1.2 RESULTS",
+            "quote": "This leads us to a bits per parameter estimate of approximately 5, averaging over all architectures and all depths."
+          },
+          {
+            "anchor_id": "figure_1.a0",
+            "section": "Figure 1",
+            "quote": "All neural network architectures can store approximately five bits per parameter about a task, with only small variations across architectures."
+          }
+        ],
+        "reasoning_public": "Metin, tablo ve şekiller arasındaki tutarlılık, okuyucunun bulguları doğru bir şekilde anlaması ve yorumlaması için önemlidir. Bu tutarlılık, raporlama kalitesinin bir göstergesidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, farklı mimariler arasındaki kapasite ve eğitilebilirlik farklarını tartışırken, bu farkların istatistiksel etki büyüklüklerini veya güven aralıklarını (CI) raporlamamaktadır. Örneğin, '5 bits per parameter' tahmini için bir güven aralığı sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_1_2_results.a2",
+            "section": "2.1.2 RESULTS",
+            "quote": "This leads us to a bits per parameter estimate of approximately 5, averaging over all architectures and all depths."
+          },
+          {
+            "anchor_id": "2_1_2_results.a3",
+            "section": "2.1.2 RESULTS",
+            "quote": "To quantify these differences we constructed a table showing the change in the number of parameters one would need to switch from one architecture to another, while maintaining equivalent capacity (Figure 1i)."
+          }
+        ],
+        "reasoning_public": "Sadece p-değerleri veya genel gözlemlerle sonuçları sunmak yerine, etki büyüklükleri ve güven aralıkları, bulguların pratik önemini ve kesinliğini daha iyi anlamamızı sağlar. Güven aralıkları, tahmin edilen değerin etrafındaki belirsizliği gösterir ve sonuçların genellenebilirliği hakkında daha fazla bilgi verir. Bu eksiklik, okuyucunun bulguların gerçek dünya üzerindeki etkisini değerlendirmesini zorlaştırır.",
+        "limitations": [
+          "Makalede etki büyüklüğü veya güven aralıkları hakkında herhangi bir bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Belirsizliği",
+        "summary": "Makale, hiperparametre optimizasyonu sırasında binlerce deneme yapıldığını belirtse de, bu süreçte ortaya çıkabilecek eksik veri (örneğin, başarısız eğitim denemeleri) veya aykırı değerlerin (örneğin, çok kötü performans gösteren HP kombinasyonları) nasıl ele alındığına dair açık bir strateji sunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "1_2_experimental_setup.a1",
+            "section": "1.2 EXPERIMENTAL SETUP",
+            "quote": "For each of our 6 tasks, 6 RNN variants, 4 depths, and 6+ model sizes, we ran the HP tuner in order to optimize the relevant loss function. Typically this resulted in many hundreds to several thousands of HP evaluations, each of which was a full training run up to millions of training steps."
+          }
+        ],
+        "reasoning_public": "Büyük ölçekli deneysel çalışmalarda, eksik veriler ve aykırı değerler yaygın olarak görülür. Bu tür verilerin nasıl yönetildiği, sonuçların güvenilirliğini ve tarafsızlığını doğrudan etkiler. Şeffaf bir stratejinin eksikliği, bulguların sağlamlığı hakkında belirsizlik yaratır.",
+        "limitations": [
+          "Makalede eksik veri veya aykırı değer işleme stratejileri hakkında bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Kullanımında Disiplin",
+        "summary": "Makale, deneysel bir tasarım kullandığı için, 'nedensel' çıkarımlar yapma konusunda genel olarak disiplinli bir dil kullanmaktadır. Örneğin, 'gated modellerin üstünlüğünün eğitilebilirlikten kaynaklandığına dair kanıt' sunulmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "These results suggest that many previous results comparing RNN architectures are driven primarily by differences in training effectiveness, rather than differences in capacity."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "Here we provide evidence that the observed superiority of gated models over vanilla RNN models is almost exclusively driven by trainability."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalar, değişkenler arasındaki nedensel ilişkileri incelemek için tasarlanmıştır. Makale, bu tür bir tasarımın sağladığı nedensel çıkarım yeteneğini uygun bir dille ifade etmektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Tekrar Üretilebilirlik İçin Veri ve Kod Erişilebilirliğinin Eksikliği",
+        "summary": "Makale, kapsamlı deneyler ve hiperparametre optimizasyonu süreçleri tanımlamasına rağmen, bu deneylerin tekrar üretilebilirliğini sağlamak için kullanılan veri setlerine veya kodlara erişim hakkında herhangi bir bilgi sunmamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmanın temel prensiplerinden biri tekrar üretilebilirliktir. Özellikle makine öğrenimi gibi alanlarda, kullanılan veri setleri, kodlar ve hiperparametre ayarları, sonuçların doğrulanması ve üzerine inşa edilmesi için hayati öneme sahiptir. Bu bilgilerin eksikliği, çalışmanın bağımsız olarak doğrulanmasını veya genişletilmesini engeller.",
+        "limitations": [
+          "Makalede veri veya kod erişilebilirliği hakkında herhangi bir bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Ana Sonuçların Belirsizlik Ölçüleri Olmadan Sunulması",
+        "summary": "Makale, ana sonuçları (örneğin, '5 bits per parameter' tahmini, mimariler arası sıralama) sunarken, bu tahminlerin veya karşılaştırmaların belirsizlik ölçülerini (örneğin, güven aralıkları) genellikle ihmal etmektedir. Bu durum, bulguların kesinliği hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_1_2_results.a4",
+            "section": "2.1.2 RESULTS",
+            "quote": "This leads us to a bits per parameter estimate of approximately 5, averaging over all architectures and all depths."
+          },
+          {
+            "anchor_id": "2_1_2_results.a5",
+            "section": "2.1.2 RESULTS",
+            "quote": "One trend that emerged from our capacity experiments is a slightly reduced capacity as a function of 'gatedness'. Putting aside the IRNN, which performed the worst and is discussed below, we noticed that across all depths and all model sizes, the performance was on average RNN > UGRNN > GRU > LSTM > +RNN."
+          }
+        ],
+        "reasoning_public": "Bilimsel raporlamada, ana sonuçların sadece nokta tahminleri olarak değil, aynı zamanda bu tahminlerin etrafındaki belirsizliği gösteren güven aralıkları veya standart hatalarla birlikte sunulması önemlidir. Bu, okuyucunun bulguların ne kadar güvenilir olduğunu anlamasına yardımcı olur ve 'significant/non-significant' gibi ikili ifadelerin ötesine geçerek daha nüanslı bir yorum sağlar.",
+        "limitations": [
+          "Makalede ana sonuçlar için belirsizlik ölçüleri hakkında bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "RNN Kapasitesi ve Eğitilebilirliği Üzerine Kapsamlı Deneysel Kanıtlar",
+        "summary": "Makale, RNN mimarilerinin kapasite ve eğitilebilirlik özelliklerini kapsamlı deneysel çalışmalarla inceleyerek, gated modellerin üstünlüğünün temel olarak eğitilebilirlikten kaynaklandığına dair güçlü kanıtlar sunmaktadır. Ayrıca, iki yeni RNN mimarisi önermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "We show experimentally that all common RNN architectures achieve nearly the same per-task and per-unit capacity bounds with careful training, for a variety of tasks and stacking depths. ... These results suggest that many previous results comparing RNN architectures are driven primarily by differences in training effectiveness, rather than differences in capacity. ... Finally, we propose two novel RNN architectures, one of which is easier to train than the LSTM or GRU for deeply stacked architectures."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Here we provide evidence that the observed superiority of gated models over vanilla RNN models is almost exclusively driven by trainability."
+          }
+        ],
+        "reasoning_public": "Çalışma, RNN'lerin kapasite ve eğitilebilirlik tartışmalarına önemli bir açıklık getirerek, literatürdeki yaygın inanışları deneysel verilerle desteklemekte veya çürütmektedir. Özellikle, farklı mimarilerin kapasitelerinin parametre sayısıyla doğrusal olarak ölçeklendiğini ve gated modellerin eğitilebilirlik avantajına sahip olduğunu göstermesi, alan için değerli bir katkıdır. Önerilen yeni mimariler de özgün bir katkı sunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Per-Parametre Kapasite Ölçüm Metodolojisi",
+        "summary": "Makale, RNN'lerin görevle ilgili bilgiyi parametrelerinde ne kadar depolayabildiğini ölçmek için 'bit/parametre' cinsinden yeni bir metodoloji sunmaktadır. Bu metodoloji, farklı mimarilerin kapasitelerini karşılaştırmak için standartlaştırılmış bir yaklaşım sağlar.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_1_1_experimental_setup.a1",
+            "section": "2.1.1 EXPERIMENTAL SETUP",
+            "quote": "From this mutual information we compute bits per parameter, which provides a normalized measurement of how much the RNN learned about the task."
+          },
+          {
+            "anchor_id": "2_1_2_results.a6",
+            "section": "2.1.2 RESULTS",
+            "quote": "This leads us to a bits per parameter estimate of approximately 5, averaging over all architectures and all depths."
+          }
+        ],
+        "reasoning_public": "Önerilen 'bit/parametre' ölçütü, RNN kapasitesini nicel olarak değerlendirmek için yenilikçi ve açıklayıcı bir yol sunmaktadır. Bu, önceki çalışmalarda eksik olan, mimariler arası karşılaştırmaları daha anlamlı hale getiren bir metriktir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Araştırma Sorularının Net Tanımı ve Kapsamlı Uyum",
+        "summary": "Makale, RNN'lerin ifade gücündeki potansiyel darboğazlar olarak kapasite ve eğitilebilirlik arasındaki ilişkiyi net bir şekilde tanımlamış ve bu soruları deneysel olarak ele almıştır. Çalışmanın tasarımı ve kapsamı, belirlenen araştırma sorularını cevaplamaya yönelik güçlü bir uyum sergilemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "Two potential bottlenecks on the expressiveness of recurrent neural networks (RNNs) are their ability to store information about the task in their parameters, and to store information about the input history in their units. ... These results suggest that many previous results comparing RNN architectures are driven primarily by differences in training effectiveness, rather than differences in capacity."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "Here we provide evidence that the observed superiority of gated models over vanilla RNN models is almost exclusively driven by trainability."
+          }
+        ],
+        "reasoning_public": "Makale, RNN mimarilerinin kapasite ve eğitilebilirlik özelliklerini karşılaştırma amacını açıkça belirtmektedir. Özellikle, gated modellerin vanilla RNN'lere göre algılanan üstünlüğünün kapasiteden ziyade eğitilebilirlikten kaynaklandığı hipotezini test etmektedir. Bu net odaklanma, çalışmanın deneysel tasarımını ve sonuçların yorumlanmasını güçlendirmektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Bulguları Destekleyen Sağlam Teorik Çerçeve",
+        "summary": "Makale, RNN'lerin kapasitesi ve eğitilebilirliği üzerine deneysel bulgularını, ilgili teorik çalışmalarla (evrensel yaklaştırıcılar, VC boyutu, kısa süreli bellek izleri) tutarlı bir şekilde çerçevelemektedir. Bu, çalışmanın deneysel doğasına rağmen, sonuçların daha geniş bir teorik bağlama oturmasını sağlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a0",
+            "section": "RELATED WORK",
+            "quote": "While it is well known that RNNs are universal approximators of arbitrary dynamical systems (Doya, 1993), there is little theoretical work on the task-capacity of RNNs. Koiran & Sontag (1998) studied the VC dimension of RNNs, which provides an upper bound on their task-capacity (deﬁned in Section 2.1)."
+          },
+          {
+            "anchor_id": "related_work.a1",
+            "section": "RELATED WORK",
+            "quote": "The ability of RNNs to store information about their input has been better studied, in both the context of machine learning and theoretical neuroscience. Previous work on short term memory traces explores the tradeoffs between memory ﬁdelity and duration, for the case that a new input is presented to the RNN at every time step (Jaeger & Haas, 2004; Maass et al., 2002; White et al., 2004; Ganguli et al., 2008; Charles et al., 2014)."
+          }
+        ],
+        "reasoning_public": "Makale, RNN'lerin kapasitesi ve eğitilebilirliği üzerine deneysel bir çalışma olmasına rağmen, bulgularını Doya (1993) gibi seminal çalışmaların 'evrensel yaklaştırıcılar' kavramı ve Koiran & Sontag (1998) tarafından yapılan VC boyutu çalışmaları gibi ilgili teorik çerçevelerle ilişkilendirerek sağlam bir temel oluşturmaktadır. Bu, deneysel sonuçların sadece gözlemden ibaret kalmayıp, literatürdeki teorik tartışmalarla diyalog kurmasını sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Teorik Çerçevenin Deneysel Sonuçlarla Tam Uyumsuzluğu",
+        "summary": "Makale, RNN'lerin VC boyutuna ilişkin teorik üst sınırların kendi deneysel bulgularıyla (özellikle 'unrolling' adımlarının kapasiteye etkisi) tam olarak örtüşmediğini belirtmektedir. Bu durum, teorik çerçevenin deneysel gözlemleri tam olarak açıklayamadığına işaret etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a2",
+            "section": "RELATED WORK",
+            "quote": "These upper bounds are not a close match to our experimental results. For instance, we ﬁnd that performance saturates rapidly in terms of the number of unrolling steps (Figure 2b), while the relevant bound increases linearly with the number of unrolling steps."
+          }
+        ],
+        "reasoning_public": "Makale, Koiran & Sontag (1998) tarafından belirlenen VC boyutu gibi teorik üst sınırların, kendi deneysel sonuçlarıyla (örneğin, 'unrolling' adımlarının kapasite üzerindeki etkisi) tam olarak eşleşmediğini açıkça belirtmektedir. Bu, teorik çerçevenin mevcut deneysel bulguları tam olarak kapsamadığını ve bu alanda daha fazla teorik çalışmaya ihtiyaç duyulduğunu göstermektedir. Bu durum, makalenin deneysel katkısını azaltmasa da, teorik çerçevenin sınırlılıklarını ortaya koymaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yüksek Oranda Çözümlenemeyen Referanslar",
+        "summary": "Makaledeki referansların büyük bir kısmı (42 referanstan 36'sı) otomatik indeksleme sistemleri tarafından çözümlenememiştir. Bu durum, makalenin atıfta bulunduğu bazı çalışmaların doğrulanabilirliğini ve literatürdeki konumunu takip etmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmaların doğrulanabilirliği ve literatürdeki yerinin net bir şekilde anlaşılması için atıfların kolayca erişilebilir ve doğrulanabilir olması önemlidir. Yüksek oranda çözümlenemeyen referanslar, okuyucuların ve hakemlerin makalenin dayandığı temelleri incelemesini engelleyebilir ve çalışmanın literatürdeki konumunu belirsizleştirebilir. Özellikle 'not_found_in_index' olarak işaretlenen referansların büyük çoğunluğu, makalenin atıf kalitesinden ziyade indeksleme sistemlerinin kapsam sınırlamalarını yansıtsa da, bu durum yine de şeffaflık açısından bir zayıflık oluşturmaktadır.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin (OpenAlex/Semantic Scholar) kapsam sınırlamaları nedeniyle bazı geçerli referanslar 'bulunamayan' olarak işaretlenmiş olabilir. Bu durum, referansların kendiliğinden hatalı olduğu anlamına gelmez, ancak doğrulanabilirliklerini zorlaştırmaktadır."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "İlgili Çalışmaların Kapsamlı İncelenmesi",
+        "summary": "Makale, RNN'lerin kapasitesi ve eğitilebilirliği üzerine yapılan önceki çalışmaları, özellikle LSTM ve GRU gibi gated mimarilerin gelişimini ve ilgili teorik ve deneysel bulguları kapsamlı bir şekilde ele almaktadır. Bu, çalışmanın literatürdeki yerini sağlam bir şekilde konumlandırmasına yardımcı olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "One of the main strategies involved in the deployment of RNN models is the use of the Long Short Term Memory (LSTM) networks (Hochreiter & Schmidhuber, 1997), and more recently the Gated Recurrent Unit (GRU) proposed by Cho et al. (2014); Chung et al. (2014) (we refer to these as gated architectures)."
+          },
+          {
+            "anchor_id": "related_work.a3",
+            "section": "RELATED WORK",
+            "quote": "While it is well known that RNNs are universal approximators of arbitrary dynamical systems (Doya, 1993), there is little theoretical work on the task-capacity of RNNs. Koiran & Sontag (1998) studied the VC dimension of RNNs, which provides an upper bound on their task-capacity (deﬁned in Section 2.1)."
+          },
+          {
+            "anchor_id": "related_work.a4",
+            "section": "RELATED WORK",
+            "quote": "The precise details of what makes an RNN architecture perform well is an extremely active research ﬁeld (e.g. Jozefowicz et al. (2015)). A highly related article is Greff et al. (2015), in which the authors used random search of HPs, along with systematic removal of pieces of the LSTM architecture to determine which pieces of the LSTM were more important than the others."
+          }
+        ],
+        "reasoning_public": "Makale, 'RELATED WORK' bölümünde ve giriş kısmında, RNN'lerin evrenselliği, kapasite sınırları, farklı mimarilerin (LSTM, GRU, vanilla RNN) karşılaştırılması ve eğitilebilirlik zorlukları gibi temel konulara değinen önemli çalışmaları referans göstermektedir. Bu, okuyucunun çalışmanın bağlamını ve katkısını anlaması için güçlü bir temel sunar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi",
+        "summary": "Makale, 'tüm yaygın RNN mimarilerinin' dikkatli eğitimle neredeyse aynı kapasite sınırlarına ulaştığına dair genel bir iddiada bulunsa da, bu iddia sadece belirli bir dizi mimari ve görev üzerinde yapılan deneysel sonuçlara dayanmaktadır. Bu, iddia edilen genelliği sorgulatır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "We show experimentally that all common RNN architectures achieve nearly the same per-task and per-unit capacity bounds with careful training, for a variety of tasks and stacking depths."
+          },
+          {
+            "anchor_id": "1_2_experimental_setup.a2",
+            "section": "1.2 EXPERIMENTAL SETUP",
+            "quote": "In our studies we used a variety of well-known RNN architectures: standard RNNs such as the vanilla RNN and the newer IRNN (Le et al., 2015), as well as gated RNN architectures such as the GRU and LSTM. We rounded out our set of models by innovating two novel (to our knowledge) RNN architectures (see Section 1.4) we call the Update Gate RNN (UGRNN), and the Intersection RNN (+RNN)."
+          },
+          {
+            "anchor_id": "1_2_experimental_setup.a3",
+            "section": "1.2 EXPERIMENTAL SETUP",
+            "quote": "For each of our 6 tasks, 6 RNN variants, 4 depths, and 6+ model sizes, we ran the HP tuner in order to optimize the relevant loss function."
+          }
+        ],
+        "reasoning_public": "Makalenin ana iddialarından biri, farklı RNN mimarilerinin kapasite açısından benzer performans gösterdiğidir. Ancak bu iddia, makalede incelenen altı spesifik RNN varyantı (vanilla RNN, IRNN, UGRNN, GRU, LSTM, +RNN) ve altı görev (per-parameter capacity task, text8, RCF, parentheses, arithmetic) ile sınırlı deneysel kanıtlara dayanmaktadır. 'Tüm yaygın RNN mimarileri' ifadesi, bu sınırlı örneklemden daha geniş bir genelleme yapmaktadır. Bu tür geniş bir genelleme için daha kapsamlı bir mimari ve görev yelpazesi üzerinde kanıt sunulması beklenir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "ReLU Aktivasyon Fonksiyonunun Kapasiteye Etkisi Hakkındaki İddianın Kapsamı",
+        "summary": "Makale, ReLU aktivasyon fonksiyonunun kapasite görevleri için 'sorunlu' olduğunu iddia etmektedir. Ancak bu iddia, yalnızca belirli bir kapasite görevi (per-parameter capacity task) ve belirli bir bağlamda (IRNN ve ReLU kullanılan RNN/UGRNN varyantları) gözlemlenen performansa dayanmaktadır. Bu, 'sorunlu' ifadesinin genelliğini sınırlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_1_2_results.a7",
+            "section": "2.1.2 RESULTS",
+            "quote": "ReLUs Reduce Capacity In our capacity tasks, the IRNN performed noticeably worse than all other architectures, reaching a maximum bits per parameter of roughly 3.5. To determine if this performance drop was due to the ReLU nonlinearity of the IRNN, or its identity initialization, we sorted through the RNN and UGRNN results (which both have ReLU and tanh as choices for the nonlinearity HP) and looked at the maximum bits per parameter when only optimizations using ReLU are considered. Indeed, both the RNN and UGRNN bits per parameter dropped dramatically to the 3.5 range (Figure 2a) when those architectures exclusively used ReLU, providing strong evidence that the ReLU activation function is problematic for this capacity task."
+          }
+        ],
+        "reasoning_public": "Makale, IRNN'in diğer mimarilere göre daha kötü performans göstermesini ve ReLU aktivasyon fonksiyonu kullanıldığında RNN ve UGRNN'in kapasitesinin düşmesini 'ReLU aktivasyon fonksiyonunun bu kapasite görevi için sorunlu olduğuna dair güçlü kanıt' olarak yorumlamaktadır. Ancak bu 'sorunlu' ifadesi, tüm kapasite görevleri veya tüm bağlamlar için geçerli olmayabilir. Bulgular, spesifik olarak 'per-parameter capacity task' için geçerlidir ve diğer görevlerdeki etkileri hakkında doğrudan kanıt sunulmamıştır. Bu nedenle, iddianın kapsamı daha net belirtilmelidir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Hiperparametre Optimizasyonunun Rolü Hakkında Güçlü Kanıt",
+        "summary": "Makale, hiperparametre optimizasyonunun RNN mimarilerinin performansını değerlendirmedeki kritik rolünü vurgulayan güçlü deneysel kanıtlar sunmaktadır. Bu, literatürdeki yaygın varsayımlara meydan okuyan önemli bir bulgudur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "These results suggest that many previous results comparing RNN architectures are driven primarily by differences in training effectiveness, rather than differences in capacity."
+          },
+          {
+            "anchor_id": "1_2_experimental_setup.a4",
+            "section": "1.2 EXPERIMENTAL SETUP",
+            "quote": "For each of our 6 tasks, 6 RNN variants, 4 depths, and 6+ model sizes, we ran the HP tuner in order to optimize the relevant loss function. Typically this resulted in many hundreds to several thousands of HP evaluations, each of which was a full training run up to millions of training steps. Taken together, this amounted to CPU-millennia worth of computation."
+          }
+        ],
+        "reasoning_public": "Makale, kapsamlı hiperparametre optimizasyonunun, farklı RNN mimarilerinin kapasite ve eğitilebilirlik karşılaştırmalarında ne kadar önemli olduğunu açıkça göstermektedir. Özellikle, 'birçok önceki sonucun öncelikle eğitim etkinliğindeki farklılıklardan kaynaklandığı' iddiası, detaylı deneysel kurulum ve CPU-millennia düzeyindeki hesaplama gücüyle desteklenmektedir. Bu, makalenin temel argümanlarından birini güçlü bir şekilde desteklemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Oranda Çözülemeyen Atıflar",
+        "summary": "Makaledeki atıfların büyük bir kısmı (42 referanstan 36'sı, yani %85.7'si) otomatik indeksleme sistemleri tarafından çözülememiştir. Bu durum, makalede sunulan iddiaların dayandığı literatürün doğrulanabilirliğini ve erişilebilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda atıfların kolayca doğrulanabilir olması, araştırmanın şeffaflığı ve güvenilirliği açısından kritik öneme sahiptir. Yüksek oranda çözülemeyen atıflar, okuyucuların ve hakemlerin makaledeki argümanların temelini oluşturan kaynakları bulmasını ve değerlendirmesini zorlaştırır. Bu durum, makalenin bilimsel iletişimdeki etkinliğini azaltabilir.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle bazı geçerli referanslar 'bulunamayan' olarak işaretlenmiş olabilir. Ancak bu kadar yüksek bir oranın sadece indeksleme sınırlamalarından kaynaklanması olası değildir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Deneysel Tasarım ve Hiperparametre Optimizasyonu Detaylarının Eksik Raporlanması",
+        "summary": "Makale, hiperparametre optimizasyonu ve deneysel kurulumun bazı kritik detaylarını genel terimlerle açıklamakta, ancak bu karmaşık deneylerin tam olarak tekrarlanabilirliği için gerekli olan spesifik kılavuzlara (örneğin, kullanılan optimizasyon algoritmalarının spesifik versiyonları, hiperparametre aralıkları, erken durdurma kriterleri) yeterince değinmemektedir. Bu durum, çalışmanın tekrarlanabilirliğini ve bulguların doğrulanabilirliğini olumsuz etkileyebilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experimental_setup.a0",
+            "section": "EXPERIMENTAL SETUP",
+            "quote": "In order to train our models we employed a HP tuner that uses a Gaussian Process model similar to Spearmint (see Appendix, section on HP tuning and Desautels et al. (2014); Snoek et al. (2012) for related work). The basic idea is that one requests HP values from the tuner, runs the optimization to completion using those values, and then returns the validation loss. This loss is then used by the tuner, in combination with previously reported losses, to choose new HP values such that over many experiments, the validation loss is minimized with respect to the HPs. For our experiments, we report the evaluation loss (separate from the validation loss returned to the HP optimizer, except where otherwise noted) after the HP tuner has highly optimized the task (hundreds to many thousands of experiments for each architecture and task)."
+          },
+          {
+            "anchor_id": "experimental_setup.a1",
+            "section": "EXPERIMENTAL SETUP",
+            "quote": "For each of our 6 tasks, 6 RNN variants, 4 depths, and 6+ model sizes, we ran the HP tuner in order to optimize the relevant loss function. Typically this resulted in many hundreds to several thousands of HP evaluations, each of which was a full training run up to millions of training steps. Taken together, this amounted to CPU-millennia worth of computation."
+          }
+        ],
+        "reasoning_public": "RNN'ler ve derin öğrenme modelleri, hiperparametre seçimine karşı oldukça hassastır. Çalışma, 'son derece kapsamlı hiperparametre optimizasyonu' kullandığını belirtse de, bu optimizasyonun tam metodolojisi, kullanılan spesifik araçlar (Spearmint benzeri bir Gaussian Process modeli belirtilse de, tam konfigürasyon eksik), arama alanları ve durdurma kriterleri gibi detaylar yeterince açıklanmamıştır. Bu eksiklik, benzer bir çalışmayı yürütmek isteyen araştırmacılar için önemli bir engel teşkil eder.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Veri Kümeleri ve Görev Tanımlarının Tamamlanması",
+        "summary": "Makale, kullanılan görevleri (text8, RCF, parantez sayma, aritmetik) genel olarak tanımlasa da, bu görevlerin tam olarak nasıl oluşturulduğu ve kullanıldığına dair bazı detaylar 'Ekler' bölümüne atıfta bulunularak eksik bırakılmıştır. Bu durum, okuyucunun makalenin ana argümanlarını tam olarak anlamasını ve deneyleri yeniden üretmesini zorlaştırabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "additional_tasks_where_architectures_achieve_very_similar_loss.a0",
+            "section": "ADDITIONAL TASKS WHERE ARCHITECTURES ACHIEVE VERY SIMILAR LOSS",
+            "quote": "The tasks are (see Appendix, section Task Deﬁnitions for further elaboration of these tasks): • text8 - 1-step ahead character-based prediction on the text8 Wikipedia dataset (100 million characters) (Mahoney, 2011). • Random Continuous Functions (RCF) - A task similar to the per-parameter capacity task above, except the target outputs are real numbers (not categorical), and the number of training samples is held ﬁxed."
+          },
+          {
+            "anchor_id": "tasks_that_are_very_hard_to_learn.a0",
+            "section": "TASKS THAT ARE VERY HARD TO LEARN",
+            "quote": "We study two tasks that are difﬁcult to learn: parallel parentheses counting of independent input streams, and mathematical addition of integers encoded in a character string (see Appendix, section Task Deﬁnitions)."
+          }
+        ],
+        "reasoning_public": "Çalışmanın temelini oluşturan görevlerin (özellikle 'Random Continuous Functions', 'parallel parentheses counting' ve 'mathematical addition of integers') tam tanımları ve veri üretim süreçleri, makalenin ana metninde yeterince detaylandırılmamıştır. Okuyucunun bu görevleri tam olarak anlaması ve potansiyel olarak yeniden oluşturması için Ekler bölümüne başvurması gerekmektedir. Ana metinde daha fazla detay, okuyucunun akışını iyileştirecektir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f2",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kapsamlı Deneysel Çalışma ve Sonuçların Şeffaf Sunumu",
+        "summary": "Makale, RNN mimarilerinin kapasite ve eğitilebilirliklerini değerlendirmek için geniş bir deneysel çalışma yürütmüştür. Farklı mimariler, derinlikler ve görevler üzerinde yapılan kapsamlı testler ve sonuçların grafiklerle desteklenmesi, çalışmanın şeffaflığını ve güvenilirliğini artırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experimental_setup.a2",
+            "section": "EXPERIMENTAL SETUP",
+            "quote": "For each of our 6 tasks, 6 RNN variants, 4 depths, and 6+ model sizes, we ran the HP tuner in order to optimize the relevant loss function. Typically this resulted in many hundreds to several thousands of HP evaluations, each of which was a full training run up to millions of training steps. Taken together, this amounted to CPU-millennia worth of computation."
+          },
+          {
+            "anchor_id": "results.a0",
+            "section": "RESULTS",
+            "quote": "Examining the results of Figure 1, we ﬁnd the capacity of all architectures is roughly linear in the number of parameters, across several orders of magnitude of parameter count."
+          }
+        ],
+        "reasoning_public": "Yazarlar, 6 farklı görev, 6 RNN varyantı, 4 derinlik seviyesi ve 6'dan fazla model boyutu üzerinde 'yüzlerce ila binlerce' hiperparametre değerlendirmesi yaparak, 'CPU-binyılları' değerinde hesaplama gücü kullandıklarını belirtmişlerdir. Bu, sonuçların sağlamlığını destekleyen önemli bir çabadır. Ayrıca, sonuçlar Figure 1, 2, 3 ve 4 gibi çok sayıda grafik ile açıkça sunulmuştur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Hesaplama Kaynakları ve Hiperparametre Optimizasyonu",
+        "summary": "Makale, sonuçların elde edilmesi için CPU-millennia düzeyinde hesaplama gücü ve binlerce hiperparametre optimizasyonu yapıldığını belirtmektedir. Bu durum, benzer araştırmaları tekrarlamak isteyen araştırmacılar için önemli bir engel teşkil edebilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experimental_setup.a3",
+            "section": "EXPERIMENTAL SETUP",
+            "quote": "For each of our 6 tasks, 6 RNN variants, 4 depths, and 6+ model sizes, we ran the HP tuner in order to optimize the relevant loss function. Typically this resulted in many hundreds to several thousands of HP evaluations, each of which was a full training run up to millions of training steps. Taken together, this amounted to CPU-millennia worth of computation."
+          }
+        ],
+        "reasoning_public": "Makalede belirtilen 'CPU-millennia' düzeyindeki hesaplama kaynakları ve 'binlerce' hiperparametre değerlendirmesi, çalışmanın sonuçlarının doğrulanabilirliğini ve tekrarlanabilirliğini zorlaştırmaktadır. Bu tür bir kaynak gereksinimi, çoğu araştırma ekibinin erişiminin ötesindedir ve bulguların genellenebilirliği konusunda soru işaretleri yaratır. Çalışmanın bu kadar yoğun kaynak gerektirmesi, sonuçların pratik uygulamalarda ne kadar geçerli olabileceği konusunda da bir sınırlama getirir.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Hiperparametre Ayarlama Detaylarının Eksikliği",
+        "summary": "Makale, hiperparametre ayarlama sürecinde kullanılan Gaussian Process modeline atıfta bulunsa da, bu sürecin tam detaylarını (örneğin, arama alanları, optimizasyon bütçeleri) ana metinde yeterince açıklamamaktadır. Bu durum, çalışmanın tam olarak tekrarlanmasını zorlaştırabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experimental_setup.a4",
+            "section": "EXPERIMENTAL SETUP",
+            "quote": "In order to train our models we employed a HP tuner that uses a Gaussian Process model similar to Spearmint (see Appendix, section on HP tuning and Desautels et al. (2014); Snoek et al. (2012) for related work)."
+          }
+        ],
+        "reasoning_public": "Hiperparametre ayarlama, RNN modellerinin performansını büyük ölçüde etkileyen kritik bir adımdır. Makalede 'Spearmint benzeri bir Gaussian Process modeli' kullanıldığı belirtilse de, bu modelin spesifik konfigürasyonları, arama alanları ve her bir deney için ayrılan optimizasyon bütçeleri gibi detaylar ana metinde eksiktir. Bu detaylar, okuyucuların çalışmayı tam olarak tekrarlayabilmesi için önemlidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f2",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Açıkça Belirtilen Deneysel Kurulum ve Mimari Tanımları",
+        "summary": "Makale, kullanılan RNN mimarilerini ve deneysel kurulumu detaylı bir şekilde tanımlayarak, çalışmanın temel bileşenlerinin anlaşılmasını ve potansiyel olarak tekrarlanmasını kolaylaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "recurrent_neural_network_architectures.a0",
+            "section": "RECURRENT NEURAL NETWORK ARCHITECTURES",
+            "quote": "Below we brieﬂy deﬁne the RNN architectures used in this study. Unless otherwise stated W denotes a matrix, b denotes a vector of biases. The symbol xt is the input at time t, and ht is the hidden state at time t. Remaining vector variables represent intermediate values. The function σ(·) denotes the logistic sigmoid function and s(·) is either tanh or ReLU, set as a HP (see Appendix, Section RNN HPs for the complete list of HPs). Initial conditions for the networks were set to a learned bias."
+          },
+          {
+            "anchor_id": "experimental_setup.a5",
+            "section": "EXPERIMENTAL SETUP",
+            "quote": "In our studies we used a variety of well-known RNN architectures: standard RNNs such as the vanilla RNN and the newer IRNN (Le et al., 2015), as well as gated RNN architectures such as the GRU and LSTM. We rounded out our set of models by innovating two novel (to our knowledge) RNN architectures (see Section 1.4) we call the Update Gate RNN (UGRNN), and the Intersection RNN (+RNN)."
+          }
+        ],
+        "reasoning_public": "Makale, vanilla RNN, IRNN, UGRNN, GRU, LSTM ve +RNN gibi kullanılan tüm RNN mimarilerini matematiksel denklemlerle açıkça tanımlamıştır. Ayrıca, deneysel kurulumda kullanılan görevler, derinlikler ve parametre sayıları gibi önemli detaylar da belirtilmiştir. Bu açıklık, okuyucuların çalışmanın metodolojisini anlamasına ve benzer deneyler tasarlamasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıklı Bölüm Akışı ve Anlaşılır Dil",
+        "summary": "Makale, girişten sonuçlara kadar mantıklı bir bölüm akışı sergilemekte ve kullanılan dil akademik ancak anlaşılır düzeydedir. Okuyucunun konuyu takip etmesi kolaydır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "Research and application of recurrent neural networks (RNNs) have seen explosive growth over the last few years, (Martens & Sutskever, 2011; Graves et al., 2009), and RNNs have become the central component for some very successful model classes and application domains in deep learning..."
+          },
+          {
+            "anchor_id": "1_1_capacity_bottlenecks.a0",
+            "section": "1.1 CAPACITY BOTTLENECKS",
+            "quote": "There are several potential bottlenecks for RNNs, for example: How much information about the task can they store in their parameters? How much information about the input history can they store in their units? These ﬁrst two bottlenecks can both be seen as memory capacities (one for the task, one for the inputs), for different types of memory."
+          },
+          {
+            "anchor_id": "2_1_2_results.a8",
+            "section": "2.1.2 RESULTS",
+            "quote": "Examining the results of Figure 1, we ﬁnd the capacity of all architectures is roughly linear in the number of parameters, across several orders of magnitude of parameter count."
+          }
+        ],
+        "reasoning_public": "Makalenin bölümleri (ABSTRACT, INTRODUCTION, RELATED WORK, RESULTS, DISCUSSION, ACKNOWLEDGEMENTS, REFERENCES) standart bir akademik makale formatına uygun olarak düzenlenmiştir. Her bölüm, bir önceki bölümle tutarlı bir şekilde ilerlemekte ve okuyucuyu araştırmanın farklı aşamaları boyunca yönlendirmektedir. Özellikle 'INTRODUCTION' bölümü, RNN'lerin mevcut durumunu ve makalenin ele alacağı temel soruları net bir şekilde ortaya koymaktadır. 'RELATED WORK' bölümü, önceki çalışmaları özetleyerek makalenin literatürdeki yerini belirginleştirmektedir. 'EXPERIMENTAL SETUP' ve 'RESULTS' bölümleri, metodolojiyi ve bulguları açıkça sunmaktadır. Kullanılan dil, teknik terimlerin yerinde ve açıklayıcı bir şekilde kullanılmasıyla, alan dışından okuyucuların bile temel argümanları anlamasına olanak tanımaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Bölüm Başlıklarında Tutarsızlık ve Alt Bölüm Derinliği",
+        "summary": "Makalede bölüm başlıklandırma hiyerarşisinde bazı tutarsızlıklar bulunmaktadır. Özellikle 'RELATED WORK' bölümü, diğer ana bölümlerle aynı seviyede olmasına rağmen alt bölümlere ayrılmamıştır, bu da içeriğin organizasyonunu zorlaştırmaktadır. Ayrıca, bazı alt bölümlerin çok kısa olması, okuyucunun beklentisini karşılamayabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a5",
+            "section": "RELATED WORK",
+            "quote": "While it is well known that RNNs are universal approximators of arbitrary dynamical systems (Doya, 1993), there is little theoretical work on the task-capacity of RNNs. Koiran & Sontag (1998) studied the VC dimension of RNNs, which provides an upper bound on their task-capacity (deﬁned in Section 2.1). These upper bounds are not a close match to our experimental results."
+          },
+          {
+            "anchor_id": "related_work.a6",
+            "section": "RELATED WORK",
+            "quote": "The ability of RNNs to store information about their input has been better studied, in both the context of machine learning and theoretical neuroscience. Previous work on short term memory traces explores the tradeoffs between memory ﬁdelity and duration, for the case that a new input is presented to the RNN at every time step (Jaeger & Haas, 2004; Maass et al., 2002; White et al., 2004; Ganguli et al., 2008; Charles et al., 2014)."
+          }
+        ],
+        "reasoning_public": "Makalede 'INTRODUCTION' ve 'RESULTS' gibi ana bölümlerin alt bölümleri varken, 'RELATED WORK' bölümü alt başlıklara ayrılmamıştır. Bu durum, ilgili çalışmaların sunumunda daha fazla yapılandırma potansiyeli olduğunu göstermektedir. 'RELATED WORK' bölümü, farklı alt konulara (örn. RNN'lerin kapasitesi, bellek yetenekleri, mimari karşılaştırmaları) değindiği için, bu konuların ayrı alt başlıklar altında sunulması, okuyucunun bilgiyi daha kolay sindirmesine yardımcı olacaktır. Örneğin, 'RELATED WORK' bölümünde 'The ability of RNNs to store information about their input has been better studied...' gibi bir cümle, bu konunun ayrı bir alt başlık altında ele alınabileceğini düşündürmektedir. Ayrıca, '1.1 CAPACITY BOTTLENECKS' gibi bazı alt bölümlerin içeriği, ana başlık altında daha detaylı açıklanabilecekken, ayrı bir alt başlık olarak sunulmuştur. Bu durum, bölüm hiyerarşisinin bazen gereksiz yere derinleştirildiğini düşündürmektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f1.a0",
+          "writing_structure.f1.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çalışma Alanına Uygunluk",
+        "summary": "Makale, derin öğrenme ve tekrarlayan sinir ağları (RNN'ler) alanındaki güncel ve önemli bir araştırma konusunu ele almaktadır. Google Brain yazarları, RNN'lerin kapasitesi ve eğitilebilirliği üzerine deneysel bulgular sunarak, bu alandaki temel varsayımları sorgulamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "Two potential bottlenecks on the expressiveness of recurrent neural networks (RNNs) are their ability to store information about the task in their parameters, and to store information about the input history in their units. We show experimentally that all common RNN architectures achieve nearly the same per-task and per-unit capacity bounds with careful training, for a variety of tasks and stacking depths."
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "Research and application of recurrent neural networks (RNNs) have seen explosive growth over the last few years, (Martens & Sutskever, 2011; Graves et al., 2009), and RNNs have become the central component for some very successful model classes and application domains in deep learning (speech recognition (Amodei et al., 2015), seq2seq (Sutskever et al., 2014), neural machine translation (Bahdanau et al., 2014), the DRAW model (Gregor et al., 2015), educational applications (Piech et al., 2015), and scientiﬁc discovery (Mante et al., 2013))."
+          }
+        ],
+        "reasoning_public": "Makale, RNN'lerin kapasite ve eğitilebilirlik sorunlarına odaklanarak, LSTM ve GRU gibi popüler mimarilerin 'üstünlüğünün' aslında eğitilebilirlikten kaynaklandığını, kapasiteden değil, deneysel olarak göstermektedir. Bu bulgular, derin öğrenme topluluğu için önemli çıkarımlar taşımaktadır ve bu alandaki konferanslar veya dergiler için oldukça uygun bir konudur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, INTRODUCTION",
+        "instruction": "Soyut ve Giriş bölümlerindeki 'tüm yaygın RNN mimarileri' gibi genelleyici ifadeler, makalede gerçekten incelenen spesifik mimarileri yansıtacak şekilde daraltılmalı veya bu genellemeyi destekleyecek ek kanıtlar sunulmalıdır. Örneğin, 'İncelenen yaygın RNN mimarileri arasında...' şeklinde bir ifade daha uygun olacaktır.",
+        "acceptance_check": "Genelleyici ifadelerin, makalede sunulan kanıtların kapsamını doğru bir şekilde yansıtacak şekilde revize edildiği doğrulanacaktır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "APPENDIX",
+        "instruction": "Deneylerde kullanılan veri setlerine (veya sentetik veri üretme yöntemlerine) ve tüm kodlara (model tanımları, eğitim döngüleri, hiperparametre optimizasyon stratejileri) erişim sağlamak için bir GitHub deposu veya benzeri bir platformun bağlantısı eklenmelidir. Ayrıca, tüm hiperparametre aralıkları ve optimizasyon stratejileri detaylı olarak açıklanmalıdır.",
+        "acceptance_check": "Veri ve kod erişilebilirliği hakkında açık bir beyan ve bağlantı eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Çözülemeyen referansların her biri için DOI, arXiv kimliği veya tam yayın bilgileri (dergi adı, cilt, sayı, sayfa aralığı) gibi daha spesifik ve doğrulanabilir bilgiler eklenmelidir. Özellikle 'not_found_in_index' olarak işaretlenen referanslar için bu bilgiler sağlanmalıdır.",
+        "acceptance_check": "Tüm referansların OpenAlex veya Semantic Scholar gibi akademik indekslerde kolayca bulunabilir olması veya manuel doğrulama için yeterli bilgi içermesi.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Tartışma bölümünde, bulguların genellenebilirliği ve incelenen mimarilerin 'yaygın' olarak kabul edilme nedenleri hakkında daha fazla açıklama yapılmalıdır. Hangi kriterlere göre bu mimarilerin 'yaygın' olduğu belirtilmelidir.",
+        "acceptance_check": "Tartışma bölümünde, 'yaygın' tanımının ve bulguların genellenebilirliğinin daha net bir şekilde ele alındığı doğrulanacaktır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Makalenin 'DISCUSSION' veya 'LIMITATIONS' bölümüne, bu kadar yoğun hesaplama kaynağı gereksiniminin çalışmanın tekrarlanabilirliği ve pratik uygulanabilirliği üzerindeki etkilerini tartışan bir paragraf ekleyin. Potansiyel olarak daha az kaynak gerektiren yaklaşımlar veya gelecekteki araştırmalar için öneriler sunulabilir.",
+        "acceptance_check": "Makalede hesaplama kaynakları ve tekrarlanabilirlik üzerine bir tartışma bölümü eklenmiş mi?",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Çözümlenemeyen referanslar için DOI, arXiv bağlantısı veya tam yayın bilgileri gibi ek tanımlayıcılar ekleyerek doğrulanabilirliği artırın. Özellikle 'not_found_in_index' olarak belirtilen referansların güncel ve erişilebilir versiyonlarını kontrol edin.",
+        "acceptance_check": "Referans listesindeki 'not_found_in_index' olarak işaretlenmiş referansların en az %50'si için DOI veya doğrudan erişim bağlantısı sağlanmış olmalı.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "1.2 EXPERIMENTAL SETUP",
+        "instruction": "Deneylerde kullanılan model boyutları (parametre sayıları) ve derinliklerin seçimi için teorik veya pratik bir gerekçe sunulmalıdır. Eğer mümkünse, belirli bir etki büyüklüğünü tespit etmek için yapılan bir güç analizi veya hassasiyet analizi raporlanmalıdır.",
+        "acceptance_check": "Model boyutlarının seçimine dair açık bir gerekçe veya güç analizi sonuçları metne eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "Raporlanan tüm anahtar nicel bulgular için (örneğin, 'bits per parameter' tahmini, mimariler arası performans farkları), etki büyüklüğü ölçümleri (uygunsa) ve güven aralıkları (örneğin, %95 CI) eklenmelidir. Bu, bulguların kesinliğini ve pratik önemini artıracaktır.",
+        "acceptance_check": "Anahtar nicel bulgular için etki büyüklükleri ve güven aralıkları raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTAL SETUP veya APPENDIX",
+        "instruction": "Ekler bölümünde veya ana metinde, hiperparametre optimizasyonunda kullanılan spesifik algoritmaların (örn. Spearmint'in hangi versiyonu veya benzeri bir araç), arama uzaylarının (her bir hiperparametre için minimum/maksimum değerler ve dağılımlar), erken durdurma kriterlerinin ve optimizasyon sürecini yöneten diğer parametrelerin (örn. deneme sayısı, bütçe) detaylı bir açıklamasını ekleyin.",
+        "acceptance_check": "Hiperparametre optimizasyonunun tüm kritik detayları, bir başka araştırmacının deneyi tekrarlamasına olanak tanıyacak şekilde açıkça belirtilmiştir.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RELATED WORK",
+        "instruction": "'RELATED WORK' bölümünü, ele alınan farklı alt konuları (örn. teorik kapasite çalışmaları, deneysel bellek çalışmaları, mimari karşılaştırmaları) yansıtacak şekilde alt başlıklara ayırın. Bu, bölümün okunabilirliğini ve yapısal netliğini artıracaktır.",
+        "acceptance_check": "'RELATED WORK' bölümünün en az iki mantıksal alt başlığa ayrılmış olması ve her alt başlığın ilgili içeriği kapsaması.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "2.1.2 RESULTS",
+        "instruction": "ReLU aktivasyon fonksiyonunun 'sorunlu' olduğuna dair iddia, yalnızca 'bu kapasite görevi' (per-parameter capacity task) için geçerli olduğu belirtilerek daha spesifik hale getirilmelidir. Genel bir 'sorunlu' ifadesinden kaçınılmalıdır.",
+        "acceptance_check": "İddianın, kanıtların kapsamını doğru bir şekilde yansıtacak şekilde spesifikleştirildiği doğrulanacaktır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "EXPERIMENTAL SETUP",
+        "instruction": "Ekler bölümünde bahsedilen 'HP tuning' kısmının ana metinde daha belirgin bir şekilde referans verilmesini sağlayın ve bu bölümde hiperparametre arama alanları, optimizasyon bütçeleri ve kullanılan metrikler gibi kritik detayların açıkça belirtildiğinden emin olun.",
+        "acceptance_check": "Hiperparametre ayarlama detaylarına ilişkin ekler bölümüne daha net bir referans eklenmiş ve bu bölümde gerekli detaylar sağlanmış mı?",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RESULTS",
+        "instruction": "Farklı mimariler ve görevler arasındaki performans karşılaştırmalarında kullanılan istatistiksel testlerin varsayımlarının (örneğin, normallik, varyans homojenliği) nasıl değerlendirildiği açıklanmalıdır. Ayrıca, çoklu karşılaştırma riskini azaltmak için (örneğin, Bonferroni düzeltmesi, Holm-Bonferroni yöntemi) herhangi bir düzeltme yapılıp yapılmadığı belirtilmelidir.",
+        "acceptance_check": "Varsayım testleri ve çoklu karşılaştırma düzeltmeleri hakkında bilgi eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "1.2 EXPERIMENTAL SETUP",
+        "instruction": "Hiperparametre optimizasyonu sürecinde başarısız olan veya anormal sonuçlar veren denemelerin (eksik veri veya aykırı değerler) nasıl ele alındığına dair bir açıklama eklenmelidir. Örneğin, bu denemeler analizden çıkarıldı mı, yoksa özel bir yöntemle mi işlendi?",
+        "acceptance_check": "Eksik veri ve aykırı değer işleme stratejisi hakkında bilgi eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RESULTS",
+        "instruction": "Anahtar nicel bulgular (örneğin, 'bits per parameter' tahmini, mimariler arası performans sıralaması) sunulurken, bu değerlerin güven aralıkları veya standart hataları gibi belirsizlik ölçüleri de eklenmelidir. Bu, bulguların sağlamlığını ve genellenebilirliğini daha iyi yansıtacaktır.",
+        "acceptance_check": "Anahtar sonuçlar için belirsizlik ölçüleri (örneğin, CI) raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "ADDITIONAL TASKS WHERE ARCHITECTURES ACHIEVE VERY SIMILAR LOSS ve TASKS THAT ARE VERY HARD TO LEARN",
+        "instruction": "Ana metinde, her bir görev için temel kurulum ve veri üretim süreçlerine dair daha fazla özet bilgi ekleyin. Ekler bölümüne yapılan atıfları koruyarak, okuyucunun ana metni okurken temel anlayışı kazanmasını sağlayın.",
+        "acceptance_check": "Görev tanımları, Ekler'e başvurmadan ana metinde yeterli düzeyde anlaşılır hale getirilmiştir.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f1"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Tartışma bölümünde, mevcut teorik çerçevelerin deneysel bulgularla neden tam olarak örtüşmediğine dair potansiyel nedenler veya bu boşluğu doldurmak için gelecekteki teorik çalışmaların yönleri hakkında daha fazla spekülasyon veya öneri eklenebilir.",
+        "acceptance_check": "Tartışma bölümüne, teorik ve deneysel bulgular arasındaki uyumsuzluğun nedenlerine dair ek bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "INTRODUCTION",
+        "instruction": "Bölüm başlıklandırma hiyerarşisini gözden geçirin. Bazı çok kısa alt bölümleri (örn. '1.1 CAPACITY BOTTLENECKS' gibi) ana bölüm metnine entegre etmeyi veya daha kapsamlı hale getirmeyi düşünün, böylece bölüm akışı daha doğal olur.",
+        "acceptance_check": "Alt bölüm başlıklarının sayısının ve derinliğinin makalenin genel yapısıyla daha tutarlı hale gelmesi.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Teorik Çerçevenin Deneysel Sonuçlarla Tam Uyumsuzluğu; Bölüm Başlıklarında Tutarsızlık ve Alt Bölüm Derinliği",
+        "anchor_ids": [
+          "related_work.a0",
+          "related_work.a1",
+          "related_work.a2",
+          "related_work.a3",
+          "related_work.a4",
+          "related_work.a5",
+          "related_work.a6"
+        ],
+        "action_item_ids": [
+          "theoretical_framing.f1.a0",
+          "writing_structure.f1.a0",
+          "writing_structure.f1.a1"
+        ]
+      },
+      {
+        "section": "RESULTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "results.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "DISCUSSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "ACKNOWLEDGEMENTS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1.1 CAPACITY BOTTLENECKS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "1_1_capacity_bottlenecks.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "1.2 EXPERIMENTAL SETUP",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleyici İddiaların Sınırlı Kanıtlarla Desteklenmesi; Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Belirsizliği",
+        "anchor_ids": [
+          "1_2_experimental_setup.a0",
+          "1_2_experimental_setup.a1",
+          "1_2_experimental_setup.a2",
+          "1_2_experimental_setup.a3",
+          "1_2_experimental_setup.a4"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "quant.f1.a0",
+          "quant.f6.a0"
+        ]
+      },
+      {
+        "section": "2.1.1 EXPERIMENTAL SETUP",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_1_1_experimental_setup.a0",
+          "2_1_1_experimental_setup.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "2.1.2 RESULTS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; ReLU Aktivasyon Fonksiyonunun Kapasiteye Etkisi Hakkındaki İddianın Kapsamı; Varsayım Testlerinin ve Çoklu Karşılaştırma Risklerinin Belirsizliği; Ana Sonuçların Belirsizlik Ölçüleri Olmadan Sunulması",
+        "anchor_ids": [
+          "2_1_2_results.a0",
+          "2_1_2_results.a1",
+          "2_1_2_results.a2",
+          "2_1_2_results.a3",
+          "2_1_2_results.a4",
+          "2_1_2_results.a5",
+          "2_1_2_results.a6",
+          "2_1_2_results.a7",
+          "2_1_2_results.a8"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "quant.f3.a0",
+          "quant.f5.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "4 TASKS THAT ARE VERY HARD TO LEARN",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Varsayım Testlerinin ve Çoklu Karşılaştırma Risklerinin Belirsizliği",
+        "anchor_ids": [
+          "4_tasks_that_are_very_hard_to_learn.a0",
+          "4_tasks_that_are_very_hard_to_learn.a1"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ]
+      },
+      {
+        "section": "ADDITIONAL TASKS WHERE ARCHITECTURES ACHIEVE VERY SIMILAR LOSS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "additional_tasks_where_architectures_achieve_very_similar_loss.a0"
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTAL SETUP",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yüksek Hesaplama Kaynakları ve Hiperparametre Optimizasyonu; Deneysel Tasarım ve Hiperparametre Optimizasyonu Detaylarının Eksik Raporlanması",
+        "anchor_ids": [
+          "experimental_setup.a0",
+          "experimental_setup.a1",
+          "experimental_setup.a2",
+          "experimental_setup.a3",
+          "experimental_setup.a4",
+          "experimental_setup.a5"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0",
+          "ethics_reproducibility.f1.a0",
+          "reporting_guideline_compliance.f0.a0"
+        ]
+      },
+      {
+        "section": "Figure 1",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "figure_1.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "RECURRENT NEURAL NETWORK ARCHITECTURES",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "recurrent_neural_network_architectures.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "TASKS THAT ARE VERY HARD TO LEARN",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "tasks_that_are_very_hard_to_learn.a0"
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

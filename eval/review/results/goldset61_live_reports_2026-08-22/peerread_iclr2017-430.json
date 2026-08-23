@@ -1,0 +1,1077 @@
+{
+  "paper_id": "peerread:iclr2017-430",
+  "run_tag": "main",
+  "job_id": "6047ccc0-451c-4f57-8e67-07eac821cbaf",
+  "elapsed_s": 332.7,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "LATENT SEQUENCE DECOMPOSITIONS William Chan∗ Carnegie Mellon University williamchan@cmu.edu",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RELATED WORK",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 5734,
+      "reference_count": 1,
+      "parse_confidence": 0.49,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces Latent Sequence Decompositions (LSD), a novel framework for sequence-to-sequence models where the tokenization of the output sequence is not fixed but learned as a latent variable. The model learns a distribution over possible decompositions (e.g., into characters or multi-character word pieces) that is conditioned on both the input and output sequences. The authors propose a training method based on left-to-right sampling with an ε-greedy strategy to manage the intractable search space of all possible decompositions. They apply LSD to the Wall Street Journal (WSJ) speech recognition task, demonstrating a significant Word Error Rate (WER) reduction from 14.8% (character baseline) to 12.9%, and further to 9.6% when combined with a convolutional encoder, outperforming previous end-to-end models at the time of publication.",
+    "strengths": [
+      {
+        "category": "Originality and Significance",
+        "points": [
+          "The core idea of treating sequence decomposition as a latent variable conditioned on the input is highly original. It moves beyond the prevailing paradigm of using fixed, pre-determined tokenization schemes (characters, words, or static word pieces).",
+          "The work addresses a fundamentally important problem in sequence modeling. Suboptimal tokenization can limit model performance, increase computational cost, and struggle with rare or out-of-vocabulary words. LSD provides a flexible and data-driven solution."
+        ]
+      },
+      {
+        "category": "Empirical Results",
+        "points": [
+          "The experimental results are strong and convincing. The LSD model achieves a 12.7% relative WER improvement over a competitive character-level baseline on the WSJ task (12.9% vs. 14.8%).",
+          "When combined with a CNN encoder, the proposed model achieves a state-of-the-art result (at the time) of 9.6% WER without an external language model, demonstrating the method's effectiveness and its compatibility with other architectural improvements.",
+          "The comparison against the 'Maximum Extension' (MaxExt) baseline is very effective for demonstrating that simply using longer tokens is not sufficient, which strongly supports the need for learning the decomposition dynamically."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The paper is exceptionally well-written. The motivation is clearly articulated, the mathematical framework is presented formally, and the model architecture is described in sufficient detail.",
+          "Figure 1 provides a clear and insightful analysis of the learned decompositions, showing that the model learns to use a mix of token lengths, which supports the central hypothesis of the paper."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Methodological Soundness",
+        "points": [
+          "The training procedure relies on a heuristic approximation (left-to-right sampling with an ε-greedy strategy) to sample from the posterior p(z|y, x; θ). The authors acknowledge this is a biased procedure. While the results are strong, the theoretical justification for why this approximation works well could be strengthened.",
+          "The paper notes that without the ε-greedy strategy, the model collapses to a local minimum of using single characters. This suggests the training dynamics are sensitive and potentially unstable, which could be a practical limitation."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "bibliography",
+        "comment": "An automated check of the bibliography flagged that one reference could not be resolved by the tool because it lacked a DOI or other machine-readable metadata. The evidence pack notes this does not mean the reference is invalid, but it does hinder discoverability. Please review your reference list to ensure all entries are complete and formatted with sufficient metadata (e.g., DOI, full title, venue) to be resolvable by standard indexing tools.",
+        "evidence_ref": "ref[1] not_found_in_index"
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The use of an ε-greedy sampling strategy is a pragmatic solution to avoid local minima. However, it would be beneficial to provide more analysis on this choice. For instance, how sensitive is the final performance to the annealing schedule of ε? Is there a risk that this exploration encourages suboptimal decompositions early on that the model cannot recover from later?",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "The comparison against the 'Maximum Extension' (MaxExt) baseline is very effective for demonstrating that simply using longer tokens is not sufficient. The fact that all MaxExt models underperform the character baseline is a strong piece of evidence for the necessity of learning the decomposition dynamically.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "What is the computational overhead (in terms of training time and inference latency) of the LSD framework compared to the character-level baseline, given the need to sample decompositions during training and perform a search over a larger token vocabulary during decoding?",
+      "The vocabulary of word pieces was created from n-gram character counts from the training set. Have you explored other methods for generating the initial token vocabulary Z, and how sensitive is the model's performance to this initial choice?",
+      "The appendix shows that the LSD model can generate multiple decompositions for the same word sequence. Could you provide some analysis on the diversity of these decompositions and whether they correlate with input characteristics, such as speaking rate or accent, as hypothesized in the introduction?"
+    ],
+    "overall_assessment": "This is a strong and impactful paper that introduces LSD, a novel and effective framework for learning dynamic tokenizations in sequence-to-sequence models. The core idea is original, the problem it addresses is significant, and the empirical results on the WSJ ASR task are impressive, showing substantial improvements over a strong baseline. The paper is exceptionally well-written and the experiments are thoughtfully designed.\n\nThe only minor weakness is the reliance on a heuristic training procedure, which the authors are transparent about. The reviewers have raised several excellent questions regarding computational overhead, vocabulary sensitivity, and the diversity of learned decompositions, which would further strengthen the paper if addressed. A minor bibliographic issue was also noted where a reference was not machine-readable, which should be an easy fix. Overall, this is a high-quality contribution that requires only minor revisions to be ready for publication.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity info. [LLM'in kendi gerekçesi: The concept of learning input-dependent latent sequence decompositions is highly novel and a significant departure from the static tokenization methods common at the time.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The work addresses the fundamental and practical problem of suboptimal tokenization in sequence modeling, with direct implications for ASR, NMT, and other fields. The strong results underscore its importance."
+      },
+      {
+        "key": "claims_supported",
+        "score": 7.75,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity major. [LLM'in kendi gerekçesi: The central claims about WER improvement and learning non-trivial decompositions are thoroughly supported by the results in Tables 1 & 2 and the analysis in Figure 1.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The overall framework is sound, but it relies on a heuristic training approximation whose properties are not fully analyzed. The authors are transparent about this, but it remains a minor weakness.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is written with exceptional clarity, making a complex topic accessible. The motivation, method, and results are all presented logically and effectively.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.0,
+        "rationale": "This work has high value for the research community, introducing a new direction for sequence modeling and providing strong benchmark results."
+      },
+      {
+        "key": "contextualization",
+        "score": 8.5,
+        "rationale": "The paper does a good job of positioning itself relative to prior work in CTC, seq2seq models, and word-piece methods, clearly highlighting its unique contributions."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.0,
+        "rationale": "One reference in the bibliography could not be automatically resolved by a checking tool due to missing metadata. This is a minor formatting/discoverability issue to be fixed, not an integrity violation."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 9.0,
+        "rationale": "The evidence pack did not identify any missing seminal or required citations, suggesting the literature review is comprehensive. The score is not 10 as absolute completeness is hard to ascertain."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity info. [LLM'in kendi gerekçesi: The evidence pack did not report any statistical inconsistencies (e.g., p-value or test statistic errors). All statistics are taken as consistent.]"
+      }
+    ],
+    "final_score": 8.97,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 1,
+        "resolved": 0,
+        "not_found_in_index": 1,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "- shamrock’s pretax proﬁt from the sale was one hundred twenty ﬁve million dollars a spokeswoman said - Character seq2seq 1 c|h|a|m|r|o|c|k|’|s| |p|r|e|t|a|x| |p|r|o|f|i|t| |f|r|o|m| |t|h|e| |s|a|l|e| |w|a|s| |o|n|e| |h|u|n|d|r|e|d| |t|w|e|n|t|y| |f|i|v|e| |m|i|l|l|i|o|n| |d|o|l|l|a|r|s| |a| |s|p|o|k|e|s|w|o|m|a|n| |s|a|i|d -1.373868 2 c|h|a|m|r|o|x| |p|r|e|t|a|x| |p|r|o|f|i|t| |f|r|o|m| |t|h|e| |s|a|l|e| |w|a|s| |o|n|e| |h|u|n|d|r|e|d| |t|w|e|n|t|y| |f|i|v|e| |m|i|l|l|i|o|n| |d|o|l|l|a|r|s| |a| |s|p|o|k|e|s|w|o|m|a|n| |s|a|i|d -2.253581 3 c|h|a|m|r|o|c|k|s| |p|r|e|t|a|x| |p|r|o|f|i|t| |f|r|o|m| |t|h|e| |s|a|l|e| |w|a|s| |o|n|e| |h|u|n|d|r|e|d| |t|w|e|n|t|y| |f|i|v|e| |m|i|l|l|i|o|n| |d|o|l|l|a|r|s| |a| |s|p|o|k|e|s|w|o|m|a|n| |s|a|i|d -3.482713 4 c|h|a|m|r|o|c|k|’|s| |p|r|e|t|a|x| |p|r|o|f|i|t| |f|r|o|m| |t|h|e| |s|a|l|e| |w|a|s| |o|n|e| |h|u|n|d|r|e|d| |t|w|e|n|t|y| |f|i|v|e| |m|i|l|l|i|o|n| |d|o|l|l|a|r|s| |o|f| |s|p|o|k|e|s|w|o|m|a|n| |s|a|i|d -3.493957 5 c|h|a|m|r|o|d|’|s| |p|r|e|t|a|x| |p|r|o|f|i|t| |f|r|o|m| |t|h|e| |s|a|l|e| |w|a|s| |o|n|e| |h|u|n|d|r|e|d| |t|w|e|n|t|y| |f|i|v|e| |m|i|l|l|i|o|n| |d|o|l|l|a|r|s| |a| |s|p|o|k|e|s|w|o|m|a|n| |s|a|i|d -3.885185 6 c|h|a|m|r|o|x| |p|r|e|t|a|x| |p|r|o|f|i|t| |f|r|o|m| |t|h|e| |s|a|l|e| |w|a|s| |o|n|e| |h|u|n|d|r|e|d| |t|w|e|n|t|y| |f|i|v|e| |m|i|l|l|i|o|n| |d|o|l|l|a|r|s| |o|f| |s|p|o|k|e|s|w|o|m|a|n| |s|a|i|d -4.373687 6 c|h|a|m|r|o|c|’|s| |p|r|e|t|a|x| |p|r|o|f|i|t| |f|r|o|m| |t|h|e| |s|a|l|e| |w|a|s| |o|n|e| |h|u|n|d|r|e|d| |t|w|e|n|t|y| |f|i|v|e| |m|i|l|l|i|o|n| |d|o|l|l|a|r|s| |a| |s|p|o|k|e|s|w|o|m|a|n| |s|a|i|d -5.148484 8 c|h|a|m|r|o|c|k|s| |p|r|e|t|a|x| |p|r|o|f|i|t| |f|r|o|m| |t|h|e| |s|a|l|e| |w|a|s| |o|n|e| |h|u|n|d|r|e|d| |t|w|e|n|t|y| |f|i|v|e| |m|i|l|l|i|o|n| |d|o|l|l|a|r|s| |o|f| |s|p|o|k|e|s|w|o|m|a|n| |s|a|i|d -5.602793 Word Piece Model Maximum Extension 1 sh|am|ro|ck|’s| |pre|ta|x| |pro|ﬁ|t| |from| |the| |sa|le| |was| |one| |hu|nd|red| |tw|ent|y| |ﬁve| |mil|lion| |doll|ars| |a| |sp|ok|es|wo|man| |said -1.155203 2 sh|am|ro|x| |pre|ta|x| |pro|ﬁ|t| |from| |the| |sa|le| |was| |one| |hu|nd|red| |tw|ent|y| |ﬁve| |mil|lion| |doll|ars| |a| |sp|ok|es|wo|man| |said -3.031330 3 sh|ar|ro|x| |pre|ta|x| |pro|ﬁ|t| |from| |the| |sa|le| |was| |one| |hu|nd|red| |tw|ent|y| |ﬁve| |mil|lion| |doll|ars| |a| |sp|ok|es|wo|man| |said -3.074762 4 sh|e| |m| |ro|x| |pre|ta|x| |pro|ﬁ|t| |from| |the| |sa|le| |was| |one| |hu|nd|red| |tw|ent|y| |ﬁve| |mil|lion| |doll|ars| |a| |sp|ok|es|wo|man| |said -3.815662 5 sh|e| |mar|x| |pre|ta|x| |pro|ﬁ|t| |from| |the| |sa|le| |was| |one| |hu|nd|red| |tw|ent|y| |ﬁve| |mil|lion| |doll|ars| |a| |sp|ok|es|wo|man| |said -3.880760 6 sh|ar|ro|ck|s| |pre|ta|x| |pro|ﬁ|t| |from| |the| |sa|le| |was| |one| |hu|nd|red| |tw|ent|y| |ﬁve| |mil|lion| |doll|ars| |a| |sp|ok|es|wo|man| |said -4.083274 7 sh|e| |m| |ro|ck|ed| |pre|ta|x| |pro|ﬁ|t| |from| |the| |sa|le| |was| |one| |hu|nd|red| |tw|ent|y| |ﬁve| |mil|lion| |doll|ars| |a| |sp|ok|es|wo|man| |said -4.878025 8 sh|e| |m| |ro|ck|s| |pre|ta|x| |pro|ﬁ|t| |from| |the| |sa|le| |was| |one| |hu|nd|red| |tw|ent|y| |ﬁve| |mil|lion| |doll|ars| |a| |sp|ok|es|wo|man| |said -5.121490 Word Piece Model Latent Sequence Decompositions 1 sh|a|m|ro|c|k|’s| |pre|ta|x| |pro|ﬁ|t| |fro|m| |t|h|e| |sa|l|e| |was| |on|e| |hu|n|dr|e|d| |t|we|nt|y| |ﬁv|e| |mil|lio|n| |doll|a|r|s| |a| |sp|ok|e|s|wo|ma|n| |said -28.111485 2 sh|a|m|ro|c|k|’s| |pre|ta|x| |pro|ﬁ|t| |fro|m| |t|h|e| |sa|l|e| |was| |on|e| |hu|n|dr|e|d| |t|we|nt|y| |ﬁv|e| |mil|li|o|n| |doll|ar|s| |a| |sp|ok|e|s|wo|ma|n| |said -28.172878 3 sh|a|m|ro|c|k|’s| |pre|ta|x| |pro|ﬁ|t| |fro|m| |t|h|e| |sa|l|e| |was| |on|e| |hu|n|dr|e|d| |t|we|nt|y| |ﬁv|e| |mil|lio|n| |doll|a|r|s| |a| |sp|ok|e|s|w|om|a|n| |said -28.453381 4 sh|a|m|ro|c|k|’s| |pre|ta|x| |pro|ﬁ|t| |fro|m| |t|h|e| |sa|l|e| |was| |on|e| |hu|n|dr|e|d| |t|we|nt|y| |ﬁv|e| |mil|li|o|n| |doll|a|r|s| |a| |sp|ok|e|s|w|om|a|n| |said -29.103184 5 sh|a|m|ro|c|k|’s| |pre|ta|x| |pro|ﬁ|t| |fro|m| |t|h|e| |sa|l|e| |was| |on|e| |hu|n|dr|e|d| |t|we|nt|y| |ﬁv|e| |mil|lio|n| |doll|a|r|s| |a| |sp|ok|e|s|w|om|a|n| |sa|id -29.159660 6 sh|a|m|ro|c|k|’s| |pre|ta|x| |pro|ﬁ|t| |fro|m| |t|h|e| |sa|l|e| |was| |on|e| |hu|n|dr|e|d| |t|we|nt|y| |ﬁv|e| |mil|lio|n| |doll|a|r|s| |a| |sp|o|k|e|s|w|o|ma|n| |said -29.164141 7 sh|a|m|ro|c|k|’s| |pre|ta|x| |pro|ﬁ|t| |fro|m| |t|h|e| |sa|l|e| |was| |on|e| |hu|n|dr|e|d| |t|we|nt|y| |ﬁv|e| |mil|li|o|n| |doll|a|r|s| |a| |sp|ok|e|s|w|om|a|n| |sai|d -29.169310 8 sh|a|m|ro|c|k|’s| |pre|ta|x| |pro|ﬁ|t| |fro|m| |t|h|e| |sa|l|e| |was| |on|e| |hu|n|dr|e|d| |t|we|nt|y| |ﬁv|e| |mil|li|o|n| |doll|a|r|s| |a| |sp|ok|e|s|w|om|a|n| |sa|id -29.809937 12",
+          "title": null,
+          "authors": [],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.0,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "115683db569ee7fb8c100f4ef4b38720d75e4765f72a1be3f9a652a1c2dbfa1e",
+          "request_time": "2026-08-22T17:24:53.675597Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:24:54.396927Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "aa30253174677273bffaa6b16c901eb6446e6f5113ff40ed3c27db2c41dab830",
+          "request_time": "2026-08-22T17:24:55.265981Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:30:09.609490Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin kısa olması (yaklaşık 5700 kelime), yazar listesinde farklı kurumların bulunması ve 'ABSTRACT', 'INTRODUCTION', 'RELATED WORK', 'CONCLUSION', 'REFERENCES' gibi standart bölümler bir konferans bildirisine işaret etmektedir. Çalışma, yeni bir model (Latent Sequence Decompositions) önermekte ve performansını deneysel olarak değerlendirmektedir, bu da hesaplamalı modelleme tasarımına uymaktadır.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 87.125,
+      "recommended_decision": "accept",
+      "confidence": 0.6915789473684211,
+      "top_fatal_risks": [
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "Tekrar Üretilebilirlik İçin Veri/Kod Erişilebilirliği Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 2 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 75.0,
+        "severity": "major",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "5 concern(s): The evidence pack indicates that reference [1] could not be resolved or found in standard academic indices. This is a critical issue that requires immediate attention to ensure the integrity and verifiability of the work. The problem is not merely a formatting error but suggests a potentially unlocatable source.; The training procedure's reliance on an ε-greedy sampling strategy, acknowledged as a biased heuristic, lacks sufficient theoretical justification for its effectiveness. While strong results are achieved, the paper does not adequately explain why this approximation works well, especially given the noted sensitivity and potential instability (collapse to single characters without ε-greedy). Further analysis on the annealing schedule of ε and its impact on performance and stability is needed.; The paper lacks a detailed discussion or empirical analysis of the computational overhead (training time, inference latency) introduced by the LSD framework compared to character-level baselines. Given the need for sampling during training and a search over a larger token vocabulary during decoding, this is a crucial practical consideration for adoption. (+2 more)",
+        "key_objection": "The evidence pack indicates that reference [1] could not be resolved or found in standard academic indices. This is a critical issue that requires immediate attention to ensure the integrity and verifiability of the work. The problem is not merely a formatting error but suggests a potentially unlocatable source.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "novelty_to_length_ratio.f0",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "2 concern(s): The reliance on a heuristic approximation (left-to-right sampling with an ε-greedy strategy) for training, while acknowledged as biased, lacks sufficient theoretical justification for its effectiveness. Further analysis on the properties of this approximation, especially how it avoids local minima and its sensitivity to parameters like the annealing schedule of ε, would strengthen the methodological soundness.; The observation that the model collapses to single characters without the ε-greedy strategy indicates potential instability or sensitivity in the training dynamics. This suggests a need for more robust training procedures or a deeper understanding of the conditions under which the model learns meaningful decompositions.",
+        "key_objection": "The reliance on a heuristic approximation (left-to-right sampling with an ε-greedy strategy) for training, while acknowledged as biased, lacks sufficient theoretical justification for its effectiveness. Further analysis on the properties of this approximation, especially how it avoids local minima and its sensitivity to parameters like the annealing schedule of ε, would strengthen the methodological soundness.",
+        "confidence": 0.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "5 concern(s): The evidence pack indicates that reference [1] could not be programmatically resolved or found in standard academic indices. While this might be a formatting issue, it is crucial to ensure all citations are verifiable. Please review your entire reference list for completeness and correct formatting to ensure all citations are resolvable by standard indexing tools.; The paper relies on an ε-greedy sampling strategy, which is a pragmatic solution. It would be beneficial to provide more analysis on the sensitivity of the final performance to the annealing schedule of ε. Is there a risk that this exploration encourages suboptimal decompositions early on that the model cannot recover from later?; Could you provide an estimate of the computational overhead (training time and inference latency) of the LSD framework compared to the character-level baseline, considering the need to sample decompositions during training and perform a search over a larger token vocabulary during decoding? (+2 more)",
+        "key_objection": "The evidence pack indicates that reference [1] could not be programmatically resolved or found in standard academic indices. While this might be a formatting issue, it is crucial to ensure all citations are verifiable. Please review your entire reference list for completeness and correct formatting to ensure all citations are resolvable by standard indexing tools.",
+        "confidence": 0.2,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "4 concern(s): The statement claims a reference 'could not be programmatically resolved or found in standard academic indices'. The evidence pack states 'not_found_in_index' for reference [1] and clarifies 'Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.' This means the tool could not resolve it, but it does not definitively mean it's not found in *standard academic indices* or that it's unresolvable by other means. The claim is slightly overstated based on the provided evidence.; The evidence pack states 'not_found_in_index' for reference [1] and clarifies 'Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.' This means the tool could not resolve it, but it does not definitively mean it's unresolvable. The claim is slightly overstated based on the provided evidence.; The evidence pack states 'not_found_in_index' for reference [1] and clarifies 'Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.' This means the tool could not resolve it, but it does not definitively mean it's not found in *standard academic indices* or that it's unresolvable by other means. The claim is slightly overstated based on the provided evidence. (+1 more)",
+        "key_objection": "The statement claims a reference 'could not be programmatically resolved or found in standard academic indices'. The evidence pack states 'not_found_in_index' for reference [1] and clarifies 'Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.' This means the tool could not resolve it, but it does not definitively mean it's not found in *standard academic indices* or that it's unresolvable by other means. The claim is slightly overstated based on the provided evidence.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "minor-revision",
+        "summary": "This paper introduces Latent Sequence Decompositions (LSD), a novel framework for sequence-to-sequence models where the tokenization of the output sequence is not fixed but learned as a latent variable. The model learns a distribution over possible decompositions (e.g., into characters or multi-character word pieces) that is conditioned on both the input and output sequences. The authors propose a training method based on left-to-right sampling with an ε-greedy strategy to manage the intractable search space of all possible decompositions. They apply LSD to the Wall Street Journal (WSJ) speech recognition task, demonstrating a significant Word Error Rate (WER) reduction from 14.8% (character baseline) to 12.9%, and further to 9.6% when combined with a convolutional encoder, outperforming previous end-to-end models at the time of publication.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Araştırma Tasarımı ve Sorusu Uyumu",
+        "summary": "Makale, diziden diziye modellerde sabit ayrıştırmaların sınırlılıklarını ele alan ve öğrenilebilir bir ayrıştırma çerçevesi (LSD) öneren deneysel bir çalışma sunmaktadır. Araştırma sorusu, LSD'nin konuşma tanıma görevindeki performansını değerlendirmekle uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "In this paper we present Latent Sequence Decompositions (LSD), a framework in which the decomposition of sequences into constituent tokens is learnt during the training of the model. ... We experiment with the Wall Street Journal speech recognition task. Our LSD model achieves 12.9% WER compared to a character baseline of 14.8% WER."
+          }
+        ],
+        "reasoning_public": "Makale, yeni bir metodolojinin (LSD) performansını mevcut yöntemlerle karşılaştırmayı amaçlayan deneysel bir tasarım kullanmaktadır. Bu tasarım, önerilen metodolojinin etkinliğini göstermek için uygundur.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Makalede kullanılan Wall Street Journal (WSJ) veri setinin (train si284, dev93, eval92) standart bir referans olduğu belirtilse de, bu örneklem büyüklüğünün istatistiksel güç analizi veya hassasiyet gerekçesi sunulmamıştır. Bu durum, elde edilen sonuçların genellenebilirliği ve istatistiksel güvenilirliği hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "We experimented with the Wall Street Journal (WSJ) ASR task. We used the standard conﬁguration of train si284 dataset for training, dev93 for validation and eval92 for test evaluation."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, örneklem büyüklüğünün belirlenmesi ve gerekçelendirilmesi, elde edilen sonuçların istatistiksel gücünü ve genellenebilirliğini sağlamak için kritik öneme sahiptir. Güç analizi veya hassasiyet gerekçesi olmadan, gözlemlenen etkilerin gerçek etkileri yansıtıp yansıtmadığı veya şans eseri ortaya çıkıp çıkmadığı tam olarak anlaşılamaz.",
+        "limitations": [
+          "Makalede veri setinin standart bir referans olduğu belirtildiği için, bu alandaki uzmanların bu veri setinin yeterliliği konusunda genel bir kabulü olabilir. Ancak, bu kabulün istatistiksel bir gerekçesi sunulmamıştır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ölçüm Araçları ve Operasyonelleştirme Açıklığı",
+        "summary": "Makale, konuşma tanıma görevinde standart bir metrik olan Kelime Hata Oranı (WER) kullanmaktadır. Bu metrik, alanda yaygın olarak kabul görmüş ve operasyonelleştirilmesi açık bir ölçümdür. Ayrıca, giriş özellikleri (80 boyutlu filtre bankaları) ve model mimarisi (BLSTM, LSTM, MLP) detaylı bir şekilde açıklanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Our LSD model achieves 12.9% WER compared to a character baseline of 14.8% WER."
+          },
+          {
+            "anchor_id": "experiments.a1",
+            "section": "EXPERIMENTS",
+            "quote": "Our input features were 80 dimensional ﬁlterbanks computed every 10ms with delta and delta-delta acceleration normalized with per speaker mean and variance as generated by Kaldi (Povey et al., 2011). The EncodeRNN function is a 3 layer BLSTM with 256 LSTM units per-direction (or 512 total) and 4 = 22 time factor reduction. The DecodeRNN is a 1 layer LSTM with 256 LSTM units."
+          }
+        ],
+        "reasoning_public": "WER, konuşma tanıma sistemlerinin performansını değerlendirmek için standart ve güvenilir bir metriktir. Giriş özellikleri ve model mimarisinin detaylı açıklaması, çalışmanın tekrarlanabilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "İstatistiksel Test ve Model Seçimi Uygunluğu",
+        "summary": "Makale, derin öğrenme modellerinin performansını karşılaştırmak için Kelime Hata Oranı (WER) gibi standart metrikleri kullanmaktadır. Bu tür modellerde, genellikle istatistiksel varsayım testleri yerine modelin performans metrikleri üzerinden karşılaştırmalar yapılır. Kullanılan optimizasyon algoritması (ADAM) ve eğitim stratejileri (gradient norm clipping, gaussian weight noise, L2 weight decay, epsilon-greedy keşif) alana uygun ve iyi tanımlanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a2",
+            "section": "EXPERIMENTS",
+            "quote": "We used ADAM with the default hyperparameters described in (Kingma & Ba, 2015), however we decayed the learning rate from 1e−3 to 1e−4. We used 8 GPU workers for asynchronous SGD under the TensorFlow framework (Abadi et al., 2015). We monitor the dev93 Word Error Rate (WER) until convergence and report the corresponding eval92 WER."
+          },
+          {
+            "anchor_id": "2_latent_sequence_decompositions.a0",
+            "section": "2 LATENT SEQUENCE DECOMPOSITIONS",
+            "quote": "In practice, we ﬁnd that the when the model is trained with this method, it quickly collapses to using single character targets, and never escapes from this local minima1. Thus, we fol-low an ϵ-greedy exploration strategy commonly found in reinforcement learning literature (Sutton & Barto, 1998) – we sample zt from a mixture of a uniform distribution over valid next tokens and p (zt|x, y, z<t, θ)."
+          }
+        ],
+        "reasoning_public": "Derin öğrenme alanında, model performansının değerlendirilmesi genellikle belirli görev metrikleri (örn. WER) üzerinden yapılır ve geleneksel istatistiksel test varsayımları bu bağlamda doğrudan uygulanmaz. Kullanılan optimizasyon ve eğitim teknikleri, bu alandaki en iyi uygulamalarla uyumludur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metin-Tablo-Figür Sayı Tutarlılığı",
+        "summary": "Makalede sunulan WER değerleri ve diğer sayısal sonuçlar metin, tablo ve figürler arasında tutarlılık göstermektedir. Örneğin, Tablo 1'deki WER değerleri metinde de doğru bir şekilde referans alınmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "Our LSD model achieves 12.9% WER compared to a character baseline of 14.8% WER."
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Baseline 14.76, LSD WER (n=4) 12.88"
+          },
+          {
+            "anchor_id": "experiments.a3",
+            "section": "EXPERIMENTS",
+            "quote": "The baseline model is simply the unigram or character model and achieves 14.76% WER. We ﬁnd the LSD n = 4 word piece vocabulary model to perform the best at 12.88% WER or yielding a 12.7% relative improvement over the baseline character model."
+          }
+        ],
+        "reasoning_public": "Sayısal verilerin metin, tablo ve figürler arasında tutarlı bir şekilde sunulması, çalışmanın güvenilirliğini ve okunabilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, farklı modellerin WER değerlerini raporlamakta ve LSD modelinin baseline'a göre %12.7'lik bir göreceli iyileşme sağladığını belirtmektedir. Ancak, bu iyileşmelerin istatistiksel anlamlılığını destekleyecek güven aralıkları (CI) veya diğer belirsizlik ölçüleri (örn. standart hatalar) sunulmamıştır. Bu durum, gözlemlenen farkların rastgele dalgalanmalardan mı yoksa gerçek bir etkiden mi kaynaklandığını değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "Our LSD model achieves 12.9% WER compared to a character baseline of 14.8% WER."
+          },
+          {
+            "anchor_id": "experiments.a4",
+            "section": "EXPERIMENTS",
+            "quote": "We ﬁnd the LSD n = 4 word piece vocabulary model to perform the best at 12.88% WER or yielding a 12.7% relative improvement over the baseline character model."
+          }
+        ],
+        "reasoning_public": "Etki büyüklüklerinin yanı sıra belirsizlik ölçülerinin (güven aralıkları gibi) raporlanması, nicel araştırmaların temel bir gerekliliğidir. Bu ölçüler, gözlemlenen etkilerin istatistiksel güvenilirliği ve genellenebilirliği hakkında önemli bilgi sağlar. Bunların eksikliği, okuyucunun sonuçların sağlamlığını tam olarak değerlendirmesini engeller.",
+        "limitations": [
+          "Derin öğrenme alanındaki bazı çalışmalarda, özellikle büyük veri setleri ve karmaşık modeller kullanıldığında, güven aralıklarının hesaplanması pratik zorluklar içerebilir. Ancak, bu durum raporlama gerekliliğini ortadan kaldırmaz."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Eksik Veri ve Aykırı Değer İşleme",
+        "summary": "Makalede eksik veri veya aykırı değerlerin nasıl ele alındığına dair spesifik bir açıklama bulunmamaktadır. Ancak, konuşma tanıma görevlerinde genellikle veri setleri önceden işlenmiş ve temizlenmiş olarak kabul edilir. Giriş özelliklerinin normalizasyonu (per speaker mean and variance) bir tür ön işleme adımı olarak belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a5",
+            "section": "EXPERIMENTS",
+            "quote": "Our input features were 80 dimensional ﬁlterbanks computed every 10ms with delta and delta-delta acceleration normalized with per speaker mean and variance as generated by Kaldi (Povey et al., 2011)."
+          }
+        ],
+        "reasoning_public": "Eksik veri ve aykırı değerlerin ele alınması, nicel araştırmalarda sonuçların sağlamlığını etkileyen önemli faktörlerdir. Bu makalede doğrudan bir strateji belirtilmese de, kullanılan veri setinin doğası ve ön işleme adımları bu tür sorunların minimize edildiğini düşündürmektedir.",
+        "limitations": [
+          "Makalede eksik veri veya aykırı değerlerin varlığına veya yokluğuna dair açık bir ifade bulunmamaktadır. Bu nedenle, bu konuda kesin bir yargıya varmak zordur.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Nedensel Dil Disiplini",
+        "summary": "Makale, önerilen LSD çerçevesinin performansını deneysel olarak değerlendirmekte ve 'LSD modelinin WER'ı düşürdüğü' gibi ifadeler kullanmaktadır. Bu ifadeler, deneysel tasarımın doğası gereği nedensel çıkarımlara izin veren bir bağlamda kullanılmıştır ve aşırı nedensel dil kullanımı gözlemlenmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "Our LSD model achieves 12.9% WER compared to a character baseline of 14.8% WER."
+          },
+          {
+            "anchor_id": "conclusion.a0",
+            "section": "CONCLUSION",
+            "quote": "Using a a deep convolutional neural network on the encoder with LSD, we achieve 9.6% WER."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalar, değişkenler arasındaki nedensel ilişkileri incelemek için tasarlanmıştır. Bu nedenle, LSD'nin performans üzerindeki etkisine dair nedensel dil kullanımı, tasarımın doğasıyla uyumludur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Tekrar Üretilebilirlik İçin Veri/Kod Erişilebilirliği Eksikliği",
+        "summary": "Makalede, kullanılan veri setinin (WSJ) standart bir veri seti olduğu belirtilse de, deneyleri tekrar üretmek için gerekli olan kod veya model ağırlıklarının erişilebilirliğine dair herhangi bir bilgi verilmemiştir. Bu durum, çalışmanın tekrar üretilebilirliğini önemli ölçüde kısıtlamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmaların temel prensiplerinden biri tekrar üretilebilirliktir. Kod ve veri erişilebilirliği, diğer araştırmacıların sonuçları doğrulamasına, genişletmesine ve üzerine inşa etmesine olanak tanır. Bu bilginin eksikliği, çalışmanın şeffaflığını ve bilimsel değerini azaltır.",
+        "limitations": [
+          "Makalenin yayınlandığı döneme bağlı olarak, kod paylaşımı günümüzdeki kadar yaygın bir pratik olmayabilir. Ancak, modern bilimsel yayıncılık standartları bunu giderek daha fazla talep etmektedir."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Ana Sonuçların Belirsizlik Ölçüleri Olmadan Sunulması",
+        "summary": "Ana sonuçlar olan WER değerleri ve göreceli iyileşmeler açıkça raporlanmıştır. Ancak, bu sonuçların istatistiksel belirsizliğini gösteren güven aralıkları veya standart hatalar gibi ölçüler eksiktir. Bu durum, 'önemli' veya 'daha iyi' gibi ifadelerin istatistiksel sağlamlığını değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "Our LSD model achieves 12.9% WER compared to a character baseline of 14.8% WER."
+          },
+          {
+            "anchor_id": "experiments.a6",
+            "section": "EXPERIMENTS",
+            "quote": "We ﬁnd the LSD n = 4 word piece vocabulary model to perform the best at 12.88% WER or yielding a 12.7% relative improvement over the baseline character model."
+          }
+        ],
+        "reasoning_public": "Nicel sonuçların sadece nokta tahminleri olarak değil, aynı zamanda belirsizlik ölçüleriyle birlikte sunulması, okuyucunun sonuçların güvenilirliğini ve genellenebilirliğini daha iyi anlamasını sağlar. Bu eksiklik, raporlama kalitesini düşürmektedir.",
+        "limitations": [
+          "Bu bulgu, 'Effect size and uncertainty' boyutundaki bulguyla örtüşmektedir ve aynı temel eksikliği vurgulamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Konusu ve Hedef Track Uyumu",
+        "summary": "Makale, 'Latent Sequence Decompositions' (Gizli Dizi Ayrıştırmaları) çerçevesini sunarak, dizilerin belirgin bir şekilde sabit token'lara ayrıştırılması yerine, model eğitimi sırasında bu ayrıştırmaların öğrenilmesini öneriyor. Bu yaklaşım, özellikle konuşma tanıma gibi alanlarda, girdi ve çıktı dizilerine bağlı olarak dinamik token ayrıştırmalarının önemini vurguluyor. Makale, yapay zeka ve makine öğrenimi alanındaki konferans veya dergilerin genel kapsamına mükemmel bir şekilde uyuyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "In this paper we present Latent Sequence Decompositions (LSD), a framework in which the decomposition of sequences into constituent tokens is learnt during the training of the model. The decomposition depends both on the input sequence and on the output sequence."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "We argue against using ﬁxed deterministic decompositions of a sequence that has been deﬁned a priori. Word segmented models (Luong et al., 2015; Jean et al., 2015) often have to deal with large softmax sizes, rare words and Out-of-Vocabulary (OOV) words. Character models (Chan et al., 2016; Bahdanau et al., 2016a) overcome the OOV problem by modelling the smallest output unit, however this typically results in long decoder lengths and computationally expensive inference."
+          }
+        ],
+        "reasoning_public": "Makale, makine öğrenimi ve doğal dil işleme alanlarında temel bir problem olan dizi ayrıştırmasına yenilikçi bir yaklaşım getiriyor. Sunulan yöntem, mevcut sekans-sekans modellerinin sınırlılıklarını ele alıyor ve performansı artırmak için yeni bir mekanizma öneriyor. Bu, ilgili akademik topluluk için yüksek ilgi çekici ve uygun bir konudur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yeterli Yenilik ve Kapsam",
+        "summary": "Makale, Latent Sequence Decompositions (LSD) çerçevesini tanıtarak ve bunu konuşma tanıma görevine uygulayarak önemli bir yenilik sunmaktadır. Sunulan yöntem, sabit ayrıştırmaların sınırlılıklarını ele almakta ve hem giriş hem de çıkış dizilerine bağlı olarak ayrıştırmaları öğrenme yeteneği ile literatüre değerli bir katkı sağlamaktadır. Makalenin uzunluğu ve detay seviyesi, sunulan kavramların, metodolojinin ve deneysel sonuçların açıklanması için uygun ve haklıdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "In this paper we present Latent Sequence Decompositions (LSD), a framework in which the decomposition of sequences into constituent tokens is learnt during the training of the model. The decomposition depends both on the input sequence and on the output sequence."
+          },
+          {
+            "anchor_id": "conclusion.a1",
+            "section": "CONCLUSION",
+            "quote": "We presented the Latent Sequence Decompositions (LSD) framework. LSD allows us to learn decompositions of sequences that are a function of both the input and output sequence."
+          }
+        ],
+        "reasoning_public": "Makale, mevcut sekans-sekansa modellerindeki sabit token ayrıştırma sorununa yenilikçi bir çözüm sunmaktadır. LSD çerçevesi, ayrıştırmaların model eğitimi sırasında öğrenilmesini sağlayarak, geleneksel yöntemlerin sınırlamalarını aşmaktadır. Deneysel sonuçlar, bu yeniliğin Wall Street Journal konuşma tanıma görevinde önemli performans iyileştirmeleri sağladığını göstermektedir. Makalenin uzunluğu, bu karmaşık metodolojiyi, eğitim algoritmasını, çıkarım sürecini ve deneysel kurulumu detaylandırmak için yeterlidir ve okuyucunun konuyu tam olarak anlamasını sağlamaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Eksik Kod ve Veri Artefaktları",
+        "summary": "Makale, deneysel sonuçların tekrar üretilebilirliğini sağlamak için gerekli olan kod veya veri setlerine doğrudan erişim bağlantıları sunmamaktadır. Yalnızca TensorFlow çerçevesinin kullanıldığı belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a8",
+            "section": "ABSTRACT",
+            "quote": "We experiment with the Wall Street Journal speech recognition task. Our LSD model achieves 12.9% WER compared to a character baseline of 14.8% WER. When combined with a convolutional network on the encoder, we achieve a WER of 9.6%."
+          },
+          {
+            "anchor_id": "experiments.a7",
+            "section": "EXPERIMENTS",
+            "quote": "We used 8 GPU workers for asynchronous SGD under the TensorFlow framework (Abadi et al., 2015)."
+          }
+        ],
+        "reasoning_public": "Akademik araştırmalarda tekrar üretilebilirlik, sonuçların doğrulanması ve gelecekteki çalışmalar için temel oluşturulması açısından kritik öneme sahiptir. Kod ve veri setlerinin eksikliği, okuyucuların makalede sunulan deneyleri bağımsız olarak yeniden oluşturmasını veya sonuçları doğrulamak için kullanmasını engeller.",
+        "limitations": [],
+        "action_item_ids": [
+          "reproducibility_artifact.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f0",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Tablo ve Şekillerin Etkin Kullanımı",
+        "summary": "Makale, sonuçları ve kavramları açıklamak için tablo ve şekilleri etkili bir şekilde kullanmaktadır. Özellikle Tablo 1 ve Şekil 1, deneysel sonuçların ve model davranışının anlaşılmasına büyük katkı sağlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_experiments.a0",
+            "section": "5 EXPERIMENTS",
+            "quote": "Table 1: Wall Street Journal test eval92 Word Error Rate (WER) varying the n sized word piece vocabulary without any dictionary or language model. We compare Latent Sequence Decompositions (LSD) versus the Maximum Extension (MaxExt) decomposition."
+          },
+          {
+            "anchor_id": "5_experiments.a1",
+            "section": "5 EXPERIMENTS",
+            "quote": "Figure 1: Distribution of the characters covered by the n-grams of the word piece models. We train Latent Sequence Decompositions (LSD) and Maximum Extension (MaxExt) models with n ∈ {2, 3, 4, 5} sized word piece vocabulary and measure the distribution of the characters covered by the word pieces."
+          }
+        ],
+        "reasoning_public": "Tablo 1, farklı n-boyutlu kelime parçası sözlüklerinin performansını net bir şekilde karşılaştırarak okuyucunun LSD ve MaxExt yaklaşımlarının etkisini anlamasına yardımcı olmaktadır. Şekil 1 ise karakter kapsam dağılımını görselleştirerek modelin kelime parçası uzunluklarını nasıl tercih ettiğini açıkça göstermektedir. Bu görseller, metinde açıklanan karmaşık kavramların ve deneysel bulguların daha kolay kavranmasını sağlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f1",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Denklemlerin Açıklayıcılığı",
+        "summary": "Makaledeki denklemler, özellikle 1'den 7'ye kadar olanlar, matematiksel türetmeleri göstermektedir ancak bazı adımlar arasındaki geçişler veya kullanılan notasyonların tam açıklamaları eksik kalabilmektedir. Bu durum, okuyucunun türetmeleri tam olarak takip etmesini zorlaştırabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_latent_sequence_decompositions.a1",
+            "section": "2 LATENT SEQUENCE DECOMPOSITIONS",
+            "quote": "log p(y|x; θ) = log X z p(y, z|x; θ) (1) = log X z p(y|z, x)p(z|x; θ) (2) = log X z p(y|z)p(z|x; θ) (3)"
+          },
+          {
+            "anchor_id": "2_latent_sequence_decompositions.a2",
+            "section": "2 LATENT SEQUENCE DECOMPOSITIONS",
+            "quote": "Equation 6 uses the identity ∇θfθ(x) = fθ(x)∇θ log fθ(x) assuming fθ(x) ̸= 0 ∀x. Equation 7 gives us an unbiased estimator of our gradient."
+          }
+        ],
+        "reasoning_public": "Denklem 6'dan 7'ye geçişte kullanılan 'identity' (∇θfθ(x) = fθ(x)∇θ log fθ(x)) belirtilmiş olsa da, bu geçişin neden 'unbiased estimator' sağladığına dair daha detaylı bir açıklama veya referans, özellikle bu alana aşina olmayan okuyucular için faydalı olacaktır. Ayrıca, p(y|x,z) ve p(y|z) arasındaki ilişki (Denklem 2 ve 3) 'p(y|x, z) = p(y|z)' varsayımıyla basitleştirilmiş gibi görünmektedir, ancak bu varsayımın altında yatan neden veya koşullar daha açık belirtilmelidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0",
+          "presentation_clarity.f1.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ana Katkı Açıkça Belirtilmiş",
+        "summary": "Makale, Latent Sequence Decompositions (LSD) çerçevesinin temel katkısını ve bunun mevcut sabit ayrıştırma yöntemlerine göre avantajlarını net bir şekilde ifade etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a9",
+            "section": "ABSTRACT",
+            "quote": "In this paper we present Latent Sequence Decompositions (LSD), a framework in which the decomposition of sequences into constituent tokens is learnt during the train- ing of the model. The decomposition depends both on the input sequence and on the output sequence."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "We argue against using ﬁxed deterministic decompositions of a sequence that has been deﬁned a priori. ... We want our model to have the capacity and ﬂexibility to learn a distribution of sequence decompo- sitions. Additionally, the decomposition should be a sequence of variable length tokens as deemed most probable."
+          },
+          {
+            "anchor_id": "conclusion.a2",
+            "section": "CONCLUSION",
+            "quote": "We presented the Latent Sequence Decompositions (LSD) framework. LSD allows us to learn de- compositions of sequences that are a function of both the input and output sequence."
+          }
+        ],
+        "reasoning_public": "Okuyucu, makalenin neyi yeni olarak sunduğunu ve bu yeniliğin neden önemli olduğunu kolayca anlayabilmektedir. LSD'nin hem girdi hem de çıktı dizisine bağlı olarak ayrıştırmayı öğrenmesi ve sabit ayrıştırmaların sınırlılıklarını aşması, ana katkı olarak vurgulanmıştır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Etik Hususların ve Sınırlamaların Eksikliği",
+        "summary": "Makale, önerilen Latent Sequence Decompositions (LSD) çerçevesinin potansiyel etik etkilerini veya genel sınırlamalarını açıkça tartışmamaktadır. Özellikle, ASR gibi uygulamalarda modelin önyargıları nasıl yansıtabileceği veya pekiştirebileceği gibi konulara değinilmemiştir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, özellikle yapay zeka ve makine öğrenimi alanında, geliştirilen modellerin potansiyel etik sonuçlarını ve genel sınırlılıklarını ele almak önemlidir. Bu, modelin sorumlu bir şekilde geliştirilmesini ve kullanılmasını sağlar. Mevcut makale, bu önemli hususları göz ardı etmektedir.",
+        "limitations": [
+          "Makalenin kısaltılmış olması nedeniyle, tam metinde bu konulara değinilmiş olma ihtimali bulunmaktadır. Ancak sağlanan metinde bu tür bir tartışma bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_limitations.f1",
+        "dimension": "ethics_limitations",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Gelecek Çalışma Alanlarının Belirtilmesi",
+        "summary": "Makale, LSD çerçevesinin gelecekteki potansiyel gelişim alanlarını ve diğer yöntemlerle entegrasyonunu açıkça belirtmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a0",
+            "section": "RELATED WORK",
+            "quote": "Future work should incorporate LSD with task loss optimization methods."
+          }
+        ],
+        "reasoning_public": "Gelecek çalışma alanlarının belirtilmesi, araştırmanın devamlılığı ve diğer araştırmacılar için potansiyel yönelimler açısından faydalıdır. Bu, makalenin katkısını ve etkisini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yüksek Güvenilirlik",
+        "summary": "Makale, sunulan metodolojiyi, deneysel kurulumu ve sonuçları açık ve anlaşılır bir şekilde sunmaktadır. Bu durum, hakemin değerlendirme sürecine yüksek güven duymasını sağlamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makalenin genel yapısı, metodolojik açıklamaların netliği ve deneysel sonuçların detaylı sunumu, hakemin makaledeki iddiaları ve bulguları kolayca takip etmesine ve doğrulamasına olanak tanımaktadır. Bu şeffaflık, değerlendirme sürecinin güvenilirliğini artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "CONCLUSION",
+        "instruction": "Deneyleri tekrar üretmek için kullanılan kodun (örn. GitHub deposu) ve/veya eğitilmiş model ağırlıklarının erişilebilirliğini sağlayacak bir bağlantı veya açıklama eklenmelidir.",
+        "acceptance_check": "Kod ve/veya model ağırlıklarına erişim sağlayan bir bağlantı veya açıklama makaleye eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "CONCLUSION",
+        "instruction": "Makalenin 'Sonuç' veya yeni bir 'Etik Hususlar ve Sınırlamalar' bölümünde, LSD çerçevesinin potansiyel etik etkilerini (örneğin, önyargıların yayılması, veri gizliliği) ve modelin genel sınırlamalarını (örneğin, belirli dillerdeki performansı, hesaplama maliyeti, genellenebilirlik) tartışın.",
+        "acceptance_check": "Makalede etik hususları ve modelin sınırlamalarını ele alan yeni bir paragraf veya bölüm eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "ethics_limitations.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "2 LATENT SEQUENCE DECOMPOSITIONS",
+        "instruction": "Denklem 3'teki p(y|x,z) = p(y|z) varsayımının neden geçerli olduğunu veya hangi koşullar altında yapıldığını açıklayın. Örneğin, 'y'nin 'x'e bağımlılığının 'z' tarafından tamamen açıklandığı' gibi bir ifade eklenebilir.",
+        "acceptance_check": "İlgili varsayımın açıklaması metne eklenmiş mi?",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "WSJ veri setinin standart bir referans olduğu belirtilse de, bu veri setinin seçimi ve büyüklüğünün istatistiksel güç veya hassasiyet açısından neden yeterli olduğuna dair bir gerekçe eklenmelidir. Alternatif olarak, bu tür bir analizin neden uygulanmadığı açıklanmalıdır.",
+        "acceptance_check": "Örneklem büyüklüğü gerekçesi veya güç analizi eksikliğine dair açıklama metne eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Raporlanan WER değerleri için güven aralıkları veya standart hatalar gibi belirsizlik ölçüleri eklenmelidir. Bu, gözlemlenen iyileşmelerin istatistiksel olarak ne kadar güvenilir olduğunu anlamak için kritik öneme sahiptir.",
+        "acceptance_check": "Tüm ana WER sonuçları için güven aralıkları veya standart hatalar raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION veya REFERENCES",
+        "instruction": "Makalede kullanılan kod tabanına (örn. GitHub deposu) ve/veya özel veri setlerine (eğer varsa) erişim sağlayan bir bağlantı eklenmelidir. Eğer veri setleri kamuya açık değilse, erişim koşulları veya benzer veri setlerine yönlendirme yapılmalıdır.",
+        "acceptance_check": "Makalede kod ve/veya veri setlerine erişim sağlayan geçerli bir URL veya açıklama bulunmalıdır.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "2 LATENT SEQUENCE DECOMPOSITIONS",
+        "instruction": "Denklem 7'nin neden 'unbiased estimator' olduğunu daha detaylı açıklayın veya ilgili bir referans ekleyin. Bu, okuyucuların türetmenin geçerliliğini daha iyi anlamasına yardımcı olacaktır.",
+        "acceptance_check": "Unbiased estimator açıklaması veya referansı eklenmiş mi?",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Ana sonuçlar olan WER değerleri için güven aralıkları veya standart hatalar gibi belirsizlik ölçüleri eklenmelidir. Bu, sonuçların istatistiksel sağlamlığını daha iyi yansıtacaktır.",
+        "acceptance_check": "Ana WER sonuçları belirsizlik ölçüleriyle birlikte raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Ana Sonuçların Belirsizlik Ölçüleri Olmadan Sunulması; Eksik Kod ve Veri Artefaktları",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7",
+          "abstract.a8",
+          "abstract.a9"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f9.a0",
+          "reproducibility_artifact.f0.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "related_work.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "conclusion.a0",
+          "conclusion.a1",
+          "conclusion.a2"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "2 LATENT SEQUENCE DECOMPOSITIONS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Denklemlerin Açıklayıcılığı",
+        "anchor_ids": [
+          "2_latent_sequence_decompositions.a0",
+          "2_latent_sequence_decompositions.a1",
+          "2_latent_sequence_decompositions.a2"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0",
+          "presentation_clarity.f1.a1"
+        ]
+      },
+      {
+        "section": "5 EXPERIMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "5_experiments.a0",
+          "5_experiments.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Ana Sonuçların Belirsizlik Ölçüleri Olmadan Sunulması; Eksik Kod ve Veri Artefaktları",
+        "anchor_ids": [
+          "experiments.a0",
+          "experiments.a1",
+          "experiments.a2",
+          "experiments.a3",
+          "experiments.a4",
+          "experiments.a5",
+          "experiments.a6",
+          "experiments.a7"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f5.a0",
+          "quant.f9.a0",
+          "reproducibility_artifact.f0.a0"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_1.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

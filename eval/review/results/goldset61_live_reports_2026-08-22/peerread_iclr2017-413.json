@@ -1,0 +1,1889 @@
+{
+  "paper_id": "peerread:iclr2017-413",
+  "run_tag": "main",
+  "job_id": "f9fbef54-c516-44e7-a7d5-29202ce39973",
+  "elapsed_s": 467.0,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "SIGMA-DELTA QUANTIZED NETWORKS Peter O’Connor, Max Welling QUVA Lab, Informatics Institute University of Amsterdam",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RELATED WORK",
+        "DISCUSSION",
+        "REFERENCES"
+      ],
+      "word_count": 7678,
+      "reference_count": 16,
+      "parse_confidence": 0.669,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces Sigma-Delta Networks, a novel and clever architecture designed to reduce the computational cost of deep neural networks when processing temporally redundant data, such as video. The core idea is to communicate discretized temporal differences of activations between layers, rather than the full activation values. This makes the computational cost proportional to the change in the input. The authors present a method for converting a pre-trained network into a Sigma-Delta network and optimizing the trade-off between computational cost and accuracy. The concept is well-motivated and clearly explained, with experiments on a toy problem, a 'Temporal-MNIST' dataset, and a preliminary study on a VGG network for video, demonstrating significant potential computational savings. While the core idea is strong and the potential impact is high, the work in its current form is weakened by the preliminary nature of its key experiment on a deep network and significant issues with citation hygiene.",
+    "strengths": [
+      {
+        "category": "Conceptual Contribution",
+        "points": [
+          "The central idea of using sigma-delta modulation principles to communicate temporal differences in activations is highly original and provides a principled way to exploit temporal redundancy in data.",
+          "The formalization of the Sigma-Delta network and the proof of its functional equivalence to a 'Rounding Network' (Figure 1) is elegant and provides a solid theoretical underpinning for the method."
+        ]
+      },
+      {
+        "category": "Potential Impact",
+        "points": [
+          "The work addresses the critical and timely problem of computational efficiency in deep learning, particularly for video processing, which is a major consumer of computational resources.",
+          "The demonstrated potential for an order-of-magnitude reduction in operations, if realized on appropriate hardware, would be a significant contribution to the field."
+        ]
+      },
+      {
+        "category": "Clarity and Exposition",
+        "points": [
+          "The paper is very well-written and easy to follow. The progression from a standard network to the Sigma-Delta network is explained exceptionally well, with Figure 1 serving as an excellent visual aid.",
+          "The authors are commendably transparent about their assumptions and even about surprising results that contradict their initial hypotheses (e.g., the stability of high-level features in Appendix F), which strengthens the credibility of the work."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Experimental Evaluation",
+        "points": [
+          "The key experiment demonstrating the method on a deep convolutional network (VGG-19) is explicitly described as 'preliminary'. While the results are promising, substantiating the paper's main claims requires a more thorough evaluation on standard video datasets and benchmarks.",
+          "The optimization procedure required the addition of noise to stabilize training for the VGG network, and the authors note that 'More work is need to understand why'. This suggests the optimization method may be brittle for very deep architectures and is not yet fully understood."
+        ]
+      },
+      {
+        "category": "Practical Applicability",
+        "points": [
+          "The claimed computational savings are heavily dependent on hardware capable of efficiently handling sparse integer additions. The authors acknowledge that standard GPUs are not optimized for this, which is a major practical caveat limiting the immediate impact of the work."
+        ]
+      },
+      {
+        "category": "Scholarly Practice",
+        "points": [
+          "The bibliography has severe traceability issues. A large majority of the references lack standard identifiers (like DOIs or stable arXiv IDs) and are formatted in a way that prevents automated resolution. This falls short of the expected standards for scholarly communication."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The reference list requires a major overhaul. It is currently difficult for a reader to locate many of the cited works. The provided evidence pack indicates that 14 out of 16 references could not be automatically resolved due to missing metadata, such as DOIs or complete author lists. While this does not imply the works are non-existent, it is a significant barrier to scholarly verification. Please review every entry in the bibliography and add a DOI or a stable public link (e.g., to arXiv) wherever possible for the camera-ready version.",
+        "evidence_ref": "Citation Integrity Summary: 14/16 not_found_in_index"
+      },
+      {
+        "area": "experimental",
+        "comment": "To move the VGG-19 experiment beyond 'preliminary', we recommend evaluating the method on a standard, well-known video classification or action recognition dataset for a future version of this work. Reporting performance on a benchmark would provide a much stronger and more quantifiable demonstration of the method's effectiveness compared to the current qualitative analysis on two spliced video clips.",
+        "evidence_ref": null
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The need to add uniform noise to stabilize training for the VGG network is an important finding that warrants more investigation. Could you elaborate on the hypotheses for this behavior? Is it possible that without noise, the optimization pushes the scales into a 'dead' regime where activations become zero, and the straight-through estimator for the gradient fails? A deeper analysis here would strengthen the paper.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The discussion on hardware is honest but could be expanded slightly to increase the paper's impact. While custom hardware is the ideal case, could the authors speculate on the feasibility of implementing the sparse additions efficiently on modern GPUs using features like CUDA sparse matrix libraries or other software-level optimizations? This could provide a roadmap for practitioners wanting to experiment with the idea today.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "The finding in Appendix F that high-level features in VGG-19 are not more temporally stable than low-level features is fascinating. Do you have a hypothesis for why a network trained on static images exhibits this property? Do you believe a network trained from scratch on a temporal task, perhaps with your computational cost as part of the loss, would be more likely to learn the 'slow features' you initially expected?",
+      "In your optimization method (Equation 10), you approximate the gradient of the computational cost by only considering its effect within the current layer 'l'. You mention this was done to avoid instabilities. Could you provide more detail on the nature of these instabilities when the gradient was propagated to deeper layers?",
+      "The functional equivalence between the Sigma-Delta and Rounding networks is a key result. However, the VGG experiment notes that 'numerical errors can lead to small changes'. Could you quantify the magnitude of this divergence in practice? At what point (e.g., after how many frames) does this drift become significant enough to alter a classification result?"
+    ],
+    "overall_assessment": "This paper presents a highly novel and valuable contribution with its core idea of Sigma-Delta networks. The concept is elegant, well-motivated, and clearly explained, addressing the critical problem of computational efficiency in deep learning. The consensus among reviewers is that the originality and potential impact are exceptionally high. While the paper has two notable weaknesses—the preliminary nature of the key experiment on a deep network and significant issues with citation hygiene—these are not considered fatal flaws that undermine the core contribution. The theoretical work and proof-of-concept results are strong enough to warrant publication. Therefore, the paper is recommended for acceptance. However, this recommendation is contingent on the authors thoroughly addressing the identified issues for the final camera-ready version. In particular, a complete overhaul of the bibliography to meet scholarly standards is mandatory. Strengthening the experimental section, even with a more detailed discussion of the current limitations, would also significantly improve the final paper.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The core concept of applying sigma-delta principles to communicate temporal differences in neural networks is highly novel and creative.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.5,
+        "rationale": "Addresses the critical problem of computational efficiency for video and streaming data, a major bottleneck in deep learning applications."
+      },
+      {
+        "key": "claims_supported",
+        "score": 4.51,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: Claims are well-supported for toy/simple problems (Temporal-MNIST), but the key claim for deep networks on video is based on a 'preliminary' experiment that needs more rigorous validation.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The theoretical framework is sound, but the optimization method relies on heuristics (straight-through estimator) and has unexplained instabilities for deep networks that required a workaround (adding noise).]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is exceptionally well-written and illustrated. Figure 1, in particular, is a model of clarity in explaining a complex idea.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.5,
+        "rationale": "This work has high potential to inspire a new line of research into event-based and computationally adaptive neural networks."
+      },
+      {
+        "key": "contextualization",
+        "score": 7.0,
+        "rationale": "The authors appear to understand the related work, but the poor state of the bibliography makes it difficult for readers to place the work in context."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack shows 14 of 16 references could not be automatically resolved. This indicates very poor citation hygiene, with missing DOIs and incomplete metadata, hindering scholarly traceability. This is a mandatory fix for the final version.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missing seminal works that should have been cited.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not flag any statistical tests for review, so no inconsistencies can be reported.]"
+      }
+    ],
+    "final_score": 8.22,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 16,
+        "resolved": 2,
+        "not_found_in_index": 14,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Arash Ardakani, Franco̧is Leduc-Primeau, Naoya Onizawa, Takahiro Hanyu, and Warren J Gross. Vlsi implementation of deep neural network using integral stochastic computing. arXiv preprint arXiv:1509.08972, 2015.",
+          "title": "Vlsi implementation of deep neural network using integral stochastic computing",
+          "authors": [
+            "Arash Ardakani, Franco̧is Leduc-Primeau, Naoya Onizawa, Takahiro Hanyu",
+            "Warren J Gross"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Andrew S Cassidy, Paul Merolla, John V Arthur, Steve K Esser, Bryan Jackson, Rodrigo Alvarez-Icaza, Pallab Datta, Jun Sawada, Theodore M Wong, Vitaly Feldman, et al. Cognitive computing building block: A versatile and efﬁcient digital neuron model for neurosynaptic cores. In Neural Networks (IJCNN), The 2013 International Joint Conference on, pages 1–10. IEEE, 2013.",
+          "title": null,
+          "authors": [],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.2,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Matthieu Courbariaux, Itay Hubara, COM Daniel Soudry, Ran El-Yaniv, and Yoshua Bengio. Binarized neural networks: Training neural networks with weights and activations constrained to+ 1 or-. Peter U Diehl, Daniel Neil, Jonathan Binas, Matthew Cook, Shih-Chii Liu, and Michael Pfeiffer. Fast- classifying, high-accuracy spiking deep networks through weight and threshold balancing. In 2015 International Joint Conference on Neural Networks (IJCNN), pages 1–8. IEEE, 2015.",
+          "title": "Binarized neural networks: Training neural networks with weights and activations constrained to+ 1 or-",
+          "authors": [
+            "Matthieu Courbariaux, Itay Hubara, COM Daniel Soudry, Ran El-Yaniv",
+            "Yoshua Bengio"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.40 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Steven K Esser, Paul A Merolla, John V Arthur, Andrew S Cassidy, Rathinakumar Appuswamy, Alexander Andreopoulos, David J Berg, Jeffrey L McKinstry, Timothy Melano, Davis R Barch, et al. Convolutional networks for fast, energy-efﬁcient neuromorphic computing. arXiv preprint arXiv:1603.08270, 2016.",
+          "title": null,
+          "authors": [],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.2,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Xavier Glorot and Yoshua Bengio. Understanding the difﬁculty of training deep feedforward neural networks. In Aistats, volume 9, pages 249–256, 2010.",
+          "title": "Understanding the difﬁculty of training deep feedforward neural networks",
+          "authors": [
+            "Xavier Glorot",
+            "Yoshua Bengio"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Geoffrey Hinton. Neural networks for machine learning. coursera, video lectures. 2012.",
+          "title": "Neural networks for machine learning",
+          "authors": [
+            "Geoffrey Hinton"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Mark Horowitz. 1.1 computing’s energy problem (and what we can do about it). In 2014 IEEE Inter- national Solid-State Circuits Conference Digest of Technical Papers (ISSCC), pages 10–14. IEEE, 2014.",
+          "title": null,
+          "authors": [
+            "Mark Horowitz"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Kristin Koch, Judith McLean, Ronen Segev, Michael A Freed, Michael J Berry, Vijay Balasubramanian, and Peter Sterling. How much the eye tells the brain. Current Biology, 16(14):1428–1434, 2006.",
+          "title": "How much the eye tells the brain",
+          "authors": [
+            "Peter Sterling"
+          ],
+          "year": 2006,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.35 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Jun Haeng Lee, Tobi Delbruck, and Michael Pfeiffer. Training deep spiking neural networks using backpropagation. arXiv preprint arXiv:1608.08782, 2016.",
+          "title": "Training deep spiking neural networks using backpropagation",
+          "authors": [
+            "Jun Haeng Lee, Tobi Delbruck",
+            "Michael Pfeiffer"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Patrick Lichtsteiner, Christoph Posch, and Tobi Delbruck. A 128× 128 120 db 15 µs latency asyn- chronous temporal contrast vision sensor. Solid-State Circuits, IEEE Journal of, 43(2):566–576, 2008.",
+          "title": "A 128× 128 120 db 15 µs latency asyn- chronous temporal contrast vision sensor",
+          "authors": [
+            "Patrick Lichtsteiner, Christoph Posch",
+            "Tobi Delbruck"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.37 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Peter O’Connor and Max Welling. Deep spiking networks. arXiv preprint arXiv:1602.08323, 2016.",
+          "title": "Deep spiking networks",
+          "authors": [
+            "Peter O’Connor",
+            "Max Welling"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W2283854151",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W2283854151; 'Deep Spiking Networks').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Olga Russakovsky, Jia Deng, Hao Su, Jonathan Krause, Sanjeev Satheesh, Sean Ma, Zhiheng Huang, Andrej Karpathy, Aditya Khosla, Michael Bernstein, Alexander C. Berg, and Li Fei-Fei. ImageNet Large Scale Visual Recognition Challenge. International Journal of Computer Vision (IJCV), 115 (3):211–252, 2015. doi: 10.1007/s11263-015-0816-y.",
+          "title": "ImageNet Large Scale Visual Recognition Challenge",
+          "authors": [
+            "Li Fei-Fei"
+          ],
+          "year": 2015,
+          "doi": "10.1007/s11263-015-0816-y",
+          "venue": null,
+          "parse_confidence": 1.0,
+          "status": "resolved",
+          "openalex_id": "W2117539524",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2117539524; 'ImageNet Large Scale Visual Recognition Challenge').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Karen Simonyan and Andrew Zisserman. Very deep convolutional networks for large-scale image recognition. arXiv preprint arXiv:1409.1556, 2014.",
+          "title": "Very deep convolutional networks for large-scale image recognition",
+          "authors": [
+            "Karen Simonyan",
+            "Andrew Zisserman"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.65 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Max Welling. Herding dynamical weights to learn. In Proceedings of the 26th Annual International Conference on Machine Learning, pages 1121–1128. ACM, 2009.",
+          "title": "Herding dynamical weights to learn",
+          "authors": [
+            "Max Welling"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Young C Yoon. Lif and simpliﬁed srm neurons encode signals into spikes via a form of asynchronous pulse sigma-delta modulation. 2016.",
+          "title": "Lif and simpliﬁed srm neurons encode signals into spikes via a form of asynchronous pulse sigma-delta modulation",
+          "authors": [
+            "Young C Yoon"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Davide Zambrano and Sander M Bohte. Fast and efﬁcient asynchronous neural computation with adapting spiking neural networks. arXiv preprint arXiv:1609.02053, 2016. 10 A DELTA-HERDING PROOF Algorithm 3 Herding 1: Internal: ⃗φ ∈Rd ←⃗0 2: Input: ⃗xt ∈Rd 3: ⃗φ ←⃗φ + ⃗xt 4: ⃗s ←round(⃗φ) 5: ⃗φ ←⃗φ −⃗s 6: Return: ⃗s ∈Id Algorithm 4 Delta-Herding 1: Internal: ⃗slast ∈Id ←⃗0 2: Input: ⃗xt ∈Rd 3: ⃗s ←round(xt) 4: ∆⃗s ←⃗s −⃗slast 5: ⃗slast ←⃗s 6: Return: ∆⃗s ∈Id In previous work (O’Connor and Welling, 2016), we used a quantization scheme which we refer to as herding for brevity and because of its relation to the deterministic sampling scheme in (Welling, 2009), but could otherwise be called Discrete-Time Bidirectional Sigma-Delta Modulation. The procedure is described in Algorithm 3. The input is summed into a potential φ over time until crossing a quantization threshold (in this case the ± 1 2 at which the round function changes value), and then resets. Here we prove that Algorithm 4 is equivalent to applying Algorithm 3 to the output of a temporal difference modules. i.e. herd(∆t(xt)) = ∆T (round(xt))∀t. First start by observing the following equivalence: b = round(a) ⇔|a −b| < 1 2 : b ∈I (11) We can apply this to the update rule in Algorithm 3: st = round(φt−1 + xt) ∈I φt = (φt−1 + xt) −st (12) ⇒|φt| < 1 2 (13) Now, if we unroll the two Equations 12 over time, with initial condition φ0 = 0, we see that. φt = t X τ=1 xτ − t X τ=1 sτ : φt ∈R, xτ ∈R, sτ ∈I (14) Using Equations 13 and 11, respectively, we can say: |φ| = t X τ=1 xt − t X τ=1 sτ < 1 2 (15) ⇒ t X τ=1 sτ = round t X τ=1 xτ ! (16) Which can be rearranged to solve for st. st = round t X τ=0 xτ ! −round t−1 X τ=0 xτ ! (17) Now if we receive inputs from a ∆T unit: xτ = uτ −uτ−1 with initial condition u0 = 0, then: ⃗st = round t X τ=0 (uτ −uτ−1) ! −round t−1 X τ=0 (uτ −uτ−1) ! (18) = round (ut) −round (ut−1) (19) = ∆T (round(ut)) (20) 11 Leaving us with the Delta-Herding algorithm (Algorithm 4). Therefore, if we have a linear function w(x), and make use of Equation 1, then we can see that the following is true: ΣT (w(herd(∆T (x)))) = ΣT (w(∆T (round(x)))) = w(ΣT (∆T (round(x)))) = w(round(x)) (21) B CALCULATING FLOPS When computing the number of operations required for a forward pass, we only account for the matrix- products/convolutions (which form the bulk of computation in done by a neural network), and not hidden layer activations. We compute the number of operations required for a forward pass of a fully connected network as follows: For the non-discretized network, the number of ﬂops for a single forward pass of a single data point through the network, the ﬂop count is: nFlopsdense = L−1 X l=0 (dl · dl+1 + (dl −1) · dl+1 + dl+1) = 2 L−1 X l=0 dl · dl+1 (22) Where dl is the dimensionality of layer l (with l = 0 indicating the input layer). The ﬁrst term counts the number of multiplications, the second the number of additions for reducing the dot-product, and the third the addition of the bias. It can be argued that this is an unfair way to count the number of computations done by the non- discretized network because of the sparsity of the input layer (due to the zero-background of datasets like MNIST) and the hidden layers (due to ReLU units). Thus we also compute the number of opera- tions for the non-discretized network when factoring in sparsity. The equation is: nFlopssparse = L−1 X l=0 Nl X i=0 ([al]i ̸= 0) · dl+1 + Nl X i=0 ([al]i ̸= 0) −1 ! · dl+1 + dl+1 ! = 2 L−1 X l=0 Nl X i=0 ([al]i ̸= 0) · dl+1 (23) Where al are the layer activations Nl is the number of units in layer l and ([al]i ̸= 0) is 1 if unit i in layer l has nonzero activation and 0 otherwise. For the rounding networks, we count the total absolute value of the discrete activations. nFlopsRound = L−1 X l=0 Nl X i=0 |[sl]i| · dl+1 + dl+1 ! (24) Where sl is the discrete activations of layer l. This corresponds to the number of operations that would be required for doing a dot product with the “sequential addition” method described in Section 3.2. Finally, the Sigma-Delta network required slightly fewer ﬂops, because the bias only need to be added once (at the beginning), so its cost is amortized. nFlopsΣ∆= L−1 X l=0 Nl X i=0 |[sl]i| · dl+1 (25) 12 C BAKING THE SCALES INTO THE PARAMETERS In Section 4.1, we mention that we can “bake the scales into the parameters” for ReLU networks. Here we explain that statement. Suppose you have a function f(x) = k2 · h \u0012 x · w k1 \u0013 If our nonlinearity h is homogeneous (i.e. k · h(x) = h(k · x)), as is the case for relu(x) = max(0, x), we can collapse the scales k into the parameters: f(x) = k2 · relu(x · w/k1 + b) (26) = relu (x · w · k2/k1 + k2 · b) (27) So that after training scales, for a given network, we can simply incorporate them into the parameters, as: w′ = w · k2/k1, and b′ = k2 · b. D TEMPORAL MNIST The Temporal MNIST dataset is a version of MNIST that is reshufﬂed so that similar frames end up being nearby. We generate this by iterating through the dataset, keeping a ﬁxed-size buffer of can- didates for the next frame. On every iteration, we compare all the candidates to the current frame, and select the closest one. The place that this winning candidate occupied in the buffer is then ﬁlled by a new sample from the dataset, and the winning candidate becomes the current frame. The pro- cess is repeated until we’ve sorted though all frames in the dataset. Code for generating the dataset can be found at: https://github.com/petered/sigma-delta/blob/master/sigma_ delta/temporal_mnist.py 13 E MNIST RESULTS TABLE Mnist Temp mnist Setting Net Type KFlops Test (ds\\sp) Class error (tr\\ts) Int32-Energy (nJ) KFlops Test (ds\\sp) Class error (tr\\ts) Int32-Energy (nJ) ========== ========== ========== ========== ========== ========== ========== ========== Unoptimized Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 44 2.12 \\ 4.21 4.42 44 2.12 \\ 4.21 4.42 Σ∆ 53 2.12 \\ 4.21 5.32 24 2.12 \\ 4.21 2.49 λ=1e-10 Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 209 0.07 \\ 2.39 20.9 209 0.07 \\ 2.39 20.9 Σ∆ 245 0.07 \\ 2.39 24.6 110 0.07 \\ 2.39 11 λ=3.59e-10 Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 206 0.058 \\ 2.3 20.7 206 0.058 \\ 2.3 20.7 Σ∆ 243 0.058 \\ 2.3 24.3 109 0.058 \\ 2.3 11 λ=1.29e-09 Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 178 0.094 \\ 2.42 17.8 178 0.094 \\ 2.42 17.8 Σ∆ 207 0.096 \\ 2.42 20.7 92 0.094 \\ 2.42 9.2 λ=4.64e-09 Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 164 0.084 \\ 2.41 16.4 164 0.084 \\ 2.41 16.4 Σ∆ 193 0.082 \\ 2.41 19.4 87 0.084 \\ 2.41 8.75 λ=1.67e-08 Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 122 0.19 \\ 2.55 12.2 122 0.19 \\ 2.55 12.2 Σ∆ 144 0.19 \\ 2.55 14.5 65 0.19 \\ 2.55 6.58 λ=5.99e-08 Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 86 0.476 \\ 2.88 8.66 86 0.476 \\ 2.88 8.66 Σ∆ 102 0.478 \\ 2.88 10.3 47 0.476 \\ 2.88 4.71 λ=2.15e-07 Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 72 1.17 \\ 3.28 7.21 72 1.17 \\ 3.28 7.21 Σ∆ 87 1.18 \\ 3.28 8.78 41 1.17 \\ 3.28 4.15 λ=7.74e-07 Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 44 2.32 \\ 4.26 4.49 44 2.32 \\ 4.26 4.49 Σ∆ 54 2.32 \\ 4.27 5.46 26 2.32 \\ 4.26 2.61 λ=2.78e-06 Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 34 5.91 \\ 7.37 3.49 34 5.91 \\ 7.37 3.49 Σ∆ 45 5.9 \\ 7.37 4.53 23 5.9 \\ 7.37 2.3 λ=1e-05 Original 397 \\ 107 0.024 \\ 2.24 636 \\ 173 397 \\ 107 0.024 \\ 2.24 636 \\ 173 Round 24 14.6 \\ 14.6 2.5 24 14.6 \\ 14.6 2.5 Σ∆ 35 14.6 \\ 14.6 3.58 19 14.6 \\ 14.6 1.98 Table 1: Results on the MNIST and Temporal-MNIST datasets. MFlops indicates the number of oper- ations done by each network. For the Original Network, the number of Flops is considered when using both (Dense / Sparse) matrix operations. The “Class Error” column shows the classiﬁcation error on the training / test set respectively. The “Energy” is an estimate of the average energy that would be used by arithmetic operations per sample, if the network were implemented with all integer values. This is based on the estimates of Horowitz (2014). Again, for the Original Network, the ﬁgure is based on the numbers for dense/sparse matrix operations. F HIGH-LEVEL FEATURE STABILITY We had initially expected that, when a convolutional network is tasked with processing subsequent frames of video, high-level features would change much more slowly than the pixels and low-level fea- tures. This would give a computational advantage to our Sigma-Delta networks, whose computational cost scales with the amount of change in the feature representations. To our surprise, this appeared not to be the case. See the ﬁnal plot of Figure 5. To verify that this was a property of the original convolu- tional network (and not somehow related our discretization scheme), we take the same snippet of video used for Figure 5 and measure the inter-frame differences. Figure 6 shows the results of this small experiment, and conﬁrms that our initial belief - that inter-frame differences should become smaller and smaller at higher layers, was not quite correct. 14 0 50 100 150 Frame # 0 5 10 15 Layer # Inter-Frame L1 Distance 0.0 0.2 0.4 0.6 0.8 1.0 1.2 1.4 1.6 1.8 0 5 10 15 Layer # 0.2 0.4 0.6 0.8 1.0 L1 Distance Norms Differences 0 50 100 150 Frame # 0 5 10 15 Layer # Inter-Frame cos Distance 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 0 5 10 15 Layer # 0.82 0.84 0.86 0.88 0.90 0.92 0.94 0.96 0.98 1.00 cos Distance Figure 6: Top-Left: A heatmap showing the L1-distances between the feature representations (post- nonlinearity) of adjacent frames from the video in Figure 5 at different layers (rows) and frames (columns). The input is considered to be layer 0. Feature representations have been L1-normalized per-layer Bottom Left: The L1-Norms (which are 1 due to the normalization) and inter-frame L1- Distances for each layer, averaged over frames. Top and Bottom Right: The same measurements, with the cosine-similarity metric instead of L1. We note from these plots that the inter-frame difference is not much smaller in higher layers than it is at the pixel level, and that in the lower layers, feature representations of neighbouring frames are signiﬁcantly more dissimilar than they are at the pixel level. 15",
+          "title": "Again, for the Original Network, the ﬁgure is based on the numbers for dense/sparse matrix operations",
+          "authors": [
+            "Davide Zambrano",
+            "Sander M Bohte. Fast"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "fe94a7affb376872b893286d6b29fb588d9e8fa93aceeae244f5a01ddb2128ac",
+          "request_time": "2026-08-22T17:52:47.345187Z",
+          "status": "ok",
+          "result_count": 2,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:52:50.267668Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "528da68576c2fd7a291f8866c3b90fee2d4edf3ed2746864b11cfbcd00c52a95",
+          "request_time": "2026-08-22T17:52:51.223696Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:00:20.979502Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin başlığı, yazar ve kurum bilgileri, kısa bölüm başlıkları (ABSTRACT, INTRODUCTION, RELATED WORK, DISCUSSION, REFERENCES) ve referans sayısı bir dergi makalesine işaret etmektedir. Özet ve giriş bölümündeki 'Sigma-Delta networks' tanıtımı, 'optimization method' ve 'computational cost' ifadeleri, yeni bir hesaplama modelinin geliştirildiğini ve performansının değerlendirildiğini göstermektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 82.1,
+      "recommended_decision": "accept",
+      "confidence": 0.6112500000000001,
+      "top_fatal_risks": [
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 1 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.825,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 39.0,
+        "severity": "major",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.875,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.85,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "4 concern(s): The VGG-19 experiment is explicitly described as 'preliminary'. To substantiate the claims of computational savings and method effectiveness for deep networks, a more rigorous evaluation on standard video datasets and benchmarks is required. The current qualitative analysis on two spliced video clips is insufficient.; The authors note that 'More work is need to understand why' uniform noise was required to stabilize training for the VGG network. This indicates a lack of full understanding of the optimization method's behavior in deep architectures, raising concerns about its robustness and generalizability.; The claimed computational savings are heavily dependent on specialized hardware capable of efficiently handling sparse integer additions. The authors acknowledge that standard GPUs are not optimized for this, which significantly limits the immediate practical impact and widespread adoption of the method. (+1 more)",
+        "key_objection": "The bibliography has severe traceability issues. The provided evidence pack indicates that 14 out of 16 references could not be automatically resolved due to missing standard identifiers (like DOIs or stable arXiv IDs) and improper formatting. This falls significantly short of expected scholarly standards and hinders verification.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "revision-required",
+        "summary": "4 concern(s): The VGG-19 experiment is described as 'preliminary' and lacks evaluation on standard video datasets and benchmarks. This prevents a robust assessment of the method's effectiveness for deep networks on video, which is a key claim.; The need to add noise to stabilize training for the VGG network, and the authors' statement 'More work is need to understand why', indicates a potential brittleness or lack of full understanding of the optimization method for very deep architectures. This raises concerns about the generalizability and robustness of the proposed training approach.; The approximation of the computational cost gradient by only considering its effect within the current layer 'l' is mentioned to avoid instabilities. More detail is needed on the nature of these instabilities when the gradient was propagated to deeper layers, as this choice impacts the optimization's theoretical soundness and practical performance. (+1 more)",
+        "key_objection": "The VGG-19 experiment is described as 'preliminary' and lacks evaluation on standard video datasets and benchmarks. This prevents a robust assessment of the method's effectiveness for deep networks on video, which is a key claim.",
+        "confidence": 0.5,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "7 concern(s): The bibliography has severe traceability issues. A large majority of the references lack standard identifiers (like DOIs or stable arXiv IDs) and are formatted in a way that prevents automated resolution. The provided evidence pack indicates that 14 out of 16 references could not be automatically resolved due to missing metadata, such as DOIs or complete author lists. Please review every entry in the bibliography and add a DOI or a stable public link (e.g., to arXiv) wherever possible.; To move the VGG-19 experiment beyond 'preliminary', I recommend evaluating the method on a standard, well-known video classification or action recognition dataset. Reporting performance on a benchmark would provide a much stronger and more quantifiable demonstration of the method's effectiveness compared to the current qualitative analysis on two spliced video clips.; The need to add uniform noise to stabilize training for the VGG network is an important finding that warrants more investigation. Could you elaborate on the hypotheses for this behavior? Is it possible that without noise, the optimization pushes the scales into a 'dead' regime where activations become zero, and the straight-through estimator for the gradient fails? A deeper analysis here would strengthen the paper. (+4 more)",
+        "key_objection": "The bibliography has severe traceability issues. A large majority of the references lack standard identifiers (like DOIs or stable arXiv IDs) and are formatted in a way that prevents automated resolution. The provided evidence pack indicates that 14 out of 16 references could not be automatically resolved due to missing metadata, such as DOIs or complete author lists. Please review every entry in the bibliography and add a DOI or a stable public link (e.g., to arXiv) wherever possible.",
+        "confidence": 0.14285714285714285,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "2 concern(s): The statement '14 out of 16 references could not be automatically resolved' is directly supported by the 'Citation Integrity Summary: 14/16 not_found_in_index' in the evidence package.; The statement '14 of 16 references could not be automatically resolved' is directly supported by the 'Citation Integrity Summary: 14/16 not_found_in_index' in the evidence package.",
+        "key_objection": "The statement '14 out of 16 references could not be automatically resolved' is directly supported by the 'Citation Integrity Summary: 14/16 not_found_in_index' in the evidence package.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "citation_integrity.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper introduces Sigma-Delta Networks, a novel and clever architecture designed to reduce the computational cost of deep neural networks when processing temporally redundant data, such as video. The core idea is to communicate discretized temporal differences of activations between layers, rather than the full activation values. This makes the computational cost proportional to the change in the input. The authors present a method for converting a pre-trained network into a Sigma-Delta network and optimizing the trade-off between computational cost and accuracy. The concept is well-motivated and clearly explained, with experiments on a toy problem, a 'Temporal-MNIST' dataset, and a preliminary study on a VGG network for video, demonstrating significant potential computational savings. While the core idea is strong and the potential impact is high, the work in its current form is weakened by the preliminary nature of its key experiment on a deep network and significant issues with citation hygiene.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Yenilikçi Tasarım Yaklaşımı",
+        "summary": "Makale, derin öğrenme ağlarında hesaplama verimliliğini artırmak için Sigma-Delta ağları adı verilen yeni bir mimari ve optimizasyon yöntemi sunmaktadır. Bu, mevcut ağların temporal yedekliliği kullanmasını sağlayarak önemli bir tasarım yeniliği getirmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "To put an end to such waste, we introduce Sigma-Delta networks. With each new input, each layer in this network sends a discretized form of its change in activation to the next layer. Thus the amount of computation that the network does scales with the amount of change in the input and layer activations, rather than the size of the network."
+          }
+        ],
+        "reasoning_public": "Araştırma, mevcut derin öğrenme mimarilerinin temel bir sınırlılığına (veri içeriğinden bağımsız sabit hesaplama maliyeti) odaklanmakta ve bu sorunu çözmek için yeni bir yaklaşım önermektedir. Bu, teorik ve pratik açıdan önemli bir katkıdır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Makalede, deneylerde kullanılan veri setlerinin (Temporal-MNIST, ILSVRC 2015) örneklem büyüklükleri belirtilmekle birlikte, bu örneklem büyüklüklerinin istatistiksel güç analizi veya hassasiyet gerekçesiyle nasıl belirlendiğine dair herhangi bir açıklama bulunmamaktadır. Özellikle 'toy problem' için örneklem büyüklüğü gerekçesi eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_1_toy_problem_a_random_network.a0",
+            "section": "5.1 TOY PROBLEM: A RANDOM NETWORK",
+            "quote": "We create random input data, and use it to optimize the layer scales according to Equation 10."
+          },
+          {
+            "anchor_id": "5_2_temporal_mnist.a0",
+            "section": "5.2 TEMPORAL-MNIST",
+            "quote": "In order to evaluate our network’s ability to save computation on temporal data, we create a dataset that we call “Temporal-MNIST”. This is just a reshufﬂing of the standard MNIST dataset so that similar frames tend to be nearby, giving the impression of a temporal sequence (see Appendix D for details)."
+          },
+          {
+            "anchor_id": "5_3_a_deep_convolutional_network_on_video.a0",
+            "section": "5.3 A DEEP CONVOLUTIONAL NETWORK ON VIDEO",
+            "quote": "We take selected videos from the ILSVRC 2015 dataset (Russakovsky et al., 2015), and apply the rescaling method from Section 4.1 to adjust the scales on a per-layer basis."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, örneklem büyüklüğünün uygun şekilde gerekçelendirilmesi, elde edilen sonuçların genellenebilirliği ve istatistiksel gücü açısından kritik öneme sahiptir. Güç analizi yapılmaması, potansiyel olarak Tip II hata riskini artırabilir veya gereksiz yere büyük örneklemler kullanılmasına yol açabilir. Özellikle 'toy problem' gibi sentetik veri setlerinde bile, belirli bir etki büyüklüğünü tespit etmek için gereken minimum örneklem büyüklüğünün belirtilmesi, deney tasarımının sağlamlığını gösterir.",
+        "limitations": [
+          "Makalede belirtilen veri setlerinin standart kullanımları göz önüne alındığında, güç analizi eksikliği, bu tür bir çalışmada yaygın bir eksiklik olabilir, ancak yine de raporlama kalitesini düşürmektedir.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Hesaplama Maliyeti ve Hata Ölçümlerinin Açık Tanımı",
+        "summary": "Makale, hesaplama maliyetini (toplam ekleme sayısı) ve hata ölçümlerini (KL-divergence, L2-norm, sınıflandırma hatası) açıkça tanımlamıştır. Bu, önerilen yöntemin performansını değerlendirmek için kullanılan metriklerin şeffaflığını sağlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_2_the_art_of_compromise.a0",
+            "section": "4.2 THE ART OF COMPROMISE",
+            "quote": "Lerror = D(fround(x), ftrue(x)) ... Lcomp = sum_{l=1}^{L-1} |sl|L1dl+1 ... Where D(a, b) is some scalar distance function (We use KL-divergence for softmax output layers and L2-norm otherwise), fround(x) is the output of the Rounding Network, ftrue(x) is the output of the Original Network. Lcomp is the computational loss, deﬁned as the total number of additions required in a forward pass."
+          }
+        ],
+        "reasoning_public": "Ölçüm araçlarının ve değişken operasyonelleştirmelerinin net bir şekilde tanımlanması, araştırmanın tekrarlanabilirliği ve sonuçların yorumlanabilirliği için temeldir. Makale bu konuda iyi bir iş çıkarmıştır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Varsayım Testleri ve Optimizasyon Kararlılığı Eksikliği",
+        "summary": "Makale, yuvarlama fonksiyonunun türevlenemezliği sorununu ele almak için Courbariaux et al. (Hinton'dan alıntı) yöntemini kullanmaktadır. Ancak, bu yaklaşımın varsayımları veya optimizasyon sürecinin kararlılığına ilişkin detaylı bir analiz veya test raporlanmamıştır. Özellikle VGG 19 deneyinde optimizasyon kararlılığı sorunları yaşandığı ve 'gürültü ekleme' ile çözüldüğü belirtilmiştir, ancak bu çözümün teorik gerekçesi veya varsayımları açıklanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_3_differentiating_the_undifferentiable.a0",
+            "section": "4.3 DIFFERENTIATING THE UNDIFFERENTIABLE",
+            "quote": "We run into an obvious problem: y = round(k · x) is not differentiable with respect to our scale, k or our input, x. We get around this by using a similar method to Courbariaux et al., who in turn borrowed it from a lecture by Hinton (2012). That is, on the backward pass, when computing the gradient with respect to the error ∂Lerror/∂kl, we simply pass the gradient through the rounding function in layers [l + 1, .., .L], i.e. we say ∂/∂xround(x) ≈1."
+          },
+          {
+            "anchor_id": "5_3_a_deep_convolutional_network_on_video.a1",
+            "section": "5.3 A DEEP CONVOLUTIONAL NETWORK ON VIDEO",
+            "quote": "We initially had some difﬁculty in optimizing the scale parameters of network to a stable point. The network would either fail to reduce computation when it could afford to, or reduce it to the point where the network’s function was so corrupted that error gradients would be meaningless, causing computation loss to win out and activations to drop to zero. A simple solution was to replace the rounding operation in training with addition of uniform random noise ϵ ∼U(−1/2, 1/2). This seemed to prevent the network from pushing itself into a regime where all activations become zero. More work is need to understand why the addition of noise is necessary here."
+          }
+        ],
+        "reasoning_public": "Türevlenemez fonksiyonlarla çalışırken kullanılan yaklaşımların (örneğin, Straight-Through Estimator gibi) altında yatan varsayımların veya bu yaklaşımların optimizasyon sürecini nasıl etkilediğinin açıklanması önemlidir. VGG 19 deneyimindeki kararlılık sorunları, bu varsayımların tam olarak anlaşılmadığını veya karşılanmadığını düşündürmektedir. Gürültü eklemenin neden işe yaradığının açıklanmaması, yöntemin sağlamlığı hakkında belirsizlik yaratmaktadır.",
+        "limitations": [
+          "Bu tür optimizasyon tekniklerinin derinlemesine analizi, makalenin ana odağının dışında olabilir, ancak karşılaşılan sorunlar göz önüne alındığında daha fazla açıklama gereklidir.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Metin ve Şekiller Arasında Tutarlılık",
+        "summary": "Makale, metin içinde açıklanan kavramları (örneğin, farklı ağ mimarileri) Şekil 1 gibi görsel öğelerle başarılı bir şekilde desteklemekte ve bu öğeler arasında tutarlılık sağlamaktadır. Ayrıca, deney sonuçları (Şekil 2, 4, 5) metinle uyumlu bir şekilde sunulmuştur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_4_putting_it_all_together.a0",
+            "section": "3.4 PUTTING IT ALL TOGETHER",
+            "quote": "Figure 1 visually summarizes the four types of network we have described. Inserting the temporal sum and difference modules discussed in Section 3.1 leads to the Temporal Difference Network, which is functionally identical to the Original Network. Discretizing the output of the temporal difference modules, as discussed in Section 3.2, leads to the Sigma-Delta network."
+          }
+        ],
+        "reasoning_public": "Metin, tablo ve şekiller arasındaki tutarlılık, okuyucunun araştırmayı anlaması ve takip etmesi için kritik öneme sahiptir. Bu makale bu konuda iyi bir örnek teşkil etmektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, önerilen Sigma-Delta ağlarının hesaplama maliyetindeki azalmayı ve hata oranlarındaki değişimi grafiklerle (Şekil 2, 4, 5) göstermektedir. Ancak, bu etki büyüklükleri için nicel güven aralıkları veya diğer belirsizlik ölçüleri (örneğin, standart sapma, standart hata) raporlanmamıştır. Özellikle '4-10x tasarruf' gibi ifadeler nicel olsa da, bu aralığın istatistiksel belirsizliği belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_3_a_deep_convolutional_network_on_video.a2",
+            "section": "5.3 A DEEP CONVOLUTIONAL NETWORK ON VIDEO",
+            "quote": "Figure 5 shows some preliminary results, which indicate that for video data we can get about 4-10x savings in the amount of computation required, in exchange for a modest loss in computational accuracy."
+          },
+          {
+            "anchor_id": "5_2_temporal_mnist.a1",
+            "section": "5.2 TEMPORAL-MNIST",
+            "quote": "The results of this experiment can be seen in Figure 4. We see that our discretized networks (Rounding and Sigma-Delta) converge to the error of the original network with fewer computations than are required for a forward pass of the original neural network."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, etki büyüklüklerinin yanı sıra bu etki büyüklüklerinin ne kadar güvenilir olduğunu gösteren belirsizlik ölçülerinin raporlanması esastır. Güven aralıkları, sonuçların genellenebilirliği ve tekrarlanabilirliği hakkında önemli bilgiler sağlar. Bunların eksikliği, okuyucunun sonuçların kesinliğini ve sağlamlığını değerlendirmesini zorlaştırır.",
+        "limitations": [
+          "Derin öğrenme alanındaki bazı çalışmalarda güven aralıklarının raporlanması yaygın olmayabilir, ancak akademik titizlik açısından önemlidir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Eksikliği",
+        "summary": "Makalede, kullanılan veri setlerinde (Temporal-MNIST, ILSVRC 2015) eksik veri veya aykırı değerlerin varlığına ve bunların nasıl ele alındığına dair herhangi bir bilgi bulunmamaktadır. Özellikle video verileri gibi doğal veri setlerinde bu tür sorunlar yaygın olabilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Eksik veri ve aykırı değerler, analiz sonuçlarını önemli ölçüde etkileyebilir. Bu tür sorunların nasıl ele alındığının şeffaf bir şekilde raporlanması, araştırmanın sağlamlığını ve tekrarlanabilirliğini artırır. Bu bilgilerin eksikliği, sonuçların potansiyel önyargılar içerip içermediği konusunda belirsizlik yaratır.",
+        "limitations": [
+          "Derin öğrenme modellerinde genellikle veri setleri önceden temizlenmiş olarak kabul edilir, ancak bu tür bir açıklama yine de faydalıdır."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Kullanımında Disiplin",
+        "summary": "Makale, önerilen Sigma-Delta ağlarının hesaplama maliyetini azalttığını ve verimliliği artırdığını iddia ederken, bu iddiaları deneysel sonuçlarla desteklemektedir. Gözlemsel verilerden nedensel çıkarımlar yapmaktan kaçınılmış ve dil kullanımı genel olarak disiplinlidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "we introduce Sigma-Delta networks... and show that our algorithm, if run on the appropriate hardware, could cut at least an order of magnitude from the computational cost of processing video data."
+          },
+          {
+            "anchor_id": "6_discussion.a0",
+            "section": "6 DISCUSSION",
+            "quote": "We have introduced Sigma-Delta Networks, which give us a new way compute the forward pass of a deep neural network... We demonstrate that this method substantially reduces the number of computations required to run a deep network on natural, temporally redundant data."
+          }
+        ],
+        "reasoning_public": "Nedensel dilin doğru ve disiplinli kullanımı, bilimsel iddiaların güvenilirliği için esastır. Makale, kendi deneysel tasarımları içinde nedensel iddialarda bulunurken, gözlemsel çıkarımlardan kaçınarak bu disiplini korumuştur.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Kod Erişilebilirliği",
+        "summary": "Makale, deneylerde kullanılan kodun GitHub deposu aracılığıyla erişilebilir olduğunu belirtmektedir. Bu, araştırmanın tekrarlanabilirliği açısından önemli bir olumlu yöndür.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "acknowledgments.a0",
+            "section": "ACKNOWLEDGMENTS",
+            "quote": "Code for our experiments can be found at: https://github.com/petered/sigma-delta/"
+          }
+        ],
+        "reasoning_public": "Kodun açıkça paylaşılması, diğer araştırmacıların sonuçları doğrulamasına, yöntemi anlamasına ve üzerine inşa etmesine olanak tanır, bu da bilimsel şeffaflık ve tekrarlanabilirlik için kritik öneme sahiptir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Ana Sonuçlarda Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, ana sonuçları (hesaplama tasarrufu ve hata oranları) grafikler ve genel ifadelerle sunsa da, bu sonuçların nicel etki büyüklükleri ve bunlara eşlik eden güven aralıkları veya diğer belirsizlik ölçüleri eksiktir. Örneğin, '4-10x tasarruf' gibi ifadeler nicel olsa da, bu aralığın istatistiksel kesinliği belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_3_a_deep_convolutional_network_on_video.a3",
+            "section": "5.3 A DEEP CONVOLUTIONAL NETWORK ON VIDEO",
+            "quote": "Figure 5 shows some preliminary results, which indicate that for video data we can get about 4-10x savings in the amount of computation required, in exchange for a modest loss in computational accuracy."
+          },
+          {
+            "anchor_id": "5_2_temporal_mnist.a2",
+            "section": "5.2 TEMPORAL-MNIST",
+            "quote": "The results of this experiment can be seen in Figure 4. We see that our discretized networks (Rounding and Sigma-Delta) converge to the error of the original network with fewer computations than are required for a forward pass of the original neural network."
+          }
+        ],
+        "reasoning_public": "Ana sonuçların sadece genel ifadelerle veya grafiklerle sunulması yerine, nicel etki büyüklükleri ve bunlara eşlik eden belirsizlik ölçüleriyle (örneğin, %95 güven aralıkları) raporlanması, okuyucunun sonuçların pratik önemini ve istatistiksel kesinliğini daha iyi anlamasını sağlar. Bu eksiklik, raporlama kalitesini düşürmektedir.",
+        "limitations": [
+          "Derin öğrenme alanındaki bazı yayınlarda bu tür detaylı istatistiksel raporlama yaygın olmayabilir, ancak nicel metodoloji standartları açısından önemlidir."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Sigma-Delta Ağlarının Özgün Yaklaşımı",
+        "summary": "Makale, derin öğrenme ağlarında hesaplama verimliliğini artırmak için Sigma-Delta ağları adı verilen yeni bir yaklaşım sunmaktadır. Bu yaklaşım, nöronların aktivasyon seviyeleri yerine aktivasyonlarındaki değişiklikleri iletmesi ve bu değişiklikleri ayrıklaştırması prensibine dayanmaktadır. Bu, özellikle zamansal olarak yedekli verilerde (video gibi) önemli hesaplama tasarrufu potansiyeli sunar.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "To put an end to such waste, we introduce Sigma-Delta networks. With each new input, each layer in this network sends a discretized form of its change in activation to the next layer. Thus the amount of computation that the network does scales with the amount of change in the input and layer activations, rather than the size of the network."
+          },
+          {
+            "anchor_id": "discussion.a0",
+            "section": "DISCUSSION",
+            "quote": "We have introduced Sigma-Delta Networks, which give us a new way compute the forward pass of a deep neural network. In Sigma-Delta Networks, neurons communicate not by telling other neurons about their current level of activation, but about their change in activation."
+          }
+        ],
+        "reasoning_public": "Makale, mevcut derin öğrenme mimarilerinin veri içeriğinden bağımsız olarak sabit bir hesaplama maliyetine sahip olduğu sorununa özgün bir çözüm getirmektedir. Önerilen Sigma-Delta ağları, giriş verisindeki ve katman aktivasyonlarındaki değişiklik miktarıyla ölçeklenen bir hesaplama maliyeti sunarak, geleneksel yaklaşımlardan önemli ölçüde farklılaşmaktadır. Bu, alana yeni bir perspektif ve potansiyel olarak daha verimli bir mimari kazandırmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Mevcut Ağları Optimize Etme Yöntemi",
+        "summary": "Makale, önceden eğitilmiş herhangi bir derin ağı Sigma-Delta ağına dönüştürmek için bir optimizasyon yöntemi sunmaktadır. Bu yöntem, hata ve hesaplama maliyeti arasındaki dengeyi optimize etmeyi amaçlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "We introduce an optimization method for converting any pre-trained deep network into an optimally efﬁcient Sigma-Delta network, and show that our algorithm, if run on the appropriate hardware, could cut at least an order of magnitude from the computational cost of processing video data."
+          },
+          {
+            "anchor_id": "4_optimizing_an_existing_network.a0",
+            "section": "4 OPTIMIZING AN EXISTING NETWORK",
+            "quote": "In this work, we do not aim to train a quantized networks from scratch, as we did in O’Connor and Welling (2016). Rather, we will take existing pretrained networks and optimize them as Sigma-Delta networks."
+          }
+        ],
+        "reasoning_public": "Mevcut ağları sıfırdan eğitmek yerine, önceden eğitilmiş ağları yeni mimariye adapte etme yeteneği, pratik uygulamalar için önemli bir katkıdır. Bu, araştırmacıların ve uygulayıcıların mevcut modellerini daha verimli hale getirmeleri için bir yol sunar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f2",
+        "dimension": "contribution_originality",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Donanım Bağımlılığı ve Gelecek Çalışma Alanları",
+        "summary": "Makale, önerilen yaklaşımın mevcut donanımlarda (özellikle GPU'larda) etkinliğini sorgulamakta ve IBM TrueNorth gibi özel donanımların daha uygun olabileceğini belirtmektedir. Ayrıca, yüksek seviyeli özelliklerin zamansal kararlılığına ilişkin varsayımın deneylerde doğrulanmadığı ve bunun gelecek çalışma konusu olduğu ifade edilmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "discussion.a1",
+            "section": "DISCUSSION",
+            "quote": "Further work is needed to determine whether this method would be of use on modern computing hardware, namely GPUs. The problem is that these devices are designed for large, ﬁxed-size array operations, and tend not to be good at taking advantage of sparsity in the data, which requires many random memory accesses to parameters. Fortunately, other devices such as the the IBM TrueNorth (Cassidy et al., 2013) are being designed which keep memory close to processing, and such handle sparse data (and random memory access) much more efﬁciently."
+          },
+          {
+            "anchor_id": "discussion.a2",
+            "section": "DISCUSSION",
+            "quote": "However, we observe in our ﬁnal experiment (Figure 5, bottom) that our assumption that higher-level features would be more temporally stable - and thus require less computation in our Sigma-Delta net - was not true. We suspect that if we were to train the network from scratch on temporal data, we may learn more temporally stable “slow” features, but this is a topic of future work."
+          }
+        ],
+        "reasoning_public": "Makalenin özgün katkısı güçlü olsa da, önerilen yöntemin pratik uygulanabilirliği ve geniş kabul görmesi, mevcut donanım kısıtlamaları ve gelecekteki araştırmalara olan bağımlılık nedeniyle bir miktar sınırlanmaktadır. Bu durum, çalışmanın uzun vadeli etkisini etkileyebilecek bir zayıflıktır.",
+        "limitations": [],
+        "action_item_ids": [
+          "contribution_originality.f2.a0",
+          "contribution_originality.f2.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve İyi Tanımlanmış Araştırma Sorusu",
+        "summary": "Makale, derin öğrenme ağlarında hesaplama verimliliğini artırmak için Sigma-Delta ağlarını tanıtma ve optimize etme konusunda net bir araştırma sorusu sunmaktadır. Çalışmanın tasarımı ve kapsamı bu soruyu doğrudan ele almaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "To put an end to such waste, we introduce Sigma-Delta networks. With each new input, each layer in this network sends a discretized form of its change in activation to the next layer. Thus the amount of computation that the network does scales with the amount of change in the input and layer activations, rather than the size of the network."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "In this paper, we propose a neural network where neurons only communicate discretized changes in their activations to one another. The computational cost of running such a network would be proportional to the amount of change in the input."
+          }
+        ],
+        "reasoning_public": "Makale, derin öğrenme ağlarının video işleme gibi alanlarda karşılaştığı hesaplama israfı sorununu açıkça belirtmekte ve bu sorunu çözmek için Sigma-Delta ağlarını önermektedir. Araştırma sorusu, bu yeni ağ mimarisinin nasıl çalıştığı, nasıl optimize edildiği ve mevcut ağlara kıyasla ne kadar verimli olduğu üzerine odaklanmaktadır. Çalışma, bu soruları yanıtlamak için hem teorik bir çerçeve hem de deneysel kanıtlar sunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Sağlam Teorik Çerçeve ve Tutarlı Uygulama",
+        "summary": "Makale, Sigma-Delta nicemleme ve seyreltik sinir ağları kavramlarını temel alan sağlam bir teorik çerçeve sunmaktadır. Bu çerçeve, makalenin temel araştırma sorusu olan derin öğrenme ağlarında hesaplama verimliliğini artırma hedefiyle doğrudan uyumludur ve önerilen yöntemlerin geliştirilmesine rehberlik etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "In neuroscience, it seems clear that that some kind of sparse spatio-temporal coding is going on. Koch et al. (2006) estimate that the human retina transmits 8.75Mbps, which is about the same as compressed 1080p video at 30FPS. Thus it seems natural to think that perhaps we should be doing this in deep learning."
+          },
+          {
+            "anchor_id": "related_work.a0",
+            "section": "RELATED WORK",
+            "quote": "This work originated in the study of spiking neural networks, but treads into the territory of discretizing neural nets. The most closely related work is that of Zambrano and Bohte (2016). In this work, the authors describe an Adaptive Sigma-Delta modulation method..."
+          },
+          {
+            "anchor_id": "3_the_sigma_delta_network.a0",
+            "section": "3 THE SIGMA-DELTA NETWORK",
+            "quote": "In this Section, we describe how we start with a traditional deep neural network and apply two modiﬁcations - temporal-difference communication and rounding - to create the Sigma-Delta network."
+          }
+        ],
+        "reasoning_public": "Makale, sinirbilimden (seyrek uzamsal-zamansal kodlama) ve sinyal işlemeden (Sigma-Delta modülasyonu) ilham alarak, derin öğrenme ağlarında temporal yedekliliği kullanma fikrini teorik olarak temellendiriyor. Bu, sadece bir yöntem önerisi olmaktan öte, altında yatan prensipleri açıklayan tutarlı bir yapı sağlıyor.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yüksek Oranda İndekslenmemiş Kaynak Kullanımı",
+        "summary": "Makalede atıf yapılan kaynakların büyük bir kısmı (16 referanstan 14'ü) OpenAlex veya Semantic Scholar gibi akademik indekslerde doğrudan bulunamamıştır. Bu durum, çalışmanın literatürdeki konumunun doğrulanabilirliğini ve erişilebilirliğini olumsuz etkileyebilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda kullanılan referansların kolayca doğrulanabilir ve erişilebilir olması, çalışmanın şeffaflığı ve bilimsel topluluk tarafından incelenebilirliği açısından önemlidir. Yüksek oranda indekslenmemiş kaynak kullanımı, okuyucuların atıf yapılan çalışmalara ulaşmasını ve makalenin literatürdeki yerini tam olarak anlamasını zorlaştırabilir. Bu durum, özellikle niş veya yeni gelişen alanlarda karşılaşılabilecek bir durum olsa da, makalenin genel güvenilirliği ve doğrulanabilirliği üzerinde hafif bir etki yaratır.",
+        "limitations": [
+          "OpenAlex/Semantic Scholar gibi indekslerin kapsam sınırlamaları nedeniyle bazı geçerli kaynakların bulunamamış olabileceği göz önünde bulundurulmuştur. Bu durum, kaynakların kendisinin geçersiz olduğu anlamına gelmez, ancak doğrulanabilirliklerini azaltır."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "İlgili Çalışmaların Kapsamlı İncelenmesi",
+        "summary": "Makale, Sigma-Delta ağlarının kökeni olan spiking neural network'lerden, sinir ağlarının ayrıklaştırılmasına ve binarize edilmiş ağlara kadar geniş bir ilgili çalışma yelpazesini ele almaktadır. Ayrıca, event-based sensörler ve önceki kendi çalışmalarıyla da bağlantı kurarak konuyu iyi konumlandırmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a1",
+            "section": "RELATED WORK",
+            "quote": "This work originated in the study of spiking neural networks, but treads into the territory of discretizing neural nets. The most closely related work is that of Zambrano and Bohte (2016). In this work, the authors describe an Adaptive Sigma-Delta modulation method, in which neurons communicate analog signals to one another by means of a “spike-encoding” mechanism, where a temporal signal is encoded into a sequence of weighted spikes and then approximately decoded as a sum of temporally-shifted exponential kernels."
+          },
+          {
+            "anchor_id": "related_work.a2",
+            "section": "RELATED WORK",
+            "quote": "Our model contrasts with all of the above in that it is time-agnostic. Although we refer to sending “temporal differences” between neurons, our neurons have no concept of time - their is no “leak” in neuron potential, and our neurons’ behaviour only depends on the order of the inputs. Our work also separates the concepts of nonlinearity and discretization, uses units that communicate differences rather than absolute signal values, and explicitly minimizes an objective function corresponding to computational cost."
+          },
+          {
+            "anchor_id": "related_work.a3",
+            "section": "RELATED WORK",
+            "quote": "Coming from another corner, Courbariaux et al. describe a scheme for binarizing networks with the aim of achieving reductions in the amount of computation and memory required to run neural nets."
+          }
+        ],
+        "reasoning_public": "Yazar, çalışmanın temelini oluşturan alanları ve ilgili yaklaşımları (spiking neural networks, discretization, binarized networks) detaylı bir şekilde sunarak, kendi yöntemlerinin bu literatürdeki yerini ve farklılıklarını açıkça belirtmiştir. Bu, okuyucunun çalışmanın yeniliğini ve katkısını anlamasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Donanım Optimizasyonu İddiasının Kanıt Eksikliği",
+        "summary": "Makale, önerilen algoritmanın uygun donanımda çalıştırılması durumunda hesaplama maliyetini en az bir büyüklük mertebesinde azaltabileceğini iddia etmektedir. Ancak bu iddia, mevcut donanım üzerinde yapılan deneysel sonuçlarla doğrudan desteklenmemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "We introduce an optimization method for converting any pre-trained deep network into an optimally efﬁcient Sigma-Delta network, and show that our algorithm, if run on the appropriate hardware, could cut at least an order of magnitude from the computational cost of processing video data."
+          },
+          {
+            "anchor_id": "discussion.a3",
+            "section": "DISCUSSION",
+            "quote": "Further work is needed to determine whether this method would be of use on modern computing hardware, namely GPUs. The problem is that these devices are designed for large, ﬁxed-size array operations, and tend not to be good at taking advantage of sparsity in the data, which requires many random memory accesses to parameters. Fortunately, other devices such as the the IBM TrueNorth (Cassidy et al., 2013) are being designed which keep memory close to processing, and such handle sparse data (and random memory access) much more efﬁciently."
+          }
+        ],
+        "reasoning_public": "Makale, Sigma-Delta ağlarının hesaplama maliyetini önemli ölçüde azaltma potansiyeline sahip olduğunu öne sürmektedir. Özellikle, 'uygun donanım' üzerinde bir büyüklük mertebesinde azalma beklentisi dile getirilmektedir. Ancak sunulan deneyler, bu 'uygun donanım' üzerinde değil, mevcut donanım üzerinde yapılan simülasyonlar veya teorik enerji maliyeti hesaplamaları üzerinden değerlendirilmiştir. Bu durum, iddia edilen potansiyel faydanın gerçek dünya donanım performansı üzerindeki etkisine dair somut kanıt eksikliği yaratmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Yüksek Seviye Özelliklerin Zamansal Kararlılığı Varsayımının Çelişkisi",
+        "summary": "Makale, yüksek seviye özelliklerin zamansal olarak daha kararlı olacağı varsayımına dayanarak Sigma-Delta ağlarının daha az hesaplama gerektireceğini öne sürmüş, ancak son deneyler bu varsayımın doğru olmadığını göstermiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_2_discretizating_the_deltas.a0",
+            "section": "3.2 DISCRETIZATING THE DELTAS",
+            "quote": "We expect the data to have this property not only at the input layer, but even more so at higher layers, which encode higher level features (edges, object parts, class labels), which we would expect to vary more slowly over time than pixel values."
+          },
+          {
+            "anchor_id": "6_discussion.a1",
+            "section": "6 DISCUSSION",
+            "quote": "However, we observe in our ﬁnal experiment (Figure 5, bottom) that our assumption that higher-level features would be more temporally stable - and thus require less computation in our Sigma-Delta net - was not true. We suspect that if we were to train the network from scratch on temporal data, we may learn more temporally stable “slow” features, but this is a topic of future work."
+          }
+        ],
+        "reasoning_public": "Makale, yüksek seviye özelliklerin (örneğin kenarlar, nesne parçaları) piksel değerlerinden daha yavaş değişeceğini ve dolayısıyla daha az hesaplama gerektireceğini varsaymıştır. Ancak, VGG 19 ağı üzerindeki son deneyler (Şekil 5, alt kısım), bu varsayımın geçerli olmadığını göstermiştir. Bu durum, makalenin temel motivasyonlarından birinin deneysel olarak çürütüldüğünü, ancak bu çelişkinin tartışma bölümünde yeterince vurgulanmadığını veya gelecekteki çalışmalar için bir yön olarak sunulduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Temporal-MNIST Deneylerinin İddiaları Desteklemesi",
+        "summary": "Temporal-MNIST veri kümesi üzerindeki deneyler, Sigma-Delta ağının zamansal yedeklilikten faydalanarak hesaplama maliyetini azalttığı iddiasını güçlü bir şekilde desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_2_temporal_mnist.a3",
+            "section": "5.2 TEMPORAL-MNIST",
+            "quote": "We see that as expected, our Sigma-Delta network does fewer computations than the rounding network on the Temporal-MNIST dataset for the same error, because the update-mechanism of this network takes advantage of the temporal redundancy in the data."
+          },
+          {
+            "anchor_id": "figure_4.a0",
+            "section": "Figure 4",
+            "quote": "Plot 2: The same, but on the Temporal-MNIST dataset. We see that the Sigma-Delta network uses less computation thanks to the temporal redundancy in the data."
+          }
+        ],
+        "reasoning_public": "Makale, Sigma-Delta ağlarının zamansal olarak yedekli verilerde (video gibi) hesaplama verimliliği sağlayacağını iddia etmektedir. Temporal-MNIST veri kümesi üzerinde yapılan deneyler, Sigma-Delta ağının aynı hata seviyesinde yuvarlama ağına göre daha az hesaplama yaptığını açıkça göstermektedir. Bu, makalenin temel iddialarından birini doğrudan ve somut bir şekilde kanıtlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yüksek Oranda Çözülemeyen Atıflar",
+        "summary": "Makaledeki atıfların büyük bir kısmı (16 referanstan 14'ü) otomatik indeksleme sistemleri tarafından çözülememiştir. Bu durum, okuyucuların referans verilen çalışmalara erişimini ve makaledeki iddiaların doğrulanabilirliğini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayınlarda atıfların kolayca erişilebilir ve doğrulanabilir olması, bilginin şeffaflığı ve güvenilirliği açısından kritik öneme sahiptir. Çözülemeyen atıfların yüksek oranı, makalenin bilimsel iletişimdeki etkinliğini azaltabilir ve okuyucuların referans verilen kaynakları bulmak için ek çaba sarf etmesine neden olabilir. Bu durum, özellikle makalenin temel argümanlarını destekleyen önemli çalışmalara atıfta bulunulduğunda sorun teşkil edebilir.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle bazı geçerli referanslar 'bulunamayan' olarak işaretlenmiş olabilir. Ancak bu durum, makalenin referans listesinin manuel olarak gözden geçirilmesi ihtiyacını ortadan kaldırmaz."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "citation_integrity.f1",
+        "dimension": "citation_integrity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Atıf Bütünlüğünde Uydurma veya Geri Çekilmiş Kaynak Yok",
+        "summary": "Yapılan analizde, makalede uydurma (fabricated) veya geri çekilmiş (retracted) herhangi bir referans tespit edilmemiştir. Bu durum, makalenin atıf bütünlüğü açısından olumlu bir göstergedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Uydurma veya geri çekilmiş kaynaklara atıfta bulunmak, akademik dürüstlük ve bilimsel güvenilirlik açısından ciddi ihlallerdir. Bu tür sorunların bulunmaması, makalenin referans kullanımında temel etik standartlara uyduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Raporlama Kılavuzlarına Genel Uyum",
+        "summary": "Makale, belirli bir raporlama kılavuzuna açıkça atıfta bulunmamasına rağmen, deneysel çalışmaların ve metodolojinin sunumu genel olarak anlaşılır ve takip edilebilir bir yapıya sahiptir. Bu tür bir makale için özel bir raporlama kılavuzu yaygın olarak bulunmamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makale, derin öğrenme alanında yeni bir mimari ve optimizasyon yöntemi sunmaktadır. Bu tür teorik ve deneysel bilgisayar bilimi çalışmaları için CONSORT, PRISMA gibi klinik veya sistematik inceleme kılavuzları doğrudan uygulanamaz. Makale, metodolojisini, deneylerini ve sonuçlarını yeterli detayda açıklamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Deneysel Detaylarda Eksiklikler",
+        "summary": "Makale, 'Temporal-MNIST' veri setinin oluşturulması ve 'VGG 19' ağının yeniden ölçeklendirme optimizasyonu gibi bazı deneysel detaylarda ek açıklamalara ihtiyaç duymaktadır. Özellikle, 'Temporal-MNIST' için 'benzer karelerin yakın olma eğilimi'nin nasıl sağlandığı ve VGG 19 optimizasyonunda karşılaşılan 'kararsızlık' sorununa getirilen 'basit çözüm' olan rastgele gürültü eklemenin neden gerekli olduğu daha detaylı açıklanabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_2_temporal_mnist.a4",
+            "section": "5.2 TEMPORAL-MNIST",
+            "quote": "This is just a reshufﬂing of the standard MNIST dataset so that similar frames tend to be nearby, giving the impression of a temporal sequence (see Appendix D for details)."
+          },
+          {
+            "anchor_id": "5_3_a_deep_convolutional_network_on_video.a4",
+            "section": "5.3 A DEEP CONVOLUTIONAL NETWORK ON VIDEO",
+            "quote": "We initially had some difﬁculty in optimizing the scale parameters of network to a stable point. The network would either fail to reduce computation when it could afford to, or reduce it to the point where the network’s function was so corrupted that error gradients would be meaningless, causing computation loss to win out and activations to drop to zero. A simple solution was to replace the rounding operation in training with addition of uniform random noise ϵ ∼U(−1/2, 1/2). This seemed to prevent the network from pushing itself into a regime where all activations become zero. More work is need to understand why the addition of noise is necessary here."
+          }
+        ],
+        "reasoning_public": "Deneysel sonuçların tekrarlanabilirliği ve bulguların güvenilirliği açısından, kullanılan veri setlerinin oluşturulma yöntemleri ve optimizasyon süreçlerinde karşılaşılan zorluklar ile bunlara getirilen çözümlerin daha şeffaf bir şekilde raporlanması önemlidir. Mevcut haliyle, bazı kritik deneysel adımların tam olarak nasıl uygulandığına dair detaylar eksiktir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0",
+          "reporting_guideline_compliance.f1.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod Paylaşımı ve Tekrar Üretilebilirlik",
+        "summary": "Makale, deneylerde kullanılan kodun genel kullanıma açık bir GitHub deposunda paylaşıldığını belirterek tekrar üretilebilirliği desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "discussion.a4",
+            "section": "DISCUSSION",
+            "quote": "Code for our experiments can be found at: https://github.com/petered/sigma-delta/"
+          }
+        ],
+        "reasoning_public": "Kodun açıkça paylaşılması, araştırmanın şeffaflığını ve başkaları tarafından doğrulanabilirliğini artırır. Bu, bilimsel ilerleme için önemli bir adımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Etik Onay ve Veri Kullanımı Hakkında Eksik Bilgi",
+        "summary": "Makalede insan deneklerle ilgili herhangi bir çalışma yapılmamasına rağmen, kullanılan veri setlerinin (MNIST, ILSVRC 2015) etik onayları veya veri toplama süreçleri hakkında bilgi verilmemiştir. Özellikle ILSVRC 2015 gibi büyük veri setlerinin kullanımı, veri gizliliği ve etik standartlar açısından şeffaflık gerektirebilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_2_temporal_mnist.a5",
+            "section": "5.2 TEMPORAL-MNIST",
+            "quote": "We started our experiment with a conventional ReLU network with layer sizes [784-200-200-10] pre-trained on MNIST to a test-accuracy of 97.9%."
+          },
+          {
+            "anchor_id": "5_3_a_deep_convolutional_network_on_video.a5",
+            "section": "5.3 A DEEP CONVOLUTIONAL NETWORK ON VIDEO",
+            "quote": "We take selected videos from the ILSVRC 2015 dataset (Russakovsky et al., 2015), and apply the rescaling method from Section 4.1 to adjust the scales on a per-layer basis."
+          }
+        ],
+        "reasoning_public": "Akademik çalışmalarda kullanılan veri setlerinin kökeni, toplama yöntemleri ve varsa etik onayları hakkında bilgi vermek, araştırmanın şeffaflığını ve etik standartlara uygunluğunu gösterir. Bu tür bilgilerin eksikliği, çalışmanın etik boyutları hakkında belirsizlik yaratabilir.",
+        "limitations": [
+          "Makalede insan deneklerle doğrudan bir çalışma yapılmadığı için etik onay gerekliliği daha düşük olabilir, ancak veri setlerinin kökeni yine de önemlidir."
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıklı Bölüm Akışı ve Net Dil",
+        "summary": "Makale, girişten tartışmaya kadar mantıklı bir bölüm akışı sergilemekte ve karmaşık konuları anlaşılır bir dille açıklamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Makalenin bölümleri (ABSTRACT, INTRODUCTION, RELATED WORK, DISCUSSION, REFERENCES) standart bir akademik yayın formatına uygun olup, okuyucunun konuyu adım adım takip etmesini kolaylaştırmaktadır. Dilin netliği, teknik detayların bile kolayca anlaşılmasına yardımcı olmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Giriş Bölümünde Bazı İddiaların Erken Sunulması",
+        "summary": "Giriş bölümünde, Sigma-Delta ağlarının avantajları ve çalışma prensipleri hakkında bazı iddialar, henüz 'RELATED WORK' veya 'THE SIGMA-DELTA NETWORK' bölümlerinde detaylı açıklama yapılmadan önce sunulmuştur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Neurons send signals when the change in their input accumulates past some threshold, at which point they send a discrete “spike” notifying downstream neurons of the change. Such a system has at least two advantages over the conventional way of doing things."
+          }
+        ],
+        "reasoning_public": "Giriş bölümü, okuyucuyu konuya hazırlamak ve makalenin ana fikrini sunmak için önemlidir. Ancak, 'Neurons send signals when the change in their input accumulates past some threshold...' gibi ifadeler, okuyucunun bu mekanizmalar hakkında yeterli ön bilgiye sahip olmadığı bir aşamada sunulmaktadır. Bu durum, okuyucunun konuya tam olarak hakim olmadan önce bazı teknik detaylarla karşılaşmasına neden olabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.85,
+        "title": "Tartışma Bölümünün Kapsamının Sınırlı Olması",
+        "summary": "Tartışma bölümü, makalenin ana bulgularını özetlemekte ve gelecek çalışmalara değinmektedir, ancak mevcut çalışmanın sınırlılıkları ve potansiyel olumsuz etkileri (örneğin, donanım bağımlılığı, genellenebilirlik) hakkında daha derinlemesine bir analiz sunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "discussion.a5",
+            "section": "DISCUSSION",
+            "quote": "Further work is needed to determine whether this method would be of use on modern computing hardware, namely GPUs. The problem is that these devices are designed for large, ﬁxed-size array operations, and tend not to be good at taking advantage of sparsity in the data, which requires many random memory accesses to parameters."
+          }
+        ],
+        "reasoning_public": "Tartışma bölümü, makalenin sonuçlarını daha geniş bir bağlama oturtmak, sınırlılıkları ele almak ve gelecekteki yönleri belirtmek için kritik bir alandır. Mevcut tartışma, 'Further work is needed to determine whether this method would be of use on modern computing hardware, namely GPUs.' gibi ifadelerle sınırlılıklara değinse de, bu konunun potansiyel etkileri ve zorlukları yeterince derinlemesine incelenmemiştir. Örneğin, GPU'ların sparsity'den faydalanamaması, önerilen yöntemin pratik uygulanabilirliğini ciddi şekilde etkileyebilir ve bu durum daha detaylı tartışılmalıdır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "writing_structure.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Uygun Konu Alanı ve Yenilikçi Yaklaşım",
+        "summary": "Makale, derin öğrenme ağlarında hesaplama verimliliğini artırmaya yönelik yenilikçi bir yaklaşım olan Sigma-Delta ağlarını tanıtarak, hedef konferansın (muhtemelen NIPS/NeurIPS gibi makine öğrenimi konferansları) kapsamına ve güncel araştırma konularına uygunluk göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "To put an end to such waste, we introduce Sigma-Delta networks. With each new input, each layer in this network sends a discretized form of its change in activation to the next layer. Thus the amount of computation that the network does scales with the amount of change in the input and layer activations, rather than the size of the network."
+          },
+          {
+            "anchor_id": "discussion.a6",
+            "section": "DISCUSSION",
+            "quote": "We have introduced Sigma-Delta Networks, which give us a new way compute the forward pass of a deep neural network. In Sigma-Delta Networks, neurons communicate not by telling other neurons about their current level of activation, but about their change in activation."
+          }
+        ],
+        "reasoning_public": "Makale, derin öğrenme alanındaki önemli bir sorun olan hesaplama maliyetini ele alıyor ve bu soruna özgün bir çözüm sunuyor. Özellikle video verileri gibi zamansal olarak yedekli verilerde verimlilik sağlama potansiyeli, makine öğrenimi donanımı ve algoritmaları alanındaki güncel ilgi alanlarıyla örtüşmektedir. Sunulan yöntem, mevcut önceden eğitilmiş ağları optimize etme yeteneği ile pratik uygulamalar için de ilgi çekicidir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f1",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "İlgili Çalışmalarla Kapsamlı Karşılaştırma",
+        "summary": "Makale, önerilen Sigma-Delta ağlarını spiking neural networks, binarized networks ve event-based sensors gibi ilgili çalışma alanlarıyla karşılaştırarak, kendi katkısını net bir şekilde konumlandırmaktadır. Bu, makalenin hedef kitlenin mevcut bilgi birikimiyle bağlantı kurmasına yardımcı olur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a4",
+            "section": "RELATED WORK",
+            "quote": "This work originated in the study of spiking neural networks, but treads into the territory of discretizing neural nets. The most closely related work is that of Zambrano and Bohte (2016)."
+          },
+          {
+            "anchor_id": "related_work.a5",
+            "section": "RELATED WORK",
+            "quote": "Our model contrasts with all of the above in that it is time-agnostic. Although we refer to sending “temporal differences” between neurons, our neurons have no concept of time - their is no “leak” in neuron potential, and our neurons’ behaviour only depends on the order of the inputs."
+          },
+          {
+            "anchor_id": "related_work.a6",
+            "section": "RELATED WORK",
+            "quote": "These discretization approaches differ from ours in that they do not aim to take advantage of temporal redundancy in data, but rather aim to ﬁnd ways of saving computation by learning in a low-precision regime. Ideas from these works could be combined with the ideas presented in this paper."
+          }
+        ],
+        "reasoning_public": "İlgili çalışmalar bölümü, makalenin yeniliğini ve mevcut literatürdeki yerini açıkça ortaya koymaktadır. Bu, makalenin alanın güncel durumu hakkında bilgi sahibi olan hakemler ve okuyucular için uygun olduğunu göstermektedir. Özellikle, önerilen yaklaşımın diğer yöntemlerden farkları ve potansiyel entegrasyon noktaları vurgulanmıştır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f2",
+        "dimension": "venue_fit",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Donanım Uygulamasına Yönelik Belirsizlikler",
+        "summary": "Makale, önerilen yöntemin modern GPU'lar gibi mevcut donanımlarda verimliliği konusunda bazı belirsizlikler taşımaktadır. Bu durum, makalenin pratik uygulanabilirliği ve dolayısıyla hedef konferansın endüstriyel veya uygulamalı yönleriyle uyumu açısından bir zayıflık oluşturabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "discussion.a7",
+            "section": "DISCUSSION",
+            "quote": "Further work is needed to determine whether this method would be of use on modern computing hardware, namely GPUs. The problem is that these devices are designed for large, ﬁxed-size array operations, and tend not to be good at taking advantage of sparsity in the data, which requires many random memory accesses to parameters."
+          }
+        ],
+        "reasoning_public": "Makale, önerilen seyreklik tabanlı hesaplama modelinin GPU'lar gibi yaygın donanımlarda verimli olmayabileceğini kabul etmektedir. Bu, makalenin sunduğu çözümün mevcut altyapılarla ne kadar uyumlu olduğu konusunda soru işaretleri yaratmaktadır. Her ne kadar IBM TrueNorth gibi özel donanımlara atıfta bulunulsa da, genel kabul görmüş donanımlardaki performans belirsizliği, makalenin geniş kitleler üzerindeki etkisini sınırlayabilir ve bu tür konferanslarda beklenen pratik uygulanabilirlik beklentisini tam olarak karşılamayabilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "venue_fit.f2.a0"
+        ],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların DOI'lerini veya tam ve doğru bibliyografik bilgilerini (yazar, başlık, yayın yeri, yıl, sayfa aralığı vb.) ekleyerek referans listesini güncelleyin. Özellikle 'not_found_in_index' olarak işaretlenen referanslar için bu kontrolü yapın.",
+        "acceptance_check": "Tüm referansların OpenAlex veya Semantic Scholar gibi akademik indekslerde çözülebilir olması ve tam bibliyografik bilgi içermesi.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "ABSTRACT, DISCUSSION",
+        "instruction": "Soyut kısımda belirtilen 'bir büyüklük mertebesinde azaltma' iddiasının, mevcut deneysel kanıtlarla ne kadar desteklendiği açıklanmalı veya bu iddianın gelecekteki donanım gelişmelerine bağlı bir potansiyel olduğu daha net belirtilmelidir. Alternatif olarak, bu iddiayı destekleyecek ek deneysel veriler (örneğin, özel donanım simülasyonları veya prototip sonuçları) sunulmalıdır.",
+        "acceptance_check": "İddianın kanıtlarla uyumu artırılmış veya iddianın niteliği (potansiyel vs. mevcut başarı) netleştirilmiştir.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Yüksek seviye özelliklerin zamansal kararlılığına ilişkin varsayımın deneysel olarak çürütülmesi, makalenin temel argümanlarından birini etkilediği için, bu bulgunun önemi ve gelecekteki çalışmalar üzerindeki etkisi daha detaylı tartışılmalıdır. Bu çelişkinin, Sigma-Delta ağlarının genel etkinliği üzerindeki potansiyel etkileri açıklanmalıdır.",
+        "acceptance_check": "Varsayımın çürütülmesinin makalenin ana iddiaları üzerindeki etkisi net bir şekilde açıklanmıştır.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Kullanılan veri setlerinin (MNIST, ILSVRC 2015) toplama yöntemleri, varsa etik onayları ve veri gizliliği politikaları hakkında 'Experiments' veya 'Discussion' bölümüne ek bilgi eklenmelidir.",
+        "acceptance_check": "Veri setlerinin etik boyutlarına dair kısa bir açıklama veya ilgili referansların eklenmesi.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Her bir deney için (özellikle 'toy problem' ve Temporal-MNIST) kullanılan örneklem büyüklüğünün (veri noktası sayısı, video sayısı vb.) neden yeterli olduğuna dair bir gerekçe ekleyin. Bu, bir güç analizi veya beklenen etki büyüklüğüne dayalı bir hassasiyet analizi şeklinde olabilir.",
+        "acceptance_check": "Her deney bölümünde örneklem büyüklüğü gerekçesi veya güç analizi sonuçları açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "4.3 DIFFERENTIATING THE UNDIFFERENTIABLE",
+        "instruction": "Yuvarlama fonksiyonunun türevlenemezliği sorununu ele almak için kullanılan 'gradient geçirme' yönteminin (straight-through estimator) varsayımlarını ve bu varsayımların mevcut bağlamda nasıl karşılandığını veya karşılanmadığını açıklayın. Ayrıca, VGG 19 deneyinde karşılaşılan optimizasyon kararlılığı sorunlarının nedenlerini ve gürültü eklemenin bu sorunları nasıl çözdüğüne dair teorik bir açıklama veya hipotez sunun.",
+        "acceptance_check": "Optimizasyon yönteminin varsayımları ve VGG 19'daki kararlılık sorunlarına getirilen çözümün teorik gerekçesi açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Tüm deney sonuçları için (hesaplama maliyeti tasarrufu, hata oranları vb.) nicel etki büyüklüklerini ve bunlara karşılık gelen güven aralıklarını veya standart hataları raporlayın. Özellikle '4-10x tasarruf' gibi ifadelerin istatistiksel belirsizliğini belirtin.",
+        "acceptance_check": "Tüm nicel sonuçlar için etki büyüklükleri ve belirsizlik ölçüleri (örneğin, %95 güven aralıkları) raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Tüm ana sonuçlar için (özellikle hesaplama tasarrufu ve hata oranları) nicel etki büyüklüklerini ve bunlara karşılık gelen güven aralıklarını veya standart hataları metin içinde veya tablolar aracılığıyla raporlayın. '4-10x tasarruf' gibi ifadelerin istatistiksel belirsizliğini belirtin.",
+        "acceptance_check": "Ana sonuçlar, nicel etki büyüklükleri ve belirsizlik ölçüleri ile birlikte raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Appendix D",
+        "instruction": "Ek D'de 'Temporal-MNIST' veri setinin oluşturulma sürecini, özellikle 'benzer karelerin yakın olma eğilimi'nin nasıl sağlandığını daha detaylı açıklayın. Kullanılan algoritmik adımları veya kriterleri belirtin.",
+        "acceptance_check": "Ek D'de veri seti oluşturma metodolojisinin net ve tekrarlanabilir bir açıklaması bulunmalıdır.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f1"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f1.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "5.3 A DEEP CONVOLUTIONAL NETWORK ON VIDEO",
+        "instruction": "VGG 19 optimizasyonunda karşılaşılan kararsızlık sorununu ve rastgele gürültü ekleme çözümünü 'Deneysel Kurulum' veya 'Metodoloji' bölümünde daha ayrıntılı tartışın. Bu çözümün teorik gerekçelerini ve etkilerini açıklayın.",
+        "acceptance_check": "Gürültü ekleme stratejisinin nedenleri ve etkileri hakkında daha derinlemesine bir açıklama eklenmelidir.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f1"
+        ]
+      },
+      {
+        "action_id": "venue_fit.f2.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Makalenin GPU'lar gibi yaygın donanımlarda potansiyel uygulanabilirliğini veya bu sınırlamaların üstesinden gelmek için gelecekteki araştırma yönlerini daha detaylı tartışın. Örneğin, seyreklikten faydalanabilecek yeni GPU mimarileri veya yazılım optimizasyonları hakkında spekülasyonlar eklenebilir.",
+        "acceptance_check": "GPU'lar ve seyreklik arasındaki uyumsuzluk daha derinlemesine ele alınmış ve potansiyel çözümler veya araştırma yolları önerilmiş olmalı.",
+        "linked_finding_ids": [
+          "venue_fit.f2"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f2.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "DISCUSSION",
+        "instruction": "Tartışma bölümünü genişleterek, önerilen Sigma-Delta ağlarının mevcut donanım mimarileri (özellikle GPU'lar) üzerindeki pratik sınırlılıklarını ve bu sınırlılıkların üstesinden gelmek için olası stratejileri daha detaylı bir şekilde ele alın. Ayrıca, yöntemin genellenebilirliği ve farklı veri türleri üzerindeki performansı hakkında da daha fazla yorum ekleyin.",
+        "acceptance_check": "Tartışma bölümü, yöntemin pratik sınırlılıklarını ve donanım bağımlılıklarını daha kapsamlı bir şekilde analiz ediyor ve potansiyel çözümler veya gelecek araştırmalar için daha somut yönlendirmeler sunuyor.",
+        "linked_finding_ids": [
+          "writing_structure.f2"
+        ]
+      },
+      {
+        "action_id": "contribution_originality.f2.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "DISCUSSION",
+        "instruction": "Makalenin 'Tartışma' bölümünde, önerilen yöntemin mevcut donanım mimarileriyle uyumluluğu ve potansiyel sınırlamaları hakkında daha detaylı bir analiz sunulabilir. Bu, çalışmanın pratik etkisini daha net bir şekilde ortaya koyacaktır.",
+        "acceptance_check": "Donanım uyumluluğu ve sınırlamaları hakkında daha kapsamlı bir tartışma eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "contribution_originality.f2"
+        ]
+      },
+      {
+        "action_id": "contribution_originality.f2.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "DISCUSSION",
+        "instruction": "Yüksek seviyeli özelliklerin zamansal kararlılığına ilişkin bulguların, çalışmanın özgün katkısını nasıl etkilediği ve bu konudaki gelecek çalışmaların önemi daha açık bir şekilde vurgulanabilir.",
+        "acceptance_check": "Bu bulgunun özgün katkıya etkisi ve gelecek çalışma planları daha net ifade edilmiş olmalı.",
+        "linked_finding_ids": [
+          "contribution_originality.f2"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Bulunamayan referanslar için DOI (Digital Object Identifier) veya doğrudan erişim linkleri eklenmelidir. Özellikle arXiv ön baskıları gibi indekslerde doğrudan bulunamayan ancak yaygın olarak kullanılan kaynaklar için bu tür bilgiler, okuyucuların doğrulamasına yardımcı olacaktır.",
+        "acceptance_check": "Referans listesindeki 'not_found_in_index' olarak işaretlenmiş kaynakların en az %50'si için DOI veya doğrudan erişim linki eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "5 EXPERIMENTS",
+        "instruction": "Kullanılan veri setlerinde eksik veri veya aykırı değerlerin varlığını ve bunların analizden önce nasıl işlendiğini (varsa) açıklayın. Eğer bu tür sorunlar yoksa, bunu da belirtin.",
+        "acceptance_check": "Eksik veri ve aykırı değer işleme stratejileri veya bunların yokluğu açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümündeki teknik detayları, okuyucuyu genel bir problem tanımı ve makalenin katkısı hakkında bilgilendirecek şekilde daha üst düzeyde tutun. Teknik mekanizmaların detaylı açıklamalarını 'THE SIGMA-DELTA NETWORK' bölümüne bırakın.",
+        "acceptance_check": "Giriş bölümü, makalenin ana fikrini ve motivasyonunu daha genel terimlerle açıklıyor ve teknik detaylar ilgili bölümlere taşınmış.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Donanım Optimizasyonu İddiasının Kanıt Eksikliği",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2"
+        ],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "related_work.a0",
+          "related_work.a1",
+          "related_work.a2",
+          "related_work.a3",
+          "related_work.a4",
+          "related_work.a5",
+          "related_work.a6"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "DISCUSSION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Donanım Optimizasyonu İddiasının Kanıt Eksikliği; Donanım Bağımlılığı ve Gelecek Çalışma Alanları; Donanım Uygulamasına Yönelik Belirsizlikler; Tartışma Bölümünün Kapsamının Sınırlı Olması",
+        "anchor_ids": [
+          "discussion.a0",
+          "discussion.a1",
+          "discussion.a2",
+          "discussion.a3",
+          "discussion.a4",
+          "discussion.a5",
+          "discussion.a6",
+          "discussion.a7"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "contribution_originality.f2.a0",
+          "contribution_originality.f2.a1",
+          "venue_fit.f2.a0",
+          "writing_structure.f2.a0"
+        ]
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "3 THE SIGMA-DELTA NETWORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_the_sigma_delta_network.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.2 DISCRETIZATING THE DELTAS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yüksek Seviye Özelliklerin Zamansal Kararlılığı Varsayımının Çelişkisi",
+        "anchor_ids": [
+          "3_2_discretizating_the_deltas.a0"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "3.4 PUTTING IT ALL TOGETHER",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_4_putting_it_all_together.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4 OPTIMIZING AN EXISTING NETWORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_optimizing_an_existing_network.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4.2 THE ART OF COMPROMISE",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_2_the_art_of_compromise.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4.3 DIFFERENTIATING THE UNDIFFERENTIABLE",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Varsayım Testleri ve Optimizasyon Kararlılığı Eksikliği",
+        "anchor_ids": [
+          "4_3_differentiating_the_undifferentiable.a0"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ]
+      },
+      {
+        "section": "5.1 TOY PROBLEM: A RANDOM NETWORK",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "5_1_toy_problem_a_random_network.a0"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "5.2 TEMPORAL-MNIST",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Etik Onay ve Veri Kullanımı Hakkında Eksik Bilgi; Ana Sonuçlarda Belirsizlik Ölçülerinin Eksikliği; Deneysel Detaylarda Eksiklikler",
+        "anchor_ids": [
+          "5_2_temporal_mnist.a0",
+          "5_2_temporal_mnist.a1",
+          "5_2_temporal_mnist.a2",
+          "5_2_temporal_mnist.a3",
+          "5_2_temporal_mnist.a4",
+          "5_2_temporal_mnist.a5"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f1.a0",
+          "quant.f1.a0",
+          "quant.f5.a0",
+          "quant.f9.a0",
+          "reporting_guideline_compliance.f1.a0",
+          "reporting_guideline_compliance.f1.a1"
+        ]
+      },
+      {
+        "section": "5.3 A DEEP CONVOLUTIONAL NETWORK ON VIDEO",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Etik Onay ve Veri Kullanımı Hakkında Eksik Bilgi; Varsayım Testleri ve Optimizasyon Kararlılığı Eksikliği; Ana Sonuçlarda Belirsizlik Ölçülerinin Eksikliği; Deneysel Detaylarda Eksiklikler",
+        "anchor_ids": [
+          "5_3_a_deep_convolutional_network_on_video.a0",
+          "5_3_a_deep_convolutional_network_on_video.a1",
+          "5_3_a_deep_convolutional_network_on_video.a2",
+          "5_3_a_deep_convolutional_network_on_video.a3",
+          "5_3_a_deep_convolutional_network_on_video.a4",
+          "5_3_a_deep_convolutional_network_on_video.a5"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f1.a0",
+          "quant.f1.a0",
+          "quant.f3.a0",
+          "quant.f5.a0",
+          "quant.f9.a0",
+          "reporting_guideline_compliance.f1.a0",
+          "reporting_guideline_compliance.f1.a1"
+        ]
+      },
+      {
+        "section": "6 DISCUSSION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yüksek Seviye Özelliklerin Zamansal Kararlılığı Varsayımının Çelişkisi",
+        "anchor_ids": [
+          "6_discussion.a0",
+          "6_discussion.a1"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "ACKNOWLEDGMENTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "acknowledgments.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Figure 4",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "figure_4.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

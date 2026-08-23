@@ -1,0 +1,1364 @@
+{
+  "paper_id": "peerread:iclr2017-367",
+  "run_tag": "main",
+  "job_id": "a5758fca-f6ff-4b27-8fab-be96e4ad4459",
+  "elapsed_s": 329.9,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "OPTIMAL BINARY AUTOENCODING WITH PAIRWISE CORRELATIONS Akshay Balsubramani ∗ Stanford University",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "REFERENCES"
+      ],
+      "word_count": 9466,
+      "reference_count": 3,
+      "parse_confidence": 0.685,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces a novel and theoretically principled method for training binary autoencoders, termed Pairwise Correlation Autoencoder (PC-AE). The authors formulate the learning problem as a minimax game between the autoencoder and an adversary, constrained by the pairwise correlations between input and encoded bits. A key contribution is showing that this formulation naturally leads to an optimal decoder with the structure of a single-layer of logistic sigmoid neurons, an architecture that is derived rather than assumed. The overall objective is biconvex, admitting an efficient alternating minimization algorithm. The theoretical claims are supported by competitive empirical results on several benchmark datasets, demonstrating the practical viability of the approach.",
+    "strengths": [
+      {
+        "category": "Theoretical Contribution",
+        "points": [
+          "The minimax, game-theoretic formulation provides a novel and principled foundation for autoencoder learning, moving beyond standard empirical risk minimization.",
+          "A significant strength is the demonstration that a single-layer logistic neuron decoder is not an ad-hoc architectural choice but emerges as the worst-case optimal solution given the information constraints (pairwise correlations). This provides a powerful 'first principles' justification for a common architecture.",
+          "The framework elegantly extends to other loss functions and the denoising autoencoder setting, highlighting its generality."
+        ]
+      },
+      {
+        "category": "Methodological Soundness",
+        "points": [
+          "The resulting optimization problem is biconvex, which allows for an efficient and stable alternating minimization algorithm. Each step of the algorithm involves solving a convex problem, avoiding many common pitfalls of non-convex optimization in deep learning.",
+          "The mathematical derivations presented in the main text and appendices are clear and appear sound, providing a solid foundation for the proposed algorithm."
+        ]
+      },
+      {
+        "category": "Empirical Validation",
+        "points": [
+          "The paper includes a thorough experimental comparison against a standard autoencoder and a PCA baseline across multiple datasets. The proposed PC-AE method demonstrates competitive, and often superior, reconstruction performance.",
+          "The analysis of applying the PC-AE decoder to representations learned by a standard AE is particularly insightful, as it empirically validates the paper's theoretical claims about the different types of information captured by each training method."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Clarity and Positioning",
+        "points": [
+          "The claim of 'optimality' could be more precisely qualified throughout the paper. While the method is optimal under the specific constraint of using only pairwise correlations, it is not globally optimal. Consistently framing the results within this explicit context would strengthen the paper's precision.",
+          "The nature of the encoding function, ENC(x; W), requires solving an optimization problem for each example. A more detailed discussion of its computational cost and implications for large-scale or real-time applications is needed, as this represents a potential practical limitation."
+        ]
+      },
+      {
+        "category": "Presentation",
+        "points": [
+          "The manuscript contains several formatting errors in the appendices where numerical citations (e.g., in Appendix A, D.1, E) are used but do not correspond to any entries in the reference list. These appear to be placeholders or typesetting artifacts that should be corrected for clarity."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The discussion in Section 4 effectively situates the work relative to traditional backpropagation, convex relaxations, and methods using pairwise correlations. The distinction between the axiomatic information limit (using B) and model-based regularization is well-articulated and is a key strength of the paper's framing.",
+        "evidence_ref": null
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The proofs in the appendix appear sound and the derivation from the minimax setup to the biconvex objective is elegant. However, there are several instances of incorrect citation formatting in the appendices (A, D.1, E) where bracketed numbers are used without a corresponding reference. These should be removed or corrected.",
+        "evidence_ref": "ref[1], ref[2], ref[3] not_found_in_index"
+      },
+      {
+        "area": "experimental",
+        "comment": "The experimental setup is sound and the comparison to a vanilla AE is fair. The result showing that the PC-AE decoder performs poorly on AE-generated encodings is particularly insightful, as it clearly demonstrates that backpropagation communicates information beyond simple pairwise correlations. This strengthens the paper's core argument about the nature of the information being used.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "The encoding step involves a separate convex optimization for each input. Have you considered or experimented with amortizing this cost, for example, by training a separate neural network to approximate the ENC(x; W) function?",
+      "The framework is built on pairwise correlations between the input and hidden layers. How might this extend to deeper architectures? The paper briefly suggests a layer-wise training scheme. Could you elaborate on how inter-layer correlations (e.g., between hidden layer 1 and hidden layer 2) would fit into the minimax formulation?",
+      "Figure 6 shows an interesting 2D visualization where the standard AE appears to achieve better class separation than PC-AE, despite having a higher reconstruction loss. Could you comment on this? Does this suggest that minimizing worst-case reconstruction loss (as PC-AE does) might not be the ideal objective for learning representations for downstream discriminative tasks?"
+    ],
+    "overall_assessment": "This is a strong, well-written paper presenting a novel and theoretically elegant approach to autoencoder training. The core contribution—deriving a standard neural architecture from a minimax principle—is significant and thought-provoking. The method is grounded in solid theory (biconvex optimization) and validated with compelling empirical results. The paper would be further strengthened by addressing a few minor points related to the precise framing of the 'optimality' claim, a more detailed discussion of the encoder's computational cost, and correcting minor formatting issues in the appendices. Overall, this is a valuable contribution to the literature on representation learning and unsupervised models.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity info. [LLM'in kendi gerekçesi: The minimax formulation and the concept of an emergent decoder architecture from first principles are highly original.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.5,
+        "rationale": "The work provides a new, theoretically sound perspective on autoencoder design, a fundamental problem in machine learning."
+      },
+      {
+        "key": "claims_supported",
+        "score": 6.67,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: Claims are well-supported by both theoretical derivations and empirical experiments. The 'optimality' claim is the only point that could be slightly more nuanced.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The mathematical framework is solid, and the biconvex optimization approach is methodologically sound.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is generally very clear, but the framing of 'optimality' and the practical cost of the encoder could be sharpened. Minor formatting errors in the appendices slightly detract from clarity.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.5,
+        "rationale": "Of high interest to researchers in unsupervised learning, representation learning, and the theory of deep learning."
+      },
+      {
+        "key": "contextualization",
+        "score": 9.0,
+        "rationale": "The related work section is excellent and positions the work very well within the existing literature."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: No fabricated or retracted citations were found. The score is slightly lowered from perfect due to minor formatting errors in the appendices where non-existent numerical citations appear, as confirmed by the evidence pack (ref[1], ref[2], ref[3] not_found_in_index).]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missing seminal works, and the paper's contextualization of related work is thorough.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity info. [LLM'in kendi gerekçesi: The evidence pack did not contain any statistical consistency checks or findings.]"
+      }
+    ],
+    "final_score": 8.9,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 3,
+        "resolved": 0,
+        "not_found_in_index": 3,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "David H Ackley, Geoffrey E Hinton, and Terrence J Sejnowski. A learning algorithm for boltzmann machines. Cognitive science, 9(1):147–169, 1985. Sanjeev Arora, Aditya Bhaskara, Rong Ge, and Tengyu Ma. Provable bounds for learning some deep representations. In Proceedings of the 31st International Conference on Machine Learning (ICML-14), pp. 584–592, 2014. Özlem Aslan, Xinhua Zhang, and Dale Schuurmans. Convex deep learning via normalized kernels. In Advances in Neural Information Processing Systems, pp. 3275–3283, 2014. Francis Bach. Breaking the curse of dimensionality with convex neural networks. arXiv preprint arXiv:1412.8690, 2014. Pierre Baldi. Autoencoders, unsupervised learning, and deep architectures. Unsupervised and Transfer Learning Challenges in Machine Learning, Volume 7, pp. 43, 2012. Pierre Baldi and Kurt Hornik. Neural networks and principal component analysis: Learning from examples without local minima. Neural networks, 2(1):53–58, 1989. Akshay Balsubramani and Yoav Freund. Optimally combining classiﬁers using unlabeled data. In Conference on Learning Theory (COLT), 2015a. Akshay Balsubramani and Yoav Freund. Scalable semi-supervised classiﬁer aggregation. In Advances in Neural Information Processing Systems (NIPS), 2015b. 9 Figure 3: Top three rows: the reconstructions of random test images from MNIST (H = 12), as in Fig. 2. PC-AE achieves loss 105.1 here, and AE 111.2. Fourth and ﬁfth rows: visualizations of all the hidden units of PC-AE and AE, respectively. It is not possible to visualize the PC-AE encoding units by the image that maximally activates them, as commonly done, because of the form of the ENC function which depends on W and lacks explicit encoding weights. So each hidden unit h is depicted by the visible decoding of the encoded representation which has bit h \"on\" and all other bits \"off.\" (If this were PCA with a linear decoding layer, this would simply represent hidden unit h by its corresponding principal component vector, the decoding of the hth canonical basis vector in RH.) Akshay Balsubramani and Yoav Freund. Optimal binary classiﬁer aggregation for general losses. In Advances in Neural Information Processing Systems (NIPS), 2016. arXiv:1510.00452. Akshay Balsubramani, Sanjoy Dasgupta, and Yoav Freund. The fast convergence of incremental pca. In Advances in Neural Information Processing Systems (NIPS), pp. 3174–3182, 2013. Peter L Bartlett. The sample complexity of pattern classiﬁcation with neural networks: the size of the weights is more important than the size of the network. IEEE Transactions on Information Theory, 44(2):525–536, 1998. Yoshua Bengio. Learning deep architectures for ai. Foundations and Trends in Machine Learning, 2 (1):1–127, 2009. Yoshua Bengio, Nicolas L Roux, Pascal Vincent, Olivier Delalleau, and Patrice Marcotte. Convex neural networks. In Advances in neural information processing systems (NIPS), pp. 123–130, 2005. Yoshua Bengio, Aaron Courville, and Pierre Vincent. Representation learning: A review and new perspectives. Pattern Analysis and Machine Intelligence, IEEE Transactions on, 35(8):1798–1828, 2013a. Yoshua Bengio, Li Yao, Guillaume Alain, and Pascal Vincent. Generalized denoising auto-encoders as generative models. In Advances in Neural Information Processing Systems (NIPS), pp. 899–907, 2013b. Hervé Bourlard and Yves Kamp. Auto-association by multilayer perceptrons and singular value decomposition. Biological cybernetics, 59(4-5):291–294, 1988. Yuri Burda, Roger Grosse, and Ruslan Salakhutdinov. Importance weighted autoencoders. Interna- tional Conference on Learning Representations (ICLR), 2016. arXiv preprint arXiv:1509.00519. Nicolo Cesa-Bianchi and Gàbor Lugosi. Prediction, Learning, and Games. Cambridge University Press, New York, NY, USA, 2006. Yann N Dauphin, Razvan Pascanu, Caglar Gulcehre, Kyunghyun Cho, Surya Ganguli, and Yoshua Bengio. Identifying and attacking the saddle point problem in high-dimensional non-convex optimization. In Advances in neural information processing systems (NIPS), pp. 2933–2941, 2014. 10 John Duchi, Elad Hazan, and Yoram Singer. Adaptive subgradient methods for online learning and stochastic optimization. The Journal of Machine Learning Research, 12:2121–2159, 2011. Yoav Freund and David Haussler. Unsupervised learning of distributions on binary vectors using two layer networks. In Advances in Neural Information Processing Systems (NIPS), pp. 912–919, 1992. Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio. Generative adversarial nets. In Advances in Neural Information Processing Systems (NIPS), pp. 2672–2680, 2014. Jochen Gorski, Frank Pfeuffer, and Kathrin Klamroth. Biconvex sets and optimization with biconvex functions: a survey and extensions. Mathematical Methods of Operations Research, 66(3):373–407, 2007. Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. arXiv preprint arXiv:1512.03385, 2015. Geoffrey E Hinton, Peter Dayan, Brendan J Frey, and Radford M Neal. The\" wake-sleep\" algorithm for unsupervised neural networks. Science, 268(5214):1158–1161, 1995. Majid Janzamin, Hanie Sedghi, and Anima Anandkumar. Beating the perils of non-convexity: Guaranteed training of neural networks using tensor methods. arXiv preprint arXiv:1506.08473, 2015. Michael I Jordan. Why the logistic function? a tutorial discussion on probabilities and neural networks, 1995. Diederik Kingma and Jimmy Ba. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014. Diederik P Kingma and Max Welling. Auto-encoding variational bayes. arXiv preprint arXiv:1312.6114, 2013. Yann LeCun, Yoshua Bengio, and Geoffrey Hinton. Deep learning. Nature, 521(7553):436–444, 2015. Yujia Li, Kevin Swersky, and Rich Zemel. Generative moment matching networks. In Proceedings of the 32nd International Conference on Machine Learning (ICML-15), pp. 1718–1727, 2015. Roi Livni, Shai Shalev-Shwartz, and Ohad Shamir. On the computational efﬁciency of training neural networks. In Advances in Neural Information Processing Systems (NIPS), pp. 855–863, 2014. Alireza Makhzani, Jonathon Shlens, Navdeep Jaitly, and Ian Goodfellow. Adversarial autoencoders. arXiv preprint arXiv:1511.05644, 2015. Antti Rasmus, Mathias Berglund, Mikko Honkala, Harri Valpola, and Tapani Raiko. Semi-supervised learning with ladder networks. In Advances in Neural Information Processing Systems, pp. 3546– 3554, 2015. David E Rumelhart and James L McClelland. Parallel distributed processing, explorations in the microstructure of cognition. vol. 1: Foundations. Computational Models of Cognition and Perception, Cambridge: MIT Press, 1987. David E Rumelhart, Geoffrey E Hinton, and Ronald J Williams. Learning representations by back-propagating errors. Nature, 323(6088):533–536, 1986. Ruslan Salakhutdinov and Iain Murray. On the quantitative analysis of deep belief networks. In Proceedings of the 25th International Conference on Machine Learning (ICML), pp. 872–879, 2008. Ohad Shamir. Convergence of stochastic gradient descent for pca. International Conference on Machine Learning (ICML), 2016. arXiv preprint arXiv:1509.09002. 11 P Smolensky. Information processing in dynamical systems: foundations of harmony theory. In Parallel distributed processing: explorations in the microstructure of cognition, vol. 1, pp. 194–281. MIT Press, 1986. Pascal Vincent, Hugo Larochelle, Yoshua Bengio, and Pierre-Antoine Manzagol. Extracting and composing robust features with denoising autoencoders. In Proceedings of the 25th international conference on Machine learning (ICML), pp. 1096–1103. ACM, 2008. Pascal Vincent, Hugo Larochelle, Isabelle Lajoie, Yoshua Bengio, and Pierre-Antoine Manzagol. Stacked denoising autoencoders: Learning useful representations in a deep network with a local denoising criterion. The Journal of Machine Learning Research, 11:3371–3408, 2010. Yuchen Zhang, Percy Liang, and Martin J Wainwright. Convexiﬁed convolutional neural networks. arXiv preprint arXiv:1609.01000, 2016. 12 A EXPERIMENTAL DETAILS In addition to MNIST, we use the preprocessed version of the Omniglot dataset found in Burda et al. (2016), split 1 of the Caltech-101 Silhouettes dataset, the small notMNIST dataset, and the UCI Adult (a1a) dataset. The results reported are the mean of 10 Monte Carlo runs, and the PC-AE signiﬁcance results use 95% Monte Carlo conﬁdence intervals. Only notMNIST comes without a predeﬁned split, so the displayed results use 10-fold cross-validation. Non-binarized versions of all datasets (grayscale pixels) resulted in nearly identical PC-AE performance (not shown); this is as expected from its derivation using expected pairwise correlations, which with high probability are nearly invariant under binarization (by e.g. Hoeffding bounds). We used minibatches of size 250. All standard autoencoders use the ’Xavier’ initialization and trained for 500 epochs or using early stopping on the test set. The “PCA\" baseline was run on exactly the same input data as the others; it ﬁnds decodings by mean-centering this input, ﬁnding the top H principal components with standard PCA, reconstructing the mean-centered input with these components, adding back the means, and ﬁnally thresholding the result to [−1, 1]V . We did not evaluate against other types of autoencoders which regularize (Kingma & Welling (2013)) or are otherwise not trained for direct reconstruction loss minimization. Also, not shown is the performance of a standard convolutional autoencoder (32-bit representation, depth-3 64-64-32 (en/de)coder) which performs better than the standard autoencoder, but is still outperformed by PC-AE on our image-based datasets. A deeper architecture could quite possibly achieve superior performance, but the greater number of channels through which information is propagated makes fair comparison with our ﬂat fully-connected approach difﬁcult. We consider extension of our PC-AE approach to such architectures to be fascinating future work. A.1 FURTHER RESULTS Our bound on worst-case loss is invariably quite tight, as shown in Fig. 4. Similar results are found on all datasets. This is consistent with our conclusions about the nature of the PC-AE representations – conveying almost exactly the information available in pairwise correlations. Figure 4: Actual reconstruction loss to real data (red) and slack function [objective function] value (dotted green), during Adagrad optimization to learn W using the optimal E, B. Monotonicity is expected since this is a convex optimization. The objective function value theoretically upper-bounds the actual loss, and practically tracks it nearly perfectly. A 2D visualization of MNIST is in Fig. 6, showing that even with just two hidden units there is enough information in pairwise correlations for PC-AE to learn a sensible embedding. We also include more pictures of our autoencoders’ reconstructions, and visualizations of the hidden units when H = 100 in Fig. 5. 13 Figure 5: Visualizations of all the hidden units of PC-AE (left) and AE (right) from Omniglot for H = 100, as in Fig. 3. Figure 6: AE (left) and PC-AE (right) visualizations of a random subset of MNIST test data, with H = 2 real-valued hidden units, and colors corresponding to class labels (legend at left). PC-AE’s loss is ∼189 here, and that of AE is ∼179. A.2 PC-AE INTERPRETATION AND IMPLEMENTATION DETAILS Here we give some details that are useful for interpretation and implementation of the proposed method. 14 Figure 7: As Fig. 2, with H = 100 on Caltech-101 silhouettes. Figure 8: As Fig. 2, with H = 100 on MNIST. A.2.1 ENCODING Proposition 2 deﬁnes the encoding function for any data example x as the vector that minimizes the total feature distortion, summed over the bits in the decoding, rewritten here for convenience: ENC(x(i); W) := arg min e∈[−1,1]H V X v=1 h −x(i) v w⊤ v e(i) + Ψ(w⊤ v e(i)) i (7) Doing this on multiple examples at once (in memory as a minibatch) can be much faster than on each example separately. We can now compute the gradient of the objective function w.r.t. each example i ∈[n], writing the gradient w.r.t. example i as column i of a matrix G ∈RH×n. G can be calculated efﬁciently in a number of ways, for example as follows: • Compute matrix of hallucinated data X̆ := Ψ′(WE) ∈RV ×n. • Subtract X to compute residuals R := X̆ −X ∈RV ×n. • Compute G = 1 nW⊤R ∈RH×n. Optimization then proceeds with gradient descent using G, with the step size found using line search. Note that since the objective function is convex, the optimum E∗leads to optimal residuals R∗∈RV ×n such that G = 1 nW⊤R∗= 0H×n, so each column of R∗is in the null space of W⊤, which maps the residual vectors to the encoded space. We conclude that although the compression is not perfect (so the optimal residuals R∗̸= 0V ×n in general), each column of R∗is orthogonal to the decoding weights at an equilibrium towards which the convex minimization problem of (7) is guaranteed to stably converge. A.2.2 DECODING The decoding step ﬁnds W to ensure accurate decoding of the given encodings E with correlations B, solving the convex minimization problem: W∗= arg min W∈RV ×H V X v=1 \" −b⊤ v wv + 1 n n X i=1 Ψ(w⊤ v e(i)) # (8) This can be minimized by ﬁrst-order convex optimization. The gradient of (8) at W is: −B + 1 n[Ψ′(WE)]E⊤ (9) 15 Figure 9: As Fig. 2, with H = 32 on notMNIST. The second term can be understood as “hallucinated\" pairwise correlations B̆, between bits of the encoded examples E and bits of their decodings under the current weights, X̆ := Ψ′(WE). The hallucinated correlations can be written as B̆ := 1 n X̆E⊤. Therefore, (9) can be interpreted as the residual correlations B̆ −B. Since the slack function of (8) is convex, the optimum W∗leads to hallucinated correlations B̆∗= B, which is the limit reached by the optimization algorithm after many iterations. B ALLOWING RANDOMIZED DATA AND ENCODINGS In this paper, we represent the bit-vector data in a randomized way in [−1, 1]V . Randomizing the data only relaxes the constraints on the adversary in the game we play; so at worst we are working with an upper bound on worst-case loss, instead of the exact minimax loss itself, erring on the conservative side. Here we brieﬂy justify the bound as being essentially tight, which we also see empirically in this paper’s experiments. In the formulation of Section 2, the only information we have about the data is its pairwise correlations with the encoding units. When the data are abundant (n large), then w.h.p. these correlations are close to their expected values over the data’s internal randomization, so representing them as continuous values w.h.p. results in the same B and therefore the same solutions for E, W. We are effectively allowing the adversary to play each bit’s conditional probability of ﬁring, rather than the binary realization of that probability. This allows us to apply minimax theory and duality to considerably simplify the problem to a convex optimization, when it would otherwise be nonconvex, and computationally hard (Baldi (2012)). The fact that we are only using information about the data through its expected pairwise correlations with the hidden units makes this possible. The above also applies to the encodings and their internal randomization, allowing us to learn binary randomized encodings by projecting to the convex set [−1, 1]H. C DENOISING AUTOENCODER WITH MASKING NOISE: DETAILS This section elaborates on the discussion of Sec. 5.2. Recall the correlation correction term δv,h from Sec. 5.2: δv,h = 1 n n X i=1 ( ẋ(i) v −x(i) v )e(i) h Here, we express this in terms of the known quantities ẋv, eh, ρ, and not the unknown denoised data xv. Consider that ( ẋ(i) v −x(i) v )e(i) h = 1 \u0010 x(i) v = −1 \u0011 ( ẋ(i) v −x(i) v )e(i) h + 1 \u0010 x(i) v = +1 \u0011 ( ẋ(i) v −x(i) v )e(i) h 16 Now if x(i) v = −1, then ẋ(i) v = −1, so ( ẋ(i) v −x(i) v )e(i) h = 0. Therefore the ﬁrst term above is zero, and the expression can be simpliﬁed: ( ẋ(i) v −x(i) v )e(i) h = 1 \u0010 x(i) v = +1 \u0011 ( ẋ(i) v −x(i) v )e(i) h = 1 \u0010 x(i) v = +1 ∧ẋ(i) v = −1 \u0011 (−2)e(i) h (10) Now on any example i, independent of the value of e(i) h , a ρ fraction of the bits where x(i) v = +1 are ﬂipped to get ẋ(i) v . Therefore, 1 ρ n X i=1 1 \u0010 x(i) v = +1 ∧ẋ(i) v = −1 \u0011 e(i) h ≈ 1 1 −ρ n X i=1 1 \u0010 x(i) v = +1 ∧ẋ(i) v = +1 \u0011 e(i) h Putting it all together, δv,h = 1 n n X i=1 ( ẋ(i) v −x(i) v )e(i) h = −2 n n X i=1 1 \u0010 x(i) v = +1 ∧ẋ(i) v = −1 \u0011 e(i) h ≈−2 n ρ 1 −ρ n X i=1 1 \u0010 x(i) v = +1 ∧ẋ(i) v = +1 \u0011 e(i) h = −2 n ρ 1 −ρ n X i=1 1 \u0010 ẋ(i) v = +1 \u0011 e(i) h D PROOFS Proof of Theorem 1. Writing Γ(x̃(i) v ) := ℓ−(x̃(i) v ) −ℓ+(x̃(i) v ) = ln \u0010 1+x̃(i) v 1−x̃(i) v \u0011 for convenience, we can simplify L∗, using the deﬁnition of the loss (2), and Lagrange duality for all V H constraints involving B. This leads to the following chain of equalities, where for brevity the constraint sets are sometimes omitted when clear, and we write X as shorthand for the data x(1), . . . , x(n) and X̃ analogously for the reconstructions. L∗= 1 2 min x̃(1),...,x̃(n) ∈[−1,1]V max x(1),...,x(n)∈[−1,1]V , ∀v∈[V ]: 1 n Exv=bv 1 n n X i=1 V X v=1 h\u0010 1 + x(i) v \u0011 ℓ+(x̃(i) v ) + \u0010 1 −x(i) v \u0011 ℓ−(x̃(i) v ) i = 1 2 min X̃ max X min W∈RV ×H \" 1 n n X i=1 V X v=1 \u0010 ℓ+(x̃(i) v ) + ℓ−(x̃(i) v ) −x(i) v Γ(x̃(i) v ) \u0011 + V X v=1 w⊤ v \u0012 1 nExv −bv \u0013# (a) = 1 2 min w1,...,wV \" − V X v=1 b⊤ v wv + 1 n min X̃ max X V X v=1 \" n X i=1 \u0010 ℓ+(x̃(i) v ) + ℓ−(x̃(i) v ) −x(i) v Γ(x̃(i) v ) \u0011 + w⊤ v Exv ## = 1 2 min w1,...,wV \" − V X v=1 b⊤ v wv + 1 n min X̃ n X i=1 V X v=1 \u0014 ℓ+(x̃(i) v ) + ℓ−(x̃(i) v ) + max x(i)∈[−1,1]V x(i) v \u0010 w⊤ v e(i) −Γ(x̃(i) v ) \u0011\u0015 # (11) where (a) uses the minimax theorem (Cesa-Bianchi & Lugosi (2006)), which can be applied as in linear programming, because the objective function is linear in x(i) and wv. Note that the weights are introduced merely as Lagrange parameters for the pairwise correlation constraints, not as model assumptions. The strategy x(i) which solves the inner maximization of (11) is to simply match signs with w⊤ v e(i) − Γ(x̃(i) v ) coordinate-wise for each v ∈[V ]. Substituting this into the above, L∗= 1 2 min w1,...,wV \" − V X v=1 b⊤ v wv + 1 n n X i=1 min x̃(i)∈[−1,1]V V X v=1 \u0010 ℓ+(x̃(i) v ) + ℓ−(x̃(i) v ) + w⊤ v e(i) −Γ(x̃(i) v ) \u0011# = 1 2 V X v=1 min wv∈RH \" −b⊤ v wv + 1 n n X i=1 min x̃(i) v ∈[−1,1] \u0010 ℓ+(x̃(i) v ) + ℓ−(x̃(i) v ) + w⊤ v e(i) −Γ(x̃(i) v ) \u0011# 17 The absolute value breaks down into two cases, so the inner minimization’s objective can be simpliﬁed: ℓ+(x̃(i) v ) + ℓ−(x̃(i) v ) + w⊤ v e(i) −Γ(x̃(i) v ) = ( 2ℓ+(x̃(i) v ) + w⊤ v e(i) if w⊤ v e(i) ≥Γ(x̃(i) v ) 2ℓ−(x̃(i) v ) −w⊤ v e(i) if w⊤ v e(i) < Γ(x̃(i) v ) (12) Suppose x̃(i) v falls in the ﬁrst case of (12), so that w⊤ v e(i) ≥Γ(x̃(i) v ). By deﬁnition of ℓ+(·), 2ℓ+(x̃(i) v ) + w⊤ v e(i) is decreasing in x̃(i) v , so it is minimized for the greatest x̃(i)∗ v ≤1 s.t. Γ(x̃(i)∗ v ) ≤ w⊤ v e(i). This means Γ(x̃(i)∗ v ) = w⊤ v e(i), so the minimand (12) is ℓ+(x̃(i)∗ v ) + ℓ−(x̃(i)∗ v ), where x̃i∗ v = 1−e−w⊤ v e(i) 1+e−w⊤ v e(i) . A precisely analogous argument holds if x̃(i) v falls in the second case of (12), where w⊤ v e(i) < Γ(x̃(i) v ). Putting the cases together, we have shown the form of the summand Ψ. We have also shown the dependence of x̃(i)∗ v on w∗⊤ v e(i), where w∗ v is the minimizer of the outer minimization of (11). This completes the proof. D.1 L∞CORRELATION CONSTRAINTS AND L1 WEIGHT REGULARIZATION Here we formalize the discussion of Sec. 3.4 with the following result. Theorem 3. min x̃(1),...,x̃(n)∈[−1,1]V max x(1),...,x(n)∈[−1,1]V , ∀v∈[V ]: ∥1 n Exv−bv∥∞≤ϵv 1 n n X i=1 ℓ(x(i), x̃(i)) = 1 2 V X v=1 min wv∈RH \" −b⊤ v wv + 1 n n X i=1 Ψ(w⊤ v e(i)) + ϵv ∥wv∥1 # For each v, i, the minimizing x̃(i) v is a logistic function of the encoding e(i) with weights equal to the minimizing w∗ v above, exactly as in Theorem 1. Proof. The proof adapts the proof of Theorem 1, following the result on L1 regularization in",
+          "title": ", split 1 of the Caltech-101 Silhouettes dataset, the small notMNIST dataset, and the UCI Adult (a1a) dataset",
+          "authors": [
+            "David H Ackley, Geoffrey E Hinton",
+            "deep architectures. Unsupervised",
+            "Kurt Hornik. Neural networks",
+            "AE 111.2. Fourth",
+            "ﬁfth rows: visualizations of all the hidden units of PC-AE",
+            "Pierre Vincent. Representation learning: A review",
+            "new perspectives. Pattern Analysis",
+            "Yves Kamp. Auto-association by multilayer perceptrons",
+            "Gàbor Lugosi. Prediction, Learning",
+            "Yoshua Bengio. Identifying",
+            "Yoram Singer. Adaptive subgradient methods for online learning",
+            "Kathrin Klamroth. Biconvex sets",
+            "neural networks, 1995. Diederik Kingma",
+            "Perception, Cambridge: MIT Press, 1987. David E Rumelhart, Geoffrey E Hinton",
+            "Pierre-Antoine Manzagol. Extracting"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Balsubramani & Freund (2016) in a very straightforward way; we describe this here. We break each L∞constraint into two one-sided constraints for each v, i.e. 1 nExv −bv ≤ϵv1n and 1 nExv −bv ≥−ϵv1n. These respectively give rise to two sets of Lagrange parameters λv, ξv ≥0H for each v, replacing the unconstrained Lagrange parameters wv ∈RH. The conditions for the minimax theorem apply here just as in the proof of Theorem 1, so that (11) is replaced by 1 2 min λ1,...,λV ξ1,...,ξV \" − V X v=1 b⊤ v (ξv −λv) −ϵv1⊤(ξv + λv) \u0001 (13) + 1 n min X̃ n X i=1 V X v=1 \u0014 ℓ+(x̃(i) v ) + ℓ−(x̃(i) v ) + max x(i) x(i) v \u0010 (ξv −λv)⊤e(i) −Γ(x̃(i) v ) \u0011\u0015 # (14) Suppose for some h ∈[H] that ξv,h > 0 and λv,h > 0. Then subtracting min(ξv,h, λv,h) from both does not affect the value [ξv −λv]h, but always decreases [ξv + λv]h, and therefore always decreases the objective function. Therefore, we can w.l.o.g. assume that ∀h ∈[H] : min(ξv,h, λv,h) = 0. Deﬁning wv = ξv −λv (so that ξv,h = [wv,h]+ and λv,h = [wv,h]−for all h), we see that the term ϵv1⊤(ξv + λv) in (13) can be replaced by ϵv ∥wv∥1. Proceeding as in the proof of Theorem 1 gives the result. 18 E GENERAL RECONSTRUCTION LOSSES In this section we extend Theorem 1 to a larger class of reconstruction losses for binary autoencoding, of which cross-entropy loss is a special case. This uses techniques recently employed by Balsubramani & Freund (2016) for binary classiﬁcation. Since the data X are still randomized binary, we ﬁrst broaden the deﬁnition of (2), rewritten here: ℓ(x(i), x̃(i)) := V X v=1 \" 1 + x(i) v 2 ! ℓ+(x̃(i) v ) + 1 −x(i) v 2 ! ℓ−(x̃(i) v ) # (15) We do this by redeﬁning the partial losses ℓ±(x̃(i) v ), to any functions satisfying the following mono- tonicity conditions. Assumption 1. Over the interval (−1, 1), ℓ+(·) is decreasing and ℓ−(·) is increasing, and both are twice differentiable. Assumption 1 is a very natural one and includes many non-convex losses (see Balsubramani & Freund (2016) for a more detailed discussion, much of which applies bitwise here). This and the additive decomposability of (15) over the V bits are the only assumptions we make on the reconstruction loss ℓ(x(i), x̃(i)). The latter decomposability assumption is often natural when the loss is a log-likelihood, where it is tantamount to conditional independence of the visible bits given the hidden ones. Given such a reconstruction loss, deﬁne the increasing function Γ(y) := ℓ−(y)−ℓ+(y) : [−1, 1] 7→R, for which there exists an increasing (pseudo)inverse Γ−1. Using this we broaden the deﬁnition of the potential function Ψ in terms of ℓ±: Ψ(m) :=    −m + 2ℓ−(−1) if m ≤Γ(−1) ℓ+(Γ−1(m)) + ℓ−(Γ−1(m)) if m ∈(Γ(−1), Γ(1)) m + 2ℓ+(1) if m ≥Γ(1) Then we may state the following result, describing the optimal decoding function for a general reconstruction loss. Theorem 4. Deﬁne the potential function min x̃(1),...,x̃(n)∈[−1,1]V max x(1),...,x(n)∈[−1,1]V , ∀v∈[V ]: 1 n Exv=bv 1 n n X i=1 ℓ(x(i), x̃(i)) = 1 2 V X v=1 min wv∈RH \" −b⊤ v wv + 1 n n X i=1 Ψ(w⊤ v e(i)) # For each v ∈[V ], i ∈[n], the minimizing x̃(i) v is a sigmoid function of the encoding e(i) with weights equal to the minimizing w∗ v above, as in Theorem 1. The sigmoid is deﬁned as x̃(i)∗ v :=    −1 if w∗ v ⊤e(i) ≤Γ(−1) Γ−1(w∗ v ⊤e(i)) if w∗ v ⊤e(i) ∈(Γ(−1), Γ(1)) 1 if w∗ v ⊤e(i) ≥Γ(1) (16)",
+          "title": "in a very straightforward way; we describe this here",
+          "authors": [
+            "Balsubramani",
+            "Freund"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.32 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "The proof is nearly identical to that of the main theorem of Balsubramani & Freund (2016). That proof is essentially recapitulated here for each bit v ∈[V ] due to the additive decomposability of the loss, through algebraic manipulations (and one application of the minimax theorem) identical to the proof of Theorem 1, but using the more general speciﬁcations of Ψ and Γ in this section. So we do not rewrite it in full here. A notable special case of interest is the Hamming loss, for which ℓ±(x̃(i) v ) = 1 2 \u0010 1 ∓x̃(i) v \u0011 , where the reconstructions are allowed to be randomized binary values. In this case, we have Ψ(m) = max(|m| , 1), and the sigmoid used for each decoding neuron is the clipped linearity max(−1, min(w∗ v ⊤e(i), 1)). 19 F ALTERNATE APPROACHES We made some technical choices in the derivation of PC-AE, which prompt possible alternatives not explored here for a variety of reasons. Recounting these choices gives more insight into our framework. The output reconstructions could have restricted pairwise correlations, i.e. 1 n X̃E⊤= B. One option is to impose such restrictions instead of the existing constraints on X, leaving X unrestricted. However, this is not in the spirit of this paper, because B is our means of indirectly conveying information to the decoder about how X is decoded. Another option is to restrict both X̃ and X. This is possible and may be useful in propagating correlation information between layers of deeper architectures while learning, but its minimax solution does not have the conveniently clean structure of the PC-AE derivation. In a similar vein, we could restrict E during the encoding phase, using B and X. As B is changed only during this phase to better conform to the true data X, this tactic ﬁxes B during the optimization, which is not in the spirit of this paper’s approach. It also performed signiﬁcantly worse in our experiments. 20",
+          "title": "That proof is essentially recapitulated here for each bit v ∈[V ] due to the additive decomposability of the loss, through algebraic manipulations (and one application of the minimax theorem) identical to the proof of Theorem 1, but using the more general speciﬁcations of Ψ and Γ in this section",
+          "authors": [
+            "The proof is nearly identical to that of the main theorem of Balsubramani",
+            "Freund"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1",
+        "citation_integrity_grounding:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "531405271a548180d951cd165730003e8730d3b45ce55e3f2f666508888d08b6",
+          "request_time": "2026-08-22T17:43:04.889322Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:43:05.747995Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "eea997c0e4a699ef335e236906b57ceabd90d96efa87cfda6209dd8d4a3cf5e0",
+          "request_time": "2026-08-22T17:43:07.011956Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=unknown.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:48:19.946498Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "unknown",
+      "document_type_confidence": 0.2,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Başlık ve özet, ikili otomatik kodlayıcıların optimizasyonu ve öğrenilmesi üzerine bir modelleme çalışmasına işaret ediyor. Belge türü için yeterli sinyal yok, referans sayısı ve bölüm başlıkları bir konferans bildirisi olabileceğini düşündürse de kesin değil.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 86.77777777777777,
+      "recommended_decision": "accept",
+      "confidence": 0.7008695652173913,
+      "top_fatal_risks": [
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 1 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 63.0,
+        "severity": "major",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "ethics",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The encoding function ENC(x; W) requires solving an optimization problem for each input example. The paper lacks a detailed discussion of the computational cost implications of this for large-scale datasets or real-time applications. This is a significant practical limitation that needs to be thoroughly addressed.; The paper frequently uses the term 'optimality' without consistently qualifying it within the specific context of pairwise correlation constraints. While the method is optimal under these specific constraints, it is not globally optimal. This needs to be clarified throughout the text to avoid misinterpretation.; Appendices A, D.1, and E contain numerical citations (e.g., [1], [2], [3]) that do not correspond to any entries in the reference list. These appear to be placeholders or typesetting errors and must be corrected or removed.",
+        "key_objection": "The encoding function ENC(x; W) requires solving an optimization problem for each input example. The paper lacks a detailed discussion of the computational cost implications of this for large-scale datasets or real-time applications. This is a significant practical limitation that needs to be thoroughly addressed.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "2 concern(s): The claim that 'Each step of the algorithm involves solving a convex problem' is a strength, but the computational cost and practical implications of solving an optimization problem for each example in the encoding function ENC(x; W) are not sufficiently discussed. This could be a significant bottleneck for large-scale or real-time applications.; The paper states that 'The proposed PC-AE method demonstrates competitive, and often superior, reconstruction performance.' While this is a strength, the discussion of Figure 6, where standard AE appears to achieve better class separation despite higher reconstruction loss, suggests that reconstruction performance might not always align with utility for downstream discriminative tasks. This nuance could be further explored in the context of the method's overall objective.",
+        "key_objection": "The claim that 'Each step of the algorithm involves solving a convex problem' is a strength, but the computational cost and practical implications of solving an optimization problem for each example in the encoding function ENC(x; W) are not sufficiently discussed. This could be a significant bottleneck for large-scale or real-time applications.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "3 concern(s): The paper's claim of 'optimality' should be more precisely qualified throughout the text. While the method is optimal under the specific constraint of using only pairwise correlations, it is not globally optimal. Consistently framing the results within this explicit context would strengthen the paper's precision.; The encoding function, ENC(x; W), requires solving an optimization problem for each example. A more detailed discussion of its computational cost and implications for large-scale or real-time applications would be beneficial.; The manuscript contains several formatting errors in the appendices where numerical citations (e.g., in Appendix A, D.1, E) are used but do not correspond to any entries in the reference list. These appear to be placeholders or typesetting artifacts that should be corrected for clarity. Specifically, references [1], [2], and [3] mentioned in the 'technical_soundness' comment are not found in the reference index.",
+        "key_objection": "The paper's claim of 'optimality' should be more precisely qualified throughout the text. While the method is optimal under the specific constraint of using only pairwise correlations, it is not globally optimal. Consistently framing the results within this explicit context would strengthen the paper's precision.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "3 concern(s): The draft correctly identifies that there are numerical citations in the appendices (A, D.1, E) that do not correspond to entries in the reference list. The evidence package confirms that references [1], [2], and [3] are 'not_found_in_index', indicating these are indeed missing or incorrectly formatted citations.; The draft correctly identifies that there are numerical citations in the appendices (A, D.1, E) that do not correspond to entries in the reference list. The evidence package confirms that references [1], [2], and [3] are 'not_found_in_index', indicating these are indeed missing or incorrectly formatted citations.; The draft correctly states that no fabricated or retracted citations were found. It also correctly identifies that the score is lowered due to minor formatting errors where non-existent numerical citations appear, and explicitly references the evidence pack's findings for ref[1], ref[2], ref[3] being 'not_found_in_index'.",
+        "key_objection": "The draft correctly identifies that there are numerical citations in the appendices (A, D.1, E) that do not correspond to entries in the reference list. The evidence package confirms that references [1], [2], and [3] are 'not_found_in_index', indicating these are indeed missing or incorrectly formatted citations.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "contribution_originality.f2",
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper introduces a novel and theoretically principled method for training binary autoencoders, termed Pairwise Correlation Autoencoder (PC-AE). The authors formulate the learning problem as a minimax game between the autoencoder and an adversary, constrained by the pairwise correlations between input and encoded bits. A key contribution is showing that this formulation naturally leads to an optimal decoder with the structure of a single-layer of logistic sigmoid neurons, an architecture that is derived rather than assumed. The overall objective is biconvex, admitting an efficient alternating minimization algorithm. The theoretical claims are supported by competitive empirical results on several benchmark datasets, demonstrating the practical viability of the approach.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik ve Algoritmik Tasarımın Açıklığı",
+        "summary": "Makale, ikili oto-kodlayıcı öğrenimini biconvex bir optimizasyon problemi olarak formüle eden ve en kötü durum optimal kaybı ile girişleri yeniden yapılandıran bir algoritma bulan teorik ve algoritmik bir çalışma sunmaktadır. Araştırma sorusu, bu tür bir oto-kodlayıcının nasıl verimli bir şekilde öğrenilebileceği ve performansının nasıl olduğu üzerine odaklanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We formulate learning of a binary autoencoder as a biconvex optimization problem which learns from the pairwise correlations between encoded and decoded bits. Among all possible algorithms that use this information, ours ﬁnds the autoencoder that reconstructs its inputs with worst-case optimal loss."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "This paper considers a similar problem, except using bit-vector data and the cross-entropy recon-struction loss. Since we are compressing samples of i.i.d. V-bit data into H-bit encodings, a natural approach is to remember the pairwise statistics: the V H average correlations between pairs of bits in the encoding and decoding, constituting as much additional memory as the eigenvectors used in PCA."
+          }
+        ],
+        "reasoning_public": "Çalışma, nicel bir araştırma olmaktan ziyade teorik ve algoritmik bir geliştirme sunmaktadır. Bu nedenle, geleneksel deneysel tasarım kriterleri doğrudan uygulanamaz. Ancak, sunulan algoritmanın teorik temelleri ve problem tanımı oldukça açıktır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Makale, deneysel sonuçlar sunmasına rağmen, kullanılan veri setlerinin (MNIST, Omniglot, Caltech-101, notMNIST, Adult) örneklem büyüklüklerinin (n) algoritmanın performansı üzerindeki etkisini veya bu örneklem büyüklüklerinin neden seçildiğini gerekçelendirmemektedir. Ayrıca, herhangi bir güç analizi veya hassasiyet gerekçesi sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "1_1_notation.a0",
+            "section": "1.1 NOTATION",
+            "quote": "The observed data and encodings can be written in matrix form, representing bits as ±1: X̂ = ... ∈[−1, 1]V ×n, E = ... ∈[−1, 1]H×n"
+          },
+          {
+            "anchor_id": "3_3_efficient_implementation.a0",
+            "section": "3.3 EFFICIENT IMPLEMENTATION",
+            "quote": "The number of examples n (per batch) is essentially only limited by nH, the number of compressed representations that ﬁt in memory."
+          },
+          {
+            "anchor_id": "6_experiments.a0",
+            "section": "6 EXPERIMENTS",
+            "quote": "The datasets we use are ﬁrst normalized to [0, 1], and then binarized by sampling each pixel stochasti-cally in proportion to its intensity, following prior work (Salakhutdinov & Murray (2008))."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, özellikle algoritmik performans değerlendirmelerinde, kullanılan veri setlerinin büyüklüğü ve çeşitliliği önemlidir. Bu çalışmada, 'n' değeri algoritmanın bazı adımlarında (örn. B matrisinin hesaplanması) doğrudan rol oynamasına rağmen, bu 'n' değerinin seçimi veya etkileri hakkında bir gerekçe sunulmamıştır. Bu durum, sonuçların genellenebilirliği ve istatistiksel gücü hakkında belirsizlik yaratmaktadır.",
+        "limitations": [
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ölçüm Araçları ve Değişken Operasyonelleştirme Açıklığı",
+        "summary": "Makale, yeniden yapılandırma kalitesini değerlendirmek için çapraz entropi kaybını kullanmaktadır. Bu, bit vektörlerini karşılaştırmak için yaygın olarak kullanılan bir ölçümdür. Değişkenler (x̂, e, x̃) ve bunların matris formları (X̂, E) açıkça tanımlanmıştır. Pairwise korelasyonlar (B) ve kayıp fonksiyonu (ℓ) da matematiksel olarak detaylandırılmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "It then decodes each e(i) back into a reconstructed example x̃(i) using some small amount of additional memory, and is evaluated on the quality of the reconstruction by the cross-entropy loss commonly used to compare bit vectors."
+          },
+          {
+            "anchor_id": "1_1_notation.a1",
+            "section": "1.1 NOTATION",
+            "quote": "The observed data and encodings can be written in matrix form, representing bits as ±1: X̂ = ... ∈[−1, 1]V ×n, E = ... ∈[−1, 1]H×n"
+          },
+          {
+            "anchor_id": "1_1_notation.a2",
+            "section": "1.1 NOTATION",
+            "quote": "We also consider the correlation of each bit h of the encoding with each decoded bit v over the data, i.e. bv,h := 1/n Pn i=1 x(i) v e(i) h . This too can be written in matrix form as B := 1/n X̂E⊤∈RV ×H"
+          }
+        ],
+        "reasoning_public": "Çalışma, teorik bir çerçeve sunduğu için ölçüm araçları ve operasyonelleştirme, matematiksel tanımlar aracılığıyla sağlanmıştır. Bu tanımlar, algoritmanın işleyişini anlamak için yeterince açıktır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "İstatistiksel Test/Model Seçimi ve Varsayımlar",
+        "summary": "Makale, bir optimizasyon algoritması ve teorik bir çerçeve sunduğu için geleneksel istatistiksel testler yerine optimizasyon yöntemleri kullanmaktadır. Algoritmanın biconvex yapısı ve alternatif minimizasyon yaklaşımı, bu tür problemler için uygun bir seçimdir. Varsayımlar (örn. i.i.d. veri) açıkça belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "We formulate learning of a binary autoencoder as a biconvex optimization problem"
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Consider a general autoencoding scenario, in which an algorithm learns a compression scheme for independently, identically distributed (i.i.d.) V -dimensional bit vector data"
+          },
+          {
+            "anchor_id": "3_2_an_autoencoder_learning_algorithm.a0",
+            "section": "3.2 AN AUTOENCODER LEARNING ALGORITHM",
+            "quote": "As we have seen in (3) and (6), it is convex in the encoding E and in the decoding parameters W, each of which can be ﬁxed while minimizing with respect to the other. This suggests a learning algorithm that alternately performs two steps"
+          },
+          {
+            "anchor_id": "6_experiments.a1",
+            "section": "6 EXPERIMENTS",
+            "quote": "We use Adagrad (Duchi et al. (2011)) for the convex minimizations of our algorithms; we observed that their performance is not very sensitive to the choice of optimization method, explained by our approach’s convexity."
+          }
+        ],
+        "reasoning_public": "Çalışmanın doğası gereği, istatistiksel testlerden ziyade algoritmik ve optimizasyonel yaklaşımlar ön plandadır. Bu bağlamda, seçilen yöntemler (biconvex optimizasyon, alternatif minimizasyon, Adagrad) problem yapısına uygundur. Varsayımların belirtilmesi, teorik çerçevenin anlaşılması için önemlidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metin-Tablo-Figür Sayı Tutarlılığı",
+        "summary": "Makalede sunulan deneysel sonuçlar (Tablo 1), metin içinde bahsedilen genel eğilimlerle (örn. PC-AE'nin diğer yöntemlere göre daha iyi performans göstermesi) tutarlıdır. Herhangi bir p-değeri veya test istatistiği raporlanmadığı için bu tür bir tutarlılık kontrolü yapılamamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Cross-entropy reconstruction losses for PC-AE and a vanilla single-layer autoencoder, with binary and unconstrained real-valued encodings, and signiﬁcant results in bold. The PC-AE results are signiﬁcantly better (see Appendix A) than the AE results."
+          },
+          {
+            "anchor_id": "6_experiments.a2",
+            "section": "6 EXPERIMENTS",
+            "quote": "The reconstruction performance of PC-AE indicates that it can encode information very well using pairwise correlations, compared to the directly learned AE and PCA approaches."
+          }
+        ],
+        "reasoning_public": "Çalışma, istatistiksel anlamlılık testleri yerine doğrudan performans metriklerini (yeniden yapılandırma kaybı) raporlamaktadır. Bu metrikler, metin ve tablo arasında tutarlıdır.",
+        "limitations": [
+          "p-value tutarlılık kontrolü yapılamadı çünkü test istatistiği raporlanmamış; bu bir raporlama-eksikliği uyarısıdır, yeniden hesap değildir."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, Tablo 1'de farklı algoritmalar için çapraz entropi yeniden yapılandırma kayıplarını raporlamaktadır. Ancak, bu kayıplar için güven aralıkları veya diğer belirsizlik ölçüleri (örn. standart sapma) sunulmamıştır. Bu durum, gözlemlenen performans farklarının istatistiksel olarak ne kadar güvenilir olduğunu değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a1",
+            "section": "Table 1",
+            "quote": "Cross-entropy reconstruction losses for PC-AE and a vanilla single-layer autoencoder, with binary and unconstrained real-valued encodings, and signiﬁcant results in bold. The PC-AE results are signiﬁcantly better (see Appendix A) than the AE results."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, özellikle deneysel karşılaştırmalarda, sadece ortalama değerleri değil, aynı zamanda bu değerlerin etrafındaki belirsizliği de raporlamak önemlidir. Güven aralıklarının veya standart sapmaların eksikliği, okuyucunun sonuçların genellenebilirliği ve tekrarlanabilirliği hakkında tam bir yargıya varmasını engeller.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejisi",
+        "summary": "Makale, teorik bir algoritma sunmakta ve deneysel sonuçlar için standart veri setleri kullanmaktadır. Bu veri setlerinde eksik veri veya aykırı değerlerin nasıl ele alındığına dair spesifik bir strateji açıklanmamıştır. Ancak, veri setlerinin 'normalize edildiği' ve 'binarize edildiği' belirtilmiştir, bu da ön işleme adımlarının uygulandığını düşündürmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "6_experiments.a3",
+            "section": "6 EXPERIMENTS",
+            "quote": "The datasets we use are ﬁrst normalized to [0, 1], and then binarized by sampling each pixel stochasti-cally in proportion to its intensity, following prior work (Salakhutdinov & Murray (2008))."
+          }
+        ],
+        "reasoning_public": "Teorik bir çalışmada, eksik veri ve aykırı değer işleme genellikle deneysel uygulamaların bir parçasıdır. Makalede bu konuda detaylı bir açıklama olmaması, bu tür durumların nasıl yönetildiğine dair belirsizlik yaratmaktadır. Ancak, veri ön işleme adımlarının varlığı, bu konuların bir ölçüde ele alındığını göstermektedir.",
+        "limitations": [
+          "Eksik veri veya aykırı değerlerin spesifik olarak nasıl ele alındığına dair detaylı bilgi verilmemiştir.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Nedensel Dil Disiplini",
+        "summary": "Makale, bir algoritmanın teorik gelişimini ve performansını sunmaktadır. Nedensel iddialar yerine, algoritmanın 'en kötü durum optimal kaybı' ile girişleri yeniden yapılandırdığı ve 'rekabetçi deneysel sonuçlar' gösterdiği gibi ifadeler kullanılmıştır. Bu ifadeler, algoritmanın performansını tanımlamakta olup, nedensel bir ilişki kurma amacı taşımamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "Among all possible algorithms that use this information, ours ﬁnds the autoencoder that reconstructs its inputs with worst-case optimal loss."
+          },
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "All this is reﬂected in competitive experimental results, demonstrating that binary autoencoding can be done efﬁciently by conveying information in pairwise correlations in an optimal fashion."
+          }
+        ],
+        "reasoning_public": "Çalışmanın doğası gereği, nedensel dil kullanımı beklenmemektedir. Algoritmanın teorik garantileri ve deneysel performansı, nedensel çıkarımlar yerine algoritmik yeterliliği vurgulamaktadır. Bu nedenle, nedensel dil disiplini açısından herhangi bir sorun bulunmamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Tekrar Üretilebilirlik İçin Kod Erişilebilirliği",
+        "summary": "Makale, TensorFlow kodunun GitHub deposunda (https://github.com/aikanor/pc-autoenco) mevcut olduğunu belirtmektedir. Bu, çalışmanın tekrar üretilebilirliğini artırmak için önemli bir adımdır. Ancak, veri setlerinin tam olarak nasıl elde edildiği veya işlendiği (örn. binarizasyon adımları) hakkında daha fazla detay, tam tekrar üretilebilirlik için faydalı olabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "6_experiments.a4",
+            "section": "6 EXPERIMENTS",
+            "quote": "TensorFlow code available at https://github.com/aikanor/pc-autoenco"
+          }
+        ],
+        "reasoning_public": "Kodun açık kaynak olarak sunulması, modern bilimsel araştırmalarda tekrar üretilebilirliği destekleyen kritik bir uygulamadır. Bu, araştırmacıların algoritmayı doğrulamasına ve geliştirmesine olanak tanır. Veri işleme adımlarının daha detaylı açıklanması, tam tekrar üretilebilirliği daha da güçlendirecektir.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Raporlama Kalitesi ve 'Anlamlı' İfadelerin Kullanımı",
+        "summary": "Makale, ana sonuçları (yeniden yapılandırma kayıpları) Tablo 1'de sunmaktadır. Ancak, 'significantly better' gibi ifadeler kullanılırken, bu iddiaları destekleyecek istatistiksel anlamlılık testleri veya p-değerleri raporlanmamıştır. Bu durum, okuyucunun bu iddiaların istatistiksel temelini değerlendirmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a2",
+            "section": "Table 1",
+            "quote": "The PC-AE results are signiﬁcantly better (see Appendix A) than the AE results."
+          },
+          {
+            "anchor_id": "6_experiments.a5",
+            "section": "6 EXPERIMENTS",
+            "quote": "We ﬁnd the results to be signiﬁcantly worse than the AE alone in all datasets used (e.g. reconstruction loss of ∼171/133 on MNIST, and ∼211/134 on Omniglot, with 32/100 hidden units respectively)."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, 'anlamlı' veya 'önemli' gibi terimler kullanılırken, bu iddiaların istatistiksel kanıtlarla desteklenmesi beklenir. Sadece ortalama değerlerin sunulması ve bu tür ifadelerin kullanılması, raporlama kalitesini düşürebilir ve yanlış yorumlamalara yol açabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Minimax Optimizasyonuna Dayalı Özgün Autoencoder Formülasyonu",
+        "summary": "Makale, ikili autoencoder öğrenimini, kodlanmış ve çözülmüş bitler arasındaki ikili korelasyonlardan öğrenen biconvex bir optimizasyon problemi olarak formüle ederek önemli bir özgünlük sunmaktadır. Bu yaklaşım, mevcut autoencoder çalışmalarından farklılaşmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "We formulate learning of a binary autoencoder as a biconvex optimization problem which learns from the pairwise correlations between encoded and decoded bits."
+          },
+          {
+            "anchor_id": "4_discussion_and_related_work.a0",
+            "section": "4 DISCUSSION AND RELATED WORK",
+            "quote": "First and foremost, we posit no explicit decision rule, and avoid optimizing the highly non-convex decision surface traversed by traditional autoencoding algorithms that learn with backpropagation (Rumelhart et al. (1986)). The decoding function, given the encodings, is a single layer of artiﬁcial neurons only because of the minimax structure of the problem when minimizing worst-case loss. This differs from reasoning typically used in neural net work (see Jordan (1995)), in which the loss is the negative log-likelihood (NLL) of the joint probability, which is assumed to follow a form speciﬁed by logistic artiﬁcial neurons and their weights. We instead interpret the loss in the usual direct way as the NLL of the predicted probability of the data given the visible bits, and avoid any assumptions on the decision rule (e.g. not monotonicity in the score w⊤ v e(i), or even dependence on such a score). This justiﬁcation of artiﬁcial neurons – as the minimax optimal decision rules given information on pairwise correlations – is one of our more distinctive contributions (see Sec. 5.1)."
+          }
+        ],
+        "reasoning_public": "Yazar, geleneksel autoencoder algoritmalarının aksine, açık bir karar kuralı varsaymadan ve geri yayılımla optimize edilen yüksek derecede dışbükey olmayan karar yüzeylerinden kaçınarak, minimax yapıya dayalı bir autoencoder formülasyonu geliştirmiştir. Bu, yapay sinir ağlarının optimal karar kuralları olarak ortaya çıkışına dair yeni bir gerekçe sunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Varsayımsız Optimal Çözücü ve Kodlayıcı Fonksiyonları",
+        "summary": "Makale, kodlama veya çözme formuna dair hiçbir varsayımda bulunmadan, yalnızca çözme tarafından kullanılan belleği sınırlayarak, en kötü durum kaybını minimize eden optimal bir çözücü ve kodlayıcı fonksiyonu türetmektedir. Bu, mevcut modellerin aksine, model sınıfı varsayımlarından kaçınarak güçlü bir teorik avantaj sağlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_discussion_and_related_work.a1",
+            "section": "4 DISCUSSION AND RELATED WORK",
+            "quote": "Crucially, we make no assumptions whatsoever on the form of the encoding or decoding, except on the memory used by the decoding. Some such “regularizing\" restriction is necessary to rule out the autoencoder just memorizing the data, and is typically expressed by assuming a model class of compositions of artiﬁcial neuron layers. We instead impose it axiomiatically by limiting the amount of information transmitted through B, which does not scale in n; but we do not restrict how this information is used. This confers a clear theoretical advantage, allowing us to attain the strongest robust loss guarantee among all possible autoencoders that use the correlations B."
+          }
+        ],
+        "reasoning_public": "Yazar, autoencoder'ın veriyi ezberlemesini engellemek için 'düzenleyici' bir kısıtlama olarak, B aracılığıyla iletilen bilgi miktarını sınırlamayı seçmiştir. Bu yaklaşım, geleneksel model sınıfı varsayımlarından farklıdır ve en kötü durum kaybı garantisi açısından teorik bir üstünlük sunar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f2",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.7,
+        "title": "Derin Temsillere Genişletilebilirlik ve Gelecek Çalışma Potansiyeli",
+        "summary": "Makale, mevcut minimax karakterizasyonunun derin temsiller için genişletilmesinin ilginç bir açık problem olduğunu belirtmekte ve bu alandaki potansiyel gelecek çalışmaları vurgulamaktadır. Bu, çalışmanın sadece mevcut bir çözümü sunmakla kalmayıp, aynı zamanda yeni araştırma yolları açtığını göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_optimality_other_architectures_and_depth.a0",
+            "section": "4.1 OPTIMALITY, OTHER ARCHITECTURES, AND DEPTH",
+            "quote": "Extending this paper’s convenient minimax characterization to deep representations with empirical success is a very interesting open problem. Prior work on stacking autoencoders/RBMs (Vincent et al. (2010)) and our learning algorithm PC-AE suggest that we could train a deep network in alternating forward and backward passes. Using this paper’s ideas, the forward pass would learn the weights to each layer given the previous layer’s activations (and inter-layer pairwise correlations) by minimizing the slack function, with the backward pass learning the activations for each layer given the weights to / activations of the next layer by convex optimization (as we learn E). Both passes would consist of successive convex optimizations dictated by our approach, quite distinct from backpropagation, though loosely resembling the wake-sleep algorithm (Hinton et al. (1995))."
+          }
+        ],
+        "reasoning_public": "Yazar, autoencoder'ların ve RBM'lerin istiflenmesi üzerine yapılan önceki çalışmaların ve kendi öğrenme algoritmalarının, alternatif ileri ve geri geçişlerle derin bir ağın eğitilebileceğini öne sürdüğünü belirtmektedir. Bu, makalenin sunduğu çerçevenin daha karmaşık ağ yapılarına uygulanabilirliğini ve gelecekteki araştırmalar için bir temel oluşturduğunu göstermektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Eksik Referanslar ve Literatür Konumlandırması",
+        "summary": "Makalede atıfta bulunulan üç referansın tamamı indekslerde bulunamamıştır. Bu durum, makalenin literatürdeki konumunu ve iddialarının doğrulanabilirliğini ciddi şekilde zayıflatmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "references.a0",
+            "section": "REFERENCES",
+            "quote": "[1] , split 1 of the Caltech-101 Silhouettes dataset, the small notMNIST dataset, and the UCI Adult (a1a) dataset"
+          },
+          {
+            "anchor_id": "references.a1",
+            "section": "REFERENCES",
+            "quote": "[2] in a very straightforward way; we describe this here"
+          },
+          {
+            "anchor_id": "references.a2",
+            "section": "REFERENCES",
+            "quote": "[3] That proof is essentially recapitulated here for each bit v ∈[V ] due to the additive decomposability of the loss, through algebraic manipulations (and one application of the minimax theorem) identical to the proof of Theorem 1, but using the more general speciﬁcations of Ψ and Γ in this section"
+          }
+        ],
+        "reasoning_public": "Akademik bir çalışmanın temel gerekliliklerinden biri, atıfta bulunulan kaynakların kolayca erişilebilir ve doğrulanabilir olmasıdır. Tüm referansların indekslerde bulunamaması, okuyucuların makalenin dayandığı önceki çalışmaları incelemesini engeller ve makalenin literatürdeki yerini net bir şekilde anlamalarını zorlaştırır. Bu durum, makalenin bilimsel güvenilirliğini ve şeffaflığını olumsuz etkiler.",
+        "limitations": [
+          "Severity kanıtsızlık nedeniyle 'moderate'e indirildi: citation_integrity/literature_positioning'de critical/major severity fabricated/retracted/contradicted kanıtı gerektirir (bu makalede EvidencePack'te yok) — motor 'bulunamayan (not_found_in_index) asla suçlama değil' kuralını (HK-3) kod-seviyesinde, LLM'in metin-uyumuna bel bağlamadan uyguluyor.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0",
+          "literature_positioning.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Teorik Optimizasyon ve Deneysel Sonuçlar Arasındaki Tutarlılık",
+        "summary": "Makale, önerilen PC-AE yaklaşımının teorik olarak worst-case optimal kayıp minimizasyonu sağladığını iddia etmekte ve bu teorik üstünlüğü deneysel sonuçlarla desteklemektedir. Deneysel sonuçlar, PC-AE'nin standart tek katmanlı otoenkoderlere ve PCA'ya kıyasla daha iyi yeniden yapılandırma performansı gösterdiğini tutarlı bir şekilde ortaya koymaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "Among all possible algorithms that use this information, ours ﬁnds the autoencoder that reconstructs its inputs with worst-case optimal loss. ... All this is reﬂected in competitive experimental results, demonstrating that binary autoencoding can be done efﬁciently by conveying information in pairwise correlations in an optimal fashion."
+          },
+          {
+            "anchor_id": "6_experiments.a6",
+            "section": "6 EXPERIMENTS",
+            "quote": "The reconstruction performance of PC-AE indicates that it can encode information very well using pairwise correlations, compared to the directly learned AE and PCA approaches."
+          }
+        ],
+        "reasoning_public": "Makale, teorik çerçevesini (minimax optimizasyonu ve biconvex yapı) deneysel bulgularla başarılı bir şekilde ilişkilendirerek, iddialarının kanıtlarla uyumlu olduğunu göstermektedir. Bu, makalenin temel katkısının sağlamlığını artırmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Derin Ağlarla Karşılaştırma İddiasının Sınırlı Kanıtı",
+        "summary": "Makale, PC-AE'nin derin ağlara genişletilmesinin ilginç bir gelecek çalışma alanı olduğunu belirtirken, mevcut deneysel karşılaştırmalarını yalnızca tek katmanlı otoenkoderler ve PCA ile sınırlamaktadır. Bu durum, derin öğrenme bağlamındaki potansiyel iddiaların doğrudan deneysel kanıtlarla desteklenmediği anlamına gelmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1_optimality_other_architectures_and_depth.a1",
+            "section": "4.1 OPTIMALITY, OTHER ARCHITECTURES, AND DEPTH",
+            "quote": "Applying our approach with these would be interesting future work. Extending this paper’s convenient minimax characterization to deep representations with empirical success is a very interesting open problem."
+          },
+          {
+            "anchor_id": "6_experiments.a7",
+            "section": "6 EXPERIMENTS",
+            "quote": "In this section we compare our approach empirically to a standard autoencoder with one hidden layer (termed AE here) trained with backpropagation, and a thresholded PCA baseline."
+          }
+        ],
+        "reasoning_public": "Makale, derin ağların daha nüanslı korelasyonları ölçerek worst-case kaybı azaltabileceğini kabul etmekte ve kendi yaklaşımının derin ağlara uygulanmasının gelecek çalışma olduğunu belirtmektedir. Ancak, bu potansiyel karşılaştırmanın deneysel bir kanıtı sunulmamaktadır. Bu, makalenin 'optimal' veya 'rekabetçi' gibi ifadelerinin kapsamını daraltmaktadır, zira bu iddialar yalnızca belirli bir mimari sınıfı içinde geçerlidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Denoising Autoencoder Uygulamalarının Teorik Açıklığı",
+        "summary": "Makale, denoising autoencoder (DAE) senaryosuna kendi çerçevesinin nasıl uygulanabileceğini teorik olarak açıkça belirtmekte ve bu uygulamanın temel prensiplerini detaylandırmaktadır. Bu, gelecekteki deneysel çalışmalar için sağlam bir temel sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_2_denoising_autoencoding.a0",
+            "section": "5.2 DENOISING AUTOENCODING",
+            "quote": "Our framework can be easily applied to learn a denoising autoencoder (DAE; Vincent et al. (2008; 2010)), which uses noise-corrupted data (call it Ẋ) for training, and uncorrupted data for evaluation. From our perspective, this corresponds to leaving the learning of W unchanged, but using corrupted data when learning E."
+          },
+          {
+            "anchor_id": "5_2_denoising_autoencoding.a1",
+            "section": "5.2 DENOISING AUTOENCODING",
+            "quote": "This masking noise changes each pairwise correlation bv,h by an amount δv,h := 1/n Σ(i=1 to n) (ẋ(i)v −x(i)v )e(i)h. Therefore, the optimand Eq. (4) must be modiﬁed by subtracting this factor δv,h."
+          }
+        ],
+        "reasoning_public": "Makale, DAE'lerin PC-AE çerçevesine entegrasyonunun teorik olarak nasıl yapılabileceğini, özellikle gürültünün B korelasyonları üzerindeki etkisini ve bunun optimizasyon problemine nasıl yansıyacağını açıklayarak, iddialarını teorik bir temele oturtmaktadır. Bu, makalenin kapsamını genişletme potansiyelini göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Referansların Doğrulanabilirliğinde Eksiklik",
+        "summary": "Makalede listelenen üç referansın tamamı, akademik indekslerde (OpenAlex, Semantic Scholar) başlık, yazar ve yıl bilgileriyle doğrudan eşleşen kayıtlar olarak bulunamamıştır. Bu durum, okuyucuların atıf yapılan kaynakları kolayca doğrulamalarını veya erişmelerini zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayınlarda atıfların doğrulanabilirliği ve erişilebilirliği esastır. Okuyucuların ve hakemlerin atıf yapılan kaynakları kolayca bulabilmesi, makalenin şeffaflığını ve güvenilirliğini artırır. Referansların indekslerde bulunamaması, bu şeffaflığı ve doğrulanabilirliği olumsuz etkiler.",
+        "limitations": [
+          "OpenAlex ve Semantic Scholar gibi indekslerin kapsam sınırlamaları olabilir; bu referanslar başka platformlarda veya daha niş yayınlarda mevcut olabilir. Ancak, yaygın indekslerde bulunamamaları yine de bir erişilebilirlik sorununa işaret eder."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Kod Paylaşımı Bilgisi Mevcut",
+        "summary": "Makale, uygulanan yöntemin TensorFlow kodunun GitHub'da erişilebilir olduğunu belirtmektedir. Bu, çalışmanın tekrar üretilebilirliğini destekleyen olumlu bir adımdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "6_experiments.a8",
+            "section": "6 EXPERIMENTS",
+            "quote": "TensorFlow code available at https://github.com/aikanor/pc-autoenco"
+          }
+        ],
+        "reasoning_public": "Kodun açıkça paylaşılması, diğer araştırmacıların çalışmayı doğrulamasına, yeniden üretmesine ve üzerine inşa etmesine olanak tanır, bu da bilimsel şeffaflık ve ilerleme için önemlidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Veri Seti Erişimi ve Kullanımı Hakkında Detay Eksikliği",
+        "summary": "Makale, deneylerde kullanılan MNIST, Omniglot, Caltech-101, notMNIST ve Adult veri setlerini listelemektedir. Ancak, bu veri setlerinin nasıl elde edildiği, erişim koşulları veya herhangi bir etik değerlendirme (örneğin, kişisel veri içerip içermediği) hakkında detaylı bilgi verilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "6_experiments.a9",
+            "section": "6 EXPERIMENTS",
+            "quote": "The datasets we use are first normalized to [0, 1], and then binarized by sampling each pixel stochastically in proportion to its intensity, following prior work (Salakhutdinov & Murray (2008))."
+          },
+          {
+            "anchor_id": "table_1.a3",
+            "section": "Table 1",
+            "quote": "MNIST, H = 32\nOmniglot, H = 32\nCaltech-101, H = 32\nnotMNIST, H = 32\nAdult, H = 10"
+          }
+        ],
+        "reasoning_public": "Veri setlerinin kaynağı ve erişim koşulları hakkında şeffaflık, çalışmanın tekrar üretilebilirliği ve etik uygunluğu açısından önemlidir. Özellikle 'Adult' veri seti gibi demografik bilgiler içerebilecek veri setlerinde etik hususların belirtilmesi beklenir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f1.a0",
+          "ethics_reproducibility.f1.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f2",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Onay ve Rıza Beyanı Gerekmiyor",
+        "summary": "Makale, insan deneklerle yapılan deneyler veya hassas kişisel verilerin kullanımı gibi etik onay ve rıza beyanı gerektiren bir araştırma türü içermemektedir. Bu nedenle, bu tür beyanların eksikliği bir sorun teşkil etmemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Araştırmanın doğası gereği (teorik ve algoritmik bir çalışma), etik kurul onayı veya katılımcı rızası gibi beyanlar beklenmemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıklı Bölüm Akışı ve Net Dil",
+        "summary": "Makale, karmaşık bir konuyu net ve mantıklı bir şekilde sunmaktadır. Bölümler arasındaki geçişler akıcıdır ve okuyucunun argümanı takip etmesini kolaylaştırır. Kullanılan dil akademik olmakla birlikte, gereksiz jargondan kaçınılmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "We formulate learning of a binary autoencoder as a biconvex optimization problem which learns from the pairwise correlations between encoded and decoded bits."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "This paper considers a similar problem, except using bit-vector data and the cross-entropy reconstruction loss."
+          },
+          {
+            "anchor_id": "2_optimally_decoding_an_encoded_representation.a0",
+            "section": "2 OPTIMALLY DECODING AN ENCODED REPRESENTATION",
+            "quote": "To address the game of Section 1.2, we ﬁrst assume E and B are ﬁxed, and derive the optimal decoding rule given this information."
+          }
+        ],
+        "reasoning_public": "Makalenin genel yapısı, soyutlamadan başlayıp problem tanımına, metodolojiye, tartışmaya ve deneylere doğru ilerleyerek standart bir akademik makale formatına uygundur. Bu yapı, okuyucunun konuyu adım adım anlamasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Kısaltılmış Giriş Bölümü",
+        "summary": "Giriş bölümü, makalenin ana fikrini ve problem tanımını etkili bir şekilde sunsa da, ilgili literatürün daha kapsamlı bir özetini içerebilir. Mevcut haliyle, okuyucunun konuya tam olarak hakim olması için ek arka plan bilgisine ihtiyaç duyulabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "Consider a general autoencoding scenario, in which an algorithm learns a compression scheme for independently, identically distributed (i.i.d.) V -dimensional bit vector data."
+          },
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "This paper considers a similar problem, except using bit-vector data and the cross-entropy reconstruction loss."
+          }
+        ],
+        "reasoning_public": "Giriş bölümü, makalenin temel katkılarını ve problem tanımını hızlıca özetlemektedir. Ancak, 'Related Work' bölümü daha sonra geldiği için, giriş bölümünde konunun genel bağlamı ve mevcut yaklaşımlara dair daha fazla bilgi verilmesi, okuyucunun makalenin yeniliğini ve önemini daha iyi kavramasına yardımcı olabilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Atıfta bulunulan tüm referansların tam ve doğru bibliyografik bilgilerini (yazar, yıl, başlık, yayın yeri, DOI vb.) sağlayın. Eğer bu referanslar yayınlanmamış çalışmalar, teknik raporlar veya özel veri setleri ise, erişim yöntemlerini (örn. URL, kurum adı) açıkça belirtin.",
+        "acceptance_check": "Tüm referansların OpenAlex veya Semantic Scholar gibi akademik indekslerde bulunabilir olması veya erişim bilgilerinin net bir şekilde belirtilmesi.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların tam ve doğru bibliyografik bilgilerini (yazar, başlık, yayın yeri, yıl, DOI/URL gibi) kontrol edin ve güncelleyin. Özellikle indekslerde bulunamayan referanslar için, okuyucuların bu kaynaklara erişimini sağlayacak ek bilgiler (örneğin, arXiv linki, konferans adı, yayınevi) ekleyin.",
+        "acceptance_check": "Tüm referanslar için tam bibliyografik bilgiler sağlanmış ve mümkünse DOI veya doğrudan erişim linkleri eklenmiş olmalı. En azından, indekslerde bulunamayan referansların neden bulunamadığına dair bir açıklama veya alternatif erişim yolu sunulmalı.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "6 EXPERIMENTS",
+        "instruction": "Kullanılan tüm veri setlerinin (MNIST, Omniglot, Caltech-101, notMNIST, Adult) kaynaklarını (örn. URL veya referans) ve erişim koşullarını (örn. kamuya açık mı, lisans bilgileri) 'Experiments' bölümünde veya bir ekte belirtin.",
+        "acceptance_check": "Her veri seti için açıkça belirtilmiş bir kaynak ve erişim bilgisi sağlanmış olmalı.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a1",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, DISCUSSION AND RELATED WORK, EXPERIMENTS",
+        "instruction": "Eğer referanslar yayınlanmamış veya kolayca erişilemeyen kaynaklarsa, makale metninde bu kaynaklara yapılan atıfların bağlamını genişleterek, okuyucunun temel iddiaları anlaması için yeterli bilgiyi sağlayın veya alternatif, erişilebilir kaynaklarla destekleyin.",
+        "acceptance_check": "Makalenin temel argümanlarının, referansların erişilebilirliğinden bağımsız olarak anlaşılabilir ve doğrulanabilir olması.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "6 EXPERIMENTS",
+        "instruction": "Deneysel bölümde kullanılan veri setlerinin örneklem büyüklüklerinin (n) seçimi için bir gerekçe sunulmalı veya farklı n değerleri için algoritma performansının nasıl değiştiği incelenmelidir.",
+        "acceptance_check": "Veri setlerinin örneklem büyüklüklerinin seçimine dair açıklama veya farklı n değerleri için performans analizi eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Table 1",
+        "instruction": "Tablo 1'deki yeniden yapılandırma kayıpları için güven aralıkları veya standart sapma gibi belirsizlik ölçüleri eklenmelidir. Bu, sonuçların istatistiksel güvenilirliğini artıracaktır.",
+        "acceptance_check": "Tablo 1'e belirsizlik ölçüleri (örn. ± standart sapma veya güven aralığı) eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "6 EXPERIMENTS",
+        "instruction": "Metin içinde 'significantly better' gibi ifadeler kullanılırken, bu iddiaları destekleyecek istatistiksel test sonuçları (örn. p-değerleri) veya etki büyüklüğü ölçüleri sunulmalıdır.",
+        "acceptance_check": "İstatistiksel anlamlılık iddiaları için destekleyici veriler (p-değerleri, etki büyüklükleri) eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "6 EXPERIMENTS",
+        "instruction": "'Significantly better/worse' gibi ifadeler kullanılırken, bu iddiaları destekleyecek istatistiksel test sonuçları (örn. t-testi, ANOVA) ve p-değerleri raporlanmalıdır. Alternatif olarak, bu ifadelerden kaçınılmalı ve sadece gözlemlenen farklar belirtilmelidir.",
+        "acceptance_check": "İstatistiksel anlamlılık iddiaları için destekleyici veriler eklenmiş veya ifadeler düzeltilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, ABSTRACT, DISCUSSION AND RELATED WORK, EXPERIMENTS",
+        "instruction": "Giriş ve sonuç bölümlerinde 'optimal' veya 'rekabetçi' gibi terimlerin, karşılaştırılan mimarilerin (tek katmanlı otoenkoderler ve PCA) bağlamında daha açık bir şekilde sınırlandırılması önerilir. Bu, okuyucunun makalenin iddialarının kapsamı hakkında daha net bir beklentiye sahip olmasını sağlar.",
+        "acceptance_check": "Makaledeki 'optimal' ve 'rekabetçi' gibi ifadelerin, karşılaştırılan modellerin açıkça belirtildiği veya bu terimlerin kapsamının netleştirildiği cümlelerle desteklenmesi.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f1.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "6 EXPERIMENTS",
+        "instruction": "Özellikle 'Adult' veri seti gibi hassas olabilecek veri setleri için, veri gizliliği veya etik onaylarla ilgili herhangi bir hususun olup olmadığını açıklayın.",
+        "acceptance_check": "Hassas veri setleri için etik hususlara değinilmiş olmalı.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a1",
+        "priority": "P2",
+        "effort": "high",
+        "expected_gain": "medium",
+        "target_section": "6 EXPERIMENTS",
+        "instruction": "Algoritmanın performansını değerlendirmek için kullanılan metrikler (örn. yeniden yapılandırma kaybı) için istatistiksel güç veya hassasiyet analizinin neden yapılmadığı açıklanmalı veya bu tür bir analiz eklenmelidir.",
+        "acceptance_check": "Güç analizi veya hassasiyet gerekçesi sunulmuş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "6 EXPERIMENTS",
+        "instruction": "Kullanılan veri setlerinin (MNIST, Omniglot vb.) tam olarak nasıl elde edildiği, ön işleme adımları (normalizasyon, binarizasyon) ve kullanılan parametreler hakkında daha detaylı bilgi sağlanmalıdır. Mümkünse, veri işleme kodları da paylaşılmalıdır.",
+        "acceptance_check": "Veri işleme adımları ve parametreleri hakkında detaylı açıklama veya kod eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümünü, makalenin ele aldığı problem alanındaki mevcut yaklaşımlara ve literatüre daha geniş bir genel bakış sunacak şekilde genişletin. Bu, okuyucunun makalenin katkılarını daha iyi anlamasına yardımcı olacaktır.",
+        "acceptance_check": "Giriş bölümü, makalenin yeniliğini ve ilgili literatürdeki yerini daha net bir şekilde açıklayan ek paragraflar içermelidir.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Kısaltılmış Giriş Bölümü",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5"
+        ],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "REFERENCES",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Eksik Referanslar ve Literatür Konumlandırması",
+        "anchor_ids": [
+          "references.a0",
+          "references.a1",
+          "references.a2"
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0",
+          "literature_positioning.f0.a1"
+        ]
+      },
+      {
+        "section": "1.1 NOTATION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "1_1_notation.a0",
+          "1_1_notation.a1",
+          "1_1_notation.a2"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1"
+        ]
+      },
+      {
+        "section": "2 OPTIMALLY DECODING AN ENCODED REPRESENTATION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_optimally_decoding_an_encoded_representation.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.2 AN AUTOENCODER LEARNING ALGORITHM",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_2_an_autoencoder_learning_algorithm.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.3 EFFICIENT IMPLEMENTATION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_3_efficient_implementation.a0"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1"
+        ]
+      },
+      {
+        "section": "4 DISCUSSION AND RELATED WORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_discussion_and_related_work.a0",
+          "4_discussion_and_related_work.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4.1 OPTIMALITY, OTHER ARCHITECTURES, AND DEPTH",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Derin Ağlarla Karşılaştırma İddiasının Sınırlı Kanıtı",
+        "anchor_ids": [
+          "4_1_optimality_other_architectures_and_depth.a0",
+          "4_1_optimality_other_architectures_and_depth.a1"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "5.2 DENOISING AUTOENCODING",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "5_2_denoising_autoencoding.a0",
+          "5_2_denoising_autoencoding.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "6 EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Derin Ağlarla Karşılaştırma İddiasının Sınırlı Kanıtı; Veri Seti Erişimi ve Kullanımı Hakkında Detay Eksikliği; Tekrar Üretilebilirlik İçin Kod Erişilebilirliği; Raporlama Kalitesi ve 'Anlamlı' İfadelerin Kullanımı",
+        "anchor_ids": [
+          "6_experiments.a0",
+          "6_experiments.a1",
+          "6_experiments.a2",
+          "6_experiments.a3",
+          "6_experiments.a4",
+          "6_experiments.a5",
+          "6_experiments.a6",
+          "6_experiments.a7",
+          "6_experiments.a8",
+          "6_experiments.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "ethics_reproducibility.f1.a0",
+          "ethics_reproducibility.f1.a1",
+          "quant.f1.a0",
+          "quant.f1.a1",
+          "quant.f8.a0",
+          "quant.f9.a0"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Veri Seti Erişimi ve Kullanımı Hakkında Detay Eksikliği; Raporlama Kalitesi ve 'Anlamlı' İfadelerin Kullanımı",
+        "anchor_ids": [
+          "table_1.a0",
+          "table_1.a1",
+          "table_1.a2",
+          "table_1.a3"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f1.a0",
+          "ethics_reproducibility.f1.a1",
+          "quant.f5.a0",
+          "quant.f5.a1",
+          "quant.f9.a0"
+        ]
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "unknown",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

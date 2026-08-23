@@ -1404,9 +1404,39 @@ Hepsi tier="flash", aynı `_engine_base.py:assess()` chokepoint'i üzerinden `ll
 
 **Kanıt:** `api/services/llm_service.py` diff'i (`_ACADEMIC_ASSESSMENT_MODES` + genişletilmiş yorum), `tests/unit/test_llm_service.py` (9 yeni test, `_ACADEMIC_ASSESSMENT_MODES` × temp/seed/drop_params), `eval/review/results/temperature_zero_academic_modes_log.jsonl` (3 run'ın tam kaydı), `tests/unit/test_academic_classifier.py` + `test_academic_engines.py` (33 test, regresyon yok, 29dk35s).
 
+### 71. §70'in açık sorusu ÇÖZÜLDÜ — 61-goldset canlı yeniden-koşum, KARIŞIK ama genel olarak olumlu sonuç, TAM determinism iddiası düzeltildi
+
+**Kullanıcı talebi:** goldset'i şimdi (ertelemeden) yeniden koş, Spearman/kalibrasyon önceki değerlerle karşılaştır, classifier determinism'ini ayrıca kontrol et, guardian'dan geçir, somut sayılarla raporla, commit et.
+
+**Uygulama (2 script, ikisi de repoda):** `eval/review/goldset61_live_rerun_2026-08-22.py` (61 makaleyi CANLI API'den, concurrency=5, analiz edip diske yazar + metrics.evaluate + 6 makalelik determinism alt-koşumu) + `eval/review/goldset61_recover_summary_and_determinism_2026-08-22.py` (ana script'te bir attribute-adı hatası vardı — `EvalResult.dimension_agreements` diye yazılmıştı, gerçek alan adı `dimension_agreement` (tekil), Grep ile doğrulanmadan yazılmıştı — 61 canlı analiz BAŞARIYLA bittikten SONRA bu hata scripti çökertti, kurtarma script'i pahalı kısmı tekrarlamadan diskteki raporları okuyup düzeltti).
+
+**61/61'den 43'ü başarılı — 18'i hiç analiz edilemedi.** **DÜZELTME (guardian bulgusu, 2026-08-22): kök neden ilk raporlandığında YANLIŞ yazılmıştı** ("Vertex AI 429 RESOURCE_EXHAUSTED" — bu iddia file:line kanıtı olmadan, ham log'da GÖRÜLEN bazı 429'lardan genellenerek yazılmıştı, HALÜSİNASYON-SIFIR kuralı ihlali). 18 raporun kendi `error` alanları tek tek okunduğunda gerçek dağılım: **11× `SupabaseQueryError: RemoteProtocolError`, 5× durum-okuma JSON parse hatası ("Expecting value"), 2× `upload HTTP 500`, 1× `SupabaseQueryError: WriteTimeout`, 1× `ResilienceTimeoutError`.** Vertex/429/RESOURCE_EXHAUSTED HİÇBİRİNDE geçmiyor (Grep ile doğrulandı). Gerçek kök neden: 5 paralel ağır pipeline'ın (her biri sık sık Supabase'e stage-update yazıyor) **yerel Supabase istemci bağlantısını/kaynağını zorlaması** — Vertex kotası değil. Ham log'daki gerçek 429'lar (Gemini flash, litellm 2-retry ile) muhtemelen retry'da kurtarılmış, paper-seviyesi başarısızlığa yol açan onlar değilmiş. **Örneklem sapması kontrolü (kod ile ölçüldü, bu kısım doğru):** başarısız 18'in insan-verdict dağılımı {accept:15, major_revision:1, reject:2} — reject sınıfı başarılı örneklemde ORANTISAL OLARAK DAHA FAZLA temsil ediliyor (10 reject'in 8'i başarılı) — güçlü sistematik yanlılık kanıtı yok.
+
+**Verdict doğruluğu (n=43 vs önceki n=61, §41):**
+
+| metrik | önceki (n=61) | bugün (n=43) |
+|---|---|---|
+| tam isabet | %67 (41/61) | %72.1 (31/43) |
+| bir-kademe-tolerans | %74 (45/61) | %79.1 (34/43) |
+| sınıf-dengeli doğruluk | %49.2 | %65.9 |
+
+Sınıf-dengeli doğruluk detayı: accept %85.3 (29/34), major_revision %100 (1/1 — **n=1, GÜVENİLMEZ**), reject %12.5 (1/8 — **hâlâ zayıf, motor "reject" demekten kaçınıyor**, bilinen eski zayıflık devam ediyor).
+
+**Boyut korelasyonu:** originality r=0.06 (n=19), importance r=1.00 (n=3, güvenilmez), soundness r=-0.31 (n=16, NEGATİF — önceki §47 ölçümü de -0.07/+0.07 gürültü seviyesindeydi, hâlâ çözülmedi), clarity r=-0.06 (n=18).
+
+**Classifier determinism alt-koşumu (6 makale 2. kez, 2'si run1'de zaten rate-limit'ten düşmüştü, 4 geçerli kıyaslama):** document_type/study_design **4/4 (%100) TAM AYNI**. AMA **verdict sadece 3/4 (%75) aynı** — `peerj:20153`'te major_revision→accept DEĞİŞTİ. **Bu, §70'in tek-makale (deneme.pdf) "TAM bit-birebir" sonucunu DÜZELTİYOR** — küçük bir örneklemde bile mutlak determinism garantisi YOK, sadece BÜYÜK ÖLÇÜDE azaltılmış varyans var. §70'teki "TAM BAŞARI" ifadesi tek-makale kanıtına dayanıyordu, genel bir garanti olarak OKUNMAMALI.
+
+**Dürüst genel değerlendirme:** Kalibrasyon sayıları (tam isabet, tolerans, sınıf-dengeli doğruluk) hepsi YÜKSELDİ, ama n=43 (61 değil) — örneklem küçüldü, sapma kanıtı yok ama kesinlik iddia edilemez. reject-sınıfı zayıflığı ve soundness'in negatif korelasyonu ÇÖZÜLMEDİ, bunlar bu turun kapsamı dışında kalan, önceden bilinen sorunlar.
+
+**Kanıt:** `eval/review/goldset61_live_rerun_2026-08-22.py`, `eval/review/goldset61_recover_summary_and_determinism_2026-08-22.py`, `eval/review/results/goldset61_live_reports_2026-08-22/*.json` (43 rapor), `eval/review/results/goldset61_live_rerun_2026-08-22_summary.{txt,json}`, `eval/review/results/goldset61_classifier_determinism_2026-08-22.json`, `eval/review/results/goldset61_2026-08-22_confusion_and_balanced_accuracy.json`.
+
 ## Henüz Yapılmayanlar (Sıradaki)
 
-- [ ] **AÇIK SORU (§70, guardian, 2026-08-21):** determinism artışının (§69-70) goldset Spearman korelasyonunu (kalibrasyon doğruluğu) etkileyip etkilemediği DOĞRULANMADI — özellikle `manuscript_classifier`'ın artık yanlış sınıflandırmayı da sabitleyebilmesi riski. 61-makale (ya da alt-küme) goldset koşumu gerekiyor — kullanıcı kararı bekliyor.
+- [ ] **YENİ (§71):** reject-sınıfı doğruluğu hâlâ zayıf (%12.5, 1/8) — motor "reject" demekten sistematik olarak kaçınıyor, kök neden araştırılmamış.
+- [ ] **YENİ (§71):** soundness↔insan-skoru korelasyonu hâlâ negatif/gürültülü (r=-0.31, n=16) — §47'de de çözülememişti, hâlâ açık.
+- [ ] **YENİ (§71, düşük öncelik, operasyonel — DÜZELTİLMİŞ teşhis):** goldset canlı koşumlarında concurrency=5, yerel Supabase istemcisinde RemoteProtocolError/WriteTimeout'a yol açıyor (Vertex kotası DEĞİL — ilk teşhis yanlıştı, yukarı bkz). İleride tam-61 koşum gerekirse concurrency düşürülmeli VE/VEYA Supabase bağlantı havuzu/timeout ayarları incelenmeli — kök neden hâlâ kesin doğrulanmadı (RemoteProtocolError'ın Supabase tarafında mı yerel ağ/kaynak tarafında mı olduğu netleşmedi).
+- [ ] **YENİ (§71, guardian bulgusu):** bu goldset koşumunda moat boyutları (citation_integrity/coverage_completeness/statistical_consistency) için insan-karşılığı n=0 çıktı — goldset'in bu 3 boyutta hiç insan-skoru olmadığı ÖNCEDEN bilinen bir boşluktu (bkz. §42 "AÇIK SORU"), bu tur bunu KAPATMADI, sadece tekrar doğruladı. Motor-insan uyumu (soundness r=-0.31, clarity r=-0.06, originality r=0.06) hâlâ zayıf/gürültülü — "moat var" ile "temel puanlama insan yargısıyla uyumlu" ayrı iddialar, ikincisi hâlâ zayıf.
+- [x] ~~§70: determinism artışının goldset Spearman korelasyonunu etkileyip etkilemediği DOĞRULANMADI~~ — §71'de çözüldü: kalibrasyon sayıları geneli olumlu (n=43, örneklem küçüldü ama sapma kanıtı yok), classifier document_type/study_design determinism'i 4/4 doğrulandı, AMA verdict-seviyesi TAM determinism iddiası (§70) yanlıştı — 4'te 1 hâlâ değişebiliyor, düzeltildi.
 - [x] ~~§69: `review_orchestration.py`'nin "3 deterministik moat boyutu" iddiası ile gerçek davranışı arasındaki kopukluk~~ — §70'te çözüldü: mekanizma zaten doğru bağlıydı (review_service.py post-processing), eksik olan assess_manuscript'in 4 iç motorunun deterministik olmamasıydı, düzeltildi, 3/3 canlı run bit-birebir eşleşti.
 - [x] ~~`quantitative_validity`'nin `sample_and_power` katı kuralını study_design'a bağlamak~~ — §46/47'de yapıldı, test edildi (27/27), guardian 3 tur onayladı (commit `39f0724`). **AMA dürüst sonuç: mekanizma doğru, korelasyon problemi ÇÖZÜLMEDİ** (Spearman -0.07→+0.07, gürültü seviyesinde) — bkz §47.
 - [ ] **§48'de TÜKENDİ, YENİDEN ÇERÇEVELENDİ:** `design_validity`/`measurement_validity`'nin neden ayırt edici olmadığı sorusu — "hangi tek quant boyutu insan-soundness'i en iyi öngörür" yaklaşımıyla (9 boyut tek tek tarandı, n=29) test edildi, HİÇBİRİ güvenilir sinyal vermedi (çoklu-karşılaştırma düzeltmesi sonrası). Bu spesifik yol tükendi — **n=29 bu ince taneli analiz için yetersiz.** İki olası ileri yön: (a) goldset'i büyütmek (insan-skorlu örneklem sayısını artırmak — bkz. §42/§1 held-out TODO'su, aynı kaynak sorunu), (b) tek-boyut mikro-ayarlamayı bırakıp quant motorunun "soundness"e katkısını bütünsel/karşılaştırmalı yeniden tasarlamak (büyük iş, ayrı plan gerektirir). Kullanıcı kararı bekliyor.

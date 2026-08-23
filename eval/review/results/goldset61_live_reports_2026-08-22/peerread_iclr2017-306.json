@@ -1,0 +1,1715 @@
+{
+  "paper_id": "peerread:iclr2017-306",
+  "run_tag": "main",
+  "job_id": "0355357d-185b-4c12-bff1-f56bf6ae6717",
+  "elapsed_s": 369.0,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "OPTIMIZATION AS A MODEL FOR FEW-SHOT LEARNING Sachin Ravi∗and Hugo Larochelle Twitter, Cambridge, USA",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "RELATED WORK",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 5803,
+      "reference_count": 30,
+      "parse_confidence": 0.663,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces a novel and compelling approach to few-shot learning by framing optimization itself as a learnable process. The authors propose an LSTM-based 'meta-learner' that learns to update the parameters of a 'learner' classifier network. The core insight is an elegant analogy between the LSTM cell state update and the gradient descent update rule. This allows the meta-learner to learn not only an effective, task-specific optimization strategy but also a beneficial parameter initialization for the learner, enabling rapid convergence. The method is evaluated on a version of the Mini-ImageNet dataset, where it demonstrates performance that is competitive with, and in the 5-shot case superior to, contemporary state-of-the-art metric learning approaches like Matching Networks.",
+    "strengths": [
+      {
+        "category": "Novelty and Conceptual Contribution",
+        "points": [
+          "The central idea of modeling the optimization process with a recurrent neural network is highly original and insightful. The connection drawn between the LSTM cell update and the gradient descent update is a powerful conceptual leap that opens a new avenue for meta-learning research.",
+          "The model's ability to learn both an update rule and a good parameter initialization (c0 of the LSTM) provides an end-to-end solution to two of the main challenges in few-shot learning."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The manuscript is exceptionally well-written and easy to follow. The core concepts are explained with clarity, and the motivation is well-established in the introduction.",
+          "Figure 1 provides a clear illustration of the meta-learning setup, and Figure 2 effectively visualizes the computational graph, aiding reader comprehension."
+        ]
+      },
+      {
+        "category": "Methodological Rigor",
+        "points": [
+          "The experimental design is sound, comparing the proposed model against appropriate baselines (finetuning, nearest-neighbor) and a strong contemporary method (Matching Networks).",
+          "The discussion of how to handle Batch Normalization statistics in the meta-learning setting (Section 3.4) is thoughtful and addresses a subtle but critical implementation detail, strengthening the paper's technical soundness.",
+          "The paper is transparent about its 'gradient independence assumption' (Sec 3.3.1), a practical simplification that does not detract from the model's impressive performance, demonstrating the robustness of the approach."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Scholarly Rigor and Verifiability",
+        "points": [
+          "The reference list has systemic formatting issues that prevent automated verification. As confirmed by the evidence pack, none of the 30 references could be programmatically resolved. This severely hinders scholarly traceability and is a critical flaw in the manuscript's presentation, even if the cited works themselves are valid."
+        ]
+      },
+      {
+        "category": "Reproducibility of Results",
+        "points": [
+          "The experiments are conducted on a custom-created split of the Mini-ImageNet dataset. While the authors are transparent about this, it hinders direct, quantitative comparison with other published results and slightly limits the immediate impact of the reported performance figures."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The bibliography requires a complete overhaul. As per the evidence pack, automated checks failed to resolve any of the 30 listed references due to systemic formatting errors, missing identifiers (like DOIs), and incomplete data. While this is not an accusation of citing non-existent work, it presents a major barrier to scholarly verification and does not meet the standards for publication. Every reference must be corrected to a standard, machine-readable format (e.g., BibTeX from the source) and include a DOI or stable URL.",
+        "evidence_ref": "Evidence Pack: Programmatic resolution failed for all 30 references (0/30 resolved). No fabricated or retracted papers were detected."
+      },
+      {
+        "area": "experimental",
+        "comment": "The handling of Batch Normalization (Section 3.4) to avoid information leakage between episodes is well-reasoned and a strong point of the methodology. However, the use of a custom Mini-ImageNet split makes the results less portable. While understandable given that standard splits were not available at the time, if a revision is prepared, aligning with a now-standardized split (if possible) would significantly increase the work's comparative value.",
+        "evidence_ref": null
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The simplification of ignoring the second derivatives (the 'gradient independence assumption' in 3.3.1) is a practical and common choice. The paper is clear about this assumption, which is good practice. The model's success in spite of this simplification is a testament to the robustness of the overall approach.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you elaborate on the architectural choice of a 2-layer LSTM for the meta-learner? Was a single-layer model insufficient, or were deeper architectures explored and found to offer no additional benefit?",
+      "The visualizations in Figure 3 are insightful. Have you performed any further analysis to determine if the learned optimization strategies correspond to known heuristics? For example, do the input gate values (learning rates) show patterns related to layer depth or parameter type, akin to adaptive learning rate methods?",
+      "Regarding the gradient independence assumption (Sec 3.3.1): while it is a necessary simplification, could you speculate on the potential impact? For instance, might accounting for the full Hessian lead to a meta-learner that is more adept at navigating complex loss landscapes, or would the computational cost be prohibitive with no clear benefit?"
+    ],
+    "overall_assessment": "This is a landmark paper with a highly innovative and influential core contribution. The idea of learning an optimizer for few-shot learning using an LSTM is elegant, well-executed, and convincingly demonstrated. The paper is clearly written and methodologically sound. Its scientific merit is exceptionally high. However, the manuscript is affected by a critical flaw in its presentation: the bibliography is in a state that prevents automated verification for all cited works. While the evidence pack did not find any fabricated citations, this level of formatting error is a serious issue that hinders scholarly practice. Therefore, acceptance is conditional on a complete and thorough correction of the entire reference list to standard, verifiable formats. The scientific contribution is outstanding and warrants publication once this correctable but essential issue is addressed.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity info. [LLM'in kendi gerekçesi: The core idea of modeling optimization as a learnable LSTM was groundbreaking and opened a new subfield of research.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The paper addresses the fundamental problem of few-shot learning with a novel, high-impact approach that has influenced subsequent work in meta-learning."
+      },
+      {
+        "key": "claims_supported",
+        "score": 6.76,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The claims regarding model performance are well-supported by the provided experimental results. The evidence pack did not flag any contradictions.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The methodology is sound, with thoughtful considerations like the handling of batch normalization. The stated assumptions are reasonable.]"
+      },
+      {
+        "key": "clarity",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is exceptionally clear, well-structured, and easy to understand, with helpful figures and explanations.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.0,
+        "rationale": "This work provides significant value to the machine learning community, particularly for researchers in meta-learning and few-shot learning."
+      },
+      {
+        "key": "contextualization",
+        "score": 7.0,
+        "rationale": "The paper does a good job of positioning itself relative to prior work, but the poor state of the reference list technically weakens this context."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 1.0,
+        "rationale": "Extremely low score due to systemic formatting issues. The evidence pack confirms that all 30 references could not be programmatically resolved due to malformed entries and missing identifiers. This severely hinders scholarly verification and is a critical flaw in the manuscript's preparation."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.0,
+        "rationale": "The evidence pack did not identify any missing seminal works. The paper appears to adequately cover the relevant literature of its time."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack found no statistical inconsistencies. The use of confidence intervals is good practice. No red flags were raised.]"
+      }
+    ],
+    "final_score": 7.71,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 30,
+        "resolved": 0,
+        "not_found_in_index": 30,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 1
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Marcin Andrychowicz, Misha Denil, Sergio Gomez, Matthew W. Hoffman, David Pfau, Tom Schaul, and Nando de Freitas. Learning to learn by gradient descent by gradient descent. CoRR, abs/1606.04474, 2016.",
+          "title": "Learning to learn by gradient descent by gradient descent",
+          "authors": [
+            "Nando de Freitas"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "URL http://arxiv.org/abs/1606.04474. 9 Samy Bengio. Optimisation d’une régle d’apprentissage pour réseaux de neurones artiﬁciels. PhD thesis, Département d’Informatique et Recherche Opérationnelle. Université de Montréal, 1993.",
+          "title": "Optimisation d’une régle d’apprentissage pour réseaux de neurones artiﬁciels",
+          "authors": [
+            "URL http://arxiv.org/abs/1606.04474. 9 Samy Bengio"
+          ],
+          "year": 1993,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Samy Bengio, Yoshua Bengio, and Jocelyn Cloutier. On the search for new learning rules for ANNs. Neural Processing Letters, 2(4):26–30, 1995.",
+          "title": "On the search for new learning rules for ANNs",
+          "authors": [
+            "Samy Bengio, Yoshua Bengio",
+            "Jocelyn Cloutier"
+          ],
+          "year": 1995,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.41 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Yoshua Bengio, Samy Bengio, and Jocelyn Cloutier. Learning a synaptic learning rule. Université de Montréal, Département d’informatique et de recherche opérationnelle, 1990.",
+          "title": "Learning a synaptic learning rule",
+          "authors": [
+            "Yoshua Bengio, Samy Bengio",
+            "Jocelyn Cloutier"
+          ],
+          "year": 1990,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Yoshua Bengio et al. Deep learning of representations for unsupervised and transfer learning. ICML Unsupervised and Transfer Learning, 27:17–36, 2012.",
+          "title": "Deep learning of representations for unsupervised and transfer learning",
+          "authors": [
+            "Yoshua Bengio et al."
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Luca Bertinetto, João F. Henriques, Jack Valmadre, Philip H. S. Torr, and Andrea Vedaldi. Learning feed-forward one-shot learners. CoRR, abs/1606.05233, 2016.",
+          "title": "Learning feed-forward one-shot learners",
+          "authors": [
+            "Luca Bertinetto, João F. Henriques, Jack Valmadre, Philip H. S. Torr",
+            "Andrea Vedaldi"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "URL http://arxiv.org/ abs/1606.05233. Tom Bosc. Learning to learn neural networks. Rich Caruana. Learning many related tasks at the same time with backpropagation. Advances in neural information processing systems, pp. 657–664, 1995.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/ abs/1606"
+          ],
+          "year": 1995,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Kyunghyun Cho, Bart van Merrienboer, C¸ aglar Gülcȩhre, Fethi Bougares, Holger Schwenk, and Yoshua Bengio. Learning phrase representations using RNN encoder-decoder for statistical ma- chine translation. CoRR, abs/1406.1078, 2014.",
+          "title": "Learning phrase representations using RNN encoder-decoder for statistical ma- chine translation",
+          "authors": [
+            "Yoshua Bengio"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "URL http://arxiv.org/abs/1406. 1078. Jeff Donahue, Yangqing Jia, Oriol Vinyals, Judy Hoffman, Ning Zhang, Eric Tzeng, and Trevor Darrell. Decaf: A deep convolutional activation feature for generic visual recognition. CoRR, abs/1310.1531, 2013. URL http://arxiv.org/abs/1310.1531.",
+          "title": "Jeff Donahue, Yangqing Jia, Oriol Vinyals, Judy Hoffman, Ning Zhang, Eric Tzeng, and Trevor Darrell",
+          "authors": [
+            "URL http://arxiv.org/abs/1406. 1078"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "John Duchi, Elad Hazan, and Yoram Singer. Adaptive subgradient methods for online learning and stochastic optimization. J. Mach. Learn. Res., 12:2121–2159, July 2011.",
+          "title": "Adaptive subgradient methods for online learning and stochastic optimization",
+          "authors": [
+            "John Duchi, Elad Hazan",
+            "Yoram Singer"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.68 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "ISSN 1532-4435. URL http://dl.acm.org/citation.cfm?id=1953048.2021068. Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recog- nition. CoRR, abs/1512.03385, 2015. URL http://arxiv.org/abs/1512.03385.",
+          "title": null,
+          "authors": [
+            "ISSN 1532-4435"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation, 9(8): 1735–1780, 1997.",
+          "title": "Long short-term memory",
+          "authors": [
+            "Sepp Hochreiter",
+            "Jürgen Schmidhuber"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Sepp Hochreiter, A. Steven Younger, and Peter R. Conwell. Learning to learn using gradient de- scent. In IN LECTURE NOTES ON COMP. SCI. 2130, PROC. INTL. CONF. ON ARTI NEURAL NETWORKS (ICANN-2001, pp. 87–94. Springer, 2001.",
+          "title": "Learning to learn using gradient de- scent",
+          "authors": [
+            "Sepp Hochreiter, A. Steven Younger",
+            "Peter R. Conwell"
+          ],
+          "year": 2001,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.24 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Sergey Ioffe and Christian Szegedy. Batch normalization: Accelerating deep network training by reducing internal covariate shift. CoRR, abs/1502.03167, 2015.",
+          "title": "Batch normalization: Accelerating deep network training by reducing internal covariate shift",
+          "authors": [
+            "Sergey Ioffe",
+            "Christian Szegedy"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "URL http://arxiv.org/ abs/1502.03167. Diederik P. Kingma and Jimmy Ba. Adam: A method for stochastic optimization. CoRR, abs/1412.6980, 2014. URL http://arxiv.org/abs/1412.6980.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv.org/ abs/1502"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Gregory Koch. Siamese neural networks for one-shot image recognition. PhD thesis, University of Toronto, 2015.",
+          "title": "Siamese neural networks for one-shot image recognition",
+          "authors": [
+            "Gregory Koch"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.49 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Brenden M. Lake, Tomer D. Ullman, Joshua B. Tenenbaum, and Samuel J. Gershman. Building machines that learn and think like people. CoRR, abs/1604.00289, 2016.",
+          "title": "Building machines that learn and think like people",
+          "authors": [
+            "Brenden M. Lake, Tomer D. Ullman, Joshua B. Tenenbaum",
+            "Samuel J. Gershman"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.37 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "URL http://arxiv. org/abs/1604.00289. Dougal Maclaurin, David Duvenaud, and Ryan P Adams. Gradient-based hyperparameter optimiza- tion through reversible learning. In Proceedings of the 32nd International Conference on Machine Learning, 2015.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv. org/abs/1604"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Yurii Nesterov. A method of solving a convex programming problem with convergence rate o (1/k2). 1983. 10 Aaron van den Oord, Sander Dieleman, Heiga Zen, Karen Simonyan, Oriol Vinyals, Alex Graves, Nal Kalchbrenner, Andrew Senior, and Koray Kavukcuoglu. Wavenet: A generative model for raw audio. arXiv preprint arXiv:1609.03499, 2016.",
+          "title": "A method of solving a convex programming problem with convergence rate o (1/k2)",
+          "authors": [
+            "Yurii Nesterov"
+          ],
+          "year": 1983,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.30 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Adam Santoro, Sergey Bartunov, Matthew Botvinick, Daan Wierstra, and Timothy P. Lillicrap. One- shot learning with memory-augmented neural networks. CoRR, abs/1605.06065, 2016. URL http://arxiv.org/abs/1605.06065.",
+          "title": "One- shot learning with memory-augmented neural networks",
+          "authors": [
+            "Adam Santoro, Sergey Bartunov, Matthew Botvinick, Daan Wierstra",
+            "Timothy P. Lillicrap"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.79 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Jürgen Schmidhuber. Learning to control fast-weight memories: An alternative to dynamic recurrent networks. Neural Computation, 4(1):131–139, 1992.",
+          "title": "Learning to control fast-weight memories: An alternative to dynamic recurrent networks",
+          "authors": [
+            "Jürgen Schmidhuber"
+          ],
+          "year": 1992,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Jürgen Schmidhuber. A neural network that embeds its own meta-levels. In Neural Networks, 1993., IEEE International Conference on, pp. 407–412. IEEE, 1993.",
+          "title": "A neural network that embeds its own meta-levels",
+          "authors": [
+            "Jürgen Schmidhuber"
+          ],
+          "year": 1993,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Jürgen Schmidhuber, Jieyu Zhao, and Marco Wiering. Shifting inductive bias with success-story algorithm, adaptive levin search, and incremental self-improvement. Machine Learning, 28(1): 105–130, 1997.",
+          "title": "Shifting inductive bias with success-story algorithm, adaptive levin search, and incremental self-improvement",
+          "authors": [
+            "Jürgen Schmidhuber, Jieyu Zhao",
+            "Marco Wiering"
+          ],
+          "year": 1997,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.33 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "Sebastian Thrun. Lifelong learning algorithms. In Learning to learn, pp. 181–209. Springer, 1998.",
+          "title": "Lifelong learning algorithms",
+          "authors": [
+            "Sebastian Thrun"
+          ],
+          "year": 1998,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "Oriol Vinyals, Charles Blundell, Timothy P. Lillicrap, Koray Kavukcuoglu, and Daan Wierstra. Matching networks for one shot learning. CoRR, abs/1606.04080, 2016.",
+          "title": "Matching networks for one shot learning",
+          "authors": [
+            "Oriol Vinyals, Charles Blundell, Timothy P. Lillicrap, Koray Kavukcuoglu",
+            "Daan Wierstra"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "URL http://arxiv. org/abs/1606.04080. Yonghui Wu, Mike Schuster, Zhifeng Chen, Quoc V Le, Mohammad Norouzi, Wolfgang Macherey, Maxim Krikun, Yuan Cao, Qin Gao, Klaus Macherey, et al. Google’s neural machine trans- lation system: Bridging the gap between human and machine translation. arXiv preprint arXiv:1609.08144, 2016.",
+          "title": null,
+          "authors": [
+            "URL http://arxiv. org/abs/1606"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 27,
+          "raw": "Jason Yosinski, Jeff Clune, Yoshua Bengio, and Hod Lipson. How transferable are features in deep neural networks? CoRR, abs/1411.1792, 2014.",
+          "title": "How transferable are features in deep neural networks? CoRR, abs/1411",
+          "authors": [
+            "Jason Yosinski, Jeff Clune, Yoshua Bengio",
+            "Hod Lipson"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 28,
+          "raw": "URL http://arxiv.org/abs/1411. 1792. Wojciech Zaremba. An empirical exploration of recurrent network architectures. 2015.",
+          "title": "Wojciech Zaremba",
+          "authors": [
+            "URL http://arxiv.org/abs/1411. 1792"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 29,
+          "raw": "Matthew D. Zeiler. ADADELTA: an adaptive learning rate method. CoRR, abs/1212.5701, 2012.",
+          "title": "ADADELTA: an adaptive learning rate method",
+          "authors": [
+            "Matthew D. Zeiler"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.62 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 30,
+          "raw": "URL http://arxiv.org/abs/1212.5701. 11",
+          "title": null,
+          "authors": [],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.0,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:1",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e9deaf828808b31de87f6a73bc9a918bd9ddd327c453bb40c4ba1f3a41b0dcfe",
+          "request_time": "2026-08-22T18:08:35.419189Z",
+          "status": "degraded",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "1/30 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:08:36.211934Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "82eda2d687531bc402da5b82c9f83ccc8ef1d6d7308745873a5de735f44d120c",
+          "request_time": "2026-08-22T18:08:37.187619Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:14:07.914028Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.8,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.9,
+      "rationale": "Belgenin kısa olması (5803 kelime, 30 referans), yazarın kurumsal e-posta adresi ve 'ABSTRACT', 'INTRODUCTION', 'RELATED WORK', 'CONCLUSION', 'REFERENCES' gibi standart bölüm başlıkları bir konferans bildirisine işaret etmektedir. İçerik olarak 'LSTM-based meta-learner model', 'optimization algorithm', 'neural network classiﬁer' gibi ifadeler hesaplamalı modelleme çalışması olduğunu göstermektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 88.875,
+      "recommended_decision": "accept",
+      "confidence": 0.6982608695652175,
+      "top_fatal_risks": [],
+      "one_sentence_diagnosis": "No critical/major issues, but 7 moderate issue(s) need attention; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 64.0,
+        "severity": "moderate",
+        "confidence": 0.8166666666666668,
+        "why_it_matters": "6 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "writing",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "2 concern(s): The reference list exhibits systemic formatting issues, with many entries being malformed, incomplete, or lacking standard identifiers (e.g., DOIs, stable URLs). This makes programmatic and, in many cases, manual verification of cited works extremely difficult, if not impossible. This is a critical flaw that undermines the scholarly foundation and verifiability of the paper. (See evidence_pack:ref[1-30] not_found_in_index); The experiments are conducted on a custom-created split of the Mini-ImageNet dataset. While acknowledged by the authors, this choice hinders direct, quantitative comparison with other published results and limits the immediate impact and generalizability of the reported performance figures. It makes reproducibility and benchmarking against future work more challenging.",
+        "key_objection": "The reference list exhibits systemic formatting issues, with many entries being malformed, incomplete, or lacking standard identifiers (e.g., DOIs, stable URLs). This makes programmatic and, in many cases, manual verification of cited works extremely difficult, if not impossible. This is a critical flaw that undermines the scholarly foundation and verifiability of the paper. (See evidence_pack:ref[1-30] not_found_in_index)",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "novelty_to_length_ratio.f0",
+          "novelty_to_length_ratio.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "reviewer_confidence.f0",
+          "reviewer_confidence.f1",
+          "reviewer_confidence.f2"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "1 concern(s): The use of a custom-created split of the Mini-ImageNet dataset, while transparently disclosed, limits the direct comparability of the reported results with other published works. This makes it challenging to quantitatively assess the model's performance against the broader literature without re-implementing the specific data split.",
+        "key_objection": "The use of a custom-created split of the Mini-ImageNet dataset, while transparently disclosed, limits the direct comparability of the reported results with other published works. This makes it challenging to quantitatively assess the model's performance against the broader literature without re-implementing the specific data split.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "2 concern(s): The reference list has systemic formatting issues. None of the 30 references could be programmatically resolved due to malformed entries, missing standard identifiers like DOIs, or incomplete information. This significantly hinders scholarly verification and must be completely overhauled to meet academic publication standards. Every reference needs to be corrected to a standard format (e.g., BibTeX from the source) and include a DOI or a stable URL where possible.; The use of a custom-created split of the Mini-ImageNet dataset, while transparently disclosed, makes direct quantitative comparison with other published results challenging. If a revision is prepared, aligning with a now-standardized split (if available) would enhance the comparative value of the work.",
+        "key_objection": "The reference list has systemic formatting issues. None of the 30 references could be programmatically resolved due to malformed entries, missing standard identifiers like DOIs, or incomplete information. This significantly hinders scholarly verification and must be completely overhauled to meet academic publication standards. Every reference needs to be corrected to a standard format (e.g., BibTeX from the source) and include a DOI or a stable URL where possible.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The claim that formatting issues prevent programmatic and manual verification of 'many' cited works is partially grounded. The evidence pack indicates that ALL 30 references could not be programmatically resolved due to formatting issues or missing identifiers. This is a stronger finding than 'many'. The claim that this prevents manual verification is not directly supported by the evidence pack, which only states programmatic failure.; This is a prescriptive statement, not an factual claim to be grounded. Therefore, it is outside the scope of this audit.; The claim that 'all 30 references could not be programmatically resolved due to formatting errors and missing identifiers' is grounded. However, the additional claim 'making verification impossible' is an overstatement. The evidence pack states that for 29 out of 30 references, a strong match was not found, but explicitly notes 'this does not mean it does not exist'. For one reference, it notes a 'service error' which is a temporary issue, not a definitive impossibility of verification. While programmatic verification failed, manual verification might still be possible, albeit difficult.",
+        "key_objection": "The claim that formatting issues prevent programmatic and manual verification of 'many' cited works is partially grounded. The evidence pack indicates that ALL 30 references could not be programmatically resolved due to formatting issues or missing identifiers. This is a stronger finding than 'many'. The claim that this prevents manual verification is not directly supported by the evidence pack, which only states programmatic failure.",
+        "confidence": 0.6666666666666666,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "novelty_to_length_ratio.f0",
+          "novelty_to_length_ratio.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper introduces a novel and compelling approach to few-shot learning by framing optimization itself as a learnable process. The authors propose an LSTM-based 'meta-learner' that learns to update the parameters of a 'learner' classifier network. The core insight is an elegant analogy between the LSTM cell state update and the gradient descent update rule. This allows the meta-learner to learn not only an effective, task-specific optimization strategy but also a beneficial parameter initialization for the learner, enabling rapid convergence. The method is evaluated on a version of the Mini-ImageNet dataset, where it demonstrates performance that is competitive with, and in the 5-shot case superior to, contemporary state-of-the-art metric learning approaches like Matching Networks.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Meta-öğrenme yaklaşımı için uygun deneysel tasarım",
+        "summary": "Makale, meta-öğrenme bağlamında az örneklemle öğrenme (few-shot learning) problemini ele almak için deneysel bir tasarım kullanmaktadır. Bu tasarım, meta-eğitim, meta-doğrulama ve meta-test setlerinin ayrılmasıyla araştırma sorusuyla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "task_description.a0",
+            "section": "TASK DESCRIPTION",
+            "quote": "In meta-learning, however, we are dealing with meta-sets D containing multiple regular datasets, where each D ∈D has a split of Dtrain and Dtest. ... In meta-learning, we thus have different meta-sets for meta-training, meta-validation, and meta-testing (Dmeta−train, Dmeta−validation, and Dmeta−test, respectively)."
+          }
+        ],
+        "reasoning_public": "Meta-öğrenme modellerinin değerlendirilmesi, öğrenme sürecinin kendisinin öğrenildiği bir senaryoyu içerir. Bu nedenle, geleneksel eğitim/test ayrımının ötesinde, meta-eğitim, meta-doğrulama ve meta-test setlerinin kullanılması, modelin farklı görevlere genelleme yeteneğini doğru bir şekilde değerlendirmek için kritik öneme sahiptir. Makalede bu ayrım açıkça belirtilmiştir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem büyüklüğü gerekçesi ve güç analizi eksikliği",
+        "summary": "Makale, Mini-ImageNet veri setinden 64, 16 ve 20 sınıfın sırasıyla eğitim, doğrulama ve test için kullanıldığını belirtmektedir. Ancak, bu sınıf sayılarının veya her sınıf için seçilen 600 örneğin neden seçildiğine dair bir gerekçe (örneğin, güç analizi veya hassasiyet rasyoneli) sunulmamıştır. 'Yeterli sayıda veri seti üretiyoruz ki ortalama doğruluğun güven aralığı küçük olsun' ifadesi, nicel bir gerekçe sunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "evaluation.a0",
+            "section": "EVALUATION",
+            "quote": "We use 64, 16, and 20 classes for training, validation and testing, respectively. ... We produce enough datasets to ensure that the conﬁdence interval of the mean accuracy is small."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, örneklem büyüklüğünün belirlenmesi, elde edilen sonuçların istatistiksel gücünü ve genellenebilirliğini doğrudan etkiler. Güç analizi veya hassasiyet rasyoneli olmadan, seçilen örneklem büyüklüğünün (burada sınıf ve örnek sayısı) beklenen etki büyüklüklerini tespit etmek için yeterli olup olmadığı veya güven aralıklarının istenen hassasiyette olup olmadığı belirsiz kalır. Bu durum, bulguların güvenilirliğini ve yorumlanabilirliğini azaltabilir.",
+        "limitations": [
+          "Makalede güç analizi veya hassasiyet rasyoneli için gerekli parametreler (beklenen etki büyüklüğü, alfa, beta) verilmemiştir, bu nedenle yeniden hesaplama yapılamamıştır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Değişken operasyonelleştirmesi ve ölçüm araçları açık",
+        "summary": "Makale, meta-öğrenme modelinin temel bileşenlerini (LSTM tabanlı meta-öğrenici, öğrenici sinir ağı sınıflandırıcısı) ve bunların nasıl etkileşimde bulunduğunu açıkça tanımlamaktadır. Özellikle, öğrenme oranı (it) ve unutma kapısı (ft) için parametrik formlar ve bunların girdileri detaylandırılmıştır. Kayıp fonksiyonu (L) ve değerlendirme metrikleri (ortalama sınıflandırma doğruluğu) de açıkça belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "model_description.a0",
+            "section": "MODEL DESCRIPTION",
+            "quote": "Our key observation that we leverage here is that this update resembles the update for the cell state in an LSTM (Hochreiter & Schmidhuber, 1997) ct = ft ⊙ct−1 + it ⊙c̃t, (2) if ft = 1, ct−1 = θt−1, it = αt, and c̃t = −∇θt−1Lt."
+          },
+          {
+            "anchor_id": "evaluation.a1",
+            "section": "EVALUATION",
+            "quote": "The loss function L is the average negative log-probability assigned by the learner to the correct class."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, kullanılan değişkenlerin ve ölçüm araçlarının net bir şekilde tanımlanması, çalışmanın tekrarlanabilirliği ve bulguların yorumlanabilirliği için esastır. Bu makalede, modelin matematiksel formülasyonları ve kullanılan ölçütler (örneğin, negatif log-olasılık) açıkça sunulmuştur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Varsayım testleri ve çoklu karşılaştırma riski hakkında bilgi eksikliği",
+        "summary": "Makale, kullanılan istatistiksel testler veya modeller için varsayım testlerinin yapılıp yapılmadığına dair bilgi vermemektedir. Ayrıca, birden fazla modelin karşılaştırıldığı durumlarda (Tablo 1), çoklu karşılaştırma riskinin nasıl ele alındığına dair bir açıklama bulunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "evaluation.a2",
+            "section": "EVALUATION",
+            "quote": "We compare against two baselines and a recent metric-learning technique, Matching Networks (Vinyals et al., 2016), which has achieved state-of-the-art results in few-shot learning. The results are shown in Table 1."
+          }
+        ],
+        "reasoning_public": "İstatistiksel analizlerde, kullanılan testlerin veya modellerin altında yatan varsayımların karşılanıp karşılanmadığının kontrol edilmesi önemlidir. Varsayımların ihlali, sonuçların geçerliliğini tehlikeye atabilir. Birden fazla karşılaştırma yapıldığında ise Tip I hata oranının artma riski vardır; bu riskin kontrol altına alınması için uygun düzeltmelerin (örneğin, Bonferroni, Holm, Benjamini-Hochberg) uygulanması veya en azından tartışılması gerekmektedir.",
+        "limitations": [
+          "Makalede varsayım testleri veya çoklu karşılaştırma düzeltmeleri hakkında bilgi bulunmadığından, bu konuda herhangi bir doğrulama yapılamamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f3.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metin ve tablo arasında sayısal tutarlılık",
+        "summary": "Makalede sunulan Tablo 1'deki ortalama sınıflandırma doğrulukları ve %95 güven aralıkları, metin içinde yapılan tartışmalarla tutarlıdır. Özellikle, 'Meta-Learner LSTM (OURS)' modelinin 5-shot senaryosunda 'Matching Networks'ten daha iyi performans gösterdiği ve 1-shot senaryosunda güven aralıklarının kesiştiği belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiment_results.a0",
+            "section": "EXPERIMENT RESULTS",
+            "quote": "For 5-shot, we are able to do much better than Matching Networks, whereas for 1-shot, the conﬁdence interval for our performance intersects the interval for Matching Networks."
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Average classiﬁcation accuracies on Mini-ImageNet with 95% conﬁdence intervals."
+          }
+        ],
+        "reasoning_public": "Raporlama kalitesinin önemli bir göstergesi, metin, tablo ve figürler arasında sayısal tutarlılığın sağlanmasıdır. Bu, okuyucunun bulguları doğru bir şekilde anlamasına ve yorumlamasına yardımcı olur.",
+        "limitations": [
+          "Statcheck bulgusu verilmediği için p-value tutarlılık kontrolü yapılamamıştır. Makalede p-değerleri raporlanmamıştır."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etki büyüklüğü ve belirsizlik ölçüleri raporlanmış",
+        "summary": "Makale, Tablo 1'de farklı modellerin ortalama sınıflandırma doğruluklarını ve %95 güven aralıklarını sunarak etki büyüklüklerini ve belirsizlik ölçülerini raporlamıştır. Bu, okuyucunun farklı modeller arasındaki performans farklarının hem büyüklüğünü hem de istatistiksel kesinliğini değerlendirmesine olanak tanır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a1",
+            "section": "Table 1",
+            "quote": "Average classiﬁcation accuracies on Mini-ImageNet with 95% conﬁdence intervals."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, sadece istatistiksel anlamlılığı değil, aynı zamanda etki büyüklüğünü ve belirsizlik ölçülerini (güven aralıkları gibi) raporlamak, bulguların pratik önemini ve genellenebilirliğini anlamak için kritik öneme sahiptir. Bu, okuyucuların sonuçları daha kapsamlı bir şekilde değerlendirmesine olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Eksik veri ve aykırı değer stratejileri hakkında bilgi eksikliği",
+        "summary": "Makale, veri setlerinde eksik veri olup olmadığına veya aykırı değerlerin nasıl ele alındığına dair herhangi bir bilgi sunmamaktadır. Özellikle derin öğrenme modellerinde, veri ön işleme adımları arasında bu tür durumların yönetimi önemlidir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Eksik veriler ve aykırı değerler, analiz sonuçlarını önemli ölçüde etkileyebilir. Bu tür durumların nasıl ele alındığının şeffaf bir şekilde raporlanması, çalışmanın güvenilirliğini ve tekrarlanabilirliğini artırır. Aksi takdirde, sonuçların bu faktörlerden ne kadar etkilendiği belirsiz kalır.",
+        "limitations": [
+          "Makalede eksik veri veya aykırı değer yönetimi hakkında bilgi bulunmadığından, bu konuda herhangi bir doğrulama yapılamamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Nedensel dil kullanımı uygun",
+        "summary": "Makale, deneysel bir tasarım kullandığı ve modellerin performansını karşılaştırdığı için nedensel dil kullanımı genel olarak uygun görünmektedir. 'Meta-öğrenici modelinin, az örneklemle öğrenme için derin metrik öğrenme teknikleriyle rekabetçi olduğu' gibi ifadeler, modelin performansını ve yeteneklerini tanımlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We demonstrate that this meta-learning model is competitive with deep metric-learning techniques for few-shot learning."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalarda, müdahalenin (burada yeni bir meta-öğrenme modelinin) sonuçlar üzerindeki etkisini tartışmak için nedensel dil kullanmak genellikle uygundur. Makale, gözlemsel bir çalışma olmamasına rağmen, modelin 'neden' daha iyi performans gösterdiğine dair çıkarımlar yaparken dikkatli bir dil kullanmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod erişilebilirliği belirtilmiş",
+        "summary": "Makale, uygulamanın koduna GitHub üzerinden erişilebileceğini belirterek tekrarlanabilirliği desteklemektedir. Bu, araştırmacıların çalışmayı doğrulamasına ve üzerine inşa etmesine olanak tanır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "evaluation.a3",
+            "section": "EVALUATION",
+            "quote": "∗Code can be found at https://github.com/twitter/meta-learning-lstm."
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmaların tekrarlanabilirliği, bulguların güvenilirliği ve bilimin ilerlemesi için temel bir gerekliliktir. Kodun açıkça paylaşılması, bu amaca hizmet eden önemli bir adımdır.",
+        "limitations": [
+          "Veri setinin tam olarak nasıl oluşturulduğuna dair detaylar (örneğin, ImageNet'ten hangi 100 sınıfın seçildiği) tam olarak açıklanmamıştır, bu da veri seviyesinde tam tekrarlanabilirliği bir miktar kısıtlayabilir."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ana sonuçlar etki büyüklüğü ve belirsizlikle sunulmuş",
+        "summary": "Makale, ana sonuçlarını (farklı modellerin sınıflandırma doğrulukları) Tablo 1'de ortalama değerler ve %95 güven aralıkları ile sunmaktadır. Bu, okuyucunun hem etki büyüklüğünü hem de bu tahminlerin belirsizliğini değerlendirmesine olanak tanır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1.a2",
+            "section": "Table 1",
+            "quote": "Average classiﬁcation accuracies on Mini-ImageNet with 95% conﬁdence intervals."
+          }
+        ],
+        "reasoning_public": "İyi raporlama kalitesi, ana bulguların sadece istatistiksel anlamlılığını değil, aynı zamanda pratik önemini ve kesinliğini de yansıtacak şekilde sunulmasını gerektirir. Etki büyüklükleri ve güven aralıkları, bu bilgiyi sağlamanın standart yollarıdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Konusu ve Track Uyumu",
+        "summary": "Makale, 'Az Örnekle Öğrenme için Optimizasyon Modeli' başlığıyla, derin öğrenme ve meta-öğrenme alanındaki az örnekle öğrenme (few-shot learning) problemine odaklanmaktadır. Bu konu, makalenin başlığı, özeti ve giriş bölümünde açıkça belirtilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Though deep neural networks have shown great success in the large data domain, they generally perform poorly on few-shot learning tasks, where a classiﬁer has to quickly generalize after seeing very few examples from each class. ... Here, we propose an LSTM-based meta-learner model to learn the exact optimization algorithm used to train another learner neural network classiﬁer in the few-shot regime."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "Deep learning has shown great success in a variety of tasks with large amounts of labeled data... This type of optimization breaks down in the small data regime where we want to learn from very few labeled examples."
+          },
+          {
+            "anchor_id": "related_work.a0",
+            "section": "RELATED WORK",
+            "quote": "While this work falls within the broad literature of transfer learning in general, we focus here on positioning it relative to previous work on meta-learning and few-shot learning."
+          }
+        ],
+        "reasoning_public": "Makalenin ana konusu olan az örnekle öğrenme ve meta-öğrenme, güncel yapay zeka araştırmalarında önemli bir yer tutmaktadır. Makale, bu alandaki temel zorlukları ele almakta ve yenilikçi bir LSTM tabanlı meta-öğrenici modeli önermektedir. Bu yaklaşım, derin öğrenme, optimizasyon ve makine öğrenimi konferanslarının genel kapsamına tamamen uymaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yenilikçi Yaklaşım ve Kapsamlı Sunum",
+        "summary": "Makale, az örneklemle öğrenme (few-shot learning) problemine meta-öğrenme çerçevesinde LSTM tabanlı bir optimize edici önererek önemli bir yenilik sunmaktadır. Bu yenilik, makalenin uzunluğunu ve detaylı açıklamasını haklı çıkarmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "Here, we propose an LSTM-based meta-learner model to learn the exact optimization algorithm used to train another learner neural network classiﬁer in the few-shot regime."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "We present a method here that addresses the weakness of neutral networks trained with gradient-based optimization on the few-shot learning problem by framing the problem within a meta-learning setting. We propose an LSTM-based meta-learner optimizer that is trained to optimize a learner neural network classiﬁer."
+          }
+        ],
+        "reasoning_public": "Makale, derin öğrenme modellerinin az örneklemle öğrenme senaryolarındaki sınırlılıklarını ele alarak, bu alandaki temel bir zorluğa çözüm getirmektedir. Önerilen LSTM tabanlı meta-öğrenici, öğrenici ağın optimizasyon sürecini öğrenerek hızlı yakınsama ve iyi genelleme performansı sağlamayı hedeflemektedir. Bu yaklaşım, mevcut yöntemlerden farklılaşmakta ve alana özgün bir katkı sunmaktadır. Modelin detaylı açıklaması, parametre paylaşımı, ön işleme, eğitim stratejileri ve deneysel sonuçların kapsamlı sunumu, makalenin uzunluğunu ve derinliğini desteklemektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f1",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Deneysel Doğrulama ve Karşılaştırmalı Analiz",
+        "summary": "Makale, önerilen modelin performansını Mini-ImageNet veri kümesi üzerinde çeşitli temel çizgiler ve güncel metrik öğrenme teknikleriyle karşılaştırarak deneysel olarak doğrulamaktadır. Bu kapsamlı değerlendirme, makalenin uzunluğunu ve sunduğu katkının değerini artırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "5_evaluation.a0",
+            "section": "5 EVALUATION",
+            "quote": "In this section, we describe the results of experiments, examining the properties of our model and comparing our method’s performance against different approaches."
+          },
+          {
+            "anchor_id": "table_1.a3",
+            "section": "Table 1",
+            "quote": "Average classiﬁcation accuracies on Mini-ImageNet with 95% conﬁdence intervals. Marked in bold are the best results for each scenario, as well as other results with an overlapping conﬁdence interval."
+          }
+        ],
+        "reasoning_public": "Makale, önerilen meta-öğrenici LSTM modelinin etkinliğini göstermek için dikkatli bir deneysel kurulum sunmaktadır. Mini-ImageNet veri kümesi üzerinde yapılan 1-shot ve 5-shot sınıflandırma deneyleri, modelin Matching Networks gibi son teknoloji yöntemlerle rekabetçi, hatta bazı durumlarda daha iyi performans gösterdiğini ortaya koymaktadır. Bu detaylı karşılaştırmalı analiz ve sonuçların yorumlanması, makalenin bilimsel değerini ve uzunluğunu haklı çıkarmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod Erişilebilirliği",
+        "summary": "Makale, uygulanan metodolojinin koduna GitHub üzerinden erişim sağlayarak araştırmanın tekrarlanabilirliğini artırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "evaluation.a4",
+            "section": "EVALUATION",
+            "quote": "Code can be found at https://github.com/twitter/meta-learning-lstm."
+          }
+        ],
+        "reasoning_public": "Araştırmanın tekrarlanabilirliği, bilimsel ilerleme için kritik öneme sahiptir. Kodun açıkça paylaşılması, diğer araştırmacıların sonuçları doğrulamasına, metodolojiyi anlamasına ve üzerine inşa etmesine olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f0",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Figure 1'deki Metin Boyutu ve Okunabilirlik Sorunu",
+        "summary": "Figure 1'deki metin boyutu oldukça küçük ve okunması zor. Bu durum, meta-öğrenme kurulumunun görsel açıklamasını anlamayı güçleştiriyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "task_description.a1",
+            "section": "TASK DESCRIPTION",
+            "quote": "An example of this formulation is given in Figure 1."
+          }
+        ],
+        "reasoning_public": "Şekillerdeki metinlerin okunabilirliği, okuyucunun karmaşık kavramları hızlı ve doğru bir şekilde anlaması için kritik öneme sahiptir. Küçük metinler, özellikle dijital ortamlarda veya basılı kopyalarda detayların gözden kaçmasına neden olabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f1",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Figure 2'deki Açıklamaların Yetersizliği",
+        "summary": "Figure 2'deki 'Computational graph for the forward pass of the meta-learner' başlığı altında verilen açıklamalarda, özellikle 'M' ve '∇t' gibi kısaltmaların tam olarak ne anlama geldiği şeklin kendisinde veya hemen altında netleştirilmemiş. Bu durum, okuyucunun şekli tam olarak anlamasını zorlaştırıyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_3_1_gradient_independence_assumption.a0",
+            "section": "3.3.1 GRADIENT INDEPENDENCE ASSUMPTION",
+            "quote": "Figure 2: Computational graph for the forward pass of the meta-learner. The dashed line divides examples from the training set Dtrain and test set Dtest. Each (Xi, Yi) is the ith batch from the training set whereas (X, Y) is all the elements from the test set. The dashed arrows indicate that we do not back-propagate through that step when training the meta-learner. We refer to the learner as M, where M(X; θ) is the output of learner M using parameters θ for inputs X. We also use ∇t as a shorthand for ∇θt−1Lt."
+          }
+        ],
+        "reasoning_public": "Şekillerin kendi içinde veya hemen altında yeterli açıklama içermesi, okuyucunun metin içinde sürekli referans aramasını engeller ve anlaşılırlığı artırır. Kısaltmaların veya sembollerin tanımlanmaması, özellikle teknik diyagramlarda kafa karışıklığına yol açabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f2",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makalenin Genel Akışı ve Yapısı",
+        "summary": "Makale, girişten sonuç bölümüne kadar mantıksal bir akışa sahip. Bölüm başlıkları ve alt başlıklar, konunun anlaşılmasını kolaylaştırıyor ve okuyucunun makale içinde gezinmesine yardımcı oluyor.",
+        "manuscript_anchors": [],
+        "reasoning_public": "İyi yapılandırılmış bir makale, okuyucunun karmaşık bilgileri sindirmesine ve ana argümanları takip etmesine olanak tanır. Açık bir akış, makalenin genel anlaşılırlığını ve etkisini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ana Katkının Açıkça İfade Edilmesi",
+        "summary": "Makale, önerilen LSTM tabanlı meta-öğrenici modelinin temel katkısını ve yeniliğini, özellikle az örneklem öğrenme (few-shot learning) bağlamında, net bir şekilde açıklamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Here, we propose an LSTM-based meta-learner model to learn the exact optimization algorithm used to train another learner neural network classiﬁer in the few-shot regime. The parametriza-tion of our model allows it to learn appropriate parameter updates speciﬁcally for the scenario where a set amount of updates will be made, while also learning a general initialization of the learner (classiﬁer) network that allows for quick con-vergence of training."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "We present a method here that addresses the weakness of neutral networks trained with gradient-based optimization on the few-shot learning problem by framing the problem within a meta-learning setting. We propose an LSTM-based meta-learner optimizer that is trained to optimize a learner neural network classiﬁer. The meta-learner captures both short-term knowledge within a task and long-term knowledge common among all the tasks."
+          }
+        ],
+        "reasoning_public": "Yazar, mevcut gradient tabanlı optimizasyon yöntemlerinin az örneklem senaryolarındaki zayıflıklarını vurgulayarak, kendi yaklaşımlarının bu sorunları nasıl ele aldığını ve geleneksel meta-öğrenme yaklaşımlarından nasıl farklılaştığını açıkça belirtmiştir. Modelin hem kısa vadeli (görev içi) hem de uzun vadeli (görevler arası) bilgiyi yakalama yeteneği ve öğrenici için optimal bir başlangıç ağırlığı öğrenme kapasitesi vurgulanmıştır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çalışmanın Sınırlılıkları ve Karşılaştırmalı Analiz",
+        "summary": "Makale, önerilen modelin performansını mevcut yöntemlerle karşılaştırırken, kendi veri seti oluşturma ve model uygulama yaklaşımlarının sonuçları Vinyals et al. (2016) ile doğrudan karşılaştırılamaz hale getirdiğini açıkça belirtmektedir. Ayrıca, 1-shot öğrenme senaryosunda modelin Matching Networks ile benzer performans gösterdiğini, ancak 5-shot senaryosunda daha iyi olduğunu dürüstçe ifade etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiment_results.a1",
+            "section": "EXPERIMENT RESULTS",
+            "quote": "Again, we note that the numbers do not match the ones provided by Vinyals et al. (2016) simply because we created our version of the dataset and implemented our own versions of their model. It is interesting to note that the ﬁne-tuned baseline is worse than the nearest-neighbor baseline. Because we are not regularizing the classiﬁer, with very few updates the ﬁne-tuning model overﬁts, especially in the 1-shot case."
+          },
+          {
+            "anchor_id": "experiment_results.a2",
+            "section": "EXPERIMENT RESULTS",
+            "quote": "For 5-shot, we are able to do much better than Matching Networks, whereas for 1-shot, the conﬁdence interval for our performance intersects the interval for Matching Networks."
+          }
+        ],
+        "reasoning_public": "Araştırmacılar, çalışmalarının sınırlılıklarını ve karşılaştırmalı analizdeki nüansları şeffaf bir şekilde sunarak, okuyucuların sonuçları doğru bir şekilde yorumlamasına olanak tanımıştır. Bu, akademik dürüstlük ve çalışmanın kapsamının net bir şekilde anlaşılması açısından önemlidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f1",
+        "dimension": "ethics_limitations",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Etik Hususların Eksikliği",
+        "summary": "Makale, etik hususlara veya potansiyel olumsuz etkilere dair herhangi bir tartışma içermemektedir. Özellikle yapay zeka ve makine öğrenimi alanındaki araştırmalarda, modellerin toplumsal etkileri, önyargıları veya kötüye kullanım potansiyeli gibi etik boyutların ele alınması giderek daha önemli hale gelmektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Çalışma, meta-öğrenme ve az örneklemle öğrenme gibi alanlarda teknik bir ilerleme sunsa da, bu teknolojilerin etik sonuçları veya toplumsal etkileri hakkında herhangi bir değerlendirme yapmamıştır. Bu tür bir tartışmanın eksikliği, çalışmanın genel bağlamını ve sorumluluklarını göz ardı etmesine neden olabilir.",
+        "limitations": [
+          "Makalenin odak noktasının teknik yenilikler olması nedeniyle etik tartışmaların kapsamının sınırlı olabileceği varsayımı."
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f1.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Mini-ImageNet Veri Seti Oluşturma ve Karşılaştırma Tutarsızlıkları",
+        "summary": "Makale, Mini-ImageNet veri setinin Vinyals et al. (2016) tarafından yayınlanan tam bölümlerinin mevcut olmaması nedeniyle kendi versiyonlarını oluşturduklarını belirtiyor. Bu durum, sonuçların doğrudan orijinal çalışma ile karşılaştırılmasını zorlaştırıyor ve hakemin bulguların genellenebilirliği ve tekrarlanabilirliği konusundaki güvenini azaltıyor.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiment_results.a3",
+            "section": "EXPERIMENT RESULTS",
+            "quote": "The Mini-ImageNet dataset was proposed by Vinyals et al. (2016) as a benchmark offering the challenges of the complexity of ImageNet images, without requiring the resources and infrastructure necessary to run on the full ImageNet dataset. Because the exact splits used in Vinyals et al. (2016) were not released, we create our own version of the Mini-Imagenet dataset by selecting a random 100 classes from ImageNet and picking 600 examples of each class."
+          },
+          {
+            "anchor_id": "experiment_results.a4",
+            "section": "EXPERIMENT RESULTS",
+            "quote": "Again, we note that the numbers do not match the ones provided by Vinyals et al. (2016) simply because we created our version of the dataset and implemented our own versions of their model."
+          }
+        ],
+        "reasoning_public": "Araştırmanın tekrarlanabilirliği ve sonuçların doğruluğu, kullanılan veri setlerinin ve deneysel kurulumların şeffaflığına bağlıdır. Kendi oluşturulan bir veri seti versiyonunun kullanılması ve bunun orijinal çalışma ile tam olarak eşleşmediğinin belirtilmesi, sonuçların karşılaştırılabilirliğini ve genellenebilirliğini sorgulatır. Bu durum, makalenin iddialarının sağlamlığını değerlendirirken bir belirsizlik yaratır.",
+        "limitations": [],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0",
+          "reviewer_confidence.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f1",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Karşılaştırma Modellerinin Kendi Uygulamaları",
+        "summary": "Yazarlar, Matching Networks için hem temel hem de tam koşullu gömme (FCE) versiyonlarının kendi uygulamalarını kullandıklarını belirtiyorlar. Bu durum, bu modellerin orijinal performansıyla tam olarak karşılaştırılabilirliğini etkileyebilir ve hakemin sonuçların güvenilirliği konusundaki güvenini azaltabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiment_results.a5",
+            "section": "EXPERIMENT RESULTS",
+            "quote": "For Matching Networks, we implemented our own version of both the basic and the fully-conditional embedding (FCE) versions."
+          },
+          {
+            "anchor_id": "experiment_results.a6",
+            "section": "EXPERIMENT RESULTS",
+            "quote": "Again, we note that the numbers do not match the ones provided by Vinyals et al. (2016) simply because we created our version of the dataset and implemented our own versions of their model."
+          }
+        ],
+        "reasoning_public": "Karşılaştırmalı çalışmalarda, rakip modellerin orijinal uygulamalarının veya yaygın olarak kabul görmüş referans uygulamalarının kullanılması önemlidir. Kendi uygulamaların kullanılması, orijinal çalışmalardaki ince detayların veya optimizasyonların gözden kaçırılmasına neden olabilir, bu da karşılaştırmaların adilliğini ve sonuçların genellenebilirliğini etkiler.",
+        "limitations": [],
+        "action_item_ids": [
+          "reviewer_confidence.f1.a0",
+          "reviewer_confidence.f1.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f2",
+        "dimension": "reviewer_confidence",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kodun Açık Kaynak Olarak Paylaşılması",
+        "summary": "Yazarlar, makalenin sonunda kodun GitHub üzerinden erişilebilir olduğunu belirtmişlerdir. Bu durum, araştırmanın tekrarlanabilirliğini ve şeffaflığını artırarak hakemin bulgulara olan güvenini olumlu yönde etkilemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "evaluation.a5",
+            "section": "EVALUATION",
+            "quote": "∗Code can be found at https://github.com/twitter/meta-learning-lstm."
+          }
+        ],
+        "reasoning_public": "Açık kaynak kod paylaşımı, diğer araştırmacıların makaledeki deneyleri doğrulamasına, yeniden üretmesine ve üzerine inşa etmesine olanak tanır. Bu, bilimsel sürecin şeffaflığı ve güvenilirliği için kritik öneme sahiptir ve makalenin iddialarının sağlamlığını destekler.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "presentation_clarity.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Figure 1",
+        "instruction": "Figure 1'deki metin boyutunu artırarak okunabilirliği iyileştirin. Gerekirse şeklin düzenini veya içeriğini basitleştirerek daha büyük fontlara yer açın.",
+        "acceptance_check": "Şekildeki tüm metinlerin kolayca okunabilir olması.",
+        "linked_finding_ids": [
+          "presentation_clarity.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "Figure 2",
+        "instruction": "Figure 2'nin başlığının altına veya şeklin içine 'M' ve '∇t' gibi kullanılan tüm kısaltmaların ve sembollerin açık tanımlarını ekleyin. Bu tanımlar, şeklin bağlamında kolayca erişilebilir olmalıdır.",
+        "acceptance_check": "Şekildeki tüm kısaltmaların ve sembollerin şeklin kendisinde veya hemen altında tanımlanmış olması.",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "EVALUATION",
+        "instruction": "Kullanılan sınıf ve örneklem sayılarının seçimini gerekçelendirmek için bir güç analizi veya hassasiyet rasyoneli ekleyin. Bu analiz, beklenen etki büyüklüklerini tespit etmek için gerekli minimum örneklem büyüklüğünü veya elde edilen güven aralıklarının istenen hassasiyetini nasıl sağladığını açıklamalıdır.",
+        "acceptance_check": "Örneklem büyüklüğü gerekçesi olarak güç analizi veya hassasiyet rasyoneli içeren yeni bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENT RESULTS",
+        "instruction": "Mini-ImageNet veri setinin oluşturulma süreci ve kullanılan bölümler hakkında daha detaylı bilgi sağlayın. Mümkünse, oluşturulan veri setini veya veri seti oluşturma kodunu açık kaynak olarak paylaşın.",
+        "acceptance_check": "Veri seti oluşturma adımları net bir şekilde açıklanmış ve/veya veri seti/kodu erişilebilir hale getirilmiş olmalı.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENT RESULTS",
+        "instruction": "Matching Networks'ün kendi uygulamalarınızın detaylarını (örn. hiperparametreler, mimari farklılıkları) daha ayrıntılı açıklayın ve orijinal uygulamalarla ne kadar uyumlu olduklarını belirtin. Mümkünse, bu uygulamaların kodunu da paylaşın.",
+        "acceptance_check": "Uygulama detayları ve orijinal çalışmalarla karşılaştırması net bir şekilde sunulmuş olmalı.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "CONCLUSION",
+        "instruction": "Makalenin 'Sonuç' veya yeni bir 'Etik Hususlar' bölümünde, önerilen meta-öğrenme modelinin potansiyel etik etkileri, önyargı riskleri veya kötüye kullanım senaryoları hakkında kısa bir tartışma eklenmelidir. Örneğin, az örneklemle öğrenmenin hassas alanlarda (tıbbi teşhis, güvenlik) kullanımı ve olası yanlış genellemelerin sonuçları ele alınabilir.",
+        "acceptance_check": "Makalede etik hususlara dair en az bir paragrafın eklenmiş olması.",
+        "linked_finding_ids": [
+          "ethics_limitations.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "EVALUATION",
+        "instruction": "Kullanılan istatistiksel analizler için varsayım testlerinin yapılıp yapılmadığını ve sonuçlarını belirtin. Eğer yapılmadıysa, bunun potansiyel etkilerini tartışın.",
+        "acceptance_check": "Varsayım testleri hakkında bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "EVALUATION",
+        "instruction": "Tablo 1'deki çoklu karşılaştırmalar için Tip I hata oranını kontrol etmek amacıyla herhangi bir düzeltme yapılıp yapılmadığını açıklayın. Eğer yapılmadıysa, bunun sonuçların yorumlanabilirliği üzerindeki potansiyel etkilerini tartışın.",
+        "acceptance_check": "Çoklu karşılaştırma düzeltmeleri hakkında bir açıklamanın eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "EVALUATION",
+        "instruction": "Veri setlerinde eksik veri olup olmadığını ve varsa nasıl ele alındığını açıklayın. Aykırı değerlerin varlığı ve bunlara yönelik uygulanan stratejiler (varsa) hakkında bilgi ekleyin.",
+        "acceptance_check": "Eksik veri ve aykırı değer yönetimi hakkında bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENT RESULTS",
+        "instruction": "Vinyals et al. (2016) ile sonuçların neden tam olarak eşleşmediğine dair daha kapsamlı bir analiz sunun. Kendi uygulamalarınızdaki farklılıkların sonuçlar üzerindeki potansiyel etkilerini tartışın.",
+        "acceptance_check": "Karşılaştırma farklılıklarının nedenleri ve etkileri açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f1.a1",
+        "priority": "P2",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENT RESULTS",
+        "instruction": "Eğer mümkünse, Matching Networks'ün orijinal veya yaygın olarak kabul görmüş açık kaynak uygulamalarını kullanarak deneyleri tekrarlamayı düşünün. Bu, karşılaştırmaların sağlamlığını artıracaktır.",
+        "acceptance_check": "Orijinal uygulamalarla yapılan karşılaştırmalı sonuçlar eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "related_work.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.3.1 GRADIENT INDEPENDENCE ASSUMPTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Figure 2'deki Açıklamaların Yetersizliği",
+        "anchor_ids": [
+          "3_3_1_gradient_independence_assumption.a0"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ]
+      },
+      {
+        "section": "5 EVALUATION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "5_evaluation.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "EVALUATION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Varsayım testleri ve çoklu karşılaştırma riski hakkında bilgi eksikliği",
+        "anchor_ids": [
+          "evaluation.a0",
+          "evaluation.a1",
+          "evaluation.a2",
+          "evaluation.a3",
+          "evaluation.a4",
+          "evaluation.a5"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f3.a0",
+          "quant.f3.a1"
+        ]
+      },
+      {
+        "section": "EXPERIMENT RESULTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Mini-ImageNet Veri Seti Oluşturma ve Karşılaştırma Tutarsızlıkları; Karşılaştırma Modellerinin Kendi Uygulamaları",
+        "anchor_ids": [
+          "experiment_results.a0",
+          "experiment_results.a1",
+          "experiment_results.a2",
+          "experiment_results.a3",
+          "experiment_results.a4",
+          "experiment_results.a5",
+          "experiment_results.a6"
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0",
+          "reviewer_confidence.f0.a1",
+          "reviewer_confidence.f1.a0",
+          "reviewer_confidence.f1.a1"
+        ]
+      },
+      {
+        "section": "MODEL DESCRIPTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "model_description.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Table 1",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_1.a0",
+          "table_1.a1",
+          "table_1.a2",
+          "table_1.a3"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "TASK DESCRIPTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Figure 1'deki Metin Boyutu ve Okunabilirlik Sorunu",
+        "anchor_ids": [
+          "task_description.a0",
+          "task_description.a1"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

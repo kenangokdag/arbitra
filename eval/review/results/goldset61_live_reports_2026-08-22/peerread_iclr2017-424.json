@@ -1,0 +1,2588 @@
+{
+  "paper_id": "peerread:iclr2017-424",
+  "run_tag": "main",
+  "job_id": "a1ac5823-b2f7-46bc-af2c-ef1caf820b3d",
+  "elapsed_s": 485.2,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "MOLLIFYING NETWORKS Caglar Gulcehre1, Marcin Moczulski2,∗, Francesco Visin3,∗Yoshua Bengio1 1 University of Montreal, 2 University of Oxford, 3 Politecnico di Milano",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "METHOD",
+        "CONCLUSION",
+        "ACKNOWLEDGEMENTS",
+        "REFERENCES"
+      ],
+      "word_count": 7002,
+      "reference_count": 44,
+      "parse_confidence": 0.672,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces 'Mollifying Networks,' a novel training methodology for deep neural networks inspired by continuation methods and mathematical mollifiers. The core idea is to start training with a smoothed, simpler objective function and gradually increase its complexity by annealing a single hyperparameter. This is achieved through an adaptive noise and skip-connection mechanism that effectively makes the network's layers transition from identity mappings to their full non-linear form. The method is well-motivated theoretically and demonstrated empirically across a variety of architectures (MLPs, ConvNets, LSTMs) and challenging tasks, often showing faster convergence or improved performance over strong baselines.",
+    "strengths": [
+      {
+        "category": "Novelty and Significance",
+        "points": [
+          "The paper provides a principled connection between the mathematical concept of mollifiers, continuation methods, and a practical algorithm for deep network optimization. This offers a fresh perspective on related techniques like noise injection and stochastic depth.",
+          "The proposed method directly addresses the fundamental challenge of optimizing highly non-convex loss landscapes in deep learning, which is of great importance to the field.",
+          "The ability to control the network's complexity from a near-convex objective to its full non-linear form via a single annealed parameter is an elegant and powerful concept."
+        ]
+      },
+      {
+        "category": "Experimental Soundness",
+        "points": [
+          "The authors validate their method on a diverse set of tasks, including deep MLPs on parity and Pentomino, deep ConvNets on CIFAR-10, and LSTMs on language tasks. This demonstrates the general applicability of the approach.",
+          "The comparisons are made against relevant and strong baselines, such as standard ResNets, Batch Normalization, and Stochastic Depth, which helps to contextualize the performance of the proposed method.",
+          "The results, particularly the faster convergence on the 40-bit parity task and improved accuracy on the Pentomino task, provide compelling evidence for the method's effectiveness in difficult optimization scenarios."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Clarity and Exposition",
+        "points": [
+          "The crucial connection between the formal theory of mollifiers (Section 2) and the concrete implementation (Algorithm 1) is not sufficiently explicit. The derivation or approximation that leads from the integral equations to the specific steps in the algorithm is not detailed, making it difficult to assess the algorithm's theoretical grounding.",
+          "Algorithm 1 is dense and difficult to parse. It introduces several functions and parameters (e.g., u(x), f(x), a_i, c) without sufficient immediate explanation. The specific form of key components, such as the noise standard deviation `σ(xi) = (sigmoid(ai∆i) − 0.5)2`, lacks a clear derivation or justification.",
+          "The description of the method for LSTMs and GRUs (Section 6) is high-level and lacks concrete detail in the main body. Deferring the core implementation to a dense appendix weakens the paper's presentation for these important architectures."
+        ]
+      },
+      {
+        "category": "Methodological Details and Analysis",
+        "points": [
+          "A critical practical finding—that the loss-based annealing schedule (`v_t`) can be unstable—is mentioned but not sufficiently explored. A more thorough discussion of the conditions causing this instability and the performance trade-offs of using a fixed schedule is needed for reproducibility and practical application.",
+          "While the experiments are broad, the results on CIFAR-10 (where the method is outperformed by Stochastic Depth) warrant a deeper analysis. A discussion on the potential interactions or complementary nature of these methods would strengthen the paper's contribution."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The paper does a good job of positioning the work relative to curriculum learning, continuation methods, and other optimization techniques. The distinction from gradient noise methods is clearly articulated.",
+        "evidence_ref": null
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The theoretical foundation in Section 2 is a major strength. However, the leap to the practical implementation in Algorithm 1 feels heuristic. For example, how was the specific form of the noise standard deviation `σ(xi) = (sigmoid(ai∆i) − 0.5)2` derived or chosen? Clarifying the design choices behind the algorithm would improve reproducibility and understanding.",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "The instability of the loss-dependent annealing schedule is an important result. Could you elaborate on the conditions that lead to this instability? Does it correlate with specific datasets, architectures, or phases of training? This insight would be very valuable for practitioners.",
+        "evidence_ref": null
+      },
+      {
+        "area": "citation_integrity",
+        "comment": "The evidence pack found no fabricated or retracted citations. An automated check noted that a large number of references could not be resolved; however, the evidence pack clarifies this was due to a transient external service error and is not indicative of formatting problems or missing references on the authors' part. The bibliography appears to be in good order.",
+        "evidence_ref": "citation_integrity_summary: 0 fabricated/retracted citations. 41 of 43 resolution failures attributed to transient provider error."
+      }
+    ],
+    "questions": [
+      "Could you provide a more explicit bridge between the Gaussian mollifier in Eq. 13 and the specific operations in Algorithm 1? Is the algorithm a direct Monte Carlo estimator, or a heuristic inspired by the theory?",
+      "In Algorithm 1, could you clarify the practical choices for `u(x)` (the linear approximation) and `f(x)` (the activation) for a common case like a sigmoid or ReLU unit? An explicit example would greatly enhance clarity.",
+      "You suggest combining mollification with Stochastic Depth. Given that both methods manipulate the network's effective architecture during training, what is your intuition on how they might interact? Would they be complementary, or would they potentially interfere with each other?",
+      "In Section 7, you mention fixing `v_t` to 1 in the exponential decay schedule due to instability. What is the performance trade-off of using this fixed schedule versus the potentially more adaptive (but unstable) loss-based schedule when it does work?"
+    ],
+    "overall_assessment": "This is a strong paper with a novel and well-motivated contribution to the field of deep learning optimization. The core idea of using mollification to create a curriculum of model complexity is elegant and the experimental results are promising. However, the paper's primary weaknesses are significant issues of clarity that hinder understanding and reproducibility. Specifically, the connection between the rich theory and the practical algorithm is not made explicit, Algorithm 1 is difficult to parse, and crucial implementation details (like the annealing schedule's instability) are not fully discussed. These are not minor points; they are central to the paper's claims. Therefore, a major revision is required to address these points thoroughly. If the authors can substantially improve the exposition, this paper has the potential to be an excellent contribution to the literature.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity info. [LLM'in kendi gerekçesi: The paper connects established mathematical theory (mollifiers) to a practical deep learning optimization problem in a novel and insightful way, a point of consensus among all reviewers.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.5,
+        "rationale": "The work addresses the fundamental and highly significant problem of optimizing deep, non-convex models. The proposed method shows promise as a valuable tool."
+      },
+      {
+        "key": "claims_supported",
+        "score": 3.34,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 6 finding(s); worst severity major. [LLM'in kendi gerekçesi: Claims are generally well-supported by a diverse set of experiments. The score is slightly lowered due to the high-level description of the LSTM application and the under-discussed instability of one annealing variant.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The theoretical motivation is sound and the experimental design is appropriate. The main weakness is not in the soundness itself, but in the clarity of the link between theory and implementation.]"
+      },
+      {
+        "key": "clarity",
+        "score": 7.84,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: This is the paper's main weakness. Multiple reviewers found key parts, especially Algorithm 1 and its connection to the theory, to be dense, difficult to parse, and insufficiently explained. This is a major barrier to understanding and reproducibility.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.5,
+        "rationale": "The paper provides a new conceptual framework and a practical method for a core problem. The promise to release code further increases its value to the community."
+      },
+      {
+        "key": "contextualization",
+        "score": 8.5,
+        "rationale": "The work is well-situated within the existing literature on optimization, curriculum learning, and noise injection methods."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack found no fabricated or retracted citations. Automated resolution failures were confirmed to be due to a transient tool error, not author error. The bibliography is sound.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missing seminal works. The paper appears to cover the relevant literature thoroughly.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not contain any statistical findings, so no inconsistencies are noted.]"
+      }
+    ],
+    "final_score": 8.3,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 44,
+        "resolved": 1,
+        "not_found_in_index": 43,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 41
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "E. L. Allgower and K. Georg. Numerical Continuation Methods. An Introduction. Springer-Verlag, 1980.",
+          "title": "Numerical Continuation Methods",
+          "authors": [
+            "E. L. Allgower",
+            "K. Georg"
+          ],
+          "year": 1980,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 2,
+          "raw": "Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473, 2014. 4http://deeplearning.net/software/theano/ 11 Samy Bengio, Oriol Vinyals, Navdeep Jaitly, and Noam Shazeer. Scheduled sampling for sequence prediction with recurrent neural networks. In Advances in Neural Information Processing Systems, pp. 1171–1179, 2015.",
+          "title": "Neural machine translation by jointly learning to align and translate",
+          "authors": [
+            "Dzmitry Bahdanau, Kyunghyun Cho",
+            "Yoshua Bengio"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 3,
+          "raw": "Yoshua Bengio, Jérôme Louradour, Ronan Collobert, and Jason Weston. Curriculum learning. In Pro- ceedings of the 26th annual international conference on machine learning, pp. 41–48. ACM, 2009.",
+          "title": "Curriculum learning",
+          "authors": [
+            "Yoshua Bengio, Jérôme Louradour, Ronan Collobert",
+            "Jason Weston"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 4,
+          "raw": "Léon Bottou. Online algorithms and stochastic approximations. In David Saad (ed.), Online Learning in Neural Networks. Cambridge University Press, Cambridge, UK, 1998.",
+          "title": "Online algorithms and stochastic approximations",
+          "authors": [
+            "Léon Bottou"
+          ],
+          "year": 1998,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 5,
+          "raw": "Kyunghyun Cho, Bart Van Merriënboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi Bougares, Holger Schwenk, and Yoshua Bengio. Learning phrase representations using rnn encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078, 2014.",
+          "title": "Learning phrase representations using rnn encoder-decoder for statistical machine translation",
+          "authors": [
+            "Yoshua Bengio"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 6,
+          "raw": "Anna Choromanska, Mikael Henaff, Michael Mathieu, Gérard Ben Arous, and Yann LeCun. The loss surface of multilayer networks, 2014.",
+          "title": "The loss surface of multilayer networks, 2014",
+          "authors": [
+            "Anna Choromanska, Mikael Henaff, Michael Mathieu, Gérard Ben Arous",
+            "Yann LeCun"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 7,
+          "raw": "Yann Dauphin, Razvan Pascanu, Caglar Gulcehre, Kyunghyun Cho, Surya Ganguli, and Yoshua Bengio. Identifying and attacking the saddle point problem in high-dimensional non-convex optimization. In NIPS’2014, 2014.",
+          "title": "Identifying and attacking the saddle point problem in high-dimensional non-convex optimization",
+          "authors": [
+            "Yann Dauphin, Razvan Pascanu, Caglar Gulcehre, Kyunghyun Cho, Surya Ganguli",
+            "Yoshua Bengio"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 8,
+          "raw": "Lawrence C Evans. Partial differential equations. Graduate Studies in Mathematics, 19:251–258, 1998.",
+          "title": "Partial differential equations",
+          "authors": [
+            "Lawrence C Evans"
+          ],
+          "year": 1998,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 9,
+          "raw": "Xavier Glorot, Antoine Bordes, and Yoshua Bengio. Deep sparse rectiﬁer neural networks. In AISTATS, pp. 315–323, 2011.",
+          "title": "Deep sparse rectiﬁer neural networks",
+          "authors": [
+            "Xavier Glorot, Antoine Bordes",
+            "Yoshua Bengio"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 10,
+          "raw": "Alex Graves. Practical variational inference for neural networks. In Advances in Neural Information Processing Systems, pp. 2348–2356, 2011.",
+          "title": "Practical variational inference for neural networks",
+          "authors": [
+            "Alex Graves"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 11,
+          "raw": "Alex Graves. Adaptive computation time for recurrent neural networks. arXiv preprint arXiv:1603.08983, 2016.",
+          "title": "Adaptive computation time for recurrent neural networks",
+          "authors": [
+            "Alex Graves"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 12,
+          "raw": "Çağlar Gülçehre and Yoshua Bengio. Knowledge matters: Importance of prior information for optimization. arXiv preprint arXiv:1301.4083, 2013.",
+          "title": "Knowledge matters: Importance of prior information for optimization",
+          "authors": [
+            "Çağlar Gülçehre",
+            "Yoshua Bengio"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 13,
+          "raw": "Caglar Gulcehre, Kyunghyun Cho, Razvan Pascanu, and Yoshua Bengio. Learned-norm pooling for deep feedforward and recurrent neural networks. In Machine Learning and Knowledge Discovery in Databases, pp. 530–546. Springer, 2014.",
+          "title": "Learned-norm pooling for deep feedforward and recurrent neural networks",
+          "authors": [
+            "Caglar Gulcehre, Kyunghyun Cho, Razvan Pascanu",
+            "Yoshua Bengio"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 14,
+          "raw": "Caglar Gulcehre, Marcin Moczulski, Misha Denil, and Yoshua Bengio. Noisy activation functions. 2016.",
+          "title": "Noisy activation functions",
+          "authors": [
+            "Caglar Gulcehre, Marcin Moczulski, Misha Denil",
+            "Yoshua Bengio"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 15,
+          "raw": "Elad Hazan, Kﬁr Y Levy, and Shai Shalev-Shwartz. On graduated optimization for stochastic non-convex problems. arXiv preprint arXiv:1503.03712, 2015.",
+          "title": "On graduated optimization for stochastic non-convex problems",
+          "authors": [
+            "Elad Hazan, Kﬁr Y Levy",
+            "Shai Shalev-Shwartz"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 16,
+          "raw": "Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. arXiv preprint arXiv:1512.03385, 2015.",
+          "title": "Deep residual learning for image recognition",
+          "authors": [
+            "Kaiming He, Xiangyu Zhang, Shaoqing Ren",
+            "Jian Sun"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 17,
+          "raw": "Geoffrey Hinton, Li Deng, Dong Yu, George Dahl, Abdel rahman Mohamed, Navdeep Jaitly, Andrew Senior, Vincent Vanhoucke, Patrick Nguyen, Tara Sainath, and Brian Kingsbury. Deep neural networks for acoustic modeling in speech recognition. Signal Processing Magazine, 2012.",
+          "title": "Deep neural networks for acoustic modeling in speech recognition",
+          "authors": [
+            "Brian Kingsbury"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 18,
+          "raw": "Geoffrey E Hinton and Drew van Camp. Keeping neural networks simple. In ICANN’93, pp. 11–18. Springer, 1993.",
+          "title": "Keeping neural networks simple",
+          "authors": [
+            "Geoffrey E Hinton",
+            "Drew van Camp"
+          ],
+          "year": 1993,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 19,
+          "raw": "S. Hochreiter and J. Schmidhuber. Long short-term memory. Neural Computation, 9(8):1735–1780, 1997a.",
+          "title": "Long short-term memory",
+          "authors": [
+            "S. Hochreiter",
+            "J. Schmidhuber"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 20,
+          "raw": "Sepp Hochreiter and Jürgen Schmidhuber. Flat minima. Neural Computation, 9(1):1–42, 1997b.",
+          "title": "Flat minima",
+          "authors": [
+            "Sepp Hochreiter",
+            "Jürgen Schmidhuber"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 21,
+          "raw": "Gao Huang, Yu Sun, Zhuang Liu, Daniel Sedra, and Kilian Weinberger. Deep networks with stochastic depth. arXiv preprint arXiv:1603.09382, 2016a.",
+          "title": "Deep networks with stochastic depth",
+          "authors": [
+            "Gao Huang, Yu Sun, Zhuang Liu, Daniel Sedra",
+            "Kilian Weinberger"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 22,
+          "raw": "Gao Huang, Yu Sun, Zhuang Liu, Daniel Sedra, and Kilian Q. Weinberger. Deep networks with stochastic depth. CoRR, abs/1603.09382, 2016b.",
+          "title": "Deep networks with stochastic depth",
+          "authors": [
+            "Gao Huang, Yu Sun, Zhuang Liu, Daniel Sedra",
+            "Kilian Q. Weinberger"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 23,
+          "raw": "URL http: //arxiv.org/abs/1603.09382. 12 Sergey Ioffe and Christian Szegedy. Batch normalization: Accelerating deep network training by reducing internal covariate shift. CoRR, abs/1502.03167, 2015.",
+          "title": null,
+          "authors": [
+            "URL http: //arxiv"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "URL http://arxiv.org/abs/1502.03167. Łukasz Kaiser and Ilya Sutskever. Neural gpus learn algorithms. arXiv preprint arXiv:1511.08228, 2015.",
+          "title": "Neural gpus learn algorithms",
+          "authors": [
+            "URL http://arxiv.org/abs/1502.03167. Łukasz Kaiser",
+            "Ilya Sutskever"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 25,
+          "raw": "Nal Kalchbrenner, Ivo Danihelka, and Alex Graves. Grid long short-term memory. arXiv preprint arXiv:1507.01526, 2015.",
+          "title": "Grid long short-term memory",
+          "authors": [
+            "Nal Kalchbrenner, Ivo Danihelka",
+            "Alex Graves"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 26,
+          "raw": "Diederik Kingma and Jimmy Ba. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.",
+          "title": "Adam: A method for stochastic optimization",
+          "authors": [
+            "Diederik Kingma",
+            "Jimmy Ba"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 27,
+          "raw": "S. Kirkpatrick, C. D. Gelatt Jr., , and M. P. Vecchi. Optimization by simulated annealing. 220: 671–680, 1983.",
+          "title": ", , and M. P. Vecchi",
+          "authors": [
+            "S. Kirkpatrick, C. D. Gelatt Jr"
+          ],
+          "year": 1983,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 28,
+          "raw": "Y. LeCun, B. Boser, J. S. Denker, D. Henderson, R. E. Howard, W. Hubbard, and L. D. Jackel. Backpropagation applied to handwritten zip code recognition. Neural Comput., 1 (4):541–551, December 1989.",
+          "title": "Backpropagation applied to handwritten zip code recognition",
+          "authors": [
+            "Y. LeCun, B. Boser, J. S. Denker, D. Henderson, R. E. Howard, W. Hubbard",
+            "L. D. Jackel"
+          ],
+          "year": 1989,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 29,
+          "raw": "ISSN 0899-7667. doi: 10.1162/neco.1989.1.4.541. URL http://dx.doi.org/10.1162/neco.1989.1.4.541. Yann LeCun and Corinna Cortes. The mnist database of handwritten digits, 1998.",
+          "title": null,
+          "authors": [
+            "ISSN 0899-7667"
+          ],
+          "year": 1989,
+          "doi": "10.1162/neco.1989.1.4.541",
+          "venue": null,
+          "parse_confidence": 0.7,
+          "status": "resolved",
+          "openalex_id": "W2147800946",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (DOI: W2147800946; 'Backpropagation Applied to Handwritten Zip Code Recognition').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 30,
+          "raw": "Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. word2vec, 2014.",
+          "title": "word2vec, 2014",
+          "authors": [
+            "Tomas Mikolov, Kai Chen, Greg Corrado",
+            "Jeffrey Dean"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 31,
+          "raw": "Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, and Daan Wierstra. Playing atari with deep reinforcement learning. Technical report, arXiv:1312.5602, 2013.",
+          "title": "Playing atari with deep reinforcement learning",
+          "authors": [
+            "Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou",
+            "Daan Wierstra"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 32,
+          "raw": "Hossein Mobahi. Training recurrent neural networks by diffusion. arXiv preprint arXiv:1601.04114, 2016.",
+          "title": "Training recurrent neural networks by diffusion",
+          "authors": [
+            "Hossein Mobahi"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 33,
+          "raw": "Vinod Nair and Geoffrey E Hinton. Rectiﬁed linear units improve restricted boltzmann machines. In Proceedings of the 27th International Conference on Machine Learning (ICML-10), pp. 807–814, 2010.",
+          "title": "Rectiﬁed linear units improve restricted boltzmann machines",
+          "authors": [
+            "Vinod Nair",
+            "Geoffrey E Hinton"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 34,
+          "raw": "Arvind Neelakantan, Luke Vilnis, Quoc V. Le, Ilya Sutskever, Lukasz Kaiser, Karol Kurach, and James Martens. Adding gradient noise improves learning for very deep networks. CoRR, abs/1511.06807, 2015a. URL http://arxiv.org/abs/1511.06807.",
+          "title": "Adding gradient noise improves learning for very deep networks",
+          "authors": [
+            "James Martens"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 35,
+          "raw": "Arvind Neelakantan, Luke Vilnis, Quoc V Le, Ilya Sutskever, Lukasz Kaiser, Karol Kurach, and James Martens. Adding gradient noise improves learning for very deep networks. arXiv preprint arXiv:1511.06807, 2015b.",
+          "title": "Adding gradient noise improves learning for very deep networks",
+          "authors": [
+            "James Martens"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 36,
+          "raw": "Andrew Y Ng. Shaping and policy search in reinforcement learning. PhD thesis, University of California, Berkeley, 2003.",
+          "title": "Shaping and policy search in reinforcement learning",
+          "authors": [
+            "Andrew Y Ng"
+          ],
+          "year": 2003,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 37,
+          "raw": "Andrew Y Ng, Daishi Harada, and Stuart Russell. Policy invariance under reward transformations: Theory and application to reward shaping. In ICML, volume 99, pp. 278–287, 1999.",
+          "title": "Policy invariance under reward transformations: Theory and application to reward shaping",
+          "authors": [
+            "Andrew Y Ng, Daishi Harada",
+            "Stuart Russell"
+          ],
+          "year": 1999,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 38,
+          "raw": "David Silver, Aja Huang, Chris J Maddison, Arthur Guez, Laurent Sifre, George Van Den Driessche, Julian Schrittwieser, Ioannis Antonoglou, Veda Panneershelvam, Marc Lanctot, et al. Mastering the game of go with deep neural networks and tree search. Nature, 529(7587):484–489, 2016.",
+          "title": null,
+          "authors": [],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.2,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 39,
+          "raw": "Leslie N Smith, Emily M Hand, and Timothy Doster. Gradual dropin of layers to train very deep neural networks. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pp. 4763–4771, 2016.",
+          "title": "Gradual dropin of layers to train very deep neural networks",
+          "authors": [
+            "Leslie N Smith, Emily M Hand",
+            "Timothy Doster"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 40,
+          "raw": "Rupesh K Srivastava, Klaus Greff, and Jürgen Schmidhuber. Training very deep networks. In Advances in Neural Information Processing Systems, pp. 2368–2376, 2015.",
+          "title": "Training very deep networks",
+          "authors": [
+            "Rupesh K Srivastava, Klaus Greff",
+            "Jürgen Schmidhuber"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 41,
+          "raw": "Ilya Sutskever, Oriol Vinyals, and Quoc V Le. Sequence to sequence learning with neural networks. In Advances in neural information processing systems, pp. 3104–3112, 2014.",
+          "title": "Sequence to sequence learning with neural networks",
+          "authors": [
+            "Ilya Sutskever, Oriol Vinyals",
+            "Quoc V Le"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 42,
+          "raw": "Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, and Andrew Rabinovich. Going deeper with convolutions. Technical report, Google, 2014. 13 Theano Development Team. Theano: A Python framework for fast computation of mathematical expressions. arXiv e-prints, abs/1605.02688, May 2016. URL http://arxiv.org/abs/1605.02688.",
+          "title": "Going deeper with convolutions",
+          "authors": [
+            "Andrew Rabinovich"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 43,
+          "raw": "Francesco Visin, Kyle Kastner, Aaron Courville, Yoshua Bengio, Matteo Matteucci, and Kyunghyun Cho. Reseg: A recurrent neural network for object segmentation. arXiv preprint arXiv:1511.07053, 2015.",
+          "title": "Reseg: A recurrent neural network for object segmentation",
+          "authors": [
+            "Francesco Visin, Kyle Kastner, Aaron Courville, Yoshua Bengio, Matteo Matteucci",
+            "Kyunghyun Cho"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 44,
+          "raw": "Wojciech Zaremba and Ilya Sutskever. Learning to execute. arXiv preprint arXiv:1410.4615, 2014.",
+          "title": "Learning to execute",
+          "authors": [
+            "Wojciech Zaremba",
+            "Ilya Sutskever"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:41",
+        "coverage:openalex_unavailable",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "3438713e9df5b263551f53f3b808e942f7a94e4820c78396a107ef9e8f3223f3",
+          "request_time": "2026-08-22T18:31:16.676810Z",
+          "status": "degraded",
+          "result_count": 1,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "41/44 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:31:17.686983Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "b64578987c1cce465a7d9e996d594f239db4fb20a3bf45c442dc51e9da74d657",
+          "request_time": "2026-08-22T18:31:19.510542Z",
+          "status": "failed",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "openalex search_works_raw failed: all 3 attempts failed; last=HTTPStatusError"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:38:50.999973Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belge başlığı, yazar listesi ve üniversite bağlantıları tipik bir akademik makale formatına işaret ediyor. Bölüm başlıkları (ABSTRACT, INTRODUCTION, METHOD, CONCLUSION) ve metin içeriği (deep neural networks, optimization, algorithms) hesaplamalı modelleme çalışması olduğunu gösteriyor.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 80.8,
+      "recommended_decision": "accept",
+      "confidence": 0.7493333333333333,
+      "top_fatal_risks": [
+        "Genelleme İddialarının Yetersiz Kanıtı",
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 2 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 26.0,
+        "severity": "major",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "6 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 59.0,
+        "severity": "moderate",
+        "confidence": 0.75,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 76.0,
+        "severity": "moderate",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "6 concern(s): The connection between the formal theory of mollifiers (Section 2) and the concrete implementation in Algorithm 1 is not sufficiently explicit. The derivation or approximation that leads from the integral equations to the specific steps in the algorithm, particularly the 'noisy mollifier' aspect, is not fully detailed. This makes it difficult to ascertain the theoretical grounding of the practical algorithm.; Algorithm 1 is presented in a dense and difficult-to-parse manner. It introduces several functions and parameters (e.g., u(x), f(x), a_i, c) without immediate and clear explanation within the algorithm's context, hindering understanding of the exact computation. For instance, the specific form of the noise standard deviation `σ(xi) = (sigmoid(ai∆i) − 0.5)2` lacks a clear derivation or justification for its choice.; The description of the method for LSTMs and GRUs in Section 6 is high-level and less concrete compared to the feedforward network section. Deferring crucial implementation details to an appendix with a dense derivation weakens the main body's presentation and makes it challenging to evaluate the method's application to recurrent architectures. (+3 more)",
+        "key_objection": "The connection between the formal theory of mollifiers (Section 2) and the concrete implementation in Algorithm 1 is not sufficiently explicit. The derivation or approximation that leads from the integral equations to the specific steps in the algorithm, particularly the 'noisy mollifier' aspect, is not fully detailed. This makes it difficult to ascertain the theoretical grounding of the practical algorithm.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "quant.f7",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "revision-required",
+        "summary": "4 concern(s): The connection between the formal theory of mollifiers (Section 2) and the concrete implementation in Algorithm 1 is not fully detailed. Specifically, the derivation or approximation that leads from the integral equations to the specific steps in the algorithm, especially the form of the noise standard deviation `σ(xi) = (sigmoid(ai∆i) − 0.5)2`, is not explicitly provided. This makes it difficult to understand the theoretical grounding of the practical implementation.; Algorithm 1 is dense and introduces several functions and parameters (e.g., u(x), f(x), a_i, c) without sufficient immediate explanation within the algorithm's description. This hinders understanding of the exact computation and makes reproducibility challenging without significant effort to parse the surrounding text.; The description of the method for LSTMs and GRUs in the main body is high-level and less concrete compared to the feedforward network section. Deferring crucial details to a dense appendix weakens the presentation and makes it harder for readers to grasp the application of the method to recurrent architectures. (+1 more)",
+        "key_objection": "The connection between the formal theory of mollifiers (Section 2) and the concrete implementation in Algorithm 1 is not fully detailed. Specifically, the derivation or approximation that leads from the integral equations to the specific steps in the algorithm, especially the form of the noise standard deviation `σ(xi) = (sigmoid(ai∆i) − 0.5)2`, is not explicitly provided. This makes it difficult to understand the theoretical grounding of the practical implementation.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "6 concern(s): The connection between the formal theory of mollifiers (Section 2) and the concrete implementation in Algorithm 1 needs to be made more explicit. Specifically, the derivation or approximation that leads from the integral equations to the specific steps in the algorithm, especially the 'noisy mollifier' aspect, is not fully detailed. Clarifying this bridge would significantly improve understanding.; Algorithm 1 is currently dense and difficult to parse. It introduces several functions and parameters (e.g., u(x), f(x), a_i, c) without sufficient immediate explanation. Providing a clearer, step-by-step breakdown or an explicit example for a common activation function (like ReLU or sigmoid) would greatly enhance its readability and comprehension.; The description of the method's application to LSTMs and GRUs in Section 6 is high-level. While details are deferred to an appendix, a more concrete and less abstract presentation in the main body would strengthen the overall exposition and allow readers to grasp the core ideas without immediately diving into the appendix. (+3 more)",
+        "key_objection": "The connection between the formal theory of mollifiers (Section 2) and the concrete implementation in Algorithm 1 needs to be made more explicit. Specifically, the derivation or approximation that leads from the integral equations to the specific steps in the algorithm, especially the 'noisy mollifier' aspect, is not fully detailed. Clarifying this bridge would significantly improve understanding.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "2 concern(s): The statement 'While no fabricated or retracted citations were found' is grounded, but the subsequent claim that 'a large number of references could not be automatically resolved, suggesting potential formatting issues' is not fully supported as the evidence package explicitly states that 41 out of 43 unresolved references were due to a transient provider error (OpenAlex service error) and not necessarily formatting issues. The evidence package also notes that this is 'NOT proof of actual non-matching' and should not be the 'SOLE basis' for claims like 'weak source review'.; The statement 'a large number of references could not be automatically resolved, suggesting potential formatting issues' is not fully supported. The evidence package clarifies that 41 out of 43 unresolved references were due to a transient provider error and not necessarily formatting issues. It explicitly warns against using this as the sole basis for claims about formatting or weak source review.",
+        "key_objection": "The statement 'While no fabricated or retracted citations were found' is grounded, but the subsequent claim that 'a large number of references could not be automatically resolved, suggesting potential formatting issues' is not fully supported as the evidence package explicitly states that 41 out of 43 unresolved references were due to a transient provider error (OpenAlex service error) and not necessarily formatting issues. The evidence package also notes that this is 'NOT proof of actual non-matching' and should not be the 'SOLE basis' for claims like 'weak source review'.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "major-revision",
+        "summary": "This paper introduces 'Mollifying Networks,' a novel training methodology for deep neural networks inspired by continuation methods and mathematical mollifiers. The core idea is to start training with a smoothed, simpler objective function and gradually increase its complexity by annealing a single hyperparameter. This is achieved through an adaptive noise and skip-connection mechanism that effectively makes the network's layers transition from identity mappings to their full non-linear form. The method is well-motivated theoretically and demonstrated empirically across a variety of architectures (MLPs, ConvNets, LSTMs) and challenging tasks, often showing faster convergence or improved performance over strong baselines.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Tasarımın Açıklığı",
+        "summary": "Makale, derin öğrenme modellerinin optimizasyonunu iyileştirmek için 'molliﬁcation' adı verilen bir yöntemi tanıtan ve bu yöntemin çeşitli zorlu optimizasyon görevlerindeki performansını gösteren deneysel bir çalışma sunmaktadır. Araştırma sorusu, molliﬁcation yönteminin geleneksel optimizasyon yöntemlerine kıyasla ne kadar etkili olduğunu değerlendirmekle uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we attack the problem of optimization of highly non-convex neural networks objectives by starting with a smoothed – or molliﬁed – objective function which becomes more complex as the training proceeds. ... We show improvements on various difﬁcult optimization tasks and establish a relationship between recent works on continuation methods for neural networks and molliﬁers."
+          },
+          {
+            "anchor_id": "8_experiments.a0",
+            "section": "8 EXPERIMENTS",
+            "quote": "In this section we mainly focus on training of difﬁcult to optimize models, in particular deep MLPs with sigmoid or tanh activation functions. The details of the experimental procedure is provided in Appendix C."
+          }
+        ],
+        "reasoning_public": "Makale, önerilen yöntemin teorik temellerini açıklamakta ve ardından kontrollü deneyler aracılığıyla performansını değerlendirmektedir. Bu, deneysel bir tasarımın temel özelliklerini taşımaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Makalede kullanılan veri setleri (MNIST, CIFAR10, Pentomino, Parity) belirtilmiş olsa da, bu veri setlerinin örneklem büyüklüklerinin (örneğin, eğitim/test setlerindeki örnek sayısı) veya deneylerde kullanılan model parametrelerinin (katman sayısı, birim sayısı vb.) seçimine dair herhangi bir güç analizi veya hassasiyet gerekçesi sunulmamıştır. Bu durum, elde edilen sonuçların genellenebilirliği ve istatistiksel gücü hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "8_1_exploratory_study_on_mnist.a0",
+            "section": "8.1 EXPLORATORY STUDY ON MNIST",
+            "quote": "We train a thin deep neural network on MNIST (LeCun & Cortes, 1998) dataset with 72 hidden layers and 100 hidden units."
+          },
+          {
+            "anchor_id": "8_2_deep_mlp_experiments.a0",
+            "section": "8.2 DEEP MLP EXPERIMENTS",
+            "quote": "We experiment on forty dimensional (bits) parity problem with 6-layer MLP using sigmoid activation function."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, özellikle deneysel tasarımlarda, örneklem büyüklüğünün ve dolayısıyla istatistiksel gücün önceden belirlenmesi, elde edilen sonuçların güvenilirliği ve tekrarlanabilirliği açısından kritik öneme sahiptir. Güç analizi yapılmaması, anlamlı etkilerin gözden kaçırılmasına (Tip II hata) veya anlamsız etkilerin yanlışlıkla anlamlı bulunmasına (Tip I hata) yol açabilir. Derin öğrenme modellerinde, model karmaşıklığı ve veri setinin boyutu arasındaki ilişki, modelin öğrenme kapasitesi ve genelleme yeteneği açısından önemlidir.",
+        "limitations": [
+          "Makalede doğrudan bir güç analizi veya örneklem büyüklüğü gerekçesi bulunmadığından, bu bulgu genel bir eksiklik olarak değerlendirilmiştir. Derin öğrenme alanında güç analizi geleneksel istatistiksel yöntemlerdeki kadar yaygın olmasa da, sonuçların genellenebilirliği için önemlidir.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1",
+          "quant.f1.a2"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Ölçüm Araçları ve Değişken Operasyonelleştirme Açıklığı",
+        "summary": "Makale, derin öğrenme modellerinin performansını değerlendirmek için standart ölçütler kullanmaktadır (örneğin, NLL - Negatif Log Olabilirlik, Test Doğruluğu, PPL - Perplexity). 'Molliﬁcation' kavramı ve bunun ağ mimarisi üzerindeki etkisi (örneğin, gürültü enjeksiyonu, katmanların doğrusal hale getirilmesi) matematiksel olarak ve algoritmik olarak açıkça tanımlanmıştır. Bu, değişkenlerin operasyonelleştirilmesinin net olduğunu göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_mollifiers_and_weak_gradients.a0",
+            "section": "2.2 MOLLIFIERS AND WEAK GRADIENTS",
+            "quote": "We smooth the loss function L, which is parametrized by θ ∈Rn, by convolving it with another function K(·) with stride τ ∈Rn: LK(θ) = (L ∗K)(θ) = Z +∞ −∞ L(θ −τ)K(τ)dτ (1)"
+          },
+          {
+            "anchor_id": "4_simplifying_the_objective_function_for_feedforward_networks.a0",
+            "section": "4 SIMPLIFYING THE OBJECTIVE FUNCTION FOR FEEDFORWARD NETWORKS",
+            "quote": "Algorithm 1 Activation of a unit i at layer l."
+          },
+          {
+            "anchor_id": "8_1_exploratory_study_on_mnist.a1",
+            "section": "8.1 EXPLORATORY STUDY ON MNIST",
+            "quote": "NLL (Negatif Log Olabilirlik)"
+          },
+          {
+            "anchor_id": "table_1_cifar10_deep_convolutional_neural_network.a0",
+            "section": "Table 1: CIFAR10 deep convolutional neural network.",
+            "quote": "Test Accuracy"
+          },
+          {
+            "anchor_id": "table_2_3_layered_lstm_network_on_word_level_language_modeling_for_ptb.a0",
+            "section": "Table 2: 3-layered LSTM network on word-level language modeling for PTB.",
+            "quote": "Test PPL"
+          }
+        ],
+        "reasoning_public": "Derin öğrenme araştırmalarında, model performansını değerlendirmek için yaygın olarak kabul görmüş metriklerin kullanılması ve önerilen yöntemlerin matematiksel temellerinin açıkça belirtilmesi, ölçüm geçerliliğini artırır. Makale, molliﬁcation sürecini denklemler (örn. Eqn. 1, 13, 23) ve algoritmalar (Algoritma 1) aracılığıyla detaylandırmıştır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Varsayım Testleri ve Çoklu Karşılaştırma Riski",
+        "summary": "Makale, derin öğrenme modellerinin performansını karşılaştırmak için çeşitli deneyler sunmaktadır. Ancak, bu karşılaştırmaların istatistiksel anlamlılığını değerlendirmek için kullanılan istatistiksel testler veya varsayım testleri (örneğin, verilerin normal dağılımı, varyans homojenliği) açıkça belirtilmemiştir. Ayrıca, birden fazla model ve hiperparametre ayarı arasında yapılan çoklu karşılaştırmaların (örneğin, farklı annealing programları, farklı model varyantları) yol açabileceği Tip I hata riskini ele almak için herhangi bir düzeltme (örneğin, Bonferroni, Holm) uygulanıp uygulanmadığı belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "8_1_exploratory_study_on_mnist.a2",
+            "section": "8.1 EXPLORATORY STUDY ON MNIST",
+            "quote": "We investigate the effect of using different annealing schedules. Exponential decay converges faster compared to linear decay and square root decay of p."
+          },
+          {
+            "anchor_id": "8_1_exploratory_study_on_mnist.a3",
+            "section": "8.1 EXPLORATORY STUDY ON MNIST",
+            "quote": "We compare the results obtained for the model using molliﬁcation obtained with or without batch normalization and feed-forward residual networks."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, özellikle birden fazla grup veya koşul karşılaştırıldığında, istatistiksel testlerin varsayımlarının kontrol edilmesi ve çoklu karşılaştırma düzeltmelerinin uygulanması, sonuçların güvenilirliğini artırır ve yanlış pozitif sonuçların (Tip I hata) olasılığını azaltır. Derin öğrenme deneylerinde, genellikle büyük veri setleri ve karmaşık modeller kullanıldığından, bu tür istatistiksel titizlik göz ardı edilebilir, ancak akademik geçerlilik için önemlidir.",
+        "limitations": [
+          "Derin öğrenme alanındaki birçok çalışmada, istatistiksel varsayım testleri ve çoklu karşılaştırma düzeltmeleri genellikle raporlanmamaktadır. Bu, alanın genel bir eğilimi olabilir, ancak nicel metodoloji standartları açısından bir eksikliktir."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f3.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metin-Tablo-Figür Sayı Tutarlılığı",
+        "summary": "Makalede sunulan grafikler (örneğin, Şekil 4, 5, 6, 7, 8, 9) ve tablolar (Tablo 1, 2) ile metin arasındaki sayısal bilgiler genel olarak tutarlıdır. Örneğin, Şekil 5'te farklı annealing programlarının NLL üzerindeki etkisi görsel olarak sunulmuş ve metinde bu gözlemler desteklenmiştir. Tablo 1 ve 2'deki test sonuçları da metin içinde referans verilerek sunulmuştur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "8_1_exploratory_study_on_mnist.a4",
+            "section": "8.1 EXPLORATORY STUDY ON MNIST",
+            "quote": "Firstly, in Figure 5, we investigate the effect of using different annealing schedules. Exponential decay converges faster compared to linear decay and square root decay of p."
+          },
+          {
+            "anchor_id": "table_1_cifar10_deep_convolutional_neural_network.a1",
+            "section": "Table 1: CIFAR10 deep convolutional neural network.",
+            "quote": "Test Accuracy Stochastic Depth 93.25 Molliﬁed Convnet 92.45 ResNet 91.78"
+          },
+          {
+            "anchor_id": "8_2_deep_mlp_experiments.a1",
+            "section": "8.2 DEEP MLP EXPERIMENTS",
+            "quote": "Our model achieves better generalization than ResNet. Stochastic depth achieves better generalization, but it might be possible to combine both and obtain better results."
+          }
+        ],
+        "reasoning_public": "Metin, tablo ve figürler arasındaki tutarlılık, bir makalenin okunabilirliği ve güvenilirliği için temel bir gerekliliktir. Bu tutarlılık, okuyucunun sunulan verileri ve sonuçları doğru bir şekilde anlamasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, önerilen molliﬁcation yönteminin çeşitli görevlerde (MNIST, CIFAR10, Parity, Pentomino, LSTM) performans iyileştirmeleri sağladığını belirtmektedir. Ancak, bu iyileştirmelerin etki büyüklükleri (örneğin, Cohen's d, eta-kare) veya güven aralıkları (CI) raporlanmamıştır. Örneğin, 'Molliﬁed Convnet 92.45' ve 'ResNet 91.78' gibi değerler sunulsa da, bu farkın istatistiksel olarak ne kadar anlamlı veya pratik olarak ne kadar önemli olduğunu gösteren belirsizlik ölçüleri (örneğin, %95 güven aralığı) eksiktir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1_cifar10_deep_convolutional_neural_network.a2",
+            "section": "Table 1: CIFAR10 deep convolutional neural network.",
+            "quote": "Test Accuracy Stochastic Depth 93.25 Molliﬁed Convnet 92.45 ResNet 91.78"
+          },
+          {
+            "anchor_id": "table_2_3_layered_lstm_network_on_word_level_language_modeling_for_ptb.a1",
+            "section": "Table 2: 3-layered LSTM network on word-level language modeling for PTB.",
+            "quote": "Test PPL LSTM 119.4 Molliﬁed LSTM 115.7"
+          },
+          {
+            "anchor_id": "8_2_deep_mlp_experiments.a2",
+            "section": "8.2 DEEP MLP EXPERIMENTS",
+            "quote": "The same model as ours trained without noisy activation function and vanilla residual connections scored 69.5% accuracy, while our molliﬁed version scored 75.15% accuracy after 100 epochs of training on the 80k dataset."
+          }
+        ],
+        "reasoning_public": "Sadece p-değerlerine odaklanmak yerine, etki büyüklükleri ve güven aralıkları, bir araştırmanın sonuçlarının pratik önemini ve genellenebilirliğini daha iyi anlamamızı sağlar. Etki büyüklüğü, gözlemlenen etkinin gücünü nicel olarak ifade ederken, güven aralıkları, bu etkinin gerçek popülasyondaki olası aralığını gösterir. Bu eksiklik, okuyucunun sunulan sonuçların gerçek dünya uygulamaları için ne kadar önemli olduğunu değerlendirmesini zorlaştırır.",
+        "limitations": [
+          "Derin öğrenme alanındaki birçok çalışmada, etki büyüklüğü ve güven aralıkları raporlama pratiği henüz yaygınlaşmamıştır. Ancak, bu tür ölçümler, sonuçların bilimsel geçerliliği ve yorumlanabilirliği için kritik öneme sahiptir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Eksikliği",
+        "summary": "Makale, derin öğrenme modellerinin eğitiminde kullanılan veri setlerinden bahsetse de, bu veri setlerinde olası eksik verilerin veya aykırı değerlerin nasıl ele alındığına dair herhangi bir bilgi sunmamaktadır. Özellikle 'molliﬁcation' yönteminin gürültü enjeksiyonu içerdiği göz önüne alındığında, veri setindeki mevcut gürültü veya aykırı değerlerin yöntemin performansı üzerindeki etkisi ve bunların nasıl yönetildiği açıklanmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "8_experiments.a1",
+            "section": "8 EXPERIMENTS",
+            "quote": "In this section we mainly focus on training of difﬁcult to optimize models, in particular deep MLPs with sigmoid or tanh activation functions. The details of the experimental procedure is provided in Appendix C."
+          }
+        ],
+        "reasoning_public": "Eksik veriler ve aykırı değerler, nicel analizlerin sonuçlarını önemli ölçüde etkileyebilir. Bu tür verilerin nasıl ele alındığının şeffaf bir şekilde raporlanması, araştırmanın güvenilirliğini ve tekrarlanabilirliğini artırır. Derin öğrenme modelleri, aykırı değerlere karşı hassas olabilir veya belirli eksik veri stratejileri gerektirebilir.",
+        "limitations": [
+          "Makalede, veri setlerinin ön işleme adımlarına dair genel bir referans (Appendix C) bulunsa da, eksik veri ve aykırı değerlere özel bir vurgu yapılmamıştır. Bu, derin öğrenme alanındaki birçok çalışmada yaygın bir eksiklik olabilir."
+        ],
+        "action_item_ids": [
+          "quant.f6.a0",
+          "quant.f6.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Nedensel Dil Disiplini",
+        "summary": "Makale, önerilen 'molliﬁcation' yönteminin derin öğrenme modellerinin optimizasyonunu 'iyileştirdiğini' ve 'daha hızlı yakınsadığını' iddia etmektedir. Bu iddialar, kontrollü deneysel tasarımlar ve karşılaştırmalı analizlerle desteklenmektedir. Kullanılan dil, gözlemsel bir çalışmada nedensel çıkarımlar yapmaktan ziyade, deneysel sonuçlara dayalı performans karşılaştırmalarını yansıtmaktadır. 'Molliﬁcation'ın bir 'neden' olarak optimizasyon performansını 'etkilediği' çıkarımı, deneysel manipülasyon ve kontrol grupları (geleneksel yöntemler) ile uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "We show improvements on various difﬁcult optimization tasks..."
+          },
+          {
+            "anchor_id": "8_2_deep_mlp_experiments.a3",
+            "section": "8.2 DEEP MLP EXPERIMENTS",
+            "quote": "As can be seen in Figure 8, the molliﬁed network converges faster."
+          },
+          {
+            "anchor_id": "8_2_deep_mlp_experiments.a4",
+            "section": "8.2 DEEP MLP EXPERIMENTS",
+            "quote": "Our model achieves better generalization than ResNet."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalarda, manipüle edilen bağımsız değişkenin (burada molliﬁcation yöntemi) bağımlı değişken (optimizasyon performansı) üzerindeki etkisini tartışmak için nedensel dil kullanmak uygun olabilir. Makale, bu disiplini genel olarak korumaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reproducibility",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Tekrar Üretilebilirlik İçin Kod ve Veri Erişimi",
+        "summary": "Makale, modellerin ve deneylerin kaynak kodunun yayınlanacağını belirtmektedir ('We plan to release the source code of the models and experiments under, http://github.com/caglar/molly_nets/'). Ancak, bu bir plan olup, makalenin yazıldığı veya yayınlandığı tarihte kodun gerçekten erişilebilir olup olmadığı belirsizdir. Ayrıca, kullanılan veri setleri yaygın olarak bilinenler olsa da, deneylerin tam olarak tekrar üretilebilmesi için spesifik veri ön işleme adımları veya kullanılan hiperparametrelerin tam listesi gibi detaylar Appendix C'de belirtilse de, tam şeffaflık için daha fazla detay faydalı olabilir. Ön kayıt (preregistration) veya protokol uyumu hakkında herhangi bir bilgi bulunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_mollifiers_and_weak_gradients.a1",
+            "section": "2.2 MOLLIFIERS AND WEAK GRADIENTS",
+            "quote": "1We plan to release the source code of the models and experiments under, http://github.com/caglar/molly_nets/."
+          },
+          {
+            "anchor_id": "8_experiments.a2",
+            "section": "8 EXPERIMENTS",
+            "quote": "The details of the experimental procedure is provided in Appendix C."
+          }
+        ],
+        "reasoning_public": "Tekrar üretilebilirlik, bilimsel araştırmanın temel bir ilkesidir. Kod ve veri erişimi, diğer araştırmacıların sonuçları doğrulamasına ve üzerine inşa etmesine olanak tanır. Ön kayıt, araştırma tasarımının ve analiz planının önceden belirlenerek yayınlanmasıyla, araştırmacı önyargısını azaltır ve bulguların güvenilirliğini artırır.",
+        "limitations": [
+          "Makalenin yayınlandığı tarihte kodun erişilebilirliği kontrol edilememiştir. Ön kayıt, derin öğrenme alanında henüz standart bir uygulama değildir."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0",
+          "quant.f8.a1",
+          "quant.f8.a2"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Ana Sonuçların Raporlama Kalitesi",
+        "summary": "Makale, ana sonuçları (örneğin, doğruluk, NLL, PPL) tablolar ve grafikler aracılığıyla sunmaktadır. Ancak, bu sonuçların 'significant' veya 'non-significant' gibi terimlerle aşırı vurgulanmasından ziyade, doğrudan sayısal değerler ve görsel karşılaştırmalarla sunulması olumlu bir yöndür. Bununla birlikte, etki büyüklükleri ve güven aralıklarının eksikliği (önceki bulguda belirtildiği gibi), raporlama kalitesini düşürmektedir. Bu eksiklik, okuyucunun sonuçların pratik önemini ve istatistiksel güvenilirliğini tam olarak değerlendirmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1_cifar10_deep_convolutional_neural_network.a3",
+            "section": "Table 1: CIFAR10 deep convolutional neural network.",
+            "quote": "Test Accuracy Stochastic Depth 93.25 Molliﬁed Convnet 92.45 ResNet 91.78"
+          },
+          {
+            "anchor_id": "8_2_deep_mlp_experiments.a5",
+            "section": "8.2 DEEP MLP EXPERIMENTS",
+            "quote": "As can be seen in Figure 8, the molliﬁed network converges faster."
+          }
+        ],
+        "reasoning_public": "İyi raporlama kalitesi, sadece istatistiksel anlamlılığı değil, aynı zamanda pratik önemi ve belirsizliği de vurgular. 'Significant' gibi terimlerin aşırı kullanımı, p-değeri yanlış yorumlamalarına yol açabilir. Etki büyüklükleri ve güven aralıkları, daha kapsamlı ve bilgilendirici bir raporlama sağlar.",
+        "limitations": [
+          "Makalede 'significant' veya 'non-significant' gibi terimlerin aşırı kullanımı gözlemlenmemiştir, bu olumlu bir yöndür. Ancak, etki büyüklüğü ve belirsizlik ölçülerinin eksikliği genel raporlama kalitesini etkilemektedir."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0",
+          "quant.f9.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Molliﬁcation Yönteminin Açıkça Tanımlanmış Özgün Katkısı",
+        "summary": "Makale, derin sinir ağlarının optimizasyon zorluklarını gidermek için 'molliﬁcation' adı verilen, devamlılık yöntemlerinden esinlenen ve eğitim ilerledikçe karmaşıklığı artan yumuşatılmış bir hedef fonksiyonu kullanma yaklaşımını açıkça ortaya koymaktadır. Bu yaklaşım, mevcut gürültü enjeksiyon yöntemlerinden farklı olarak, gürültüyü ileri hesaplamaya enjekte ederek maliyet fonksiyonunu doğrudan şekillendirmesiyle özgün bir katkı sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we attack the problem of optimization of highly non-convex neural networks objectives by starting with a smoothed – or molliﬁed – objective function which becomes more complex as the training proceeds. Our proposition is inspired by the recent studies in continuation methods: similarly to curriculum methods, we begin by learning an easier (possibly convex) objective function and let it evolve during training until it eventually becomes the original, difﬁcult to optimize objective function."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "An important difference of our work compared to injecting noise to the gradients as it is explored in (Hazan et al., 2015; Neelakantan et al., 2015b) is that we inject the noise in the forward computation of the graph and we shape the cost function directly. As a result the cost function for the molliﬁed network both at the test time and during the training are consistent and this makes the early-stopping much easier."
+          }
+        ],
+        "reasoning_public": "Makale, derin öğrenme optimizasyonundaki temel bir soruna (yerel minimumlar ve dışbükey olmayan kayıp fonksiyonları) yönelik yeni bir çözüm önermektedir. 'Molliﬁcation' kavramını sinir ağlarına uygulayarak, eğitim sürecini kolaylaştırmayı ve daha iyi genelleme performansı elde etmeyi hedeflemektedir. Özellikle, gürültü enjeksiyonunun ileri hesaplamaya yapılması ve maliyet fonksiyonunun doğrudan şekillendirilmesi, mevcut yöntemlerden ayrışan önemli bir özgünlüktür.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Mevcut Çalışmalarla İlişkilendirme ve Farklılaştırma",
+        "summary": "Makale, molliﬁcation yöntemini curriculum learning, continuation methods ve gürültü enjeksiyonu gibi mevcut yaklaşımlarla ilişkilendirirken, kendi yaklaşımının bu yöntemlerden nasıl ayrıştığını ve hangi noktalarda özgün bir katkı sunduğunu net bir şekilde açıklamaktadır. Özellikle, gürültü enjeksiyonunun ileri hesaplamaya yapılması ve maliyet fonksiyonunun doğrudan şekillendirilmesi, mevcut yöntemlerden ayrışan önemli bir özgünlüktür.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "We show improvements on various difﬁcult optimization tasks and establish a relationship between recent works on continuation methods for neural networks and molliﬁers."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "We connect the ideas of curriculum learning and continuation methods with those arising from models with skip connections and using layers that compute near-identity transformations."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "An important difference of our work compared to injecting noise to the gradients as it is explored in (Hazan et al., 2015; Neelakantan et al., 2015b) is that we inject the noise in the forward computation of the graph and we shape the cost function directly."
+          },
+          {
+            "anchor_id": "generalized_and_noisy_mollifiers.a0",
+            "section": "GENERALIZED AND NOISY MOLLIFIERS",
+            "quote": "The differences of that approach from our algorithm is two-fold: we use a noisy molliﬁer (rather than an analytic smoothing of the network’s non-linearities) and we introduce (in the next section) a particular form of the noisy molliﬁer that empirically proved to work well."
+          }
+        ],
+        "reasoning_public": "Yazarlar, çalışmalarını ilgili literatürle (curriculum learning, continuation methods, gürültü enjeksiyonu) başarılı bir şekilde konumlandırmış ve kendi yaklaşımlarının temel farklılıklarını vurgulamışlardır. Bu, okuyucunun makalenin alana yaptığı özgün katkıyı anlamasına yardımcı olmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Araştırma Sorusu Net ve Çalışmayla Uyumlu",
+        "summary": "Makale, derin sinir ağlarının optimizasyon zorluklarını mollifying (yumuşatma) yöntemleriyle ele almayı amaçlayan net bir araştırma sorusu sunmaktadır. Çalışmanın tasarımı ve kapsamı, bu soruyu cevaplamaya yönelik olarak iyi bir şekilde uyarlanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we attack the problem of optimization of highly non-convex neural networks objectives by starting with a smoothed – or molliﬁed – objective function which becomes more complex as the training proceeds."
+          },
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "We discuss the idea of molliﬁcation for neural networks – a form of differentiable smoothing of the loss function connected to noisy activations – which in our case can be interpreted as a form of adaptive noise injection which is controlled by a single hyperparameter."
+          }
+        ],
+        "reasoning_public": "Makalenin giriş ve özet bölümlerinde belirtilen temel problem (derin sinir ağlarının optimizasyon zorlukları) ve önerilen çözüm (mollifying networks) açıkça ifade edilmiştir. Çalışma, bu yöntemin teorik temellerini açıklamakta ve çeşitli optimizasyon görevlerinde deneysel olarak göstermektedir. Bu durum, araştırma sorusunun netliğini ve çalışmanın bu soruya odaklanma başarısını göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Güçlü Teorik Çerçeve ve Tutarlılık",
+        "summary": "Makale, mollification ve continuation yöntemleri gibi sağlam matematiksel ve teorik temellere dayanarak derin öğrenme optimizasyon sorununa yenilikçi bir yaklaşım sunmaktadır. Teorik çerçeve, önerilen yöntemle ve deneysel sonuçlarla tutarlı bir şekilde entegre edilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "Our proposition is inspired by the recent studies in continuation methods: similarly to curriculum methods, we begin by learning an easier (possibly convex) objective function and let it evolve during training until it eventually becomes the original, difﬁcult to optimize objective function."
+          },
+          {
+            "anchor_id": "2_2_mollifiers_and_weak_gradients.a2",
+            "section": "2.2 MOLLIFIERS AND WEAK GRADIENTS",
+            "quote": "A molliﬁer is an inﬁnitely differentiable function that behaves like an approximate identity in the group of convolutions of integrable functions."
+          },
+          {
+            "anchor_id": "2_4_generalized_and_noisy_mollifiers.a0",
+            "section": "2.4 GENERALIZED AND NOISY MOLLIFIERS",
+            "quote": "Deﬁnition 2.1. (Generalized Molliﬁer). A generalized molliﬁer is an operator, where Tσ(f) deﬁnes a mapping between two functions, such that Tσ : f →f ∗."
+          }
+        ],
+        "reasoning_public": "Makale, mollification kavramını derin öğrenme bağlamına başarıyla adapte ederek, karmaşık optimizasyon problemlerini daha yönetilebilir hale getirme potansiyelini göstermektedir. Tanımlar, denklemler ve ilgili literatürle yapılan bağlantılar, teorik temelin sağlamlığını ortaya koymaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Referansların Yüksek Oranda Çözülememesi",
+        "summary": "Makaledeki referansların büyük bir kısmı otomatik sistem tarafından çözülememiştir. Bu durum, okuyucuların atıf yapılan çalışmalara erişimini ve makalenin literatürdeki konumunu doğrulamayı zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bir akademik makalenin literatürdeki konumunu doğru bir şekilde değerlendirebilmek ve iddialarını destekleyen kaynakları inceleyebilmek için atıf yapılan eserlere kolayca erişilebilmesi esastır. Referansların büyük bir kısmının çözülememesi, makalenin şeffaflığını ve doğrulanabilirliğini azaltır. Her ne kadar bu durumun otomatik sistemin geçici bir hatasından kaynaklandığı belirtilse de, yazarın referans listesini güncel ve standart formatlara uygun tutması, bu tür sorunların önüne geçebilir.",
+        "limitations": [
+          "Kanıt paketinde belirtildiği üzere, referansların çözülememesi büyük ölçüde otomatik indeksleme sisteminin geçici hatalarından kaynaklanıyor olabilir. Bu durum, referansların kendisinin hatalı olduğu anlamına gelmez, ancak erişilebilirlik sorununa işaret eder."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0",
+          "literature_positioning.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Literatürle Güçlü Bağlantı ve Konumlandırma",
+        "summary": "Makale, mollifying ağlar kavramını mevcut devamlılık yöntemleri, müfredat öğrenimi ve gürültü enjeksiyonu gibi ilgili literatürle başarılı bir şekilde ilişkilendirmektedir. Çalışma, kendi yaklaşımını bu alanlardaki önceki çalışmalarla karşılaştırarak net bir şekilde konumlandırmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "Our proposition is inspired by the recent studies in continuation methods: similarly to curriculum methods, we begin by learning an easier (possibly convex) objective function and let it evolve during training until it eventually becomes the original, difﬁcult to optimize objective function."
+          },
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "We connect the ideas of curriculum learning and continuation methods with those arising from models with skip connections and using layers that compute near-identity transformations."
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "An important difference of our work compared to injecting noise to the gradients as it is explored in (Hazan et al., 2015; Neelakantan et al., 2015b) is that we inject the noise in the forward computation of the graph and we shape the cost function directly."
+          }
+        ],
+        "reasoning_public": "Makale, 'molliﬁed' objektif fonksiyon yaklaşımını, derin öğrenmedeki optimizasyon zorluklarına yönelik mevcut çözümlerle (Batch Normalization, curriculum learning, graduated optimization, noise injection) açıkça ilişkilendirmektedir. Özellikle, kendi yöntemlerinin gürültü enjeksiyonu ve devamlılık yöntemleriyle olan benzerliklerini ve farklılıklarını vurgulayarak, literatürdeki boşluğu doldurma potansiyelini göstermektedir. Bu, okuyucunun çalışmanın bağlamını ve yeniliğini anlamasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genelleme İddialarının Yetersiz Kanıtı",
+        "summary": "Makale, molliﬁed ağların çeşitli zorlu optimizasyon görevlerinde iyileşmeler sağladığını iddia etse de, sunulan deneysel kanıtlar bu genellemeyi tam olarak desteklememektedir. Özellikle, 'çeşitli zorlu optimizasyon görevleri' ifadesi geniş bir alanı kapsarken, deneyler daha çok belirli MLP ve LSTM senaryolarına odaklanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "We show improvements on various difﬁcult optimization tasks and establish a relationship between recent works on continuation methods for neural networks and molliﬁers."
+          },
+          {
+            "anchor_id": "8_experiments.a3",
+            "section": "8 EXPERIMENTS",
+            "quote": "In this section we mainly focus on training of difﬁcult to optimize models, in particular deep MLPs with sigmoid or tanh activation functions."
+          }
+        ],
+        "reasoning_public": "Makalenin ana iddiası, molliﬁed ağların 'çeşitli zorlu optimizasyon görevlerinde' iyileşmeler sağladığıdır. Ancak, sunulan deneyler (MNIST üzerinde ince derin ağlar, 40 bit parite, Pentomino, CIFAR10 ve karakterden kelime gömme) bu geniş iddiayı desteklemek için yeterince çeşitli veya kapsamlı değildir. Örneğin, daha büyük ölçekli veya farklı mimarilere sahip ağlar (örn. Transformer'lar) üzerindeki performans gösterilmemiştir. Bu durum, okuyucunun yöntemin genel uygulanabilirliği hakkında yanlış bir izlenim edinmesine neden olabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Genelleme İddiasının Kısmi Kanıtı: Düz Minima",
+        "summary": "Makale, gürültü enjeksiyonunun SGD'nin daha düz minimalara yakınsamasını sağlayarak genelleme yeteneğini artırabileceğini öne sürmektedir. Bu iddia, literatürdeki bazı çalışmalarla desteklense de, makalede sunulan deneyler bu mekanizmayı doğrudan kanıtlamaktan ziyade, sonuçların genelleme üzerindeki etkisini göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "7_annealing_schedules_for_p.a0",
+            "section": "7 ANNEALING SCHEDULES FOR p",
+            "quote": "Furthermore, in our experiments we observe that training with noisy molliﬁers can potentially be helpful for the generalization. This can be due to the noise induced to the backpropagation through the noisy molliﬁcation, that makes SGD more likely to converge to a ﬂatter-minima (Hochreiter & Schmidhuber, 1997b) because the noise will help it escape from sharper local minima."
+          },
+          {
+            "anchor_id": "8_2_deep_mlp_experiments.a6",
+            "section": "8.2 DEEP MLP EXPERIMENTS",
+            "quote": "Our model achieves better generalization than ResNet. Stochastic depth achieves better generalization, but it might be possible to combine both and obtain better results."
+          }
+        ],
+        "reasoning_public": "Makale, gürültülü molliﬁkasyonun genelleme için faydalı olabileceğini ve bunun nedeninin SGD'nin daha düz minimalara yakınsamasını sağlaması olduğunu belirtmektedir. Bu, Hochreiter & Schmidhuber (1997b) gibi çalışmalara atıfla desteklenmektedir. Ancak, makaledeki deneyler (örn. CIFAR10 sonuçları) genelleme performansındaki iyileşmeyi gösterse de, bu iyileşmenin gerçekten de 'daha düz minimalara' yakınsama nedeniyle olup olmadığını doğrudan analiz etmemektedir (örn. kayıp yüzeyinin düzlüğünü ölçerek). Bu, bir mekanizma iddiası için dolaylı bir kanıttır.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Tutarlı Deneysel Destek: Annealing Programları",
+        "summary": "Makale, farklı annealing programlarının (üstel, doğrusal, karekök) eğitim performansı üzerindeki etkisine dair iddialarını, MNIST veri kümesi üzerindeki deneylerle ve görselleştirmelerle tutarlı bir şekilde desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "8_1_exploratory_study_on_mnist.a5",
+            "section": "8.1 EXPLORATORY STUDY ON MNIST",
+            "quote": "Firstly, in Figure 5, we investigate the effect of using different annealing schedules. Exponential decay converges faster compared to linear decay and square root decay of p. We find it to be very unstable to train our model with linear and square root decay in particular for large c values."
+          },
+          {
+            "anchor_id": "figure_5.a0",
+            "section": "Figure 5",
+            "quote": "We compare the training performance of different types of annealing methods used with molliﬁcation procedure to anneal the parameter of the molliﬁcation p. Decaying the p exponentially achieves both better training and validation performance."
+          }
+        ],
+        "reasoning_public": "Makale, üstel bozunmanın doğrusal ve karekök bozunmaya kıyasla daha hızlı yakınsama sağladığını ve daha kararlı olduğunu iddia etmektedir. Bu iddia, Figure 5'teki grafiklerle açıkça gösterilmekte ve metinde detaylandırılmaktadır. Bu, iddia ile kanıt arasında güçlü bir uyum olduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Sayıda Kaynağın Otomatik Olarak Çözülememesi",
+        "summary": "Makaledeki 44 referanstan sadece 1'i otomatik sistemler tarafından çözülebilmiştir. Geri kalan 43 referans için OpenAlex başlık araması servis hatası vermiştir. Bu durum, referansların doğruluğunu ve erişilebilirliğini manuel olarak doğrulamayı zorlaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Referansların büyük çoğunluğunun otomatik sistemler tarafından çözülememesi, makalenin doğrulanabilirliğini ve şeffaflığını olumsuz etkilemektedir. Okuyucuların ve hakemlerin atıf yapılan kaynaklara kolayca erişip içeriğini kontrol etmesini engeller. Bu durum, makalenin bilimsel iletişimdeki etkinliğini azaltabilir.",
+        "limitations": [
+          "Otomatik sistemlerin referansları çözememesi, referansların kendisinin hatalı olduğu anlamına gelmez, ancak doğrulanabilirlik açısından bir zayıflık oluşturur. Bu durum, OpenAlex servisindeki geçici bir hatadan kaynaklanmış olabilir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Eksik Raporlanan Deneysel Detaylar",
+        "summary": "Makale, deneysel kurulum ve sonuçların tam olarak yeniden üretilebilirliği için gerekli bazı detayları eksik bırakmaktadır. Özellikle, kullanılan hiperparametrelerin ve eğitim süreçlerinin tüm detayları açıkça belirtilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "8_experiments.a4",
+            "section": "8 EXPERIMENTS",
+            "quote": "The details of the experimental procedure is provided in Appendix C."
+          },
+          {
+            "anchor_id": "8_1_exploratory_study_on_mnist.a6",
+            "section": "8.1 EXPLORATORY STUDY ON MNIST",
+            "quote": "We train a thin deep neural network on MNIST (LeCun & Cortes, 1998) dataset with 72 hidden layers and 100 hidden units. We train our model with Adam(Kingma & Ba, 2014) optimizer and ﬁx the learning rate of all the models to 3e−4."
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmalarda yeniden üretilebilirlik esastır. Deneysel kurulumun ve kullanılan hiperparametrelerin tam olarak raporlanmaması, diğer araştırmacıların sonuçları doğrulamasını veya üzerine inşa etmesini engeller. Bu durum, makalenin bulgularının güvenilirliğini ve etkisini azaltabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0",
+          "reporting_guideline_compliance.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Kod Erişilebilirliği Beyanının Eksikliği",
+        "summary": "Makale, kaynak kodun yayınlanacağına dair bir niyet belirtse de, bu bilginin güncel durumu veya kalıcı bir erişim bağlantısı hakkında net bir ifade bulunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_mollifiers_and_weak_gradients.a3",
+            "section": "2.2 MOLLIFIERS AND WEAK GRADIENTS",
+            "quote": "We plan to release the source code of the models and experiments under, http://github.com/caglar/molly_nets/."
+          }
+        ],
+        "reasoning_public": "Açık bilim ve yeniden üretilebilirlik ilkeleri doğrultusunda, araştırmacıların çalışmalarının kodlarını ve verilerini erişilebilir kılmaları teşvik edilmektedir. Kodun erişilebilirliği, bulguların doğrulanmasını ve gelecekteki araştırmalar için temel oluşturmasını kolaylaştırır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Kod Paylaşımı Beyanı Eksikliği",
+        "summary": "Makale, kaynak kodunun yayınlanacağına dair bir niyet belirtse de, bu beyan güncel durumu yansıtmıyor ve kodun gerçekten erişilebilir olup olmadığı belirsizliğini koruyor. Bu durum, çalışmanın tekrar üretilebilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "mollifying_objective_functions.a0",
+            "section": "MOLLIFYING OBJECTIVE FUNCTIONS",
+            "quote": "We plan to release the source code of the models and experiments under, http://github.com/caglar/molly_nets/."
+          }
+        ],
+        "reasoning_public": "Akademik çalışmalarda tekrar üretilebilirlik, bulguların doğrulanması ve bilimin ilerlemesi için temel bir gerekliliktir. Kaynak kodunun erişilebilir olmaması, diğer araştırmacıların yöntemi uygulamalarını, sonuçları doğrulamalarını veya üzerine inşa etmelerini engeller. Makalede belirtilen URL'nin güncel olmaması, bu sorunu daha da belirginleştirmektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Veri Seti Bilgileri Sağlandı",
+        "summary": "Makale, deneylerde kullanılan veri setlerini (MNIST, CIFAR10) açıkça belirtmiştir. Bu, diğer araştırmacıların aynı veri setlerini kullanarak deneyleri tekrar etmelerine olanak tanır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "exploratory_study_on_mnist.a0",
+            "section": "EXPLORATORY STUDY ON MNIST",
+            "quote": "We train a thin deep neural network on MNIST (LeCun & Cortes, 1998) dataset with 72 hidden layers and 100 hidden units."
+          },
+          {
+            "anchor_id": "cifar10.a0",
+            "section": "CIFAR10",
+            "quote": "We experimented with deep convolutional neural networks of 110-layers with residual blocks and residual connections comparing our model against ResNet and Stochastic depth."
+          }
+        ],
+        "reasoning_public": "Kullanılan veri setlerinin açıkça belirtilmesi, çalışmanın şeffaflığını ve tekrar üretilebilirliğini artıran olumlu bir uygulamadır. Bu sayede, okuyucular ve diğer araştırmacılar deneylerin temelini oluşturan verileri anlayabilir ve kendi çalışmalarında kullanabilirler.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f2",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Hiperparametre ve Optimizasyon Detayları Verildi",
+        "summary": "Makale, deneylerde kullanılan optimizasyon algoritması (Adam, SGD), öğrenme oranı ve bazı hiperparametreler hakkında bilgi sağlamıştır. Bu detaylar, deneylerin tekrar üretilebilirliği için faydalıdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "exploratory_study_on_mnist.a1",
+            "section": "EXPLORATORY STUDY ON MNIST",
+            "quote": "We train our model with Adam(Kingma & Ba, 2014) optimizer and ﬁx the learning rate of all the models to 3e−4."
+          },
+          {
+            "anchor_id": "deep_parity_experiments.a0",
+            "section": "Deep Parity Experiments",
+            "quote": "All the models are initialized with Glorot initialization Glorot et al. (2011) and trained with SGD with momentum."
+          }
+        ],
+        "reasoning_public": "Deneylerin tekrar üretilebilirliği için kullanılan optimizasyon yöntemleri ve kritik hiperparametrelerin belirtilmesi önemlidir. Bu bilgiler, diğer araştırmacıların benzer deneysel kurulumları oluşturmasına ve sonuçları doğrulamasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Bölüm Başlıkları ve İçerik Arasındaki Tutarsızlık",
+        "summary": "Makaledeki bazı bölüm başlıkları, ilgili bölümlerin içeriğini tam olarak yansıtmamaktadır. Özellikle 'METHOD' bölümü, bir yöntemden ziyade daha çok teorik tanımlar ve genellemeler içermektedir. Bu durum, okuyucunun makalenin ana yöntemini bulmasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "method.a0",
+            "section": "METHOD",
+            "quote": "We propose an algorithm to mollify the cost of a neural network which also addresses an important drawback of the previously proposed noisy training procedures: as the noise gets larger, it can dominate the learning process and lead the algorithm to perform a random walk on the energy landscape of the objective function. Conversely in our algorithm, as the noise gets larger gradient descent minimizes a simpler (e.g. convex) but still meaningful objective function."
+          }
+        ],
+        "reasoning_public": "Bölüm başlıkları, okuyucunun makale içeriğini hızlıca anlamasına ve ilgili bilgilere ulaşmasına yardımcı olmalıdır. Başlıkların içeriği doğru yansıtmaması, makalenin okunabilirliğini ve anlaşılırlığını olumsuz etkiler.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Giriş Bölümünde Yöntem Detaylarının Erken Sunumu",
+        "summary": "Giriş bölümünde, makalenin ana yönteminin (molliﬁcation) detaylarına erken girilmektedir. Bu durum, okuyucunun genel bağlamı tam olarak anlamadan teknik detaylara maruz kalmasına neden olabilir ve girişin akıcılığını bozabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "We discuss the idea of molliﬁcation for neural networks – a form of differentiable smoothing of the loss function connected to noisy activations – which in our case can be interpreted as a form of adaptive noise injection which is controlled by a single hyperparameter. Inspired by Huang et al. (2016b), we use a hyperparameter to stochastically control the depth of our network. This allows us to start the optimization from a convex objective function (as long as the optimized criterion is convex, e.g. linear or logistic regression) and to slowly introduce more complexity into the model by annealing the hyperparameter, thus making the network deeper and increasingly non-linear."
+          }
+        ],
+        "reasoning_public": "Giriş bölümü, okuyucuyu konuya hazırlamalı, problemin önemini ve makalenin katkısını genel hatlarıyla sunmalıdır. Yöntem detayları genellikle ayrı bir 'Method' bölümünde ele alınmalıdır.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıksal Akış ve Geçişlerin Netliği",
+        "summary": "Makale genel olarak iyi bir mantıksal akışa sahiptir. Bölümler arasında geçişler genellikle anlaşılırdır ve okuyucuyu bir konudan diğerine yönlendirmede başarılıdır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "İyi bir mantıksal akış, okuyucunun makalenin argümanlarını ve sonuçlarını kolayca takip etmesini sağlar, bu da makalenin genel anlaşılırlığını artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Uygun Konu Alanı ve Yaklaşım",
+        "summary": "Makale, derin öğrenme optimizasyonu ve sinir ağları konularına odaklanarak, konferansın veya derginin genel kapsamına uygun bir araştırma sunmaktadır. Sunulan 'molliﬁying networks' yaklaşımı, mevcut zorluklara yenilikçi bir çözüm getirme potansiyeli taşımaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we attack the problem of optimization of highly non-convex neural networks objectives by starting with a smoothed – or molliﬁed – objective function which becomes more complex as the training proceeds. Our proposition is inspired by the recent studies in continuation methods: similarly to curriculum methods, we begin by learning an easier (possibly convex) objective function and let it evolve during training until it eventually becomes the original, difﬁcult to optimize objective function."
+          },
+          {
+            "anchor_id": "introduction.a8",
+            "section": "INTRODUCTION",
+            "quote": "In the last few years, deep neural networks – i.e. convolutional networks (LeCun et al., 1989), LSTMs (Hochreiter & Schmidhuber, 1997a) or GRUs (Cho et al., 2014) – set the state of the art on a range of challenging tasks (Szegedy et al., 2014; Visin et al., 2015; Hinton et al., 2012; Sutskever et al., 2014; Bahdanau et al., 2014; Mnih et al., 2013; Silver et al., 2016). However when trained with variants of SGD (Bottou, 1998) deep networks can be difﬁcult to optimize due to their highly non-linear and non-convex nature (Choromanska et al., 2014; Dauphin et al., 2014)."
+          }
+        ],
+        "reasoning_public": "Makale, derin öğrenme alanındaki temel bir sorun olan optimizasyon zorluklarını ele almaktadır. 'Molliﬁcation' adı verilen yeni bir yöntem önererek, bu alandaki mevcut 'continuation methods' ve 'curriculum learning' yaklaşımlarıyla ilişki kurmaktadır. Bu, makalenin hedef kitlenin ilgi alanlarına hitap ettiğini ve güncel araştırma konularıyla uyumlu olduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f1",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Teorik ve Deneysel Katkı Dengesi",
+        "summary": "Makale, molliﬁcation kavramının teorik temellerini sunarken (molliﬁer tanımı, zayıf gradyanlar, Gauss molliﬁerleri) aynı zamanda çeşitli derin öğrenme görevlerinde (MNIST, Deep Parity, Pentomino, CIFAR10, LSTM) deneysel sonuçlarla yaklaşımını desteklemektedir. Bu denge, hem teorik hem de uygulamalı araştırmaları hedefleyen bir venue için uygunluk göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_mollifiers_and_weak_gradients.a4",
+            "section": "2.2 MOLLIFIERS AND WEAK GRADIENTS",
+            "quote": "A molliﬁer is an inﬁnitely differentiable function that behaves like an approximate identity in the group of convolutions of integrable functions. If K(·) is an inﬁnitely differentiable function, that converges to the Dirac delta function when appropriately rescaled and for any integrable function L, then it is a molliﬁer:"
+          },
+          {
+            "anchor_id": "8_experiments.a5",
+            "section": "8 EXPERIMENTS",
+            "quote": "In this section we mainly focus on training of difﬁcult to optimize models, in particular deep MLPs with sigmoid or tanh activation functions. The details of the experimental procedure is provided in Appendix C."
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Test Accuracy\nStochastic Depth 93.25\nMolliﬁed Convnet 92.45\nResNet 91.78"
+          }
+        ],
+        "reasoning_public": "Makale, molliﬁcation'ın matematiksel tanımını ve özelliklerini detaylı bir şekilde açıklayarak teorik bir temel oluşturmaktadır. Ardından, bu teorik yaklaşımın pratik uygulamalarını ve çeşitli veri kümeleri üzerindeki performansını gösteren kapsamlı deneyler sunmaktadır. Bu, makalenin hem teorik derinliğe hem de pratik etkiye değer veren bir akademik ortam için uygun olduğunu düşündürmektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, INTRODUCTION",
+        "instruction": "Soyut ve Giriş bölümlerindeki 'çeşitli zorlu optimizasyon görevleri' gibi genelleme içeren ifadeler, makalede sunulan deneysel kanıtların kapsamına uygun olarak daha spesifik hale getirilmelidir. Örneğin, 'derin MLP'ler ve bazı RNN'ler üzerindeki zorlu optimizasyon görevleri' şeklinde düzeltilebilir.",
+        "acceptance_check": "Genelleme içeren ifadelerin, makalede sunulan deneylerin kapsamını doğru bir şekilde yansıtacak şekilde revize edilmesi.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların DOI'lerini veya tam ve doğru bibliyografik bilgilerini (yazar, yıl, başlık, yayın yeri, cilt, sayı, sayfa aralığı) kontrol edin ve eksik veya hatalı olanları düzeltin. Özellikle 'not_found_in_index' olarak işaretlenen referanslar için bu kontrol kritik öneme sahiptir.",
+        "acceptance_check": "Tüm referansların DOI'leri veya tam bibliyografik bilgileri sağlanmış ve otomatik sistemler tarafından çözülebilir hale getirilmiş olmalı.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a1",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Eğer mümkünse, yöntemin daha geniş bir 'çeşitli zorlu optimizasyon görevleri' yelpazesindeki etkinliğini gösteren ek deneyler (farklı mimariler, daha büyük veri kümeleri veya farklı problem türleri üzerinde) eklenmelidir. Bu, iddiaların kanıtlarla daha iyi hizalanmasını sağlayacaktır.",
+        "acceptance_check": "En az bir yeni ve farklı optimizasyon görevi veya ağ mimarisi üzerinde ek deney sonuçlarının sunulması.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "MOLLIFYING OBJECTIVE FUNCTIONS",
+        "instruction": "Yazarlar, kaynak kodunun güncel ve erişilebilir olduğu bir depoyu (örneğin GitHub, GitLab) belirtmeli veya kodun neden paylaşılamadığını açıklamalıdır. Eğer kod paylaşıldıysa, makaledeki URL güncellenmelidir.",
+        "acceptance_check": "Makalede güncel ve erişilebilir bir kod deposu bağlantısı sağlanmış veya kodun paylaşılamama nedeni açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Referans listesindeki tüm girdilerin DOI (Digital Object Identifier) veya diğer kalıcı tanımlayıcılarını (örneğin, arXiv ID) ekleyerek güncelleyin. Özellikle 'not_found_in_index' olarak işaretlenen referanslar için bu kontrolü yapın.",
+        "acceptance_check": "Tüm referanslar için DOI veya kalıcı tanımlayıcılar eklenmiş ve otomatik sistemler tarafından çözülebilir hale getirilmiş olmalı.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Her bir deney için kullanılan veri setlerinin (eğitim, doğrulama, test) örneklem büyüklüklerini (örnek sayısı, boyutlar) açıkça belirtin.",
+        "acceptance_check": "Her veri seti için örneklem büyüklüğü bilgisi (örneğin, MNIST için 60.000 eğitim, 10.000 test görüntüsü) eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Model mimarisi seçimleri (katman sayısı, birim sayısı) veya hiperparametre ayarları için (varsa) teorik veya ampirik gerekçeler sunun. Özellikle, '72 hidden layers and 100 hidden units' gibi spesifik seçimlerin neden yapıldığına dair bir açıklama ekleyin.",
+        "acceptance_check": "Model mimarisi seçimlerinin arkasındaki mantık veya önceki çalışmalara referanslar eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Tüm ana sonuçlar için (örneğin, doğruluk, NLL, PPL değerleri) etki büyüklüklerini (örneğin, yüzde farkı, standartlaştırılmış ortalama farkı) ve %95 güven aralıklarını raporlayın. Bu, okuyucunun gözlemlenen farklılıkların pratik önemini daha iyi anlamasına yardımcı olacaktır.",
+        "acceptance_check": "Tablo ve metin içinde etki büyüklükleri ve güven aralıkları eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Grafiklerde (örneğin, Şekil 5, 7, 8) hata çubukları veya gölgeli alanlar kullanarak belirsizlik ölçülerini (örneğin, standart sapma, standart hata) görselleştirin. Bu, farklı yöntemler arasındaki farkların görsel olarak daha iyi değerlendirilmesini sağlayacaktır.",
+        "acceptance_check": "Grafiklerde belirsizlik ölçüleri (hata çubukları/gölgeler) eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "2.2 MOLLIFIERS AND WEAK GRADIENTS",
+        "instruction": "Kaynak kodunun ve kullanılan veri setlerinin (veya veri işleme betiklerinin) kalıcı bir depoda (örneğin, GitHub, Zenodo) erişilebilir olduğundan emin olun ve makalede güncel bir bağlantı sağlayın.",
+        "acceptance_check": "Çalışan bir kod deposu bağlantısı sağlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a2",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "INTRODUCTION",
+        "instruction": "Eğer varsa, çalışmanın ön kayıtlı bir versiyonuna veya yayınlanmış bir protokolüne referans verin. Yoksa, gelecekteki çalışmalar için ön kayıt pratiğini düşünün.",
+        "acceptance_check": "Ön kayıt veya protokol referansı eklenmiş olmalı (varsa).",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Ana sonuçları sunarken, sadece nokta tahminlerini değil, aynı zamanda ilgili etki büyüklüklerini ve güven aralıklarını da dahil edin. Bu, 'Effect size and uncertainty' boyutundaki eylem maddeleriyle uyumludur.",
+        "acceptance_check": "Ana sonuçlar etki büyüklükleri ve güven aralıkları ile raporlanmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "APPENDIX C",
+        "instruction": "Ek C'de veya ana metinde, tüm deneyler için kullanılan hiperparametrelerin (örneğin, Adam optimizer'ın beta değerleri, ağırlık bozunumu, öğrenme oranı çizelgeleri, 'c' değeri, 'pmin' değeri, 'k' değeri) ve eğitim süresince yapılan tüm ayarlamaların (örneğin, erken durdurma kriterleri, model seçimi) eksiksiz bir listesini sağlayın.",
+        "acceptance_check": "Tüm deneyler için kritik hiperparametrelerin ve eğitim detaylarının açıkça listelendiği bir tablo veya paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "METHOD",
+        "instruction": "Bölüm başlıkları, ilgili bölümlerin içeriğini daha doğru ve açıklayıcı bir şekilde yansıtacak şekilde gözden geçirilmelidir. Örneğin, 'METHOD' bölümü 'Proposed Mollification Algorithm' veya 'Mollifying Network Architecture' gibi daha spesifik bir başlıkla değiştirilebilir.",
+        "acceptance_check": "Bölüm başlıkları ile içerikleri arasında net bir uyum sağlanmış olmalı ve okuyucu, başlığa bakarak bölümün ana konusunu kolayca anlayabilmelidir.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P2",
+        "effort": "high",
+        "expected_gain": "medium",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Eğer mümkünse, molliﬁed ağların gerçekten de daha düz minimalara yakınsadığını gösteren ek analizler (örn. kayıp yüzeyi topolojisi analizi, Hessian matrisi spektrumu) eklenmelidir. Bu, mekanizma iddiasını daha güçlü bir şekilde destekleyecektir.",
+        "acceptance_check": "Düz minima hipotezini doğrudan destekleyen nicel veya nitel analizlerin sunulması.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Referans formatını IEEE veya APA gibi yaygın olarak kabul görmüş bir akademik stile uygun hale getirin. Bu, otomatik indeksleme ve okuyucuların kaynakları bulmasını kolaylaştıracaktır.",
+        "acceptance_check": "Referans listesi tutarlı bir akademik stile göre biçimlendirilmiş olmalı.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a2",
+        "priority": "P2",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Mümkünse, deneylerin istatistiksel gücünü veya elde edilen etki büyüklüklerinin pratik önemini tartışın. Özellikle, 'improvements on various difﬁcult optimization tasks' iddialarını desteklemek için etki büyüklüğü analizleri veya güven aralıkları sunun.",
+        "acceptance_check": "Sonuçların pratik önemi ve istatistiksel gücü hakkında bir tartışma veya etki büyüklüğü raporlaması eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Farklı modeller veya hiperparametre ayarları arasındaki performans farklılıklarını istatistiksel olarak karşılaştırırken hangi testlerin kullanıldığını (örneğin, t-testi, ANOVA) ve bu testlerin varsayımlarının nasıl kontrol edildiğini açıklayın.",
+        "acceptance_check": "Kullanılan istatistiksel testler ve varsayım kontrolleri hakkında bilgi eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Birden fazla karşılaştırma yapıldığında (örneğin, farklı annealing programları veya model varyantları arasında), Tip I hata riskini azaltmak için çoklu karşılaştırma düzeltmelerinin (örneğin, Bonferroni, Holm) uygulanıp uygulanmadığını belirtin. Uygulanmadıysa, bunun nedenlerini açıklayın veya gelecekteki çalışmalarda dikkate alınmasını önerin.",
+        "acceptance_check": "Çoklu karşılaştırma düzeltmeleri hakkında bir açıklama veya gerekçe eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Kullanılan veri setlerinde eksik veri olup olmadığını ve varsa bunların nasıl işlendiğini (örneğin, silme, doldurma) açıklayın.",
+        "acceptance_check": "Eksik veri işleme stratejisi hakkında bilgi eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "quant.f6.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Aykırı değerlerin varlığı ve bunların analiz üzerindeki potansiyel etkisi hakkında bilgi verin. Aykırı değerler için herhangi bir özel işleme stratejisi uygulandıysa (örneğin, kırpma, dönüştürme), bunu detaylandırın.",
+        "acceptance_check": "Aykırı değer işleme stratejisi hakkında bilgi eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f6"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "Appendix C",
+        "instruction": "Deneylerin tam olarak tekrar üretilebilmesi için tüm hiperparametrelerin ve model konfigürasyonlarının (örneğin, öğrenme oranı, optimizasyon algoritması parametreleri, annealing programı detayları) ayrıntılı bir listesini sağlayın. Bu, Appendix C'de daha da genişletilebilir.",
+        "acceptance_check": "Tüm hiperparametreler ve model konfigürasyonları listelenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "8 EXPERIMENTS",
+        "instruction": "Sonuçların yorumlanmasında, 'significant' veya 'non-significant' gibi terimlerin kullanımını sınırlayın ve bunun yerine gözlemlenen farklılıkların büyüklüğüne ve pratik önemine odaklanın.",
+        "acceptance_check": "Sonuç yorumlarında 'significant' teriminin aşırı kullanımından kaçınılmış olmalı.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "APPENDIX C",
+        "instruction": "Her bir deney için kullanılan veri ön işleme adımlarını ve veri artırma tekniklerini (varsa) detaylandırın.",
+        "acceptance_check": "Veri ön işleme ve artırma adımlarının açıkça belirtilmesi.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "1 INTRODUCTION",
+        "instruction": "Kaynak kodun mevcut olduğu veya ne zaman erişilebilir olacağı hakkında güncel ve kalıcı bir bağlantı (örneğin, bir GitHub deposu veya Zenodo DOI'si) sağlayın. Eğer kod zaten yayınlandıysa, bu bağlantıyı güncelleyin.",
+        "acceptance_check": "Makalede güncel ve kalıcı bir kod deposu bağlantısının bulunması.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f1"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümündeki yöntem detayları, daha genel bir açıklama ile değiştirilmeli ve teknik ayrıntılar 'METHOD' bölümüne taşınmalıdır. Giriş, molliﬁcation'ın genel faydalarına ve motivasyonuna odaklanmalıdır.",
+        "acceptance_check": "Giriş bölümü, makalenin ana fikrini ve katkısını genel bir dille sunmalı, yöntem detayları ise 'METHOD' bölümünde açıklanmalıdır.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleme İddialarının Yetersiz Kanıtı",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Giriş Bölümünde Yöntem Detaylarının Erken Sunumu",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8"
+        ],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "METHOD",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Bölüm Başlıkları ve İçerik Arasındaki Tutarsızlık",
+        "anchor_ids": [
+          "method.a0"
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ]
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "ACKNOWLEDGEMENTS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "2.2 MOLLIFIERS AND WEAK GRADIENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Tekrar Üretilebilirlik İçin Kod ve Veri Erişimi",
+        "anchor_ids": [
+          "2_2_mollifiers_and_weak_gradients.a0",
+          "2_2_mollifiers_and_weak_gradients.a1",
+          "2_2_mollifiers_and_weak_gradients.a2",
+          "2_2_mollifiers_and_weak_gradients.a3",
+          "2_2_mollifiers_and_weak_gradients.a4"
+        ],
+        "action_item_ids": [
+          "quant.f8.a0",
+          "quant.f8.a1",
+          "quant.f8.a2",
+          "reporting_guideline_compliance.f1.a0"
+        ]
+      },
+      {
+        "section": "2.4 GENERALIZED AND NOISY MOLLIFIERS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_4_generalized_and_noisy_mollifiers.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4 SIMPLIFYING THE OBJECTIVE FUNCTION FOR FEEDFORWARD NETWORKS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_simplifying_the_objective_function_for_feedforward_networks.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "7 ANNEALING SCHEDULES FOR p",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Genelleme İddiasının Kısmi Kanıtı: Düz Minima",
+        "anchor_ids": [
+          "7_annealing_schedules_for_p.a0"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "8 EXPERIMENTS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genelleme İddialarının Yetersiz Kanıtı; Eksik Veri ve Aykırı Değer İşleme Stratejilerinin Eksikliği; Tekrar Üretilebilirlik İçin Kod ve Veri Erişimi; Eksik Raporlanan Deneysel Detaylar",
+        "anchor_ids": [
+          "8_experiments.a0",
+          "8_experiments.a1",
+          "8_experiments.a2",
+          "8_experiments.a3",
+          "8_experiments.a4",
+          "8_experiments.a5"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "claim_evidence_alignment.f0.a1",
+          "quant.f6.a0",
+          "quant.f6.a1",
+          "quant.f8.a0",
+          "quant.f8.a1",
+          "quant.f8.a2",
+          "reporting_guideline_compliance.f0.a0",
+          "reporting_guideline_compliance.f0.a1"
+        ]
+      },
+      {
+        "section": "8.1 EXPLORATORY STUDY ON MNIST",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Varsayım Testleri ve Çoklu Karşılaştırma Riski; Eksik Raporlanan Deneysel Detaylar",
+        "anchor_ids": [
+          "8_1_exploratory_study_on_mnist.a0",
+          "8_1_exploratory_study_on_mnist.a1",
+          "8_1_exploratory_study_on_mnist.a2",
+          "8_1_exploratory_study_on_mnist.a3",
+          "8_1_exploratory_study_on_mnist.a4",
+          "8_1_exploratory_study_on_mnist.a5",
+          "8_1_exploratory_study_on_mnist.a6"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1",
+          "quant.f1.a2",
+          "quant.f3.a0",
+          "quant.f3.a1",
+          "reporting_guideline_compliance.f0.a0",
+          "reporting_guideline_compliance.f0.a1"
+        ]
+      },
+      {
+        "section": "8.2 DEEP MLP EXPERIMENTS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Genelleme İddiasının Kısmi Kanıtı: Düz Minima; Ana Sonuçların Raporlama Kalitesi",
+        "anchor_ids": [
+          "8_2_deep_mlp_experiments.a0",
+          "8_2_deep_mlp_experiments.a1",
+          "8_2_deep_mlp_experiments.a2",
+          "8_2_deep_mlp_experiments.a3",
+          "8_2_deep_mlp_experiments.a4",
+          "8_2_deep_mlp_experiments.a5",
+          "8_2_deep_mlp_experiments.a6"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0",
+          "quant.f1.a0",
+          "quant.f1.a1",
+          "quant.f1.a2",
+          "quant.f5.a0",
+          "quant.f5.a1",
+          "quant.f9.a0",
+          "quant.f9.a1"
+        ]
+      },
+      {
+        "section": "CIFAR10",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "cifar10.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Deep Parity Experiments",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "deep_parity_experiments.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "EXPLORATORY STUDY ON MNIST",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "exploratory_study_on_mnist.a0",
+          "exploratory_study_on_mnist.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Figure 5",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "figure_5.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "GENERALIZED AND NOISY MOLLIFIERS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "generalized_and_noisy_mollifiers.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "MOLLIFYING OBJECTIVE FUNCTIONS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Kod Paylaşımı Beyanı Eksikliği",
+        "anchor_ids": [
+          "mollifying_objective_functions.a0"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_1.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Table 1: CIFAR10 deep convolutional neural network.",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Ana Sonuçların Raporlama Kalitesi",
+        "anchor_ids": [
+          "table_1_cifar10_deep_convolutional_neural_network.a0",
+          "table_1_cifar10_deep_convolutional_neural_network.a1",
+          "table_1_cifar10_deep_convolutional_neural_network.a2",
+          "table_1_cifar10_deep_convolutional_neural_network.a3"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1",
+          "quant.f9.a0",
+          "quant.f9.a1"
+        ]
+      },
+      {
+        "section": "Table 2: 3-layered LSTM network on word-level language modeling for PTB.",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "anchor_ids": [
+          "table_2_3_layered_lstm_network_on_word_level_language_modeling_for_ptb.a0",
+          "table_2_3_layered_lstm_network_on_word_level_language_modeling_for_ptb.a1"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f5.a1"
+        ]
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

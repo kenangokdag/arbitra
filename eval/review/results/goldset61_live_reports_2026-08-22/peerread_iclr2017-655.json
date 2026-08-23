@@ -1,0 +1,1735 @@
+{
+  "paper_id": "peerread:iclr2017-655",
+  "run_tag": "main",
+  "job_id": "1338773c-4317-45f7-b36c-dd9c04d64161",
+  "elapsed_s": 378.3,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "DISTRIBUTED TRANSFER LEARNING FOR DEEP CONVOLUTIONAL NEURAL NETWORKS BY BASIC PROBABILITY ASSIGNMENT Arash Shahriari",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "CONCLUSION",
+        "REFERENCES"
+      ],
+      "word_count": 4040,
+      "reference_count": 17,
+      "parse_confidence": 0.685,
+      "parse_warnings": []
+    },
+    "summary": "This manuscript introduces 'Distributed Transfer Learning,' a method aiming to simplify optimization and address class imbalance in deep neural networks by training individual 'single-filter' classifiers and fusing their outputs via evidence theory. While the conceptual approach is interesting, the paper is fundamentally flawed in its current state. Critical weaknesses in methodological clarity, experimental rigor, and scholarly practice make the work non-reproducible, its claims unverifiable, and its contribution impossible to assess. The combination of an irreproducible method and a complete failure to provide a verifiable bibliography warrants rejection.",
+    "strengths": [
+      {
+        "category": "Problem Importance",
+        "points": [
+          "The paper addresses two highly relevant and persistent problems in applied deep learning: the complexity of fine-tuning large models and the performance degradation caused by class imbalance between source and target domains."
+        ]
+      },
+      {
+        "category": "Conceptual Idea",
+        "points": [
+          "The core idea of synthesizing a 'divide-and-conquer' optimization strategy (per-filter fine-tuning) with a principled fusion mechanism from evidence theory (BPA) is creative."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Scholarly Referencing and Contextualization",
+        "points": [
+          "The bibliography suffers from a catastrophic integrity failure. A programmatic check was unable to resolve any of the 17 provided references, as documented in the evidence pack. This makes it impossible to verify the paper's claims, understand its context, or assess its novelty. This is a critical, blocking flaw.",
+          "As a direct consequence of the failed bibliography, the paper's claim to novelty is unsubstantiated. Without a verifiable literature review, it is impossible to confirm that the proposed method is indeed new.",
+          "The literature review is sparse, which, combined with the citation issues, suggests a failure to properly engage with the current state of the art in transfer learning."
+        ]
+      },
+      {
+        "category": "Methodological Clarity and Reproducibility",
+        "points": [
+          "The description of the core method is critically insufficient for reproducibility. The paper fails to explain how a 'single-filter neural network' is constructed or how the output of a single filter is processed before being fed to its classifier (φj).",
+          "Crucial implementation details—such as the architecture of the weak classifiers, the full training procedure, and key hyperparameters—are completely absent.",
+          "The strong claim that the method 'breaks' the non-convex optimization problem is not supported by either theoretical analysis or sufficient empirical evidence."
+        ]
+      },
+      {
+        "category": "Experimental Soundness",
+        "points": [
+          "The experimental evaluation is not rigorous. The 'conventional' transfer learning baseline is poorly defined and appears to be based on outdated work, with reported error rates that seem high for modern standards. This likely exaggerates the proposed method's relative performance gains.",
+          "The results are presented without any measures of variance (e.g., standard deviation over multiple runs) or statistical significance testing. This makes it impossible to determine if the reported improvements are robust or simply an artifact of a single, fortunate experimental run."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The reference list requires a complete and meticulous overhaul. A programmatic check was unable to resolve any of the 17 references provided (evidence_ref: ref[1-17] not_found_in_index). While the check for one reference ([16]) failed due to a service error, the overall pattern indicates a fundamental problem with the bibliography. This is a mandatory, foundational requirement for any scholarly work and is currently a primary reason for rejection.",
+        "evidence_ref": "ref[1-17] not_found_in_index"
+      },
+      {
+        "area": "technical_soundness",
+        "comment": "The formulation of the method needs to be completely rewritten for clarity and reproducibility. Please provide a clear, step-by-step description, with diagrams, of the 'weak single-filter classifier' (φj) pipeline. This must include what happens to the feature map from one filter and the precise architecture of the subsequent classifier. Without this, the work cannot be replicated or validated.",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "The experimental validation must be significantly strengthened. This requires benchmarking against strong, contemporary transfer learning baselines with full implementation details provided. To validate the robustness of the results, you must report the mean and standard deviation of performance over multiple runs with different random seeds and include statistical significance tests (e.g., paired t-tests) comparing your method to all baselines.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The discussion of results is too brief. For instance, the observation that conventional transfer learning fails on CIFAR-10 -> CIFAR-100 while the proposed method succeeds warrants a much deeper analysis. A thorough investigation of *why* the method works in specific scenarios would be necessary to establish a meaningful contribution, assuming the other fundamental flaws can be fixed.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Can you provide a precise, reproducible architectural description of the 'single-filter classifier' pipeline, from the filter's output to the final class prediction?",
+      "What were the exact settings for the 'Conventional' baseline, and can you provide a justification for this choice over more recent, state-of-the-art transfer learning methods?",
+      "The entire reference list could not be programmatically verified. Can you explain this and provide a corrected list where every citation is accurate, complete (with DOIs or public links), and properly formatted?",
+      "Given the complete failure to situate the work within a verifiable body of literature, how can the claim of novelty be substantiated?"
+    ],
+    "overall_assessment": "While the core idea of the paper is conceptually interesting, the manuscript is fundamentally unsound and not suitable for publication. It is undermined by a fatal combination of three major issues: 1) a critical lack of methodological detail that renders the work completely non-reproducible; 2) an experimental evaluation that lacks rigor due to weak baselines and the absence of any statistical validation; and 3) a catastrophic failure of basic scholarly practice in the form of a completely unverifiable bibliography. The inability to check a single reference makes it impossible to assess the paper's context, contribution, or novelty. Due to these deep and foundational flaws, the paper is rejected.",
+    "verdict": "reject",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 7.39,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The conceptual combination seems creative, but the claim of novelty is entirely unsubstantiated due to a complete failure to provide a verifiable literature context. The score reflects the idea's potential, not its proven novelty.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.0,
+        "rationale": "The paper addresses the significant and practical challenges of optimization complexity and class imbalance in transfer learning. The problem itself is important."
+      },
+      {
+        "key": "claims_supported",
+        "score": 4.51,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: Claims of performance are not credibly supported due to weak baselines, a lack of statistical testing, and an inability to verify any of the cited foundational work.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The work is fundamentally unsound. The methodology is irreproducible, and the experimental design is not rigorous. The inability to verify any citations undermines the entire foundation.]"
+      },
+      {
+        "key": "clarity",
+        "score": 5.59,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity major. [LLM'in kendi gerekçesi: The high-level idea is understandable, but the manuscript critically lacks clarity in the most important sections: the methodology and implementation details.]"
+      },
+      {
+        "key": "community_value",
+        "score": 1.0,
+        "rationale": "In its current state, the paper has no value to the community. It is non-reproducible, its claims are unverifiable, and it fails to meet basic standards of scholarly practice."
+      },
+      {
+        "key": "contextualization",
+        "score": 1.0,
+        "rationale": "A complete failure. The bibliography is unverifiable, making proper placement of the work within the field impossible."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 1.0,
+        "rationale": "Catastrophic failure. A programmatic check failed to resolve any of the 17 references, as confirmed by the evidence pack. This is a blocking issue."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 2.0,
+        "rationale": "Given the sparse review and completely broken bibliography, it is certain that the paper has major gaps in its coverage of relevant literature."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack found no statistical inconsistencies (e.g., p-value/t-value mismatches). The paper's primary statistical weakness is the complete *absence* of significance testing, not errors in what is present.]"
+      }
+    ],
+    "final_score": 4.85,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 17,
+        "resolved": 0,
+        "not_found_in_index": 17,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 1
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Yoshua Bengio et al. Deep learning of representations for unsupervised and transfer learning. ICML Unsupervised and Transfer Learning, 27:17–36, 2012.",
+          "title": "Deep learning of representations for unsupervised and transfer learning",
+          "authors": [
+            "Yoshua Bengio et al."
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Xinyang Deng, Qi Liu, Yong Deng, and Sankaran Mahadevan. An improved method to construct ba- sic probability assignment based on the confusion matrix for classiﬁcation problem. Information Sciences, 340:250–261, 2016.",
+          "title": "An improved method to construct ba- sic probability assignment based on the confusion matrix for classiﬁcation problem",
+          "authors": [
+            "Xinyang Deng, Qi Liu, Yong Deng",
+            "Sankaran Mahadevan"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Xavier Glorot, Antoine Bordes, and Yoshua Bengio. Domain adaptation for large-scale sentiment classiﬁcation: A deep learning approach. In Proceedings of the 28th International Conference on Machine Learning (ICML-11), pp. 513–520, 2011.",
+          "title": "Domain adaptation for large-scale sentiment classiﬁcation: A deep learning approach",
+          "authors": [
+            "Xavier Glorot, Antoine Bordes",
+            "Yoshua Bengio"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Alex Krizhevsky and Geoffrey Hinton. Learning multiple layers of features from tiny images. 2009.",
+          "title": "Learning multiple layers of features from tiny images",
+          "authors": [
+            "Alex Krizhevsky",
+            "Geoffrey Hinton"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.42 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.",
+          "title": "Gradient-based learning applied to document recognition",
+          "authors": [
+            "Yann LeCun, Léon Bottou, Yoshua Bengio",
+            "Patrick Haffner"
+          ],
+          "year": 1998,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Mingsheng Long, Jianmin Wang, and Michael I Jordan. Deep transfer learning with joint adaptation networks. arXiv preprint arXiv:1605.06636, 2016.",
+          "title": "Deep transfer learning with joint adaptation networks",
+          "authors": [
+            "Mingsheng Long, Jianmin Wang",
+            "Michael I Jordan"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.51 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Yuval Netzer, Tao Wang, Adam Coates, Alessandro Bissacco, Bo Wu, and Andrew Y Ng. Reading digits in natural images with unsupervised feature learning. 2011.",
+          "title": "Reading digits in natural images with unsupervised feature learning",
+          "authors": [
+            "Yuval Netzer, Tao Wang, Adam Coates, Alessandro Bissacco, Bo Wu",
+            "Andrew Y Ng"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.38 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Maxime Oquab, Leon Bottou, Ivan Laptev, and Josef Sivic. Learning and transferring mid-level im- age representations using convolutional neural networks. In Proceedings of the IEEE conference on computer vision and pattern recognition, pp. 1717–1724, 2014.",
+          "title": "Learning and transferring mid-level im- age representations using convolutional neural networks",
+          "authors": [
+            "Maxime Oquab, Leon Bottou, Ivan Laptev",
+            "Josef Sivic"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Sinno Jialin Pan and Qiang Yang. A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10):1345–1359, 2010.",
+          "title": "A survey on transfer learning",
+          "authors": [
+            "Sinno Jialin Pan",
+            "Qiang Yang"
+          ],
+          "year": 2010,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Claude Sammut and Geoffrey I Webb. Encyclopedia of machine learning. Springer Science & Business Media, 2011.",
+          "title": "Encyclopedia of machine learning",
+          "authors": [
+            "Claude Sammut",
+            "Geoffrey I Webb"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Kari Sentz and Scott Ferson. Combination of evidence in Dempster-Shafer theory, volume 4015. Citeseer, 2002.",
+          "title": "Combination of evidence in Dempster-Shafer theory, volume 4015",
+          "authors": [
+            "Kari Sentz",
+            "Scott Ferson"
+          ],
+          "year": 2002,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Pierre Sermanet, David Eigen, Xiang Zhang, Michaël Mathieu, Rob Fergus, and Yann LeCun. Overfeat: Integrated recognition, localization and detection using convolutional networks. arXiv preprint arXiv:1312.6229, 2013.",
+          "title": "Overfeat: Integrated recognition, localization and detection using convolutional networks",
+          "authors": [
+            "Pierre Sermanet, David Eigen, Xiang Zhang, Michaël Mathieu, Rob Fergus",
+            "Yann LeCun"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "A. Vedaldi and B. Fulkerson. VLFeat: An open and portable library of computer vision algorithms. http://www.vlfeat.org/, 2008.",
+          "title": "VLFeat: An open and portable library of computer vision algorithms",
+          "authors": [
+            "A. Vedaldi",
+            "B. Fulkerson"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.38 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Xuezhi Wang and Jeff Schneider. Flexible transfer learning under support and model shift. In Advances in Neural Information Processing Systems, pp. 1898–1906, 2014.",
+          "title": "Flexible transfer learning under support and model shift",
+          "authors": [
+            "Xuezhi Wang",
+            "Jeff Schneider"
+          ],
+          "year": 1906,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.46 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Lei Xu, Adam Krzyzak, and Ching Y Suen. Methods of combining multiple classiﬁers and their applications to handwriting recognition. IEEE transactions on systems, man, and cybernetics, 22 (3):418–435, 1992.",
+          "title": "Methods of combining multiple classiﬁers and their applications to handwriting recognition",
+          "authors": [
+            "Lei Xu, Adam Krzyzak",
+            "Ching Y Suen"
+          ],
+          "year": 1992,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Jason Yosinski, Jeff Clune, Yoshua Bengio, and Hod Lipson. How transferable are features in deep neural networks? In Advances in neural information processing systems, pp. 3320–3328, 2014.",
+          "title": "How transferable are features in deep neural networks? In Advances in neural information processing systems, pp",
+          "authors": [
+            "Jason Yosinski, Jeff Clune, Yoshua Bengio",
+            "Hod Lipson"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 17,
+          "raw": "Kun Zhang, Bernhard Schölkopf, Krikamol Muandet, and Zhikun Wang. Domain adaptation under target and conditional shift. In ICML (3), pp. 819–827, 2013. 9",
+          "title": "Domain adaptation under target and conditional shift",
+          "authors": [
+            "Kun Zhang, Bernhard Schölkopf, Krikamol Muandet",
+            "Zhikun Wang"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.59 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:1",
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "6de06005e1423ec66255d009ab2bdaf0a16e007a2fa9cfea09da0e1da2f480be",
+          "request_time": "2026-08-22T17:25:00.597755Z",
+          "status": "degraded",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "1/17 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:25:01.414828Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "17ab4e76e85757441254e2f52df2a00f644e101ba105737e9038e61a9d2d60a9",
+          "request_time": "2026-08-22T17:25:02.234992Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:30:49.477314Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.8,
+      "rationale": "Belgenin kısa olması (4040 kelime, 17 referans), yazarın üniversite ve araştırma kurumu bağlantısı ile 'ABSTRACT', 'INTRODUCTION', 'CONCLUSION', 'REFERENCES' gibi temel bölümlerin varlığı bir konferans bildirisine işaret etmektedir. Özet ve başlıkta 'deep convolutional neural networks', 'transfer learning', 'basic probability assignment' gibi ifadeler ve 'Our experiments on several standard datasets confirm the consistent improvement' cümlesi, yeni bir hesaplama modelinin önerildiğini ve deneysel olarak test edildiğini göstermektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 69.875,
+      "recommended_decision": "reject",
+      "confidence": 0.6525,
+      "top_fatal_risks": [
+        "Algoritma 1'in Giriş ve Çıkış Tanımlarında Eksiklik",
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "Tekrar Üretilebilirlik Bilgilerinin Eksikliği",
+        "Ana Sonuçların Yetersiz Raporlanması",
+        "Tekrar Üretim İçin Kod veya Veri Sağlanmamış"
+      ],
+      "one_sentence_diagnosis": "0 critical and 5 major issue(s) detected; recommended decision: reject."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 71.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 39.0,
+        "severity": "major",
+        "confidence": 0.82,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 20.0,
+        "severity": "major",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "4 finding(s); worst severity major."
+      },
+      {
+        "dimension": "writing",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.825,
+        "why_it_matters": "4 finding(s); worst severity major."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "5 concern(s): The description of the core method is overly high-level. It is unclear how a 'single-filter neural network' is constructed. For example, how is the output of a single convolutional filter processed (e.g., global average pooling, flattening) before being fed to its dedicated classifier? The paper lacks crucial implementation details regarding the architecture of the weak classifiers (φj), the training procedure, and the specific hyperparameters used, making the work impossible to reproduce.; The 'conventional' transfer learning baseline is not well-defined and is benchmarked against a 2012 paper. It is unclear if this baseline represents current standard practices, and the reported baseline error rates (e.g., 19.40% on CIFAR-10) seem high compared to more modern results. This may exaggerate the relative gains of the proposed method.; The results are presented without any measure of variance or statistical significance testing. It is impossible to know if the reported improvements are statistically robust or potentially the result of a fortunate random seed. (+2 more)",
+        "key_objection": "The description of the core method is overly high-level. It is unclear how a 'single-filter neural network' is constructed. For example, how is the output of a single convolutional filter processed (e.g., global average pooling, flattening) before being fed to its dedicated classifier? The paper lacks crucial implementation details regarding the architecture of the weak classifiers (φj), the training procedure, and the specific hyperparameters used, making the work impossible to reproduce.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "contribution_clarity.f2",
+          "novelty_to_length_ratio.f0",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "reviewer_confidence.f0",
+          "reviewer_confidence.f1",
+          "reviewer_confidence.f2"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The manuscript lacks statistical validation for the reported performance improvements. Without measures of variance (e.g., standard deviation across multiple runs) and statistical significance tests (e.g., t-tests), it is impossible to determine if the observed gains are robust or merely due to chance.; The description of the 'single-filter neural network' and its associated classifier (φj) is insufficient. Key architectural details, such as how the output of a single convolutional filter is processed (e.g., pooling, flattening) before classification, and the specific architecture of φj itself, are missing. This lack of detail makes the method irreproducible.; The choice of a 'conventional' transfer learning baseline, benchmarked against a 2012 paper, is questionable. It is unclear if this baseline represents current standard practices, and its reported error rates appear high, potentially exaggerating the relative performance gains of the proposed method.",
+        "key_objection": "The manuscript lacks statistical validation for the reported performance improvements. Without measures of variance (e.g., standard deviation across multiple runs) and statistical significance tests (e.g., t-tests), it is impossible to determine if the observed gains are robust or merely due to chance.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "reject-leaning",
+        "summary": "6 concern(s): The description of the core method is overly high-level. It is unclear how a 'single-filter neural network' is constructed. For example, how is the output of a single convolutional filter processed (e.g., global average pooling, flattening) before being fed to its dedicated classifier? Please provide a clear, step-by-step description and ideally a diagram of the architecture for a single 'weak single-filter classifier' (φj). What happens to the feature map from one filter? What is the architecture of the classifier that follows? This detail is essential for the reader to understand the method and for others to replicate it.; The paper lacks crucial implementation details regarding the architecture of the weak classifiers (φj), the training procedure, and the specific hyperparameters used, making the work impossible to reproduce.; The 'conventional' transfer learning baseline is not well-defined and is benchmarked against a 2012 paper. It is unclear if this baseline represents current standard practices, and the reported baseline error rates (e.g., 19.40% on CIFAR-10) seem high compared to more modern results. This may exaggerate the relative gains of the proposed method. I strongly recommend re-running experiments against stronger, more contemporary transfer learning baselines. Please provide full details of the baseline implementation. (+3 more)",
+        "key_objection": "The bibliography has severe issues. A programmatic check of the references failed to find a verifiable match for any of the 17 citations. This is a critical flaw that hinders the verification of the paper's claims and its placement within the academic literature. The reference list requires a complete overhaul. Please meticulously check every entry, ensure it conforms to a standard bibliographic format, and provide DOIs or public arXiv links wherever possible. This is a mandatory revision.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "minor-concerns",
+        "summary": "3 concern(s): The statement 'failed to find a verifiable match for any of the 17 citations' is largely accurate. However, the evidence package indicates that for reference [16], the failure was due to a 'service error' from OpenAlex, meaning it's not definitively 'not found' but rather 'could not be checked'. While the overall conclusion of severe issues remains, this specific detail about *all* 17 being 'not found' is slightly imprecise due to a technicality for one reference.; Similar to the previous issue, the statement 'The entire reference list could not be programmatically verified' is mostly true. However, for reference [16], the inability to verify was due to a 'service error' rather than a definitive 'not found' status. This is a minor nuance.; The statement 'failed to resolve all 17 references' is slightly inaccurate. For reference [16], the failure was due to a 'service error' from OpenAlex, not a definitive 'not resolved' status. While the overall integrity issue is severe, this specific count is technically off by one due to the nature of the error for that particular reference.",
+        "key_objection": "The statement 'failed to find a verifiable match for any of the 17 citations' is largely accurate. However, the evidence package indicates that for reference [16], the failure was due to a 'service error' from OpenAlex, meaning it's not definitively 'not found' but rather 'could not be checked'. While the overall conclusion of severe issues remains, this specific detail about *all* 17 being 'not found' is slightly imprecise due to a technicality for one reference.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "revision-required",
+        "summary": "1 concern(s): The reviewer's draft praises the originality and novelty of the proposed method, stating that the combination of 'divide-and-conquer' optimization and evidence theory for transfer learning 'appears to be novel'. However, the 'Scholarly Referencing and Contextualization' section of the same draft, supported by the evidence package, indicates a 'sparse' literature review and a 'completely unverifiable bibliography' where none of the 17 citations could be resolved. This severe lack of proper contextualization and verifiable references makes it impossible to confidently assess the true novelty of the approach. Without a robust and verifiable literature review, the claim of novelty is unsubstantiated.",
+        "key_objection": "The reviewer's draft praises the originality and novelty of the proposed method, stating that the combination of 'divide-and-conquer' optimization and evidence theory for transfer learning 'appears to be novel'. However, the 'Scholarly Referencing and Contextualization' section of the same draft, supported by the evidence package, indicates a 'sparse' literature review and a 'completely unverifiable bibliography' where none of the 17 citations could be resolved. This severe lack of proper contextualization and verifiable references makes it impossible to confidently assess the true novelty of the approach. Without a robust and verifiable literature review, the claim of novelty is unsubstantiated.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "contribution_clarity.f1",
+          "contribution_clarity.f2",
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "reject",
+        "summary": "This manuscript introduces 'Distributed Transfer Learning,' a method aiming to simplify optimization and address class imbalance in deep neural networks by training individual 'single-filter' classifiers and fusing their outputs via evidence theory. While the conceptual approach is interesting, the paper is fundamentally flawed in its current state. Critical weaknesses in methodological clarity, experimental rigor, and scholarly practice make the work non-reproducible, its claims unverifiable, and its contribution impossible to assess. The combination of an irreproducible method and a complete failure to provide a verifiable bibliography warrants rejection.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Deneysel Tasarımın Açık Tanımı",
+        "summary": "Makale, önerilen dağıtılmış transfer öğrenme algoritmasının performansını değerlendirmek için iki farklı deneysel senaryo tanımlamıştır. Bu senaryolar, veri dağılımlarının ve sınıf sayılarının benzerliği/farklılığına göre düzenlenmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "We consider two different scenarios to evaluate the performance of our distributed transfer learning algorithm. In the ﬁrst experiment, we try to observe the performance of ﬁne-tuning for pairs of datasets with close data distributions or number of classes. We select MNIST & SVHN and CIFAR-10 & CIFAR-100 as original-target domains and report the transfer learning results in form of train-test errors. In the second experiment, we apply transfer learning for pairs of datasets with far data/class setups which are MNIST & CIFAR-10 and SVHN & CIFAR-100."
+          }
+        ],
+        "reasoning_public": "Deneysel tasarımın net bir şekilde tanımlanması, çalışmanın amacını ve metodolojisini anlamak için önemlidir. Bu, okuyucunun deneylerin nasıl yürütüldüğünü ve sonuçların hangi bağlamda yorumlanması gerektiğini kavramasına yardımcı olur.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü Gerekçesi ve Güç Analizi Eksikliği",
+        "summary": "Makalede kullanılan veri setlerinin (MNIST, CIFAR, SVHN) toplam örneklem büyüklükleri belirtilmiş olsa da, bu örneklem büyüklüklerinin neden seçildiğine dair bir gerekçe veya istatistiksel güç analizi raporlanmamıştır. Bu durum, elde edilen sonuçların genellenebilirliği ve istatistiksel güvenilirliği hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a1",
+            "section": "EXPERIMENTS",
+            "quote": "We conduct our experiments on MNIST, CIFAR and Street View House Numbers (SVHN) datasets. The MNIST dataset LeCun et al. (1998) contains 60, 000 training examples and 10, 000 test samples... The CIFAR dataset Krizhevsky & Hinton (2009) includes two subsets. CIFAR-10 consists of 10 classes of objects with 6, 000 images per class... The SVHN dataset Netzer et al. (2011) ... consists of over 600, 000 labeled characters..."
+          }
+        ],
+        "reasoning_public": "Örneklem büyüklüğünün gerekçelendirilmesi veya güç analizi, bir çalışmanın istatistiksel olarak anlamlı sonuçlar üretme yeteneğini değerlendirmek için kritik öneme sahiptir. Özellikle derin öğrenme modellerinde, yeterli veri olmadan elde edilen sonuçlar yanıltıcı olabilir veya düşük genellenebilirlik gösterebilir. Bu eksiklik, çalışmanın bulgularının sağlamlığını sorgulatır.",
+        "limitations": [
+          "Makalede güç analizi veya örneklem büyüklüğü gerekçesi için herhangi bir veri bulunmamaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Performans Ölçütlerinin Açık Tanımı",
+        "summary": "Makale, model performansını değerlendirmek için 'eğitim hatası' ve 'test hatası' metriklerini kullanmaktadır. Bu metrikler, derin öğrenme modellerinin performansını değerlendirmede yaygın olarak kullanılan ve anlaşılır ölçütlerdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a2",
+            "section": "EXPERIMENTS",
+            "quote": "We select MNIST & SVHN and CIFAR-10 & CIFAR-100 as original-target domains and report the transfer learning results in form of train-test errors."
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Baseline\nTrain Error (%)\nTest Error (%)"
+          }
+        ],
+        "reasoning_public": "Performans metriklerinin açıkça belirtilmesi, okuyucunun sonuçları doğru bir şekilde yorumlaması için önemlidir. Eğitim ve test hataları, modelin aşırı uyum (overfitting) ve genelleme yeteneği hakkında bilgi sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "İstatistiksel Karşılaştırma Yöntemlerinin Eksikliği",
+        "summary": "Makale, önerilen 'dağıtılmış transfer öğrenme' yönteminin 'geleneksel transfer öğrenme' ve 'baseline' yöntemlerine göre daha iyi performans gösterdiğini iddia etmektedir. Ancak, bu karşılaştırmaların istatistiksel olarak anlamlı olup olmadığını belirlemek için herhangi bir istatistiksel test (örneğin, t-testi, ANOVA veya non-parametrik testler) raporlanmamıştır. Sonuçlar sadece hata oranları olarak sunulmuştur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "conclusion.a0",
+            "section": "CONCLUSION",
+            "quote": "By the above boosting, the overall performance shows considerable improvement over conventional transfer learning scheme."
+          },
+          {
+            "anchor_id": "experiment_1.a0",
+            "section": "EXPERIMENT 1",
+            "quote": "All in all, the performance of our distributed transfer learning (bold values) is better than the conventional scheme and also, outperforms the baseline deep learning practices."
+          }
+        ],
+        "reasoning_public": "Sadece hata oranlarını karşılaştırmak, gözlemlenen farkların şans eseri mi yoksa gerçekten yöntemler arasındaki bir farktan mı kaynaklandığını belirlemek için yeterli değildir. İstatistiksel testler, bulguların güvenilirliğini artırır ve iddiaların sağlamlığını destekler. Özellikle 'considerable improvement' gibi ifadeler, istatistiksel kanıt gerektirir.",
+        "limitations": [
+          "Makalede herhangi bir istatistiksel karşılaştırma testi veya p-değeri raporlanmamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Metin ve Tablo Arası Tutarlılıkta Küçük Eksiklikler",
+        "summary": "Makalede, 'distributed transfer learning' sonuçlarının tablolarda kalın (bold) olarak belirtildiği ifade edilmiştir. Ancak, Tablo 2 ve Tablo 3'te 'distributed' başlığı altındaki tüm değerler kalın olarak gösterilmemiştir. Sadece 'distributed' başlığı altındaki 'Target' ve 'Original' satırları kalın olarak belirtilmiştir, sayısal değerler kalın değildir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiment_1.a1",
+            "section": "EXPERIMENT 1",
+            "quote": "All in all, the performance of our distributed transfer learning (bold values) is better than the conventional scheme and also, outperforms the baseline deep learning practices."
+          }
+        ],
+        "reasoning_public": "Raporlama tutarlılığı, okuyucunun bilgiyi doğru ve hızlı bir şekilde işlemesi için önemlidir. Metinde belirtilen bir formatlama kuralının tablolarda tam olarak uygulanmaması, küçük bir dikkat dağınıklığına neden olabilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f4.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, farklı transfer öğrenme yöntemlerinin performansını hata oranları cinsinden raporlamaktadır. Ancak, bu hata oranlarındaki iyileşmelerin etki büyüklüğü (örneğin, Cohen's d, yüzde değişim) veya belirsizlik ölçüleri (örneğin, güven aralıkları) sunulmamıştır. Bu durum, gözlemlenen farkların pratik önemini değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a0",
+            "section": "Table 2",
+            "quote": "Target\nConventional\nMNIST\nSVHN\nOriginal\nMNIST\n-\n0.01 — 29.57"
+          },
+          {
+            "anchor_id": "table_3.a0",
+            "section": "Table 3",
+            "quote": "Target\nConventional\nMNIST\nCIFAR-10\nOriginal\nMNIST\n-\n0.43 — 28.92"
+          }
+        ],
+        "reasoning_public": "Sadece p-değerleri (ki bu makalede onlar da eksik) veya ortalama değerler, bir etkinin pratik önemini tam olarak yansıtmaz. Etki büyüklüğü, bir etkinin gücünü ve yönünü nicel olarak ifade ederken, güven aralıkları tahminlerin hassasiyetini gösterir. Bu bilgiler olmadan, okuyucu bulguların gerçek dünya uygulamaları için ne kadar önemli olduğunu değerlendiremez.",
+        "limitations": [
+          "Makalede etki büyüklüğü veya belirsizlik ölçüleri için herhangi bir veri bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Kullanımının Uygunluğu",
+        "summary": "Makale, önerilen yöntemin performans iyileştirmelerini 'conﬁrm the consistent improvement' ve 'outperforms' gibi ifadelerle sunmaktadır. Bu ifadeler, deneysel bir çalışma bağlamında, yani farklı yöntemlerin karşılaştırıldığı kontrollü deneylerde, nedensel çıkarımlar yapmak için uygun kabul edilebilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "Our experiments on several standard datasets conﬁrm the consistent improvement as a result of our distributed transfer learning strategy."
+          },
+          {
+            "anchor_id": "experiment_1.a2",
+            "section": "EXPERIMENT 1",
+            "quote": "All in all, the performance of our distributed transfer learning (bold values) is better than the conventional scheme and also, outperforms the baseline deep learning practices."
+          }
+        ],
+        "reasoning_public": "Deneysel tasarımlarda, bağımsız değişkenin (burada farklı transfer öğrenme yöntemleri) bağımlı değişken (performans) üzerindeki etkisini doğrudan gözlemlemek mümkündür. Bu nedenle, nedensel dil kullanımı bu bağlamda uygun ve beklenen bir durumdur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reproducibility",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Tekrar Üretilebilirlik Bilgilerinin Eksikliği",
+        "summary": "Makalede, deneylerde kullanılan kodun veya verilerin erişilebilirliğine dair herhangi bir bilgi (örneğin, GitHub deposu bağlantısı, veri seti indirme linkleri) bulunmamaktadır. Bu durum, çalışmanın tekrar üretilebilirliğini ciddi şekilde kısıtlamaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmaların temel prensiplerinden biri tekrar üretilebilirliktir. Kod ve veri erişilebilirliği, diğer araştırmacıların bulguları doğrulamasına, yöntemi geliştirmesine ve yeni araştırmalar yapmasına olanak tanır. Özellikle derin öğrenme gibi karmaşık alanlarda, bu tür bilgilerin eksikliği çalışmanın şeffaflığını ve güvenilirliğini azaltır.",
+        "limitations": [
+          "Makalede kod veya veri erişilebilirliğine dair herhangi bir bilgi bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reporting_quality",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Ana Sonuçların Yetersiz Raporlanması",
+        "summary": "Makale, ana sonuçları sadece eğitim ve test hata oranları olarak sunmaktadır. Ancak, bu sonuçların istatistiksel anlamlılığına dair p-değerleri, güven aralıkları veya etki büyüklüğü gibi ek istatistiksel bilgiler raporlanmamıştır. Bu durum, bulguların sağlamlığını ve pratik önemini değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a1",
+            "section": "Table 2",
+            "quote": "Target\nConventional\nMNIST\nSVHN\nOriginal\nMNIST\n-\n0.01 — 29.57"
+          },
+          {
+            "anchor_id": "conclusion.a1",
+            "section": "CONCLUSION",
+            "quote": "The results conﬁrm the advantage of our distributed strategy for the transfer learning."
+          }
+        ],
+        "reasoning_public": "İyi raporlama kalitesi, ana bulguların sadece ortalama değerlerle değil, aynı zamanda bu değerlerin güvenilirliğini ve pratik önemini gösteren istatistiksel ölçütlerle sunulmasını gerektirir. 'Significant' veya 'outperforms' gibi iddialar, bu tür istatistiksel kanıtlarla desteklenmelidir. Bu eksiklik, okuyucunun sonuçların gücünü tam olarak anlamasını engeller.",
+        "limitations": [
+          "Makalede p-değerleri, güven aralıkları veya etki büyüklüğü gibi ek istatistiksel bilgiler raporlanmamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Konusu Track'e Uygun",
+        "summary": "Makale, derin evrişimli sinir ağları için dağıtılmış transfer öğrenimi ve temel olasılık ataması kullanarak sınıf dengesizliği sorununu ele almaktadır. Bu konu, derin öğrenme, transfer öğrenimi ve sinir ağları gibi alanlarla doğrudan ilişkilidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Transfer learning is a popular practice in deep neural networks, but ﬁne-tuning of a large number of parameters is a hard challenge due to the complex wiring of neurons between splitting layers and imbalance class distributions of original and transferred domains. ... We propose a novel distributed transfer learning to tackle both optimization complexity and class-imbalance problem jointly."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "In this paper, we propose a framework for distributed transfer learning in deep convolutional networks. This tries to alleviate the burden of splitting networks in the middle of fragile co-adapted layers."
+          }
+        ],
+        "reasoning_public": "Makalenin başlığı ve özeti, derin öğrenme ve transfer öğrenimi alanındaki güncel ve ilgili bir konuyu açıkça belirtmektedir. Bu, makalenin ilgili bir akademik track veya oturumun kapsamına girdiğini göstermektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Sınırlı Yenilik ve Kapsam",
+        "summary": "Makale, dağıtılmış transfer öğrenimi ve temel olasılık ataması (BPA) kullanarak sınıf dengesizliği sorununu ele alan bir yöntem önermektedir. Ancak, sunulan yenilik, makalenin uzunluğu ve kapsamı göz önüne alındığında, derinlemesine bir teorik analiz veya geniş kapsamlı deneysel doğrulama ile yeterince desteklenmemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "We propose a novel distributed transfer learning to tackle both optimization complexity and class-imbalance problem jointly. Our solution imposes separated greedy regularization to each individual convolutional ﬁlter to make single-ﬁlter neural networks such that the minority classes perform as the majority ones. Then, basic probability assignment from evidence theory boosts these distributed networks to improve the recognition performance on the target domains."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "In this paper, we propose a framework for distributed transfer learning in deep convolutional networks. This tries to alleviate the burden of splitting networks in the middle of fragile co-adapted layers."
+          },
+          {
+            "anchor_id": "conclusion.a2",
+            "section": "CONCLUSION",
+            "quote": "We introduce a novel transfer learning for deep convolutional networks that tackles the optimization complexity of a highly non-convex objective by breaking it to several distributed ﬁne-tuning oper-ations. This also resolves the imbalance class coverage between original-target domains by using basic probability assignment across several week single-ﬁlter classiﬁers."
+          }
+        ],
+        "reasoning_public": "Makale, mevcut transfer öğrenimi ve sınıf dengesizliği sorunlarına yönelik bilinen yaklaşımları birleştiren bir yöntem sunmaktadır. Ancak, bu birleşimin teorik temelleri ve özellikle 'dağıtılmış' kısmının getirdiği yenilik, makalenin genel uzunluğuna kıyasla yüzeysel kalmaktadır. Deneysel bölüm, sadece birkaç veri kümesi üzerinde genel performans iyileştirmelerini göstermekte, ancak önerilen yöntemin temel mekanizmalarını veya sınırlamalarını derinlemesine incelememektedir. Bu durum, makalenin sunduğu katkının sayfa bütçesini tam olarak hak edip etmediği konusunda soru işaretleri yaratmaktadır.",
+        "limitations": [
+          "Makalenin kısa olması nedeniyle, bazı teorik detayların veya deneysel analizlerin kısıtlı kalmış olabileceği varsayımı."
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1",
+          "novelty_to_length_ratio.f0.a2"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Tekrar Üretim İçin Kod veya Veri Sağlanmamış",
+        "summary": "Makale, önerilen yöntemin (Dağıtılmış Transfer Öğrenimi) ve deneysel sonuçların tekrar üretilebilirliğini sağlayacak herhangi bir kod, veri seti veya ek materyal sunmamaktadır. Bu durum, çalışmanın bulgularının bağımsız olarak doğrulanmasını engellemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik araştırmalarda tekrar üretilebilirlik, bir çalışmanın güvenilirliği ve bilime katkısı açısından temel bir gerekliliktir. Özellikle derin öğrenme gibi karmaşık algoritmalar içeren çalışmalarda, uygulanan yöntemlerin ve elde edilen sonuçların doğrulanabilmesi için kod ve veri setlerinin paylaşılması büyük önem taşır. Bu makalede bu tür materyallerin eksikliği, okuyucuların ve diğer araştırmacıların sunulan yöntemi anlamasını, uygulamasını ve sonuçları yeniden üretmesini imkansız kılmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "reproducibility_artifact.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reproducibility_artifact.f1",
+        "dimension": "reproducibility_artifact",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Kullanılan Derin Öğrenme Kütüphanesi İçin Detay Eksikliği",
+        "summary": "Makale, temel performansların belirlenmesinde Oxford Visual Geometry Group tarafından sağlanan derin öğrenme kütüphanesinin kullanıldığını belirtmekle birlikte, bu kütüphanenin spesifik versiyonu veya kullanılan modeller hakkında yeterli detay sunmamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a3",
+            "section": "EXPERIMENTS",
+            "quote": "Before moving forward to discuss the experiments, we report the baseline train-test errors for the datasets in Table 1. These results are produced by the deep learning library provided by the Oxford Visual Geometry Group Vedaldi & Fulkerson (2008)."
+          }
+        ],
+        "reasoning_public": "Kullanılan yazılım kütüphanelerinin ve versiyonlarının belirtilmesi, deneylerin tekrar üretilebilirliği için önemlidir. Farklı versiyonlar veya farklı model implementasyonları, sonuçlarda değişikliklere yol açabilir. Bu bilgi eksikliği, okuyucuların aynı temel performansları elde etmesini zorlaştırabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reproducibility_artifact.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f0",
+        "dimension": "presentation_clarity",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Algoritma 1'in Giriş ve Çıkış Tanımlarında Eksiklik",
+        "summary": "Algoritma 1'in giriş ve çıkış parametreleri yeterince açık değildir. 'train/validation set X' ve 'basic probability assignment BPA(φ)' ifadeleri, bu parametrelerin tam olarak neyi temsil ettiğini ve nasıl kullanıldığını netleştirmemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "1_introduction.a0",
+            "section": "1 INTRODUCTION",
+            "quote": "Algorithm 1 Basic Probability Assignment (BPA)\nInput: train/validation set X\nOutput: basic probability assignment BPA(φ)"
+          }
+        ],
+        "reasoning_public": "Algoritmaların giriş ve çıkışlarının net bir şekilde tanımlanması, okuyucunun algoritmanın işleyişini ve amacını anlaması için temeldir. Mevcut haliyle, okuyucunun algoritmayı yeniden üretmesi veya anlaması zorlaşmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f1",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Algoritma 2'nin Giriş ve Çıkış Tanımlarında Eksiklik",
+        "summary": "Algoritma 2'nin giriş ve çıkış parametreleri, özellikle 'set of week classiﬁers F' ve 'predicted class CF(T)' ifadeleri, tam olarak neyi temsil ettikleri ve nasıl yapılandırıldıkları konusunda daha fazla açıklama gerektirmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_distributed_transfer_learning.a0",
+            "section": "2.2 DISTRIBUTED TRANSFER LEARNING",
+            "quote": "Algorithm 2 Distributed Transfer Learning\nInput: train/validation set X, test sample T, set of week classiﬁers F\nOutput: predicted class CF(T)"
+          }
+        ],
+        "reasoning_public": "Algoritmaların net giriş/çıkış tanımları, okuyucunun algoritmanın amacını ve işlevini kavraması için önemlidir. Mevcut tanımlar, 'zayıf sınıflandırıcılar kümesi' gibi terimlerin somut yapısını belirsiz bırakmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f2",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Şekil 1'deki Renk Kodlamasının Açıklığı",
+        "summary": "Şekil 1'deki renk kodlaması (mavi, kırmızı, yeşil bloklar) metin içinde açıklanmış olsa da, şeklin kendi başlığında veya açıklamasında bu renklerin ne anlama geldiğinin doğrudan belirtilmesi, şeklin bağımsız anlaşılırlığını artıracaktır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "2_2_distributed_transfer_learning.a1",
+            "section": "2.2 DISTRIBUTED TRANSFER LEARNING",
+            "quote": "Figure 1: Conventional and Distributed Transfer Learning. The blue blocks (Conv) represent convo-lutional layers in the original domain, the red blocks (Softmax) show ﬁne-tuned layers for the targetdomain and the green block corresponds to the basic probability assignment (BPA) respectively."
+          }
+        ],
+        "reasoning_public": "Şekillerin kendi başlıkları veya açıklamalarıyla birlikte tam olarak anlaşılabilir olması, okuyucunun metin içinde sürekli referans aramasını engeller ve genel okuma akıcılığını artırır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f3",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Tablo ve Şekillerin Yerleşimi ve Referansları",
+        "summary": "Makaledeki tablolar ve şekiller uygun yerlere yerleştirilmiş ve metin içinde doğru bir şekilde referans verilmiştir. Bu durum, makalenin genel akışını ve anlaşılırlığını olumlu etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Tablo ve şekillerin metinle uyumlu bir şekilde sunulması, okuyucunun görsel bilgiyi metinle ilişkilendirmesini kolaylaştırır ve sunumun kalitesini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Ana Katkının Detaylı Açıklamasında Eksiklik",
+        "summary": "Makale, önerilen 'dağıtılmış transfer öğrenme' yaklaşımının temel yeniliklerini ve bu yeniliklerin mevcut yöntemlere göre nasıl bir ilerleme sağladığını yeterince detaylandırmıyor. Özellikle, 'ayrılmış açgözlü düzenlileştirme' ve 'tek-filtreli sinir ağları' kavramlarının nasıl uygulandığı ve bunların geleneksel transfer öğrenme yaklaşımlarından farkı tam olarak açıklanmamış.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "We propose a novel distributed transfer learning to tackle both optimization complexity and class-imbalance problem jointly. Our solution imposes separated greedy regularization to each individual convolutional ﬁlter to make single-ﬁlter neural networks such that the minority classes perform as the majority ones."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "To address this issue, we ﬁne-tune the convolutional ﬁlters separately and hence, reduce the complexity of the non-convex optimization."
+          }
+        ],
+        "reasoning_public": "Makalenin ana katkısı olan 'dağıtılmış transfer öğrenme' stratejisinin temel mekanizmaları ve yenilikçi yönleri, özellikle 'ayrılmış açgözlü düzenlileştirme' ve 'tek-filtreli sinir ağları' gibi kilit kavramlar yeterince açıklanmamıştır. Bu durum, okuyucunun önerilen yöntemin 'yeni olan ne' sorusuna net bir cevap bulmasını zorlaştırmaktadır. Yöntemin nasıl çalıştığına dair daha fazla detay ve geleneksel yaklaşımlarla karşılaştırmalı bir açıklama, katkının netliğini artıracaktır.",
+        "limitations": [],
+        "action_item_ids": [
+          "contribution_clarity.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f1",
+        "dimension": "contribution_clarity",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "BPA'nın Optimizasyon Karmaşıklığını Azaltmadaki Rolünün Açıklığı",
+        "summary": "Makale, Temel Olasılık Ataması'nın (BPA) sınıf dengesizliği sorununu ele aldığını belirtirken, optimizasyon karmaşıklığını azaltmadaki rolünün netliğini tam olarak sağlamıyor. Bu iki sorunun nasıl birlikte ele alındığına dair daha açık bir bağlantı kurulması faydalı olacaktır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "As described in Section 1, employing probability assignment addresses the class-imbalance problem but does not reduce the complexity of optimization because of the fact that both forward learning and error backpropagation are applied to all the model parameters."
+          },
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "We propose a novel distributed transfer learning to tackle both optimization complexity and class-imbalance problem jointly."
+          }
+        ],
+        "reasoning_public": "Makale, BPA'nın sınıf dengesizliği sorununu çözdüğünü açıkça belirtirken, optimizasyon karmaşıklığını azaltmadaki rolü daha az belirgindir. Önerilen yöntemin her iki sorunu da 'birlikte' nasıl ele aldığına dair daha net bir açıklama, katkının bütünsel anlaşılırlığını artıracaktır.",
+        "limitations": [],
+        "action_item_ids": [
+          "contribution_clarity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_clarity.f2",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ana Katkının Özette Net İfadesi",
+        "summary": "Makale, özet bölümünde ana katkısını ve hedeflerini net bir şekilde ifade etmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "We propose a novel distributed transfer learning to tackle both optimization complexity and class-imbalance problem jointly. Our solution imposes separated greedy regularization to each individual convolutional ﬁlter to make single-ﬁlter neural networks such that the minority classes perform as the majority ones. Then, basic probability assignment from evidence theory boosts these distributed networks to improve the recognition performance on the target domains."
+          }
+        ],
+        "reasoning_public": "Özet bölümü, makalenin temel amacını ve önerilen yöntemin ana özelliklerini (dağıtılmış transfer öğrenme, optimizasyon karmaşıklığı ve sınıf dengesizliği sorunlarını ele alma, temel olasılık ataması kullanımı) açıkça belirtmektedir. Bu, okuyucunun makalenin ne hakkında olduğunu hızlıca anlamasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Etik Hususların ve Sınırlılıkların Belirtilmemesi",
+        "summary": "Makale, etik hususlara veya çalışmanın potansiyel sınırlılıklarına dair herhangi bir tartışma içermemektedir. Bu tür bir tartışma, çalışmanın kapsamını ve uygulanabilirliğini daha iyi anlamak için faydalı olacaktır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, özellikle yapay zeka ve makine öğrenimi gibi alanlarda, etik etkilerin ve metodolojik sınırlılıkların açıkça belirtilmesi, araştırmanın şeffaflığı ve güvenilirliği açısından önemlidir. Bu, okuyucuların çalışmanın potansiyel yanlılıklarını, genellenebilirlik kısıtlamalarını veya olası kötüye kullanım senaryolarını anlamalarına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yöntem Detaylarında Eksiklikler",
+        "summary": "Makale, önerilen 'dağıtılmış transfer öğrenme' yönteminin temel bileşenlerinden biri olan 'ayrı ayrı ince ayar yapılmış evrişimsel filtreler' ve 'zayıf tek filtreli sınıflandırıcılar'ın nasıl oluşturulduğu ve birleştirildiğine dair yeterli teknik detay sunmamaktadır. Özellikle, 'tek filtreli sinir ağları'nın mimarisi ve bu ağların 'temel olasılık ataması' (BPA) ile nasıl güçlendirildiği belirsizdir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "Our solution imposes separated greedy regularization to each individual convolutional ﬁlter to make single-ﬁlter neural networks such that the minority classes perform as the majority ones. Then, basic probability assignment from evidence theory boosts these distributed networks to improve the recognition performance on the target domains."
+          },
+          {
+            "anchor_id": "2_2_distributed_transfer_learning.a2",
+            "section": "2.2 DISTRIBUTED TRANSFER LEARNING",
+            "quote": "It means that we train a set of week single-ﬁlter classiﬁers F = {φ1, . . . , φ|F|} which |F| equals the number of convolutional ﬁlters in the deep neural architecture."
+          },
+          {
+            "anchor_id": "algorithm_1_basic_probability_assignment_bpa.a0",
+            "section": "Algorithm 1 Basic Probability Assignment (BPA)",
+            "quote": "1: compute R(φ) and P(φ) (Eqs.1- 2)\n2: calculate recall and precision assignments(Eq.3)"
+          }
+        ],
+        "reasoning_public": "Yöntemin temel adımlarının net bir şekilde açıklanmaması, okuyucunun çalışmayı anlamasını ve tekrarlamasını zorlaştırmaktadır. 'Tek filtreli sinir ağları' kavramı, derin öğrenme literatüründe standart bir terim değildir ve açıklanması gerekmektedir. Ayrıca, Algorithm 1 ve Algorithm 2'deki bazı adımlar (örn. 'compute R(φ) and P(φ) (Eqs.1- 2)', 'calculate recall and precision assignments(Eq.3)') genel ifadeler olup, bu hesaplamaların tam olarak nasıl yapıldığına dair daha fazla detay (örneğin, her bir filtre için ayrı ayrı mı, yoksa birleştirilmiş bir model üzerinden mi) eksiktir. Bu durum, hakemin yöntemin teknik geçerliliğini tam olarak değerlendirmesini engellemektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f1",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Deneysel Kurulum ve Karşılaştırmaların Belirsizliği",
+        "summary": "Deneysel bölümde, 'geleneksel transfer öğrenme' (conventional transfer learning) ve 'derin öğrenme temel çizgileri' (baseline deep learning practices) ile yapılan karşılaştırmaların detayları yetersizdir. Özellikle, 'geleneksel' yöntemin tam olarak hangi parametrelerle ve mimariyle uygulandığı, ve 'temel çizgiler'in hangi modelleri temsil ettiği açıkça belirtilmemiştir. Bu durum, önerilen yöntemin performansının adil bir şekilde değerlendirilmesini zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_experiment_1.a0",
+            "section": "3.1 EXPERIMENT 1",
+            "quote": "By conventional Bengio et al. (2012), we mean training the original dataset and ﬁne-tuning of the target one. With distributed, we aim at training the original dataset but employing the basic probability assignment for the transfer learning."
+          },
+          {
+            "anchor_id": "3_1_experiment_1.a1",
+            "section": "3.1 EXPERIMENT 1",
+            "quote": "All in all, the performance of our distributed transfer learning (bold values) is better than the conventional scheme and also, outperforms the baseline deep learning practices."
+          },
+          {
+            "anchor_id": "table_1_baseline_performances_of_deep_learning.a0",
+            "section": "Table 1: Baseline Performances of Deep Learning",
+            "quote": "These results are produced by the deep learning library provided by the Oxford Visual Geometry Group Vedaldi & Fulkerson (2008)."
+          }
+        ],
+        "reasoning_public": "Karşılaştırmalı analizlerde, referans alınan yöntemlerin (hem 'conventional transfer learning' hem de 'baseline deep learning') detaylı bir şekilde açıklanması, sonuçların güvenilirliğini artırır. Makalede bu detayların eksikliği, okuyucunun ve hakemin sonuçları tam olarak yorumlamasını ve önerilen yöntemin gerçek katkısını anlamasını engellemektedir. Örneğin, 'conventional' yöntemde hangi katmanların dondurulduğu, hangi katmanların ince ayarlandığı gibi bilgiler eksiktir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reviewer_confidence.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f2",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Terminoloji ve Kavramsal Açıklık Eksikliği",
+        "summary": "Makalede kullanılan bazı terimler (örn. 'single-filter neural networks', 'week classiﬁers') standart derin öğrenme literatüründe yaygın olarak kullanılmamaktadır ve yeterince açıklanmamıştır. Bu durum, okuyucunun bu kavramları doğru bir şekilde anlamasını ve yazarın neyi kastettiğini yorumlamasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "Our solution imposes separated greedy regularization to each individual convolutional ﬁlter to make single-ﬁlter neural networks such that the minority classes perform as the majority ones."
+          },
+          {
+            "anchor_id": "2_2_distributed_transfer_learning.a3",
+            "section": "2.2 DISTRIBUTED TRANSFER LEARNING",
+            "quote": "It means that we train a set of week single-ﬁlter classiﬁers F = {φ1, . . . , φ|F|} which |F| equals the number of convolutional ﬁlters in the deep neural architecture."
+          }
+        ],
+        "reasoning_public": "Akademik çalışmalarda, standart olmayan terimlerin veya yeni kavramların net bir şekilde tanımlanması ve açıklanması esastır. Bu terimlerin belirsizliği, makalenin anlaşılırlığını ve yazarın argümanlarının gücünü azaltmaktadır. Özellikle 'single-filter neural networks' ifadesi, her bir evrişimsel filtrenin ayrı bir sinir ağı olarak ele alındığı anlamına gelebilir, ancak bu, derin öğrenme bağlamında alışılmadık bir yaklaşımdır ve detaylı bir açıklama gerektirir.",
+        "limitations": [],
+        "action_item_ids": [
+          "reviewer_confidence.f2.a0"
+        ],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "presentation_clarity.f0.a0",
+        "priority": "P0",
+        "effort": "low",
+        "expected_gain": "high",
+        "target_section": "1 INTRODUCTION",
+        "instruction": "Algoritma 1'in 'Input' ve 'Output' kısımlarını, 'X' ve 'BPA(φ)' değişkenlerinin veri tiplerini, formatlarını ve neyi temsil ettiklerini açıklayacak şekilde genişletin. Örneğin, X'in etiketli veri noktalarından oluşan bir küme olduğu ve BPA(φ)'nin her sınıf için bir olasılık ataması vektörü olduğu belirtilebilir.",
+        "acceptance_check": "Algoritma 1'in giriş ve çıkışları, okuyucunun algoritmanın ne beklediğini ve ne ürettiğini tam olarak anlayabileceği şekilde tanımlanmıştır.",
+        "linked_finding_ids": [
+          "presentation_clarity.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "CONCLUSION",
+        "instruction": "Deneylerde kullanılan kodun (örneğin, bir GitHub deposu aracılığıyla) ve/veya veri işleme adımlarının açıkça belirtildiği bir bölüm eklenmelidir. Eğer veri setleri halka açıksa, doğrudan indirme linkleri sağlanmalıdır.",
+        "acceptance_check": "Kod ve veri erişilebilirliğine dair açık bir beyan veya bağlantı eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f0.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, EXPERIMENTS, REFERENCES",
+        "instruction": "Yazar, önerilen 'Dağıtılmış Transfer Öğrenimi' algoritmasının (Algoritma 1 ve Algoritma 2) ve deneysel kurulumun (bölüm 3) tekrar üretilebilirliğini sağlamak amacıyla kullanılan kodları (örneğin, GitHub deposu linki) ve/veya veri setlerine erişim bilgilerini (eğer kamuya açık değilse) makaleye eklemelidir.",
+        "acceptance_check": "Makalede, kod deposuna veya ilgili veri setlerine erişim sağlayan bir URL veya ek materyal bölümü bulunmalıdır.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f0"
+        ]
+      },
+      {
+        "action_id": "contribution_clarity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, FORMULATION",
+        "instruction": "Giriş veya Yöntemler bölümünde, 'ayrılmış açgözlü düzenlileştirme' ve 'tek-filtreli sinir ağları' kavramlarının nasıl uygulandığını ve bu yaklaşımın geleneksel transfer öğrenme yöntemlerinden farkını daha detaylı açıklayın. Bu mekanizmaların teknik detaylarına ve yenilikçi yönlerine odaklanın.",
+        "acceptance_check": "Makalenin ana katkısı olan 'dağıtılmış transfer öğrenme' stratejisinin temel yenilikleri ve uygulama detayları, okuyucu tarafından kolayca anlaşılabilir hale gelmeli ve mevcut literatürdeki yerini net bir şekilde belirtmelidir.",
+        "linked_finding_ids": [
+          "contribution_clarity.f0"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, FORMULATION",
+        "instruction": "Önerilen 'dağıtılmış' yaklaşımın, mevcut yöntemlere kıyasla teorik olarak neden daha üstün olduğunu veya hangi spesifik zorlukları aştığını daha detaylı açıklayın. Özellikle, tek tek filtrelerin ince ayarının ve BPA'nın birleşiminin, karmaşıklığı nasıl azalttığına dair daha derinlemesine bir analiz sunun.",
+        "acceptance_check": "Teorik argümanların güçlendirilmesi ve 'dağıtılmış' kavramının netleştirilmesi.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a1",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Deneysel bölümde, önerilen yöntemin farklı bileşenlerinin (örneğin, tek filtreli ağlar ve BPA'nın etkisi) ayrı ayrı veya birleşik olarak performansa nasıl katkıda bulunduğunu gösteren ablasyon çalışmaları ekleyin. Bu, yöntemin iç işleyişi hakkında daha fazla bilgi sağlayacaktır.",
+        "acceptance_check": "Ablasyon çalışmalarının sonuçlarının sunulması ve tartışılması.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "2.2 DISTRIBUTED TRANSFER LEARNING",
+        "instruction": "Algoritma 2'nin 'Input' ve 'Output' kısımlarını, 'F' ve 'CF(T)' değişkenlerinin veri tiplerini, formatlarını ve neyi temsil ettiklerini açıklayacak şekilde genişletin. Örneğin, F'nin tek filtreli sınıflandırıcıların bir listesi olduğu ve CF(T)'nin tahmin edilen sınıf etiketi olduğu belirtilebilir.",
+        "acceptance_check": "Algoritma 2'nin giriş ve çıkışları, okuyucunun algoritmanın ne beklediğini ve ne ürettiğini tam olarak anlayabileceği şekilde tanımlanmıştır.",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Kullanılan veri setlerinin örneklem büyüklüklerinin neden yeterli olduğuna dair bir gerekçe sunulmalı veya bu veri setlerinin standart benchmarklar olduğu belirtilerek bu durumun kabul edilebilirliği açıklanmalıdır. İdeal olarak, bir güç analizi veya benzeri bir istatistiksel gerekçe eklenmelidir.",
+        "acceptance_check": "Örneklem büyüklüğü seçimine dair açık bir gerekçe veya standart benchmark kullanımı açıklaması eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Farklı yöntemler arasındaki performans farklarının istatistiksel anlamlılığını değerlendirmek için uygun istatistiksel testler (örneğin, bağımlı örneklemler t-testi veya ANOVA) uygulanmalı ve sonuçları raporlanmalıdır. Bu testler, hata oranlarındaki gözlemlenen iyileşmelerin şans eseri olmadığını göstermelidir.",
+        "acceptance_check": "Yöntemler arası karşılaştırmalar için istatistiksel test sonuçları (p-değerleri, test istatistikleri) eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Raporlanan hata oranları için güven aralıkları (örneğin, bootstrap veya çapraz doğrulama ile elde edilen) veya performans iyileşmelerinin etki büyüklüğü (örneğin, yüzde azalma) hesaplanmalı ve sonuçlara eklenmelidir. Bu, bulguların pratik önemini ve güvenilirliğini artıracaktır.",
+        "acceptance_check": "Hata oranları için güven aralıkları veya etki büyüklüğü metrikleri raporlanmış mı?",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Ana sonuçlar sunulurken, sadece hata oranları değil, aynı zamanda bu oranlar arasındaki farkların istatistiksel anlamlılığını gösteren p-değerleri ve/veya güven aralıkları eklenmelidir. Ayrıca, gözlemlenen iyileşmelerin etki büyüklüğü de raporlanmalıdır.",
+        "acceptance_check": "Ana sonuçlar için p-değerleri, güven aralıkları veya etki büyüklüğü raporlanmış mı?",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "2.2 DISTRIBUTED TRANSFER LEARNING",
+        "instruction": "Yöntem bölümünde (özellikle 2.2) 'tek filtreli sinir ağları'nın mimarisi, her bir filtrenin nasıl izole edildiği ve eğitildiği, ve bu 'zayıf sınıflandırıcılar'ın çıktılarını birleştirmek için Temel Olasılık Ataması'nın (BPA) nasıl uygulandığına dair daha fazla teknik detay eklenmelidir. Algorithm 1 ve 2'deki adımlar daha somut matematiksel veya algoritmik ifadelerle genişletilmelidir.",
+        "acceptance_check": "Yöntemin her adımı, bir araştırmacının makaledeki bilgileri kullanarak yöntemi yeniden uygulayabileceği kadar açık ve detaylı hale getirilmelidir.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Deneysel kurulum bölümünde, 'geleneksel transfer öğrenme' ve 'temel derin öğrenme' yöntemlerinin mimarileri, eğitim stratejileri (örn. hangi katmanların dondurulduğu, öğrenme oranları) ve kullanılan hiperparametreler hakkında daha fazla detay verilmelidir. Bu, okuyucunun karşılaştırmaların adilliğini değerlendirmesine olanak tanır.",
+        "acceptance_check": "Her bir karşılaştırma yönteminin (conventional, baseline) deneysel kurulumu, önerilen yönteminkiyle benzer detay seviyesinde açıklanmalıdır.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f1"
+        ]
+      },
+      {
+        "action_id": "contribution_clarity.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, FORMULATION",
+        "instruction": "BPA'nın sınıf dengesizliği sorununu ele alırken, dağıtılmış transfer öğrenme stratejisinin optimizasyon karmaşıklığını nasıl azalttığını ve bu iki mekanizmanın 'birlikte' nasıl çalıştığını daha açık bir şekilde ifade edin.",
+        "acceptance_check": "Okuyucu, BPA'nın ve dağıtılmış öğrenmenin hem sınıf dengesizliği hem de optimizasyon karmaşıklığı sorunlarını nasıl entegre bir şekilde çözdüğünü net bir şekilde anlamalıdır.",
+        "linked_finding_ids": [
+          "contribution_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f0.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "CONCLUSION",
+        "instruction": "Makalenin 'Giriş' veya 'Sonuç' bölümüne, önerilen yöntemin potansiyel etik etkilerini (örneğin, veri yanlılığı, ayrımcılık) ve çalışmanın metodolojik sınırlılıklarını (örneğin, kullanılan veri setlerinin çeşitliliği, modelin karmaşıklığı, hesaplama maliyeti) tartışan kısa bir paragraf ekleyin.",
+        "acceptance_check": "Makalede etik hususlara ve/veya çalışmanın sınırlılıklarına dair bir bölümün veya paragrafın eklenmiş olması.",
+        "linked_finding_ids": [
+          "ethics_limitations.f0"
+        ]
+      },
+      {
+        "action_id": "novelty_to_length_ratio.f0.a2",
+        "priority": "P2",
+        "effort": "high",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS, CONCLUSION",
+        "instruction": "Makalenin genel uzunluğu göz önüne alındığında, sunulan yeniliğin ve deneysel sonuçların daha kapsamlı bir şekilde tartışılması için ek analizler veya karşılaştırmalar eklemeyi düşünün. Örneğin, daha fazla veri kümesi veya farklı mimariler üzerinde testler yapılabilir.",
+        "acceptance_check": "Ek deneysel sonuçların veya derinlemesine tartışmaların eklenmesi.",
+        "linked_finding_ids": [
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f2.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "2.2 DISTRIBUTED TRANSFER LEARNING",
+        "instruction": "Şekil 1'in başlığına veya açıklama metnine, renk kodlamasının (mavi: evrişimsel katmanlar, kırmızı: ince ayarlı katmanlar, yeşil: BPA) bir özetini ekleyin.",
+        "acceptance_check": "Şekil 1'in renk kodlaması, şeklin kendi açıklamasında belirtilmiştir.",
+        "linked_finding_ids": [
+          "presentation_clarity.f2"
+        ]
+      },
+      {
+        "action_id": "quant.f4.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Tablo 2 ve Tablo 3'teki 'Distributed' bölümündeki tüm sayısal performans değerleri (eğitim ve test hataları) metinde belirtildiği gibi kalın olarak biçimlendirilmelidir.",
+        "acceptance_check": "Tablolardaki 'Distributed' sonuçlarının sayısal değerleri kalın olarak biçimlendirilmiş mi?",
+        "linked_finding_ids": [
+          "quant.f4"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Yazar, 'Oxford Visual Geometry Group' tarafından sağlanan derin öğrenme kütüphanesinin hangi spesifik versiyonunun kullanıldığını ve temel performansları elde etmek için kullanılan modellerin (örneğin, mimari detayları) daha fazla açıklamasını sağlamalıdır.",
+        "acceptance_check": "Kütüphane versiyonu ve kullanılan modelin temel mimarisi hakkında ek bilgi eklenmelidir.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f1"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f2.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION, 2.2 DISTRIBUTED TRANSFER LEARNING",
+        "instruction": "'Single-filter neural networks' ve 'week classiﬁers' gibi standart olmayan terimler net bir şekilde tanımlanmalı ve bu kavramların derin öğrenme mimarileri içindeki rolü ve işleyişi detaylandırılmalıdır. Gerekirse, bu kavramların literatürdeki benzer yaklaşımlarla ilişkisi açıklanmalıdır.",
+        "acceptance_check": "Tüm anahtar terimler, derin öğrenme alanında uzman olmayan bir okuyucunun bile anlayabileceği şekilde tanımlanmalı ve açıklanmalıdır.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f2"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Ana Katkının Detaylı Açıklamasında Eksiklik; Sınırlı Yenilik ve Kapsam; Yöntem Detaylarında Eksiklikler; Terminoloji ve Kavramsal Açıklık Eksikliği",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7"
+        ],
+        "action_item_ids": [
+          "contribution_clarity.f0.a0",
+          "contribution_clarity.f1.a0",
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1",
+          "novelty_to_length_ratio.f0.a2",
+          "reviewer_confidence.f0.a0",
+          "reviewer_confidence.f2.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Ana Katkının Detaylı Açıklamasında Eksiklik; Sınırlı Yenilik ve Kapsam",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2",
+          "introduction.a3"
+        ],
+        "action_item_ids": [
+          "contribution_clarity.f0.a0",
+          "contribution_clarity.f1.a0",
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1",
+          "novelty_to_length_ratio.f0.a2"
+        ]
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Ana Sonuçların Yetersiz Raporlanması; Sınırlı Yenilik ve Kapsam; İstatistiksel Karşılaştırma Yöntemlerinin Eksikliği",
+        "anchor_ids": [
+          "conclusion.a0",
+          "conclusion.a1",
+          "conclusion.a2"
+        ],
+        "action_item_ids": [
+          "novelty_to_length_ratio.f0.a0",
+          "novelty_to_length_ratio.f0.a1",
+          "novelty_to_length_ratio.f0.a2",
+          "quant.f3.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1 INTRODUCTION",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Algoritma 1'in Giriş ve Çıkış Tanımlarında Eksiklik",
+        "anchor_ids": [
+          "1_introduction.a0"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ]
+      },
+      {
+        "section": "2.2 DISTRIBUTED TRANSFER LEARNING",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Algoritma 2'nin Giriş ve Çıkış Tanımlarında Eksiklik; Şekil 1'deki Renk Kodlamasının Açıklığı; Yöntem Detaylarında Eksiklikler; Terminoloji ve Kavramsal Açıklık Eksikliği",
+        "anchor_ids": [
+          "2_2_distributed_transfer_learning.a0",
+          "2_2_distributed_transfer_learning.a1",
+          "2_2_distributed_transfer_learning.a2",
+          "2_2_distributed_transfer_learning.a3"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0",
+          "presentation_clarity.f2.a0",
+          "reviewer_confidence.f0.a0",
+          "reviewer_confidence.f2.a0"
+        ]
+      },
+      {
+        "section": "3.1 EXPERIMENT 1",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Deneysel Kurulum ve Karşılaştırmaların Belirsizliği",
+        "anchor_ids": [
+          "3_1_experiment_1.a0",
+          "3_1_experiment_1.a1"
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f1.a0"
+        ]
+      },
+      {
+        "section": "Algorithm 1 Basic Probability Assignment (BPA)",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Yöntem Detaylarında Eksiklikler",
+        "anchor_ids": [
+          "algorithm_1_basic_probability_assignment_bpa.a0"
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENT 1",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "İstatistiksel Karşılaştırma Yöntemlerinin Eksikliği",
+        "anchor_ids": [
+          "experiment_1.a0",
+          "experiment_1.a1",
+          "experiment_1.a2"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f4.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "experiments.a0",
+          "experiments.a1",
+          "experiments.a2",
+          "experiments.a3"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "reproducibility_artifact.f1.a0"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_1.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Table 1: Baseline Performances of Deep Learning",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Deneysel Kurulum ve Karşılaştırmaların Belirsizliği",
+        "anchor_ids": [
+          "table_1_baseline_performances_of_deep_learning.a0"
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f1.a0"
+        ]
+      },
+      {
+        "section": "Table 2",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Ana Sonuçların Yetersiz Raporlanması",
+        "anchor_ids": [
+          "table_2.a0",
+          "table_2.a1"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "Table 3",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "anchor_ids": [
+          "table_3.a0"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "reject"
+}

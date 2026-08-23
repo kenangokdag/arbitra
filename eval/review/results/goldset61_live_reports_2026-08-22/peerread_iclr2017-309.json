@@ -1,0 +1,2042 @@
+{
+  "paper_id": "peerread:iclr2017-309",
+  "run_tag": "main",
+  "job_id": "f974c10e-4b9e-4437-99be-b69c2059ae49",
+  "elapsed_s": 452.1,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "REINFORCEMENT LEARNING WITH UNSUPERVISED AUXILIARY TASKS Max Jaderberg∗, Volodymyr Mnih*, Wojciech Marian Czarnecki*",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "RELATED WORK",
+        "BACKGROUND",
+        "RESULTS",
+        "CONCLUSION",
+        "ACKNOWLEDGEMENTS",
+        "REFERENCES"
+      ],
+      "word_count": 8404,
+      "reference_count": 32,
+      "parse_confidence": 0.673,
+      "parse_warnings": []
+    },
+    "summary": "This paper introduces the UNsupervised REinforcement and Auxiliary Learning (UNREAL) agent, a significant contribution to deep reinforcement learning. The core idea is to augment a state-of-the-art on-policy agent (A3C) with several off-policy auxiliary tasks that are learned simultaneously from a stream of experience. These tasks—pixel control, reward prediction, and value function replay—provide dense, unsupervised learning signals that help shape a more effective and general representation, even in the absence of extrinsic rewards. The authors demonstrate through extensive experiments on the challenging Labyrinth and Atari domains that the UNREAL agent achieves dramatic improvements in learning speed, final performance, and robustness to hyperparameters compared to the A3C baseline and other contemporary methods.",
+    "strengths": [
+      {
+        "category": "Originality and Significance",
+        "points": [
+          "The proposed UNREAL architecture is a novel and elegant synthesis of on-policy learning for the main task and off-policy learning for auxiliary tasks. This hybrid approach effectively leverages the stability of A3C with the data efficiency of experience replay.",
+          "The concept of using auxiliary *control* tasks (i.e., learning policies to maximize change in the sensory stream) in addition to auxiliary *prediction* tasks is a powerful and original contribution. It encourages the agent to learn about environmental dynamics and affordances, leading to a richer representation.",
+          "The work's impact is substantial. It demonstrates a general and highly effective method for accelerating learning and improving final performance in complex, high-dimensional environments, a central challenge in reinforcement learning."
+        ]
+      },
+      {
+        "category": "Empirical Soundness and Evaluation",
+        "points": [
+          "The empirical evaluation is exceptionally thorough. Testing on both the visually rich, 3D Labyrinth environment and the standard Atari benchmark suite demonstrates the general applicability of the method.",
+          "The ablation studies are a key strength. By systematically evaluating the contribution of each auxiliary task (Pixel Control, Reward Prediction, Value Replay), the authors provide convincing evidence that each component is beneficial and that their combination is synergistic.",
+          "The analysis of robustness to hyperparameters (Figure 3, Right) is commendable and adds significant practical value, showing that the UNREAL agent is not only higher-performing but also easier to train than the baseline."
+        ]
+      },
+      {
+        "category": "Clarity and Presentation",
+        "points": [
+          "The paper is extremely well-written and easy to follow. The motivation is clearly articulated, the methods are described with sufficient detail, and the results are presented logically.",
+          "The figures are of high quality and effectively communicate the architecture (Figure 1), performance results (Figure 3), and ablation comparisons (Figure 5)."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Bibliographic Integrity",
+        "points": [
+          "A significant number of citations in the reference list have issues that prevent automated resolution. As confirmed by the evidence pack, 30 out of 32 references could not be resolved against major academic indices. This suggests widespread problems with formatting, incomplete entries, or reliance on non-archival sources, which severely hinders the discoverability and verifiability of the cited works. A complete audit and correction of the bibliography is required."
+        ]
+      },
+      {
+        "category": "Methodological Nuances",
+        "points": [
+          "The paper relies on several weighting hyperparameters (λVR, λPC, λRP) to balance the different loss components. While the robustness analysis is strong, the paper would be strengthened by a more detailed discussion on the methodology for selecting the ranges for the hyperparameter sweep, and the principles (e.g., theoretical intuition, preliminary experiments) guiding their initial values."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The manuscript's primary weakness lies in its bibliography. An automated check revealed that 30 out of 32 references could not be resolved against major academic indices. While no evidence of fabrication was found, this high failure rate suggests widespread issues with formatting, incomplete entries (e.g., missing DOIs, incorrect conference names), or reliance on non-archival pre-prints. To ensure the paper's long-term value and allow other researchers to easily find the cited literature, I strongly recommend a complete audit and correction of the reference list.",
+        "evidence_ref": "citation_integrity_summary: resolved=2, not_found_in_index=30"
+      },
+      {
+        "area": "experimental",
+        "comment": "The comparison against alternative unsupervised objectives in Figure 5 is excellent. Demonstrating that auxiliary control (Pixel Control) outperforms both input reconstruction and change prediction provides strong justification for the specific choice of auxiliary task. This is a model for how to rigorously validate a new component.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The framework presented here is highly general. The idea of using a shared representation trained with a mix of a primary RL objective and various unsupervised auxiliary objectives has proven to be very influential and has potential applications far beyond the domains tested, for example in robotics or other control problems with sparse rewards.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you please perform a thorough review of the reference list to correct formatting and ensure all citations point to canonical, discoverable sources with DOIs where available? This addresses the issue of 30 unresolvable citations identified in the evidence pack.",
+      "Regarding the loss weights (λVR, λPC, λRP), could you elaborate on the process for selecting their ranges for the hyperparameter sweep? Was this based on preliminary experiments or a theoretical intuition about the relative scales of the loss gradients?",
+      "The pixel control task uses a fixed 20x20 grid. Have you explored the sensitivity of performance to this grid resolution, or considered adaptive approaches where the agent might learn which regions are more salient to control?"
+    ],
+    "overall_assessment": "This is an outstanding paper that presents a novel, powerful, and general method for improving deep reinforcement learning agents. The UNREAL agent and its underlying principles of combining on-policy and off-policy learning with unsupervised auxiliary tasks represent a major step forward for the field. The empirical results are state-of-the-art and backed by a rigorous and comprehensive set of experiments, including excellent ablation studies. The only notable weakness is the poor state of the bibliography, which is a technical issue that is straightforward to fix. The work is of high significance and is presented with exceptional clarity. I recommend acceptance after a minor revision to address the bibliographic issues.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity info. [LLM'in kendi gerekçesi: The combination of on-policy A3C with off-policy auxiliary control and prediction tasks in a shared-representation model was a highly original and impactful architectural innovation.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.8,
+        "rationale": "This is a landmark paper in deep RL. It introduced a widely influential technique for improving sample efficiency and performance, setting a new state-of-the-art on multiple challenging benchmarks."
+      },
+      {
+        "key": "claims_supported",
+        "score": 4.42,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: The claims of improved performance, learning speed, and robustness are exceptionally well-supported by extensive experiments, ablation studies, and analysis across two distinct and difficult domains.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The methodology is sound, and the experimental design is rigorous. The ablation studies in particular provide a solid foundation for the paper's conclusions.]"
+      },
+      {
+        "key": "clarity",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity info. [LLM'in kendi gerekçesi: The paper is written with exemplary clarity. The motivation, methods, and results are communicated effectively and concisely.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.8,
+        "rationale": "The work provides a powerful, generalizable technique that has been widely adopted and built upon by the research community, significantly driving the field forward."
+      },
+      {
+        "key": "contextualization",
+        "score": 9.0,
+        "rationale": "The paper does an excellent job of positioning the work relative to prior art in temporal abstractions (options), representation learning (Horde, UVFA), and environmental models."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: Based on the evidence pack, 30 of 32 citations could not be automatically resolved. While no fabrications were detected, this represents a significant technical flaw in the bibliography that hinders verifiability and must be corrected.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not identify any missing seminal works. The literature review appears comprehensive and appropriate for the scope of the paper.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 6.67,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity major. [LLM'in kendi gerekçesi: The evidence pack did not report any statistical inconsistencies. The use of multiple seeds and reporting of mean/top-k performance is good practice.]"
+      }
+    ],
+    "final_score": 8.71,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 32,
+        "resolved": 2,
+        "not_found_in_index": 30,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "André Barreto, Rémi Munos, Tom Schaul, and David Silver. Successor features for transfer in reinforcement learning. arXiv preprint arXiv:1606.05312, 2016.",
+          "title": "Successor features for transfer in reinforcement learning",
+          "authors": [
+            "André Barreto, Rémi Munos, Tom Schaul",
+            "David Silver"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.65 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "Marc G Bellemare, Yavar Naddaf, Joel Veness, and Michael Bowling. The arcade learning envi- ronment: An evaluation platform for general agents. Journal of Artiﬁcial Intelligence Research, 2012.",
+          "title": "The arcade learning envi- ronment: An evaluation platform for general agents",
+          "authors": [
+            "Marc G Bellemare, Yavar Naddaf, Joel Veness",
+            "Michael Bowling"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "OpenArena contributors. The openarena manual. 2005.",
+          "title": "The openarena manual",
+          "authors": [
+            "OpenArena contributors"
+          ],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.25 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "URL http://openarena.wikia. com/wiki/Manual. Peter Dayan. Improving generalization for temporal difference learning: The successor representa- tion. Neural Computation, 5(4):613–624, 1993.",
+          "title": "Peter Dayan",
+          "authors": [
+            "URL http://openarena.wikia. com/wiki/Manual"
+          ],
+          "year": 1993,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Felix A Gers, Jürgen Schmidhuber, and Fred Cummins. Learning to forget: Continual prediction with lstm. Neural computation, 12(10):2451–2471, 2000. id software. Quake3. 1999.",
+          "title": "Learning to forget: Continual prediction with lstm",
+          "authors": [
+            "Felix A Gers, Jürgen Schmidhuber",
+            "Fred Cummins"
+          ],
+          "year": 2000,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "URL https://github.com/id-Software/ Quake-III-Arena. Michał Kempka, Marek Wydmuch, Grzegorz Runc, Jakub Toczek, and Wojciech Jaśkowski. Viz- doom: A doom-based ai research platform for visual reinforcement learning. arXiv preprint arXiv:1605.02097, 2016.",
+          "title": "Michał Kempka, Marek Wydmuch, Grzegorz Runc, Jakub Toczek, and Wojciech Jaśkowski",
+          "authors": [
+            "URL https://github.com/id-Software/ Quake-III-Arena"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "George Konidaris and Andre S Barreto. Skill discovery in continuous reinforcement learning do- mains using skill chaining. In Advances in Neural Information Processing Systems, pp. 1015– 1023, 2009.",
+          "title": "Skill discovery in continuous reinforcement learning do- mains using skill chaining",
+          "authors": [
+            "George Konidaris",
+            "Andre S Barreto"
+          ],
+          "year": 2009,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.35 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Tejas D Kulkarni, Ardavan Saeedi, Simanta Gautam, and Samuel J Gershman. Deep successor reinforcement learning. arXiv preprint arXiv:1606.02396, 2016.",
+          "title": "Deep successor reinforcement learning",
+          "authors": [
+            "Tejas D Kulkarni, Ardavan Saeedi, Simanta Gautam",
+            "Samuel J Gershman"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.53 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Guillaume Lample and Devendra Singh Chaplot. Playing FPS games with deep reinforcement learn- ing. CoRR, abs/1609.05521, 2016.",
+          "title": "Playing FPS games with deep reinforcement learn- ing",
+          "authors": [
+            "Guillaume Lample",
+            "Devendra Singh Chaplot"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.76 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Xiujun Li, Lihong Li, Jianfeng Gao, Xiaodong He, Jianshu Chen, Li Deng, and Ji He. Recurrent reinforcement learning: A hybrid approach. arXiv preprint arXiv:1509.03044, 2015.",
+          "title": "Recurrent reinforcement learning: A hybrid approach",
+          "authors": [
+            "Xiujun Li, Lihong Li, Jianfeng Gao, Xiaodong He, Jianshu Chen, Li Deng",
+            "Ji He"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.64 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Long-Ji Lin and Tom M Mitchell. Memory approaches to reinforcement learning in non-markovian domains. Technical report, Carnegie Mellon University, School of Computer Science, 1992.",
+          "title": "Memory approaches to reinforcement learning in non-markovian domains",
+          "authors": [
+            "Long-Ji Lin",
+            "Tom M Mitchell"
+          ],
+          "year": 1992,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.63 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Piotr Mirowski, Razvan Pascanu, Fabio Viola, Andrea Banino, Hubert Soyer, Andy Ballard, Misha Denil, Ross Goroshin, Laurent Sifre, Koray Kavukcuoglu, Dharshan Kumaran, and Raia Hadsell. Learning to navigate in complex environments. 2016.",
+          "title": "Learning to navigate in complex environments",
+          "authors": [
+            "Raia Hadsell"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.64 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wier- stra, and Martin Riedmiller. Playing atari with deep reinforcement learning. In NIPS Deep Learn- ing Workshop. 2013.",
+          "title": "Playing atari with deep reinforcement learning",
+          "authors": [
+            "Martin Riedmiller"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W1757796397",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W1757796397; 'Playing Atari with Deep Reinforcement Learning').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei A. Rusu, Joel Veness, Marc G. Bellemare, Alex Graves, Martin Riedmiller, Andreas K. Fidjeland, Georg Ostrovski, Stig Pe- tersen, Charles Beattie, Amir Sadik, Ioannis Antonoglou, Helen King, Dharshan Kumaran, Daan Wierstra, Shane Legg, and Demis Hassabis. Human-level control through deep reinforcement learning. Nature, 518(7540):529–533, 02 2015.",
+          "title": "Human-level control through deep reinforcement learning",
+          "authors": [
+            "Demis Hassabis"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.60 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "URL http://dx.doi.org/10.1038/ nature14236. 10 Volodymyr Mnih, Adrià Puigdomènech Badia, Mehdi Mirza, Alex Graves, Timothy P. Lillicrap, Tim Harley, David Silver, and Koray Kavukcuoglu. Asynchronous methods for deep reinforcement learning. In Proceedings of the 33rd International Conference on Machine Learning (ICML), pp. 1928–1937, 2016.",
+          "title": "10 Volodymyr Mnih, Adrià Puigdomènech Badia, Mehdi Mirza, Alex Graves, Timothy P. Lillicrap, Tim Harley, David Silver, and Koray Kavukcuoglu",
+          "authors": [
+            "URL http://dx.doi.org/10.1038/ nature14236"
+          ],
+          "year": 1928,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.22 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Junhyuk Oh, Xiaoxiao Guo, Honglak Lee, Richard L Lewis, and Satinder Singh. Action-conditional video prediction using deep networks in atari games. In Advances in Neural Information Process- ing Systems, pp. 2863–2871, 2015.",
+          "title": "Action-conditional video prediction using deep networks in atari games",
+          "authors": [
+            "Junhyuk Oh, Xiaoxiao Guo, Honglak Lee, Richard L Lewis",
+            "Satinder Singh"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "Junhyuk Oh, Valliappa Chockalingam, Satinder Singh, and Honglak Lee. Control of memory, active perception, and action in minecraft. arXiv preprint arXiv:1605.09128, 2016.",
+          "title": "Control of memory, active perception, and action in minecraft",
+          "authors": [
+            "Junhyuk Oh, Valliappa Chockalingam, Satinder Singh",
+            "Honglak Lee"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.35 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "H Freyja Olafsdottir, Caswell Barry, Aman B Saleem, Demis Hassabis, and Hugo J Spiers. Hip- pocampal place cells construct reward related sequences through unexplored space. Elife, 4: e06063, 2015.",
+          "title": "Hip- pocampal place cells construct reward related sequences through unexplored space",
+          "authors": [
+            "H Freyja Olafsdottir, Caswell Barry, Aman B Saleem, Demis Hassabis",
+            "Hugo J Spiers"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.26 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Jing Peng and Ronald J Williams. Incremental multi-step q-learning. Machine Learning, 22(1-3): 283–290, 1996.",
+          "title": "Incremental multi-step q-learning",
+          "authors": [
+            "Jing Peng",
+            "Ronald J Williams"
+          ],
+          "year": 1996,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Daniel L Schacter, Donna Rose Addis, Demis Hassabis, Victoria C Martin, R Nathan Spreng, and Karl K Szpunar. The future of memory: remembering, imagining, and the brain. Neuron, 76(4): 677–694, 2012.",
+          "title": "The future of memory: remembering, imagining, and the brain",
+          "authors": [
+            "Karl K Szpunar"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.36 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 21,
+          "raw": "Tom Schaul, Daniel Horgan, Karol Gregor, and David Silver. Universal value function approxima- tors. In Proceedings of the 32nd International Conference on Machine Learning (ICML-15), pp. 1312–1320, 2015a.",
+          "title": "Universal value function approxima- tors",
+          "authors": [
+            "Tom Schaul, Daniel Horgan, Karol Gregor",
+            "David Silver"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 22,
+          "raw": "Tom Schaul, John Quan, Ioannis Antonoglou, and David Silver. Prioritized experience replay. arXiv preprint arXiv:1511.05952, 2015b.",
+          "title": "Prioritized experience replay",
+          "authors": [
+            "Tom Schaul, John Quan, Ioannis Antonoglou",
+            "David Silver"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "resolved",
+          "openalex_id": "W2786928559",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~0.83: W2786928559; 'Distributed Prioritized Experience Replay').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 23,
+          "raw": "Jürgen Schmidhuber. Formal theory of creativity, fun, and intrinsic motivation (1990–2010). IEEE Transactions on Autonomous Mental Development, 2(3):230–247, 2010.",
+          "title": "Formal theory of creativity, fun, and intrinsic motivation (1990–2010)",
+          "authors": [
+            "Jürgen Schmidhuber"
+          ],
+          "year": 1990,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 24,
+          "raw": "David Silver and Kamil Ciosek. Compositional planning using optimal option models. arXiv preprint arXiv:1206.6473, 2012.",
+          "title": "Compositional planning using optimal option models",
+          "authors": [
+            "David Silver",
+            "Kamil Ciosek"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.40 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 25,
+          "raw": "David Silver, Aja Huang, Chris J Maddison, Arthur Guez, Laurent Sifre, George Van Den Driessche, Julian Schrittwieser, Ioannis Antonoglou, Veda Panneershelvam, Marc Lanctot, et al. Mastering the game of go with deep neural networks and tree search. Nature, 529(7587):484–489, 2016.",
+          "title": null,
+          "authors": [],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.2,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 26,
+          "raw": "Richard S Sutton, David A McAllester, Satinder P Singh, Yishay Mansour, et al. Policy gradient methods for reinforcement learning with function approximation. In NIPS, volume 99, pp. 1057– 1063, 1999a.",
+          "title": "Policy gradient methods for reinforcement learning with function approximation",
+          "authors": [
+            "Richard S Sutton, David A McAllester, Satinder P Singh, Yishay Mansour, et al."
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.56 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 27,
+          "raw": "Richard S Sutton, Doina Precup, and Satinder Singh. Between mdps and semi-mdps: A framework for temporal abstraction in reinforcement learning. Artiﬁcial intelligence, 1999b.",
+          "title": "Between mdps and semi-mdps: A framework for temporal abstraction in reinforcement learning",
+          "authors": [
+            "Richard S Sutton, Doina Precup",
+            "Satinder Singh"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.47 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 28,
+          "raw": "Richard S Sutton, Joseph Modayil, Michael Delp, Thomas Degris, Patrick M Pilarski, Adam White, and Doina Precup. Horde: A scalable real-time architecture for learning knowledge from unsuper- vised sensorimotor interaction. In The 10th International Conference on Autonomous Agents and Multiagent Systems-Volume 2, pp. 761–768. International Foundation for Autonomous Agents and Multiagent Systems, 2011.",
+          "title": "Horde: A scalable real-time architecture for learning knowledge from unsuper- vised sensorimotor interaction",
+          "authors": [
+            "Doina Precup"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 29,
+          "raw": "Chen Tessler, Shahar Givony, Tom Zahavy, Daniel J Mankowitz, and Shie Mannor. A deep hierar- chical approach to lifelong learning in minecraft. arXiv preprint arXiv:1604.07255, 2016.",
+          "title": "A deep hierar- chical approach to lifelong learning in minecraft",
+          "authors": [
+            "Chen Tessler, Shahar Givony, Tom Zahavy, Daniel J Mankowitz",
+            "Shie Mannor"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 30,
+          "raw": "Z. Wang, N. de Freitas, and M. Lanctot. Dueling Network Architectures for Deep Reinforcement Learning. In Proceedings of the 33rd International Conference on Machine Learning (ICML), 2016.",
+          "title": "Dueling Network Architectures for Deep Reinforcement Learning",
+          "authors": [
+            "Z. Wang, N. de Freitas",
+            "M. Lanctot"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.80 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 31,
+          "raw": "Christopher John Cornish Hellaby Watkins. Learning from delayed rewards. PhD thesis, University of Cambridge England, 1989. 11 Christopher Xie, Sachin Patil, Teodor Mihai Moldovan, Sergey Levine, and Pieter Abbeel. Model- based reinforcement learning with parametrized physical models and optimism-driven explo- ration. CoRR, abs/1509.06824, 2015.",
+          "title": "Learning from delayed rewards",
+          "authors": [
+            "Christopher John Cornish Hellaby Watkins"
+          ],
+          "year": 1989,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.38 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 32,
+          "raw": "Tom Zahavy, Nir Ben Zrihem, and Shie Mannor. Graying the black box: Understanding dqns. In Proceedings of the 33rd International Conference on Machine Learning, 2016. 12 A ATARI GAMES 0.0 0.5 1.0 1.5 2.0 2.5 Steps ×108 0 500 1000 1500 2000 2500 3000 Reward montezuma revenge UNREAL A3C+RP+VR A3C 0.0 0.5 1.0 1.5 2.0 2.5 Steps ×108 0 1000 2000 3000 4000 5000 6000 Reward seaquest UNREAL A3C+RP+VR A3C 0.0 0.5 1.0 1.5 2.0 2.5 Steps ×108 0 20000 40000 60000 80000 100000 Reward chopper command UNREAL A3C+RP+VR A3C Figure 6: Learning curves for three example Atari games. Semi-transparent lines are agents with different seeds and hyperparameters, the bold line is a mean over population and dotted line is the best agent (in terms of ﬁnal performance). B IMPLEMENTATION DETAILS The input to the agent at each timestep was an 84 × 84 RGB image. All agents processed the input with the convolutional neural network (CNN) originally used for Atari by Mnih et al. (2013). The network consists of two convolutional layers. The ﬁrst one has 16 8 × 8 ﬁlters applied with stride 4, while the second one has 32 4 × 4 ﬁlters with stride 2. This is followed by a fully connected layer with 256 units. All three layers are followed by a ReLU non-linearity. All agents used an LSTM with forget gates (Gers et al., 2000) with 256 cells which take in the CNN-encoded observation concatenated with the previous action taken and current reward. The policy and value function are linear projections of the LSTM output. The agent is trained with 20-step unrolls. The action space of the agent in the environment is game dependent for Atari (between 3 and 18 discrete actions), and 17 discrete actions for Labyrinth. Labyrinth runs at 60 frames-per-second. We use an action repeat of four, meaning that each action is repeated four times, with the agent receiving the ﬁnal fourth frame as input to the next processing step. For the pixel control auxiliary tasks we trained policies to control the central 80 × 80 crop of the inputs. The cropped region was subdivided into a 20 × 20 grid of non-overlapping 4 × 4 cells. The instantaneous reward in each cell was deﬁned as the average absolute difference from the previous frame, where the average is taken over both pixels and channels in the cell. The output tensor of auxiliary values, Qaux, is produced from the LSTM outputs by a deconvolutional network. The LSTM outputs are ﬁrst mapped to a 32 × 7 × 7 spatial feature map with a linear layer followed by a ReLU. This is followed by a doconvolutional layer of 32 3 × 3 ﬁlters and a ReLU, resulting in a 32 × 9 × 9 feature map. Deconvolution layers with 1 and Nact ﬁlters of size 4 × 4 and stride 2 map the 32 × 9 × 9 into a value tensor and an advantage tensor respectively. The spatial map is then decoded into Q-values using the dueling parametrization (Wang et al., 2016) producing the Nact × 20 × 20 output Qaux. There is a ﬁnal ReLU nonlinearity on the Qaux output. The architecture for feature control was similar. We learned to control the second hidden layer, which is a spatial feature map with size 32 × 9 × 9. Similarly to pixel control, we exploit the spatial structure in the data and used a deconvolutional network to produce Qaux from the LSTM outputs. The reward prediction task is performed on a sequence of three observations, which are fed through three instances of the agent’s CNN. The three encoded CNN outputs are concatenated and fed through a fully connected layer of 128 units with ReLU activations, followed by a ﬁnal linear three- class classiﬁer and softmax. The reward is predicted as one of three classes: positive, negative, or zero and trained with a task weight λRP = 1. The value function replay is performed on a sequence of length 20 with a task weight λVR = 1. The auxiliary tasks are performed every 20 environment steps, corresponding to every update of the base A3C agent, once the replay buffer has ﬁlled with agent experience. The replay buffer stores the most recent 2k observations, actions, and rewards taken by the base agent. The agents are optimised over 32 asynchronous threads with shared RMSprop (Mnih et al., 2016). The learning rates are sampled from a log-uniform distribution between 0.0001 and 0.005. The entropy costs are sampled from the log-uniform distribution between 0.0005 and 0.01. Task weight λPC is sampled from log-uniform distribution between 0.01 and 0.1 for Labyrinth and 0.0001 and 0.01 for Atari (since Atari games are not homogeneous in terms of pixel intensities changes, thus we need to ﬁt this normalization factor). 13 C RANDOMNESS ROBUSTNESS Each agent was trained with 45 randomly sampled values of hyperparameters. Each of them also starts with a different random seed (however, due to asynchronous nature of A3C this does not determinise the learning procedure). Previous sections showed that the UNREAL agent is more robust to the choice of hyperparameters than A3C. To present an even clearer picture of this effect, we show learning curves averaged over all hyperparamters/seeds used in the experiments in Figure 7. It is worth noting, that standard error for such curves is not increased despite adding our auxiliary tasks. 0.0 0.5 1.0 1.5 2.0 2.5 Steps ×108 0% 10% 20% 30% 40% 50% 60% Human Normalised Performance . 53% UNREAL . 45% A3C+PC . 41% A3C+RP+VR . 38% A3C+RP . 29% A3C+VR . 23% A3C Avg. of all agents 0.0 0.5 1.0 1.5 2.0 2.5 Steps ×108 0% 10% 20% 30% 40% 50% 60% 70% Human Normalised Performance . 53% UNREAL . 41% A3C+RP+VR . 23% A3C Avg. of all agents Figure 7: Learning curves averaged across all hyperparameters (left), and the same curves for three types of agent plotted with standard error (right). We also include scatter plots of averaged ﬁnal human normalised performance with respect to the two main hyperparameters (learning rate and entropy cost) in Figure 8. The ﬁnal performance across all levels varies rather smoothly across similar hyperparameters, showing that learning is not signiﬁcantly affected by random seeds. The only signiﬁcant inconsistency, which can be spotted around (−3, −3) point in UNREAL plot is an effect of the third hyperparamer - λPC, which differs a lot between these runs. −4.5 −4.0 −3.5 −3.0 −2.5 −2.0 log10(lr) −3.4 −3.2 −3.0 −2.8 −2.6 −2.4 −2.2 −2.0 log10(costent) A3C 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 −4.5 −4.0 −3.5 −3.0 −2.5 −2.0 log10(lr) −3.4 −3.2 −3.0 −2.8 −2.6 −2.4 −2.2 −2.0 log10(costent) A3C+RP+VR 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 −4.5 −4.0 −3.5 −3.0 −2.5 −2.0 log10(lr) −3.4 −3.2 −3.0 −2.8 −2.6 −2.4 −2.2 −2.0 log10(costent) UNREAL 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Figure 8: Human normalised performance for each hyperparameter setting with respect to the main hyperparameters of A3C - learning rate and entropy cost. 14 D RAW ATARI SCORES Random UNREAL (random starts) Human Raw Raw Normalised Raw alien 228 2087 30% 6371 amidar 6 4463 290% 1540 assault 222 16853 4091% 629 asterix 210 154818 2110% 7536 asteroids 719 248289 692% 36517 atlantis 12850 990904 7126% 26575 bank heist 14 1353 212% 644 battle zone 2360 147700 474% 33030 beam rider 364 39250 266% 14961 berzerk 124 41489 1957% 2238 bowling 23 58 29% 146 boxing 0 94 980% 10 breakout 2 751 2861% 28 centipede 2091 4612 31% 10322 chopper command 811 75028 914% 8930 crazy climber 10780 129674 543% 32667 defender 2874 417812 3633% 14296 demon attack 152 106937 3245% 3443 double dunk -19 21 943% -14 enduro 0 0 0% 740 ﬁshing derby -92 42 138% 5 freeway 0 34 133% 26 frostbite 65 3795 90% 4203 gopher 258 54007 2618% 2311 gravitar 173 6310 209% 3116 hero 1027 37291 146% 25839 ice hockey -11 16 233% 0 jamesbond 29 69872 20572% 368 kangaroo 52 14838 550% 2739 krull 1598 10587 1759% 2109 kung fu master 258 76676 372% 20787 montezuma revenge 0 2902 69% 4182 ms pacman 307 5423 34% 15375 name this game 2292 12602 229% 6796 phoenix 761 404280 6811% 6686 pitfall -229 0 4% 5999 pong -21 8 79% 16 private eye 25 546 1% 64169 qbert 164 26437 220% 12085 riverraid 1338 19077 136% 14382 road runner 12 52596 766% 6878 robotank 2 79 1136% 9 seaquest 68 5305 13% 40426 skiing -17098 -8988 60% -3687 solaris 1236 2895 17% 11033 space invaders 148 25851 1952% 1465 star gunner 664 72864 815% 9528 surround -10 10 128% 5 tennis -24 -0 136% -7 time pilot 3568 89559 4130% 5650 tutankham 11 294 222% 138 up n down 533 339119 3616% 9896 venture 0 0 0% 1039 video pinball 0 518567 3315% 15641 wizard of wor 564 35344 871% 4556 yars revenge 3093 42889 90% 47135 zaxxon 32 60044 714% 8443 Mean - - 1453% - Median - - 331% - Table 1: Raw scores of the best UNREAL agent (selected according to the learning curve) for all Atari games considered. Scores are averaged over 200 runs with random starts. Normalised score of s is (s −srandom)/(shuman −srandom). 15 E LABYRINTH LEVELS stairway to melon seekavoid arena 01 nav maze ∗01 nav maze ∗02 nav maze ∗03 lt horse shoe color lt hallway slope Figure 9: Top-down renderings of each Labyrinth level. The nav maze ∗0{1, 2, 3} levels show one example maze layout. In the all random case, a new maze was randomly generated at the start of each episode. 16 Figure 10: Example images from the agent’s egocentric viewpoint for each Labyrinth level. 17",
+          "title": "The network consists of two convolutional layers",
+          "authors": [
+            "Tom Zahavy, Nir Ben Zrihem"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.30 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "coverage:openalex_unavailable",
+        "quant_design_mismatch:downgraded_1",
+        "citation_integrity_grounding:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "f1d6fa656463d3fa39b91cf82ba43b2fc9879758f4ec8b60804a01368c0a37cc",
+          "request_time": "2026-08-22T17:45:05.980447Z",
+          "status": "ok",
+          "result_count": 2,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:45:06.966986Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "40c675d3b22042c1ae7256d7a5e410a254a4b1b7fffa4eeff473732fba6554b6",
+          "request_time": "2026-08-22T17:45:07.749731Z",
+          "status": "failed",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "openalex client error 400: {\"error\":\"Invalid query parameters error.\",\"message\":\"Wildcards (* or ?) require exact (no-stem) search. The default search is stemmed, so the literal text before the wildca"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:52:21.281101Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.9,
+      "rationale": "Belgenin başlığı, özet ve bölüm başlıkları (ABSTRACT, RELATED WORK, BACKGROUND, RESULTS, CONCLUSION) tipik bir araştırma makalesi yapısını göstermektedir. Metin başındaki yazar listesi ve kurum bilgileri de akademik bir yayın formatına işaret etmektedir. Çalışma tasarımı, 'Deep reinforcement learning agents', 'pseudo-reward functions', 'common representation' gibi ifadeler ve 'Atari', 'Labyrinth' gibi platformlarda 'outperforms the previous state-of-the-art' sonuçları, hesaplamalı modelleme ve algoritmik geliştirmeye odaklandığını göstermektedir.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 82.4,
+      "recommended_decision": "accept",
+      "confidence": 0.7614814814814815,
+      "top_fatal_risks": [
+        "Genel Performans İddialarının Detay Eksikliği",
+        "İstatistiksel Test Seçimi ve Varsayımların Belirsizliği",
+        "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği"
+      ],
+      "one_sentence_diagnosis": "0 critical and 3 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.8666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 38.0,
+        "severity": "major",
+        "confidence": 0.86,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 63.0,
+        "severity": "major",
+        "confidence": 0.75,
+        "why_it_matters": "2 finding(s); worst severity major."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 64.0,
+        "severity": "moderate",
+        "confidence": 0.775,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8333333333333334,
+        "why_it_matters": "3 finding(s); worst severity info."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "revision-required",
+        "summary": "3 concern(s): A significant number of citations (30 out of 32) could not be resolved against major academic indices. This indicates widespread formatting issues, incomplete entries (e.g., missing DOIs, incorrect conference names), or reliance on non-archival pre-prints. This severely hinders the discoverability and verifiability of the cited works, which is crucial for scientific discourse. A thorough review and correction of the bibliography is necessary. (Evidence: citation_integrity_summary: resolved=2, not_found_in_index=30); The paper relies on several weighting hyperparameters (λVR, λPC, λRP) to balance the different loss components. While the robustness analysis is commendable, a more detailed discussion on the sensitivity to these weights and any principles guiding their selection (e.g., theoretical intuition about relative scales of loss gradients, or preliminary experiments) would further strengthen the paper's methodological rigor.; The pixel control task uses a fixed 20x20 grid. The paper does not discuss the sensitivity of performance to this specific grid resolution, nor does it explore potential adaptive approaches where the agent might learn which regions are more salient to control. This fixed parameter choice could be a limitation if not adequately justified or explored.",
+        "key_objection": "A significant number of citations (30 out of 32) could not be resolved against major academic indices. This indicates widespread formatting issues, incomplete entries (e.g., missing DOIs, incorrect conference names), or reliance on non-archival pre-prints. This severely hinders the discoverability and verifiability of the cited works, which is crucial for scientific discourse. A thorough review and correction of the bibliography is necessary. (Evidence: citation_integrity_summary: resolved=2, not_found_in_index=30)",
+        "confidence": 0.3333333333333333,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "research_question_fit.f0"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "minor-concerns",
+        "summary": "1 concern(s): The paper relies on several weighting hyperparameters (λVR, λPC, λRP) to balance the different loss components. While the robustness analysis is strong, a more detailed discussion on the sensitivity to these weights and any principles guiding their selection would further strengthen the paper. Specifically, the current report does not detail the methodology for selecting the ranges for the hyperparameter sweep for these weights, nor does it discuss the theoretical or empirical basis for their initial values.",
+        "key_objection": "The paper relies on several weighting hyperparameters (λVR, λPC, λRP) to balance the different loss components. While the robustness analysis is strong, a more detailed discussion on the sensitivity to these weights and any principles guiding their selection would further strengthen the paper. Specifically, the current report does not detail the methodology for selecting the ranges for the hyperparameter sweep for these weights, nor does it discuss the theoretical or empirical basis for their initial values.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "3 concern(s): A significant number of citations in the reference list appear to have formatting issues or point to non-canonical sources. Specifically, 30 out of 32 references could not be resolved against major academic indices. This hinders the discoverability and verifiability of the cited works, which is crucial for scientific discourse. A thorough review and correction of the bibliography is necessary to ensure all citations point to canonical, discoverable sources with DOIs where available.; The paper relies on several weighting hyperparameters (λVR, λPC, λRP) to balance the different loss components. While the robustness analysis is strong, a more detailed discussion on the sensitivity to these weights and any principles guiding their selection (e.g., based on preliminary experiments or theoretical intuition about the relative scales of the loss gradients) would further strengthen the paper.; The pixel control task uses a fixed 20x20 grid. It would be beneficial to discuss whether the sensitivity of performance to this grid resolution has been explored, or if adaptive approaches where the agent might learn which regions are more salient to control have been considered.",
+        "key_objection": "A significant number of citations in the reference list appear to have formatting issues or point to non-canonical sources. Specifically, 30 out of 32 references could not be resolved against major academic indices. This hinders the discoverability and verifiability of the cited works, which is crucial for scientific discourse. A thorough review and correction of the bibliography is necessary to ensure all citations point to canonical, discoverable sources with DOIs where available.",
+        "confidence": 0.3333333333333333,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The statement 'A significant number of citations in the reference list appear to have formatting issues or point to non-canonical sources' is grounded. The evidence pack shows that 30 out of 32 references could not be resolved against major academic indices, indicating widespread issues with discoverability.; The claim '30 out of 32 references could not be resolved against major academic indices' is directly supported by the 'citation_integrity_summary: resolved=2, not_found_in_index=30' in the evidence pack.; The statement '30 of 32 citations could not be automatically resolved' is directly supported by the 'citation_integrity_summary: resolved=2, not_found_in_index=30' in the evidence pack.",
+        "key_objection": "The statement 'A significant number of citations in the reference list appear to have formatting issues or point to non-canonical sources' is grounded. The evidence pack shows that 30 out of 32 references could not be resolved against major academic indices, indicating widespread issues with discoverability.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "literature_positioning.f0",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "literature_positioning.f0",
+          "research_question_fit.f0",
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "minor-revision",
+        "summary": "This paper introduces the UNsupervised REinforcement and Auxiliary Learning (UNREAL) agent, a significant contribution to deep reinforcement learning. The core idea is to augment a state-of-the-art on-policy agent (A3C) with several off-policy auxiliary tasks that are learned simultaneously from a stream of experience. These tasks—pixel control, reward prediction, and value function replay—provide dense, unsupervised learning signals that help shape a more effective and general representation, even in the absence of extrinsic rewards. The authors demonstrate through extensive experiments on the challenging Labyrinth and Atari domains that the UNREAL agent achieves dramatic improvements in learning speed, final performance, and robustness to hyperparameters compared to the A3C baseline and other contemporary methods.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Deneysel Tasarımın Açık Tanımı",
+        "summary": "Makale, pekiştirmeli öğrenme ajanlarının performansını değerlendirmek için deneysel bir tasarım kullanmaktadır. Bu tasarım, farklı yardımcı görevlerin (auxiliary tasks) ajan performansı üzerindeki etkisini karşılaştırmayı amaçlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we introduce an agent that also learns separate policies for maximising many other pseudo-reward functions simultaneously by reinforcement learning."
+          },
+          {
+            "anchor_id": "4_experiments.a0",
+            "section": "4 EXPERIMENTS",
+            "quote": "In this section we give the results of experiments performed on the 3D environment Labyrinth in Section 4.1 and Atari in Section 4.2. In all our experiments we used an A3C CNN-LSTM agent as our baseline and the UNREAL agent along with its ablated variants added auxiliary outputs and losses to this base agent."
+          }
+        ],
+        "reasoning_public": "Pekiştirmeli öğrenme araştırmalarında, farklı algoritmaların veya bileşenlerin performansını karşılaştırmak için kontrollü deneyler yapmak standart bir yaklaşımdır. Bu makale, UNREAL ajanının ve ablasyon varyantlarının performansını A3C taban çizgisiyle karşılaştırarak bu prensibi takip etmektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Makalede, deneylerde kullanılan örneklem büyüklüğü (örneğin, her bir deney koşulu için kaç adet ajanın eğitildiği veya kaç adet denemenin yapıldığı) açıkça belirtilmemiştir. Ayrıca, istatistiksel güç analizi veya hassasiyet gerekçesi sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_experiments.a1",
+            "section": "4 EXPERIMENTS",
+            "quote": "In all our experiments we used an A3C CNN-LSTM agent as our baseline and the UNREAL agent along with its ablated variants added auxiliary outputs and losses to this base agent."
+          },
+          {
+            "anchor_id": "figure_3.a0",
+            "section": "Figure 3",
+            "quote": "Right: The ﬁnal human-normalised score of every job in our hyperparameter sweep, sorted by score."
+          }
+        ],
+        "reasoning_public": "Pekiştirmeli öğrenme deneylerinde, sonuçların genellenebilirliği ve güvenilirliği için yeterli sayıda deneme veya ajan kullanılması önemlidir. Örneklem büyüklüğünün gerekçelendirilmemesi veya güç analizi yapılmaması, elde edilen performans farklarının istatistiksel olarak anlamlı olup olmadığına dair belirsizlik yaratır ve bulguların sağlamlığını sorgulatır. Özellikle hiperparametre taraması yapıldığı belirtildiğinde, bu taramanın kapsamı ve her bir hiperparametre kombinasyonu için kaç deneme yapıldığı gibi detaylar önemlidir.",
+        "limitations": [
+          "Makalede doğrudan bir güç analizi veya örneklem büyüklüğü gerekçesi bulunmadığı için, bu bulguya ilişkin kesin bir sayısal kanıt sunulamamaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Performans Ölçütlerinin Açık Tanımı",
+        "summary": "Makale, ajan performansını değerlendirmek için 'insan normalleştirilmiş skor' (human-normalised score) ve 'öğrenme hızı' (speedup in learning) gibi ölçütleri açıkça tanımlamıştır. Bu ölçütler, pekiştirmeli öğrenme alanında yaygın olarak kullanılmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "Our agent signiﬁcantly outperforms the pre- vious state-of-the-art on Atari, averaging 880% expert human performance, and a challenging suite of ﬁrst-person, three-dimensional Labyrinth tasks leading to a mean speedup in learning of 10× and averaging 87% expert human performance on Labyrinth."
+          },
+          {
+            "anchor_id": "figure_3.a1",
+            "section": "Figure 3",
+            "quote": "Human Normalised Performance"
+          }
+        ],
+        "reasoning_public": "Performans ölçütlerinin net bir şekilde tanımlanması, okuyucuların sonuçları anlaması ve farklı çalışmalar arasında karşılaştırma yapması için kritik öneme sahiptir. 'İnsan normalleştirilmiş skor', ajan performansını insan uzman performansına göre ölçeklendirerek bağlam sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "İstatistiksel Test Seçimi ve Varsayımların Belirsizliği",
+        "summary": "Makale, farklı ajan varyantları arasındaki performans farklarını karşılaştırmak için kullanılan istatistiksel testleri açıkça belirtmemiştir. Ayrıca, bu testlerin varsayımlarının (örneğin, verilerin dağılımı, varyans homojenliği) karşılanıp karşılanmadığına dair herhangi bir bilgi sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "Our agent signiﬁcantly outperforms the pre- vious state-of-the-art on Atari, averaging 880% expert human performance, and a challenging suite of ﬁrst-person, three-dimensional Labyrinth tasks leading to a mean speedup in learning of 10× and averaging 87% expert human performance on Labyrinth."
+          },
+          {
+            "anchor_id": "4_1_1_results.a0",
+            "section": "4.1.1 RESULTS",
+            "quote": "The UNREAL agent, which combines all three auxiliary tasks, achieves more than twice the ﬁnal human-normalised mean performance of A3C, increasing from 54% to 87% (45% to 92% for median performance)."
+          }
+        ],
+        "reasoning_public": "Pekiştirmeli öğrenme deneylerinde elde edilen performans skorları genellikle karmaşık dağılımlara sahip olabilir. İstatistiksel testlerin seçimi, veri tipine ve dağılımına uygun olmalıdır. Test varsayımlarının kontrol edilmemesi veya raporlanmaması, sonuçların geçerliliğini ve güvenilirliğini azaltır. Özellikle 'significantly outperforms' gibi ifadeler kullanıldığında, bu iddiaları destekleyen istatistiksel kanıtların sunulması beklenir.",
+        "limitations": [
+          "Makalede istatistiksel testlerin adı veya varsayım kontrolleri hakkında bilgi bulunmadığı için, bu bulguya ilişkin kesin bir sayısal kanıt sunulamamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f3.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Metin ve Şekil Arasındaki Sayısal Tutarlılık",
+        "summary": "Makale metninde ve Şekil 3'te sunulan 'insan normalleştirilmiş performans' değerleri genel olarak tutarlıdır. Örneğin, UNREAL ajanının Labyrinth'teki performansı metinde %87 olarak belirtilirken, Şekil 3'te de bu değer görsel olarak desteklenmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "averaging 87% expert human performance on Labyrinth."
+          },
+          {
+            "anchor_id": "4_1_1_results.a1",
+            "section": "4.1.1 RESULTS",
+            "quote": "The UNREAL agent, which combines all three auxiliary tasks, achieves more than twice the ﬁnal human-normalised mean performance of A3C, increasing from 54% to 87% (45% to 92% for median performance)."
+          },
+          {
+            "anchor_id": "figure_3.a2",
+            "section": "Figure 3",
+            "quote": ". 87% UNREAL"
+          }
+        ],
+        "reasoning_public": "Metin, tablo ve şekiller arasında sayısal tutarlılık, bir akademik yayının güvenilirliği ve okunabilirliği için temel bir gerekliliktir. Bu tutarlılık, okuyucunun sunulan verileri doğru bir şekilde anlamasına yardımcı olur.",
+        "limitations": [
+          "Tüm sayısal değerlerin tek tek kontrolü yapılmamıştır, ancak ana sonuçlar açısından tutarlılık gözlemlenmiştir."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.8,
+        "title": "Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği",
+        "summary": "Makale, farklı ajan varyantları arasındaki performans farklarını 'yüzde artış' veya 'kat hızlanma' gibi terimlerle ifade etse de, bu etki büyüklükleri için güven aralıkları (confidence intervals) veya diğer belirsizlik ölçüleri raporlanmamıştır. Bu durum, gözlemlenen farkların ne kadar kesin olduğuna dair bilgi eksikliğine yol açmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "Our agent signiﬁcantly outperforms the pre- vious state-of-the-art on Atari, averaging 880% expert human performance, and a challenging suite of ﬁrst-person, three-dimensional Labyrinth tasks leading to a mean speedup in learning of 10× and averaging 87% expert human performance on Labyrinth."
+          },
+          {
+            "anchor_id": "4_1_1_results.a2",
+            "section": "4.1.1 RESULTS",
+            "quote": "The UNREAL agent, which combines all three auxiliary tasks, achieves more than twice the ﬁnal human-normalised mean performance of A3C, increasing from 54% to 87% (45% to 92% for median performance)."
+          }
+        ],
+        "reasoning_public": "Sadece ortalama değerleri veya yüzde değişimleri raporlamak, bir etkinin büyüklüğü hakkında bilgi verse de, bu tahminin ne kadar güvenilir olduğunu göstermez. Güven aralıkları, bir etkinin gerçek değerinin hangi aralıkta olabileceğine dair önemli bir belirsizlik ölçüsü sağlar. Özellikle 'significantly outperforms' gibi iddialar için bu tür belirsizlik ölçüleri kritik öneme sahiptir.",
+        "limitations": [
+          "Makalede güven aralıkları veya diğer belirsizlik ölçüleri raporlanmadığı için, bu bulguya ilişkin kesin bir sayısal kanıt sunulamamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Nedensel Dil Kullanımının Uygunluğu",
+        "summary": "Makale, deneysel bir tasarım kullandığı için 'neden olma' (causal) veya 'etki etme' (affect) gibi nedensel dil kullanımları genel olarak uygundur. Örneğin, yardımcı görevlerin ajan performansını 'iyileştirdiği' veya 'hızlandırdığı' iddiaları, kontrollü deneyler bağlamında geçerlidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "Our agent signiﬁcantly outperforms the pre- vious state-of-the-art on Atari, averaging 880% expert human performance, and a challenging suite of ﬁrst-person, three-dimensional Labyrinth tasks leading to a mean speedup in learning of 10× and averaging 87% expert human performance on Labyrinth."
+          },
+          {
+            "anchor_id": "3_auxiliary_tasks_for_reinforcement_learning.a0",
+            "section": "3 AUXILIARY TASKS FOR REINFORCEMENT LEARNING",
+            "quote": "In this section we incorporate auxiliary tasks into the reinforcement learning framework in order to promote faster training, more robust learning, and ultimately higher performance for our agents."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalarda, bağımsız değişkenlerin bağımlı değişkenler üzerindeki etkisini incelemek amaçlandığından, nedensel dil kullanımı uygun ve beklenen bir durumdur. Bu makale, farklı yardımcı görevlerin UNREAL ajanının performansını nasıl etkilediğini göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reproducibility",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Tekrar Üretilebilirlik İçin Veri/Kod Erişimi Eksikliği",
+        "summary": "Makale, deneylerin tekrar üretilebilirliğini sağlamak için veri veya kod erişimi hakkında açık bir bilgi sunmamaktadır. Yalnızca bir YouTube videosuna bağlantı verilmiştir, ancak bu, metodolojinin tam olarak tekrar üretilmesi için yeterli değildir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "figure_1.a0",
+            "section": "Figure 1",
+            "quote": "Further visualisation of the agent can be found in https://youtu.be/Uz-zGYrYEjA"
+          },
+          {
+            "anchor_id": "4_1_1_results.a3",
+            "section": "4.1.1 RESULTS",
+            "quote": "A video of the ﬁnal agent perfor- mance, as well as visualisations of the activations and auxiliary task outputs can be viewed at https://youtu.be/Uz-zGYrYEjA."
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmaların temel prensiplerinden biri tekrar üretilebilirliktir. Özellikle karmaşık algoritmalar ve deneyler içeren pekiştirmeli öğrenme çalışmalarında, kullanılan kodun ve/veya verilerin erişilebilir olması, diğer araştırmacıların bulguları doğrulaması ve üzerine inşa etmesi için hayati öneme sahiptir. Sadece bir video bağlantısı, metodolojinin detaylarını ve implementasyonunu tam olarak anlamak için yetersizdir.",
+        "limitations": [
+          "Makalede kod veya veri erişimi hakkında doğrudan bir ifade bulunmadığı için, bu bulguya ilişkin kesin bir sayısal kanıt sunulamamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Ana Sonuçların Raporlama Kalitesi",
+        "summary": "Makale, ana sonuçları (örneğin, UNREAL ajanının A3C'ye göre performansı) 'insan normalleştirilmiş skor' ve 'öğrenme hızı' gibi etki büyüklükleriyle sunmaktadır. Ancak, bu etki büyüklükleri için güven aralıkları veya diğer belirsizlik ölçüleri eksiktir, bu da raporlama kalitesini düşürmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "Our agent signiﬁcantly outperforms the pre- vious state-of-the-art on Atari, averaging 880% expert human performance, and a challenging suite of ﬁrst-person, three-dimensional Labyrinth tasks leading to a mean speedup in learning of 10× and averaging 87% expert human performance on Labyrinth."
+          },
+          {
+            "anchor_id": "4_1_1_results.a4",
+            "section": "4.1.1 RESULTS",
+            "quote": "The UNREAL agent, which combines all three auxiliary tasks, achieves more than twice the ﬁnal human-normalised mean performance of A3C, increasing from 54% to 87% (45% to 92% for median performance)."
+          }
+        ],
+        "reasoning_public": "İyi bir raporlama kalitesi, sadece ortalama değerleri değil, aynı zamanda bu tahminlerin belirsizliğini de sunmayı gerektirir. Güven aralıklarının eksikliği, okuyucuların sunulan sonuçların sağlamlığını ve genellenebilirliğini tam olarak değerlendirmesini zorlaştırır. 'Significant' gibi ifadelerin kullanılması, istatistiksel anlamlılığa işaret etse de, etki büyüklüğü ve belirsizlik olmadan tam bir resim sunmaz.",
+        "limitations": [
+          "Makalede güven aralıkları veya diğer belirsizlik ölçüleri raporlanmadığı için, bu bulguya ilişkin kesin bir sayısal kanıt sunulamamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yardımcı Görevlerin Entegrasyonu ile Güçlendirilmiş Öğrenmede Önemli İlerleme",
+        "summary": "Makale, pekiştirmeli öğrenme ajanlarının performansını artırmak için denetimsiz yardımcı görevlerin (piksel kontrolü, ödül tahmini ve değer fonksiyonu tekrarı) entegrasyonunu önererek alana önemli bir katkı sağlamaktadır. Bu entegrasyon, mevcut A3C çerçevesini geliştirerek öğrenme hızında ve nihai performansta belirgin iyileşmeler sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "Our agent signiﬁcantly outperforms the pre- vious state-of-the-art on Atari, averaging 880% expert human performance, and a challenging suite of ﬁrst-person, three-dimensional Labyrinth tasks leading to a mean speedup in learning of 10× and averaging 87% expert human performance on Labyrinth."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "Introduction",
+            "quote": "This paper brings together the state-of-the-art Asynchronous Advantage Actor-Critic (A3C) frame- work (Mnih et al., 2016), outlined in Section 2, with auxiliary control tasks and auxiliary reward tasks, deﬁned in sections Section 3.1 and Section 3.2 respectively. These auxiliary tasks do not re- quire any extra supervision or signals from the environment than the vanilla A3C agent. The result is our UNsupervised REinforcement and Auxiliary Learning (UNREAL) agent (Section 3.4)"
+          }
+        ],
+        "reasoning_public": "Çalışma, pekiştirmeli öğrenmede temsil öğrenimini geliştirmek için yardımcı görevlerin kullanımına yönelik mevcut yaklaşımları bir araya getirerek ve yeni mekanizmalar ekleyerek önemli bir özgünlük sergilemektedir. Özellikle, UNREAL ajanı, Atari ve Labyrinth gibi zorlu ortamlarda önceki en iyi sonuçları önemli ölçüde geride bırakarak, bu entegrasyonun etkinliğini deneysel olarak kanıtlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Temsil Öğrenimi için Yardımcı Görevlerin Yenilikçi Kullanımı",
+        "summary": "Makale, yardımcı görevleri sadece ek hedefler olarak değil, aynı zamanda daha etkili bir temsil öğrenimi için bir araç olarak kullanarak mevcut literatürden ayrışmaktadır. Özellikle, ajanın temel görev için kullandığı evrişimli sinir ağı ve LSTM'yi yardımcı görevlerle paylaşarak, bu görevlerin temsil öğrenimine katkısını vurgulamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "related_work.a0",
+            "section": "RELATED WORK",
+            "quote": "The emphasis here has typically been on the development of temporal abstractions that facilitate high-level learning and planning. In contrast, our agents do not make any direct use of the pseudo-reward maximising policies that they learn (although this is an interesting direction for future research). Instead, they are used solely as auxiliary objectives for developing a more effective representation."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "Introduction",
+            "quote": "Importantly, both the auxiliary control and auxiliary prediction tasks share the convolutional neural network and LSTM that the base agent uses to act. By using this jointly learned representation, the base agent learns to optimise extrinsic reward much faster and, in many cases, achieves better policies at the end of training."
+          }
+        ],
+        "reasoning_public": "Çalışma, yardımcı görevlerin temsil öğrenimi üzerindeki etkisine odaklanarak, bu görevlerin sadece ek ödüller maksimize etmekten öte, ajanın genel öğrenme yeteneğini ve verimliliğini artırma potansiyelini göstermektedir. Bu yaklaşım, pekiştirmeli öğrenmede temsil öğreniminin önemini vurgulayan özgün bir bakış açısı sunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve İyi Tanımlanmış Araştırma Sorusu",
+        "summary": "Makale, pekiştirmeli öğrenme ajanlarının denetimsiz yardımcı görevlerle nasıl daha iyi performans gösterebileceği ve daha hızlı öğrenebileceği üzerine net bir araştırma sorusu sunmaktadır. Çalışmanın tasarımı ve kapsamı bu soruyu doğrudan ele almaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a8",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we introduce an agent that also learns separate policies for maximising many other pseudo-reward functions simultaneously by reinforcement learning. All of these tasks share a common representation that, like unsupervised learning, continues to develop in the absence of extrinsic rewards."
+          },
+          {
+            "anchor_id": "abstract.a9",
+            "section": "ABSTRACT",
+            "quote": "Our agent signiﬁcantly outperforms the pre- vious state-of-the-art on Atari, averaging 880% expert human performance, and a challenging suite of ﬁrst-person, three-dimensional Labyrinth tasks leading to a mean speedup in learning of 10× and averaging 87% expert human performance on Labyrinth."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "Introduction",
+            "quote": "Our hypothesis is that an agent that can ﬂexibly control its future experiences will also be able to achieve any goal with which it is presented, such as maximising its future rewards."
+          }
+        ],
+        "reasoning_public": "Makale, pekiştirmeli öğrenme ajanlarının dışsal ödüllerin yokluğunda veya seyrek olduğu durumlarda nasıl daha etkili bir temsil öğrenebileceği ve bu temsilin ana görevin performansını nasıl artırabileceği sorusuna odaklanmaktadır. Bu soru, yardımcı görevlerin (piksel kontrolü, ödül tahmini) ve deneyim tekrarının kullanımıyla cevaplanabilir bir şekilde formüle edilmiştir. Deneysel kurulum (Atari ve Labyrinth ortamları) ve sunulan sonuçlar (performans artışı, öğrenme hızı) bu araştırma sorusunu doğrudan desteklemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Güçlü ve Tutarlı Teorik Çerçeve",
+        "summary": "Makale, pekiştirmeli öğrenme ve denetimsiz yardımcı görevlerin entegrasyonu için net ve tutarlı bir teorik çerçeve sunmaktadır. Bu çerçeve, temel pekiştirmeli öğrenme paradigmasını, yardımcı görevlerin rolünü ve bunların temsil öğrenimine nasıl katkıda bulunduğunu açıkça tanımlar.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a10",
+            "section": "ABSTRACT",
+            "quote": "Our hypothesis is that an agent that can ﬂexibly control its future experiences will also be able to achieve any goal with which it is presented, such as maximising its future rewards."
+          },
+          {
+            "anchor_id": "background.a0",
+            "section": "BACKGROUND",
+            "quote": "We assume the standard reinforcement learning setting where an agent interacts with an environment over a number of discrete time steps. At time t the agent receives an observation ot along with a reward rt and produces an action at."
+          },
+          {
+            "anchor_id": "3_auxiliary_tasks_for_reinforcement_learning.a1",
+            "section": "3 AUXILIARY TASKS FOR REINFORCEMENT LEARNING",
+            "quote": "In this section we incorporate auxiliary tasks into the reinforcement learning framework in order to promote faster training, more robust learning, and ultimately higher performance for our agents."
+          }
+        ],
+        "reasoning_public": "Makale, pekiştirmeli öğrenmenin temel prensiplerini (değer fonksiyonları, politika gradyanları) açıklayarak başlar ve ardından yardımcı görevlerin bu çerçeveye nasıl entegre edildiğini detaylandırır. Bu, okuyucunun UNREAL ajanının altında yatan motivasyonu ve mekanizmayı anlamasını kolaylaştırır. Teorik çerçeve, sunulan yöntemle doğrudan ilişkilidir ve deneysel sonuçların yorumlanması için sağlam bir temel sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yüksek Sayıda Kaynağın Doğrulanamaması",
+        "summary": "Makalede atıf yapılan 32 kaynaktan 30'unun OpenAlex veya Semantic Scholar gibi akademik indekslerde doğrudan doğrulanamaması, literatür konumlandırmasının şeffaflığını ve doğrulanabilirliğini azaltmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, atıf yapılan kaynakların kolayca erişilebilir ve doğrulanabilir olması, çalışmanın güvenilirliği ve literatürdeki yerinin sağlamlığı açısından önemlidir. Kaynakların büyük çoğunluğunun otomatik indeksleme sistemleri tarafından bulunamaması, okuyucuların ve hakemlerin atıfların doğruluğunu ve bağlamını kontrol etmesini zorlaştırmaktadır. Bu durum, makalenin literatürdeki konumunu değerlendirirken belirsizlik yaratır.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle bazı geçerli kaynakların bulunamamış olabileceği ihtimali bulunmaktadır. Bu durum, özellikle konferans bildirileri veya daha yeni yayınlar için geçerli olabilir."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Genel Performans İddialarının Detay Eksikliği",
+        "summary": "Makale, UNREAL ajanının Atari'de 'önceki en iyi performansı önemli ölçüde geride bıraktığını' iddia etse de, bu iddiayı destekleyen karşılaştırmalı veriler yalnızca 'Prior. Duel Clip DQN' ve 'Duel Clip DQN' gibi belirli yöntemlerle sınırlıdır. 'Önceki en iyi' ifadesi, bu alandaki tüm güncel ve ilgili yöntemleri kapsayacak şekilde yeterince desteklenmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a11",
+            "section": "ABSTRACT",
+            "quote": "Our agent signiﬁcantly outperforms the pre-vious state-of-the-art on Atari, averaging 880% expert human performance"
+          },
+          {
+            "anchor_id": "4.a0",
+            "section": "4",
+            "quote": "Our UNREAL agent also signiﬁcantly outperforms the previous state-of-the-art in the Atari domain."
+          },
+          {
+            "anchor_id": "figure_3.a3",
+            "section": "Figure 3",
+            "quote": "Atari Performance... 880% UNREAL... 861% A3C+RP+VR... 853% A3C... 592% Prior. Duel Clip DQN... 373% Duel Clip DQN... 228% DQN"
+          }
+        ],
+        "reasoning_public": "Bir yöntemin 'önceki en iyi' performansı aştığı iddiası, ilgili literatürdeki en güncel ve rekabetçi yöntemlerle kapsamlı bir karşılaştırma gerektirir. Makalede sunulan veriler, bu geniş iddiayı tam olarak doğrulamak için yeterli değildir ve okuyucuda yanlış bir izlenim yaratabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Labyrinth Ortamının 'Zengin Görseller' İddiası",
+        "summary": "Makale, Labyrinth ortamının 'oldukça zengin görsellere ve daha gerçekçi fiziğe' sahip olduğunu belirtse de, bu iddiayı destekleyecek somut karşılaştırmalı kanıtlar (örneğin, diğer platformlarla görsel karmaşıklık metrikleri veya fizik simülasyon detayları) sunulmamıştır. Yalnızca 'dinamik dokular' ve 'shimmer and pulse' gibi tanımlayıcı ifadelerle yetinilmiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "4_1.a0",
+            "section": "4.1",
+            "quote": "However, in comparison, Labyrinth has considerably richer visuals and more realistic physics. Textures in Labyrinth are often dynamic (animated) so as to convey a game world where walls and ﬂoors shimmer and pulse, adding signiﬁcant complexity to the perceptual task."
+          }
+        ],
+        "reasoning_public": "Bir ortamın 'zengin görsellere' sahip olduğu iddiası, okuyucunun sübjektif yorumuna bırakılmamalıdır. Bu tür bir iddia, diğer benzer platformlarla (VizDoom, Minecraft gibi) karşılaştırmalı örnekler, görsel karmaşıklık ölçütleri veya fizik motoru detayları gibi somut kanıtlarla desteklenmelidir.",
+        "limitations": [],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "UNREAL Ajanının Labyrinth Performans İddialarının Güçlü Desteği",
+        "summary": "Makale, UNREAL ajanının Labyrinth ortamında A3C'ye kıyasla 'iki katından fazla' performans artışı sağladığı ve öğrenme hızında '10 kat hızlanma' gösterdiği iddialarını, detaylı grafikler (Şekil 3) ve spesifik yüzdelik değerlerle (54%'ten 87%'ye artış) güçlü bir şekilde desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a12",
+            "section": "ABSTRACT",
+            "quote": "Our agent signiﬁcantly outperforms the pre-vious state-of-the-art on Atari, averaging 880% expert human performance, and a challenging suite of ﬁrst-person, three-dimensional Labyrinth tasks leading to a mean speedup in learning of 10× and averaging 87% expert human performance on Labyrinth."
+          },
+          {
+            "anchor_id": "4.a1",
+            "section": "4",
+            "quote": "The result is an agent which on average achieves 87% of expert human-normalised score, compared to 54% with A3C, and on average 10× faster than A3C."
+          },
+          {
+            "anchor_id": "4_1_1.a0",
+            "section": "4.1.1",
+            "quote": "The UNREAL agent, which combines all three auxiliary tasks, achieves more than twice the ﬁnal human-normalised mean performance of A3C, increasing from 54% to 87% (45% to 92% for median performance)."
+          },
+          {
+            "anchor_id": "figure_3.a4",
+            "section": "Figure 3",
+            "quote": "Labyrinth Performance... 87% UNREAL... 54% A3C"
+          }
+        ],
+        "reasoning_public": "Performans artışı ve hızlanma gibi nicel iddialar, açıkça sunulan grafikler ve sayısal verilerle desteklendiğinde, makalenin güvenilirliğini ve bulgularının sağlamlığını artırır. Bu, iddia-kanıt uyumunun iyi bir örneğidir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Yüksek Oranda Çözülemeyen Atıf",
+        "summary": "Makaledeki 32 referanstan 30'u (%93.75) OpenAlex veya Semantic Scholar indekslerinde başlık, yazar ve yıl bilgileriyle güçlü bir eşleşme bulunamadığı için çözülememiştir. Bu durum, makalede atıfta bulunulan çalışmaların doğrulanabilirliğini ve erişilebilirliğini ciddi şekilde etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik yayınlarda atıfların doğruluğu ve erişilebilirliği temel bir beklentidir. Okuyucuların ve hakemlerin atıfta bulunulan kaynakları kolayca bulup inceleyebilmesi, makalenin argümanlarının ve bulgularının sağlamlığını değerlendirmek için kritik öneme sahiptir. Referansların büyük çoğunluğunun otomatik indekslerde bulunamaması, makalenin şeffaflığını ve bilimsel topluluk içindeki etkileşimini olumsuz etkileyebilir.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin kapsam sınırlamaları nedeniyle bazı geçerli yayınların bulunamaması mümkündür. Ancak bu kadar yüksek bir oranın (32'de 30) sadece indeks kapsamıyla açıklanması zordur.",
+          "Severity kanıtsızlık nedeniyle 'moderate'e indirildi: citation_integrity/literature_positioning'de critical/major severity fabricated/retracted/contradicted kanıtı gerektirir (bu makalede EvidencePack'te yok) — motor 'bulunamayan (not_found_in_index) asla suçlama değil' kuralını (HK-3) kod-seviyesinde, LLM'in metin-uyumuna bel bağlamadan uyguluyor."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0",
+          "citation_integrity.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Belirtilen Raporlama Kılavuzuna Uyum Eksikliği",
+        "summary": "Makale, deneysel bir çalışma olmasına rağmen, kullanılan bir raporlama kılavuzundan (örn. CONSORT, PRISMA) bahsedilmemiştir. Bu durum, çalışmanın şeffaflığını ve tekrarlanabilirliğini olumsuz etkileyebilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda, özellikle deneysel araştırmalarda, belirli raporlama kılavuzlarına uyum, çalışmanın metodolojisinin, sonuçlarının ve tartışmalarının şeffaf ve eksiksiz bir şekilde sunulmasını sağlar. Bu kılavuzlar, okuyucuların çalışmayı anlamasını, değerlendirmesini ve tekrarlamasını kolaylaştırır. Bir kılavuzdan bahsedilmemesi, çalışmanın bu standartlara ne ölçüde uyduğunu belirsiz bırakır.",
+        "limitations": [
+          "Makine öğrenimi alanında standart bir raporlama kılavuzunun yaygınlığı ve zorunluluğu hakkında kesin bilgiye sahip değilim. Bu nedenle, bu bulgunun ağırlığı, alanın kendi normlarına göre değişebilir."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Metodoloji Detaylarının Yeterli Sunumu",
+        "summary": "Makale, deneylerin kurulumu, kullanılan algoritmalar ve parametreler hakkında önemli detayları 'Section B' gibi ek bölümlere atıfta bulunarak yeterli düzeyde sunmaktadır. Bu, çalışmanın tekrarlanabilirliği açısından olumlu bir yaklaşımdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "Experiments",
+            "quote": "The full implementation details can be found in Section B."
+          }
+        ],
+        "reasoning_public": "Deneysel çalışmalarda, metodolojik detayların eksiksiz ve anlaşılır bir şekilde sunulması, okuyucuların deneyleri tekrarlayabilmesi ve sonuçları doğrulayabilmesi için kritik öneme sahiptir. Makalenin, 'The full implementation details can be found in Section B' gibi ifadelerle ek bilgilere yönlendirmesi, bu şeffaflık ilkesine uygun olduğunu göstermektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Kod ve Veri Paylaşımının Eksikliği",
+        "summary": "Makale, deneylerde kullanılan kod veya veri setlerinin kamuya açık olup olmadığına dair herhangi bir bilgi sunmamaktadır. Bu durum, araştırmanın tekrarlanabilirliğini ve şeffaflığını olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Bilimsel araştırmalarda tekrarlanabilirlik, bulguların güvenilirliğini ve doğrulanabilirliğini sağlamak için kritik öneme sahiptir. Özellikle derin öğrenme gibi karmaşık alanlarda, kullanılan kod ve veri setlerinin paylaşılması, diğer araştırmacıların sonuçları bağımsız olarak doğrulamasına ve üzerine inşa etmesine olanak tanır. Bu eksiklik, makalenin bilimsel etkisini ve güvenilirliğini azaltmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "ethics_reproducibility.f0.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Deney Ortamlarının Açıklığı",
+        "summary": "Makale, Labyrinth ve Atari ortamları gibi deney platformlarını ve bunların nasıl kullanıldığını detaylı bir şekilde açıklamaktadır. Bu, diğer araştırmacıların deney ortamını yeniden oluşturmasına yardımcı olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a1",
+            "section": "EXPERIMENTS",
+            "quote": "In this section we give the results of experiments performed on the 3D environment Labyrinth in Section 4.1 and Atari in Section 4.2."
+          },
+          {
+            "anchor_id": "labyrinth_results.a0",
+            "section": "LABYRINTH RESULTS",
+            "quote": "Labyrinth (see Figure 2) is a ﬁrst-person 3D game platform extended from OpenArena (contributors, 2005), which is itself based on Quake3 (id software, 1999)."
+          }
+        ],
+        "reasoning_public": "Deney ortamlarının net bir şekilde tanımlanması, araştırmanın tekrarlanabilirliği için önemlidir. Makalede Labyrinth'in OpenArena/Quake3 tabanlı olduğu ve Atari ortamlarının kullanıldığı belirtilerek, bu konuda iyi bir temel sağlanmıştır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f2",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Hiperparametre Detaylarının Sağlanması",
+        "summary": "Makale, deneylerde kullanılan hiperparametreler ve eğitim detayları hakkında bilgi vermektedir, bu da sonuçların tekrarlanabilirliğine katkıda bulunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a2",
+            "section": "EXPERIMENTS",
+            "quote": "The full implementation details can be found in Section B."
+          }
+        ],
+        "reasoning_public": "Derin öğrenme araştırmalarında hiperparametre seçimi sonuçları büyük ölçüde etkileyebilir. Bu detayların sağlanması, diğer araştırmacıların aynı koşullar altında deneyleri tekrarlamasına olanak tanır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıklı Bölüm Akışı ve Net Başlıklar",
+        "summary": "Makale, girişten sonuç bölümüne kadar mantıklı bir akışa sahip olup, her bölümün başlığı içeriğini net bir şekilde yansıtmaktadır. Bu durum, okuyucunun makaleyi takip etmesini kolaylaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a13",
+            "section": "ABSTRACT",
+            "quote": "Deep reinforcement learning agents have achieved state-of-the-art results by directly maximising cumulative reward. However, environments contain a much wider variety of possible training signals. In this paper, we introduce an agent that also learns separate policies for maximising many other pseudo-reward functions simultaneously by reinforcement learning."
+          },
+          {
+            "anchor_id": "related_work.a1",
+            "section": "RELATED WORK",
+            "quote": "A variety of reinforcement learning architectures have focused on learning temporal abstractions, such as options (Sutton et al., 1999b), with policies that may maximise pseudo-rewards (Konidaris & Barreto, 2009; Silver & Ciosek, 2012)."
+          },
+          {
+            "anchor_id": "background.a1",
+            "section": "BACKGROUND",
+            "quote": "We assume the standard reinforcement learning setting where an agent interacts with an environment over a number of discrete time steps. At time t the agent receives an observation ot along with a reward rt and produces an action at."
+          }
+        ],
+        "reasoning_public": "Makalenin bölümleri (ABSTRACT, RELATED WORK, BACKGROUND, RESULTS, CONCLUSION, ACKNOWLEDGEMENTS, REFERENCES) standart akademik bir yapıyı takip etmekte ve her bir başlık altında sunulan bilgiler, başlığın vaat ettiği içeriği karşılamaktadır. Bu düzen, okuyucunun konuyu adım adım anlamasına yardımcı olur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Açık ve Anlaşılır Dil Kullanımı",
+        "summary": "Makale genelinde teknik konuların karmaşıklığına rağmen açık ve anlaşılır bir dil kullanılmıştır. Bu durum, konuya aşina olmayan okuyucuların bile temel kavramları kavramasına yardımcı olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a14",
+            "section": "ABSTRACT",
+            "quote": "Our hypothesis is that an agent that can ﬂexibly control its future experiences will also be able to achieve any goal with which it is presented, such as maximising its future rewards."
+          },
+          {
+            "anchor_id": "abstract.a15",
+            "section": "ABSTRACT",
+            "quote": "Consider a baby that learns to maximise the cumulative amount of red that it observes. To correctly predict the optimal value, the baby must understand how to increase “redness” by various means, including manipulation (bringing a red object closer to the eyes); locomotion (moving in front of a red object); and communication (crying until the parents bring a red object)."
+          }
+        ],
+        "reasoning_public": "Yazarlar, karmaşık pekiştirmeli öğrenme kavramlarını açıklarken gereksiz jargondan kaçınmış ve örneklerle desteklemişlerdir. Örneğin, 'bebek' metaforu, yardımcı görevlerin sezgisel faydasını açıklamak için etkili bir şekilde kullanılmıştır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Görsel Desteklerin Etkin Kullanımı",
+        "summary": "Makalede, karmaşık mimariyi ve deney sonuçlarını açıklamak için şekiller (Figure 1, Figure 2, Figure 3) etkin bir şekilde kullanılmıştır. Bu görseller, metnin anlaşılırlığını artırmakta ve okuyucunun bilgiyi daha kolay işlemesine olanak tanımaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a16",
+            "section": "ABSTRACT",
+            "quote": "Figure 1: Overview of the UNREAL agent. (a) The base agent is a CNN-LSTM agent trained on-policy with the A3C loss (Mnih et al., 2016). Observations, rewards, and actions are stored in a small replay buffer which encapsulates a short history of agent experience."
+          },
+          {
+            "anchor_id": "experiments.a3",
+            "section": "EXPERIMENTS",
+            "quote": "Figure 3: An overview of performance averaged across all levels on Labyrinth (Top) and Atari (Bottom). In the ablated versions RP is reward prediction, VR is value function replay, and PC is pixel control, with the UNREAL agent being the combination of all."
+          }
+        ],
+        "reasoning_public": "Figure 1, UNREAL ajanının genel mimarisini ve yardımcı görevlerin nasıl entegre edildiğini görsel olarak özetleyerek metindeki açıklamaları desteklemektedir. Figure 3 ise deney sonuçlarını ve farklı ajanların performans karşılaştırmalarını net bir şekilde sunmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Yüksek Etkili Konferans ve Dergi Kapsamına Uygunluk",
+        "summary": "Makale, derin takviyeli öğrenme alanındaki güncel ve önemli bir problem olan yardımcı görevlerle öğrenmeyi ele almaktadır. Sunulan yöntem (UNREAL), Atari ve Labyrinth gibi zorlu ortamlarda önceki en iyi sonuçları önemli ölçüde aşarak, alan için kayda değer bir ilerleme sunmaktadır. Bu, makalenin önde gelen yapay zeka ve makine öğrenimi konferansları veya dergileri için uygun olduğunu göstermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a17",
+            "section": "ABSTRACT",
+            "quote": "Our agent signiﬁcantly outperforms the pre- vious state-of-the-art on Atari, averaging 880% expert human performance, and a challenging suite of ﬁrst-person, three-dimensional Labyrinth tasks leading to a mean speedup in learning of 10× and averaging 87% expert human performance on Labyrinth."
+          },
+          {
+            "anchor_id": "abstract.a18",
+            "section": "ABSTRACT",
+            "quote": "In this paper, we introduce an agent that also learns separate policies for maximising many other pseudo-reward functions simultaneously by reinforcement learning. All of these tasks share a common rep- resentation that, like unsupervised learning, continues to develop in the absence of extrinsic rewards."
+          }
+        ],
+        "reasoning_public": "Makale, derin takviyeli öğrenme alanında önemli bir araştırma problemine (yardımcı görevlerle öğrenme) odaklanmakta ve bu alandaki mevcut en iyi performansı önemli ölçüde geliştiren yeni bir yöntem (UNREAL) sunmaktadır. Deneysel sonuçlar, yöntemin hem Atari hem de Labyrinth gibi zorlu platformlarda üstün performans gösterdiğini kanıtlamaktadır. Bu tür yenilikçi yaklaşımlar ve güçlü deneysel kanıtlar, genellikle yüksek etkili akademik yayınlar tarafından aranır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P0",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların tam ve doğru bibliyografik bilgilerini (yazar, yıl, başlık, yayın yeri, DOI/URL gibi) kontrol edin ve eksik veya hatalı olanları düzeltin. Özellikle 'not_found_in_index' olarak işaretlenen referanslar için bu kontrol kritik öneme sahiptir.",
+        "acceptance_check": "Tüm referansların OpenAlex veya Semantic Scholar gibi akademik indekslerde kolayca bulunabilir ve doğrulanabilir olması.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ABSTRACT, 4, Figure 3",
+        "instruction": "Atari sonuçları bölümünde (veya ilgili özetlerde), 'önceki en iyi' ifadesini daha spesifik hale getirin veya bu iddiayı destekleyecek daha geniş bir karşılaştırmalı analiz sunun. Örneğin, 'belirli DQN tabanlı yöntemlere kıyasla' gibi bir ifade kullanılabilir.",
+        "acceptance_check": "İddianın kapsamı ile sunulan kanıtın kapsamı arasında net bir uyum sağlanmış olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4 EXPERIMENTS",
+        "instruction": "Deneylerde kullanılan ajan sayısı, her bir koşul için yapılan tekrar sayısı ve hiperparametre taramasının detayları (örneğin, kaç farklı hiperparametre kombinasyonunun denendiği) açıkça belirtilmelidir.",
+        "acceptance_check": "Deney kurulumu ve örneklem büyüklüğü ile ilgili tüm detaylar 'Experiments' bölümünde yer alıyor mu?",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4.1.1 RESULTS",
+        "instruction": "Farklı ajan varyantları arasındaki performans farklarını değerlendirmek için hangi istatistiksel testlerin (örneğin, t-testleri, ANOVA, non-parametrik testler) kullanıldığı açıkça belirtilmelidir.",
+        "acceptance_check": "Kullanılan istatistiksel testler 'Results' bölümünde açıkça belirtilmiş mi?",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4.1.1 RESULTS",
+        "instruction": "Raporlanan tüm performans skorları (ortalama insan normalleştirilmiş skorlar, öğrenme hızı artışları) için güven aralıkları (örneğin, %95 güven aralığı) eklenmelidir. Bu, okuyucuların sonuçların kesinliğini değerlendirmesine olanak tanır.",
+        "acceptance_check": "Tüm ana performans ölçütleri için güven aralıkları raporlanmış mı?",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P0",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "4.1.1 RESULTS",
+        "instruction": "Ana sonuçlar bölümünde raporlanan tüm etki büyüklükleri (örneğin, performans artışları, hızlanma faktörleri) için güven aralıkları eklenmelidir. Bu, sonuçların istatistiksel sağlamlığını ve pratik önemini daha iyi yansıtacaktır.",
+        "acceptance_check": "Ana sonuçlar için etki büyüklükleri ve güven aralıkları raporlanmış mı?",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a1",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Eğer bazı referanslar arXiv, workshop bildirileri veya İngilizce dışı yayınlar gibi daha niş kaynaklarsa, bu durumu referans listesinde veya metin içinde belirterek okuyuculara ek bağlam sağlayın. Bu, bulunamama durumunun nedenini açıklayabilir.",
+        "acceptance_check": "Niş kaynakların açıkça belirtilmesi ve okuyucunun bu kaynaklara erişimini kolaylaştıracak ek bilgilerin sağlanması.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "4.1",
+        "instruction": "Labyrinth ortamının görsel ve fiziksel zenginliğini desteklemek için daha somut ve ölçülebilir kanıtlar ekleyin. Bu, diğer platformlarla karşılaştırmalı örnekler, teknik detaylar veya görsel karmaşıklığı gösteren ek figürler olabilir.",
+        "acceptance_check": "Ortamın görsel/fiziksel özelliklerine dair iddialar, somut ve doğrulanabilir bilgilerle desteklenmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f1"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ACKNOWLEDGEMENTS veya yeni bir 'Data and Code Availability' bölümü",
+        "instruction": "Makaleye, deneylerde kullanılan kodların (örn. GitHub deposu linki) ve veri setlerinin (eğer özel değilse) erişilebilirliğini belirten bir bölüm eklenmelidir. Eğer veri setleri veya kodlar paylaşılamıyorsa, bunun nedenleri açıklanmalıdır.",
+        "acceptance_check": "Makalede kod ve veri paylaşımına ilişkin açık bir ifade veya erişim bilgisi bulunmalıdır.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f0"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Bulunamayan referanslar için DOI, arXiv bağlantısı veya tam yayın bilgileri gibi daha spesifik tanımlayıcılar eklenmelidir. Özellikle 'not_found_in_index' olarak işaretlenen referansların (örn. [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [14], [15], [16], [17], [18], [19], [20], [21], [23], [24], [25], [26], [27], [28], [29], [30], [31], [32]) güncel ve erişilebilir versiyonları sağlanmalıdır.",
+        "acceptance_check": "Referans listesindeki 'not_found_in_index' olarak belirtilen kaynakların en az %80'i için DOI veya benzeri kalıcı tanımlayıcılar eklenmiş olmalı ve bu tanımlayıcılar aracılığıyla kaynaklara erişim sağlanabilmelidir.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a1",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "4 EXPERIMENTS",
+        "instruction": "Eğer mümkünse, elde edilen performans farklarının istatistiksel gücünü değerlendirmek için bir güç analizi veya hassasiyet gerekçesi sunulmalıdır. Alternatif olarak, sonuçların sağlamlığını göstermek için istatistiksel testlerin (örneğin, t-testleri veya ANOVA) sonuçları raporlanmalıdır.",
+        "acceptance_check": "İstatistiksel güç veya hassasiyet gerekçesi sunulmuş veya istatistiksel test sonuçları raporlanmış mı?",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a1",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "4.1.1 RESULTS",
+        "instruction": "Kullanılan istatistiksel testlerin varsayımlarının (örneğin, normallik, varyans homojenliği) nasıl kontrol edildiği ve bu varsayımların karşılanıp karşılanmadığına dair bilgi eklenmelidir. Varsayımlar karşılanmıyorsa, uygun alternatif testler (örneğin, non-parametrik testler) kullanılmalıdır.",
+        "acceptance_check": "İstatistiksel test varsayımlarının kontrolü ve sonuçları raporlanmış mı?",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "ACKNOWLEDGEMENTS",
+        "instruction": "Deneylerde kullanılan kodun (örneğin, GitHub deposu) ve/veya veri setlerinin (eğer varsa) erişilebilirliğini sağlamak için bir bağlantı veya açıklama eklenmelidir. Bu, araştırmanın şeffaflığını ve tekrar üretilebilirliğini artıracaktır.",
+        "acceptance_check": "Kod veya veri erişimi için bir bağlantı veya açıklama eklenmiş mi?",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "Introduction, Methods, or Discussion",
+        "instruction": "Makalenin deneysel yapısına uygun bir raporlama kılavuzunun (örneğin, makine öğrenimi deneyleri için özel bir kılavuz varsa o, yoksa genel deneysel çalışma kılavuzları) kullanılıp kullanılmadığını belirtin. Eğer kullanıldıysa, hangi kılavuzun kullanıldığını ve çalışmanın bu kılavuza nasıl uyduğunu açıklayın. Eğer kullanılmadıysa, çalışmanın şeffaflığını artırmak için gelecekteki çalışmalarda bu tür kılavuzlara uyumun önemini tartışın.",
+        "acceptance_check": "Makalede kullanılan raporlama kılavuzunun adı ve uyum düzeyi hakkında bir açıklama eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f0"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genel Performans İddialarının Detay Eksikliği; İstatistiksel Test Seçimi ve Varsayımların Belirsizliği; Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Metin ve Şekil Arasındaki Sayısal Tutarlılık; Ana Sonuçların Raporlama Kalitesi",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a10",
+          "abstract.a11",
+          "abstract.a12",
+          "abstract.a13",
+          "abstract.a14",
+          "abstract.a15",
+          "abstract.a16",
+          "abstract.a17",
+          "abstract.a18",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7",
+          "abstract.a8",
+          "abstract.a9"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "quant.f3.a0",
+          "quant.f3.a1",
+          "quant.f5.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "related_work.a0",
+          "related_work.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "BACKGROUND",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "background.a0",
+          "background.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "RESULTS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSION",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "ACKNOWLEDGEMENTS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "3 AUXILIARY TASKS FOR REINFORCEMENT LEARNING",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_auxiliary_tasks_for_reinforcement_learning.a0",
+          "3_auxiliary_tasks_for_reinforcement_learning.a1"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genel Performans İddialarının Detay Eksikliği",
+        "anchor_ids": [
+          "4.a0",
+          "4.a1"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ]
+      },
+      {
+        "section": "4 EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_experiments.a0",
+          "4_experiments.a1"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f1.a1"
+        ]
+      },
+      {
+        "section": "4.1",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Labyrinth Ortamının 'Zengin Görseller' İddiası",
+        "anchor_ids": [
+          "4_1.a0"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f1.a0"
+        ]
+      },
+      {
+        "section": "4.1.1",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "4_1_1.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "4.1.1 RESULTS",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "İstatistiksel Test Seçimi ve Varsayımların Belirsizliği; Etki Büyüklüğü ve Belirsizlik Ölçülerinin Eksikliği; Metin ve Şekil Arasındaki Sayısal Tutarlılık; Tekrar Üretilebilirlik İçin Veri/Kod Erişimi Eksikliği; Ana Sonuçların Raporlama Kalitesi",
+        "anchor_ids": [
+          "4_1_1_results.a0",
+          "4_1_1_results.a1",
+          "4_1_1_results.a2",
+          "4_1_1_results.a3",
+          "4_1_1_results.a4"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f3.a1",
+          "quant.f5.a0",
+          "quant.f7.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "Experiments",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "experiments.a0",
+          "experiments.a1",
+          "experiments.a2",
+          "experiments.a3"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Figure 1",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Tekrar Üretilebilirlik İçin Veri/Kod Erişimi Eksikliği",
+        "anchor_ids": [
+          "figure_1.a0"
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ]
+      },
+      {
+        "section": "Figure 3",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Genel Performans İddialarının Detay Eksikliği; Metin ve Şekil Arasındaki Sayısal Tutarlılık",
+        "anchor_ids": [
+          "figure_3.a0",
+          "figure_3.a1",
+          "figure_3.a2",
+          "figure_3.a3",
+          "figure_3.a4"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "quant.f1.a0",
+          "quant.f1.a1"
+        ]
+      },
+      {
+        "section": "Introduction",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "LABYRINTH RESULTS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "labyrinth_results.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

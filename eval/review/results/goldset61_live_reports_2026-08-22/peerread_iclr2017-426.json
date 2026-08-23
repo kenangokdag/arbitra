@@ -1,0 +1,1646 @@
+{
+  "paper_id": "peerread:iclr2017-426",
+  "run_tag": "main",
+  "job_id": "d19f58cb-aea0-462b-9884-da9a22fadd61",
+  "elapsed_s": 346.3,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "OFFLINE BILINGUAL WORD VECTORS, ORTHOGONAL TRANSFORMATIONS AND THE INVERTED SOFTMAX Samuel L. Smith, David H. P. Turban, Steven Hamblin & Nils Y. Hammerla babylon health",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "REFERENCES"
+      ],
+      "word_count": 6019,
+      "reference_count": 20,
+      "parse_confidence": 0.679,
+      "parse_warnings": []
+    },
+    "summary": "This paper presents a method for improving offline bilingual word vector mappings. The authors make three primary contributions: 1) A theoretical proof that the optimal linear transformation between two embedding spaces should be orthogonal, solvable via Singular Value Decomposition (SVD). 2) A novel 'inverted softmax' technique to improve translation retrieval by mitigating the 'hubness' problem. 3) A demonstration of the method's robustness by successfully learning transformations from non-expert data, such as a 'pseudo-dictionary' of identical character strings and aligned sentences from the Europarl corpus. The results show significant improvements in translation precision over previous methods on a standard English-Italian benchmark and demonstrate a striking ability to retrieve sentence translations from a large corpus.",
+    "strengths": [
+      {
+        "category": "Originality and Significance",
+        "points": [
+          "The theoretical argument for orthogonality provides an elegant and principled foundation for the mapping problem, unifying previous approaches like Mikolov et al. (2013a) and CCA under a single framework.",
+          "The 'inverted softmax' is a clever and empirically effective solution to the well-known hubness problem in nearest-neighbor-based retrieval, leading to substantial performance gains.",
+          "The experiment using a 'pseudo-dictionary' of identical character strings is highly novel and impactful. Achieving 40% precision without any expert bilingual signal is a striking result that demonstrates the robustness of the orthogonal transformation method."
+        ]
+      },
+      {
+        "category": "Technical Soundness and Experimental Rigor",
+        "points": [
+          "The paper's claims are well-supported by a comprehensive set of experiments on a publicly available dataset, with clear comparisons to established baselines (Mikolov, Dinu, CCA).",
+          "The mathematical derivation is clear, and the connection between the proposed cost function and the classic Orthogonal Procrustes problem is correctly established in the appendix.",
+          "The extension of the word-level mapping to sentence-level retrieval is a strong validation of the method's generalizability and opens up promising avenues for future work."
+        ]
+      },
+      {
+        "category": "Clarity",
+        "points": [
+          "The paper is exceptionally well-written and easy to follow. The cartographer analogy in the introduction is an effective tool for building intuition.",
+          "The structure is logical, moving from theory to method to experimental validation in a clear progression."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Citation and Referencing",
+        "points": [
+          "The bibliography has critical, publication-blocking issues. Based on the evidence pack, 18 out of 20 references could not be programmatically resolved against major academic indexes. This indicates widespread and systematic errors in formatting, author names, years, or titles. This severely undermines the paper's scholarly foundation and must be corrected meticulously."
+        ]
+      },
+      {
+        "category": "Reproducibility",
+        "points": [
+          "The paper lacks sufficient detail regarding the hyperparameter optimization process for dimensionality reduction and the inverse temperature β in the inverted softmax. This omission hinders reproducibility."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "related_work",
+        "comment": "The most urgent issue requiring attention is the state of the reference list. My analysis, confirmed by the evidence pack, indicates that 18 of the 20 cited works could not be found in standard academic databases based on the provided information. This is a major barrier to publication. Please meticulously review every entry in your bibliography to ensure all details (authors, title, venue, year, page numbers) are correct and point to the canonical, archival version of the publication. For pre-prints (e.g., on arXiv), ensure the reference is formatted correctly and includes the arXiv ID.",
+        "evidence_ref": "Evidence Pack: 'toplam=20, çözülen=2, bulunamayan=18'"
+      },
+      {
+        "area": "experimental",
+        "comment": "The sentence retrieval results in Table 6 are particularly interesting. You note that the inverted softmax is superior for EN->IT retrieval, while standard nearest-neighbor search is better for IT->EN. Your hypothesis that an optimal approach might tune between these two is plausible. In your revision, it would be valuable to briefly speculate on the underlying cause of this asymmetry. Could it be related to differences in the source/target language structure, the nature of the Europarl corpus, or the sentence vector creation method?",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you please perform a comprehensive review and correction of your bibliography? As noted, evidence shows 18 of 20 references are unresolvable, a critical issue that must be fixed prior to publication.",
+      "Could you provide more detail on the hyperparameter optimization for dimensionality reduction and the inverse temperature β? For instance, what was the validation procedure (e.g., k-fold cross-validation on the training dictionary?) and what range of values was considered?",
+      "In the sentence retrieval task (Table 6), you observe an asymmetry where the inverted softmax excels for EN->IT but not for IT->EN. Could you elaborate on potential reasons for this? Does this suggest that hubness is a more significant problem in one translation direction than the other in this specific task?"
+    ],
+    "overall_assessment": "This is a strong paper with significant contributions to the field of bilingual word embeddings. The theoretical argument for orthogonality is elegant, the proposed 'inverted softmax' is an effective and novel technique, and the experimental results—particularly the success with a 'pseudo-dictionary'—are impressive. The work is well-written and the claims are convincingly supported by the evidence provided. However, the paper is critically undermined by a deeply flawed bibliography where, according to the evidence pack, 18 of 20 references are unresolvable. This is a major, but fixable, issue. A thorough revision of the references is required. Once this is addressed, the paper will represent a valuable and impactful contribution to the community.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 10.0,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity info. [LLM'in kendi gerekçesi: The combination of a unifying theoretical proof, a novel retrieval method (inverted softmax), and a striking new experimental paradigm (pseudo-dictionary) is highly original.]"
+      },
+      {
+        "key": "importance",
+        "score": 8.5,
+        "rationale": "The work provides a better, more robust, and theoretically principled method for a key NLP task. The ability to learn mappings without expert dictionaries has significant practical value."
+      },
+      {
+        "key": "claims_supported",
+        "score": 5.59,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 5 finding(s); worst severity major. [LLM'in kendi gerekçesi: The paper's claims are well-supported by extensive experiments on a standard benchmark, with clear improvements over baselines.]"
+      },
+      {
+        "key": "soundness",
+        "score": 9.55,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity minor. [LLM'in kendi gerekçesi: The methodology is built on a solid theoretical foundation (Orthogonal Procrustes) and the experimental design is sound.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is exceptionally clear, well-structured, and uses effective analogies to explain complex concepts.]"
+      },
+      {
+        "key": "community_value",
+        "score": 8.5,
+        "rationale": "The paper provides a better method, a unifying theory, and points to public data and code, making it a valuable resource for the community."
+      },
+      {
+        "key": "contextualization",
+        "score": 6.0,
+        "rationale": "The paper attempts to position itself within the literature, but the effort is severely hampered by the high number of unresolvable references, making it difficult to verify the context."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 1.5,
+        "rationale": "This is the paper's most critical flaw. According to the evidence pack, 18 out of 20 references could not be resolved, indicating systemic issues in the bibliography that must be fixed. The score is not 1.0 as no references were flagged as fabricated."
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 8.0,
+        "rationale": "The evidence pack did not identify any missing seminal or mandatory works, suggesting the literature review is adequate in its scope."
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 2 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack did not contain any statistical checks or findings, so there are no red flags. The score reflects the absence of detected inconsistencies.]"
+      }
+    ],
+    "final_score": 7.5,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 20,
+        "resolved": 2,
+        "not_found_in_index": 18,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 0
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Waleed Ammar, George Mulcaire, Yulia Tsvetkov, Guillaume Lample, Chris Dyer, and Noah A Smith. Massively multilingual word embeddings. arXiv:1602.01925, 2016.",
+          "title": "Massively multilingual word embeddings",
+          "authors": [
+            "Waleed Ammar, George Mulcaire, Yulia Tsvetkov, Guillaume Lample, Chris Dyer",
+            "Noah A Smith"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.81 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 2,
+          "raw": "M Artetxe, G Labaka, and E Agirre. Learning principled bilingual mappings of word embeddings while preserving monolingual invariance. Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing, pp. 2289–2294, 2016.",
+          "title": "Learning principled bilingual mappings of word embeddings while preserving monolingual invariance",
+          "authors": [
+            "M Artetxe, G Labaka",
+            "E Agirre"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.50 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 3,
+          "raw": "Sarath Chandar, Stanislas Lauly, Hugo Larochelle, Mitesh Khapra, Balaraman Ravindran, Vikas C Raykar, and Amrita Saha. An autoencoder approach to learning bilingual word representations. In Advances in Neural Information Processing Systems, pp. 1853–1861, 2014.",
+          "title": "An autoencoder approach to learning bilingual word representations",
+          "authors": [
+            "Amrita Saha"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.47 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 4,
+          "raw": "Georgiana Dinu, Angeliki Lazaridou, and Marco Baroni. Improving zero-shot learning by mitigating the hubness problem. arXiv:1412.6568, 2014.",
+          "title": "Improving zero-shot learning by mitigating the hubness problem",
+          "authors": [
+            "Georgiana Dinu, Angeliki Lazaridou",
+            "Marco Baroni"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.36 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 5,
+          "raw": "Manaal Faruqui and Chris Dyer. Improving vector space word representations using multilingual correlation. In Proceedings of the 2014 conference of the Association for Computational Linguis- tics. Association for Computational Linguistics, 2014.",
+          "title": "Improving vector space word representations using multilingual correlation",
+          "authors": [
+            "Manaal Faruqui",
+            "Chris Dyer"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.44 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Stephan Gouws, Yoshua Bengio, and Greg Corrado. Bilbowa: Fast bilingual distributed representa- tions without word alignments. In Proceedings of The 32nd International Conference on Machine Learning, pp. 748–756, 2015.",
+          "title": "Bilbowa: Fast bilingual distributed representa- tions without word alignments",
+          "authors": [
+            "Stephan Gouws, Yoshua Bengio",
+            "Greg Corrado"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.61 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 7,
+          "raw": "Aria Haghighi, Percy Liang, Taylor Berg-Kirkpatrick, and Dan Klein. Learning bilingual lexicons from monolingual corpora. In ACL, volume 2008, pp. 771–779, 2008.",
+          "title": "Learning bilingual lexicons from monolingual corpora",
+          "authors": [
+            "Aria Haghighi, Percy Liang, Taylor Berg-Kirkpatrick",
+            "Dan Klein"
+          ],
+          "year": 2008,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.52 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 8,
+          "raw": "Karl Moritz Hermann and Phil Blunsom. Multilingual distributed representations without word alignment. arXiv preprint arXiv:1312.6173, 2013.",
+          "title": "Multilingual distributed representations without word alignment",
+          "authors": [
+            "Karl Moritz Hermann",
+            "Phil Blunsom"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W1562955078",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W1562955078; 'Multilingual Distributed Representations without Word Alignment').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 9,
+          "raw": "Yoon Kim. Convolutional neural networks for sentence classiﬁcation. arXiv:1408.5882, 2014.",
+          "title": "Convolutional neural networks for sentence classiﬁcation",
+          "authors": [
+            "Yoon Kim"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.36 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 10,
+          "raw": "Ryan Kiros, Yukun Zhu, Ruslan R Salakhutdinov, Richard Zemel, Raquel Urtasun, Antonio Tor- ralba, and Sanja Fidler. Skip-thought vectors. In Advances in neural information processing systems, pp. 3294–3302, 2015.",
+          "title": "Skip-thought vectors",
+          "authors": [
+            "Sanja Fidler"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "resolved",
+          "openalex_id": "W1486649854",
+          "is_retracted": false,
+          "evidence": "OpenAlex'te çözüldü (başlık+yazar+yıl ~1.00: W1486649854; 'Skip-Thought Vectors').",
+          "resolution_degraded": false
+        },
+        {
+          "index": 11,
+          "raw": "Alexandre Klementiev, Ivan Titov, and Binod Bhattarai. Inducing crosslingual distributed represen- tations of words. 2012.",
+          "title": "Inducing crosslingual distributed represen- tations of words",
+          "authors": [
+            "Alexandre Klementiev, Ivan Titov",
+            "Binod Bhattarai"
+          ],
+          "year": 2012,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.70 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 12,
+          "raw": "Philipp Koehn. Europarl: A parallel corpus for statistical machine translation. In MT summit, volume 5, pp. 79–86, 2005.",
+          "title": "Europarl: A parallel corpus for statistical machine translation",
+          "authors": [
+            "Philipp Koehn"
+          ],
+          "year": 2005,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.66 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 13,
+          "raw": "Quoc V Le and Tomas Mikolov. Distributed representations of sentences and documents. In ICML, volume 14, pp. 1188–1196, 2014.",
+          "title": "Distributed representations of sentences and documents",
+          "authors": [
+            "Quoc V Le",
+            "Tomas Mikolov"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.48 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 14,
+          "raw": "Ang Lu, Weiran Wang, Mohit Bansal, Kevin Gimpel, and Karen Livescu. Deep multilingual corre- lation for improved word embeddings. In Proceedings of NAACL, 2015.",
+          "title": "Deep multilingual corre- lation for improved word embeddings",
+          "authors": [
+            "Ang Lu, Weiran Wang, Mohit Bansal, Kevin Gimpel",
+            "Karen Livescu"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 15,
+          "raw": "Tomas Mikolov, Quoc V Le, and Ilya Sutskever. Exploiting similarities among languages for ma- chine translation. arXiv:1309.4168, 2013a.",
+          "title": "Exploiting similarities among languages for ma- chine translation",
+          "authors": [
+            "Tomas Mikolov, Quoc V Le",
+            "Ilya Sutskever"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.54 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 16,
+          "raw": "Tomas Mikolov, Ilya Sutskever, Kai Chen, Greg S Corrado, and Jeff Dean. Distributed represen- tations of words and phrases and their compositionality. In Advances in neural information pro- cessing systems, pp. 3111–3119, 2013b.",
+          "title": "Distributed represen- tations of words and phrases and their compositionality",
+          "authors": [
+            "Tomas Mikolov, Ilya Sutskever, Kai Chen, Greg S Corrado",
+            "Jeff Dean"
+          ],
+          "year": null,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.45,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.34 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 17,
+          "raw": "William H Press. Canonical correlation clariﬁed by singular value decomposition. 2011.",
+          "title": "Canonical correlation clariﬁed by singular value decomposition",
+          "authors": [
+            "William H Press"
+          ],
+          "year": 2011,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.00 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 18,
+          "raw": "Peter H Schönemann. A generalized solution of the orthogonal procrustes problem. Psychometrika, 31(1), 1966.",
+          "title": "A generalized solution of the orthogonal procrustes problem",
+          "authors": [
+            "Peter H Schönemann"
+          ],
+          "year": 1966,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.57 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 19,
+          "raw": "Chao Xing, Dong Wang, Chao Liu, and Yiye Lin. Normalized word embedding and orthogonal transform for bilingual word translation. In Proceedings of the 2015 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Tech- nologies, pp. 1006–1011, 2015.",
+          "title": "Normalized word embedding and orthogonal transform for bilingual word translation",
+          "authors": [
+            "Chao Xing, Dong Wang, Chao Liu",
+            "Yiye Lin"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.45 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 20,
+          "raw": "Will Y Zou, Richard Socher, Daniel M Cer, and Christopher D Manning. Bilingual word embed- dings for phrase-based machine translation. In EMNLP, pp. 1393–1398, 2013. 9 A THE ORTHOGONAL PROCRUSTES PROBLEM There is not an intuitive analytic solution to the cost function in equation 6, but an analytic solution does exist to the closely related “orthogonal Procrustes problem”, which minimises the squared reconstruction error subject to an orthogonal constraint (Schönemann, 1966), min O n X i=1 ||yi −Oxi||2, subject to OT O = I. (13) However both X and Y are normalised, while O preserves the vector norm. We note that, ||yi −Oxi||2 = |yi|2 + |xi|2 −2yT i Oxi (14) ∝ A −yT i Oxi. (15) A is a constant, and so the cost functions given in equations 6 and 13 are equivalent. We presented the solution of the orthogonal Procrustes problem in the main text. B ADDITIONAL EXPERIMENTS In tables 7 and 8, we provide results at precisions @5 and @10, for the same experiments shown @1 in table 6 of the main text. Once again, the inverted softmax performs well when retrieving the Italian translations of English sentences, but is less effective translating Italian sentences into English. However, the performance of Dinu’s method appears to rise more rapidly than other methods as we transition from precision @1 to @5 to @10. Additionally, while Dinu’s method performs better when using the word dictionary @1, it prefers the phrase dictionary @5 and @10. Table 7: “Translation” precision @5, when seeking to retrieve the true translation of an English sentence from a bag of 200k Italian sentences, or vice versa, averaged over 5k samples. We ﬁrst obtain bilingual word vectors, using either the word dictionary provided by Dinu, or by constructing a phrase dictionary from Europarl. We set ns = 12800 in the inverted softmax. Word dictionary Phrase dictionary Word dictionary Phrase dictionary Mikolov et al. 0.187 0.272 0.221 0.326 Dinu et al. 0.724 0.732 0.713 0.765 SVD 0.394 0.546 0.619 0.774 + inverted softmax 0.727 0.825 0.622 0.679 Table 8: “Translation” precision @10, when seeking to retrieve the true translation of an English sentence from a bag of 200k Italian sentences, or vice versa, averaged over 5k samples. We ﬁrst obtain bilingual word vectors, using either the word dictionary provided by Dinu, or by constructing a phrase dictionary from Europarl. We set ns = 12800 in the inverted softmax. Word dictionary Phrase dictionary Word dictionary Phrase dictionary Mikolov et al. 0.228 0.316 0.267 0.386 Dinu et al. 0.807 0.832 0.783 0.849 SVD 0.441 0.595 0.663 0.807 + inverted softmax 0.782 0.862 0.692 0.745 10",
+          "title": "Bilingual word embed- dings for phrase-based machine translation",
+          "authors": [
+            "Will Y Zou, Richard Socher, Daniel M Cer",
+            "Christopher D Manning"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex/S2'de başlık+yazar+yıl ile yeterince güçlü eşleşme bulunamadı (en iyi benzerlik 0.43 < 0.82); mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "quant_design_mismatch:downgraded_1"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "aa36c3fde115f887707137839854e8d7cb2349c98d7075f4b15c93a286429e30",
+          "request_time": "2026-08-22T17:38:45.431370Z",
+          "status": "ok",
+          "result_count": 2,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T17:38:46.448410Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "eb0e4e7fa3019fdb2cab49cdfca6d2136da4dc15404e93258bcf9955948af415",
+          "request_time": "2026-08-22T17:38:47.575991Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": []
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=conference_paper.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T17:44:16.048152Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "conference_paper",
+      "document_type_confidence": 0.8,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.9,
+      "rationale": "Belgenin kısa olması (6019 kelime, 20 referans), yazar listesinde kurum adlarının bulunması ve 'ABSTRACT', 'INTRODUCTION', 'REFERENCES' gibi temel bölümlerin yer alması bir konferans bildirisi olabileceğini düşündürüyor. Çalışma, 'bilingual word vectors', 'orthogonal transformations' ve 'inverted softmax' gibi kavramlarla yeni bir yöntem önermesi ve bu yöntemi 'precision @1' gibi metriklerle değerlendirmesi nedeniyle hesaplamalı modelleme olarak sınıflandırılmıştır.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 82.125,
+      "recommended_decision": "accept",
+      "confidence": 0.6736363636363637,
+      "top_fatal_risks": [
+        "Güven Aralıkları veya Belirsizlik Ölçüleri Eksik"
+      ],
+      "one_sentence_diagnosis": "0 critical and 1 major issue(s) detected; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity info."
+      },
+      {
+        "dimension": "literature",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "methodology",
+        "score": 95.0,
+        "severity": "minor",
+        "confidence": 0.9666666666666667,
+        "why_it_matters": "3 finding(s); worst severity minor."
+      },
+      {
+        "dimension": "evidence",
+        "score": 51.0,
+        "severity": "major",
+        "confidence": 0.86,
+        "why_it_matters": "5 finding(s); worst severity major."
+      },
+      {
+        "dimension": "citation",
+        "score": null,
+        "severity": "info",
+        "confidence": 0.0,
+        "why_it_matters": "Not assessed for this document type."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 52.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "5 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "reject-leaning",
+        "summary": "3 concern(s): The bibliography contains critical errors. 18 out of 20 references could not be programmatically resolved against major academic indexes. This indicates widespread and systematic issues in formatting, author names, years, or titles, severely undermining the paper's scholarly foundation. This must be corrected meticulously.; The paper lacks sufficient detail regarding the hyperparameter optimization process for dimensionality reduction and the inverse temperature β in the inverted softmax. Specifically, the search space and the validation procedure used (e.g., k-fold cross-validation on the training dictionary) are not clearly specified. This omission hinders reproducibility.; The paper notes an asymmetry in sentence retrieval results (Table 6) where the inverted softmax is superior for EN->IT, but standard nearest-neighbor search is better for IT->EN. While a hypothesis is offered, a more detailed speculation on the underlying causes of this asymmetry would strengthen the analysis. Potential factors such as differences in language structure, characteristics of the Europarl corpus, or sentence vector creation methods should be explored.",
+        "key_objection": "The bibliography contains critical errors. 18 out of 20 references could not be programmatically resolved against major academic indexes. This indicates widespread and systematic issues in formatting, author names, years, or titles, severely undermining the paper's scholarly foundation. This must be corrected meticulously.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "novelty_to_length_ratio.f0",
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f5",
+          "quant.f6",
+          "reviewer_confidence.f0",
+          "reviewer_confidence.f1",
+          "reviewer_confidence.f2"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "revision-required",
+        "summary": "1 concern(s): The paper lacks detailed information regarding the hyperparameter optimization process for dimensionality reduction and the inverse temperature β in the inverted softmax. Specifically, the search space for these parameters and the validation procedure used (e.g., k-fold cross-validation on the training dictionary) are not described. This omission hinders reproducibility.",
+        "key_objection": "The paper lacks detailed information regarding the hyperparameter optimization process for dimensionality reduction and the inverse temperature β in the inverted softmax. Specifically, the search space for these parameters and the validation procedure used (e.g., k-fold cross-validation on the training dictionary) are not described. This omission hinders reproducibility.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "revision-required",
+        "summary": "3 concern(s): The bibliography has critical issues. A vast majority of the references (18 out of 20) could not be programmatically resolved against major academic indexes. This suggests widespread and systematic errors in formatting, author names, years, or titles. This severely undermines the paper's scholarly foundation and must be corrected. Please meticulously review every entry in your bibliography to ensure all details (authors, title, venue, year, page numbers) are correct and point to the canonical, archival version of the publication. For pre-prints (e.g., on arXiv), ensure the reference is formatted correctly and includes the arXiv ID.; In the sentence retrieval task (Table 6), you observe an asymmetry where the inverted softmax excels for EN->IT but not for IT->EN. Could you elaborate on potential reasons for this? Does this suggest that hubness is a more significant problem in one translation direction than the other in this specific task? Briefly speculating on the underlying cause of this asymmetry would be valuable.; The paper would benefit from more detail on the hyperparameter optimization process for dimensionality reduction and the inverse temperature β in the inverted softmax. Specifically, what was the validation procedure (e.g., k-fold cross-validation on the training dictionary?) and what range of values was considered for these parameters? Specifying the search space and validation procedure would enhance reproducibility.",
+        "key_objection": "The bibliography has critical issues. A vast majority of the references (18 out of 20) could not be programmatically resolved against major academic indexes. This suggests widespread and systematic errors in formatting, author names, years, or titles. This severely undermines the paper's scholarly foundation and must be corrected. Please meticulously review every entry in your bibliography to ensure all details (authors, title, venue, year, page numbers) are correct and point to the canonical, archival version of the publication. For pre-prints (e.g., on arXiv), ensure the reference is formatted correctly and includes the arXiv ID.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "reject-leaning",
+        "summary": "3 concern(s): The statement 'A vast majority of the references (18 out of 20) could not be programmatically resolved against major academic indexes' is directly supported by the evidence package. The conclusion that this 'suggests widespread and systematic errors in formatting, author names, years, or titles' and 'severely undermines the paper's scholarly foundation' is a reasonable inference from the evidence.; The statement '18 of the 20 cited works could not be found in standard academic databases' is directly supported by the evidence package ('toplam=20, çözülen=2, bulunamayan=18'). The conclusion that this is a 'major barrier to publication' is a reasonable inference.; The statement '18 out of 20 references could not be resolved' is directly supported by the evidence package ('toplam=20, çözülen=2, bulunamayan=18'). The statement 'no references were flagged as fabricated' is also directly supported by the evidence package ('uydurma=0'). The conclusion about systemic issues and the score rationale are consistent with the evidence.",
+        "key_objection": "The statement 'A vast majority of the references (18 out of 20) could not be programmatically resolved against major academic indexes' is directly supported by the evidence package. The conclusion that this 'suggests widespread and systematic errors in formatting, author names, years, or titles' and 'severely undermines the paper's scholarly foundation' is a reasonable inference from the evidence.",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_clarity.f0",
+          "novelty_to_length_ratio.f0"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "major-revision",
+        "summary": "This paper presents a method for improving offline bilingual word vector mappings. The authors make three primary contributions: 1) A theoretical proof that the optimal linear transformation between two embedding spaces should be orthogonal, solvable via Singular Value Decomposition (SVD). 2) A novel 'inverted softmax' technique to improve translation retrieval by mitigating the 'hubness' problem. 3) A demonstration of the method's robustness by successfully learning transformations from non-expert data, such as a 'pseudo-dictionary' of identical character strings and aligned sentences from the Europarl corpus. The results show significant improvements in translation precision over previous methods on a standard English-Italian benchmark and demonstrate a striking ability to retrieve sentence translations from a large corpus.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Araştırma Tasarımı ve Amacı Uyumlu",
+        "summary": "Makale, çevrimdışı iki dilli kelime vektörlerinin hizalanması için yeni bir metodoloji (ortogonal dönüşümler ve tersine çevrilmiş softmax) önermektedir. Tasarım, bu metodolojinin etkinliğini mevcut yöntemlerle karşılaştırmalı olarak değerlendiren bir dizi deneysel test içermektedir. Araştırma sorusu, önerilen metodolojinin performansını nicel olarak ölçmekle uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "In this work, we prove that the linear transformation between two spaces should be orthogonal. ... We introduce a novel “inverted softmax” for identifying translation pairs, with which we improve the precision @1 of Mikolov’s original mapping from 34% to 43%..."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "The main contribution of this work is to provide theoretical insights which unify and enhance existing approaches in the literature. We prove that a self-consistent linear transformation between vector spaces should be orthogonal."
+          }
+        ],
+        "reasoning_public": "Makale, teorik bir önermeyi (ortogonal dönüşümlerin gerekliliği) deneysel olarak test etmekte ve yeni bir algoritmanın (tersine çevrilmiş softmax) performansını değerlendirmektedir. Bu, metodolojik bir araştırma için uygun bir yaklaşımdır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Örneklem Büyüklüğü ve Güç Analizi Eksikliği",
+        "summary": "Çalışmada kullanılan test setleri (örn. 1500 kelime, 200k İtalyanca cümle) ve eğitim sözlükleri (örn. 5k kelime, 500k cümle) belirtilmiş olsa da, bu örneklem büyüklüklerinin neden seçildiğine dair bir gerekçe veya istatistiksel güç analizi sunulmamıştır. Bu durum, elde edilen sonuçların genellenebilirliği ve istatistiksel güvenilirliği hakkında belirsizlik yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_experiments.a0",
+            "section": "3 EXPERIMENTS",
+            "quote": "The training dictionary comprises 5k common English words and their Italian translations, while the test set is composed of 1500 English words and their Italian translations."
+          },
+          {
+            "anchor_id": "3_3_experiments_on_the_europarl_corpus_of_aligned_sentences.a0",
+            "section": "3.3 EXPERIMENTS ON THE EUROPARL CORPUS OF ALIGNED SENTENCES",
+            "quote": "The English-Italian Europarl corpus comprises 2 million English sentences and their Italian translations... By applying the SVD to the ﬁrst 500k sentences in this “phrase dictionary”..."
+          }
+        ],
+        "reasoning_public": "Nicel çalışmalarda, özellikle karşılaştırmalı deneylerde, örneklem büyüklüğünün yeterliliği ve istatistiksel gücün değerlendirilmesi, sonuçların geçerliliği için kritik öneme sahiptir. Yeterli güce sahip olmayan bir çalışma, gerçek etkileri tespit edememe riskini taşır veya yanıltıcı sonuçlar üretebilir. Mevcut durumda, kullanılan veri setlerinin büyüklüğü 'verili' olarak kabul edilmiş ve bu seçimin istatistiksel gerekçesi açıklanmamıştır.",
+        "limitations": [
+          "Makalede güç analizi veya örneklem büyüklüğü gerekçesi için yeterli bilgi bulunmamaktadır.",
+          "Severity 'minor'e indirildi: bu çalışma computational_modeling/ML türünde, güç analizi/örneklem-büyüklüğü raporlaması bu türde standart akademik konvansiyon DEĞİL (ampirik nicel sosyal bilim konvansiyonu). Motor bunu classifier'ın study_design çıktısına göre otomatik ayarladı."
+        ],
+        "action_item_ids": [
+          "quant.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Ölçüm Araçları ve Operasyonelleştirme Açık",
+        "summary": "Çalışmada kullanılan temel ölçüm aracı 'Precision@k' metrikleri olup, bu metrikler doğal dil işleme ve kelime vektörleri alanında standart ve iyi tanımlanmıştır. Kelime vektörlerinin nasıl elde edildiği (word2vec) ve test setlerinin nasıl oluşturulduğu (Dinu et al., 2014'ten alınan) açıkça belirtilmiştir. 'İnverted softmax' gibi yeni kavramların operasyonel tanımları da sunulmuştur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "we improve the precision @1 of Mikolov’s original mapping from 34% to 43%"
+          },
+          {
+            "anchor_id": "2_4_the_inverted_softmax.a0",
+            "section": "2.4 THE INVERTED SOFTMAX",
+            "quote": "Pj→i = eβSij / (αj * Σn eβSin)"
+          },
+          {
+            "anchor_id": "3_experiments.a1",
+            "section": "3 EXPERIMENTS",
+            "quote": "We perform our experiments using the same word vectors, training dictionary and test dictionary provided by Dinu et al. (2014)."
+          }
+        ],
+        "reasoning_public": "Precision@k, bu tür görevlerde yaygın olarak kullanılan ve anlaşılır bir metriktir. Mevcut yöntemlerin karşılaştırılması için tutarlı bir ölçüt sağlar. Yeni önerilen metodolojilerin matematiksel formülasyonları da sunulmuştur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Çoklu Karşılaştırma Riski Ele Alınmamış",
+        "summary": "Makale, farklı yöntemlerin (Mikolov, Dinu, CCA, SVD, SVD + inverted softmax, SVD + inverted softmax + dimensionality reduction) performansını birden fazla test seti ve farklı dil yönleri (İngilizce'den İtalyanca'ya, İtalyanca'dan İngilizce'ye) üzerinde karşılaştırmaktadır. Bu çok sayıda karşılaştırma, Tip I hata oranını artırma potansiyeli taşımaktadır, ancak bu riskin ele alınmasına yönelik herhangi bir düzeltme (örn. Bonferroni düzeltmesi) veya tartışma sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1_translation_performance_using_the_expert_training_dictionary_english_into_italian.a0",
+            "section": "Table 1: Translation performance using the expert training dictionary, English into Italian.",
+            "quote": "Precision Mikolov et al. Dinu et al. CCA SVD + inverted softmax + dimensionality reduction"
+          },
+          {
+            "anchor_id": "table_2_translation_performance_using_the_expert_training_dictionary_italian_into_english.a0",
+            "section": "Table 2: Translation performance using the expert training dictionary, Italian into English.",
+            "quote": "Precision Mikolov et al. Dinu et al. CCA SVD + inverted softmax + dimensionality reduction"
+          }
+        ],
+        "reasoning_public": "Birden fazla istatistiksel test veya karşılaştırma yapıldığında, her bir testin belirli bir alfa seviyesinde (örn. 0.05) anlamlı çıkma olasılığı vardır. Çok sayıda test yapıldığında, şans eseri anlamlı sonuçlar elde etme olasılığı artar. Bu durum, özellikle 'en iyi' yöntemi belirlemeye çalışırken yanıltıcı olabilir. Bu riskin ele alınması, sonuçların güvenilirliğini artırır.",
+        "limitations": [
+          "Makalede çoklu karşılaştırma düzeltmeleri veya bu konudaki bir tartışma bulunmamaktadır."
+        ],
+        "action_item_ids": [
+          "quant.f3.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Sayısal Tutarlılık Genel Olarak İyi",
+        "summary": "Makalede sunulan tablolar ve metin arasındaki sayısal değerler (örn. Precision@1 değerleri) genel olarak tutarlıdır. Metinde belirtilen yüzde değerleri, ilgili tablolardaki değerlerle eşleşmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "we improve the precision @1 of Mikolov’s original mapping from 34% to 43%"
+          },
+          {
+            "anchor_id": "table_1.a0",
+            "section": "Table 1",
+            "quote": "Mikolov et al. @1: 0.338, + inverted softmax + dimensionality reduction @1: 0.431"
+          }
+        ],
+        "reasoning_public": "Metin ve tablolar arasındaki sayısal tutarlılık, raporlama kalitesinin önemli bir göstergesidir ve okuyucunun bulguları doğru anlamasını sağlar.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "major",
+        "confidence": 0.9,
+        "title": "Güven Aralıkları veya Belirsizlik Ölçüleri Eksik",
+        "summary": "Makale, farklı yöntemlerin 'Precision@k' değerlerini raporlamaktadır. Ancak, bu değerler için güven aralıkları (confidence intervals) veya diğer belirsizlik ölçüleri (örn. standart hatalar) sunulmamıştır. Bu durum, gözlemlenen performans farklılıklarının istatistiksel olarak anlamlı olup olmadığını veya rastgele dalgalanmalardan mı kaynaklandığını değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1_translation_performance_using_the_expert_training_dictionary_english_into_italian.a1",
+            "section": "Table 1: Translation performance using the expert training dictionary, English into Italian.",
+            "quote": "Precision Mikolov et al. Dinu et al. CCA SVD + inverted softmax + dimensionality reduction\n@1 0.338 0.385 0.361 0.369 0.417 0.431"
+          },
+          {
+            "anchor_id": "table_2_translation_performance_using_the_expert_training_dictionary_italian_into_english.a1",
+            "section": "Table 2: Translation performance using the expert training dictionary, Italian into English.",
+            "quote": "Precision Mikolov et al. Dinu et al. CCA SVD + inverted softmax + dimensionality reduction\n@1 0.249 0.246 0.310 0.322 0.373 0.380"
+          }
+        ],
+        "reasoning_public": "Etki büyüklüklerinin yanı sıra belirsizlik ölçülerinin raporlanması, nicel araştırmaların temel bir gerekliliğidir. Bu, okuyucuların sonuçların kesinliği ve genellenebilirliği hakkında daha iyi bir fikir edinmesini sağlar. Güven aralıkları olmadan, farklı yöntemler arasındaki küçük farkların gerçek bir performans iyileşmesini mi yoksa örneklem varyasyonunu mu yansıttığını belirlemek zordur.",
+        "limitations": [
+          "Makalede güven aralıkları veya diğer belirsizlik ölçüleri raporlanmamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "causal_language_discipline",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Nedensel Dil Kullanımı Uygun",
+        "summary": "Makale, metodolojik bir çalışma olup, önerilen algoritmaların performansını mevcut yöntemlerle karşılaştırmaktadır. 'İyileştirme' veya 'artırma' gibi ifadeler, algoritmik performans üzerindeki doğrudan etkileri tanımlamak için kullanılmıştır ve bu bağlamda nedensel dil kullanımı uygundur. Gözlemsel verilerden nedensel çıkarımlar yapma gibi bir risk taşımamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "we improve the precision @1 of Mikolov’s original mapping from 34% to 43%"
+          },
+          {
+            "anchor_id": "4_summary.a0",
+            "section": "4 SUMMARY",
+            "quote": "We introduced a novel “inverted softmax” which significantly increased the accuracy of our predicted translations."
+          }
+        ],
+        "reasoning_public": "Algoritmik geliştirmeler ve bunların performans üzerindeki etkileri, doğrudan manipülasyon ve ölçümle ilişkilendirilebildiği için nedensel dil kullanımı bu tür çalışmalarda genellikle kabul edilebilir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Veri ve Kod Erişilebilirliği Kısmen Sağlanmış",
+        "summary": "Makale, deneylerde kullanılan kelime vektörleri, eğitim ve test sözlüklerinin Dinu et al. (2014) tarafından sağlandığını ve bir URL ile erişilebilir olduğunu belirtmektedir. Ancak, bu çalışmada geliştirilen 'inverted softmax' algoritmasının veya SVD uygulamasının koduna doğrudan bir bağlantı veya açıklama sunulmamıştır. Bu durum, çalışmanın tam olarak yeniden üretilebilirliğini kısıtlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_experiments.a2",
+            "section": "3 EXPERIMENTS",
+            "quote": "We perform our experiments using the same word vectors, training dictionary and test dictionary provided by Dinu et al. (2014)1. 1These are available at http://clic.cimec.unitn.it/~georgiana.dinu/down/"
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmaların şeffaflığı ve yeniden üretilebilirliği için, kullanılan veri ve kodun erişilebilir olması önemlidir. Özellikle yeni algoritmalar veya yöntemler önerildiğinde, bunların uygulanışının açıkça paylaşılması, diğer araştırmacıların bulguları doğrulamasına ve üzerine inşa etmesine olanak tanır.",
+        "limitations": [
+          "Makalede, geliştirilen algoritmaların koduna doğrudan erişim sağlanmamıştır.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Ana Sonuçlarda Belirsizlik Ölçüleri Eksik",
+        "summary": "Makale, ana sonuçlarını (Precision@k değerleri) tablolar halinde açıkça sunmaktadır. Ancak, bu sonuçların yanında güven aralıkları veya standart hatalar gibi belirsizlik ölçüleri raporlanmamıştır. Bu durum, okuyucuların gözlemlenen performans iyileştirmelerinin istatistiksel kesinliğini ve pratik önemini tam olarak değerlendirmesini engellemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_1_translation_performance_using_the_expert_training_dictionary_english_into_italian.a2",
+            "section": "Table 1: Translation performance using the expert training dictionary, English into Italian.",
+            "quote": "Precision Mikolov et al. Dinu et al. CCA SVD + inverted softmax + dimensionality reduction\n@1 0.338 0.385 0.361 0.369 0.417 0.431"
+          },
+          {
+            "anchor_id": "4_summary.a1",
+            "section": "4 SUMMARY",
+            "quote": "Combining the SVD with the inverted softmax and dimensionality reduction, we improved the translation precision of Mikolov’s original linear mapping from 34% to 43%..."
+          }
+        ],
+        "reasoning_public": "Nicel araştırmalarda, sadece nokta tahminlerini değil, aynı zamanda bu tahminlerin etrafındaki belirsizliği de raporlamak, sonuçların daha doğru ve kapsamlı bir şekilde yorumlanmasını sağlar. Bu eksiklik, 'Effect size and uncertainty' boyutundaki bulguyla örtüşmektedir ve raporlama kalitesini düşürmektedir.",
+        "limitations": [
+          "Makalede ana sonuçlar için belirsizlik ölçüleri raporlanmamıştır."
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "track_fit.f0",
+        "dimension": "track_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makale Konferans Konusuna Uygun",
+        "summary": "Makale, doğal dil işleme ve makine öğrenimi alanındaki güncel araştırmalarla uyumlu olarak, çok dilli kelime vektörleri ve ortogonal dönüşümler üzerine odaklanmaktadır. Bu konu, konferansın genel kapsamına ve ilgili oturumlara uygun görünmektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "Usually bilingual word vectors are trained “online”. Mikolov et al. (2013a) showed they can also be found “ofﬂine”; whereby two pre-trained embeddings are aligned with a linear transformation, using dictionaries compiled from expert knowledge. In this work, we prove that the linear transformation between two spaces should be orthogonal. This transformation can be obtained using the singular value decomposition. We introduce a novel “inverted softmax” for identifying translation pairs, with which we improve the precision @1 of Mikolov’s original mapping from 34% to 43%, when translating a test set composed of both common and rare English words into Italian."
+          },
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "Increasing interest is now focused on bilingual vectors, in which words are aligned by their meaning, irrespective of the language of origin. Such vectors may drive improvements in machine translation (Zou et al., 2013), and enable language-agnostic text classiﬁers (Klementiev et al., 2012)."
+          }
+        ],
+        "reasoning_public": "Makale, 'çevrimdışı iki dilli kelime vektörleri', 'ortogonal dönüşümler' ve 'tersine çevrilmiş softmax' gibi anahtar kavramları ele alarak, doğal dil işleme (NLP) alanında önemli bir problem olan diller arası anlamsal hizalamayı çözmeye yönelik yeni bir yöntem sunmaktadır. Bu tür konular, genellikle NLP ve makine öğrenimi konferanslarının temel ilgi alanlarındandır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "novelty_to_length_ratio.f0",
+        "dimension": "novelty_to_length_ratio",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Önemli Katkılarla Uzunluğun Dengeli Kullanımı",
+        "summary": "Makale, ortogonal dönüşümlerin teorik ispatı, tersine çevrilmiş softmax mekanizması ve pseudo-sözlük kullanımı gibi birden fazla önemli katkı sunarak uzunluğunu haklı çıkarmaktadır. Bu katkılar, mevcut yöntemlerin performansını önemli ölçüde artırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "In this work, we prove that the linear transformation between two spaces should be orthogonal. This transformation can be obtained using the singular value decomposition. We introduce a novel “inverted softmax” for identifying translation pairs, with which we improve the precision @1 of Mikolov’s original mapping from 34% to 43%..."
+          },
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "Orthogonal transformations are more robust to noise, enabling us to learn the transformation without expert bilingual signal by constructing a “pseudo-dictionary” from the identical character strings which appear in both languages, achieving 40% precision on the same test set."
+          },
+          {
+            "anchor_id": "1_introduction.a0",
+            "section": "1 INTRODUCTION",
+            "quote": "The main contribution of this work is to provide theoretical insights which unify and enhance existing approaches in the literature. We prove that a self-consistent linear transformation between vector spaces should be orthogonal."
+          }
+        ],
+        "reasoning_public": "Makale, Mikolov'un orijinal yönteminin hassasiyetini %34'ten %43'e çıkaran 'tersine çevrilmiş softmax' gibi yeni bir mekanizma sunmaktadır. Ayrıca, uzman bilgisi gerektirmeyen 'pseudo-sözlük' kullanımıyla %40 hassasiyet elde edilmesi, yöntemin sağlamlığını ve pratik değerini göstermektedir. Ortogonal dönüşümlerin teorik ispatı da önemli bir temel katkıdır. Bu çoklu ve somut katkılar, makalenin 8 sayfalık uzunluğunu ve detaylı deneysel bölümünü haklı çıkarmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f0",
+        "dimension": "reproducibility_artifact",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Veri Seti Erişilebilirliği Belirsizliği",
+        "summary": "Makale, deneylerde kullanılan Dinu et al. (2014) tarafından sağlanan kelime vektörleri, eğitim sözlüğü ve test setinin bir bağlantı üzerinden erişilebilir olduğunu belirtiyor. Ancak, bu bağlantının güncel durumu veya içeriği hakkında ek bilgi verilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a0",
+            "section": "EXPERIMENTS",
+            "quote": "We perform our experiments using the same word vectors, training dictionary and test dictionary provided by Dinu et al. (2014)1. ... 1These are available at http://clic.cimec.unitn.it/~georgiana.dinu/down/"
+          }
+        ],
+        "reasoning_public": "Araştırmanın sonuçlarının bağımsız olarak doğrulanabilmesi ve gelecekteki çalışmalar için temel oluşturabilmesi adına, kullanılan veri setlerine sürekli ve güvenilir erişim kritik öneme sahiptir. Sağlanan bağlantının güncel durumu veya içeriği hakkında ek bilgi olmaması, tekrar üretilebilirliği olumsuz etkileyebilir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "reproducibility_artifact.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f1",
+        "dimension": "reproducibility_artifact",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Kod Artefaktlarının Eksikliği",
+        "summary": "Makale, önerilen yöntemlerin (SVD, inverted softmax, boyut indirgeme) ve karşılaştırma yapılan diğer yöntemlerin (Mikolov, Dinu, CCA) uygulanması için kullanılan kodlara veya algoritma detaylarına doğrudan erişim sağlamamaktadır. Dinu'nun yönteminin kaynak kodunun kullanıldığı belirtilse de, bu kodun erişilebilirliği hakkında bilgi verilmemiştir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a1",
+            "section": "EXPERIMENTS",
+            "quote": "We compute results for Mikolov’s method by applying the method of least squares, and results for Faruqui’s method using Scikit-learn’s implementation of CCA with default parameters. ... We compute results for Dinu’s method using the source code they provided alongside their manuscript."
+          }
+        ],
+        "reasoning_public": "Hesaplamalı yöntemlere dayalı araştırmalarda, sonuçların tekrar üretilebilirliği ve metodolojinin tam olarak anlaşılması için kullanılan kodların açıkça paylaşılması veya detaylı algoritma açıklamalarının sunulması önemlidir. Kodun eksikliği, okuyucuların yöntemleri bağımsız olarak uygulamalarını ve sonuçları doğrulamalarını zorlaştırır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "reproducibility_artifact.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reproducibility_artifact.f2",
+        "dimension": "reproducibility_artifact",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Karşılaştırma Yöntemleri İçin Detaylı Bilgi",
+        "summary": "Makale, karşılaştırma yapılan Mikolov, Faruqui (CCA) ve Dinu yöntemlerinin nasıl uygulandığına dair yeterli bilgi sağlamaktadır (örn. Scikit-learn CCA kullanımı, Dinu'nun kendi kodu). Bu, okuyucuların bu yöntemleri tekrar etmeleri için iyi bir başlangıç noktası sunar.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a2",
+            "section": "EXPERIMENTS",
+            "quote": "We compute results for Mikolov’s method by applying the method of least squares, and results for Faruqui’s method using Scikit-learn’s implementation of CCA with default parameters. ... We compute results for Dinu’s method using the source code they provided alongside their manuscript."
+          }
+        ],
+        "reasoning_public": "Karşılaştırmalı çalışmalarda, referans yöntemlerin nasıl uygulandığının açıkça belirtilmesi, sonuçların güvenilirliğini artırır ve tekrar üretilebilirliği destekler. Bu makale, bu konuda iyi bir örnek teşkil etmektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f0",
+        "dimension": "presentation_clarity",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Tablo Başlıklarında Eksik Bilgi",
+        "summary": "Tablo 4'ün başlığı, sunulan verilerin hangi dilden hangi dile çeviri performansını gösterdiğini açıkça belirtmemektedir. Bu durum, okuyucunun tabloyu yorumlamasını zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_2_experiments_using_identical_character_strings.a0",
+            "section": "3.2 EXPERIMENTS USING IDENTICAL CHARACTER STRINGS",
+            "quote": "Table 4: Translation performance using the pseudo dictionary of identical character strings."
+          }
+        ],
+        "reasoning_public": "Tablo 4, 'Translation performance using the pseudo dictionary of identical character strings' başlığını taşımaktadır. Ancak tablonun içinde iki ayrı 'Mikolov et al.', 'Dinu et al.', 'CCA' ve 'This work' sütun grubu bulunmaktadır. Bu grupların hangi çeviri yönüne (örn. İngilizce'den İtalyanca'ya veya tersi) ait olduğu başlıkta veya tablonun hemen altında açıklanmamıştır. Bu durum, okuyucunun verileri doğru bir şekilde anlamasını engellemektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f1",
+        "dimension": "presentation_clarity",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Şekil 1'in Açıklayıcılığı",
+        "summary": "Şekil 1, 'before and after applying the SVD' durumunu görselleştirmesine rağmen, eksen etiketleri veya birimler gibi detaylar eksiktir. Bu durum, görselin tam olarak neyi temsil ettiğini anlamayı zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "1_introduction.a1",
+            "section": "1 INTRODUCTION",
+            "quote": "Figure 1: A 2D plane through an English-Italian semantic space, before and after applying the SVD on the word vectors discussed below, using a training dictionary of 5000 translation pairs."
+          }
+        ],
+        "reasoning_public": "Şekil 1, 'A 2D plane through an English-Italian semantic space, before and after applying the SVD' başlığını taşımaktadır. Görselde noktalar ve oklar bulunmaktadır ancak eksenlerin neyi temsil ettiği, birimlerin ne olduğu veya noktaların hangi kelimelere karşılık geldiği gibi temel bilgiler eksiktir. Bu, okuyucunun görseli tam olarak yorumlamasını engellemektedir.",
+        "limitations": [],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "presentation_clarity.f2",
+        "dimension": "presentation_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Tablo Formatının Tutarlılığı",
+        "summary": "Makaledeki tüm tablolar (Tablo 1, 2, 3, 4, 5, 6) benzer bir format ve düzen kullanılarak sunulmuştur, bu da okuyucunun farklı tablolar arasında karşılaştırma yapmasını kolaylaştırmaktadır.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Tüm tablolar, 'Precision' metriklerini ve farklı yöntemlerin performansını karşılaştıran sütunları tutarlı bir şekilde sunmaktadır. Bu tutarlılık, okuyucunun verileri hızlı bir şekilde taramasını ve anlamasını sağlamaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "contribution_clarity.f0",
+        "dimension": "contribution_clarity",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ana Katkıların Açıkça İfade Edilmesi",
+        "summary": "Makale, ana katkılarını (ortogonal dönüşümün ispatı, tersine çevrilmiş softmax ve pseudo-sözlük kullanımı) giriş bölümünde ve özet kısmında açıkça belirtmektedir. Bu, okuyucunun çalışmanın yenilikçi yönlerini hızlıca anlamasını sağlamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "In this work, we prove that the linear transformation between two spaces should be orthogonal. This transformation can be obtained using the singular value decomposition. We introduce a novel “inverted softmax” for identifying translation pairs, with which we improve the precision @1 of Mikolov’s original mapping from 34% to 43%... Orthogonal transformations are more robust to noise, enabling us to learn the transformation without expert bilingual signal by constructing a “pseudo-dictionary” from the identical character strings which appear in both languages..."
+          },
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "The main contribution of this work is to provide theoretical insights which unify and enhance existing approaches in the literature. We prove that a self-consistent linear transformation between vector spaces should be orthogonal. Intuitively, the transformation is a rotation, and it is found using the singular value decomposition (SVD). We build on the work of Dinu et al. (2014), by introducing a novel “inverted softmax” to combat the hubness problem."
+          }
+        ],
+        "reasoning_public": "Makalenin giriş bölümü, çalışmanın temel yeniliklerini ve literatüre yaptığı katkıları net bir şekilde özetleyerek okuyucunun 'yeni olan ne' sorusuna kolayca yanıt bulmasını sağlamaktadır. Bu durum, makalenin okunabilirliğini ve anlaşılırlığını artırmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_limitations.f0",
+        "dimension": "ethics_limitations",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Etik Hususların ve Sınırlamaların Kısmi Tartışması",
+        "summary": "Makale, çalışmanın bazı teknik sınırlılıklarını (örneğin, nadir kelimelerdeki performans düşüşü, cümle vektörlerinin basitliği) belirtse de, etik hususlara veya daha geniş toplumsal etkilere değinmemektedir. Özellikle, 'pseudo-dictionary' oluşturmak için kullanılan 'identical character strings' yaklaşımının potansiyel önyargıları veya dilsel eşitsizlikleri nasıl etkileyebileceği gibi konular ele alınmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_experiments_using_the_expert_training_dictionary.a0",
+            "section": "3.1 EXPERIMENTS USING THE EXPERT TRAINING DICTIONARY",
+            "quote": "This performance drops off for rare words; presumably either because there is insufﬁcient monolingual data to learn high quality rare word vectors, or because the linguistic similarities between rare words across languages are less pronounced."
+          },
+          {
+            "anchor_id": "3_3_experiments_on_the_europarl_corpus_of_aligned_sentences.a1",
+            "section": "3.3 EXPERIMENTS ON THE EUROPARL CORPUS OF ALIGNED SENTENCES",
+            "quote": "This is particularly surprising, since we are using the simplest possible sentence vectors, which have no information about word order or sentence length. It is likely that we could improve on these results if we used higher quality sentence vectors (Le & Mikolov, 2014; Kiros et al., 2015), although we might lose the ability to simultaneously align the underlying word vector space."
+          }
+        ],
+        "reasoning_public": "Akademik çalışmalarda, özellikle dil modelleri gibi geniş kitleleri etkileyebilecek alanlarda, etik çıkarımların ve potansiyel önyargıların tartışılması önemlidir. Makale, teknik sınırlılıkları kabul etse de, bu tür modellerin toplumsal etkileri veya veri kaynaklarının (örneğin, Europarl corpus) içerdiği önyargılar hakkında herhangi bir değerlendirme sunmamaktadır. Bu durum, çalışmanın kapsamlılığını ve sorumluluk bilincini azaltmaktadır.",
+        "limitations": [
+          "Makalenin tam metnine erişimim olmadığı için, etik tartışmaların veya sınırlamaların başka bölümlerde daha detaylı ele alınıp alınmadığını kesin olarak doğrulayamıyorum. Değerlendirme, sağlanan kısaltılmış metinle sınırlıdır."
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0",
+          "ethics_limitations.f0.a1"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f0",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Yöntemlerin Karşılaştırılmasında Detay Eksikliği",
+        "summary": "Makale, kendi yöntemlerini diğer yaklaşımlarla karşılaştırırken, özellikle CCA ve Dinu'nun yöntemleri için kullanılan parametreler ve uygulamalar hakkında yeterli detay sağlamamaktadır. Bu durum, sonuçların tam olarak tekrarlanabilirliğini ve karşılaştırmaların geçerliliğini sorgulatabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a3",
+            "section": "EXPERIMENTS",
+            "quote": "We compute results for Mikolov’s method by applying the method of least squares, and results for Faruqui’s method using Scikit-learn’s implementation of CCA with default parameters. In both cases, we predict translations by nearest neighbour retrieval. We do not apply dimensionality reduction following CCA, to enable a fair comparison with our SVD procedure. We compute results for Dinu’s method using the source code they provided alongside their manuscript. Their method uses 10k source words as “pivots”; 5k from the test set and 5k chosen at random from the vocabulary."
+          }
+        ],
+        "reasoning_public": "Akademik çalışmalarda, karşılaştırmalı analizlerin güvenilirliği, kullanılan yöntemlerin ve parametrelerin şeffaflığına bağlıdır. Yöntemlerin nasıl uygulandığına dair eksik bilgi, okuyucunun veya hakemin sonuçları bağımsız olarak doğrulamasını veya çalışmanın katkısını tam olarak değerlendirmesini zorlaştırır. Bu durum, makalenin genel güvenilirliğini ve tekrarlanabilirliğini azaltır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f1",
+        "dimension": "reviewer_confidence",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Europarl Deneylerinde CCA'nın Kapsam Dışı Bırakılması",
+        "summary": "Europarl corpusu kullanılarak yapılan deneylerde CCA yönteminin 'hesaplama karmaşıklığı' nedeniyle dahil edilmemesi, bu karşılaştırmalı analizin eksik kalmasına neden olmuştur. Bu durum, okuyucunun farklı yöntemlerin büyük veri setlerindeki performansını tam olarak anlamasını engeller.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments_on_the_europarl_corpus_of_aligned_sentences.a0",
+            "section": "EXPERIMENTS ON THE EUROPARL CORPUS OF ALIGNED SENTENCES",
+            "quote": "We do not include results for CCA due to the computational complexity on a dictionary of this size."
+          }
+        ],
+        "reasoning_public": "Bir çalışmada, önerilen yeni bir yöntemin performansını değerlendirirken, ilgili tüm mevcut yöntemlerle karşılaştırma yapmak önemlidir. Hesaplama karmaşıklığı bir kısıtlama olsa da, bu durumun potansiyel etkileri ve neden CCA'nın bu bağlamda diğer yöntemlerden daha karmaşık olduğu açıklanmalıdır. Bu eksiklik, makalenin kapsamlılığını ve sonuçların genellenebilirliğini azaltır.",
+        "limitations": [],
+        "action_item_ids": [
+          "reviewer_confidence.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reviewer_confidence.f2",
+        "dimension": "reviewer_confidence",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Açıkça Belirtilen Veri Seti ve Karşılaştırma Metodolojisi",
+        "summary": "Makale, deneylerinde kullanılan veri setlerini (Dinu et al. (2014) tarafından sağlanan kelime vektörleri, eğitim ve test sözlükleri) ve karşılaştırma metodolojisini açıkça belirtmiştir. Bu şeffaflık, çalışmanın tekrarlanabilirliğini ve sonuçların güvenilirliğini artırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "experiments.a4",
+            "section": "EXPERIMENTS",
+            "quote": "We perform our experiments using the same word vectors, training dictionary and test dictionary provided by Dinu et al. (2014)1. The word vectors were trained using word2vec, and then the 200k most common words in both the English and Italian corpora were extracted."
+          }
+        ],
+        "reasoning_public": "Bilimsel araştırmalarda şeffaflık ve tekrarlanabilirlik esastır. Kullanılan veri setlerinin ve metodolojinin net bir şekilde belirtilmesi, diğer araştırmacıların sonuçları doğrulamasına ve üzerine inşa etmesine olanak tanır, bu da çalışmanın genel güvenilirliğini artırır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "ethics_limitations.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "SUMMARY",
+        "instruction": "Makalenin 'Sınırlamalar' veya 'Sonuç' bölümüne, kullanılan veri setlerinin (örneğin, Europarl corpus) potansiyel önyargıları ve bu önyargıların modelin performansına veya dilsel temsillerine nasıl yansıyabileceğine dair bir tartışma ekleyin.",
+        "acceptance_check": "Veri önyargıları ve modelin etik çıkarımları hakkında en az bir paragrafın eklenmesi.",
+        "linked_finding_ids": [
+          "ethics_limitations.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "3.2 EXPERIMENTS USING IDENTICAL CHARACTER STRINGS",
+        "instruction": "Tablo 4'ün başlığını veya alt yazısını, sunulan çeviri yönlerini (örn. 'English to Italian' ve 'Italian to English') açıkça belirtecek şekilde güncelleyin.",
+        "acceptance_check": "Tablo 4'ün başlığı veya alt yazısı, her bir veri sütununun hangi çeviri yönüne ait olduğunu net bir şekilde belirtmelidir.",
+        "linked_finding_ids": [
+          "presentation_clarity.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f1.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Kullanılan veri setlerinin (eğitim ve test) büyüklüklerinin seçimine dair istatistiksel bir gerekçe veya önceki çalışmalarla karşılaştırmalı bir analiz ekleyin. Mümkünse, elde edilen etki büyüklükleri göz önüne alınarak bir güç analizi yapın ve sonuçları tartışın.",
+        "acceptance_check": "Örneklem büyüklüğü gerekçesi veya güç analizi sonuçları metinde açıkça belirtilmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Tüm Precision@k değerleri için güven aralıklarını (örn. %95 güven aralığı) hesaplayın ve tablolarınıza ekleyin. Bu, okuyucuların sonuçların kesinliğini ve farklılıkların istatistiksel anlamlılığını daha iyi değerlendirmesine olanak tanır.",
+        "acceptance_check": "Tüm tablolar, raporlanan Precision@k değerleri için güven aralıklarını içermelidir.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Geliştirilen 'inverted softmax' algoritmasının ve SVD uygulamasının kodunu (örn. bir GitHub deposu aracılığıyla) erişilebilir hale getirin ve makalede bu kaynağa bir bağlantı ekleyin.",
+        "acceptance_check": "Makalede, geliştirilen metodolojinin koduna erişim sağlayan bir bağlantı bulunmalıdır.",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "quant.f8.a0",
+        "priority": "P1",
+        "effort": "high",
+        "expected_gain": "high",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Tüm ana sonuç tablolarına (Precision@k değerleri için) güven aralıklarını veya standart hataları ekleyin. Bu, raporlama kalitesini artıracak ve bulguların daha sağlam bir şekilde yorumlanmasına olanak tanıyacaktır.",
+        "acceptance_check": "Tüm ana sonuç tablolarında belirsizlik ölçüleri (örn. güven aralıkları) bulunmalıdır.",
+        "linked_finding_ids": [
+          "quant.f8"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f0.a0",
+        "priority": "P1",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Makalede belirtilen veri setlerinin (kelime vektörleri, eğitim sözlüğü, test seti) kalıcı ve güncel bir erişim bağlantısı (örn. bir arşiv veya kalıcı depolama hizmeti) sağlanmalıdır. Bağlantının içeriği ve erişim durumu hakkında net bilgi eklenmelidir.",
+        "acceptance_check": "Sağlanan bağlantının aktif olduğu ve belirtilen tüm veri setlerini içerdiği doğrulanmıştır.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f0"
+        ]
+      },
+      {
+        "action_id": "reproducibility_artifact.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "Makalede sunulan tüm yöntemlerin (yazarların kendi yöntemleri ve karşılaştırma yapılan diğer yöntemler) uygulanması için kullanılan kodların (örn. GitHub deposu, ek dosya) erişilebilir bir bağlantısı sağlanmalıdır. Alternatif olarak, temel algoritmik adımlar ve parametreler daha detaylı açıklanmalıdır.",
+        "acceptance_check": "Tüm yöntemler için kod deposu bağlantısı sağlanmış veya algoritmik detaylar yeterince açıklanmıştır.",
+        "linked_finding_ids": [
+          "reproducibility_artifact.f1"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "EXPERIMENTS",
+        "instruction": "CCA ve Dinu'nun yöntemleri için kullanılan spesifik parametreler, versiyonlar ve uygulama detayları hakkında daha fazla bilgi ekleyin. Özellikle 'default parameters' ifadesi yerine, hangi parametrelerin kullanıldığı açıkça belirtilmelidir. Dinu'nun yönteminde kullanılan 'pivots' seçimi gibi detaylar daha net açıklanmalıdır.",
+        "acceptance_check": "Karşılaştırılan yöntemlerin her biri için kullanılan tüm kritik parametrelerin ve uygulama detaylarının açıkça belirtilmesi.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_limitations.f0.a1",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "low",
+        "target_section": "2.5.1 IDENTICAL CHARACTER STRINGS",
+        "instruction": "Çalışmanın 'pseudo-dictionary' yaklaşımının (identical character strings) farklı dil çiftleri üzerindeki etkileri ve bu yöntemin dilsel çeşitliliği veya az kaynaklı dilleri nasıl etkileyebileceği konusunda daha fazla açıklama sağlayın.",
+        "acceptance_check": "Pseudo-dictionary'nin dilsel çeşitlilik ve önyargılar üzerindeki potansiyel etkilerine dair kısa bir tartışmanın eklenmesi.",
+        "linked_finding_ids": [
+          "ethics_limitations.f0"
+        ]
+      },
+      {
+        "action_id": "presentation_clarity.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "low",
+        "target_section": "1 INTRODUCTION",
+        "instruction": "Şekil 1'e eksen etiketleri, birimler (varsa) ve görseldeki noktaların temsil ettiği kelimelerden birkaç örnek ekleyerek daha açıklayıcı hale getirin.",
+        "acceptance_check": "Şekil 1'in eksenleri etiketlenmiş ve görseldeki öğelerin neyi temsil ettiği daha net açıklanmış olmalıdır.",
+        "linked_finding_ids": [
+          "presentation_clarity.f1"
+        ]
+      },
+      {
+        "action_id": "quant.f3.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "3 EXPERIMENTS",
+        "instruction": "Yapılan çoklu karşılaştırmaların Tip I hata oranına etkisi hakkında bir tartışma ekleyin. Eğer istatistiksel anlamlılık iddiaları varsa, bu riskin nasıl yönetildiğini (örn. düzeltme yöntemleri) açıklayın veya sonuçların yorumlanmasında bu durumu göz önünde bulundurun.",
+        "acceptance_check": "Çoklu karşılaştırma riski ve potansiyel etkileri hakkında bir paragraf eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "quant.f3"
+        ]
+      },
+      {
+        "action_id": "reviewer_confidence.f1.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "EXPERIMENTS ON THE EUROPARL CORPUS OF ALIGNED SENTENCES",
+        "instruction": "CCA'nın Europarl corpusu üzerindeki hesaplama karmaşıklığına dair daha fazla açıklama ekleyin. Mümkünse, bu karmaşıklığın neden diğer yöntemlerden daha yüksek olduğunu ve gelecekteki çalışmalarda bu sorunun nasıl aşılabileceğine dair kısa bir tartışma sunun. Alternatif olarak, CCA'nın bu boyuttaki veri setleri için pratik olmadığını gösteren bir referans ekleyin.",
+        "acceptance_check": "CCA'nın dışlanma nedeninin daha detaylı açıklanması ve/veya ilgili referansların eklenmesi.",
+        "linked_finding_ids": [
+          "reviewer_confidence.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a2"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "1 INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "1_introduction.a0",
+          "1_introduction.a1"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f1.a0"
+        ]
+      },
+      {
+        "section": "2.4 THE INVERTED SOFTMAX",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "2_4_the_inverted_softmax.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3 EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Veri ve Kod Erişilebilirliği Kısmen Sağlanmış",
+        "anchor_ids": [
+          "3_experiments.a0",
+          "3_experiments.a1",
+          "3_experiments.a2"
+        ],
+        "action_item_ids": [
+          "quant.f1.a0",
+          "quant.f7.a0"
+        ]
+      },
+      {
+        "section": "3.1 EXPERIMENTS USING THE EXPERT TRAINING DICTIONARY",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Etik Hususların ve Sınırlamaların Kısmi Tartışması",
+        "anchor_ids": [
+          "3_1_experiments_using_the_expert_training_dictionary.a0"
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0",
+          "ethics_limitations.f0.a1"
+        ]
+      },
+      {
+        "section": "3.2 EXPERIMENTS USING IDENTICAL CHARACTER STRINGS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Tablo Başlıklarında Eksik Bilgi",
+        "anchor_ids": [
+          "3_2_experiments_using_identical_character_strings.a0"
+        ],
+        "action_item_ids": [
+          "presentation_clarity.f0.a0"
+        ]
+      },
+      {
+        "section": "3.3 EXPERIMENTS ON THE EUROPARL CORPUS OF ALIGNED SENTENCES",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Etik Hususların ve Sınırlamaların Kısmi Tartışması",
+        "anchor_ids": [
+          "3_3_experiments_on_the_europarl_corpus_of_aligned_sentences.a0",
+          "3_3_experiments_on_the_europarl_corpus_of_aligned_sentences.a1"
+        ],
+        "action_item_ids": [
+          "ethics_limitations.f0.a0",
+          "ethics_limitations.f0.a1",
+          "quant.f1.a0"
+        ]
+      },
+      {
+        "section": "4 SUMMARY",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Ana Sonuçlarda Belirsizlik Ölçüleri Eksik",
+        "anchor_ids": [
+          "4_summary.a0",
+          "4_summary.a1"
+        ],
+        "action_item_ids": [
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Veri Seti Erişilebilirliği Belirsizliği; Kod Artefaktlarının Eksikliği; Yöntemlerin Karşılaştırılmasında Detay Eksikliği",
+        "anchor_ids": [
+          "experiments.a0",
+          "experiments.a1",
+          "experiments.a2",
+          "experiments.a3",
+          "experiments.a4"
+        ],
+        "action_item_ids": [
+          "reproducibility_artifact.f0.a0",
+          "reproducibility_artifact.f1.a0",
+          "reviewer_confidence.f0.a0"
+        ]
+      },
+      {
+        "section": "EXPERIMENTS ON THE EUROPARL CORPUS OF ALIGNED SENTENCES",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Europarl Deneylerinde CCA'nın Kapsam Dışı Bırakılması",
+        "anchor_ids": [
+          "experiments_on_the_europarl_corpus_of_aligned_sentences.a0"
+        ],
+        "action_item_ids": [
+          "reviewer_confidence.f1.a0"
+        ]
+      },
+      {
+        "section": "Table 1",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "table_1.a0"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "Table 1: Translation performance using the expert training dictionary, English into Italian.",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Güven Aralıkları veya Belirsizlik Ölçüleri Eksik; Çoklu Karşılaştırma Riski Ele Alınmamış; Ana Sonuçlarda Belirsizlik Ölçüleri Eksik",
+        "anchor_ids": [
+          "table_1_translation_performance_using_the_expert_training_dictionary_english_into_italian.a0",
+          "table_1_translation_performance_using_the_expert_training_dictionary_english_into_italian.a1",
+          "table_1_translation_performance_using_the_expert_training_dictionary_english_into_italian.a2"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f5.a0",
+          "quant.f8.a0"
+        ]
+      },
+      {
+        "section": "Table 2: Translation performance using the expert training dictionary, Italian into English.",
+        "status": "broken",
+        "what_works": null,
+        "what_breaks": "Güven Aralıkları veya Belirsizlik Ölçüleri Eksik; Çoklu Karşılaştırma Riski Ele Alınmamış",
+        "anchor_ids": [
+          "table_2_translation_performance_using_the_expert_training_dictionary_italian_into_english.a0",
+          "table_2_translation_performance_using_the_expert_training_dictionary_italian_into_english.a1"
+        ],
+        "action_item_ids": [
+          "quant.f3.a0",
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "Methods",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Methods' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Results",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Results' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "Discussion",
+        "status": "missing",
+        "what_works": null,
+        "what_breaks": "Expected 'Discussion' section is missing or unrecognized in the manuscript for this document/study type.",
+        "anchor_ids": [],
+        "action_item_ids": []
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "conference_paper",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}

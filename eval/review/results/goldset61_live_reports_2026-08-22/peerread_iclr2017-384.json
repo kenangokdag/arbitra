@@ -1,0 +1,2111 @@
+{
+  "paper_id": "peerread:iclr2017-384",
+  "run_tag": "main",
+  "job_id": "360afa57-b995-4061-800f-e722842650ad",
+  "elapsed_s": 465.2,
+  "final_status": "done",
+  "report": {
+    "mode": "author",
+    "language": "en",
+    "manuscript_meta": {
+      "title": "MACHINE COMPREHENSION USING MATCH-LSTM AND ANSWER POINTER Shuohang Wang School of Information Systems",
+      "abstract": null,
+      "language": "en",
+      "section_titles": [
+        "ABSTRACT",
+        "INTRODUCTION",
+        "METHOD",
+        "RESULTS",
+        "RELATED WORK",
+        "CONCLUSIONS",
+        "REFERENCES"
+      ],
+      "word_count": 7426,
+      "reference_count": 25,
+      "parse_confidence": 0.681,
+      "parse_warnings": []
+    },
+    "summary": "This paper presents an end-to-end neural architecture for machine comprehension, specifically tailored for extractive question answering tasks on the SQuAD and MSMARCO datasets. The authors propose a model that combines a match-LSTM layer, adapted from their prior work on textual entailment, with a Pointer Network (Ptr-Net) layer. Two variants of the Ptr-Net are explored: a 'sequence model' that predicts answer tokens one by one, and a 'boundary model' that predicts only the start and end positions of the answer span. The experiments demonstrate that both models significantly outperform a feature-engineered logistic regression baseline. Notably, the boundary model proves to be more effective, achieving competitive results on SQuAD and state-of-the-art performance on MSMARCO at the time of publication, and effectively mitigating an 'early stopping' issue observed in the sequence model.",
+    "strengths": [
+      {
+        "category": "Methodological Contribution",
+        "points": [
+          "The proposed architecture, which combines match-LSTM for question-passage matching with a Pointer Network for answer extraction, is a novel and well-motivated approach for the task.",
+          "The introduction of the 'boundary model' is a simple yet highly effective adaptation of Pointer Networks for span-based QA. The paper clearly demonstrates its superiority over the more naive 'sequence model', particularly in preventing premature answer truncation (Table 3)."
+        ]
+      },
+      {
+        "category": "Experimental Rigor",
+        "points": [
+          "The paper includes a strong set of experiments, with results on two relevant and challenging datasets (SQuAD and MSMARCO).",
+          "The ablation study (Table 4) is thorough and provides clear evidence for the contribution of different model components (e.g., element-wise matching, pre-processing LSTM), strengthening the paper's conclusions.",
+          "The analysis of model performance broken down by answer length and question type (Figure 2), while simple, provides valuable insights into the model's capabilities and limitations."
+        ]
+      },
+      {
+        "category": "Impact and Clarity",
+        "points": [
+          "The results represent a substantial improvement over the established non-neural baseline, effectively showcasing the power of end-to-end deep learning models for this task.",
+          "The paper is generally well-written and the model architecture is explained with sufficient detail to be understood and potentially reproduced."
+        ]
+      }
+    ],
+    "weaknesses": [
+      {
+        "category": "Analysis Depth",
+        "points": [
+          "The performance analysis by question type (Figure 2) is based on a 'crude' keyword-based grouping, as the authors acknowledge. A more systematic methodology for categorization would strengthen the insights, especially for difficult question types like 'why'.",
+          "The paper notes that the model struggles with multi-sentence reasoning but does not quantify this limitation or provide specific examples, making it an anecdotal observation rather than a thoroughly investigated limitation."
+        ]
+      },
+      {
+        "category": "Methodological Justification",
+        "points": [
+          "While the ablation study (Table 4) shows the empirical success of adding components like 'bi-Ans-Ptr', 'deep' layers, and 'elem' comparisons, the paper provides limited theoretical intuition or justification for why these specific additions were chosen and why they are effective, particularly the element-wise operations."
+        ]
+      }
+    ],
+    "detailed_comments": [
+      {
+        "area": "technical_soundness",
+        "comment": "The core technical contribution is sound. The ablation study in Table 4 is a highlight, clearly demonstrating the value of individual architectural choices. The finding that the boundary model overcomes the early-stopping problem of the sequence model is a key insight and is well-supported by the data in Table 3.",
+        "evidence_ref": null
+      },
+      {
+        "area": "related_work",
+        "comment": "The related work section provides good context, covering the important datasets and model families (RNNs, Attention, Pointer Networks, Memory Networks) relevant at the time of writing. The work is well-positioned within the existing literature.",
+        "evidence_ref": null
+      },
+      {
+        "area": "experimental",
+        "comment": "The visualization of attention weights in Figure 3 is helpful for building intuition about the model's inner workings. It successfully shows how the model can align relevant words (e.g., 'language' -> 'German'). However, as noted for the 'why' question, the attention is more diffuse, which aligns with the model's lower performance on this question type.",
+        "evidence_ref": null
+      },
+      {
+        "area": "impact",
+        "comment": "The work is significant as it presents one of the early, successful deep learning architectures for the influential SQuAD dataset. The outperformance of the feature-engineered baseline was an important result for the field.",
+        "evidence_ref": null
+      }
+    ],
+    "questions": [
+      "Could you provide more intuition on why the element-wise comparison features (`hp_i - Hqα_i^T` and `hp_i ⊙ Hqα_i^T`) provided the most significant boost in the ablation study? Is there a specific linguistic phenomenon or model property that this feature captures effectively?",
+      "The analysis identifies 'why' questions as the most difficult. Have you performed a qualitative error analysis on these questions? Do the failures stem from the answer not being explicitly stated, or from the model's inability to synthesize information from multiple clauses or sentences?",
+      "Regarding the stated limitation on multi-sentence reasoning, could you elaborate on whether you believe this is an inherent constraint of the match-LSTM's sequential nature, or if it could be addressed with modifications like a more global attention mechanism?"
+    ],
+    "overall_assessment": "This is an excellent paper that presents a novel and highly effective neural architecture for machine comprehension. The core ideas are well-motivated, the experiments are rigorous, and the results are significant. The authors convincingly demonstrate the superiority of their 'boundary model' over alternatives and a strong baseline. The few weaknesses identified relate to opportunities for even deeper analysis, but they do not detract from the paper's core contribution. The work represents a clear and important advance for the field and is recommended for acceptance.",
+    "verdict": "accept",
+    "dimension_scores": [
+      {
+        "key": "originality",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/contribution, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The combination of match-LSTM and Pointer Networks, and particularly the proposal of the 'boundary model' for span extraction, was a novel contribution at the time.]"
+      },
+      {
+        "key": "importance",
+        "score": 9.0,
+        "rationale": "The paper addresses a central NLP problem on a highly influential dataset (SQuAD), and its strong results helped push the field towards end-to-end neural models."
+      },
+      {
+        "key": "claims_supported",
+        "score": 6.31,
+        "rationale": "Deterministik (risk_radar/evidence, kanıta-dayalı Finding severity-sayımı): 7 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: All major claims (e.g., superiority of the boundary model, outperformance of the baseline) are well-supported by quantitative results, ablation studies, and analysis.]"
+      },
+      {
+        "key": "soundness",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/methodology, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The methodology is sound, and the experimental design, including the ablation study, is rigorous and lends strong support to the conclusions.]"
+      },
+      {
+        "key": "clarity",
+        "score": 8.47,
+        "rationale": "Deterministik (risk_radar/writing, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The paper is generally well-written, but the justification for some model enhancements could be more explicit, and the analysis could be deeper.]"
+      },
+      {
+        "key": "community_value",
+        "score": 9.0,
+        "rationale": "The paper's strong results on an influential dataset (SQuAD) and its introduction of the effective 'boundary model' provided significant value to the research community."
+      },
+      {
+        "key": "contextualization",
+        "score": 8.0,
+        "rationale": "The related work section effectively situates the paper within the landscape of machine comprehension research of its era."
+      },
+      {
+        "key": "citation_integrity",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/citation, kanıta-dayalı Finding severity-sayımı): 1 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack reports that all 25 references were unresolvable by the automated checker. However, it specifies that for 24 of these, this was due to a temporary service error with the data provider (OpenAlex) and does not imply the references are fabricated or incorrect. One reference lacked a resolvable identifier. No fabricated or retracted citations were found.]"
+      },
+      {
+        "key": "coverage_completeness",
+        "score": 7.39,
+        "rationale": "Deterministik (risk_radar/literature, kanıta-dayalı Finding severity-sayımı): 4 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack confirms that no coverage gaps were detected in the literature review.]"
+      },
+      {
+        "key": "statistical_consistency",
+        "score": 8.92,
+        "rationale": "Deterministik (risk_radar/statistics, kanıta-dayalı Finding severity-sayımı): 3 finding(s); worst severity moderate. [LLM'in kendi gerekçesi: The evidence pack reports no statistical findings, so no inconsistencies can be reported.]"
+      }
+    ],
+    "final_score": 8.38,
+    "evidence_pack": {
+      "citation_integrity": {
+        "total": 25,
+        "resolved": 0,
+        "not_found_in_index": 25,
+        "fabricated": 0,
+        "retracted": 0,
+        "provider_errors": 24
+      },
+      "references": [
+        {
+          "index": 1,
+          "raw": "Stanislaw Antol, Aishwarya Agrawal, Jiasen Lu, Margaret Mitchell, Dhruv Batra, C Lawrence Zit- nick, and Devi Parikh. Vqa: Visual question answering. In Proceedings of the IEEE International Conference on Computer Vision, pp. 2425–2433, 2015.",
+          "title": "Vqa: Visual question answering",
+          "authors": [
+            "Devi Parikh"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 2,
+          "raw": "Danqi Chen, Jason Bolton, and Christopher D. Manning. A thorough examination of the CNN/Daily Mail reading comprehension task. In Proceedings of the Conference on Association for Compu- tational Linguistics, 2016.",
+          "title": "A thorough examination of the CNN/Daily Mail reading comprehension task",
+          "authors": [
+            "Danqi Chen, Jason Bolton",
+            "Christopher D. Manning"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 3,
+          "raw": "Yiming Cui, Ting Liu, Zhipeng Chen, Shijin Wang, and Guoping Hu. Consensus attention-based neural networks for chinese reading comprehension. In arXiv preprint arXiv:1607.02250, 2016.",
+          "title": "Consensus attention-based neural networks for chinese reading comprehension",
+          "authors": [
+            "Yiming Cui, Ting Liu, Zhipeng Chen, Shijin Wang",
+            "Guoping Hu"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 4,
+          "raw": "Akira Fukui, Dong Huk Park, Daylen Yang, Anna Rohrbach, Trevor Darrell, and Marcus Rohrbach. Multimodal compact bilinear pooling for visual question answering and visual grounding. In Proceedings of the Conference on Empirical Methods in Natural Language Processing, 2016.",
+          "title": "Multimodal compact bilinear pooling for visual question answering and visual grounding",
+          "authors": [
+            "Akira Fukui, Dong Huk Park, Daylen Yang, Anna Rohrbach, Trevor Darrell",
+            "Marcus Rohrbach"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 5,
+          "raw": "Jiatao Gu, Zhengdong Lu, Hang Li, and Victor O.K. Li. Incorporating copying mechanism in sequence-to-sequence learning. In Proceedings of the Conference on Association for Computa- tional Linguistics, 2016.",
+          "title": null,
+          "authors": [
+            "Jiatao Gu, Zhengdong Lu, Hang Li",
+            "Victor O.K"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.35,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "Referansta DOI ve çözülebilir başlık yok; OpenAlex'te aranamadı. Mevcut olmadığı anlamına gelmez.",
+          "resolution_degraded": false
+        },
+        {
+          "index": 6,
+          "raw": "Karl Moritz Hermann, Tomas Kocisky, Edward Grefenstette, Lasse Espeholt, Will Kay, Mustafa Suleyman, and Phil Blunsom. Teaching machines to read and comprehend. In Proceedings of the Conference on Advances in Neural Information Processing Systems, pp. 1693–1701, 2015.",
+          "title": "Teaching machines to read and comprehend",
+          "authors": [
+            "Phil Blunsom"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 7,
+          "raw": "Daniel Hewlett, Alexandre Lacoste, Llion Jones, Illia Polosukhin, Andrew Fandrianto, Jay Han, Matthew Kelcey, and David Berthelot. WIKIREADING: A novel large-scale language under- standing task over wikipedia. In Proceedings of the Conference on Association for Computational Linguistics, 2016.",
+          "title": "WIKIREADING: A novel large-scale language under- standing task over wikipedia",
+          "authors": [
+            "David Berthelot"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 8,
+          "raw": "Felix Hill, Antoine Bordes, Sumit Chopra, and Jason Weston. The Goldilocks principle: Read- ing children’s books with explicit memory representations. In Proceedings of the International Conference on Learning Representations, 2016. 11 Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation, 9(8): 1735–1780, 1997.",
+          "title": "The Goldilocks principle: Read- ing children’s books with explicit memory representations",
+          "authors": [
+            "Felix Hill, Antoine Bordes, Sumit Chopra",
+            "Jason Weston"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 9,
+          "raw": "Rudolf Kadlec, Martin Schmid, Ondrej Bajgar, and Jan Kleindienst. Text understanding with the attention sum reader network. In Proceedings of the Conference on Association for Computational Linguistics, 2016.",
+          "title": "Text understanding with the attention sum reader network",
+          "authors": [
+            "Rudolf Kadlec, Martin Schmid, Ondrej Bajgar",
+            "Jan Kleindienst"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 10,
+          "raw": "Diederik Kingma and Jimmy Ba. Adam: A method for stochastic optimization. In Proceedings of the International Conference on Learning Representations, 2015.",
+          "title": "Adam: A method for stochastic optimization",
+          "authors": [
+            "Diederik Kingma",
+            "Jimmy Ba"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 11,
+          "raw": "Ankit Kumar, Ozan Irsoy, Jonathan Su, James Bradbury, Robert English, Brian Pierce, Peter On- druska, Ishaan Gulrajani, and Richard Socher. Ask me anything: Dynamic memory networks for natural language processing. In Proceedings of the International Conference on Machine Learning, 2016.",
+          "title": "Ask me anything: Dynamic memory networks for natural language processing",
+          "authors": [
+            "Richard Socher"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 12,
+          "raw": "Jiasen Lu, Jianwei Yang, Dhruv Batra, and Devi Parikh. Hierarchical question-image co-attention for visual question answering. In Proceedings of the Conference on Advances in Neural Informa- tion Processing Systems, 2016.",
+          "title": "Hierarchical question-image co-attention for visual question answering",
+          "authors": [
+            "Jiasen Lu, Jianwei Yang, Dhruv Batra",
+            "Devi Parikh"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 13,
+          "raw": "Tri Nguyen, Mir Rosenberg, Xia Song, Jianfeng Gao, Saurabh Tiwary, Rangan Majumder, and Li Deng. MS MARCO: a human generated machine reading comprehension dataset. arXiv preprint arXiv:1611.09268, 2016.",
+          "title": "MS MARCO: a human generated machine reading comprehension dataset",
+          "authors": [
+            "Li Deng"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 14,
+          "raw": "Jeffrey Pennington, Richard Socher, and Christopher D Manning. GloVe: Global vectors for word representation. In Proceedings of the Conference on Empirical Methods in Natural Language Processing, 2014.",
+          "title": "GloVe: Global vectors for word representation",
+          "authors": [
+            "Jeffrey Pennington, Richard Socher",
+            "Christopher D Manning"
+          ],
+          "year": 2014,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 15,
+          "raw": "Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev, and Percy Liang. SQuAD: 100,000+ questions for machine comprehension of text. In Proceedings of the Conference on Empirical Methods in Natural Language Processing, 2016.",
+          "title": "SQuAD: 100,000+ questions for machine comprehension of text",
+          "authors": [
+            "Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev",
+            "Percy Liang"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 16,
+          "raw": "Matthew Richardson, Christopher JC Burges, and Erin Renshaw. MCTest: A challenge dataset for the open-domain machine comprehension of text. In Proceedings of the Conference on Empirical Methods in Natural Language Processing, 2013.",
+          "title": "MCTest: A challenge dataset for the open-domain machine comprehension of text",
+          "authors": [
+            "Matthew Richardson, Christopher JC Burges",
+            "Erin Renshaw"
+          ],
+          "year": 2013,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 17,
+          "raw": "Sainbayar Sukhbaatar, Jason Weston, Rob Fergus, et al. End-to-end memory networks. In Proceed- ings of the Conference on Advances in neural information processing systems, 2015.",
+          "title": "End-to-end memory networks",
+          "authors": [
+            "Sainbayar Sukhbaatar, Jason Weston, Rob Fergus, et al."
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 18,
+          "raw": "Makarand Tapaswi, Yukun Zhu, Rainer Stiefelhagen, Antonio Torralba, Raquel Urtasun, and Sanja Fidler. MovieQA: Understanding stories in movies through question-answering. In Proceedings of IEEE Conference on Computer Vision and Pattern Recognition, 2016.",
+          "title": "MovieQA: Understanding stories in movies through question-answering",
+          "authors": [
+            "Sanja Fidler"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 19,
+          "raw": "Adam Trischler, Zheng Ye, Xingdi Yuan, and Kaheer Suleman. Natural language comprehension with the EpiReader. In Proceedings of the Conference on Empirical Methods in Natural Language Processing, 2016.",
+          "title": "Natural language comprehension with the EpiReader",
+          "authors": [
+            "Adam Trischler, Zheng Ye, Xingdi Yuan",
+            "Kaheer Suleman"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 20,
+          "raw": "Oriol Vinyals, Meire Fortunato, and Navdeep Jaitly. Pointer networks. In Proceedings of the Con- ference on Advances in Neural Information Processing Systems, 2015.",
+          "title": "Pointer networks",
+          "authors": [
+            "Oriol Vinyals, Meire Fortunato",
+            "Navdeep Jaitly"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 21,
+          "raw": "Shuohang Wang and Jing Jiang. Learning natural language inference with LSTM. In Proceedings of the Conference on the North American Chapter of the Association for Computational Linguistics, 2016.",
+          "title": "Learning natural language inference with LSTM",
+          "authors": [
+            "Shuohang Wang",
+            "Jing Jiang"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 22,
+          "raw": "Jason Weston, Sumit Chopra, and Antoine Bordes. Memory networks. In Proceedings of the Inter- national Conference on Learning Representations, 2015.",
+          "title": "Memory networks",
+          "authors": [
+            "Jason Weston, Sumit Chopra",
+            "Antoine Bordes"
+          ],
+          "year": 2015,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 23,
+          "raw": "Jason Weston, Antoine Bordes, Sumit Chopra, Alexander M Rush, Bart van Merriënboer, Armand Joulin, and Tomas Mikolov. Towards AI-complete question answering: A set of prerequisite toy tasks. In Proceedings of the International Conference on Learning Representations, 2016.",
+          "title": "Towards AI-complete question answering: A set of prerequisite toy tasks",
+          "authors": [
+            "Tomas Mikolov"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 24,
+          "raw": "Huijuan Xu and Kate Saenko. Ask, attend and answer: Exploring question-guided spatial attention for visual question answering. In Proceedings of the IEEE International Conference on Computer Vision, 2016. 12 Wenpeng Yin, Sebastian Ebert, and Hinrich Schütze. Attention-based convolutional neural network for machine comprehension. arXiv preprint arXiv:1602.04341, 2016.",
+          "title": "Ask, attend and answer: Exploring question-guided spatial attention for visual question answering",
+          "authors": [
+            "Huijuan Xu",
+            "Kate Saenko"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        },
+        {
+          "index": 25,
+          "raw": "Yang Yu, Wei Zhang, Kazi Hasan, Mo Yu, Bing Xiang, and Bowen Zhou. End-to-end answer chunk extraction and ranking for reading comprehension. arXiv preprint arXiv:1610.09996, 2016. 13 A",
+          "title": "End-to-end answer chunk extraction and ranking for reading comprehension",
+          "authors": [
+            "Yang Yu, Wei Zhang, Kazi Hasan, Mo Yu, Bing Xiang",
+            "Bowen Zhou"
+          ],
+          "year": 2016,
+          "doi": null,
+          "venue": null,
+          "parse_confidence": 0.65,
+          "status": "not_found_in_index",
+          "openalex_id": null,
+          "is_retracted": false,
+          "evidence": "OpenAlex başlık araması servis hatası verdi; çözülemedi. Mevcut olmadığı anlamına GELMEZ (geçici hata).",
+          "resolution_degraded": true
+        }
+      ],
+      "context_findings": [],
+      "coverage_gaps": [],
+      "stat_findings": [],
+      "degraded_features": [
+        "citations:openalex_resolution_failed:24",
+        "coverage:openalex_unavailable"
+      ],
+      "provider_snapshots": [
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "150e859fe49492f182754d813c0a79bfa9fde5ffab8edfb63f71be9eb5912969",
+          "request_time": "2026-08-22T18:32:42.237287Z",
+          "status": "degraded",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only",
+            "stage-level snapshot; per-reference provider errors are honestly downgraded to not_found_in_index inside the resolver",
+            "24/25 references: provider error, not genuine non-match"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "e8ca2dfe01bce821e5c6b1465094109a9c04ae13f78533ae88673792313834cd",
+          "request_time": "2026-08-22T18:32:43.019661Z",
+          "status": "ok",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "abstract only"
+          ]
+        },
+        {
+          "provider": "openalex",
+          "provider_version": "2026-06",
+          "query_hash": "475119fd7721ec839dc9f28cff80c285f66edd52e2ff5739b166d323140b2626",
+          "request_time": "2026-08-22T18:32:45.027038Z",
+          "status": "failed",
+          "result_count": 0,
+          "cache_hit": false,
+          "limitations": [
+            "openalex search_works_raw failed: all 3 attempts failed; last=HTTPStatusError"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "model_used": "gemini-2.5-pro",
+      "persona_version": "writer=v1_2026-06-21, citation_critic=v1_2026-06-21, novelty_critic=v1_2026-06-21, editor=v1_2026-06-21",
+      "engine_version": "f14-s4; academic_assessment.v1; rubric=journal_article.computational_modeling.v1; report_synthesis.v1",
+      "generated_at": "2026-08-22T18:39:59.728634Z",
+      "deterministic_engine": true,
+      "judgment_reproducible": false
+    },
+    "ethics_notice": "Bu otomatik değerlendirme yol göstericidir; insan hakemin yerine geçmez. Göndereceğiniz dergi/konferansın değerlendirme politikasını kontrol edin.",
+    "editor_digest": null,
+    "schema_version": "review_report.v2",
+    "document_classification": {
+      "document_type": "journal_article",
+      "document_type_confidence": 0.7,
+      "study_design": "computational_modeling",
+      "study_design_confidence": 0.9,
+      "rationale": "Belge başlığı, özet ve bölüm başlıkları (METHOD, RESULTS, RELATED WORK) tipik bir araştırma makalesine işaret ediyor. Metin, yeni bir sinir ağı mimarisi önerip deneylerle performansını değerlendirdiği için computational modeling çalışmasıdır.",
+      "user_document_type_override": null,
+      "user_study_design_override": null
+    },
+    "executive_verdict": {
+      "overall_readiness_score": 82.6,
+      "recommended_decision": "accept",
+      "confidence": 0.64,
+      "top_fatal_risks": [],
+      "one_sentence_diagnosis": "No critical/major issues, but 12 moderate issue(s) need attention; recommended decision: accept."
+    },
+    "risk_radar": [
+      {
+        "dimension": "contribution",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.825,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "literature",
+        "score": 71.0,
+        "severity": "moderate",
+        "confidence": 0.8,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "methodology",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.95,
+        "why_it_matters": "4 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "evidence",
+        "score": 59.0,
+        "severity": "moderate",
+        "confidence": 0.8714285714285713,
+        "why_it_matters": "7 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "citation",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "1 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "statistics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.9,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "ethics",
+        "score": 88.0,
+        "severity": "moderate",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "reproducibility",
+        "score": 73.0,
+        "severity": "moderate",
+        "confidence": 0.8714285714285713,
+        "why_it_matters": "7 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "writing",
+        "score": 83.0,
+        "severity": "moderate",
+        "confidence": 0.7999999999999999,
+        "why_it_matters": "3 finding(s); worst severity moderate."
+      },
+      {
+        "dimension": "venue_fit",
+        "score": 100.0,
+        "severity": "info",
+        "confidence": 0.8500000000000001,
+        "why_it_matters": "2 finding(s); worst severity info."
+      }
+    ],
+    "reviewer_council": [
+      {
+        "role": "skeptical_reviewer",
+        "stance": "minor-concerns",
+        "summary": "6 concern(s): The authors acknowledge the 'crude' keyword-based grouping for question types. While this is noted, the paper does not provide a more robust or validated methodology for categorizing question types, which limits the generalizability and depth of the error analysis. A more systematic approach, perhaps involving human annotation or a more sophisticated NLP-based classification, would strengthen these insights.; The paper states that the model struggles with multi-sentence reasoning but does not quantify this limitation or provide specific examples. Without a detailed analysis of how often this occurs, under what conditions, and its impact on overall performance, it remains an unsubstantiated claim rather than a thoroughly investigated limitation.; While the ablation study empirically demonstrates the effectiveness of components like 'bi-Ans-Ptr', 'deep' layers, and 'elem' comparisons, the paper lacks a clear theoretical or intuitive justification for *why* these specific architectural choices are effective. For instance, the mechanism by which element-wise operations contribute to improved matching is not thoroughly explained beyond their empirical success. (+3 more)",
+        "key_objection": "The authors acknowledge the 'crude' keyword-based grouping for question types. While this is noted, the paper does not provide a more robust or validated methodology for categorizing question types, which limits the generalizability and depth of the error analysis. A more systematic approach, perhaps involving human annotation or a more sophisticated NLP-based classification, would strengthen these insights.",
+        "confidence": 1.0,
+        "finding_ids": [
+          "claim_evidence_alignment.f0",
+          "claim_evidence_alignment.f1",
+          "claim_evidence_alignment.f2",
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "quant.f0",
+          "quant.f1",
+          "quant.f10",
+          "quant.f2",
+          "quant.f3",
+          "quant.f7",
+          "quant.f8",
+          "quant.f9",
+          "research_question_fit.f0",
+          "research_question_fit.f1"
+        ]
+      },
+      {
+        "role": "methodologist",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "quant.f0",
+          "quant.f1",
+          "quant.f2",
+          "quant.f3",
+          "quant.f4",
+          "quant.f5",
+          "quant.f6"
+        ]
+      },
+      {
+        "role": "constructive_reviewer",
+        "stance": "minor-concerns",
+        "summary": "3 concern(s): The paper notes that the model struggles with multi-sentence reasoning but does not explore this limitation in detail. It is unclear if this is a fundamental flaw of the architecture or an area for future improvement. Could the authors elaborate on whether they believe this is an inherent constraint of the match-LSTM's sequential nature, or if it could be addressed with modifications like a more global attention mechanism?; While the ablation study (Table 4) shows the empirical success of adding components like 'bi-Ans-Ptr', 'deep' layers, and 'elem' comparisons, the paper provides limited theoretical intuition or justification for why these specific additions were chosen and why they are effective, particularly the element-wise operations. Could the authors provide more intuition on why the element-wise comparison features (`hp_i - Hqα_i^T` and `hp_i ⊙ Hqα_i^T`) provided the most significant boost in the ablation study? Is there a specific linguistic phenomenon or model property that this feature captures effectively?; The performance analysis by question type (Figure 2) is based on a 'crude' keyword-based grouping, as the authors acknowledge. A more fine-grained error analysis could yield deeper insights, especially for difficult question types like 'why'. The analysis identifies 'why' questions as the most difficult. Have the authors performed a qualitative error analysis on these questions? Do the failures stem from the answer not being explicitly stated, or from the model's inability to synthesize information from multiple clauses or sentences?",
+        "key_objection": "The paper notes that the model struggles with multi-sentence reasoning but does not explore this limitation in detail. It is unclear if this is a fundamental flaw of the architecture or an area for future improvement. Could the authors elaborate on whether they believe this is an inherent constraint of the match-LSTM's sequential nature, or if it could be addressed with modifications like a more global attention mechanism?",
+        "confidence": 1.0,
+        "finding_ids": []
+      },
+      {
+        "role": "citation_auditor",
+        "stance": "revision-required",
+        "summary": "6 concern(s): The claim about 'public release of the code' is not supported by the provided evidence package. There is no information confirming or denying the public release of the code.; The claim that 'the boundary model concept has been influential' is not supported by the provided evidence package. There is no information about the influence or subsequent citations of the boundary model concept.; The claim about 'the release of the code' is not supported by the provided evidence package. There is no information confirming or denying the public release of the code. (+3 more)",
+        "key_objection": "The claim about 'public release of the code' is not supported by the provided evidence package. There is no information confirming or denying the public release of the code.",
+        "confidence": 0.3333333333333333,
+        "finding_ids": [
+          "citation_integrity.f0",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "field_expert",
+        "stance": "supportive",
+        "summary": "No objections raised; supports the current draft.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": [
+          "contribution_originality.f0",
+          "contribution_originality.f1",
+          "literature_positioning.f0",
+          "literature_positioning.f1",
+          "research_question_fit.f0",
+          "research_question_fit.f1",
+          "theoretical_framing.f0",
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "role": "editor_synthesizer",
+        "stance": "accept",
+        "summary": "This paper presents an end-to-end neural architecture for machine comprehension, specifically tailored for extractive question answering tasks on the SQuAD and MSMARCO datasets. The authors propose a model that combines a match-LSTM layer, adapted from their prior work on textual entailment, with a Pointer Network (Ptr-Net) layer. Two variants of the Ptr-Net are explored: a 'sequence model' that predicts answer tokens one by one, and a 'boundary model' that predicts only the start and end positions of the answer span. The experiments demonstrate that both models significantly outperform a feature-engineered logistic regression baseline. Notably, the boundary model proves to be more effective, achieving competitive results on SQuAD and state-of-the-art performance on MSMARCO at the time of publication, and effectively mitigating an 'early stopping' issue observed in the sequence model.",
+        "key_objection": null,
+        "confidence": 0.5,
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "quant.f0",
+        "dimension": "design_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "End-to-end neural architecture for machine comprehension",
+        "summary": "Makale, SQuAD ve MSMARCO veri kümeleri üzerinde makine okuduğunu anlama (machine comprehension) görevini ele alan, uçtan uca sinir ağı mimarileri (Match-LSTM ve Pointer Net tabanlı) geliştirmeyi ve değerlendirmeyi amaçlamaktadır. Bu, doğal dil işlemede (NLP) yaygın bir deneysel tasarım yaklaşımıdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a0",
+            "section": "ABSTRACT",
+            "quote": "We propose an end-to-end neural architecture for the task. The architecture is based on match-LSTM, a model we proposed previously for textual entailment, and Pointer Net, a sequence-to-sequence model proposed by Vinyals et al. (2015) to constrain the output tokens to be from the input sequences."
+          },
+          {
+            "anchor_id": "introduction.a0",
+            "section": "INTRODUCTION",
+            "quote": "In this paper, we propose a new end-to-end neural architecture to address the machine comprehension problem as deﬁned in the SQuAD/MSMARCO dataset."
+          }
+        ],
+        "reasoning_public": "Çalışma, belirli bir görevi çözmek için yeni bir model önermekte ve bu modeli mevcut veri kümeleri üzerinde değerlendirmektedir. Bu, NLP alanındaki model geliştirme ve karşılaştırma çalışmalarında standart bir yaklaşımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f1",
+        "dimension": "sample_and_power",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Standard benchmark datasets used",
+        "summary": "Çalışma, SQuAD v1.1 ve MSMARCO v1.1 gibi yaygın olarak kabul görmüş ve büyük ölçekli benchmark veri kümelerini kullanmaktadır. Bu veri kümeleri, makine okuduğunu anlama alanında model performansını değerlendirmek için standart referans noktaları sağlar.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_data.a0",
+            "section": "3.1 DATA",
+            "quote": "We use the Stanford Question Answering Dataset (SQuAD) v1.1 and the human-generated Microsoft MAchine Reading COmprehension (MSMARCO) dataset v1.1 to conduct our experiments."
+          },
+          {
+            "anchor_id": "3_1_data.a1",
+            "section": "3.1 DATA",
+            "quote": "In total, there are 23,215 passages and 107,785 questions. The data has been split into a training set (with 87,599 question-answer pairs), a development set (with 10,570 question-answer pairs) and a hidden test set."
+          }
+        ],
+        "reasoning_public": "Büyük ve insan tarafından oluşturulmuş veri kümelerinin kullanılması, modellerin genellenebilirliğini ve gerçek dünya performansını değerlendirmek için önemlidir. Bu, örneklem büyüklüğü ve çeşitliliği açısından güçlü bir yönü temsil eder.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f2",
+        "dimension": "sample_and_power",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "No power analysis or precision rationale for sample size",
+        "summary": "Makalede, kullanılan veri kümelerinin (SQuAD ve MSMARCO) örneklem büyüklükleri belirtilmiş olsa da, bu büyüklüklerin istatistiksel güç analizi veya hassasiyet gerekçesiyle belirlendiğine dair herhangi bir açıklama bulunmamaktadır. Bu, özellikle model performansındaki küçük farkların anlamlılığını yorumlarken bir sınırlama oluşturabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_data.a2",
+            "section": "3.1 DATA",
+            "quote": "In total, there are 23,215 passages and 107,785 questions. The data has been split into a training set (with 87,599 question-answer pairs), a development set (with 10,570 question-answer pairs) and a hidden test set."
+          }
+        ],
+        "reasoning_public": "Makine öğrenimi modellerinde, özellikle yeni modellerin mevcut modellere göre 'üstün' olduğu iddia edildiğinde, bu üstünlüğün istatistiksel olarak anlamlı olup olmadığını belirlemek için yeterli örneklem büyüklüğüne sahip olmak önemlidir. Güç analizi veya hassasiyet gerekçesi, bu tür iddiaların sağlamlığını destekler.",
+        "limitations": [
+          "Veri kümeleri standart benchmarklar olduğundan, araştırmacıların örneklem büyüklüğünü kendilerinin belirlemesi beklenmez. Ancak, sonuçların yorumlanmasında istatistiksel güç veya hassasiyetin dikkate alınması önemlidir.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f2.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f3",
+        "dimension": "measurement_validity",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Standard evaluation metrics used",
+        "summary": "Makale, SQuAD için Exact Match (EM) ve F1 skoru, MSMARCO için ise BLEU-1/2/3/4 ve Rouge-L gibi makine okuduğunu anlama ve metin üretimi görevlerinde yaygın olarak kabul görmüş ve standartlaştırılmış ölçüm araçlarını kullanmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_2_experiment_settings.a0",
+            "section": "3.2 EXPERIMENT SETTINGS",
+            "quote": "For the SQuAD dataset, the performance is measured by two metrics: percentage of exact match with the ground truth answers and word-level F1 score when comparing the tokens in the predicted answers with the tokens in the ground truth answers."
+          },
+          {
+            "anchor_id": "3_2_experiment_settings.a1",
+            "section": "3.2 EXPERIMENT SETTINGS",
+            "quote": "For the MSMARCO dataset, the metrics in the ofﬁcial tool of MSMARCO evaluation are BLEU-1/2/3/4 and Rouge-L, which are widely used in many domains."
+          }
+        ],
+        "reasoning_public": "Bu metrikler, ilgili araştırma topluluğu tarafından geniş çaplı olarak benimsenmiş ve model performansını karşılaştırmak için güvenilir araçlar olarak kabul edilmiştir. Bu, ölçüm geçerliliği açısından güçlü bir yöndür.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f4",
+        "dimension": "analysis_plan",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Appropriate model selection for NLP task",
+        "summary": "Makale, doğal dil işleme (NLP) görevleri için uygun olan sinir ağı modellerini (LSTM, Match-LSTM, Pointer Net) kullanmaktadır. Bu modeller, metin dizileri ve bağlamsal ilişkileri işlemek için tasarlanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "method.a0",
+            "section": "METHOD",
+            "quote": "In this section, we ﬁrst brieﬂy review match-LSTM and Pointer Net. These two pieces of existing work lay the foundation of our method. We then present our end-to-end neural architecture for machine comprehension."
+          }
+        ],
+        "reasoning_public": "Seçilen modeller, makine okuduğunu anlama gibi karmaşık NLP görevleri için güncel ve etkili yaklaşımları temsil etmektedir. Bu, analiz planının uygunluğunu gösterir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f5",
+        "dimension": "analysis_plan",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Lack of explicit assumption testing for model components",
+        "summary": "Sinir ağı modelleri genellikle belirli istatistiksel varsayımlara dayanmasa da, modelin iç bileşenlerinin (örneğin, dikkat mekanizmalarının veya LSTM'lerin) beklenen şekilde çalıştığını doğrulamak için daha fazla analiz yapılabilir. Makalede bu tür varsayım testlerine veya modelin iç işleyişine dair derinlemesine bir analize yer verilmemiştir, ancak dikkat mekanizmasının görselleştirilmesi (Figure 3) kısmi bir içgörü sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_4_further_analyses.a0",
+            "section": "3.4 FURTHER ANALYSES",
+            "quote": "Finally, we would like to check whether the attention mechanism used in the match-LSTM layer is effective in helping the model locate the answer. We show the attention weights α in Figure 3."
+          }
+        ],
+        "reasoning_public": "Sinir ağı modelleri 'kara kutu' olarak görülebilir. Modelin neden belirli bir şekilde performans gösterdiğini anlamak için, iç mekanizmalarının (örneğin, dikkat ağırlıklarının) beklenen davranışları sergileyip sergilemediğini doğrulamak önemlidir. Bu, modelin güvenilirliğini ve yorumlanabilirliğini artırır.",
+        "limitations": [
+          "Sinir ağı modelleri için geleneksel istatistiksel varsayım testleri (örneğin, normallik, homojen varyans) genellikle uygulanmaz. Ancak, modelin beklenen davranışlarını doğrulamak için farklı türde analizler yapılabilir."
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f6",
+        "dimension": "statistical_consistency",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Consistent reporting of performance metrics",
+        "summary": "Makale boyunca, SQuAD için Exact Match ve F1 skorları, MSMARCO için ise BLEU ve Rouge-L skorları tutarlı bir şekilde raporlanmıştır. Tablo 2 ve Tablo 4'teki değerler metin içinde bahsedilen değerlerle uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a1",
+            "section": "ABSTRACT",
+            "quote": "We have achieved the performance of an exact match score of 71.3% and an F1 score of 80.8% on the unseen SQuAD test dataset, which is much better than the feature-engineered solution (Rajpurkar et al., 2016)."
+          },
+          {
+            "anchor_id": "table_2.a0",
+            "section": "Table 2",
+            "quote": "Our best boundary model (en) | 71.3 | 72.6 | 80.0 | 80.8"
+          }
+        ],
+        "reasoning_public": "Tutarlı raporlama, okuyucunun sonuçları kolayca takip etmesini ve anlamasını sağlar. Bu, raporlama kalitesinin önemli bir yönüdür.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f7",
+        "dimension": "effect_size_and_uncertainty",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Lack of confidence intervals for performance metrics",
+        "summary": "Makale, model performansını (Exact Match, F1, BLEU, Rouge-L) raporlarken etki büyüklüklerini (yani, skorların kendilerini) sunmaktadır. Ancak, bu skorlar için güven aralıkları (confidence intervals) veya diğer belirsizlik ölçüleri raporlanmamıştır. Bu durum, model performansındaki farkların istatistiksel olarak ne kadar güvenilir olduğunu değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a1",
+            "section": "Table 2",
+            "quote": "SQuAD | Exact Match | F1 | BLEU1/2/3/4 / Rouge-L"
+          }
+        ],
+        "reasoning_public": "Güven aralıkları, raporlanan performans skorlarının örneklem varyasyonundan ne kadar etkilendiğini gösterir ve modelin gerçek performans aralığı hakkında bilgi verir. Güven aralıklarının olmaması, özellikle farklı modeller arasındaki küçük farkların anlamlılığını yorumlarken bir sınırlama oluşturur.",
+        "limitations": [
+          "Güven aralıklarının hesaplanması, özellikle büyük veri kümeleri ve karmaşık modeller için ek hesaplama kaynakları gerektirebilir.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f7.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f8",
+        "dimension": "missing_data_and_outliers",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Missing data handling for word embeddings",
+        "summary": "Makale, GloVe kelime gömme (word embedding) modelinde bulunmayan kelimelerin sıfır vektörlerle başlatıldığını ve eğitim sırasında güncellenmediğini açıkça belirtmektedir. Bu, eksik veri (bilinmeyen kelimeler) için tanımlanmış bir stratejidir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_2_experiment_settings.a2",
+            "section": "3.2 EXPERIMENT SETTINGS",
+            "quote": "Words not found in GloVe are initialized as zero vectors. The word embeddings are not updated during the training of the model."
+          }
+        ],
+        "reasoning_public": "Bilinmeyen kelimelerin nasıl ele alındığının açıklanması, modelin başlangıç koşulları ve eğitim süreci hakkında şeffaflık sağlar. Bu, eksik veri stratejisi açısından olumlu bir yöndür.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f9",
+        "dimension": "missing_data_and_outliers",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Lack of explicit outlier handling strategy",
+        "summary": "Makalede, veri kümelerindeki aykırı değerlerin (outliers) nasıl tanımlandığı veya ele alındığına dair açık bir açıklama bulunmamaktadır. Özellikle metin uzunlukları veya cevap uzunlukları gibi değişkenlerde aykırı değerler model performansını etkileyebilir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Aykırı değerler, modelin eğitimini ve genelleme yeteneğini olumsuz etkileyebilir. Aykırı değerlerin nasıl ele alındığının belirtilmesi, çalışmanın sağlamlığını ve tekrar üretilebilirliğini artırır.",
+        "limitations": [
+          "Sinir ağı modelleri, aykırı değerlere karşı geleneksel istatistiksel yöntemlere göre daha az hassas olabilir, ancak yine de veri kalitesi ve modelin sağlamlığı için dikkate alınması önemlidir."
+        ],
+        "action_item_ids": [
+          "quant.f9.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "quant.f10",
+        "dimension": "causal_language_discipline",
+        "severity": "minor",
+        "confidence": 0.9,
+        "title": "Use of causal language in observational context",
+        "summary": "Makale, 'outperform' (üstün performans göstermek) ve 'overcome' (üstesinden gelmek) gibi nedensel çağrışımları olan ifadeler kullanmaktadır. Bu ifadeler, modellerin belirli bir etkiyi doğrudan 'neden' olduğunu ima edebilir. Ancak, bu bir deneysel çalışma olup, modellerin performans karşılaştırması yapılmaktadır. Bu tür ifadeler, gözlemsel bir bağlamda (yani, farklı modellerin performansını karşılaştırırken) dikkatli kullanılmalıdır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a2",
+            "section": "ABSTRACT",
+            "quote": "Our experiments show that both of our two models substantially outperform the best results obtained by Rajpurkar et al. (2016) using logistic regression and manually crafted features."
+          },
+          {
+            "anchor_id": "results.a0",
+            "section": "RESULTS",
+            "quote": "From the results in Table 2, we can see that the boundary model could clearly outperform the sequence model in a big margin on both datasets. We hypothesis that the sequence model is more likely to stop word generation earlier, and the boundary model can somehow overcome this problem."
+          }
+        ],
+        "reasoning_public": "Bilimsel raporlamada, nedensel dilin yalnızca nedensel çıkarımları destekleyen deneysel tasarımlar için kullanılması önemlidir. Model karşılaştırmaları, bir modelin diğerinden daha iyi 'çalıştığını' gösterse de, bu her zaman doğrudan bir 'nedensel' ilişkiyi ifade etmez.",
+        "limitations": [
+          "NLP alanında 'outperform' gibi terimlerin yaygın olarak kullanıldığı kabul edilmektedir, ancak akademik titizlik açısından daha dikkatli bir dil tercih edilebilir."
+        ],
+        "action_item_ids": [
+          "quant.f10.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f11",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Code availability for reproducibility",
+        "summary": "Makale, modelin kodunun çevrimiçi olarak erişilebilir olduğunu belirterek tekrar üretilebilirliği desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a1",
+            "section": "INTRODUCTION",
+            "quote": "Besides, we also made our code available online 3."
+          }
+        ],
+        "reasoning_public": "Kodun açık kaynak olarak sunulması, diğer araştırmacıların çalışmayı doğrulamasına, yeniden üretmesine ve üzerine inşa etmesine olanak tanır. Bu, bilimsel şeffaflık ve tekrar üretilebilirlik için kritik bir adımdır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f12",
+        "dimension": "reproducibility",
+        "severity": "info",
+        "confidence": 1.0,
+        "title": "Use of publicly available datasets",
+        "summary": "Çalışma, SQuAD ve MSMARCO gibi halka açık ve yaygın olarak kullanılan veri kümelerini kullanmaktadır. Bu, diğer araştırmacıların aynı veri üzerinde deneyleri yeniden üretmesini veya karşılaştırmalı çalışmalar yapmasını kolaylaştırır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "3_1_data.a3",
+            "section": "3.1 DATA",
+            "quote": "We use the Stanford Question Answering Dataset (SQuAD) v1.1 and the human-generated Microsoft MAchine Reading COmprehension (MSMARCO) dataset v1.1 to conduct our experiments."
+          }
+        ],
+        "reasoning_public": "Halka açık veri kümelerinin kullanılması, çalışmanın şeffaflığını ve tekrar üretilebilirliğini artırır. Bu, bilimsel topluluk içinde işbirliğini ve doğrulamayı teşvik eder.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f13",
+        "dimension": "reporting_quality",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Lack of uncertainty measures for main results",
+        "summary": "Makale, ana sonuçları (Exact Match, F1, BLEU, Rouge-L skorları) sunarken, bu skorlar için güven aralıkları veya diğer belirsizlik ölçülerini raporlamamıştır. Bu durum, raporlanan performansın istatistiksel güvenilirliğini ve genellenebilirliğini değerlendirmeyi zorlaştırmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "table_2.a2",
+            "section": "Table 2",
+            "quote": "SQuAD | Exact Match | F1 | BLEU1/2/3/4 / Rouge-L"
+          }
+        ],
+        "reasoning_public": "Ana sonuçların yalnızca nokta tahminleri olarak sunulması, okuyucunun model performansının ne kadar değişken olabileceğini veya farklı veri örneklemlerinde nasıl değişebileceğini anlamasını engeller. Belirsizlik ölçüleri, sonuçların daha sağlam bir yorumunu sağlar.",
+        "limitations": [
+          "Güven aralıklarının hesaplanması, özellikle büyük veri kümeleri ve karmaşık modeller için ek hesaplama kaynakları gerektirebilir.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f13.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "quant.f14",
+        "dimension": "reporting_quality",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Use of 'clearly outperform' without statistical significance",
+        "summary": "Makale, 'boundary model could clearly outperform the sequence model in a big margin' gibi ifadeler kullanmaktadır. Ancak, bu 'açık' veya 'büyük' farkların istatistiksel olarak anlamlı olup olmadığını destekleyecek istatistiksel testler veya güven aralıkları sunulmamıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a1",
+            "section": "RESULTS",
+            "quote": "From the results in Table 2, we can see that the boundary model could clearly outperform the sequence model in a big margin on both datasets."
+          }
+        ],
+        "reasoning_public": "Niteliksel ifadeler (örneğin, 'açıkça', 'büyük bir farkla') yerine, istatistiksel anlamlılık testleri veya güven aralıkları gibi nicel kanıtlar, iddiaların sağlamlığını artırır. Bu tür ifadeler, kanıt olmadan kullanıldığında yanıltıcı olabilir.",
+        "limitations": [
+          "NLP alanında, skor farklarının 'açık' veya 'büyük' olarak nitelendirilmesi yaygın bir uygulamadır, ancak akademik titizlik açısından daha nicel bir yaklaşım tercih edilir.",
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "quant.f14.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f0",
+        "dimension": "contribution_originality",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Açıkça Belirtilmiş ve Desteklenmiş Katkılar",
+        "summary": "Makale, SQuAD ve MSMARCO veri setlerinin özel özelliklerini ele almak için match-LSTM ve Pointer Net'i birleştiren iki yeni uçtan uca sinir ağı modeli önermektedir. Özellikle, sınır modelinin (boundary model) bu görevler için daha uygun olduğunu ve dikkat tabanlı kelime çifti eşleştirmesini makine anlama görevlerine entegre eden ilk çalışma olduklarını belirtmektedirler. Ayrıca, önceki özellik mühendisliği tabanlı çözümlere kıyasla önemli performans iyileştirmeleri sunmuşlardır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a2",
+            "section": "INTRODUCTION",
+            "quote": "Our contributions can be summarized as follows: (1) We propose two new end-to-end neural network models for machine comprehension, which combine match-LSTM and Ptr-Net to handle the special properties of the SQuAD dataset. To the best of our knowledge, we are the ﬁrst to propose the boundary model which is more suitable to the SQuAD/MSMARCO tasks. And we are the ﬁrst to integrate the attention-based word pair matching into machine comprehension tasks. (2) We have achieved the performance of an exact match score of 71.3% and an F1 score of 80.8% on the unseen SQuAD test dataset, which is much better than the feature-engineered solution (Rajpurkar et al., 2016). Our performance is also close to the state of the art on SQuAD, which is 74.8% in terms of exact match and 82.2% in terms of F1 collected from the SQuAD Leaderboard 1. Besides, our boundary model achieves the state-of-art performance on the MSMARCO dataset with BLUE-1/2/3/4 40.7/33.9/30.6/28.7 and Rouge-L 37.3 2. (3) Our further visualization of the models reveals some useful insights of the attention mechanism for reasoning the questions. And we also show that the boundary model can overcome the early stop prediction problem in the sequence model. Besides, we also made our code available online 3."
+          }
+        ],
+        "reasoning_public": "Yazarlar, çalışmalarının temel katkılarını net bir şekilde özetlemiş ve bu katkıların literatürdeki mevcut boşlukları nasıl doldurduğunu açıklamışlardır. Özellikle, 'boundary model' ve dikkat mekanizmasının entegrasyonu gibi unsurların özgün olduğunu vurgulamaları, çalışmanın yenilikçi yönlerini ortaya koymaktadır. Deneysel sonuçlar da bu iddiaları desteklemektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "contribution_originality.f1",
+        "dimension": "contribution_originality",
+        "severity": "moderate",
+        "confidence": 0.7,
+        "title": "Özgünlük İddialarının Daha Güçlü Literatür Karşılaştırması",
+        "summary": "Yazarlar, 'boundary model' ve dikkat tabanlı kelime çifti eşleştirmesini makine anlama görevlerine entegre eden ilk çalışma olduklarını iddia etmektedirler. Ancak, bu iddiaları desteklemek için ilgili literatürdeki benzer yaklaşımlarla daha detaylı bir karşılaştırma sunulmamıştır. 'To the best of our knowledge' ifadesi, kapsamlı bir literatür taraması yerine kişisel bilgiye dayalı bir iddia izlenimi vermektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a3",
+            "section": "INTRODUCTION",
+            "quote": "To the best of our knowledge, we are the ﬁrst to propose the boundary model which is more suitable to the SQuAD/MSMARCO tasks. And we are the ﬁrst to integrate the attention-based word pair matching into machine comprehension tasks."
+          }
+        ],
+        "reasoning_public": "Özgünlük iddiaları, özellikle 'ilk olma' gibi ifadeler, ilgili alandaki mevcut çalışmalarla doğrudan ve detaylı bir karşılaştırma ile desteklenmelidir. Mevcut durumda, bu iddialar yeterince sağlam bir literatür taraması ile temellendirilmemiştir, bu da okuyucunun çalışmanın gerçek özgünlüğünü tam olarak değerlendirmesini zorlaştırmaktadır. Bu durum, çalışmanın yenilikçi yönlerini daha ikna edici bir şekilde sunma potansiyelini azaltmaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "contribution_originality.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f0",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Net ve İyi Tanımlanmış Araştırma Sorusu",
+        "summary": "Makale, SQuAD ve MSMARCO veri setlerinde makine okuduğunu anlama problemini ele almak için yeni bir uçtan uca sinir ağı mimarisi önermektedir. Araştırma sorusu net bir şekilde tanımlanmış ve çalışmanın tasarımı ve kapsamıyla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a4",
+            "section": "INTRODUCTION",
+            "quote": "In this paper, we propose a new end-to-end neural architecture to address the machine comprehension problem as deﬁned in the SQuAD/MSMARCO dataset."
+          },
+          {
+            "anchor_id": "abstract.a3",
+            "section": "ABSTRACT",
+            "quote": "We propose an end-to-end neural architecture for the task. The architecture is based on match-LSTM, a model we proposed previously for textual entailment, and Pointer Net, a sequence-to-sequence model proposed by Vinyals et al. (2015) to constrain the output tokens to be from the input sequences."
+          }
+        ],
+        "reasoning_public": "Makale, 'SQuAD/MSMARCO veri setinde tanımlandığı gibi makine okuduğunu anlama problemini ele almak için yeni bir uçtan uca sinir ağı mimarisi öneriyoruz' ifadesiyle ana araştırma hedefini açıkça belirtmektedir. Bu, çalışmanın metodolojisi (match-LSTM ve Pointer Net kullanımı) ve deneysel kurulumu (SQuAD ve MSMARCO veri setleri üzerinde performans değerlendirmesi) ile doğrudan uyumludur. Araştırma sorusu, belirli veri setleri ve problem tanımı üzerinden cevaplanabilir bir şekilde formüle edilmiştir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "research_question_fit.f1",
+        "dimension": "research_question_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Katkıların Araştırma Sorusuyla Uyumlu Şekilde Vurgulanması",
+        "summary": "Makale, önerilen modellerin SQuAD ve MSMARCO veri setlerinin özel özelliklerini ele almadaki yenilikçi yönlerini ve elde edilen performans iyileştirmelerini açıkça belirtmektedir. Bu katkılar, makalenin ana araştırma sorusunu doğrudan desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a5",
+            "section": "INTRODUCTION",
+            "quote": "Our contributions can be summarized as follows: (1) We propose two new end-to-end neural network models for machine comprehension, which combine match-LSTM and Ptr-Net to handle the special properties of the SQuAD dataset. To the best of our knowledge, we are the ﬁrst to propose the boundary model which is more suitable to the SQuAD/MSMARCO tasks. And we are the ﬁrst to integrate the attention-based word pair matching into machine comprehension tasks. (2) We have achieved the performance of an exact match score of 71.3% and an F1 score of 80.8% on the unseen SQuAD test dataset, which is much better than the feature-engineered solution (Rajpurkar et al., 2016)."
+          }
+        ],
+        "reasoning_public": "Makalenin 'Katkılarımız şu şekilde özetlenebilir' bölümü, önerilen iki yeni uçtan uca sinir ağı modelinin SQuAD veri setinin özel özelliklerini nasıl ele aldığını ve match-LSTM ile Ptr-Net'i nasıl birleştirdiğini vurgulamaktadır. Ayrıca, elde edilen performans iyileştirmeleri (Rajpurkar et al., 2016'nın özellik mühendisliği tabanlı çözümünden daha iyi sonuçlar) ve MSMARCO veri setindeki en iyi performans, araştırma sorusunun başarılı bir şekilde ele alındığını göstermektedir. Bu, çalışmanın hedefleriyle güçlü bir uyum içindedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f0",
+        "dimension": "theoretical_framing",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Teorik Çerçevenin Belirsizliği ve Geliştirme İhtiyacı",
+        "summary": "Makale, 'makine anlama' problemini ele alırken, bu kavramın teorik temellerini veya farklı yaklaşımlarını yeterince derinlemesine tartışmamaktadır. Mevcut literatürdeki 'makine anlama' tanımları ve bu tanımların çalışmanın yaklaşımını nasıl etkilediği net değildir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a4",
+            "section": "ABSTRACT",
+            "quote": "Machine comprehension of text is an important problem in natural language processing."
+          },
+          {
+            "anchor_id": "introduction.a6",
+            "section": "INTRODUCTION",
+            "quote": "Machine comprehension of text is one of the ultimate goals of natural language processing."
+          }
+        ],
+        "reasoning_public": "Makine anlama, doğal dil işlemede geniş bir alandır ve farklı teorik yaklaşımlarla ele alınabilir. Makalenin, kendi yöntemini bu geniş çerçeveye nasıl oturttuğunu ve hangi teorik varsayımlar üzerine inşa edildiğini daha açık bir şekilde belirtmesi, çalışmanın bilimsel bağlamını güçlendirecektir. Mevcut haliyle, 'makine anlama' terimi genel bir problem tanımı olarak kalmakta, ancak altında yatan teorik çerçeve belirsizliğini korumaktadır.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "theoretical_framing.f1",
+        "dimension": "theoretical_framing",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Match-LSTM ve Pointer Net'in Teorik Bağlamı",
+        "summary": "Match-LSTM ve Pointer Net modellerinin teknik açıklamaları mevcut olsa da, bu modellerin 'makine anlama' problemine uygulanmasının altında yatan teorik motivasyonlar ve bu modellerin 'anlama' sürecine nasıl katkıda bulunduğu daha detaylı açıklanabilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "method.a1",
+            "section": "METHOD",
+            "quote": "In a recent work on learning natural language inference, we proposed a match-LSTM model for predicting textual entailment (Wang & Jiang, 2016)."
+          },
+          {
+            "anchor_id": "method.a2",
+            "section": "METHOD",
+            "quote": "Vinyals et al. (2015) proposed a Pointer Network (Ptr-Net) model to solve a special kind of problems where we want to generate an output sequence whose tokens must come from the input sequence."
+          }
+        ],
+        "reasoning_public": "Makale, Match-LSTM ve Pointer Net'i teknik olarak iyi tanımlamaktadır. Ancak, bu modellerin 'makine anlama' gibi karmaşık bir bilişsel süreci nasıl modellemeye çalıştığına dair teorik bir tartışma, okuyucunun yöntemin 'anlama' iddiasını daha iyi kavramasına yardımcı olacaktır. Örneğin, dikkat mekanizmalarının veya sıralı işlemlemenin 'anlama' ile ilişkisi daha derinlemesine ele alınabilir.",
+        "limitations": [],
+        "action_item_ids": [
+          "theoretical_framing.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "literature_positioning.f0",
+        "dimension": "literature_positioning",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Referansların Doğrulanabilirliğinde Eksiklik",
+        "summary": "Makaledeki referansların tamamı otomatik sistemler tarafından indekslerde bulunamamıştır. Bu durum, çalışmanın dayandığı literatürün doğrulanabilirliğini ve erişilebilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmaların temel bir gerekliliği, atıfta bulunulan kaynakların kolayca erişilebilir ve doğrulanabilir olmasıdır. Referansların indekslerde bulunamaması, okuyucuların ve hakemlerin çalışmanın literatürdeki yerini ve dayanaklarını tam olarak değerlendirmesini zorlaştırır. Bu durum, özellikle yeni veya niş yayınlar için anlaşılabilir olsa da, tüm referansların bu durumda olması şeffaflık açısından bir zayıflıktır.",
+        "limitations": [
+          "Sağlanan kanıt paketindeki 'not_found_in_index' durumu, OpenAlex servisindeki geçici bir hatadan kaynaklanmış olabilir ve referansların gerçekten mevcut olmadığı anlamına gelmeyebilir. Bu nedenle, referansların içeriği veya geçerliliği hakkında doğrudan bir yargıda bulunulmamıştır."
+        ],
+        "action_item_ids": [
+          "literature_positioning.f0.a0",
+          "literature_positioning.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "literature_positioning.f1",
+        "dimension": "literature_positioning",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "İlgili Literatüre Başarılı Konumlandırma",
+        "summary": "Makale, makine okuduğunu anlama alanındaki mevcut veri setleri (SQuAD, MSMARCO) ve nöral ağ yaklaşımları (Match-LSTM, Pointer Net) bağlamında kendi katkısını net bir şekilde konumlandırmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a5",
+            "section": "ABSTRACT",
+            "quote": "We propose an end-to-end neural architecture for the task. The architecture is based on match-LSTM, a model we proposed previously for textual entailment, and Pointer Net, a sequence-to-sequence model proposed by Vinyals et al. (2015) to constrain the output tokens to be from the input sequences."
+          },
+          {
+            "anchor_id": "introduction.a7",
+            "section": "INTRODUCTION",
+            "quote": "Given these advantages of the SQuAD and MSMARCO datasets, in this paper, we focus on these new datasets to study machine comprehension of text."
+          },
+          {
+            "anchor_id": "introduction.a8",
+            "section": "INTRODUCTION",
+            "quote": "To the best of our knowledge, we are the ﬁrst to propose the boundary model which is more suitable to the SQuAD/MSMARCO tasks. And we are the ﬁrst to integrate the attention-based word pair matching into machine comprehension tasks."
+          }
+        ],
+        "reasoning_public": "Yazarlar, çalışmanın temelini oluşturan Match-LSTM ve Pointer Net modellerini açıkça belirtmiş ve bu modellerin kendi yaklaşımlarına nasıl entegre edildiğini açıklamışlardır. Ayrıca, SQuAD ve MSMARCO gibi güncel ve zorlayıcı veri setlerinin özelliklerini vurgulayarak, önerilen modelin bu veri setlerinin gereksinimlerini nasıl karşıladığını detaylandırmışlardır. Bu, çalışmanın literatürdeki boşluğu doldurma ve mevcut yöntemlere katkı sağlama potansiyelini net bir şekilde ortaya koymaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f0",
+        "dimension": "claim_evidence_alignment",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Sıralı Modelin Erken Durma Hipotezi İçin Sınırlı Kanıt",
+        "summary": "Makale, sıralı modelin sınır modeline göre daha kötü performans göstermesinin nedeninin, sıralı modelin kelime üretimini daha erken durdurma eğiliminde olması hipotezine dayanmaktadır. Ancak, bu hipotezi destekleyen istatistiksel analiz, sadece ortalama kelime uzunluklarını karşılaştırmakta ve 'erken durma' mekanizmasını doğrudan kanıtlamamaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a2",
+            "section": "RESULTS",
+            "quote": "From the results in Table 2, we can see that the boundary model could clearly outperform the sequence model in a big margin on both datasets. We hypothesis that the sequence model is more likely to stop word generation earlier, and the boundary model can somehow overcome this problem. We have a statistical analysis on the answers generated by our sequence and boundary models shown in Table 3. We can see that the length of the answers generated by the sequence model is much shorter than the ground truth."
+          }
+        ],
+        "reasoning_public": "Yazarlar, sıralı modelin sınır modelinden daha kısa cevaplar üretmesini 'erken durma' olarak yorumlamaktadır. Ancak, ortalama kelime uzunlukları, modelin neden daha kısa cevaplar ürettiğini (örneğin, modelin daha az kelime seçme eğiliminde olması veya daha kısa cevapları daha olası görmesi gibi) açıklamaz. Bu, modelin davranışına dair önemli bir iddia olmasına rağmen, sunulan kanıt bu iddiayı tam olarak desteklememektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f1",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Model Performansının Karşılaştırmalı Kanıtı",
+        "summary": "Makale, önerilen modellerin (özellikle sınır modelinin) Rajpurkar et al. (2016) ve Yu et al. (2016) gibi önceki çalışmalardan daha iyi performans gösterdiğini açıkça belirtmekte ve bu iddiaları Tablo 2'deki nicel sonuçlarla desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a3",
+            "section": "RESULTS",
+            "quote": "Overall, we can see that both of our match-LSTM models have clearly outperformed the logistic regression model by Rajpurkar et al. (2016), which relies on carefully designed features. ... Our boundary model also outperformed the DCR model (Yu et al., 2016)..."
+          }
+        ],
+        "reasoning_public": "Yazarların kendi modellerinin önceki yaklaşımlardan daha iyi performans gösterdiği iddiası, Tablo 2'de sunulan kesinlik ve F1 puanları ile BLEU/Rouge-L metrikleri aracılığıyla güçlü bir şekilde kanıtlanmıştır. Bu, makalenin temel katkılarından birini oluşturmaktadır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "claim_evidence_alignment.f2",
+        "dimension": "claim_evidence_alignment",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Ablasyon Çalışması Bulgularının Desteklenmesi",
+        "summary": "Makale, en iyi sınır modelinin farklı bileşenlerinin (bi-Ans-Ptr, deep, elem, pre-LSTM) performans üzerindeki etkisini gösteren bir ablasyon çalışması sunmaktadır. Bu çalışma, her bir bileşenin katkısını nicel olarak ortaya koyarak iddiaları desteklemektedir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "results.a4",
+            "section": "RESULTS",
+            "quote": "Based on the effectiveness of boundary pointer and match-LSTM, we conduct further exploration of the boundary model by adding element-wise comparison (hp_i −Hqα_i ) and (hp_i ⊙Hqα_i ) into Eqn 3 in match-LSTM layer, adding 2 more bi-directional LSTM layers between match-LSTM and Ans-Ptr layers, and adding bi-directional Ans-Ptr. We show the ablation study of this further tuned model in Table 4. We can see that adding element-wise matching could make the biggest improvement for our boundary model."
+          }
+        ],
+        "reasoning_public": "Tablo 4'te sunulan ablasyon çalışması, modelin farklı mimari seçimlerinin performans üzerindeki etkisini açıkça göstermektedir. Özellikle, 'element-wise matching'in en büyük iyileşmeyi sağladığı iddiası, ilgili metriklerdeki artışlarla doğrulanmaktadır. Bu, modelin tasarım kararlarının arkasındaki kanıtları güçlendirmektedir.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "citation_integrity.f0",
+        "dimension": "citation_integrity",
+        "severity": "moderate",
+        "confidence": 0.9,
+        "title": "Referansların Yüksek Oranda İndekste Bulunamaması",
+        "summary": "Makaledeki 25 referansın tamamı otomatik indeksleme sistemlerinde bulunamamıştır. Bu durum, referansların doğrulanabilirliğini ve erişilebilirliğini olumsuz etkilemektedir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Akademik çalışmalarda referansların kolayca doğrulanabilir ve erişilebilir olması, araştırmanın şeffaflığı ve güvenilirliği açısından kritik öneme sahiptir. Referansların büyük bir kısmının otomatik indeksleme sistemlerinde bulunamaması, okuyucuların atıfta bulunulan kaynakları kontrol etmesini zorlaştırır ve makalenin bilimsel dayanaklarının sağlamlığını sorgulatabilir. Her ne kadar bu durumun bir kısmı indeksleme sistemlerinin kapsam sınırlamalarından kaynaklanabilse de, bu kadar yüksek bir oranın tamamının bu nedenle açıklanması düşüktür.",
+        "limitations": [
+          "Otomatik indeksleme sistemlerinin (OpenAlex) kapsam sınırlamaları nedeniyle bazı referansların bulunamaması, referansın gerçekten var olmadığı anlamına gelmez. Özellikle arXiv, workshop bildirileri veya İngilizce dışı yayınlar bu tür sistemlerde daha az indekslenebilir. Ancak, tüm referansların bulunamaması, bu sınırlamaların ötesinde bir sorun olabileceğine işaret etmektedir."
+        ],
+        "action_item_ids": [
+          "citation_integrity.f0.a0",
+          "citation_integrity.f0.a1"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f0",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Makine Öğrenimi Çalışmaları için Belirli Raporlama Kılavuzlarına Uyum",
+        "summary": "Makale, makine öğrenimi alanındaki deneysel çalışmalar için yaygın olarak kabul gören raporlama uygulamalarına genel olarak uymaktadır. Özellikle, kullanılan veri kümeleri, model mimarileri, eğitim parametreleri ve değerlendirme metrikleri hakkında yeterli bilgi sağlanmıştır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a6",
+            "section": "ABSTRACT",
+            "quote": "We propose an end-to-end neural architecture for the task. The architecture is based on match-LSTM, a model we proposed previously for textual entailment, and Pointer Net, a sequence-to-sequence model proposed by Vinyals et al. (2015) to constrain the output tokens to be from the input sequences. We propose two ways of using Pointer Net for our tasks. Our experiments show that both of our two models substantially outperform the best results obtained by Rajpurkar et al. (2016) using logistic regression and manually crafted features. Besides, our boundary model also achieves the best performance on the MSMARCO dataset (Nguyen et al., 2016)."
+          },
+          {
+            "anchor_id": "3_1_data.a4",
+            "section": "3.1 DATA",
+            "quote": "We use the Stanford Question Answering Dataset (SQuAD) v1.1 and the human-generated Microsoft MAchine Reading COmprehension (MSMARCO) dataset v1.1 to conduct our experiments."
+          },
+          {
+            "anchor_id": "3_2_experiment_settings.a3",
+            "section": "3.2 EXPERIMENT SETTINGS",
+            "quote": "We use word embeddings from GloVe (Pennington et al., 2014) to initialize the model. Words not found in GloVe are initialized as zero vectors. The word embeddings are not updated during the training of the model. The dimensionality l of the hidden layers is set to be 150. We use ADAMAX (Kingma & Ba, 2015) with the coefﬁcients β1 = 0.9 and β2 = 0.999 to optimize the model. Each update is computed through a minibatch of 30 instances. We do not use L2-regularization."
+          },
+          {
+            "anchor_id": "3_2_experiment_settings.a4",
+            "section": "3.2 EXPERIMENT SETTINGS",
+            "quote": "For the SQuAD dataset, the performance is measured by two metrics: percentage of exact match with the ground truth answers and word-level F1 score when comparing the tokens in the predicted answers with the tokens in the ground truth answers. ... For the MSMARCO dataset, the metrics in the ofﬁcial tool of MSMARCO evaluation are BLEU-1/2/3/4 and Rouge-L, which are widely used in many domains."
+          }
+        ],
+        "reasoning_public": "Makine öğrenimi araştırmalarında, sonuçların tekrarlanabilirliğini ve karşılaştırılabilirliğini sağlamak için belirli bilgilerin açıkça raporlanması önemlidir. Bu makale, bu tür bilgileri (veri kümeleri, model detayları, hiperparametreler, metrikler) sunarak iyi bir uygulama örneği sergilemektedir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f1",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "minor",
+        "confidence": 0.8,
+        "title": "Kod Erişilebilirliğinin Daha Net Belirtilmesi",
+        "summary": "Makale, kodun çevrimiçi olarak erişilebilir olduğunu belirtse de, bu bilginin 'Katkılarımız' bölümünde kısa bir not olarak verilmesi yerine, daha belirgin bir şekilde 'Deneysel Ayarlar' veya 'Ek Bilgiler' gibi bir bölümde sunulması, tekrarlanabilirlik açısından daha faydalı olacaktır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a9",
+            "section": "INTRODUCTION",
+            "quote": "Besides, we also made our code available online 3."
+          }
+        ],
+        "reasoning_public": "Makine öğrenimi araştırmalarında, yayımlanan sonuçların doğrulanabilirliği ve gelecekteki çalışmalar için temel oluşturması açısından kodun erişilebilirliği kritik öneme sahiptir. Bu bilginin daha belirgin bir şekilde sunulması, araştırmacıların kodu bulmasını ve kullanmasını kolaylaştırır.",
+        "limitations": [],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "reporting_guideline_compliance.f2",
+        "dimension": "reporting_guideline_compliance",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Hesaplama Kaynakları ve Eğitim Süresi Bilgisi Eksikliği",
+        "summary": "Makalede, modellerin eğitimi için kullanılan hesaplama kaynakları (örn. GPU tipi, sayısı) ve eğitim süreleri hakkında bilgi verilmemiştir. Bu tür bilgiler, özellikle derin öğrenme modelleri için tekrarlanabilirlik ve kaynak planlaması açısından önemlidir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "Derin öğrenme modellerinin eğitimi genellikle önemli hesaplama kaynakları ve zaman gerektirir. Bu bilgilerin eksikliği, diğer araştırmacıların sonuçları yeniden üretmesini veya benzer ölçekte çalışmalar yapmasını zorlaştırabilir.",
+        "limitations": [
+          "Makalede bu tür bir bilginin eksikliği, genel bir raporlama kılavuzu ihlali olmaktan ziyade, makine öğrenimi alanına özgü iyi bir uygulama eksikliğidir."
+        ],
+        "action_item_ids": [
+          "reporting_guideline_compliance.f2.a0"
+        ],
+        "global_issue": true
+      },
+      {
+        "finding_id": "ethics_reproducibility.f0",
+        "dimension": "ethics_reproducibility",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Kod Paylaşımı",
+        "summary": "Makale, uygulanan modellerin kodunun çevrimiçi olarak erişilebilir olduğunu belirtmektedir, bu da çalışmanın tekrar üretilebilirliğini artırır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a10",
+            "section": "INTRODUCTION",
+            "quote": "Besides, we also made our code available online 3."
+          }
+        ],
+        "reasoning_public": "Kodun açıkça paylaşılması, diğer araştırmacıların sonuçları doğrulamasına, metodolojiyi anlamasına ve üzerine inşa etmesine olanak tanır, bu da bilimsel şeffaflık ve tekrar üretilebilirlik için kritik öneme sahiptir.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "ethics_reproducibility.f1",
+        "dimension": "ethics_reproducibility",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Veri Kümelerinin Kullanımı ve Etik Onay Beyanı Eksikliği",
+        "summary": "Çalışma, SQuAD ve MSMARCO gibi insan tarafından oluşturulmuş veri kümelerini kullanmaktadır. Ancak, bu veri kümelerinin toplanması sırasında etik onay veya katılımcı rızası gibi konulara değinilmemiştir. Bu, makalenin kendi sorumluluğunda olmasa da, kullanılan verilerin etik kökenleri hakkında şeffaflık eksikliği yaratmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a7",
+            "section": "ABSTRACT",
+            "quote": "A recently released dataset, the Stanford Question Answering Dataset (SQuAD), offers a large number of real questions and their answers created by humans through crowdsourcing."
+          },
+          {
+            "anchor_id": "introduction.a11",
+            "section": "INTRODUCTION",
+            "quote": "the questions and answers in SQuAD were created by humans through crowdsourcing, which makes the dataset more realistic. Another real dataset, the Human-Generated MAchine Reading COmprehension dataset (MSMARCO) (Nguyen et al., 2016), provided a query together with several related documents collected from Bing Index. The answer to the query is generated by human and the answer words can not only come from the given text."
+          }
+        ],
+        "reasoning_public": "İnsan verisi içeren çalışmalarda, veri toplama süreçlerinin etik standartlara uygun olduğunun belirtilmesi önemlidir. Bu tür bir beyanın eksikliği, çalışmanın etik boyutları hakkında belirsizlik yaratabilir, özellikle de veri kümelerinin 'crowdsourcing' yoluyla oluşturulduğu göz önüne alındığında.",
+        "limitations": [
+          "Bu eksiklik doğrudan makalenin kendi veri toplama sürecinden kaynaklanmamaktadır, ancak kullanılan verilerin etik şeffaflığına katkıda bulunacaktır."
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f0",
+        "dimension": "writing_structure",
+        "severity": "moderate",
+        "confidence": 0.8,
+        "title": "Giriş Bölümünde Katkıların Erken ve Detaylı Sunumu",
+        "summary": "Giriş bölümünde makalenin katkıları çok erken ve detaylı bir şekilde listelenmiştir. Bu durum, okuyucunun henüz yöntem ve bağlam hakkında yeterli bilgiye sahip olmadan teknik detaylara maruz kalmasına neden olmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a12",
+            "section": "INTRODUCTION",
+            "quote": "Our contributions can be summarized as follows: (1) We propose two new end-to-end neural network models for machine comprehension, which combine match-LSTM and Ptr-Net to handle the special properties of the SQuAD dataset. To the best of our knowledge, we are the ﬁrst to propose the boundary model which is more suitable to the SQuAD/MSMARCO tasks. And we are the ﬁrst to integrate the attention-based word pair matching into machine comprehension tasks. (2) We have achieved the performance of an exact match score of 71.3% and an F1 score of 80.8% on the unseen SQuAD test dataset, which is much better than the feature-engineered solution (Rajpurkar et al., 2016). Our performance is also close to the state of the art on SQuAD, which is 74.8% in terms of exact match and 82.2% in terms of F1 collected from the SQuAD Leaderboard 1. Besides, our boundary model achieves the state-of-art performance on the MSMARCO dataset with BLUE-1/2/3/4 40.7/33.9/30.6/28.7 and Rouge-L 37.3 2. (3) Our further visualization of the models reveals some useful insights of the attention mechanism for reasoning the questions. And we also show that the boundary model can overcome the early stop prediction problem in the sequence model. Besides, we also made our code available online 3."
+          }
+        ],
+        "reasoning_public": "Akademik makalelerde giriş bölümünün temel amacı, çalışmanın bağlamını, problem tanımını ve genel önemini sunmaktır. Katkıların listelenmesi yaygın olsa da, bu listelemenin çok erken ve teknik detaylarla yapılması, okuyucunun konuya ısınmasını zorlaştırabilir ve akışı bozabilir. Okuyucu, sunulan katkıların tam anlamını kavramak için makalenin ilerleyen bölümlerini okumak zorunda kalır, bu da girişin amacına aykırıdır.",
+        "limitations": [
+          "Anchor quote(s) not found verbatim in the manuscript under whitespace-normalized, case-insensitive comparison; quoted evidence is UNVERIFIED (finding retained, quote not fabricated)."
+        ],
+        "action_item_ids": [
+          "writing_structure.f0.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f1",
+        "dimension": "writing_structure",
+        "severity": "minor",
+        "confidence": 0.7,
+        "title": "Yöntem Bölümünde Önceden Yayınlanmış Çalışmalara Atıf Şekli",
+        "summary": "Yöntem bölümünde, yazarların kendi önceki çalışmalarına atıfta bulunurken 'we proposed previously' veya 'we developed earlier' gibi ifadeler kullanması, akademik yazım standartlarında daha resmi bir dil olan 'Wang & Jiang (2016) tarafından önerilen' gibi ifadelerle değiştirilebilir.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a8",
+            "section": "ABSTRACT",
+            "quote": "The architecture is based on match-LSTM, a model we proposed previously for textual entailment, and Pointer Net, a sequence-to-sequence model proposed by Vinyals et al. (2015) to constrain the output tokens to be from the input sequences."
+          },
+          {
+            "anchor_id": "introduction.a13",
+            "section": "INTRODUCTION",
+            "quote": "Speciﬁcally, observing that in the SQuAD/MSMARCO dataset many questions could be entailed from some sentences in the original text, we adopt a match-LSTM model that we developed earlier for textual entailment (Wang & Jiang, 2016) as one layer of our model."
+          },
+          {
+            "anchor_id": "method.a3",
+            "section": "METHOD",
+            "quote": "In a recent work on learning natural language inference, we proposed a match-LSTM model for predicting textual entailment (Wang & Jiang, 2016)."
+          }
+        ],
+        "reasoning_public": "Akademik yazımda, kendi önceki çalışmalarına atıfta bulunurken bile üçüncü şahıs veya daha nesnel bir dil kullanmak yaygın bir uygulamadır. 'Biz önerdik' gibi ifadeler, makalenin genel tonunu biraz daha kişisel hale getirebilir. Daha resmi bir ifade, makalenin bilimsel nesnelliğini pekiştirir.",
+        "limitations": [],
+        "action_item_ids": [
+          "writing_structure.f1.a0"
+        ],
+        "global_issue": false
+      },
+      {
+        "finding_id": "writing_structure.f2",
+        "dimension": "writing_structure",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Mantıksal Bölüm Akışı ve Anlaşılırlık",
+        "summary": "Makalenin genel yapısı ve bölümler arasındaki geçişler mantıklı ve anlaşılırdır. Giriş, yöntem, sonuçlar ve ilgili çalışmalar bölümleri beklenen sırayla sunulmuş ve her bölüm kendi içinde tutarlı bir akışa sahiptir.",
+        "manuscript_anchors": [],
+        "reasoning_public": "İyi yapılandırılmış bir makale, okuyucunun argümanı ve metodolojiyi kolayca takip etmesini sağlar. Bu makalede, bölümlerin sıralaması ve içerikleri akademik standartlara uygun olup, okuyucunun konuyu adım adım anlamasına yardımcı olmaktadır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": true
+      },
+      {
+        "finding_id": "venue_fit.f0",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.9,
+        "title": "Çalışma Alanına Uygunluk",
+        "summary": "Makale, doğal dil işleme ve makine öğrenimi alanındaki güncel ve önemli bir problem olan makine okuduğunu anlama konusunu ele almaktadır. Kullanılan yöntemler (Match-LSTM, Pointer Net) ve değerlendirme veri setleri (SQuAD, MSMARCO) bu alanlardaki güncel araştırmalarla uyumludur.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "abstract.a9",
+            "section": "ABSTRACT",
+            "quote": "Machine comprehension of text is an important problem in natural language processing. A recently released dataset, the Stanford Question Answering Dataset (SQuAD), offers a large number of real questions and their answers created by humans through crowdsourcing."
+          },
+          {
+            "anchor_id": "introduction.a14",
+            "section": "INTRODUCTION",
+            "quote": "Machine comprehension of text is one of the ultimate goals of natural language processing. While the ability of a machine to understand text can be assessed in many different ways, in recent years, several benchmark datasets have been created to focus on answering questions as a way to evaluate machine comprehension (Richardson et al., 2013; Hermann et al., 2015; Hill et al., 2016; Weston et al., 2016; Rajpurkar et al., 2016; Nguyen et al., 2016)."
+          }
+        ],
+        "reasoning_public": "Makale, doğal dil işleme (NLP) alanında önemli bir problem olan makine okuduğunu anlama (machine comprehension) üzerine odaklanmaktadır. Özellikle SQuAD ve MSMARCO gibi güncel ve zorlayıcı veri setlerini kullanarak, Match-LSTM ve Pointer Net gibi modern sinir ağı mimarilerini birleştiren yeni bir yaklaşım sunmaktadır. Bu yaklaşım, NLP ve makine öğrenimi konferansları veya dergileri için oldukça uygun ve ilgi çekici bir konudur.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      },
+      {
+        "finding_id": "venue_fit.f1",
+        "dimension": "venue_fit",
+        "severity": "info",
+        "confidence": 0.8,
+        "title": "Yöntemlerin Yeniliği ve Katkısı",
+        "summary": "Makale, Match-LSTM ve Pointer Net'i birleştirerek SQuAD ve MSMARCO veri setlerinin özeliklerine uygun yeni bir uçtan uca sinir ağı mimarisi önermektedir. Özellikle 'boundary model' yaklaşımının bu görevler için daha uygun olduğunu belirtmesi ve dikkat mekanizmasının entegrasyonu, alana özgün katkılar sunmaktadır.",
+        "manuscript_anchors": [
+          {
+            "anchor_id": "introduction.a15",
+            "section": "INTRODUCTION",
+            "quote": "In this paper, we propose a new end-to-end neural architecture to address the machine comprehension problem as deﬁned in the SQuAD/MSMARCO dataset."
+          },
+          {
+            "anchor_id": "introduction.a16",
+            "section": "INTRODUCTION",
+            "quote": "Our contributions can be summarized as follows: (1) We propose two new end-to-end neural network models for machine comprehension, which combine match-LSTM and Ptr-Net to handle the special properties of the SQuAD dataset. To the best of our knowledge, we are the ﬁrst to propose the boundary model which is more suitable to the SQuAD/MSMARCO tasks. And we are the ﬁrst to integrate the attention-based word pair matching into machine comprehension tasks."
+          }
+        ],
+        "reasoning_public": "Makale, mevcut yöntemlerin SQuAD ve MSMARCO gibi yeni nesil veri setlerinin özelliklerine tam olarak uymadığını belirterek, bu boşluğu doldurmayı hedeflemektedir. Önerilen 'boundary model' ve dikkat tabanlı kelime eşleştirme mekanizmasının makine okuduğunu anlama görevlerine entegrasyonu, alana özgün ve yenilikçi bir katkı olarak sunulmaktadır. Bu tür metodolojik yenilikler, ilgili akademik mekanlar için yüksek değer taşır.",
+        "limitations": [],
+        "action_item_ids": [],
+        "global_issue": false
+      }
+    ],
+    "action_plan": [
+      {
+        "action_id": "citation_integrity.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referansların DOI'lerini veya kalıcı bağlantılarını (URL) ekleyerek referans listesini güncelleyin. Özellikle 'not_found_in_index' olarak belirtilen referanslar için bu adımı uygulayın.",
+        "acceptance_check": "Her referans için geçerli bir DOI veya kalıcı URL'nin eklenmiş olması.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "claim_evidence_alignment.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RESULTS",
+        "instruction": "Sıralı modelin 'erken durma' hipotezini daha doğrudan destekleyecek ek analizler sunulmalıdır. Örneğin, modelin durma mekanizmasının ne zaman tetiklendiğine dair nicel veriler veya durma olasılığının cevap uzunluğuyla ilişkisi incelenebilir.",
+        "acceptance_check": "Hipotezi destekleyen ek istatistiksel analizler veya modelin durma mekanizmasına dair daha derinlemesine bir inceleme eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "claim_evidence_alignment.f0"
+        ]
+      },
+      {
+        "action_id": "contribution_originality.f1.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RELATED WORK",
+        "instruction": "Özgünlük iddialarını (özellikle 'ilk olma' iddialarını) desteklemek için ilgili literatürdeki benzer yaklaşımlarla daha detaylı bir karşılaştırma ekleyin. Bu, 'boundary model' ve dikkat tabanlı kelime çifti eşleştirmesinin makine anlama görevlerindeki yenilikçi yönlerini daha ikna edici bir şekilde ortaya koyacaktır.",
+        "acceptance_check": "İlgili literatürdeki benzer modellerle doğrudan karşılaştırmalar ve bu çalışmanın farkını netleştiren açıklamalar eklenmiş olmalı.",
+        "linked_finding_ids": [
+          "contribution_originality.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "REFERENCES",
+        "instruction": "Tüm referanslar için DOI (Digital Object Identifier) veya kalıcı URL'ler eklenmelidir. Özellikle 'not_found_in_index' olarak belirtilen referanslar için bu bilgiler sağlanarak doğrulanabilirlik artırılmalıdır.",
+        "acceptance_check": "Her referans için geçerli bir DOI veya kalıcı URL'nin eklenmiş olması.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f13.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "Tablo 2 ve Tablo 4'teki tüm ana performans metrikleri için güven aralıkları (örneğin, bootstrap yöntemleriyle hesaplanmış) eklenmelidir. Bu, raporlama kalitesini önemli ölçüde artıracak ve sonuçların daha güvenilir bir şekilde yorumlanmasını sağlayacaktır.",
+        "acceptance_check": "Tüm ana sonuçlar için güven aralıklarının raporlanması.",
+        "linked_finding_ids": [
+          "quant.f13"
+        ]
+      },
+      {
+        "action_id": "quant.f7.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "RESULTS",
+        "instruction": "Tüm performans metrikleri için (Exact Match, F1, BLEU, Rouge-L) güven aralıkları (örneğin, bootstrap yöntemleriyle hesaplanmış) raporlanmalıdır. Bu, model performansının ve farklı modeller arasındaki farkların istatistiksel güvenilirliğini artıracaktır.",
+        "acceptance_check": "Tablo 2 ve Tablo 4'teki tüm performans skorları için güven aralıklarının eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f7"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION, RELATED WORK",
+        "instruction": "Giriş bölümünde veya ilgili çalışmalarda, 'makine anlama' kavramının literatürdeki farklı teorik tanımlarını ve bu çalışmanın hangi tanıma odaklandığını açıklayın. Çalışmanın benimsediği 'makine anlama' yaklaşımının (örn. soru yanıtlama tabanlı) teorik gerekçelerini ve sınırlılıklarını belirtin.",
+        "acceptance_check": "Makine anlama kavramının teorik temelleri ve çalışmanın bu temellerle ilişkisi açıkça belirtilmiş mi?",
+        "linked_finding_ids": [
+          "theoretical_framing.f0"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f0.a0",
+        "priority": "P1",
+        "effort": "medium",
+        "expected_gain": "high",
+        "target_section": "INTRODUCTION",
+        "instruction": "Giriş bölümündeki katkı listesini daha üst düzey ve genel ifadelerle yeniden yazın. Teknik detayları ve sayısal sonuçları (örn. F1 skorları, BLEU değerleri) 'Sonuçlar' veya 'Tartışma' gibi ilgili bölümlere taşıyın. Giriş, okuyucuyu çalışmaya hazırlamalı, teknik bir özet olmamalıdır.",
+        "acceptance_check": "Giriş bölümündeki katkı listesi, makalenin genel hedeflerini ve yeniliklerini vurgulayan, teknik detaylardan arındırılmış, daha kısa ve öz ifadeler içermelidir. Sayısal sonuçlar ve spesifik model detayları kaldırılmalıdır.",
+        "linked_finding_ids": [
+          "writing_structure.f0"
+        ]
+      },
+      {
+        "action_id": "citation_integrity.f0.a1",
+        "priority": "P2",
+        "effort": "high",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Erişilemeyen veya bulunamayan referanslar için alternatif kaynaklar veya daha yaygın olarak indekslenmiş versiyonlarını kullanmayı değerlendirin.",
+        "acceptance_check": "Bulunamayan referans sayısının önemli ölçüde azalması veya alternatif, erişilebilir kaynaklarla değiştirilmesi.",
+        "linked_finding_ids": [
+          "citation_integrity.f0"
+        ]
+      },
+      {
+        "action_id": "ethics_reproducibility.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "INTRODUCTION",
+        "instruction": "Makalede kullanılan insan tarafından oluşturulmuş veri kümelerinin (SQuAD, MSMARCO) etik onay ve katılımcı rızası süreçleri hakkında bilgi veren bir not eklenmelidir. Bu bilgi, veri kümelerinin orijinal yayınlarından veya ilgili dokümantasyonundan alınabilir.",
+        "acceptance_check": "Veri kümelerinin etik kökenlerine dair kısa bir açıklama veya ilgili referansların eklenmesi.",
+        "linked_finding_ids": [
+          "ethics_reproducibility.f1"
+        ]
+      },
+      {
+        "action_id": "literature_positioning.f0.a1",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "REFERENCES",
+        "instruction": "Eğer bazı referanslar arXiv, workshop bildirileri veya henüz indekslenmemiş yayınlar ise, bu durum referans listesinde veya metin içinde belirtilerek okuyucuya bilgi verilmelidir.",
+        "acceptance_check": "Özel durumdaki referanslar için açıklayıcı notların eklenmiş olması.",
+        "linked_finding_ids": [
+          "literature_positioning.f0"
+        ]
+      },
+      {
+        "action_id": "quant.f10.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "ABSTRACT",
+        "instruction": "Nedensel çağrışımları olan 'outperform' ve 'overcome' gibi ifadeler yerine, 'daha iyi performans gösterdi', 'daha yüksek skorlar elde etti' veya 'bu sorunu daha etkili bir şekilde ele aldı' gibi daha nötr ve açıklayıcı ifadeler kullanılabilir. Bu, çalışmanın bilimsel titizliğini artıracaktır.",
+        "acceptance_check": "Nedensel dilin daha dikkatli ve nötr ifadelerle değiştirilmesi.",
+        "linked_finding_ids": [
+          "quant.f10"
+        ]
+      },
+      {
+        "action_id": "quant.f14.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RESULTS",
+        "instruction": "Model performansındaki farkların istatistiksel anlamlılığını değerlendirmek için uygun istatistiksel testler (örneğin, McNemar testi veya bootstrap tabanlı testler) yapılmalı ve sonuçları raporlanmalıdır. Alternatif olarak, bu tür niteliksel ifadelerden kaçınılmalı ve yalnızca sayısal skorlar sunulmalıdır.",
+        "acceptance_check": "İstatistiksel anlamlılık testlerinin eklenmesi veya niteliksel ifadelerin çıkarılması.",
+        "linked_finding_ids": [
+          "quant.f14"
+        ]
+      },
+      {
+        "action_id": "quant.f2.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "RESULTS",
+        "instruction": "Veri kümelerinin standart benchmarklar olduğu göz önüne alındığında, güç analizi yapmak yerine, model performansındaki farkların istatistiksel anlamlılığını değerlendirmek için bootstrap veya permütasyon testleri gibi yöntemlerin kullanılabileceği belirtilebilir. Bu, özellikle 'outperform' gibi iddiaların desteklenmesi için faydalı olacaktır.",
+        "acceptance_check": "İstatistiksel anlamlılık testleri veya ilgili tartışmaların eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f2"
+        ]
+      },
+      {
+        "action_id": "quant.f5.a0",
+        "priority": "P2",
+        "effort": "medium",
+        "expected_gain": "medium",
+        "target_section": "3.4 FURTHER ANALYSES",
+        "instruction": "Modelin iç işleyişine dair daha fazla nicel analiz eklenebilir. Örneğin, dikkat ağırlıklarının belirli dilbilimsel özelliklerle (örneğin, anahtar kelimeler, isim tamlamaları) korelasyonu incelenebilir. Bu, modelin 'varsayımlarının' (yani, dikkat mekanizmasının doğru yerlere odaklandığı) daha sağlam bir şekilde doğrulanmasına yardımcı olur.",
+        "acceptance_check": "Modelin iç mekanizmalarının davranışını nicel olarak destekleyen ek analizlerin sunulması.",
+        "linked_finding_ids": [
+          "quant.f5"
+        ]
+      },
+      {
+        "action_id": "quant.f9.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "3.2 EXPERIMENT SETTINGS",
+        "instruction": "Veri ön işleme bölümünde (3.2 EXPERIMENT SETTINGS), metin uzunlukları, soru uzunlukları veya cevap uzunlukları gibi değişkenlerde aykırı değerlerin nasıl ele alındığına dair bir açıklama eklenebilir. Örneğin, belirli bir uzunluğun üzerindeki metinlerin kesilip kesilmediği veya çok kısa/uzun cevapların özel olarak işlenip işlenmediği belirtilebilir.",
+        "acceptance_check": "Aykırı değer işleme stratejisinin metne eklenmesi.",
+        "linked_finding_ids": [
+          "quant.f9"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "3.2 EXPERIMENT SETTINGS",
+        "instruction": "Kodun erişilebilirliği bilgisini, 'Deneysel Ayarlar' veya 'Ek Bilgiler' gibi daha uygun bir bölüme taşıyın ve GitHub bağlantısını açıkça belirtin. Ayrıca, kodun sürüm kontrolü veya belirli bir sürüm numarası gibi ek detaylar eklemeyi düşünün.",
+        "acceptance_check": "Kod erişilebilirliği bilgisi, makalede daha belirgin bir bölümde yer almalı ve bağlantı açıkça belirtilmelidir.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f1"
+        ]
+      },
+      {
+        "action_id": "reporting_guideline_compliance.f2.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "3.2 EXPERIMENT SETTINGS",
+        "instruction": "Deneysel ayarlar bölümüne, modellerin eğitimi için kullanılan donanım (örn. GPU modeli, sayısı) ve yaklaşık eğitim süreleri hakkında bilgi ekleyin.",
+        "acceptance_check": "Hesaplama kaynakları ve eğitim süresi bilgileri makaleye eklenmelidir.",
+        "linked_finding_ids": [
+          "reporting_guideline_compliance.f2"
+        ]
+      },
+      {
+        "action_id": "theoretical_framing.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "medium",
+        "target_section": "METHOD",
+        "instruction": "Match-LSTM ve Pointer Net modellerinin 'makine anlama' problemine uygulanmasının ardındaki teorik motivasyonları ve bu modellerin 'anlama' sürecinin hangi yönlerini (örn. bilgi çıkarımı, bağlamsal ilişkilendirme) ele aldığını açıklayın.",
+        "acceptance_check": "Yöntem bölümünde kullanılan modellerin 'makine anlama'ya teorik katkıları daha net ifade edilmiş mi?",
+        "linked_finding_ids": [
+          "theoretical_framing.f1"
+        ]
+      },
+      {
+        "action_id": "writing_structure.f1.a0",
+        "priority": "P2",
+        "effort": "low",
+        "expected_gain": "low",
+        "target_section": "METHOD, ABSTRACT, INTRODUCTION",
+        "instruction": "Kendi önceki çalışmalarınıza atıfta bulunurken 'we proposed previously' veya 'we developed earlier' gibi ifadeleri, 'Wang & Jiang (2016) tarafından önerilen' veya 'önceki çalışmamızda (Wang & Jiang, 2016) sunulan' gibi daha resmi ve nesnel ifadelerle değiştirin.",
+        "acceptance_check": "Makale genelinde kendi önceki çalışmalara yapılan atıfların daha resmi ve üçüncü şahıs ağzından yapıldığı doğrulanmalıdır.",
+        "linked_finding_ids": [
+          "writing_structure.f1"
+        ]
+      }
+    ],
+    "section_reviews": [
+      {
+        "section": "ABSTRACT",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Veri Kümelerinin Kullanımı ve Etik Onay Beyanı Eksikliği; Teorik Çerçevenin Belirsizliği ve Geliştirme İhtiyacı",
+        "anchor_ids": [
+          "abstract.a0",
+          "abstract.a1",
+          "abstract.a2",
+          "abstract.a3",
+          "abstract.a4",
+          "abstract.a5",
+          "abstract.a6",
+          "abstract.a7",
+          "abstract.a8",
+          "abstract.a9"
+        ],
+        "action_item_ids": [
+          "ethics_reproducibility.f1.a0",
+          "quant.f10.a0",
+          "theoretical_framing.f0.a0",
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "INTRODUCTION",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Özgünlük İddialarının Daha Güçlü Literatür Karşılaştırması; Veri Kümelerinin Kullanımı ve Etik Onay Beyanı Eksikliği; Teorik Çerçevenin Belirsizliği ve Geliştirme İhtiyacı; Giriş Bölümünde Katkıların Erken ve Detaylı Sunumu",
+        "anchor_ids": [
+          "introduction.a0",
+          "introduction.a1",
+          "introduction.a10",
+          "introduction.a11",
+          "introduction.a12",
+          "introduction.a13",
+          "introduction.a14",
+          "introduction.a15",
+          "introduction.a16",
+          "introduction.a2",
+          "introduction.a3",
+          "introduction.a4",
+          "introduction.a5",
+          "introduction.a6",
+          "introduction.a7",
+          "introduction.a8",
+          "introduction.a9"
+        ],
+        "action_item_ids": [
+          "contribution_originality.f1.a0",
+          "ethics_reproducibility.f1.a0",
+          "reporting_guideline_compliance.f1.a0",
+          "theoretical_framing.f0.a0",
+          "writing_structure.f0.a0",
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "METHOD",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "method.a0",
+          "method.a1",
+          "method.a2",
+          "method.a3"
+        ],
+        "action_item_ids": [
+          "theoretical_framing.f1.a0",
+          "writing_structure.f1.a0"
+        ]
+      },
+      {
+        "section": "RESULTS",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Sıralı Modelin Erken Durma Hipotezi İçin Sınırlı Kanıt",
+        "anchor_ids": [
+          "results.a0",
+          "results.a1",
+          "results.a2",
+          "results.a3",
+          "results.a4"
+        ],
+        "action_item_ids": [
+          "claim_evidence_alignment.f0.a0",
+          "quant.f10.a0",
+          "quant.f14.a0"
+        ]
+      },
+      {
+        "section": "RELATED WORK",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "CONCLUSIONS",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "REFERENCES",
+        "status": "ok",
+        "what_works": "No issues detected in this section.",
+        "what_breaks": null,
+        "anchor_ids": [],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.1 DATA",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "No power analysis or precision rationale for sample size",
+        "anchor_ids": [
+          "3_1_data.a0",
+          "3_1_data.a1",
+          "3_1_data.a2",
+          "3_1_data.a3",
+          "3_1_data.a4"
+        ],
+        "action_item_ids": [
+          "quant.f2.a0"
+        ]
+      },
+      {
+        "section": "3.2 EXPERIMENT SETTINGS",
+        "status": "ok",
+        "what_works": null,
+        "what_breaks": null,
+        "anchor_ids": [
+          "3_2_experiment_settings.a0",
+          "3_2_experiment_settings.a1",
+          "3_2_experiment_settings.a2",
+          "3_2_experiment_settings.a3",
+          "3_2_experiment_settings.a4"
+        ],
+        "action_item_ids": []
+      },
+      {
+        "section": "3.4 FURTHER ANALYSES",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Lack of explicit assumption testing for model components",
+        "anchor_ids": [
+          "3_4_further_analyses.a0"
+        ],
+        "action_item_ids": [
+          "quant.f5.a0"
+        ]
+      },
+      {
+        "section": "Table 2",
+        "status": "weak",
+        "what_works": null,
+        "what_breaks": "Lack of uncertainty measures for main results; Lack of confidence intervals for performance metrics",
+        "anchor_ids": [
+          "table_2.a0",
+          "table_2.a1",
+          "table_2.a2"
+        ],
+        "action_item_ids": [
+          "quant.f13.a0",
+          "quant.f7.a0"
+        ]
+      }
+    ],
+    "disclosure": {
+      "external_ai_used": true,
+      "providers": [
+        "llm"
+      ],
+      "confidentiality_mode": "author_owned",
+      "degraded_due_to_consent": false,
+      "note": null
+    }
+  },
+  "document_type": "journal_article",
+  "study_design": "computational_modeling",
+  "verdict": "accept"
+}
