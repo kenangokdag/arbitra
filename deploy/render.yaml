@@ -260,4 +260,10 @@ services:
       - key: APP_LOG_LEVEL
         value: INFO
       - key: PAPERMIND_API_BASE
-        value: https://papermind-api.onrender.com
+        # 2026-08-24 düzeltme: Render, "papermind-api" adı için otomatik
+        # rastgele-ekli bir hostname atadı (servis adı zaten başka bir Render
+        # hesabında/bölgede kullanılıyor olabilir) — varsayılan tahmin edilen
+        # URL (papermind-api.onrender.com) YANLIŞ, cron hiç başarılı
+        # çalışmamıştı (10dk'da bir 404). Gerçek URL doğrulandı (Kenan,
+        # canlı /healthz→200 kontrolüyle): papermind-api-l3ou.onrender.com
+        value: https://papermind-api-l3ou.onrender.com

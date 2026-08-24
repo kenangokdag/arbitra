@@ -5,7 +5,18 @@ Plan: docs/plans/F13_sayfa_plani_v2_implementation.md §3 F13-S14
 Render servisi cold-start'tan kaçınmak için 10 dakikada bir /healthz GET çağrısı
 yapar. Hata durumunda log + (Sentry breadcrumb F13-S15+ bağlanır).
 
-Çevre değişkeni: PAPERMIND_API_BASE (default https://papermind-api.onrender.com)
+Çevre değişkeni: PAPERMIND_API_BASE (Render env var'ından okunur, ASIL kaynak
+deploy/render.yaml'daki değer — aşağıdaki _DEFAULT_BASE sadece env var hiç
+set edilmemişse devreye giren bir yedek, üretimde KULLANILMAMALI).
+
+2026-08-24 düzeltme: cron 10dk'da bir 404 alıyordu, hiç başarılı çalışmamıştı
+— kök neden env var'ın YANLIŞ olması değildi (mekanizma zaten doğruydu),
+render.yaml'daki DEĞER yanlıştı: Render "papermind-api" servisine otomatik
+rastgele-ekli bir hostname atamış (papermind-api-l3ou.onrender.com), varsayılan
+tahmin edilen URL (papermind-api.onrender.com) gerçekte var olan servise
+işaret etmiyordu. Asıl düzeltme deploy/render.yaml'da; bu dosyadaki
+_DEFAULT_BASE de tutarlılık için güncellendi (yedek olarak yine yanlış
+kalmasın diye).
 """
 
 from __future__ import annotations
@@ -25,7 +36,7 @@ bootstrap_repo_path()
 
 JOB = "health_heartbeat"
 logger = cron_logger(JOB)
-_DEFAULT_BASE = "https://papermind-api.onrender.com"
+_DEFAULT_BASE = "https://papermind-api-l3ou.onrender.com"
 _TIMEOUT = 10.0
 
 
