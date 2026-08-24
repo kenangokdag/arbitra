@@ -5,7 +5,7 @@ services:
     region: frankfurt
     plan: starter
     buildCommand: pip install uv && uv sync --frozen
-    startCommand: uv run uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    startCommand: uv run uvicorn api.main:app --host 0.0.0.0 --port $PORT --workers 1 --no-access-log
     autoDeploy: true
     healthCheckPath: /healthz
     envVars:
@@ -95,9 +95,9 @@ services:
       - key: ANTHROPIC_API_KEY
         sync: false
 
-      # ── Model warm-up (ilk-request cold-start cezasını kaldırır; ~1GB RAM) ──
+      # ── Model warm-up (512MB RAM aşımını engellemek için false yapıldı) ──
       - key: BGE_WARMUP_ENABLED
-        value: true
+        value: false
 
       # ── Rate limit ────────────────────────────────────────────────────
       - key: RATE_LIMIT_OGRENCI_PER_MIN
@@ -109,15 +109,12 @@ services:
     ipAllowList: []
 
   # ── F13-S14 Cron Jobs ──────────────────────────────────────────────────
-  # Plan: docs/plans/F13_sayfa_plani_v2_implementation.md §3 F13-S14
-  # Mail provider Q4 açık: digest job'ları mail GÖNDERMEZ, log üretir.
-
   - type: cron
     name: papermind-cron-completion-delete-expired
     env: python
     region: frankfurt
     plan: starter
-    schedule: "0 4 * * *"  # her gün 04:00 UTC — KVKK 3-ay sil (S2)
+    schedule: "0 4 * * *"
     buildCommand: pip install uv && uv sync --frozen
     startCommand: uv run python -m scripts.cron.completion_delete_expired
     envVars:
@@ -139,7 +136,7 @@ services:
     env: python
     region: frankfurt
     plan: starter
-    schedule: "30 4 * * *"  # her gün 04:30 UTC — F14 KVKK review retention sil (04:00 completion ile çakışmaz)
+    schedule: "30 4 * * *"
     buildCommand: pip install uv && uv sync --frozen
     startCommand: uv run python -m scripts.cron.review_retention_delete_expired
     envVars:
@@ -147,8 +144,6 @@ services:
         value: production
       - key: APP_LOG_LEVEL
         value: INFO
-      # review IZOLE Supabase (Clarus). Boş ise get_review_supabase_admin
-      # default SUPABASE_* fallback yapar → ikisini de ver.
       - key: REVIEW_SUPABASE_URL
         sync: false
       - key: REVIEW_SUPABASE_SECRET_KEY
@@ -163,7 +158,7 @@ services:
     env: python
     region: frankfurt
     plan: starter
-    schedule: "0 9 * * 1"  # Pazartesi 09:00 UTC — 21+ gün açık event raporu (S1)
+    schedule: "0 9 * * 1"
     buildCommand: pip install uv && uv sync --frozen
     startCommand: uv run python -m scripts.cron.diary_unresolved_weekly
     envVars:
@@ -185,7 +180,7 @@ services:
     env: python
     region: frankfurt
     plan: starter
-    schedule: "0 8 1 * *"  # her ayın 1'i 08:00 UTC — aylık defter özeti (S1)
+    schedule: "0 8 1 * *"
     buildCommand: pip install uv && uv sync --frozen
     startCommand: uv run python -m scripts.cron.diary_monthly_digest
     envVars:
@@ -207,7 +202,7 @@ services:
     env: python
     region: frankfurt
     plan: starter
-    schedule: "0 3 * * 0"  # Pazar 03:00 UTC — method_centrality staleness check
+    schedule: "0 3 * * 0"
     buildCommand: pip install uv && uv sync --frozen
     startCommand: uv run python -m scripts.cron.method_centrality_refresh
     envVars:
@@ -229,7 +224,7 @@ services:
     env: python
     region: frankfurt
     plan: starter
-    schedule: "30 3 * * 0"  # Pazar 03:30 UTC — neighbor_bibcoupling staleness check
+    schedule: "30 3 * * 0"
     buildCommand: pip install uv && uv sync --frozen
     startCommand: uv run python -m scripts.cron.neighbor_bibcoupling_refresh
     envVars:
@@ -251,7 +246,7 @@ services:
     env: python
     region: frankfurt
     plan: starter
-    schedule: "*/10 * * * *"  # her 10 dakikada bir — /healthz ping (cold-start önle)
+    schedule: "*/10 * * * *"
     buildCommand: pip install uv && uv sync --frozen
     startCommand: uv run python -m scripts.cron.health_heartbeat
     envVars:
@@ -260,10 +255,4 @@ services:
       - key: APP_LOG_LEVEL
         value: INFO
       - key: PAPERMIND_API_BASE
-        # 2026-08-24 düzeltme: Render, "papermind-api" adı için otomatik
-        # rastgele-ekli bir hostname atadı (servis adı zaten başka bir Render
-        # hesabında/bölgede kullanılıyor olabilir) — varsayılan tahmin edilen
-        # URL (papermind-api.onrender.com) YANLIŞ, cron hiç başarılı
-        # çalışmamıştı (10dk'da bir 404). Gerçek URL doğrulandı (Kenan,
-        # canlı /healthz→200 kontrolüyle): papermind-api-l3ou.onrender.com
         value: https://papermind-api-l3ou.onrender.com
