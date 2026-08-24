@@ -201,14 +201,24 @@ def _has_author_surname_overlap_plain(ref_authors: list[str], match_authors: lis
     return len(overlap) / len(ref_surnames) >= _SURNAME_OVERLAP_RATIO_THRESHOLD
 
 
-async def _resolve_via_semantic_scholar(ref: ParsedReference) -> ParsedReference | None:
+async def _resolve_via_semantic_scholar(
+    ref: ParsedReference, cfg: Settings
+) -> ParsedReference | None:
     """OpenAlex not_found_in_index dedikten SONRA çağrılır (bkz. resolve_all).
     Başlık yoksa aramaya gerek yok → None. S2 hata verirse (SemanticScholarError)
     loglanır, None döner — çağıran ref'i OLDUĞU GİBİ (not_found_in_index) bırakır,
     ASLA daha kötü olmaz. Eşleşme bulunursa resolved ParsedReference döner.
 
     Fabricated/retracted tespiti YAPILMAZ (bilinçli dar kapsam, bkz.
-    semantic_scholar.py modül docstring) — sadece resolved YÜKSELTMESİ."""
+    semantic_scholar.py modül docstring) — sadece resolved YÜKSELTMESİ.
+
+    2026-08-23 devamı: S2_FALLBACK_ENABLED=False (varsayılan) ise EN BAŞTA,
+    hiçbir kontrol/ağ çağrısı yapmadan döner — key olsa BİLE. Kenan'ın "key
+    gelene kadar bekleyecek zaman yok, ayrı bir açma/kapama anahtarı olsun"
+    talebi (SEMANTIC_SCHOLAR_API_KEY boşluğu zaten devre dışı bırakıyordu,
+    bu EK ve daha açık bir anahtar)."""
+    if not cfg.S2_FALLBACK_ENABLED:
+        return None
     if not ref.title or not _norm_title(ref.title):
         logger.info(
             "semantic_scholar SKIP (başlık yok/boş) index=%d raw=%r", ref.index, ref.raw[:80]
@@ -662,7 +672,7 @@ async def resolve_all(
         if result.status != "not_found_in_index":
             return result
         async with s2_sem:
-            upgraded = await _resolve_via_semantic_scholar(result)
+            upgraded = await _resolve_via_semantic_scholar(result, cfg)
         return upgraded if upgraded is not None else result
 
     resolved = await asyncio.gather(*(_one(r) for r in refs))

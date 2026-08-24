@@ -630,6 +630,20 @@ async def test_coverage_no_topic_returns_empty(
 # akışına dokunma, S2 asla fabricated için kullanılmaz, S2 arızası SESSİZCE
 # (ref not_found_in_index'te kalır) yutulur ama loglanır. Ağ MOCK'lanır
 # (search_semantic_scholar monkeypatch — gerçek S2 çağrısı YOK, dosya kuralı L9).
+#
+# 2026-08-23 devamı: S2_FALLBACK_ENABLED varsayılan False (Kenan: "key gelene
+# kadar bekleyecek zaman yok, ayrı bir anahtar olsun"). Bu bölümdeki testler
+# S2'nin GERÇEK davranışını doğrulamak için flag'i AÇIK varsayar (autouse
+# fixture) — flag KAPALIYKEN hiç denenmediğini doğrulayan ayrı bir test de var
+# (test_s2_fallback_disabled_by_default_skips_entirely).
+
+
+@pytest.fixture(autouse=True)
+def _enable_s2_fallback_flag(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("S2_FALLBACK_ENABLED", "true")
+    from api.config import get_settings
+
+    get_settings.cache_clear()
 
 
 def _s2_match(
@@ -819,4 +833,39 @@ async def test_semantic_scholar_never_touches_fabricated(
     out_refs, summary = await rcs.resolve_all(refs)
     assert out_refs[0].status == "fabricated", out_refs[0].evidence
     assert summary.fabricated == 1
+    assert summary.semantic_scholar_recovered == 0
+
+
+async def test_s2_fallback_disabled_by_default_skips_entirely(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """2026-08-23 (Kenan): S2_FALLBACK_ENABLED VARSAYILAN False — flag kapalıyken
+    (bu test _enable_s2_fallback_flag'i AÇIKÇA geri alır) not_found_in_index
+    olsa, başlık olsa BİLE S2 hiç denenmez — key olsa bile fark etmez (bu test
+    key'i de dolu bırakır, sadece flag'i kapatır, gerçek 'anahtar' flag olduğunu
+    kanıtlar)."""
+    import api.services.review_citation_service as rcs
+
+    monkeypatch.setenv("S2_FALLBACK_ENABLED", "false")
+    monkeypatch.setenv("SEMANTIC_SCHOLAR_API_KEY", "fake-but-present-key")
+    from api.config import get_settings
+
+    get_settings.cache_clear()
+
+    await _not_found_via_openalex_error(monkeypatch)
+
+    async def _s2_should_not_be_called(
+        query: str, *, limit: int = 5, settings: Any = None
+    ) -> list[Any]:
+        raise AssertionError("S2 flag KAPALIYKEN ÇAĞRILMAMALI")
+
+    monkeypatch.setattr(rcs, "search_semantic_scholar", _s2_should_not_be_called)
+
+    refs = [
+        ParsedReference(
+            index=0, raw="x", title="Attention Is All You Need", year=2017, doi="10.1/x"
+        )
+    ]
+    out_refs, summary = await rcs.resolve_all(refs)
+    assert out_refs[0].status == "not_found_in_index"
     assert summary.semantic_scholar_recovered == 0

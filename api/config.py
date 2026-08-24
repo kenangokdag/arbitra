@@ -127,6 +127,12 @@ class Settings(BaseSettings):
     # diye key yoksa mekanizma tamamen devre dışı kalır. Ücretsiz key:
     # https://www.semanticscholar.org/product/api#api-key-form
     SEMANTIC_SCHOLAR_API_KEY: str = ""
+    # 2026-08-23 devamı — Kenan: "key gelene kadar bekleyecek zaman yok, AYRI
+    # bir açma/kapama anahtarı olsun" — SEMANTIC_SCHOLAR_API_KEY boşluğu ZATEN
+    # S2'yi devre dışı bırakıyor (yukarı bkz) ama bu flag ek, AÇIK bir anahtar:
+    # varsayılan False → key OLSA BİLE S2 çağrılmaz. Key gelince: env'e key +
+    # bu flag'i true yap (2 adım, ama flag'in kendisi "tek satırlık açılış").
+    S2_FALLBACK_ENABLED: bool = False
 
     LITELLM_TIMEOUT_SECONDS: int = 30
     LITELLM_CONFIG_PATH: str = "config/litellm_models.yaml"

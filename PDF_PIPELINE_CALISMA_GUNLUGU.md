@@ -1448,9 +1448,11 @@ Sınıf-dengeli doğruluk detayı: accept %85.3 (29/34), major_revision %100 (1/
 
 **Kanıt:** `engine/providers/semantic_scholar.py`, `api/services/review_citation_service.py`, `api/config.py`, `api/models/review.py`, `tests/unit/test_semantic_scholar.py` (6 test), `tests/unit/test_review_citation.py` (5 yeni S2 testi), `.env.example` + `.env.production.example`, `eval/review/semantic_scholar_fallback_check_2026-08-23.py`, `eval/review/results/semantic_scholar_fallback_check_2026-08-23.json` (0-sonuç kanıtı). 44 test PASS.
 
+**Aynı gün devamı — ikinci kapı eklendi (`S2_FALLBACK_ENABLED`):** Kenan "key gelene kadar bekleyecek zaman yok, ayrı bir açma/kapama anahtarı olsun" dedi. `S2_FALLBACK_ENABLED: bool = False` eklendi, `_resolve_via_semantic_scholar`'ın EN BAŞINDA (key kontrolünden bile önce) kontrol edilir. Artık iki bağımsız kapı var: flag VE key, ikisi de açık olmalı. **Gerekçe (guardian'ın "somut senaryo mu, ihtiyat mı" sorusuna cevap):** key eklemeyi (secret provisioning, Render/`.env`) özelliği açmayı (activation) BİLİNÇLİ olarak ayırıyor — key env'e girdiği an otomatik aktifleşmesin, Kenan ayrı bir adımda ("tek satırlık açılış") flag'i açsın istiyor. Bu YAGNI değil, kontrollü rollout deseni. Yeni test: `test_s2_fallback_disabled_by_default_skips_entirely` (flag kapalı + key DOLU'yken bile S2 hiç çağrılmıyor). 45 test PASS. Guardian son tur: itiraz yok.
+
 ## Henüz Yapılmayanlar (Sıradaki)
 
-- [ ] **YENİ, BEKLEYEN (§72):** Kenan S2 API key alacak — key gelince `.env` + Render'a eklenip aynı 3-makale canlı testi tekrar çalıştırılmalı, `semantic_scholar_recovered > 0` doğrulanmalı, `x-api-key` header adı gerçek istekle teyit edilmeli.
+- [ ] **YENİ, BEKLEYEN (§72):** Kenan S2 API key alacak — key gelince `.env` + Render'a `SEMANTIC_SCHOLAR_API_KEY` eklenmeli, SONRA `S2_FALLBACK_ENABLED=true` yapılmalı (iki ayrı adım, bilinçli), aynı 3-makale canlı testi tekrar çalıştırılmalı, `semantic_scholar_recovered > 0` doğrulanmalı, `x-api-key` header adı gerçek istekle teyit edilmeli.
 
 - [ ] **YENİ (§71):** reject-sınıfı doğruluğu hâlâ zayıf (%12.5, 1/8) — motor "reject" demekten sistematik olarak kaçınıyor, kök neden araştırılmamış.
 - [ ] **YENİ (§71):** soundness↔insan-skoru korelasyonu hâlâ negatif/gürültülü (r=-0.31, n=16) — §47'de de çözülememişti, hâlâ açık.
