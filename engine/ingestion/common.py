@@ -516,6 +516,33 @@ def extract_authors_year_title(body: str) -> tuple[list[str], int | None, str | 
     return authors, year, title
 
 
+def _split_oxford_list_comma_piece(piece: str) -> list[str]:
+    """2026-08-24 bug (guardian: kök neden burada, review_citation_service.py'de
+    DEĞİL — orada tazminat-heuristiği önerilmişti, reddedildi): Oxford-liste
+    ("A, B, C, and D") biçimindeki yazar blokları, tek 'and' SADECE son ayraçta
+    olduğu için '|' dönüşümünden sonra "A, B, C" parçası virgülle HİÇ
+    bölünmeden tek elemanda kalıyordu (örn. gerçek üretim verisi: 'Yu Rong,
+    Wenbing Huang, Tingyang Xu' TEK yazar sanılıyordu) — bu da
+    review_citation_service.py'deki yazar-soyadı örtüşme kontrolünü (hem
+    OpenAlex hem Semantic Scholar yolunda, ORTAK yardımcı üzerinden) yanlış
+    reddediyordu (canlı testte 29/29 yanlış-red, hepsi başlık benzerliği ≥0.93).
+
+    Ayrım: virgülle bölünmüş HER parça 2+ kelimeden oluşuyorsa ("Yu Rong" gibi
+    ad+soyad deseni) bu birden fazla TAM ADIN virgülle birleştirilmiş hali
+    sayılır → ayrı yazarlara bölünür. Parçalardan biri tek kelime/kısa
+    baş-harfliyse ("Surname, A." APA deseni) DOKUNULMAZ, tek yazar kalır —
+    2026-08-05 guardian bulgusunun koruduğu davranış (yaygın soyad tesadüfü)
+    burada DEĞİŞMEZ.
+
+    BİLİNEN SINIRLAMA (guardian, doğrulanmadı): bileşik soyadlı TEK yazar +
+    kısaltılmamış orta ad ("Van Der Berg, John Q.") yanlışlıkla 2 yazara
+    bölünebilir (iki parça da 2+ kelime) — nadir bir kalıp, izlenmeli."""
+    sub_parts = [p.strip() for p in piece.split(",") if p.strip()]
+    if len(sub_parts) < 2 or not all(len(p.split()) >= 2 for p in sub_parts):
+        return [piece]
+    return sub_parts
+
+
 def _split_author_block(block: str) -> list[str]:
     """Yazar bloğunu tek tek yazarlara böl — yaygın ayraçlar.
 
@@ -540,6 +567,13 @@ def _split_author_block(block: str) -> list[str]:
         raw_authors = (
             [a.strip() for a in norm.split("|")] if "|" in norm else [block]
         )
+        # Oxford-liste düzeltmesi: "|"dan gelen HER parçayı ayrıca kontrol et
+        # (bkz _split_oxford_list_comma_piece) — "A, B, C, and D" → "|"'den
+        # sonra ["A, B, C", "D"], ilk eleman hâlâ virgülle-birleşik olabilir.
+        expanded: list[str] = []
+        for a in raw_authors:
+            expanded.extend(_split_oxford_list_comma_piece(a))
+        raw_authors = expanded
     out: list[str] = []
     for a in raw_authors:
         a = a.strip().strip(",").strip()

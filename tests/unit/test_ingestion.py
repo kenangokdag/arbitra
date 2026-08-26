@@ -220,6 +220,43 @@ def test_extract_authors_year_title_protects_abbreviated_initial_period() -> Non
     )
 
 
+def test_split_author_block_oxford_list_full_names() -> None:
+    """2026-08-24 GERÇEK üretim bug'ı (canlı S2-fallback testinde bulundu,
+    guardian: kök neden burada, review_citation_service.py'de DEĞİL): Oxford-
+    liste ("A, B, C, and D") biçiminde, tek 'and' SADECE son ayraçta olduğu
+    için '|' dönüşümünden sonra baştaki 'A, B, C' parçası virgülle HİÇ
+    bölünmeden tek yazar sanılıyordu. Canlı veri: 'Yu Rong, Wenbing Huang,
+    Tingyang Xu' TEK eleman olarak çıkıyordu (4 yazar olması gerekirken 2
+    eleman) — review_citation_service.py'nin yazar-soyadı örtüşme kontrolünü
+    (hem OpenAlex hem Semantic Scholar yolu, ORTAK yardımcı) 29/29 yanlış-red
+    ile bozuyordu (başlık benzerliği ≥0.93, doğru makale zaten bulunmuştu)."""
+    from engine.ingestion import common as c
+
+    assert c._split_author_block(
+        "Yu Rong, Wenbing Huang, Tingyang Xu, and Junzhou Huang"
+    ) == ["Yu Rong", "Wenbing Huang", "Tingyang Xu", "Junzhou Huang"]
+
+
+def test_split_author_block_apa_initial_style_unaffected() -> None:
+    """APA 'Soyad, A. B.' deseni (virgül soyad-ad ayracı) DOKUNULMAMALI —
+    2026-08-05 guardian bulgusunun koruduğu davranış (yaygın soyad tesadüfü,
+    bkz. test_common_surname_coincidence_stays_fabricated) burada DEĞİŞMEZ."""
+    from engine.ingestion import common as c
+
+    assert c._split_author_block("Kim, D. and Patel, R.") == ["Kim, D.", "Patel, R."]
+
+
+def test_split_author_block_and_joined_two_authors_unaffected() -> None:
+    """Zaten çalışan basit 'A and B' deseni regresyona uğramamalı (bkz.
+    test_extract_authors_year_title_recovers_real_title_after_url_doi)."""
+    from engine.ingestion import common as c
+
+    assert c._split_author_block("Li Dong and Mirella Lapata") == [
+        "Li Dong",
+        "Mirella Lapata",
+    ]
+
+
 @pytest.mark.parametrize(
     "garbage_title",
     [
