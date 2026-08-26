@@ -105,6 +105,15 @@ services:
 
   - type: redis
     name: papermind-redis
+    # 2026-08-24 düzeltme: bu servis diğer TÜM servislerin (web + 7 cron,
+    # hepsi region: frankfurt) aksine bölge belirtmiyordu — Render'ın
+    # varsayılan bölgesine düşmüş olabilir, bu da web servisinin özel
+    # iç ağından (aynı bölge gerektirir) erişilemez internal hostname'e
+    # yol açar. Prod log kanıtı: "Error -2 connecting to
+    # red-da44gvgae00c739lk04g:6379, Name or service not known" (DNS
+    # çözümlenemiyor). Şu an fail-open (cache kapalı, site çökmüyor)
+    # ama düzeltilmeli.
+    region: frankfurt
     plan: starter
     ipAllowList: []
 
