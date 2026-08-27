@@ -76,10 +76,11 @@ class Settings(BaseSettings):
 
     # 2026-08-27 (demo/beta faz, Kenan onayı): frontend'de henüz gerçek
     # Supabase login yok (web/src/lib/auth.ts sahte/imzasız dev-mock JWT
-    # üretiyor). APP_ENV=production iken bu token JWKS doğrulamasından
-    # geçemiyor (401 invalid_token) — danışmanlar dosya yükleyemiyor.
-    # Bu flag AÇIKÇA ve DAR KAPSAMLI: sadece imza doğrulamasını atlar,
-    # WAITLIST_BYPASS/CORS/Sentry gibi diğer prod korumalarına dokunmaz.
+    # üretiyor, email claim'i de yok). APP_ENV=production iken bu token
+    # JWKS doğrulamasından geçemiyor (401) — danışmanlar dosya yükleyemiyor.
+    # Bu flag AÇIKÇA ve DAR KAPSAMLI: imza doğrulamasını VE waitlist allowlist
+    # kontrolünü (email claim'i olmadığı için zaten hiç geçemez) atlar,
+    # CORS/Sentry gibi diğer prod korumalarına dokunmaz (bkz auth.py).
     # Eskiden APP_ENV!=production'a bağlı genel dev-fallback prod'da da
     # forge JWT kabul ediyordu — bu BLOCKER (P001/P002) olarak kapatılmıştı
     # (bkz api/middleware/auth.py docstring). DEMO_AUTH_BYPASS o deliği

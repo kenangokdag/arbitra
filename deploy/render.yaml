@@ -77,9 +77,10 @@ services:
         value: false
 
       # ── ⚠️ DEMO/BETA GEÇİCİ (2026-08-27, Kenan onayı) ────────────────────
-      # FE'de gerçek Supabase login yok (web/src/lib/auth.ts sahte JWT üretiyor).
-      # true iken imza doğrulaması ATLANIR (bkz api/middleware/auth.py DEMO_AUTH_BYPASS,
-      # api/config.py DEMO_AUTH_BYPASS). Gerçek login bağlanınca false yapılıp satır silinmeli.
+      # FE'de gerçek Supabase login yok (web/src/lib/auth.ts sahte JWT üretiyor,
+      # email claim'i de yok). true iken imza doğrulaması VE waitlist allowlist
+      # kontrolü ATLANIR (bkz api/middleware/auth.py, api/config.py DEMO_AUTH_BYPASS).
+      # Gerçek login bağlanınca false yapılıp satır silinmeli.
       - key: DEMO_AUTH_BYPASS
         value: true
 

@@ -155,6 +155,32 @@ def test_auth_demo_bypass_enabled_accepts_forged_token_in_production(
     get_settings.cache_clear()
 
 
+def test_auth_demo_bypass_also_skips_waitlist_gate(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """2026-08-27 düzeltme: forge token'da email claim'i yok — WAITLIST_BYPASS=false
+    (prod canon) iken allowlist boş email'i asla bulamayıp 403 not_invited
+    döndürüyordu (tüm endpoint'lerde). DEMO_AUTH_BYPASS=true iken allowlist
+    kontrolü de atlanmalı — is_email_allowed/get_supabase_admin hiç çağrılmamalı."""
+    monkeypatch.setenv("APP_ENV", "production")
+    monkeypatch.setenv("SUPABASE_JWKS_URL", "https://example.invalid/.well-known/jwks.json")
+    monkeypatch.setenv("SUPABASE_JWT_SECRET", "")
+    monkeypatch.setenv("FRONTEND_ORIGINS", "https://example.invalid")
+    monkeypatch.setenv("DEMO_AUTH_BYPASS", "true")
+    monkeypatch.setenv("WAITLIST_BYPASS", "false")
+    monkeypatch.setattr("api.config_validation.validate_runtime_config", lambda s: [])
+    from api.config import get_settings
+    from api.main import create_app
+
+    get_settings.cache_clear()
+    app = create_app()
+    with TestClient(app) as c:
+        token = jwt.encode({"sub": "user-forge"}, "x", algorithm="HS256")  # email claim'i yok
+        resp = c.get("/api/anywhere", headers={"Authorization": f"Bearer {token}"})
+    assert resp.status_code == 404  # auth + allowlist geçti (403 not_invited değil)
+    get_settings.cache_clear()
+
+
 # ---------- RateLimitMiddleware ----------
 
 

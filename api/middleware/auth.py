@@ -10,7 +10,13 @@ Doğrulama hiyerarşisi (B-3 audit follow-up):
 
 Önceki kod (P001/P002) prod'da da (3)'e düşüyordu; forge JWT 200 OK alıyordu → BLOCKER kapandı.
 (0) o BLOCKER'ı geri açar ama bilerek, dar kapsamlı ve loglanarak — sadece imza
-doğrulamasını atlar, WAITLIST_BYPASS/CORS gibi diğer prod korumalarına dokunmaz.
+doğrulamasını atlar, CORS gibi diğer prod korumalarına dokunmaz.
+
+2026-08-27 düzeltme: (0) aktifken forge token'ın (web/src/lib/auth.ts) `email`
+claim'i yok — WAITLIST_BYPASS=false iken allowlist kontrolü boş email'i hiçbir
+zaman bulamayıp 403 not_invited döndürüyordu (tüm endpoint'ler). DEMO_AUTH_BYPASS
+zaten "gerçek kimlik yok" fazının tek anahtarı olduğu için, allowlist kontrolü
+de aynı flag'e bağlandı — ayrı bir ikinci flag açmak yerine.
 """
 
 import logging
@@ -166,7 +172,9 @@ class AuthMiddleware(BaseHTTPMiddleware):
         # V1-S18-P014 pilot allowlist gate. WAITLIST_BYPASS=true (dev/test
         # default) ise atla. Aksi: JWT email claim'i waitlist.status ∈
         # {invited, active} kontrolü; aksi 403 not_invited.
-        if not settings.WAITLIST_BYPASS:
+        # DEMO_AUTH_BYPASS=true iken de atla — forge token'da email claim'i
+        # yok, allowlist boş email'i asla bulamaz (bkz modül docstring).
+        if not settings.WAITLIST_BYPASS and not settings.DEMO_AUTH_BYPASS:
             from api.db.supabase_client import get_supabase_admin
             from api.services.waitlist_gate import is_email_allowed
 
