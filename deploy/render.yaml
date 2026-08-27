@@ -76,6 +76,13 @@ services:
       - key: WAITLIST_BYPASS
         value: false
 
+      # ── ⚠️ DEMO/BETA GEÇİCİ (2026-08-27, Kenan onayı) ────────────────────
+      # FE'de gerçek Supabase login yok (web/src/lib/auth.ts sahte JWT üretiyor).
+      # true iken imza doğrulaması ATLANIR (bkz api/middleware/auth.py DEMO_AUTH_BYPASS,
+      # api/config.py DEMO_AUTH_BYPASS). Gerçek login bağlanınca false yapılıp satır silinmeli.
+      - key: DEMO_AUTH_BYPASS
+        value: true
+
       # ── ⛔ PROD-FATAL: CORS — BOŞ ise config_validation boot REDDEDER ────
       # (api/config_validation.py). Dashboard'dan gir: https://FE_DOMAIN (virgülle çoklu).
       - key: FRONTEND_ORIGINS

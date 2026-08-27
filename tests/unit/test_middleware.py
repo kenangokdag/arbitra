@@ -108,6 +108,53 @@ def test_auth_misconfigured_per_request_500_defense_in_depth(
     get_settings.cache_clear()
 
 
+def test_auth_demo_bypass_disabled_by_default_jwks_still_enforced(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """DEMO_AUTH_BYPASS default false — JWKS set olduğunda hâlâ gerçek doğrulama
+    ister, imzasız forge JWT reddedilir (401)."""
+    monkeypatch.setenv("APP_ENV", "production")
+    monkeypatch.setenv("SUPABASE_JWKS_URL", "https://example.invalid/.well-known/jwks.json")
+    monkeypatch.setenv("SUPABASE_JWT_SECRET", "")
+    monkeypatch.setenv("FRONTEND_ORIGINS", "https://example.invalid")
+    monkeypatch.setattr("api.config_validation.validate_runtime_config", lambda s: [])
+    from api.config import get_settings
+    from api.main import create_app
+
+    get_settings.cache_clear()
+    app = create_app()
+    with TestClient(app) as c:
+        token = jwt.encode({"sub": "user-forge"}, "x", algorithm="HS256")
+        resp = c.get("/api/anywhere", headers={"Authorization": f"Bearer {token}"})
+    assert resp.status_code == 401
+    get_settings.cache_clear()
+
+
+def test_auth_demo_bypass_enabled_accepts_forged_token_in_production(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """2026-08-27 (Kenan onayı, demo/beta faz): DEMO_AUTH_BYPASS=true iken,
+    SUPABASE_JWKS_URL set olsa bile (gerçek prod senaryosu — web/src/lib/auth.ts
+    kid'siz imzasız dev-mock JWT üretiyor) sub claim'i olan forge JWT kabul
+    edilir. Diğer korumalar (WAITLIST_BYPASS vb.) bu flag'den etkilenmemeli."""
+    monkeypatch.setenv("APP_ENV", "production")
+    monkeypatch.setenv("SUPABASE_JWKS_URL", "https://example.invalid/.well-known/jwks.json")
+    monkeypatch.setenv("SUPABASE_JWT_SECRET", "")
+    monkeypatch.setenv("FRONTEND_ORIGINS", "https://example.invalid")
+    monkeypatch.setenv("DEMO_AUTH_BYPASS", "true")
+    monkeypatch.setattr("api.config_validation.validate_runtime_config", lambda s: [])
+    from api.config import get_settings
+    from api.main import create_app
+
+    get_settings.cache_clear()
+    app = create_app()
+    with TestClient(app) as c:
+        token = jwt.encode({"sub": "user-forge"}, "x", algorithm="HS256")
+        resp = c.get("/api/anywhere", headers={"Authorization": f"Bearer {token}"})
+    assert resp.status_code == 404  # auth geçti (route yok, 401 değil)
+    get_settings.cache_clear()
+
+
 # ---------- RateLimitMiddleware ----------
 
 

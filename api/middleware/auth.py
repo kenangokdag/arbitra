@@ -1,14 +1,19 @@
 """Supabase JWT verify middleware.
 
 Doğrulama hiyerarşisi (B-3 audit follow-up):
+  0) DEMO_AUTH_BYPASS=true    → `verify_signature=False` (2026-08-27, dar kapsamlı
+     demo/beta anahtarı — APP_ENV'den bağımsız, bkz api/config.py DEMO_AUTH_BYPASS).
   1) SUPABASE_JWKS_URL set    → ES256/RS256 via PyJWKClient (production canon, Supabase ECC keyset).
   2) SUPABASE_JWT_SECRET set  → HS256 legacy/test path (Supabase classic dashboard JWT Secret).
   3) APP_ENV != production    → `verify_signature=False` dev fallback (forge serbest; SADECE dev/test).
-  4) Production + (1) ve (2) yok → 500 auth_misconfigured (zorla fail).
+  4) Production + (0)(1)(2) yok → 500 auth_misconfigured (zorla fail).
 
 Önceki kod (P001/P002) prod'da da (3)'e düşüyordu; forge JWT 200 OK alıyordu → BLOCKER kapandı.
+(0) o BLOCKER'ı geri açar ama bilerek, dar kapsamlı ve loglanarak — sadece imza
+doğrulamasını atlar, WAITLIST_BYPASS/CORS gibi diğer prod korumalarına dokunmaz.
 """
 
+import logging
 from collections.abc import Awaitable, Callable
 
 import jwt
@@ -18,6 +23,9 @@ from jwt import PyJWKClient
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from api.config import get_settings
+
+logger = logging.getLogger(__name__)
+_demo_bypass_warned = False
 
 # Module-level lazy cache — PyJWKClient kendi içinde signing key'leri 3600s TTL
 # ile cache eder; biz client'ı per-process tek tutuyoruz.
@@ -85,7 +93,21 @@ class AuthMiddleware(BaseHTTPMiddleware):
         settings = get_settings()
 
         try:
-            if settings.SUPABASE_JWKS_URL:
+            if settings.DEMO_AUTH_BYPASS:
+                # (0) Demo/beta dar-kapsamlı bypass — bkz api/config.py DEMO_AUTH_BYPASS.
+                global _demo_bypass_warned
+                if not _demo_bypass_warned:
+                    logger.warning(
+                        "DEMO_AUTH_BYPASS=true — imza doğrulaması ATLANIYOR "
+                        "(sadece demo/beta faz için, gerçek Supabase login bağlanınca kaldırılmalı)"
+                    )
+                    _demo_bypass_warned = True
+                payload = jwt.decode(
+                    token,
+                    options={"verify_signature": False},
+                    algorithms=["ES256", "HS256", "RS256"],
+                )
+            elif settings.SUPABASE_JWKS_URL:
                 # (1) Production canon — Supabase ECC keyset üzerinden ES256/RS256.
                 signing_key = (
                     _get_jwks_client(settings.SUPABASE_JWKS_URL)
