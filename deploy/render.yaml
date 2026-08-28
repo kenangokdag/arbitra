@@ -3,7 +3,12 @@ services:
     name: papermind-api
     env: python
     region: frankfurt
-    plan: starter
+    # 2026-08-28 (P0, Kenan onayı): starter (512MB) prod'da tekrarlayan OOM'a
+    # sebep oluyordu ("Instance failed: ... ran out of memory (used over
+    # 512MB)") — TEK bir büyük makale (37+ referans) bile RAM tavanını
+    # aşabiliyordu (bkz REVIEW_MAX_CONCURRENT_JOBS fix, fc57005 — o eşzamanlı
+    # 2+ job'u önler ama tek-job ayak izini küçültmez). standard'a büyütüldü.
+    plan: standard
     buildCommand: pip install uv && uv sync --frozen
     startCommand: uv run uvicorn api.main:app --host 0.0.0.0 --port $PORT --workers 1 --no-access-log
     autoDeploy: true
