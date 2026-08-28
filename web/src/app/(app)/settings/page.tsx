@@ -3,7 +3,7 @@
 // Ayarlar — KVKK hesap silme (tehlikeli bölge).
 // Tek iş: hesap yönetimi; yıkıcı eylem (kalıcı silme) net AYRILMIŞ bir bölümde,
 // var(--color-warn) ile işaretli. Silme → typed-confirmation diyalog (ConfirmDialog).
-// Başarıda: clearToken() → /landing (pazarlama kökü). Dead-end yok: idle /
+// Başarıda: clearToken() → / (pazarlama kökü, 2026-08-28: eski /landing). Dead-end yok: idle /
 // yazım-geçersiz / gönderim / hata / başarı durumlarının hepsi ele alınır.
 
 import { useState } from "react";
@@ -125,7 +125,7 @@ export default function SettingsPage() {
         onSuccess={() => {
           // Sunucu silmeyi onayladı → token'ı temizle, pazarlama köküne dön.
           clearToken();
-          router.push("/landing");
+          router.push("/");
         }}
         title="Hesabını kalıcı olarak sil"
         icon={AlertTriangle}

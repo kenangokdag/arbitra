@@ -93,11 +93,11 @@ export function Sidebar() {
           </button>
         )}
 
-        {/* Arbitra wordmark — tıklanınca /landing */}
+        {/* Arbitra wordmark — tıklanınca / (2026-08-28: eski /landing köke taşındı) */}
         <div className="border-b border-stone-100">
           {!collapsed ? (
             <Link
-              href="/landing"
+              href="/"
               className="flex items-center px-4 pb-2.5 pt-3 transition-colors hover:bg-stone-50"
               title="Pazarlama sayfasına dön"
             >
@@ -105,7 +105,7 @@ export function Sidebar() {
             </Link>
           ) : (
             <Link
-              href="/landing"
+              href="/"
               className="flex items-center justify-center px-2 py-3 transition-colors hover:bg-stone-50"
               title="Pazarlama sayfasına dön"
               aria-label={BRAND}

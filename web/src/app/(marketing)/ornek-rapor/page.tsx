@@ -72,11 +72,11 @@ export default function SampleReportPage() {
         >
           <div className="mx-auto flex h-[64px] max-w-[1080px] items-center justify-between gap-4 px-5 md:px-8">
             <div className="flex items-center gap-4">
-              <Link href="/landing" className="flex items-center gap-2.5">
+              <Link href="/" className="flex items-center gap-2.5">
                 <ArbitraWordmark size="md" />
               </Link>
               <Link
-                href="/landing"
+                href="/"
                 className="hidden items-center gap-1.5 text-[13px] font-medium text-[var(--color-ink-faint)] transition hover:text-[var(--color-ink)] sm:inline-flex"
               >
                 <ArrowLeft className="h-3.5 w-3.5" aria-hidden />
@@ -122,7 +122,7 @@ export default function SampleReportPage() {
                 <ArrowRight className="h-4 w-4" />
               </button>
               <Link
-                href="/landing#nasil-calisir"
+                href="/#nasil-calisir"
                 className="text-[13.5px] font-medium text-[var(--color-ink-faint)] underline-offset-4 transition hover:text-[var(--color-ink)] hover:underline"
               >
                 Nasıl çalışır?
