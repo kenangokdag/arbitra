@@ -30,14 +30,20 @@ model_list:
 
   - model_name: gemini-pro-tiebreak
     litellm_params:
-      # 2026-08-24 GERİ ALINDI (P0): commit 3c33a47 (2026-08-22) burayı
-      # gemini-3.1-pro-preview'a değiştirmişti — bu proje
-      # (arbitra-kenan-vertex) o modele erişimli değil, canlı testte
-      # HER writer/editor çağrısı 404 ile düşüyordu (+ Anthropic fallback
-      # da kredisiz, ikinci güvenlik ağı da devredışıydı) — tüm review
-      # pipeline'ı hem local hem prod'da tamamen kırıktı. Bilinen-çalışan
-      # değere dönüldü.
-      model: gemini/gemini-2.5-pro
+      # 2026-08-28 GERİ GEÇİLDİ (P0): Google gemini-2.5-pro'yu düz Gemini
+      # API-key yolunda (prod'un GERÇEKTEN kullandığı yol — render.yaml
+      # LLM_PROVIDER hiç set etmiyor, default "gemini", Vertex DEĞİL) yeni
+      # kullanıcılara tamamen kapattı: 404 "no longer available to new
+      # users... use models/gemini-3.1-pro-preview".
+      #
+      # 2026-08-24'teki geri alma (bkz git log) bu modeli VERTEX yolunda
+      # (LLM_PROVIDER=vertex, sadece local dev'de aktif) test etmişti —
+      # orada proje erişimi yoktu (404). Ama prod Vertex kullanmıyor; düz
+      # API-key yolunda gemini-3.1-pro-preview canlı test edildi ve
+      # çalıştığı doğrulandı (2026-08-28, litellm.acompletion 200 OK).
+      # gemini-2.5-flash (flash-tr/en/id) bu yoldan hâlâ çalışıyor, sadece
+      # pro etkilendi.
+      model: gemini/gemini-3.1-pro-preview
       api_key: ${GEMINI_API_KEY}
       max_tokens: 800
       temperature: 0.1
