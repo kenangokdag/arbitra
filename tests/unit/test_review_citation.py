@@ -279,6 +279,91 @@ async def test_surname_overlap_ratio_boundary_at_threshold_resolves(
     assert out.status == "resolved", out.evidence
 
 
+def test_surname_from_ref_author_no_comma_takes_last_word() -> None:
+    """2026-08-28 düzeltme: virgülsüz 'Ad Soyad' (Oxford-liste fix'i sonrası
+    _split_author_block'un ürettiği doğru format) artık TÜM isim değil, son
+    kelime (soyad) olarak çıkarılıyor — _surname_from_work_author ile aynı
+    sezgi. Virgüllü 'Soyad, A.' format DEĞİŞMEDİ (geriye uyumlu)."""
+    from api.services.review_citation_service import _surname_from_ref_author
+
+    assert _surname_from_ref_author("Wenbing Huang") == "huang"
+    assert _surname_from_ref_author("Hoagy Cunningham") == "cunningham"
+    assert _surname_from_ref_author("Kim, D.") == "kim"
+    assert _surname_from_ref_author("Godoy, E.") == "godoy"
+
+
+async def test_no_comma_common_surname_coincidence_still_stays_fabricated(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """2026-08-28 guardian sorusu (moat denetimi): virgülsüz-isim düzeltmesi
+    (_surname_from_ref_author artık 'Ad Soyad'da son kelimeyi alıyor) yeni bir
+    yanlış-negatif (gerçek uydurmayı kaçırma) riski açıyor mu? Bu test,
+    test_common_surname_coincidence_stays_fabricated İLE AYNI senaryoyu
+    (5 yazarlı referans, sadece 1 yaygın soyad tesadüfen örtüşüyor, oran
+    1/5=0.2 < eşik 0.5) ama virgülsüz format ile kurar — DÜZELTME SONRASI
+    da hâlâ fabricated kalmalı, gerçek uydurma kaçırılmamalı."""
+    other = _work(
+        wid="W778",
+        title="Photosynthesis In Deep Sea Algae",
+        year=1995,
+        authors=["Sarah Kim", "John Roberts", "Maria Fernandez", "Wei Zhang", "Anna Novak"],
+    )
+    transport = _RouteTransport(
+        [(lambda r: "/works/doi:" in str(r.url), 200, other)]
+    )
+    _inject_transport(transport, monkeypatch)
+
+    from api.services.review_citation_service import resolve_reference
+
+    ref = ParsedReference(
+        index=9,
+        raw="Dana Kim, Ravi Patel, Thuy Nguyen, Fernanda Silva, and Sergei Ivanov 2021",
+        title="A Comprehensive Review Of Quantum Gravity",
+        authors=["Dana Kim", "Ravi Patel", "Thuy Nguyen", "Fernanda Silva", "Sergei Ivanov"],
+        year=2021,
+        doi="10.1234/fake2.doi",
+    )
+    out = await resolve_reference(ref)
+    assert out.status == "fabricated", out.evidence
+    assert out.openalex_id == "W778"
+
+
+async def test_no_comma_full_name_authors_resolve_via_surname_overlap(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """2026-08-28 P0 (prod kanıtı: semantic_scholar_recovered hep 0, imT03YXlG2
+    canlı test) — Oxford-liste fix'i sonrası ref.authors artık virgülsüz 'Ad
+    Soyad' formatında geliyor ('Wenbing Huang'), ama _surname_from_ref_author
+    TÜM string'i soyad sayıp OpenAlex'in 'huang' ile örtüşmesini
+    engelliyordu. Bu test, DÜZELTME sonrası gerçek eşleşmenin artık
+    resolved'a çevrildiğini kanıtlar (guardian onaylı fabricated-tespiti
+    alanı)."""
+    work = _work(
+        wid="W99",
+        title="Sparse Autoencoders Reveal Universal Feature Spaces",
+        year=2024,
+        authors=["Hoagy Cunningham", "Aidan Ewart", "Logan Riggs"],
+    )
+    transport = _RouteTransport(
+        [(lambda r: "/works/doi:" in str(r.url), 200, work)]
+    )
+    _inject_transport(transport, monkeypatch)
+
+    from api.services.review_citation_service import resolve_reference
+
+    ref = ParsedReference(
+        index=8,
+        raw="Cunningham, H., Ewart, A., Riggs, L. 2024",
+        title="Sparse Autoencoders Reveal Universal Feature Spaces",
+        authors=["Hoagy Cunningham", "Aidan Ewart", "Logan Riggs"],
+        year=2024,
+        doi="10.5555/sae",
+    )
+    out = await resolve_reference(ref)
+    assert out.status == "resolved", out.evidence
+    assert out.openalex_id == "W99"
+
+
 async def test_retracted_work(monkeypatch: pytest.MonkeyPatch) -> None:
     """OpenAlex çözer + is_retracted=true → retracted."""
     work = _work(wid="W55", title="Retracted Study On X", year=2014, is_retracted=True)

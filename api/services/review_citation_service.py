@@ -147,9 +147,21 @@ def _work_authors(work: dict[str, Any]) -> list[str]:
 
 
 def _surname_from_ref_author(name: str) -> str:
-    """Referans yazar formatı 'Soyad, A. B.' — virgülden önceki ilk parça soyad."""
+    """Referans yazar formatı iki türlü gelebilir:
+      1) 'Soyad, A. B.' (APA/virgüllü) — virgülden önceki ilk parça soyad.
+      2) 'Ad Soyad' (virgülsüz tam isim — 2026-08-27 Oxford-liste fix'i
+         SONRASI _split_author_block'un ürettiği doğru format, bkz
+         engine/ingestion/common.py) — son kelime soyad, _surname_from_work_author
+         ile AYNI sezgi.
+    2026-08-28 düzeltme: (2) öncesi TÜM string "soyad" sayılıyordu ("wenbing
+    huang" ≠ "huang") — S2/OpenAlex'in doğru bulduğu eşleşmeler bile yazar
+    uyuşmuyor sanılıp reddediliyordu (semantic_scholar_recovered hep 0 kaldı,
+    canlı prod testiyle doğrulandı: 2026-08-28, imT03YXlG2, guardian onaylı)."""
     head = name.split(",", 1)[0].strip()
-    return _norm_title(head)
+    if "," in name:
+        return _norm_title(head)
+    parts = [p for p in head.split() if p]
+    return _norm_title(parts[-1]) if parts else ""
 
 
 def _surname_from_work_author(name: str) -> str:
