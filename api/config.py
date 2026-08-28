@@ -69,6 +69,14 @@ class Settings(BaseSettings):
 
     RATE_LIMIT_OGRENCI_PER_MIN: int = 60
 
+    # 2026-08-28 (P0, Render OOM kanıtı: "ran out of memory (used over 512MB)"):
+    # review_service.run_pipeline() eşzamanlılık sınırı YOKTU — art arda/eşzamanlı
+    # 2+ ağır review job'u (PDF-parse + çoklu LLM çağrısı + citation resolution)
+    # aynı süreçte paralel çalışıp 512MB'lik starter plan'ı aşıyordu (bkz
+    # api/services/review_service.py _JOB_SEMAPHORE). Plan büyütülürse (starter →
+    # standard) bu değer de artırılabilir; kod değişikliği gerekmez.
+    REVIEW_MAX_CONCURRENT_JOBS: int = 1
+
     # V1-S18-P014 pilot allowlist gate. Default true = dev/test bypass.
     # Production'da explicit false ile waitlist.status ∈ {invited, active}
     # kontrolü açılır.

@@ -17,11 +17,14 @@ DÜRÜSTÇE yazılır + status=failed; sessiz pass YOK.
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from datetime import UTC, datetime, timedelta
+from functools import lru_cache
 from typing import Any, cast
 from uuid import UUID
 
+from api.config import get_settings
 from api.db.supabase_client import get_review_supabase_admin, supabase_call_async
 from api.models.journal_sim import StatcheckResult
 from api.models.review import (
@@ -328,7 +331,40 @@ async def create_and_dispatch(
     return job_id, True
 
 
+@lru_cache(maxsize=1)
+def _job_semaphore() -> asyncio.Semaphore:
+    """2026-08-28 (P0, Render OOM kanıtı): eşzamanlı review job sayısını sınırlar
+    (bkz api/config.py REVIEW_MAX_CONCURRENT_JOBS, default 1 — starter plan
+    512MB). Fazlası burada BEKLER (job zaten 'queued' durumda oluşturulmuştu,
+    ek bir durum gerekmez); OOM yerine sıraya girer."""
+    return asyncio.Semaphore(max(1, get_settings().REVIEW_MAX_CONCURRENT_JOBS))
+
+
 async def run_pipeline(
+    job_id: UUID,
+    *,
+    data: bytes,
+    kind: str,
+    filename: str,
+    mode: ReviewMode,
+    language: ReviewLang,
+    privacy: PrivacyConfig | None = None,
+) -> None:
+    """Genel giriş noktası — _run_pipeline_inner'ı eşzamanlılık semaforu
+    ARDINDAN çalıştırır (bkz _job_semaphore). Gövde değişmedi, sadece sarmalandı."""
+    async with _job_semaphore():
+        await _run_pipeline_inner(
+            job_id,
+            data=data,
+            kind=kind,
+            filename=filename,
+            mode=mode,
+            language=language,
+            privacy=privacy,
+        )
+
+
+async def _run_pipeline_inner(
     job_id: UUID,
     *,
     data: bytes,
